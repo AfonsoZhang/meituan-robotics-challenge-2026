@@ -25,6 +25,7 @@
 - [Demo 录制评估](docs/demo-readiness.md)：与队友 demo 对比、44/5/5 舌规验证边界、PolyU RA 申请适配和录制前缺口（2026-09-07 整理）。
 - [单块 Demo 实录](docs/demo-recording.md)：已录制黄块 → P1，约 57 秒；含视频、轨迹误差图、结果与可复现入口（2026-09-07）。
 - [视觉修正实验](docs/vision-correction.md)：单块 RGB-D 抓取前定位修正及初始偏移对照。
+- [固定偏移重复对照](docs/vision-repeat.md)：−6/0/+6 mm，各两轮、共 12 次；两种模式均 6/6 通过，尚无成功率优势结论。
 - [资料说明](materials/README.md)：原件、提取文本及预览图的使用方式。
 - [来源清单](materials/manifest.json)：原始路径、文档页数和 SHA-256。
 

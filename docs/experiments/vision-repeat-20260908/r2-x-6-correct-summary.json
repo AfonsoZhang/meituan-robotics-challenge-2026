@@ -1,0 +1,129 @@
+{
+  "passed": true,
+  "mode": "yellow_to_P1",
+  "gravity_restored_before_recording": [
+    {
+      "link": "aubo_S3::shoulder_Link",
+      "gravity_enabled": true,
+      "mass": 1.99731
+    },
+    {
+      "link": "aubo_S3::upperArm_Link",
+      "gravity_enabled": true,
+      "mass": 3.75846
+    },
+    {
+      "link": "aubo_S3::foreArm_Link",
+      "gravity_enabled": true,
+      "mass": 1.66653
+    },
+    {
+      "link": "aubo_S3::wrist1_Link",
+      "gravity_enabled": true,
+      "mass": 1.06823
+    },
+    {
+      "link": "aubo_S3::wrist2_Link",
+      "gravity_enabled": true,
+      "mass": 1.06823
+    },
+    {
+      "link": "aubo_S3::wrist3_Link",
+      "gravity_enabled": true,
+      "mass": 0.536451
+    }
+  ],
+  "startup_recovery": {
+    "required": false,
+    "initial_max_error_rad": 5.158030408369818e-05
+  },
+  "vision": {
+    "delta_xy_m": [
+      -0.004811676025390649,
+      -0.0003797912597656161
+    ],
+    "color_stamp_s": 17.294,
+    "depth_stamp_s": 17.267,
+    "transform_at_depth_stamp": true,
+    "detections": [
+      {
+        "color": "yellow",
+        "pixels": 8378,
+        "depth_valid": 1.0,
+        "center_xy": [
+          -0.17831167602539064,
+          0.34512020874023436
+        ],
+        "body_top_z": 0.05001938681221729,
+        "long_mm": 78.49278259277344,
+        "short_mm": 67.93785095214844,
+        "yaw_deg": 90.02224731445312,
+        "n_body": 5116,
+        "n_handle": 3262,
+        "handle_top_z": 0.08002140458158802,
+        "handle_yaw_deg": 179.99968610866927,
+        "handle_long_mm": 67.59309387207031,
+        "size_ok": true
+      }
+    ],
+    "limitation": "Ideal co-located RGB-D; one pre-grasp snapshot; no in-motion visual servo",
+    "observer_max_battery_displacement_m": 0.0,
+    "ik_max_weighted_residual": 1.1216545927509543e-09
+  },
+  "scope": "Single yellow-to-P1 simulation checks; not full competition scoring",
+  "contact_collision_check": "not instrumented",
+  "thresholds": {
+    "stability_s": 3.0,
+    "stability_translation_m": 0.002,
+    "stability_rotation_deg": 2.0,
+    "bystander_translation_m": 0.002,
+    "bystander_rotation_deg": 2.0,
+    "upright_deg": 5.0
+  },
+  "final_pose": [
+    0.04185839177575916,
+    0.36194309859600066,
+    -9.17453771888399e-06,
+    5.4691301689428554e-08,
+    8.914256729922609e-06,
+    -0.00010056578085255282,
+    0.9999999949035284
+  ],
+  "footprint": {
+    "upright": true,
+    "coverage": 0.84504375,
+    "inside_outer": true
+  },
+  "center_error_mm": 1.9738868799286804,
+  "stability_translation_m": 0.0,
+  "stability_rotation_deg": 0.0,
+  "observed_lift_duration_s": 14.199999999999996,
+  "bystanders": {
+    "battery_A_red": {
+      "max_translation_m": 0.0,
+      "max_rotation_deg": 0.0
+    },
+    "battery_C_green": {
+      "max_translation_m": 0.0,
+      "max_rotation_deg": 0.0
+    },
+    "battery_D_blue": {
+      "max_translation_m": 0.0,
+      "max_rotation_deg": 0.0
+    }
+  },
+  "action_status": 4,
+  "controller_error_code": 0,
+  "controller_error_string": "Goal successfully reached!",
+  "frames": 851,
+  "camera_frames_received": 742,
+  "held_frames": 109,
+  "max_camera_timestamp_gap_s": 0.3329999999999984,
+  "video_seconds": 56.733333333333334,
+  "wall_elapsed_s": 90.44165740604512,
+  "tracking_samples": 547,
+  "tcp_tracking_error_mm": {
+    "rms": 0.14555855397753387,
+    "max": 0.33121653633180104
+  }
+}

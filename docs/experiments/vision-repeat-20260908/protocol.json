@@ -1,0 +1,95 @@
+{
+  "created_utc": "2026-09-07T18:24:31.513394+00:00",
+  "scope": "Fixed x-translation matrix; no yaw, depth noise or real hardware. Two fresh-world repeats per condition; descriptive evidence only.",
+  "trials": [
+    {
+      "id": "r1-x-6-observe",
+      "repeat": 1,
+      "offset_mm": -6,
+      "mode": "observe"
+    },
+    {
+      "id": "r1-x-6-correct",
+      "repeat": 1,
+      "offset_mm": -6,
+      "mode": "correct"
+    },
+    {
+      "id": "r1-x+0-observe",
+      "repeat": 1,
+      "offset_mm": 0,
+      "mode": "observe"
+    },
+    {
+      "id": "r1-x+0-correct",
+      "repeat": 1,
+      "offset_mm": 0,
+      "mode": "correct"
+    },
+    {
+      "id": "r1-x+6-observe",
+      "repeat": 1,
+      "offset_mm": 6,
+      "mode": "observe"
+    },
+    {
+      "id": "r1-x+6-correct",
+      "repeat": 1,
+      "offset_mm": 6,
+      "mode": "correct"
+    },
+    {
+      "id": "r2-x-6-correct",
+      "repeat": 2,
+      "offset_mm": -6,
+      "mode": "correct"
+    },
+    {
+      "id": "r2-x-6-observe",
+      "repeat": 2,
+      "offset_mm": -6,
+      "mode": "observe"
+    },
+    {
+      "id": "r2-x+0-correct",
+      "repeat": 2,
+      "offset_mm": 0,
+      "mode": "correct"
+    },
+    {
+      "id": "r2-x+0-observe",
+      "repeat": 2,
+      "offset_mm": 0,
+      "mode": "observe"
+    },
+    {
+      "id": "r2-x+6-correct",
+      "repeat": 2,
+      "offset_mm": 6,
+      "mode": "correct"
+    },
+    {
+      "id": "r2-x+6-observe",
+      "repeat": 2,
+      "offset_mm": 6,
+      "mode": "observe"
+    }
+  ],
+  "primary": "passed from summary.json AND process exit code 0; all attempts remain in denominator",
+  "secondary": [
+    "center_error_mm",
+    "observed_lift_duration_s",
+    "bystanders",
+    "vision delta",
+    "observer displacement"
+  ],
+  "failure_policy": "No retuning or replacement of failed trials; infrastructure errors reported separately and retained. Resume only unstarted trials; interrupted trials retained.",
+  "files": {
+    "demo/record.py": "4df998bab22a62010ae485294a8c523b4b0c7b1a594e1fbfb794c12e039a45fa",
+    "demo/vision.py": "66a82fc7b5aba21f7bc8e987c32054e917013ef35bfd02c75357787f595bd9ac",
+    "demo/detector.py": "9471dd3f11702902a0e671024989f19f431c7c0c8654e9b6990e3ccaadf012cc",
+    "demo/metrics.py": "ddbc73163c50b387e7d0fdf90df283556682c7bd75c679a54fecf5066a4f5d52",
+    "demo/simulation.launch.py": "bc5396144c7850d44547773583aca213280b7f99a90105b771a385cbfcada74f",
+    "demo/data/sequence-v1.json": "5db5595c132f57c1d71926f4c3d6b47ac376bb0d53da814f6ea8afed2d6e7773"
+  }
+}

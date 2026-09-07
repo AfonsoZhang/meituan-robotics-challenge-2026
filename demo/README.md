@@ -51,3 +51,5 @@ bash demo/run.sh --vision correct
 ```bash
 /usr/bin/python3 demo/replay_vision.py outputs/你的运行目录/vision-snapshot.npz
 ```
+
+固定偏移重复实验可使用 `run_matrix.py` 与 `summarize_matrix.py`。运行协议、命令和完整计数规则见 [重复实验说明](../docs/vision-repeat.md)。
