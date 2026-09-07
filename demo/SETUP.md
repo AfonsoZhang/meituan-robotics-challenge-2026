@@ -11,9 +11,9 @@
 ```bash
 sudo apt update
 sudo apt install git build-essential cmake ffmpeg \
-  python3-colcon-common-extensions python3-numpy python3-opencv python3-matplotlib \
+  python3-colcon-common-extensions python3-numpy python3-opencv python3-matplotlib python3-scipy \
   ros-humble-gazebo-ros-pkgs ros-humble-gazebo-ros2-control \
-  ros-humble-ros2-controllers ros-humble-xacro ros-humble-robot-state-publisher
+  ros-humble-tf2-ros ros-humble-ros2-controllers ros-humble-xacro ros-humble-robot-state-publisher
 ```
 
 依赖名称与作者机器已安装包核对；上述 apt 软件源会随时间更新，不能据此保证重装后与原实验二进制版本完全一致。原实验版本见 [仿真方案](../docs/simulation-plan.md)。

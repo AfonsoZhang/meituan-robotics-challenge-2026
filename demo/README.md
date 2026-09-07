@@ -28,3 +28,26 @@ python3 demo/report.py outputs/demo-YYYYMMDD-HHMMSS
 抓放检查包括黄块抬离台面持续时间、最终近水平姿态、内框投影覆盖率、外框包含、运动后至少 3 秒连续稳定观察，以及红/绿/蓝全程位移和转角。稳定及非目标扰动阈值是保守的 demo 工程判据，并非新增比赛规则。没有接触对监测，不能据此声称全过程无碰撞；没有对完整赛事计分逻辑作实现。跟踪误差来自控制器参考/实测关节，经名义 FK 变换，与视觉误差和落点误差分开。
 
 `data/sequence-v1.json` 是历史实验轨迹的冻结副本；来源、哈希和 AI 使用说明见 `data/provenance.json`。原始仿真接线和轨迹由 Claude Code 辅助完成，录制入口与评测由 OpenAI Codex 辅助完成；机器人上游来源、许可证待核事项见项目 manifest 和 `docs/simulation-plan.md`。没有引入队友仓库代码。
+
+## 视觉抓取前修正（实验入口）
+
+```bash
+# 同样观察，但保持冻结轨迹：偏移对照
+bash demo/run.sh --vision observe --yellow-offset-mm 6
+# 用 RGB-D 测量修正源位置，P1 目标位置不变
+bash demo/run.sh --vision correct --yellow-offset-mm 6
+# 名义布局检查
+bash demo/run.sh --vision correct
+```
+
+`--yellow-offset-mm` 只改变新世界中黄色电池的初始 x；控制修正函数不接收这个参数或模型真值。两种视觉模式都先到同一个观察位，使用时间戳匹配的 RGB-D 和深度时刻 TF，随后回到起始位。`observe` 仅记录测量；`correct` 修正源端接近、穿钩和提升，并在搬运段逐渐回到原目标轨迹。执行期间仍是开环轨迹，不是连续视觉伺服。
+
+保存 `vision-snapshot.npz`、`vision-observation.png`、`vision-detections.json`、`vision-result.json`、`observer-model-states.json` 和（修正模式）`corrected-plan.json`。观察动作发生在主抓取视频之前；图像快照单独保存。识别门限不通过时停止，不发送抓取轨迹。完整对照结论见 [视觉修正实验](../docs/vision-correction.md)。
+
+局部 IK 保持法兰方向、检查模型关节限位与连续性，限修正半径 10 mm。原轨迹碰撞代价不会冒充修正轨迹的碰撞验证；尚无修正后全路径接触监测或连续碰撞检查。该入口只适用于当前理想相机、近名义位置和近零偏航的黄色单块实验。
+
+离线重放已保存的相机测量（不启动 ROS/Gazebo）：
+
+```bash
+/usr/bin/python3 demo/replay_vision.py outputs/你的运行目录/vision-snapshot.npz
+```

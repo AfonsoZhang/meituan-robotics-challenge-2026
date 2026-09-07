@@ -27,7 +27,11 @@ from control_msgs.action import FollowJointTrajectory
 from control_msgs.msg import JointTrajectoryControllerState
 from gazebo_msgs.msg import ModelStates
 from gazebo_msgs.srv import GetLinkProperties, SetLinkProperties
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import Image, CameraInfo
+from tf2_ros import Buffer, TransformListener
+from scipy.spatial.transform import Rotation
+from detector import detect
+from vision import OBSERVER, COLORS, correction, translated_plan
 from trajectory_msgs.msg import JointTrajectoryPoint
 
 from metrics import JOINTS, MODELS, Kinematics, schedule, evaluate
@@ -39,11 +43,16 @@ def save(path, value):
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False)+'\n')
 
 
-def prepare(out):
+def prepare(out, offset_mm=0.):
     sim = Path(get_package_share_directory('meituan_sim'))
     desc = Path(get_package_share_directory('aubo_description'))
     world = ET.parse(sim/'worlds/task_p2.world')
     w = world.getroot().find('world')
+    for include in w.findall('include'):
+        if include.findtext('name') == 'battery_B_yellow':
+            pose = [float(x) for x in include.findtext('pose').split()]
+            pose[0] += offset_mm/1000
+            include.find('pose').text = ' '.join(map(str,pose))
     scene = ET.SubElement(w,'scene')
     ET.SubElement(scene,'ambient').text = '0.45 0.45 0.45 1'
     ET.SubElement(scene,'background').text = '0.92 0.94 0.96 1'
@@ -78,7 +87,7 @@ def prepare(out):
         plan.append(p)
     assert plan and all(p['col'] <= 1 and len(p['q']) == 6 for p in plan)
     save(out/'plan.json', plan)
-    files = [ROOT/'data/sequence-v1.json', ROOT/'record.py', ROOT/'metrics.py', ROOT/'simulation.launch.py',
+    files = [ROOT/'data/sequence-v1.json', ROOT/'record.py', ROOT/'metrics.py', ROOT/'simulation.launch.py', ROOT/'vision.py', ROOT/'detector.py',
              sim/'urdf/aubo_S3_gazebo.urdf.xacro', sim/'urdf/hook.urdf.xacro', sim/'urdf/d435i.urdf.xacro',
              sim/'config/aubo_S3_controllers.yaml', desc/'urdf/aubo_S3.urdf']
     save(out/'inputs.json', {'ai_assistance':'OpenAI Codex; historical trajectory: Claude Code',
@@ -102,6 +111,16 @@ class Recorder(Node):
         self.models_wall, self.joints_wall = 0., 0.
         self.start_sim, self.first_frame, self.frames = None, None, 0
         self.received_frames, self.held_frames, self.max_camera_gap, self.last_camera_stamp = 0, 0, 0., None
+        self.vision_mode = 'off'
+        self.rgbd = {}
+        self.observer_samples = None
+        self.tf_buffer = Buffer()
+        self.tf_listener = TransformListener(self.tf_buffer,self)
+        for key, topic, cls in [('color','/d435i/color/image_raw',Image),
+                ('depth','/d435i/depth/depth/image_raw',Image),
+                ('cinfo','/d435i/color/camera_info',CameraInfo),
+                ('dinfo','/d435i/depth/depth/camera_info',CameraInfo)]:
+            self.create_subscription(cls,topic,lambda m,k=key:self.rgbd.__setitem__(k,m),qos_profile_sensor_data)
         self.wall_start = time.monotonic()
         self.samples, self.errors, self.prev_frame, self.video = [], [], None, None
         self.last_sample, self.last_tracking = -1., -1.
@@ -136,6 +155,8 @@ class Recorder(Node):
         self.models_wall = time.monotonic()
         self.poses = {n:[p.position.x,p.position.y,p.position.z,p.orientation.x,p.orientation.y,p.orientation.z,p.orientation.w]
                       for n in MODELS for p in [table[n]]}
+        if self.observer_samples is not None:
+            self.observer_samples.append({'sim_s':self.now(),'poses':self.poses})
         if self.start_sim is not None:
             t = self.now()-self.start_sim
             if t-self.last_sample >= .025:
@@ -193,7 +214,9 @@ class Recorder(Node):
                 phase = next((v for k,v in phases.items() if stage.startswith(k)), 'transition')
         lines = [('SIMULATION | AUBO S3 + passive hook | yellow -> P1', (20,758)),
                  (f'Sim elapsed {elapsed:6.2f} s | wall elapsed {time.monotonic()-self.wall_start:6.1f} s | planned stage: {phase}', (20,795)),
-                 ('Open-loop trajectory. Ideal RGB-D shown separately. Outcome evaluated after release.', (20,835)),
+                 (('RGB-D snapshot correction applied; trajectory execution open-loop.' if self.vision_mode == 'correct'
+                   else 'RGB-D observed only; frozen open-loop trajectory.' if self.vision_mode == 'observe'
+                   else 'Open-loop trajectory. Ideal wrist RGB shown separately.'), (20,835)),
                  ('Wrist RGB', (1300,32)), ('44 mm tongue', (1295,330)), ('5 mm thickness', (1295,365)),
                  ('5 mm raised tip', (1295,400)), ('No object attachment', (1295,450)),
                  ('Sensor-time video', (1295,495)), ('15 fps', (1295,530))]
@@ -285,16 +308,94 @@ def enable_robot_gravity(node):
     return verified
 
 
+def move_observer(node, target):
+    start = node.joints.copy()
+    # Conservative nominal layout envelope; actual model poses do not guide vision.
+    nominal = {str(i):[x,y,0] for i,(x,y) in enumerate(
+        [(-.2527,.3455),(-.1735,.3455),(-.2527,.2578),(-.1735,.2578)])}
+    limits = np.array(node.kin.limits)
+    if np.any(target < limits[:,0]) or np.any(target > limits[:,1]):
+        raise RuntimeError('Observer exceeds model joint limits')
+    if not all(node.kin.startup_clear(start+(target-start)*u,nominal) for u in np.linspace(0,1,101)):
+        raise RuntimeError('Observer bridge rejected by capsule/height check')
+    goal = FollowJointTrajectory.Goal(); goal.trajectory.joint_names = JOINTS
+    duration = max(3.,float(np.max(np.abs(target-start)))/.3)
+    for q,t in [(start,.2),(target,duration+.2)]:
+        point = JointTrajectoryPoint(); point.positions = q.tolist()
+        point.time_from_start.sec = int(t); point.time_from_start.nanosec = int((t-int(t))*1e9)
+        goal.trajectory.points.append(point)
+    f = node.action.send_goal_async(goal)
+    spin_until(node,f.done,15,'Observer goal timeout')
+    handle = f.result()
+    if not handle.accepted: raise RuntimeError('Observer goal rejected')
+    f = handle.get_result_async()
+    spin_until(node,f.done,90,'Observer motion timeout')
+    if f.result().status != 4 or f.result().result.error_code != 0: raise RuntimeError('Observer controller failure')
+    now = node.now()
+    spin_until(node,lambda:node.now()-now >= 2.,30,'Observer settling timeout')
+    if np.max(np.abs(node.joints-target)) > .005: raise RuntimeError('Observer did not settle')
+
+
+def observe_yellow(node):
+    ready = np.array(node.plan[0]['q'])
+    before = node.poses
+    node.observer_samples = []
+    move_observer(node,OBSERVER)
+    def stamp(m): return m.header.stamp.sec+m.header.stamp.nanosec/1e9
+    def coherent():
+        if len(node.rgbd) != 4: return False
+        c,d = node.rgbd['color'],node.rgbd['depth']
+        return (abs(stamp(c)-stamp(d)) <= .04 and 0 <= node.now()-min(stamp(c),stamp(d)) < .2
+                and node.tf_buffer.can_transform('base_link',d.header.frame_id,rclpy.time.Time.from_msg(d.header.stamp)))
+    spin_until(node,coherent,25,'No fresh synchronized RGB-D / timestamped TF')
+    c,d = node.rgbd['color'],node.rgbd['depth']
+    if d.encoding != '32FC1' or d.is_bigendian: raise RuntimeError('Unsupported depth format')
+    depth = np.frombuffer(d.data,np.float32).reshape(d.height,d.step//4)[:,:d.width].copy()
+    Kc,Kd = [np.array(node.rgbd[k].k).reshape(3,3) for k in ('cinfo','dinfo')]
+    transform = node.tf_buffer.lookup_transform('base_link',d.header.frame_id,rclpy.time.Time.from_msg(d.header.stamp)).transform
+    q = transform.rotation; t = transform.translation
+    T = np.eye(4); T[:3,:3] = Rotation.from_quat([q.x,q.y,q.z,q.w]).as_matrix(); T[:3,3] = [t.x,t.y,t.z]
+    bgr = node.bgr(c)
+    np.savez_compressed(node.out/'vision-snapshot.npz',bgr=bgr,depth=depth,K_color=Kc,K_depth=Kd,T_base_camera=T)
+    cv2.imwrite(str(node.out/'vision-observation.png'),bgr)
+    dets = detect(bgr,depth,Kc,Kd,T,COLORS)
+    serial = [{k:v.tolist() if isinstance(v,np.ndarray) else v for k,v in d.items()} for d in dets]
+    save(node.out/'vision-detections.json',serial)
+    delta = correction(dets)
+    result = dict(delta_xy_m=delta.tolist(),color_stamp_s=stamp(c),depth_stamp_s=stamp(d),
+                  transform_at_depth_stamp=True,detections=serial,
+                  limitation='Ideal co-located RGB-D; one pre-grasp snapshot; no in-motion visual servo')
+    save(node.out/'vision-result.json',result)
+    print('RGB-D correction (mm): '+str((delta*1000).tolist()),flush=True)
+    move_observer(node,ready)
+    samples = node.observer_samples
+    node.observer_samples = None
+    save(node.out/'observer-model-states.json',samples)
+    moved = max(float(np.linalg.norm(np.array(s['poses'][n][:3])-before[n][:3])) for s in samples for n in MODELS)
+    result['observer_max_battery_displacement_m'] = moved
+    if moved > .002: raise RuntimeError('Observer motion displaced a battery')
+    save(node.out/'vision-result.json',result)
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--smoke', action='store_true', help='Recover the start posture, then record five stationary simulated seconds')
     parser.add_argument('--check', action='store_true', help='Prepare inputs without starting Gazebo')
     parser.add_argument('--timeout', type=float, default=900, help='Wall-clock timeout for motion/recording')
     parser.add_argument('--output', type=Path)
+    parser.add_argument('--vision', choices=['off','observe','correct'], default='off')
+    parser.add_argument('--yellow-offset-mm', type=float, default=0., help='Initial world x offset; never passed to vision correction')
     args = parser.parse_args()
     out = (args.output or ROOT.parent/'outputs'/('demo-'+time.strftime('%Y%m%d-%H%M%S'))).resolve()
     out.mkdir(parents=True, exist_ok=False)
-    sim, desc, plan = prepare(out)
+    if not -8 <= args.yellow_offset_mm <= 8: parser.error('Offset must be within +/-8 mm')
+    sim, desc, plan = prepare(out,args.yellow_offset_mm)
+    save(out/'experiment.json',dict(vision=args.vision,yellow_initial_x_offset_mm=args.yellow_offset_mm))
+    inputs = json.loads((out/'inputs.json').read_text())
+    inputs.update(mode=f'simulation yellow to P1; vision={args.vision}',
+                  vision_provenance=json.loads((ROOT/'data/vision-provenance.json').read_text()))
+    save(out/'inputs.json',inputs)
     if args.check:
         print(f'Prepared {len(plan)} yellow waypoints, {schedule(plan)[-1]:.3f} planned seconds: {out}')
         return 0
@@ -318,6 +419,14 @@ def main():
         spin_until(node, lambda: node.now()-ready_time >= 3., 60, 'Controller startup settling timed out')
         if time.monotonic()-min(node.models_wall,node.joints_wall) > 2: raise RuntimeError('Stale startup state')
         report['startup_recovery'] = recover_start(node,np.array(plan[0]['q']))
+        if args.vision != 'off':
+            node.vision_mode = args.vision
+            report['vision'] = observe_yellow(node)
+            if args.vision == 'correct':
+                plan, residual = translated_plan(node.kin,plan,np.array(report['vision']['delta_xy_m']))
+                node.plan, node.times = plan, schedule(plan)
+                save(out/'corrected-plan.json',plan)
+                report['vision']['ik_max_weighted_residual'] = residual
         initial = node.poses
         node.start_video()
         settle = node.now()

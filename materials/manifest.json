@@ -212,6 +212,23 @@
         "materials/README.md",
         "docs/end-effector-options.md"
       ]
+    },
+    {
+      "id": "VISION-CORRECTION-20260907",
+      "type": "local_simulation_experiment",
+      "started_on": "2026-09-07",
+      "completed_on": "2026-09-08",
+      "description": "Single yellow RGB-D pre-grasp translation correction; five development attempts including occluded observation failure, shifted baseline, corrected repeats and nominal validation. Not a success-rate estimate.",
+      "report": "docs/vision-correction.md",
+      "index": "docs/experiments/vision-20260907/index.json",
+      "index_sha256": "bd77acd4194946370d281512cfb40637ced66f3b3b5b096253f3f8f2dd06912c",
+      "algorithm_provenance": "demo/data/vision-provenance.json",
+      "ai_assistance": "Original detector and observation poses: Claude Code; integration and experiment audit: OpenAI Codex",
+      "limitations": [
+        "Ideal co-located RGB-D and simulated TF",
+        "No continuous visual servo, full-path collision check or hardware validation",
+        "Shifted baseline also succeeded; no demonstrated success-rate improvement"
+      ]
     }
   ],
   "updated_on": "2026-09-07",

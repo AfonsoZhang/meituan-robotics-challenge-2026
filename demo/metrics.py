@@ -20,8 +20,11 @@ class Kinematics:
     def __init__(self, urdf):
         root = ET.parse(urdf).getroot()
         self.chain = []
+        self.limits = []
         for name in JOINTS:
             j = root.find(f"joint[@name='{name}']")
+            limit = j.find('limit')
+            self.limits.append((float(limit.get('lower')),float(limit.get('upper'))))
             o = j.find('origin')
             xyz = np.fromstring(o.get('xyz', '0 0 0'), sep=' ')
             rpy = np.fromstring(o.get('rpy', '0 0 0'), sep=' ')
