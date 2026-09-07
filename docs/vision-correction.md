@@ -26,7 +26,7 @@
 
 名义布局仍测出约 1.20 mm 二维偏差；+6 mm 布局的二维定位误差约 1.35 mm。可能与像素采样、边缘内缩及可见表面有关，尚未进行误差源分解；不能把图像处理输出视为无偏真值。所有修正值均直接采用测量，没有按已知场景偏移回填。
 
-精简结果、输入哈希和五次尝试索引已归档在 [实验记录目录](experiments/vision-20260907/index.json)。完整本机视频与原始数据保存在 `outputs/vision-20260907/`（未纳入 Git）；最终偏移修正视频为 `vision-correct-6mm-final/demo.mp4`。图像与轨迹可分别用 `demo/replay_vision.py`、`demo/report.py` 离线复核。9 项单元测试通过，涵盖现有放置判定、识别拒绝和局部 IK 源端平移/末端方向/目标不变。
+精简结果、输入哈希和五次尝试索引已归档在 [实验记录目录](experiments/vision-20260907/index.json)。视频与完整原始数据现已发布到 [Vision v1.1.0 Release](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/releases/tag/vision-v1.1.0)，包含五次尝试与 SHA-256 校验。本机副本保存在 `outputs/vision-20260907/`（未纳入 Git）；最终偏移修正视频为 `vision-correct-6mm-final/demo.mp4`。图像与轨迹可分别用 `demo/replay_vision.py`、`demo/report.py` 离线复核。9 项单元测试通过，涵盖现有放置判定、识别拒绝和局部 IK 源端平移/末端方向/目标不变。
 
 ![旧观察位：黄色被工具遮挡](experiments/vision-20260907/occluded-observation.png)
 
