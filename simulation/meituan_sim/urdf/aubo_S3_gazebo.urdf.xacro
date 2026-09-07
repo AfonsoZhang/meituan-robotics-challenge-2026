@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!-- 遨博 S3 + Gazebo Classic 的 ros2_control 接线。
+     上游 aubo_description 的 aubo_ros2_macro.xacro 把 gazebo 插件标签注释掉了，
+     且 aubo.ros2_control.xacro 的硬件恒为 aubo_driver/AuboHardwareInterface（实机驱动），
+     两者都不能直接用于 Gazebo，故在本包内自行接线，不修改上游 submodule。 -->
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="aubo_S3">
+
+  <xacro:arg name="aubo_type" default="aubo_S3"/>
+  <xacro:arg name="controllers_file" default="$(find meituan_sim)/config/aubo_S3_controllers.yaml"/>
+
+  <!-- 连杆/关节/惯量/网格来自上游生成的 aubo_S3.urdf.xacro（由 aubo_description 构建时的 xacro.sh 产生） -->
+  <xacro:include filename="$(find aubo_description)/urdf/$(arg aubo_type).urdf.xacro"/>
+
+  <!-- 显式 flange 帧：与实机手眼标定共用同一定义（见 docs/simulation-plan.md 衔接约定） -->
+  <link name="flange"/>
+  <joint name="flange_fixed_joint" type="fixed">
+    <parent link="wrist3_Link"/>
+    <child link="flange"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- 眼在手上的 D435i；mount 位姿是占位值，实物支架确定后在此处改 -->
+  <xacro:arg name="use_camera" default="true"/>
+  <xacro:include filename="$(find meituan_sim)/urdf/d435i.urdf.xacro"/>
+  <xacro:if value="$(arg use_camera)">
+    <xacro:d435i parent="flange"/>
+  </xacro:if>
+
+  <!-- 方案一：固定被动钩（USER-EE-20260906-01） -->
+  <xacro:arg name="use_hook" default="true"/>
+  <xacro:include filename="$(find meituan_sim)/urdf/hook.urdf.xacro"/>
+  <xacro:if value="$(arg use_hook)">
+    <xacro:hook parent="flange"/>
+  </xacro:if>
+
+  <ros2_control name="aubo_S3_gazebo" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+    <!-- 初始关节角设为「就绪位」（工具轴竖直向下、TCP 在 (0, 0.30, 0.35)）。
+         用默认全零位（手臂竖直向上）启动时，第一条轨迹是关节空间大幅摆动，
+         会横扫工作区把道具电池撞飞甚至压进地面导致 ODE 数值发散。 -->
+    <xacro:macro name="s3_joint" params="name init">
+      <joint name="${name}">
+        <command_interface name="position">
+          <param name="min">${-2*pi}</param>
+          <param name="max">${2*pi}</param>
+        </command_interface>
+        <state_interface name="position"><param name="initial_value">${init}</param></state_interface>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+    </xacro:macro>
+    <xacro:s3_joint name="shoulder_joint" init="1.983970"/>
+    <xacro:s3_joint name="upperArm_joint" init="0.174295"/>
+    <xacro:s3_joint name="foreArm_joint" init="1.391268"/>
+    <xacro:s3_joint name="wrist1_joint" init="-0.353734"/>
+    <xacro:s3_joint name="wrist2_joint" init="-4.712215"/>
+    <xacro:s3_joint name="wrist3_joint" init="-1.157799"/>
+  </ros2_control>
+
+  <gazebo>
+    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+      <parameters>$(arg controllers_file)</parameters>
+    </plugin>
+  </gazebo>
+
+  <xacro:macro name="s3_selfcollide" params="link">
+    <gazebo reference="${link}"><selfCollide>true</selfCollide></gazebo>
+  </xacro:macro>
+  <xacro:s3_selfcollide link="shoulder_Link"/>
+  <xacro:s3_selfcollide link="upperArm_Link"/>
+  <xacro:s3_selfcollide link="foreArm_Link"/>
+  <xacro:s3_selfcollide link="wrist1_Link"/>
+  <xacro:s3_selfcollide link="wrist2_Link"/>
+  <xacro:s3_selfcollide link="wrist3_Link"/>
+</robot>

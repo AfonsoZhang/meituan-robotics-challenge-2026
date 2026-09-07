@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!-- RealSense D435i 的仿真模型（眼在手上，USER-HW-20260906-03）。
+
+     视场与近距取自官方规格（来源标识 RS-D435I）：彩色 69°×42°，深度 87°×58°，
+     最大分辨率下最小深度约 0.28 m。Gazebo Classic 的单个 depth 传感器只有一个视场，
+     故这里建成两个传感器：一个 camera 出彩色（69.4°），一个 depth 出深度（87°），
+     以保留「彩色与深度视野不同」这一必须按共同有效视野核验的事实。
+
+     未建模的真实特性（用仿真结果推实机前必须记住）：
+       - 彩色与深度光心之间的实际外参（实机约十几 mm 量级）这里取 0，须以实测标定为准；
+       - 无 IR 散斑投射器、无立体匹配，深度是渲染出来的理想值，没有实机的空洞、
+         边缘混合像素、反光失效与噪声；
+       - 安装支架尚未确定，下面的 mount 位姿是占位值（Q04）。 -->
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:macro name="d435i" params="parent prefix:=d435i
+                                    x:=0.07 y:=0.0 z:=0.03
+                                    roll:=0 pitch:=${-pi/2} yaw:=0
+                                    color_w:=640 color_h:=480 depth_w:=640 depth_h:=480
+                                    fps:=30">
+    <!-- 相机本体：D435i 外形约 90×25×25 mm，质量约 72 g -->
+    <link name="${prefix}_link">
+      <visual>
+        <geometry><box size="0.025 0.090 0.025"/></geometry>
+        <material name="${prefix}_dark"><color rgba="0.15 0.15 0.17 1"/></material>
+      </visual>
+      <collision><geometry><box size="0.025 0.090 0.025"/></geometry></collision>
+      <inertial>
+        <mass value="0.072"/>
+        <inertia ixx="5.0e-5" iyy="1.0e-5" izz="5.0e-5" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+    </link>
+    <joint name="${prefix}_mount_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="${x} ${y} ${z}" rpy="${roll} ${pitch} ${yaw}"/>
+    </joint>
+
+    <!-- 光学坐标系：ROS 约定 z 向前、x 向右、y 向下 -->
+    <xacro:macro name="optical" params="name">
+      <link name="${name}"/>
+      <joint name="${name}_joint" type="fixed">
+        <parent link="${prefix}_link"/>
+        <child link="${name}"/>
+        <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+      </joint>
+    </xacro:macro>
+    <xacro:optical name="${prefix}_color_optical_frame"/>
+    <xacro:optical name="${prefix}_depth_optical_frame"/>
+
+    <gazebo reference="${prefix}_link">
+      <material>Gazebo/DarkGrey</material>
+      <!-- 彩色：官方 69°×42°，此处按水平 69.4° -->
+      <sensor type="camera" name="color">
+        <update_rate>${fps}</update_rate>
+        <always_on>true</always_on>
+        <camera name="${prefix}_color">
+          <horizontal_fov>1.2113</horizontal_fov>
+          <image><width>${color_w}</width><height>${color_h}</height><format>R8G8B8</format></image>
+          <clip><near>0.05</near><far>10.0</far></clip>
+        </camera>
+        <plugin name="${prefix}_color_plugin" filename="libgazebo_ros_camera.so">
+          <!-- 话题名由 <sensor name> 决定，插件不接受 ~/ 形式的 remapping：
+               实际发出 /${prefix}/color/image_raw、/${prefix}/color/camera_info -->
+          <ros><namespace>/${prefix}</namespace></ros>
+          <frame_name>${prefix}_color_optical_frame</frame_name>
+        </plugin>
+      </sensor>
+      <!-- 深度：官方 87°×58°，此处按水平 87° -->
+      <sensor type="depth" name="depth">
+        <update_rate>${fps}</update_rate>
+        <always_on>true</always_on>
+        <camera name="${prefix}_depth">
+          <horizontal_fov>1.5184</horizontal_fov>
+          <image><width>${depth_w}</width><height>${depth_h}</height><format>R8G8B8</format></image>
+          <clip><near>0.05</near><far>10.0</far></clip>
+        </camera>
+        <!-- depth 传感器同时发彩色与深度：
+             /${prefix}/depth/image_raw 是深度相机的彩色图，
+             /${prefix}/depth/depth/image_raw 才是深度图，另有 /${prefix}/depth/points -->
+        <plugin name="${prefix}_depth_plugin" filename="libgazebo_ros_camera.so">
+          <ros><namespace>/${prefix}</namespace></ros>
+          <frame_name>${prefix}_depth_optical_frame</frame_name>
+          <!-- 官方给最大分辨率下最小深度约 0.28 m；这里据此裁剪，近处按无效处理 -->
+          <min_depth>0.28</min_depth>
+          <max_depth>10.0</max_depth>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+</robot>

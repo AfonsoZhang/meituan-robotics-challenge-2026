@@ -1,6 +1,6 @@
 # 单块钩取录制入口
 
-此入口仅连接自行启动的 Gazebo Classic 仿真实例，使用 ROS domain 67、Gazebo master 11365。依赖本机现有 `/opt/ros/humble` 和 `/home/afonso/aubo_ros2_ws/install`，不连接实机、不重规划、不附着电池。模型仍由外部工作空间提供。
+此入口仅连接自行启动的 Gazebo Classic 仿真实例，使用 ROS domain 67、Gazebo master 11365。需要 ROS 2 Humble 和已构建的仿真工作空间；通过 `AUBO_ROS2_WS` 指定路径，默认 `$HOME/aubo_ros2_ws`。不连接实机、不重规划、不附着电池。[另一台机器的完整搭建步骤](SETUP.md)包含上游模型获取、自建包构建和短试录检查。
 
 ```bash
 # 只检查依赖、保存输入与计划，不启动仿真

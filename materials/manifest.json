@@ -1350,6 +1350,103 @@
         "README.md",
         "demo/README.md"
       ]
+    },
+    {
+      "id": "DEMO-RELEASE-20260907",
+      "kind": "github_release_preparation_and_reproducibility",
+      "date": "2026-09-07",
+      "repository": "https://github.com/AfonsoZhang/meituan-robotics-challenge-2026",
+      "release_tag": "demo-v1.0.0",
+      "release_url": "https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/releases/tag/demo-v1.0.0",
+      "source_run": "outputs/demo-20260907-010012",
+      "assets": [
+        {
+          "name": "README.txt",
+          "bytes": 788,
+          "sha256": "ddc952b078a65ac19a42036bacd91f32488f380b199cd7ebdff8e1dc2602d787"
+        },
+        {
+          "name": "SHA256SUMS.txt",
+          "bytes": 878,
+          "sha256": "b6a70f6e72cbc32af89f1d2384f6be030e50d6d5053aaeb8587a45b7ae7359c9"
+        },
+        {
+          "name": "demo-evidence.zip",
+          "bytes": 1501191,
+          "sha256": "77acde0b39e5e3b038569732ed6779e876ca3f873afe155c6c3c8d3b6f950e4d"
+        },
+        {
+          "name": "demo.mp4",
+          "bytes": 1246835,
+          "sha256": "579cc5683a1e12a79a52efc88f9a4d3e671540a7d6443ba477270d6624e33df1"
+        },
+        {
+          "name": "inputs.json",
+          "bytes": 3119,
+          "sha256": "fcb9900ba33dc40d8d1b2d60175f44c4265bace6673923970e41d222be736309"
+        },
+        {
+          "name": "model_states.jsonl",
+          "bytes": 403180,
+          "sha256": "07f5e628814589c9289ba44be727f9e7f649f3822dd849304e325412f16e0d1e"
+        },
+        {
+          "name": "plan.json",
+          "bytes": 49095,
+          "sha256": "58e5a53960ec5b455255f5f8d9f6ec10250822e40e81eb00b7ae866ca80c4ec4"
+        },
+        {
+          "name": "startup-gravity.json",
+          "bytes": 573,
+          "sha256": "d012d71057e7eea10a6880705f8caefc9066998ec190257920db62f1f55a4710"
+        },
+        {
+          "name": "summary.json",
+          "bytes": 2370,
+          "sha256": "abbcd05d009f08b9a23ae679076f08cfc41b5e12d55d1cb2c68ae84f386a182a"
+        },
+        {
+          "name": "tracking.csv",
+          "bytes": 97667,
+          "sha256": "a1e988f3968b089f4b3a26be301668c604bf665638b7b6c30a5eafe43fa444a8"
+        },
+        {
+          "name": "tracking.pdf",
+          "bytes": 24050,
+          "sha256": "9bcdbce87a403013c9e110711884bfb83fd9bb5c21781930bd2f2e7bd642c525"
+        },
+        {
+          "name": "tracking.png",
+          "bytes": 198396,
+          "sha256": "09266151f42f7b4b60f7be66c653557dcdd81ffae399fc942eec58a3e17fb6c3"
+        }
+      ],
+      "source_packaging": "Project-authored meituan_sim wiring and scene generator included under simulation/. Upstream robot model remains external at pinned commit; generated scene models are build outputs.",
+      "model_archiving_scope": "Preserves upstream model commit-only policy; does not vendor AUBO URDF/meshes or copy generated model snapshots.",
+      "reproducibility": {
+        "workspace": "/tmp/meituan-release-repro-ws",
+        "upstream_source": "Local official-repository checkout at 47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1",
+        "independent_build": "aubo_description + meituan_sim succeeded",
+        "prepare_check": "118 yellow waypoints, 49.668 s; succeeded with new workspace",
+        "offline_tests": "5 evaluator tests passed",
+        "generated_asset_comparison": "All model.sdf/model.config/world/xacro/controller files match previous installation byte-for-byte. Only unused legacy map textures are absent.",
+        "limitation": "Uses existing host ROS dependencies; not a clean-OS or cross-GPU validation.",
+        "smoke": {
+          "run": "outputs/demo-20260907-205311",
+          "passed": true,
+          "frames": 105,
+          "video_seconds": 7.0,
+          "summary_sha256": "ebda95ad7e615ce65bac8cdcea31cbeb1da94e11a152259ba8f3a2ed594f43c6"
+        }
+      },
+      "ai_assistance": "OpenAI Codex: release packaging, source packaging, configurable workspace and setup documentation. Original source authorship and hashes in simulation/provenance.json.",
+      "derived_files": [
+        "README.md",
+        "docs/demo-recording.md",
+        "demo/README.md",
+        "demo/SETUP.md",
+        "simulation/provenance.json"
+      ]
     }
   ]
 }

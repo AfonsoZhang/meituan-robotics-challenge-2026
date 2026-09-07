@@ -1,0 +1,53 @@
+{
+  "date": "2026-09-07",
+  "scope": "Project-authored simulation wiring and procedural scene sources. No upstream AUBO meshes or model snapshot included.",
+  "ai_assistance": "Original project work assisted by Claude Code; packaging and reproducibility assisted by OpenAI Codex.",
+  "upstream_model_commit": "47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1",
+  "copied_sources": [
+    {
+      "original_path": "/home/afonso/aubo_ros2_ws/src/meituan_sim/package.xml",
+      "repository_path": "simulation/meituan_sim/package.xml",
+      "original_sha256": "fb730644d88b793d37c206740b82fea17253bae773b4c5623ea2d5825b0792b8"
+    },
+    {
+      "original_path": "/home/afonso/aubo_ros2_ws/src/meituan_sim/CMakeLists.txt",
+      "repository_path": "simulation/meituan_sim/CMakeLists.txt",
+      "original_sha256": "99187224086ebe0d9c50fa171b1bb2b94bb1d02c9238fa99284b9880c17b9003"
+    },
+    {
+      "original_path": "/home/afonso/aubo_ros2_ws/src/meituan_sim/urdf/hook.urdf.xacro",
+      "repository_path": "simulation/meituan_sim/urdf/hook.urdf.xacro",
+      "original_sha256": "4e21a0f94d99a3505ca74a861c9d64094717831dc0927752f764b5642f92724b"
+    },
+    {
+      "original_path": "/home/afonso/aubo_ros2_ws/src/meituan_sim/urdf/d435i.urdf.xacro",
+      "repository_path": "simulation/meituan_sim/urdf/d435i.urdf.xacro",
+      "original_sha256": "1455da9f6cb92c6d99fd6f1edd9d24916ba7381c25361e9fcfc778bb60f3c8d3"
+    },
+    {
+      "original_path": "/home/afonso/aubo_ros2_ws/src/meituan_sim/urdf/aubo_S3_gazebo.urdf.xacro",
+      "repository_path": "simulation/meituan_sim/urdf/aubo_S3_gazebo.urdf.xacro",
+      "original_sha256": "7fbc7a39d383ea8bb439bcf517aba717308dbf8020e3aa3f186c33794197a2b0"
+    },
+    {
+      "original_path": "/home/afonso/aubo_ros2_ws/src/meituan_sim/config/aubo_S3_controllers.yaml",
+      "repository_path": "simulation/meituan_sim/config/aubo_S3_controllers.yaml",
+      "original_sha256": "342ea6ff129ee7e3eac1145ed35a5c567bb4522fcc87db74ad829d1214a66965"
+    },
+    {
+      "original_path": "/home/afonso/aubo_ros2_ws/src/meituan_sim/launch/s3_gazebo.launch.py",
+      "repository_path": "simulation/meituan_sim/launch/s3_gazebo.launch.py",
+      "original_sha256": "5b0ca51fe26b20526c7634acd225f5ad9eb311ca66cb62b42215fc66891db666"
+    },
+    {
+      "original_path": "/home/afonso/aubo_ros2_ws/src/meituan_sim/scripts/gen_scene.py",
+      "repository_path": "simulation/meituan_sim/scripts/gen_scene.py",
+      "original_sha256": "7734831fc64b97b50e45c846889920cd3695cc1a07db647d2e986bfe1a7a7fb1"
+    }
+  ],
+  "packaging_changes": [
+    "CMake generates models/worlds into build directory and installs them.",
+    "gen_scene.py accepts --output-dir and no longer deletes legacy texture directories.",
+    "No upstream S3 URDF or meshes vendored; original source hashes retained."
+  ]
+}

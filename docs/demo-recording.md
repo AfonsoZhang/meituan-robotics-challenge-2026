@@ -4,11 +4,11 @@
 
 ## 交付文件
 
-- [完整视频，约 56.7 秒](../outputs/demo-20260907-010012/demo.mp4)：1600×880、15 fps、H.264，约 1.25 MB。
-- [TCP 参考/实测轨迹与误差图](../outputs/demo-20260907-010012/tracking.png)，另有 [PDF](../outputs/demo-20260907-010012/tracking.pdf)。
-- [结果 JSON](../outputs/demo-20260907-010012/summary.json)、[原始跟踪 CSV](../outputs/demo-20260907-010012/tracking.csv)、[电池位姿记录](../outputs/demo-20260907-010012/model_states.jsonl)。
-- [输入与来源哈希](../outputs/demo-20260907-010012/inputs.json)、[恢复重力的读回记录](../outputs/demo-20260907-010012/startup-gravity.json)。
-- [可复现运行入口及说明](../demo/README.md)。运行产物在 `.gitignore` 的 `outputs/` 下，本地可访问，尚未发布到外部。
+- [完整视频，约 56.7 秒](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/releases/download/demo-v1.0.0/demo.mp4)：1600×880、15 fps、H.264，约 1.25 MB。
+- [TCP 参考/实测轨迹与误差图](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/releases/download/demo-v1.0.0/tracking.png)，另有 [PDF](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/releases/download/demo-v1.0.0/tracking.pdf)。
+- [结果 JSON](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/releases/download/demo-v1.0.0/summary.json)、[原始跟踪 CSV](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/releases/download/demo-v1.0.0/tracking.csv)、[电池位姿记录](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/releases/download/demo-v1.0.0/model_states.jsonl)。
+- [输入与来源哈希](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/releases/download/demo-v1.0.0/inputs.json)、[恢复重力的读回记录](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/releases/download/demo-v1.0.0/startup-gravity.json)。
+- [可复现运行入口及说明](../demo/README.md)。原始运行目录仍在 `.gitignore` 的 `outputs/` 下；上述交付文件通过 GitHub Release 发布，可下载 [完整证据包](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/releases/download/demo-v1.0.0/demo-evidence.zip) 和 [SHA-256 校验清单](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/releases/download/demo-v1.0.0/SHA256SUMS.txt)。
 
 ## 本次运行结果
 
@@ -53,4 +53,4 @@
 
 队内可直接用完整视频解释被动钩的穿入、承托、搬运和释放；确认舌规实物可行性仍需真实电池试穿与尺寸记录。RA 申请可同时附轨迹图，说明仿真实验、控制器集成和定量验证能力；当前标准位置轨迹控制不等于自研鲁棒安全控制，下一步扰动对比仍是待做实验。个人贡献、团队协作和 AI 使用应按事实分别说明。
 
-冻结轨迹和原仿真接线来自此前 Claude Code 辅助的项目工作；本轮 OpenAI Codex 辅助开发录制、测量、失败判定和图表。没有移植队友代码，也未发送视频、申请或其他外部消息。来源与产物哈希见 manifest 的 `DEMO-RECORDING-20260907`。
+冻结轨迹和原仿真接线来自此前 Claude Code 辅助的项目工作；本轮 OpenAI Codex 辅助开发录制、测量、失败判定和图表。没有移植队友代码。此后按用户要求将本次视频与结果发布到 GitHub Release；没有发送招聘申请或联系他人。来源与产物哈希见 manifest 的 `DEMO-RECORDING-20260907`。

@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!-- 方案一的固定被动钩（USER-EE-20260906-01）。
+
+     几何依据 battery-geometry.md 的名义标注（暂按 mm）：
+       提手孔口净高 20、开口宽约 50、横梁前后厚 26、横梁竖高 10。
+     文档给出的可逆性检查式：承托舌厚 t + 上翘尖高 h + 上下余量 c_top + c_bottom < H(=20)。
+     本模型取 t=5、h=5、c_top=c_bottom=5，合计 20 恰好等于孔高，实际留 5+5=10 mm 活动余量：
+       进钩时舌底距本体顶面 7.5 mm、舌顶距横梁下沿 7.5 mm。
+     落台卸载后的退钩下降量 Δ 须满足 h + c_top < Δ < H − t − c_bottom，
+     即 Δ ∈ (10, 10) 的临界情形在本取值下退化——故实际取 c_top=c_bottom=2.5，
+     Δ ∈ (7.5, 12.5) mm，仿真中取 10 mm。
+
+     舌宽 44 mm 是仿真实验改出来的：初版取 30 mm，开口宽 50 mm，左右各留 10 mm 滑移，
+     结果电池在舌面上沿横梁长度方向侧滑约 33 mm 直到立柱抵住钩柄，搬运中脱落。
+     加宽到 44 mm 后左右各剩 3 mm——代价是进钩的横向对准精度要求同步提高到 ±3 mm。
+
+     这是**工程候选**，不是加工图：材料、截面、承载、挠度均未验证（Q03）。 -->
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:macro name="hook" params="parent prefix:=hook
+                                   shank:=0.150 tongue_len:=0.050 tongue_w:=0.044
+                                   tongue_t:=0.005 tip_h:=0.005 tip_len:=0.005
+                                   tcp_along:=0.030">
+    <!-- hook 系：+z 朝上（与工具轴反向）、+x 为进钩方向。
+         法兰工具轴朝下时，绕 x 转 180° 即得该姿态。 -->
+    <joint name="${prefix}_mount_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="0 0 0" rpy="${pi} 0 0"/>
+    </joint>
+
+    <link name="${prefix}_link">
+      <!-- 钩柄：从法兰沿 -z 向下 -->
+      <visual>
+        <origin xyz="0 0 ${-shank/2}"/>
+        <geometry><box size="0.012 0.012 ${shank}"/></geometry>
+        <material name="${prefix}_steel"><color rgba="0.75 0.75 0.78 1"/></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 ${-shank/2}"/>
+        <geometry><box size="0.012 0.012 ${shank}"/></geometry>
+      </collision>
+      <!-- 承托舌：水平伸出，从孔口穿入横梁下方 -->
+      <visual>
+        <origin xyz="${tongue_len/2} 0 ${-shank+tongue_t/2}"/>
+        <geometry><box size="${tongue_len} ${tongue_w} ${tongue_t}"/></geometry>
+        <material name="${prefix}_steel"/>
+      </visual>
+      <collision>
+        <origin xyz="${tongue_len/2} 0 ${-shank+tongue_t/2}"/>
+        <geometry><box size="${tongue_len} ${tongue_w} ${tongue_t}"/></geometry>
+      </collision>
+      <!-- 远端上翘钩尖：越过横梁后上抬，提供止退搭接 -->
+      <visual>
+        <origin xyz="${tongue_len-tip_len/2} 0 ${-shank+tongue_t+tip_h/2}"/>
+        <geometry><box size="${tip_len} ${tongue_w} ${tip_h}"/></geometry>
+        <material name="${prefix}_steel"/>
+      </visual>
+      <collision>
+        <origin xyz="${tongue_len-tip_len/2} 0 ${-shank+tongue_t+tip_h/2}"/>
+        <geometry><box size="${tip_len} ${tongue_w} ${tip_h}"/></geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 ${-shank/2}"/>
+        <mass value="0.25"/>
+        <inertia ixx="5e-4" iyy="5e-4" izz="5e-5" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+    </link>
+
+    <!-- TCP：承托舌顶面、沿进钩方向 tcp_along 处。啮合时该点位于横梁正下方。
+         与实机共用同一定义：换工具须重标此帧（Q04）。 -->
+    <link name="${prefix}_tcp"/>
+    <joint name="${prefix}_tcp_joint" type="fixed">
+      <parent link="${prefix}_link"/>
+      <child link="${prefix}_tcp"/>
+      <origin xyz="${tcp_along} 0 ${-shank+tongue_t}" rpy="0 0 0"/>
+    </joint>
+
+    <gazebo reference="${prefix}_link">
+      <material>Gazebo/Grey</material>
+      <mu1>0.6</mu1><mu2>0.6</mu2>
+      <selfCollide>true</selfCollide>
+    </gazebo>
+  </xacro:macro>
+</robot>
