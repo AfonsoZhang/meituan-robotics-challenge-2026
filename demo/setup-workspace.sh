@@ -27,8 +27,8 @@ fi
 git -C "$DEMO_DESCRIPTION_DIR" diff --quiet HEAD --
 cd "$DEMO_WORKSPACE"
 # Do not use --symlink-install: upstream contains directory-level mesh symlinks.
-colcon build --base-paths "$DEMO_DESCRIPTION_DIR" "$DEMO_PROJECT_DIR/simulation/meituan_sim" \
-  --packages-select aubo_description meituan_sim \
+colcon build --base-paths "$DEMO_DESCRIPTION_DIR" "$DEMO_PROJECT_DIR/simulation/meituan_sim" "$DEMO_PROJECT_DIR/simulation/meituan_robust_control" \
+  --packages-select aubo_description meituan_sim meituan_robust_control \
   --cmake-args -DBUILD_TESTING=OFF -DPython3_EXECUTABLE=/usr/bin/python3
 echo "Built workspace: $DEMO_WORKSPACE"
 echo "Run: AUBO_ROS2_WS=\"$DEMO_WORKSPACE\" bash \"$DEMO_PROJECT_DIR/demo/run.sh\" --check"

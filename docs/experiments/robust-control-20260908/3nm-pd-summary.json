@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "mode": "robust_probe",
+  "gravity_restored_before_recording": [
+    {
+      "link": "aubo_S3::shoulder_Link",
+      "gravity_enabled": true,
+      "mass": 1.99731
+    },
+    {
+      "link": "aubo_S3::upperArm_Link",
+      "gravity_enabled": true,
+      "mass": 3.75846
+    },
+    {
+      "link": "aubo_S3::foreArm_Link",
+      "gravity_enabled": true,
+      "mass": 1.66653
+    },
+    {
+      "link": "aubo_S3::wrist1_Link",
+      "gravity_enabled": true,
+      "mass": 1.06823
+    },
+    {
+      "link": "aubo_S3::wrist2_Link",
+      "gravity_enabled": true,
+      "mass": 1.06823
+    },
+    {
+      "link": "aubo_S3::wrist3_Link",
+      "gravity_enabled": true,
+      "mass": 0.536451
+    }
+  ],
+  "control": "pd",
+  "startup_recovery": {
+    "required": false,
+    "initial_max_error_rad": 6.375827909926857e-05
+  },
+  "disturbances": [
+    {
+      "joint": "aubo_S3::upperArm_joint",
+      "effort_nm": 3.0,
+      "start_elapsed_s": 8.0,
+      "duration_s": 2.0,
+      "accepted": true
+    },
+    {
+      "joint": "aubo_S3::upperArm_joint",
+      "effort_nm": -3.0,
+      "start_elapsed_s": 16.0,
+      "duration_s": 2.0,
+      "accepted": true
+    }
+  ],
+  "scope": "High-workspace arm tracking under external joint torques; no grasp attempted",
+  "windows": {
+    "motion": {
+      "samples": 1116,
+      "tcp_rms_mm": 0.865936536121833,
+      "tcp_max_mm": 2.2957359693447947,
+      "upper_arm_rms_rad": 0.0030368506607762863
+    },
+    "moving_disturbance": {
+      "samples": 187,
+      "tcp_rms_mm": 2.082197235154341,
+      "tcp_max_mm": 2.2957359693447947,
+      "upper_arm_rms_rad": 0.007325469941444645
+    },
+    "holding_disturbance": {
+      "samples": 188,
+      "tcp_rms_mm": 2.105533539491038,
+      "tcp_max_mm": 2.268174064989478,
+      "upper_arm_rms_rad": 0.007282476555307537
+    },
+    "recovered": {
+      "samples": 375,
+      "tcp_rms_mm": 0.03582090578168176,
+      "tcp_max_mm": 0.03623551397982994,
+      "upper_arm_rms_rad": 2.201557648457878e-05
+    }
+  },
+  "saturated_joint_samples": 0,
+  "audit_samples": 2716,
+  "max_battery_displacement_m": 0.0,
+  "max_sliding_term_nm": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "action_status": 4,
+  "controller_error_code": 0,
+  "controller_error_string": "Goal successfully reached!",
+  "frames": 465,
+  "camera_frames_received": 398,
+  "held_frames": 67,
+  "max_camera_timestamp_gap_s": 0.2680000000000007,
+  "video_seconds": 31.0,
+  "wall_elapsed_s": 42.98575970402453,
+  "tracking_samples": 291,
+  "tcp_tracking_error_mm": {
+    "rms": 0.7899129096985432,
+    "max": 2.263739425000038
+  }
+}

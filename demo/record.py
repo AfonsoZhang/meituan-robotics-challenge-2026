@@ -28,6 +28,7 @@ from control_msgs.msg import JointTrajectoryControllerState
 from gazebo_msgs.msg import ModelStates
 from gazebo_msgs.srv import GetLinkProperties, SetLinkProperties
 from sensor_msgs.msg import Image, CameraInfo
+from std_msgs.msg import Float64MultiArray
 from tf2_ros import Buffer, TransformListener
 from scipy.spatial.transform import Rotation
 from detector import detect
@@ -130,6 +131,7 @@ class Recorder(Node):
         self.received_frames, self.held_frames, self.max_camera_gap, self.last_camera_stamp = 0, 0, 0., None
         self.vision_mode = 'off'
         self.task_label = 'yellow -> P1'
+        self.control_mode = os.environ.get('DEMO_EFFORT_MODE','position')
         self.rgbd = {}
         self.observer_samples = None
         self.tf_buffer = Buffer()
@@ -146,7 +148,12 @@ class Recorder(Node):
         self.track_file = (out/'tracking.csv').open('w', newline='')
         self.track = csv.writer(self.track_file)
         self.track.writerow(['sim_s','elapsed_s','desired_tcp_x','desired_tcp_y','desired_tcp_z',
-                             'actual_tcp_x','actual_tcp_y','actual_tcp_z','tcp_tracking_error_mm','max_joint_error_rad'])
+                             'actual_tcp_x','actual_tcp_y','actual_tcp_z','tcp_tracking_error_mm','max_joint_error_rad']+['desired_'+j for j in JOINTS]+['actual_'+j for j in JOINTS])
+        self.audit_file = (out/'effort-audit.csv').open('w',newline='')
+        self.audit_writer = csv.writer(self.audit_file)
+        self.audit_writer.writerow(['sim_s']+[f'{kind}_{i}' for kind in ['gravity','robust','raw','applied','desired','actual','sliding'] for i in range(6)])
+        self.create_subscription(Float64MultiArray,'/joint_trajectory_controller/robust_audit',
+            lambda m:self.audit_writer.writerow(m.data) if self.start_sim is not None else None,10)
         self.state_file = (out/'model_states.jsonl').open('w')
         self.create_subscription(ModelStates, '/gazebo/model_states', self.models, 10)
         self.create_subscription(JointTrajectoryControllerState, '/joint_trajectory_controller/controller_state', self.controller, 10)
@@ -197,7 +204,7 @@ class Recorder(Node):
         a, d = self.kin.tcp(actual), self.kin.tcp(desired)
         error = float(np.linalg.norm(a-d)*1000)
         self.errors.append(error)
-        self.track.writerow([stamp,stamp-self.start_sim,*d,*a,error,float(np.max(np.abs(actual-desired)))])
+        self.track.writerow([stamp,stamp-self.start_sim,*d,*a,error,float(np.max(np.abs(actual-desired))),*desired,*actual])
 
     def start_video(self):
         self.video_log = (self.out/'ffmpeg.log').open('w')
@@ -234,7 +241,8 @@ class Recorder(Node):
                  (f'Sim elapsed {elapsed:6.2f} s | wall elapsed {time.monotonic()-self.wall_start:6.1f} s | planned stage: {phase}', (20,795)),
                  (('RGB-D snapshot correction applied; trajectory execution open-loop.' if self.vision_mode == 'correct'
                    else 'RGB-D observed only; frozen open-loop trajectory.' if self.vision_mode == 'observe'
-                   else 'Open-loop trajectory. Ideal wrist RGB shown separately.'), (20,835)),
+                   else f'Effort feedback: {self.control_mode} | no grasp in probe' if self.task_label == 'robustness probe'
+                   else f'Arm control: {self.control_mode}. Ideal wrist RGB shown separately.'), (20,835)),
                  ('Wrist RGB', (1300,32)), ('44 mm tongue', (1295,330)), ('5 mm thickness', (1295,365)),
                  ('5 mm raised tip', (1295,400)), ('No object attachment', (1295,450)),
                  ('Sensor-time video', (1295,495)), ('15 fps', (1295,530))]
@@ -249,7 +257,7 @@ class Recorder(Node):
         self.prev_frame = canvas
 
     def close(self):
-        self.track_file.close(); self.state_file.close()
+        self.track_file.close(); self.state_file.close(); self.audit_file.close()
         if self.video is not None:
             self.video.stdin.close()
             if self.video.wait(timeout=30) != 0: raise RuntimeError('ffmpeg failed; see ffmpeg.log')
@@ -399,6 +407,9 @@ def observe_yellow(node, color="yellow", observer=OBSERVER):
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--control',choices=['position','pd','pd_matched','smc'],default='position')
+    parser.add_argument('--robust-probe',action='store_true')
+    parser.add_argument('--disturbance-nm',type=float,default=0.)
     parser.add_argument('--sequence',action='store_true',help='Observe and correct yellow, green, blue in one world; stop on first failure')
     parser.add_argument('--smoke', action='store_true', help='Recover the start posture, then record five stationary simulated seconds')
     parser.add_argument('--check', action='store_true', help='Prepare inputs without starting Gazebo')
@@ -407,6 +418,10 @@ def main():
     parser.add_argument('--vision', choices=['off','observe','correct'], default='off')
     parser.add_argument('--yellow-offset-mm', type=float, default=0., help='Initial world x offset; never passed to vision correction')
     args = parser.parse_args()
+    if args.disturbance_nm < 0 or args.disturbance_nm > 3: parser.error('Disturbance limited to 0..3 Nm')
+    if args.disturbance_nm and not args.robust_probe: parser.error('Disturbance injection requires --robust-probe')
+    if args.robust_probe and (args.control == 'position' or args.sequence or args.smoke or args.vision != 'off'):
+        parser.error('Probe requires --control pd|smc and no vision/sequence/smoke')
     if args.sequence and (args.smoke or args.vision != 'off'):
         parser.error('--sequence includes its own vision correction; do not combine with --smoke or --vision')
     out = (args.output or ROOT.parent/'outputs'/('demo-'+time.strftime('%Y%m%d-%H%M%S'))).resolve()
@@ -422,6 +437,32 @@ def main():
                       timing='Per-stage schedules and observation motions; see sequence summary')
         inputs.pop('planned_seconds',None)
     save(out/'inputs.json',inputs)
+    if args.control != 'position':
+        import yaml
+        config = yaml.safe_load((Path(get_package_share_directory('meituan_robust_control'))/'config/effort.yaml').read_text())
+        config['joint_trajectory_controller']['ros__parameters'].update({'robust.enabled':args.control=='smc',
+                    'robust.model_file':str(out/'robot.urdf')})
+        if args.control == 'pd_matched':
+            params=config['joint_trajectory_controller']['ros__parameters']
+            for j,rho,phi in zip(JOINTS,[4.,4.,3.,.3,.15,.05],[.08,.08,.08,.12,.12,.15]):
+                params['gains'][j]['p'] += rho*6./phi
+                params['gains'][j]['d'] += rho/phi
+        (out/'effort-controllers.yaml').write_text(yaml.safe_dump(config,sort_keys=False))
+        os.environ.update(DEMO_EFFORT_MODE=args.control,DEMO_CONTROLLERS=str(out/'effort-controllers.yaml'),DEMO_ROBOT_MODEL=str(out/'robot.urdf'))
+    else:
+        for key in ['DEMO_EFFORT_MODE','DEMO_CONTROLLERS','DEMO_ROBOT_MODEL']:os.environ.pop(key,None)
+    if args.robust_probe:
+        from robust_probe import reference
+        plan=reference(plan[0]['q'],Kinematics(desc/'urdf/aubo_S3.urdf'))
+        save(out/'plan.json',plan)
+    inputs.update(control=args.control,robust_probe=args.robust_probe,disturbance_nm=args.disturbance_nm)
+    if args.robust_probe:inputs.update(mode='high-workspace effort tracking probe; no grasp',planned_seconds=24.,waypoints=len(plan))
+    if args.control != 'position':
+        package=Path(get_package_share_directory('meituan_robust_control'))
+        audit_files=[ROOT/'robust_probe.py',ROOT.parent/'simulation/meituan_robust_control/src/robust_controller.cpp',
+                     package.parent.parent/'lib/librobust_controller.so',out/'effort-controllers.yaml']
+        inputs['files'] += [{'path':str(p),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in audit_files]
+    save(out/'inputs.json',inputs)
     if args.check:
         print(f'Prepared {len(plan)} yellow waypoints, {schedule(plan)[-1]:.3f} planned seconds: {out}')
         return 0
@@ -431,7 +472,7 @@ def main():
     os.environ['GAZEBO_MODEL_PATH'] = os.pathsep.join(['/usr/share/gazebo-11/models',str(desc.parent),str(sim/'models'),os.environ.get('GAZEBO_MODEL_PATH','')])
     os.environ['GAZEBO_RESOURCE_PATH'] = os.pathsep.join(['/usr/share/gazebo-11',os.environ.get('GAZEBO_RESOURCE_PATH','')])
     server = node = log = None
-    report, code = {'passed':False,'mode':'smoke' if args.smoke else 'yellow_to_P1'}, 1
+    report, code = {'passed':False,'mode':'robust_probe' if args.robust_probe else 'smoke' if args.smoke else 'yellow_to_P1'}, 1
     try:
         log = (out/'launch.log').open('w')
         server = subprocess.Popen(['ros2','launch',str(ROOT/'simulation.launch.py')],
@@ -441,6 +482,12 @@ def main():
         spin_until(node, lambda: bool(node.poses) and node.joints is not None and node.overview is not None
                    and node.action.server_is_ready(), 100, 'Simulation, cameras or controller did not become ready')
         report['gravity_restored_before_recording'] = enable_robot_gravity(node)
+        if args.control != 'position':
+            from robust_probe import enable_compensation
+            enable_compensation(node)
+        report['control'] = args.control
+        if args.robust_probe:
+            node.plan=plan;node.times=[p['t'] for p in plan];node.task_label='robustness probe'
         ready_time = node.now()
         spin_until(node, lambda: node.now()-ready_time >= 3., 60, 'Controller startup settling timed out')
         if time.monotonic()-min(node.models_wall,node.joints_wall) > 2: raise RuntimeError('Stale startup state')
@@ -465,6 +512,9 @@ def main():
         spin_until(node,lambda:node.now()-settle>=2.,60,'Pre-record settling timed out')
         initial = node.poses
         node.start_sim = node.now()
+        if args.robust_probe:
+            from robust_probe import disturb
+            report['disturbances']=disturb(node,args.disturbance_nm)
         if args.smoke:
             spin_until(node,lambda:node.now()-node.start_sim>=5.,args.timeout,'Smoke recording timed out')
             report.update(passed=node.frames>0, simulated_seconds=node.now()-node.start_sim,
@@ -474,6 +524,7 @@ def main():
             goal.trajectory.joint_names = JOINTS
             for point,t in zip(plan,node.times):
                 p = JointTrajectoryPoint(); p.positions = point['q']
+                if args.robust_probe:p.velocities=point['dq'];p.accelerations=point['ddq']
                 p.time_from_start.sec = int(t); p.time_from_start.nanosec = int((t-int(t))*1e9)
                 goal.trajectory.points.append(p)
             future = node.action.send_goal_async(goal)
@@ -481,11 +532,15 @@ def main():
             handle = future.result()
             if not handle.accepted: raise RuntimeError('Controller rejected trajectory')
             result = handle.get_result_async()
-            print(f'Recording yellow -> P1, {node.times[-1]:.2f} planned seconds. Output: {out}',flush=True)
+            print(f'Recording {node.task_label}, {node.times[-1]:.2f} planned seconds. Output: {out}',flush=True)
             spin_until(node,lambda:result.done() and node.now()-node.start_sim>=node.times[-1]+5.,
                        args.timeout,'Trajectory/observation timeout')
             action_result = result.result()
-            checks = evaluate(node.samples,initial,node.times[-1])
+            if args.robust_probe:
+                from robust_probe import evaluate_probe
+                checks=evaluate_probe(node,initial)
+            else:
+                checks = evaluate(node.samples,initial,node.times[-1])
             report.update(checks, action_status=action_result.status,
                           controller_error_code=action_result.result.error_code,
                           controller_error_string=action_result.result.error_string)

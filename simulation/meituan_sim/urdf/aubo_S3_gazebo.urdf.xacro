@@ -33,6 +33,8 @@
     <xacro:hook parent="flange"/>
   </xacro:if>
 
+  <xacro:arg name="command_interface" default="position"/>
+  <xacro:property name="control_interface" value="$(arg command_interface)"/>
   <ros2_control name="aubo_S3_gazebo" type="system">
     <hardware>
       <plugin>gazebo_ros2_control/GazeboSystem</plugin>
@@ -42,9 +44,11 @@
          会横扫工作区把道具电池撞飞甚至压进地面导致 ODE 数值发散。 -->
     <xacro:macro name="s3_joint" params="name init">
       <joint name="${name}">
-        <command_interface name="position">
+        <command_interface name="${control_interface}">
+          <xacro:if value="${control_interface == 'position'}">
           <param name="min">${-2*pi}</param>
           <param name="max">${2*pi}</param>
+          </xacro:if>
         </command_interface>
         <state_interface name="position"><param name="initial_value">${init}</param></state_interface>
         <state_interface name="velocity"/>

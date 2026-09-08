@@ -61,3 +61,7 @@ bash demo/run.sh --sequence --timeout 180
 ```
 
 同一世界按黄、绿、蓝顺序逐块定位和抓取，失败停止。原单块入口保留；三块模式自动应用视觉修正，不与 `--vision` 或 `--smoke` 混用。蓝块接触记录只用于审计。全部开发尝试、视频计时边界和未解决问题见 [三块集成记录](../docs/vision-sequence.md)。
+
+## 可选力矩闭环
+
+重新构建后可执行 `bash demo/run.sh --control smc --vision correct`；`--control pd` 为重力补偿 PD 基线，`--control pd_matched` 为边界层增益匹配对照。默认仍为 position。高位受扰对照使用 `--robust-probe --disturbance-nm 2`，不要与抓取/序列选项混用；详见 [算法、协议和实测结果](../docs/robust-control.md)。

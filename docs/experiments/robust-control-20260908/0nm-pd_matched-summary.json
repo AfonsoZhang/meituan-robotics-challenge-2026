@@ -1,0 +1,94 @@
+{
+  "passed": true,
+  "mode": "robust_probe",
+  "gravity_restored_before_recording": [
+    {
+      "link": "aubo_S3::shoulder_Link",
+      "gravity_enabled": true,
+      "mass": 1.99731
+    },
+    {
+      "link": "aubo_S3::upperArm_Link",
+      "gravity_enabled": true,
+      "mass": 3.75846
+    },
+    {
+      "link": "aubo_S3::foreArm_Link",
+      "gravity_enabled": true,
+      "mass": 1.66653
+    },
+    {
+      "link": "aubo_S3::wrist1_Link",
+      "gravity_enabled": true,
+      "mass": 1.06823
+    },
+    {
+      "link": "aubo_S3::wrist2_Link",
+      "gravity_enabled": true,
+      "mass": 1.06823
+    },
+    {
+      "link": "aubo_S3::wrist3_Link",
+      "gravity_enabled": true,
+      "mass": 0.536451
+    }
+  ],
+  "control": "pd_matched",
+  "startup_recovery": {
+    "required": false,
+    "initial_max_error_rad": 4.235794694401607e-05
+  },
+  "disturbances": [],
+  "scope": "High-workspace arm tracking under external joint torques; no grasp attempted",
+  "windows": {
+    "motion": {
+      "samples": 1112,
+      "tcp_rms_mm": 0.02390812023944149,
+      "tcp_max_mm": 0.039755480417808804,
+      "upper_arm_rms_rad": 1.4263750267881317e-05
+    },
+    "moving_disturbance": {
+      "samples": 185,
+      "tcp_rms_mm": 0.012814255572417747,
+      "tcp_max_mm": 0.02320276760575823,
+      "upper_arm_rms_rad": 6.416488138818923e-06
+    },
+    "holding_disturbance": {
+      "samples": 188,
+      "tcp_rms_mm": 0.021207793029627574,
+      "tcp_max_mm": 0.02120895278895693,
+      "upper_arm_rms_rad": 1.2624429145988607e-05
+    },
+    "recovered": {
+      "samples": 375,
+      "tcp_rms_mm": 0.021207100204765267,
+      "tcp_max_mm": 0.0213037878336979,
+      "upper_arm_rms_rad": 1.261860830277715e-05
+    }
+  },
+  "saturated_joint_samples": 0,
+  "audit_samples": 2716,
+  "max_battery_displacement_m": 0.0,
+  "max_sliding_term_nm": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "action_status": 4,
+  "controller_error_code": 0,
+  "controller_error_string": "Goal successfully reached!",
+  "frames": 467,
+  "camera_frames_received": 422,
+  "held_frames": 45,
+  "max_camera_timestamp_gap_s": 0.20699999999999896,
+  "video_seconds": 31.133333333333333,
+  "wall_elapsed_s": 41.33977507101372,
+  "tracking_samples": 291,
+  "tcp_tracking_error_mm": {
+    "rms": 0.022329522865534062,
+    "max": 0.039688393313008725
+  }
+}

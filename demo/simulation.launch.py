@@ -21,7 +21,8 @@ def generate_launch_description():
     sim = Path(get_package_share_directory('meituan_sim'))
     desc = Path(get_package_share_directory('aubo_description'))
     robot = xacro.process_file(str(sim / 'urdf/aubo_S3_gazebo.urdf.xacro'),
-                              mappings={'controllers_file': str(sim / 'config/aubo_S3_controllers.yaml')}).toxml()
+                              mappings={'controllers_file': os.environ.get('DEMO_CONTROLLERS',str(sim / 'config/aubo_S3_controllers.yaml')),
+                                        'command_interface': 'effort' if os.environ.get('DEMO_EFFORT_MODE') else 'position'}).toxml()
     # Avoid uncontrolled fall while the six-axis controller is being spawned.
     # The recorder MUST restore and read back gravity on all six links before recording.
     xml = ET.fromstring(robot)
@@ -29,9 +30,11 @@ def generate_launch_description():
         tag = ET.SubElement(xml,'gazebo',reference=link)
         ET.SubElement(tag,'gravity').text = 'false'
     robot = ET.tostring(xml,encoding='unicode')
+    if os.environ.get('DEMO_ROBOT_MODEL'):
+        Path(os.environ['DEMO_ROBOT_MODEL']).write_text(robot)
     server = ExecuteProcess(cmd=['gzserver', '--verbose',
                                  '-s', 'libgazebo_ros_init.so',
-                                 '-s', 'libgazebo_ros_factory.so', os.environ['DEMO_WORLD']],
+                                 '-s', 'libgazebo_ros_factory.so', '-s', 'libgazebo_ros_force_system.so', os.environ['DEMO_WORLD']],
                             output='screen')
     state = Node(package='robot_state_publisher', executable='robot_state_publisher',
                  parameters=[{'robot_description': robot, 'use_sim_time': True}], output='screen')

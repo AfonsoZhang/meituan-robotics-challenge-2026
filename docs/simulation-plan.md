@@ -434,3 +434,5 @@ HSV 分割（红色跨 H=0 用两段）→ 形态学开闭 → 连通域 → **�
 2026-09-08 后续完成冻结输入的 12 次横向偏移配对实验（`VISION-REPEAT-20260908`），全部通过，两种模式计数相同；详见 [协议与全部结果](vision-repeat.md)。这为后续三块集成提供单块基线，不改变旧蓝块问题的未解决状态。
 
 2026-09-08 三块逐次观察集成记录见 [vision-sequence.md](vision-sequence.md)（`VISION-SEQUENCE-20260908`）。四次开发尝试全部保留，最终带蓝块接触审计版本两次通过，蓝块既往掉落原因及绿/蓝释放精度仍未解决。
+
+2026-09-08 新增独立 `meituan_robust_control` C++ 插件，通过 JTC effort 接口实现名义重力补偿与饱和滑模反馈。保持 position 为默认，使用同一力矩接口的 PD/SMC/增益匹配 PD 做固定 0/2/3 Nm 对照，结果和推断限制见 [鲁棒控制实验](robust-control.md)（`ROBUST-CONTROL-20260908`）。

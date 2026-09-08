@@ -1,0 +1,104 @@
+{
+  "ai_assistance": "OpenAI Codex; historical trajectory: Claude Code",
+  "trajectory_provenance": {
+    "source_path": "/tmp/claude-1000/-home-afonso-meituan-robotics-challenge-2026/056bb1da-3c41-4c66-bc09-9962a0815f4c/scratchpad/seq_plan.json",
+    "source_sha256": "5db5595c132f57c1d71926f4c3d6b47ac376bb0d53da814f6ea8afed2d6e7773",
+    "captured_on": "2026-09-07",
+    "description": "Frozen locally generated 461-waypoint trajectory from the 2026-09-06 experiment; not a robot model. Replay only; no replanning or real hardware support.",
+    "original_ai_assistance": "Claude Code; see docs/simulation-plan.md",
+    "runner_ai_assistance": "OpenAI Codex",
+    "robot_description_commit": "47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1",
+    "mode": "yellow prefix to P1; example order, not an official competition command"
+  },
+  "files": [
+    {
+      "path": "/home/afonso/meituan-robotics-challenge-2026/demo/data/sequence-v1.json",
+      "sha256": "5db5595c132f57c1d71926f4c3d6b47ac376bb0d53da814f6ea8afed2d6e7773"
+    },
+    {
+      "path": "/home/afonso/meituan-robotics-challenge-2026/demo/record.py",
+      "sha256": "3607531def4286a10c4c94bf60348f2ad7da19658c61f890bfd115796a0b97ee"
+    },
+    {
+      "path": "/home/afonso/meituan-robotics-challenge-2026/demo/metrics.py",
+      "sha256": "12c7432e11385eb8f4e837db807d42362689841c8b4ca6bfc87c458d44f10e26"
+    },
+    {
+      "path": "/home/afonso/meituan-robotics-challenge-2026/demo/simulation.launch.py",
+      "sha256": "f0335d405802ad1f81160c28d52ee4ecb0c75ec4a84a818bc20a86986db50f4a"
+    },
+    {
+      "path": "/home/afonso/meituan-robotics-challenge-2026/demo/vision.py",
+      "sha256": "e13dbcf29e3bf5342ef163d4d47ac48519df0e9659ff5d282ab73ad4c24e59a3"
+    },
+    {
+      "path": "/home/afonso/meituan-robotics-challenge-2026/demo/detector.py",
+      "sha256": "9471dd3f11702902a0e671024989f19f431c7c0c8654e9b6990e3ccaadf012cc"
+    },
+    {
+      "path": "/tmp/meituan-release-repro-ws/install/meituan_sim/share/meituan_sim/urdf/aubo_S3_gazebo.urdf.xacro",
+      "sha256": "68da1395fea752bed6cee6ffbd2a4aa1b7c82e39bc9e6fce855be876a0053f95"
+    },
+    {
+      "path": "/tmp/meituan-release-repro-ws/install/meituan_sim/share/meituan_sim/urdf/hook.urdf.xacro",
+      "sha256": "4e21a0f94d99a3505ca74a861c9d64094717831dc0927752f764b5642f92724b"
+    },
+    {
+      "path": "/tmp/meituan-release-repro-ws/install/meituan_sim/share/meituan_sim/urdf/d435i.urdf.xacro",
+      "sha256": "1455da9f6cb92c6d99fd6f1edd9d24916ba7381c25361e9fcfc778bb60f3c8d3"
+    },
+    {
+      "path": "/tmp/meituan-release-repro-ws/install/meituan_sim/share/meituan_sim/config/aubo_S3_controllers.yaml",
+      "sha256": "342ea6ff129ee7e3eac1145ed35a5c567bb4522fcc87db74ad829d1214a66965"
+    },
+    {
+      "path": "/tmp/meituan-release-repro-ws/install/aubo_description/share/aubo_description/urdf/aubo_S3.urdf",
+      "sha256": "2ad1d85b3ab53b82f1944a373e3e41b36ca2535e0edf5b70c9c32641679e1924"
+    },
+    {
+      "path": "/home/afonso/meituan-robotics-challenge-2026/demo/robust_probe.py",
+      "sha256": "db74f9f450f48ad1cb2eb385110fe5641fe4824e5c1de888fa354cce62cf3bb5"
+    },
+    {
+      "path": "/home/afonso/meituan-robotics-challenge-2026/simulation/meituan_robust_control/src/robust_controller.cpp",
+      "sha256": "b694183ca5cdc6ab3d97c7645c130a9bbb249deece0e0efdc757180d740b0239"
+    },
+    {
+      "path": "/tmp/meituan-release-repro-ws/install/meituan_robust_control/lib/librobust_controller.so",
+      "sha256": "9c0bac6f02c53ce8db90d5cdd67e54b21c381ad8191d8133f29a486bedae9334"
+    },
+    {
+      "path": "/home/afonso/meituan-robotics-challenge-2026/outputs/robust-control-20260908/3nm-pd_matched/effort-controllers.yaml",
+      "sha256": "c1f22a7f5999c7732c0799c2e52534eda070466902d3c67d2e16da77ffb6a77b"
+    }
+  ],
+  "mode": "high-workspace effort tracking probe; no grasp",
+  "planned_seconds": 24.0,
+  "waypoints": 240,
+  "video_clock": "simulation sensor time, 15 fps; frames held across delivery gaps",
+  "initialization": "Robot link gravity disabled only during controller startup; restored and verified before recording. Battery gravity unchanged.",
+  "limitations": [
+    "No formal safety proof or full competition score",
+    "No contact-pair monitor",
+    "Nominal model, ideal camera; no real hardware validation"
+  ],
+  "vision_provenance": {
+    "date": "2026-09-07",
+    "original_detector_path": "/home/afonso/aubo_ros2_ws/src/meituan_vision/meituan_vision/detector.py",
+    "original_sha256": "9471dd3f11702902a0e671024989f19f431c7c0c8654e9b6990e3ccaadf012cc",
+    "repository_path": "demo/detector.py",
+    "original_ai_assistance": "Claude Code; project-authored meituan_vision",
+    "integration_ai_assistance": "OpenAI Codex",
+    "observer_source": "Historical ik_views.json V2_over_D_450, wrist3 equivalent branch minus 2*pi",
+    "limitations": [
+      "Ideal co-located RGB-D optics and simulated TF",
+      "HSV thresholds specific to synthetic scene",
+      "Local translation correction only; no hardware hand-eye calibration"
+    ],
+    "sequence_observer_source": "Historical ik_views.json V1_over_A_450, wrist3 equivalent branch plus 2*pi; used for green and blue with complete hook. yellow retains V2.",
+    "sequence_integration": "OpenAI Codex, 2026-09-08; stage-specific targets and last-four-waypoint high-approach blending"
+  },
+  "control": "pd_matched",
+  "robust_probe": true,
+  "disturbance_nm": 3.0
+}

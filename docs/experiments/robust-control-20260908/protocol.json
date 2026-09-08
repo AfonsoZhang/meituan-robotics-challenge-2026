@@ -1,0 +1,66 @@
+{
+  "created_utc": "2026-09-08T05:31:40.073233+00:00",
+  "trials": [
+    {
+      "id": "0nm-pd",
+      "control": "pd",
+      "disturbance_nm": 0
+    },
+    {
+      "id": "0nm-smc",
+      "control": "smc",
+      "disturbance_nm": 0
+    },
+    {
+      "id": "0nm-pd_matched",
+      "control": "pd_matched",
+      "disturbance_nm": 0
+    },
+    {
+      "id": "2nm-pd_matched",
+      "control": "pd_matched",
+      "disturbance_nm": 2
+    },
+    {
+      "id": "2nm-smc",
+      "control": "smc",
+      "disturbance_nm": 2
+    },
+    {
+      "id": "2nm-pd",
+      "control": "pd",
+      "disturbance_nm": 2
+    },
+    {
+      "id": "3nm-smc",
+      "control": "smc",
+      "disturbance_nm": 3
+    },
+    {
+      "id": "3nm-pd",
+      "control": "pd",
+      "disturbance_nm": 3
+    },
+    {
+      "id": "3nm-pd_matched",
+      "control": "pd_matched",
+      "disturbance_nm": 3
+    }
+  ],
+  "disturbance": "External upperArm_joint torque +m at 8..10 s and -m at 16..18 s; Gazebo service, not controller feedback.",
+  "reference": "24 s smooth small-amplitude high-workspace motion, identical for all modes; no grasp",
+  "comparison": "pd=gravity+PD; smc=gravity+PD+boundary-layer sliding term; pd_matched=gravity+PD with boundary-layer-equivalent small-error gains.",
+  "limitations": "One run per condition; no statistical reliability claim or robust-stability proof. All outcomes retained, no retuning.",
+  "files": {
+    "demo/record.py": "3607531def4286a10c4c94bf60348f2ad7da19658c61f890bfd115796a0b97ee",
+    "demo/metrics.py": "12c7432e11385eb8f4e837db807d42362689841c8b4ca6bfc87c458d44f10e26",
+    "demo/robust_probe.py": "db74f9f450f48ad1cb2eb385110fe5641fe4824e5c1de888fa354cce62cf3bb5",
+    "demo/simulation.launch.py": "f0335d405802ad1f81160c28d52ee4ecb0c75ec4a84a818bc20a86986db50f4a",
+    "demo/run_robust_matrix.py": "58fc4c3aca16f9be0042e207af64fd038a6e872615139dad479376d473d72d81",
+    "simulation/meituan_robust_control/src/robust_controller.cpp": "b694183ca5cdc6ab3d97c7645c130a9bbb249deece0e0efdc757180d740b0239",
+    "simulation/meituan_robust_control/include/meituan_robust_control/sliding.hpp": "c8d94b941ae7369ce50b5057db576c8dbfcdaf93b8a5931920d2c116a1054e5d",
+    "simulation/meituan_robust_control/config/effort.yaml": "b6f0c1e957ef35697a5aaff4a65054f4eaf8cc63751b9420cf4500de416fc336",
+    "simulation/meituan_sim/urdf/aubo_S3_gazebo.urdf.xacro": "68da1395fea752bed6cee6ffbd2a4aa1b7c82e39bc9e6fce855be876a0053f95",
+    "/tmp/meituan-release-repro-ws/install/meituan_robust_control/lib/librobust_controller.so": "9c0bac6f02c53ce8db90d5cdd67e54b21c381ad8191d8133f29a486bedae9334"
+  }
+}

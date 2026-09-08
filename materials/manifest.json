@@ -298,6 +298,46 @@
         "Green/blue release offset about 11 mm",
         "No complete collision check or real hardware validation"
       ]
+    },
+    {
+      "id": "CTRL-SLOTINE-1985",
+      "type": "research_reference",
+      "title": "The Robust Control of Robot Manipulators",
+      "author": "Jean-Jacques E. Slotine",
+      "year": 1985,
+      "doi": "10.1177/027836498500400205",
+      "url": "https://people.csail.mit.edu/rplatt/papers/slotine1985.pdf",
+      "pdf_pages_referenced": [
+        2,
+        3,
+        4
+      ],
+      "accessed_on": "2026-09-08",
+      "usage": "Sliding surface and boundary-layer design inspiration; not a complete reproduction or borrowed stability proof."
+    },
+    {
+      "id": "ROBUST-CONTROL-20260908",
+      "type": "local_control_implementation_and_experiment",
+      "date": "2026-09-08",
+      "report": "docs/robust-control.md",
+      "protocol": "docs/experiments/robust-control-20260908/protocol.json",
+      "protocol_sha256": "8346378ce22687de4348a403840790e1ae5af4c2cced6ec56259bd61a9f49d72",
+      "results": "docs/experiments/robust-control-20260908/results.json",
+      "results_sha256": "d45e923c2024b8ff9d7838eac50d42932e547a8e9d872c87ccf97f41464d7c7e",
+      "fixed_probe_trials": 9,
+      "probe_passed": 9,
+      "yellow_integration_passed": true,
+      "sources": [
+        "https://control.ros.org/humble/doc/ros2_controllers/joint_trajectory_controller/doc/parameters.html",
+        "https://docs.ros.org/en/rolling/p/gazebo_ros/generated/classgazebo__ros_1_1GazeboRosForceSystem.html"
+      ],
+      "tested_jtc_version": "2.53.3",
+      "ai_assistance": "OpenAI Codex; links to ROS 2 Control, KDL and Gazebo; historical model/vision provenance retained.",
+      "limitations": [
+        "Effort interface only verified in simulation",
+        "SMC indistinguishable from gain-matched PD inside tested boundary layer",
+        "No robust stability or formal safety proof; no disturbed grasp or effort-mode three-pick validation"
+      ]
     }
   ],
   "updated_on": "2026-09-07",
