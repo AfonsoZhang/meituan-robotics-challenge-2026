@@ -11,7 +11,12 @@ from scipy.spatial.transform import Rotation
 OBSERVER = np.array([2.601396586588973, .14741121175982763, 1.1057746982330148,
                      -.6131218224295513, -4.707210372114571, -4.128890581870104])
 NOMINAL_YELLOW = np.array([-.1735, .3455])
-COLORS = {'yellow': [[20,100,60,35,255,255]]}
+COLORS = {'yellow': [[20,100,60,35,255,255]],
+          'green': [[40,80,40,85,255,255]], 'blue': [[100,100,60,130,255,255]]}
+NOMINAL_CENTERS = {'yellow': NOMINAL_YELLOW, 'green':np.array([-.2527,.2578]),
+                   'blue':np.array([-.1735,.2578])}
+SIDE_OBSERVER = np.array([2.5161729751199946,-.3316729568224258,.5645037362267181,
+                          -.670400750662479,-4.70966690288651,.5400883461731194])
 
 
 def flange(kin, q):
@@ -22,10 +27,10 @@ def flange(kin, q):
     return p, R
 
 
-def correction(detections):
-    candidates = [d for d in detections if d['color'] == 'yellow']
+def correction(detections, color="yellow"):
+    candidates = [d for d in detections if d['color'] == color]
     if len(candidates) != 1:
-        raise ValueError(f'Expected exactly one yellow candidate, got {len(candidates)}')
+        raise ValueError(f'Expected exactly one {color} candidate, got {len(candidates)}')
     d = candidates[0]
     if not all(np.isfinite(d.get(k,float('nan'))) for k in
                ('depth_valid','n_body','body_top_z','handle_top_z','yaw_deg','long_mm','short_mm')):
@@ -34,14 +39,14 @@ def correction(detections):
         or abs(d['body_top_z']-.05) > .008
         or abs(d.get('handle_top_z', 0)-.08) > .008
         or abs((d['yaw_deg']-90+90)%180-90) > 3):
-        raise ValueError('Yellow geometry/depth/yaw quality gate failed')
-    delta = np.array(d['center_xy'])-NOMINAL_YELLOW
+        raise ValueError('Target geometry/depth/yaw quality gate failed')
+    delta = np.array(d['center_xy'])-NOMINAL_CENTERS[color]
     if not np.all(np.isfinite(delta)) or np.linalg.norm(delta) > .010:
         raise ValueError('Correction exceeds the validated local 10 mm envelope')
     return delta
 
 
-def translated_plan(kin, plan, delta):
+def translated_plan(kin, plan, delta, transition_points=None):
     """Shift source approach/lift, blend transfer back to unchanged destination.
 
     Preserve each original flange orientation and joint branch; reject residuals
@@ -49,10 +54,17 @@ def translated_plan(kin, plan, delta):
     """
     result = copy.deepcopy(plan)
     worst = 0.
+    approach, transfer, lower = 12, 54, 76
+    if all('name' in p for p in plan):
+        approach = next(i for i,p in enumerate(plan) if p['name'].split(':')[-1].startswith('0_'))
+        transfer = next(i for i,p in enumerate(plan) if p['name'].split(':')[-1].startswith('4_'))
+        lower = next(i for i,p in enumerate(plan) if p['name'].split(':')[-1].startswith('5_'))
     for i, point in enumerate(result):
-        if i <= 12: weight = i/12
-        elif i < 54: weight = 1.
-        elif i < 76: weight = (75-i)/22
+        if i <= approach:
+            span = approach if transition_points is None else min(approach,transition_points)
+            weight = max(0.,(i-(approach-span))/span)
+        elif i < transfer: weight = 1.
+        elif i < lower: weight = (lower-1-i)/(lower-transfer)
         else: weight = 0.
         if not weight: continue
         original = np.array(plan[i]['q'])

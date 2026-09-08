@@ -282,6 +282,22 @@
         "Two repeats per condition only",
         "No full-path collision verification"
       ]
+    },
+    {
+      "id": "VISION-SEQUENCE-20260908",
+      "type": "local_simulation_development",
+      "date": "2026-09-08",
+      "report": "docs/vision-sequence.md",
+      "index": "docs/experiments/vision-sequence-20260908/index.json",
+      "index_sha256": "cc8d49a9290ebe2581998e98c4ac58d8a3d4fe0d17958a9b8937ff5ad07323f3",
+      "attempts": 4,
+      "description": "Same-world sequential RGB-D correction for yellow/green/blue. Green transition IK rejection, blue drop, then two passes with contact audit; differing development versions, not a pooled success-rate trial.",
+      "ai_assistance": "OpenAI Codex; historical detector/observer/trajectory provenance retained.",
+      "unresolved": [
+        "Blue failure cause not captured by contacts in failed run",
+        "Green/blue release offset about 11 mm",
+        "No complete collision check or real hardware validation"
+      ]
     }
   ],
   "updated_on": "2026-09-07",

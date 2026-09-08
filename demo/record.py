@@ -43,7 +43,7 @@ def save(path, value):
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False)+'\n')
 
 
-def prepare(out, offset_mm=0.):
+def prepare(out, offset_mm=0., blue_contacts=False):
     sim = Path(get_package_share_directory('meituan_sim'))
     desc = Path(get_package_share_directory('aubo_description'))
     world = ET.parse(sim/'worlds/task_p2.world')
@@ -53,6 +53,23 @@ def prepare(out, offset_mm=0.):
             pose = [float(x) for x in include.findtext('pose').split()]
             pose[0] += offset_mm/1000
             include.find('pose').text = ' '.join(map(str,pose))
+    if blue_contacts:
+        include = next(i for i in w.findall('include') if i.findtext('name') == 'battery_D_blue')
+        model = ET.parse(sim/'models/battery_blue/model.sdf').getroot().find('model')
+        model.set('name','battery_D_blue')
+        ET.SubElement(model,'pose').text = include.findtext('pose')
+        link = model.find('link')
+        sensor = ET.SubElement(link,'sensor',name='blue_contacts',type='contact')
+        ET.SubElement(sensor,'always_on').text = 'true'
+        ET.SubElement(sensor,'update_rate').text = '60'
+        contact = ET.SubElement(sensor,'contact')
+        for collision in link.findall('collision'):
+            ET.SubElement(contact,'collision').text = collision.get('name')
+        plugin = ET.SubElement(sensor,'plugin',name='blue_contact_audit',filename='libgazebo_ros_bumper.so')
+        ros = ET.SubElement(plugin,'ros'); ET.SubElement(ros,'namespace').text = '/demo'
+        ET.SubElement(ros,'remapping').text = 'bumper_states:=blue_contacts'
+        ET.SubElement(plugin,'frame_name').text = 'world'
+        w.remove(include); w.append(model)
     scene = ET.SubElement(w,'scene')
     ET.SubElement(scene,'ambient').text = '0.45 0.45 0.45 1'
     ET.SubElement(scene,'background').text = '0.92 0.94 0.96 1'
@@ -103,8 +120,8 @@ def prepare(out, offset_mm=0.):
 
 
 class Recorder(Node):
-    def __init__(self, out, desc, plan):
-        super().__init__('demo_recorder', parameter_overrides=[Parameter('use_sim_time', value=True)])
+    def __init__(self, out, desc, plan, node_name="demo_recorder"):
+        super().__init__(node_name, parameter_overrides=[Parameter('use_sim_time', value=True)])
         self.out, self.plan, self.times = out, plan, schedule(plan)
         self.kin = Kinematics(desc/'urdf/aubo_S3.urdf')
         self.poses, self.joints, self.wrist, self.overview = {}, None, None, None
@@ -112,6 +129,7 @@ class Recorder(Node):
         self.start_sim, self.first_frame, self.frames = None, None, 0
         self.received_frames, self.held_frames, self.max_camera_gap, self.last_camera_stamp = 0, 0, 0., None
         self.vision_mode = 'off'
+        self.task_label = 'yellow -> P1'
         self.rgbd = {}
         self.observer_samples = None
         self.tf_buffer = Buffer()
@@ -212,7 +230,7 @@ class Recorder(Node):
                 phases = {'transit':'approach','1_':'ready','2_':'insert','3_':'lift','4_':'transfer',
                           '5_':'lower','6_':'unload','7_':'clear tip','8_':'withdraw','9_':'retreat'}
                 phase = next((v for k,v in phases.items() if stage.startswith(k)), 'transition')
-        lines = [('SIMULATION | AUBO S3 + passive hook | yellow -> P1', (20,758)),
+        lines = [(f'SIMULATION | AUBO S3 + passive hook | {self.task_label}', (20,758)),
                  (f'Sim elapsed {elapsed:6.2f} s | wall elapsed {time.monotonic()-self.wall_start:6.1f} s | planned stage: {phase}', (20,795)),
                  (('RGB-D snapshot correction applied; trajectory execution open-loop.' if self.vision_mode == 'correct'
                    else 'RGB-D observed only; frozen open-loop trajectory.' if self.vision_mode == 'observe'
@@ -312,7 +330,8 @@ def move_observer(node, target):
     start = node.joints.copy()
     # Conservative nominal layout envelope; actual model poses do not guide vision.
     nominal = {str(i):[x,y,0] for i,(x,y) in enumerate(
-        [(-.2527,.3455),(-.1735,.3455),(-.2527,.2578),(-.1735,.2578)])}
+        [(-.2527,.3455),(-.1735,.3455),(-.2527,.2578),(-.1735,.2578),
+         (.0416,.3639),(.2166,.3639),(.2166,.1889)])}
     limits = np.array(node.kin.limits)
     if np.any(target < limits[:,0]) or np.any(target > limits[:,1]):
         raise RuntimeError('Observer exceeds model joint limits')
@@ -336,11 +355,11 @@ def move_observer(node, target):
     if np.max(np.abs(node.joints-target)) > .005: raise RuntimeError('Observer did not settle')
 
 
-def observe_yellow(node):
+def observe_yellow(node, color="yellow", observer=OBSERVER):
     ready = np.array(node.plan[0]['q'])
     before = node.poses
     node.observer_samples = []
-    move_observer(node,OBSERVER)
+    move_observer(node,observer)
     def stamp(m): return m.header.stamp.sec+m.header.stamp.nanosec/1e9
     def coherent():
         if len(node.rgbd) != 4: return False
@@ -358,10 +377,10 @@ def observe_yellow(node):
     bgr = node.bgr(c)
     np.savez_compressed(node.out/'vision-snapshot.npz',bgr=bgr,depth=depth,K_color=Kc,K_depth=Kd,T_base_camera=T)
     cv2.imwrite(str(node.out/'vision-observation.png'),bgr)
-    dets = detect(bgr,depth,Kc,Kd,T,COLORS)
+    dets = detect(bgr,depth,Kc,Kd,T,{color:COLORS[color]})
     serial = [{k:v.tolist() if isinstance(v,np.ndarray) else v for k,v in d.items()} for d in dets]
     save(node.out/'vision-detections.json',serial)
-    delta = correction(dets)
+    delta = correction(dets,color)
     result = dict(delta_xy_m=delta.tolist(),color_stamp_s=stamp(c),depth_stamp_s=stamp(d),
                   transform_at_depth_stamp=True,detections=serial,
                   limitation='Ideal co-located RGB-D; one pre-grasp snapshot; no in-motion visual servo')
@@ -380,6 +399,7 @@ def observe_yellow(node):
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--sequence',action='store_true',help='Observe and correct yellow, green, blue in one world; stop on first failure')
     parser.add_argument('--smoke', action='store_true', help='Recover the start posture, then record five stationary simulated seconds')
     parser.add_argument('--check', action='store_true', help='Prepare inputs without starting Gazebo')
     parser.add_argument('--timeout', type=float, default=900, help='Wall-clock timeout for motion/recording')
@@ -387,14 +407,20 @@ def main():
     parser.add_argument('--vision', choices=['off','observe','correct'], default='off')
     parser.add_argument('--yellow-offset-mm', type=float, default=0., help='Initial world x offset; never passed to vision correction')
     args = parser.parse_args()
+    if args.sequence and (args.smoke or args.vision != 'off'):
+        parser.error('--sequence includes its own vision correction; do not combine with --smoke or --vision')
     out = (args.output or ROOT.parent/'outputs'/('demo-'+time.strftime('%Y%m%d-%H%M%S'))).resolve()
     out.mkdir(parents=True, exist_ok=False)
     if not -8 <= args.yellow_offset_mm <= 8: parser.error('Offset must be within +/-8 mm')
-    sim, desc, plan = prepare(out,args.yellow_offset_mm)
-    save(out/'experiment.json',dict(vision=args.vision,yellow_initial_x_offset_mm=args.yellow_offset_mm))
+    sim, desc, plan = prepare(out,args.yellow_offset_mm,blue_contacts=args.sequence)
+    save(out/'experiment.json',dict(vision='per-stage correction' if args.sequence else args.vision,sequence=args.sequence,yellow_initial_x_offset_mm=args.yellow_offset_mm))
     inputs = json.loads((out/'inputs.json').read_text())
     inputs.update(mode=f'simulation yellow to P1; vision={args.vision}',
                   vision_provenance=json.loads((ROOT/'data/vision-provenance.json').read_text()))
+    if args.sequence:
+        inputs.update(mode='three observed picks in one world',waypoints=461,
+                      timing='Per-stage schedules and observation motions; see sequence summary')
+        inputs.pop('planned_seconds',None)
     save(out/'inputs.json',inputs)
     if args.check:
         print(f'Prepared {len(plan)} yellow waypoints, {schedule(plan)[-1]:.3f} planned seconds: {out}')
@@ -419,6 +445,12 @@ def main():
         spin_until(node, lambda: node.now()-ready_time >= 3., 60, 'Controller startup settling timed out')
         if time.monotonic()-min(node.models_wall,node.joints_wall) > 2: raise RuntimeError('Stale startup state')
         report['startup_recovery'] = recover_start(node,np.array(plan[0]['q']))
+        if args.sequence:
+            from sequence import execute_sequence
+            node.close(); node.destroy_node(); node = None
+            report.update(execute_sequence(out,desc,args.timeout))
+            code = 0 if report['passed'] else 2
+            return code
         if args.vision != 'off':
             node.vision_mode = args.vision
             report['vision'] = observe_yellow(node)

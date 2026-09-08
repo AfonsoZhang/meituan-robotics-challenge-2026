@@ -22,6 +22,12 @@ class VisionGates(unittest.TestCase):
             d=self.candidate();d[key]=value
             with self.subTest(key=key),self.assertRaises(ValueError): correction([d])
 
+    def test_green_and_blue_use_their_own_nominal_centers(self):
+        from vision import NOMINAL_CENTERS
+        for color in ('green','blue'):
+            d=self.candidate();d.update(color=color,center_xy=NOMINAL_CENTERS[color]+[.001,-.002])
+            np.testing.assert_allclose(correction([d],color),[.001,-.002])
+
 class LocalIK(unittest.TestCase):
     def test_shift_source_keep_destination_and_orientation(self):
         from metrics import Kinematics
@@ -40,5 +46,9 @@ class LocalIK(unittest.TestCase):
         self.assertEqual(corrected[80]['q'],q)
         self.assertEqual(plan[35]['q'],q)
         self.assertLess(error,1e-5)
+        late,_=translated_plan(kin,plan,np.array([.006,0]),transition_points=4)
+        self.assertEqual(late[7]['q'],q)
+        np.testing.assert_allclose(kin.tcp(late[12]['q'])-kin.tcp(q),[.006,0,0],atol=1e-5)
+
 
 if __name__ == '__main__': unittest.main()

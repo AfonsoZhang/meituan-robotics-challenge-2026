@@ -16,7 +16,9 @@
 
 ## 复现与审计
 
-在已配置的 ROS/Gazebo 环境下，从项目根目录执行：
+该协议冻结的是提交 `6be83aaec25a5113f1059e771a64d1ccedb45fa3` 的输入。后续三块开发已改变共享文件；复现这组历史实验请先在单独 checkout/worktree 切到该提交，哈希不匹配时停止是预期保护。
+
+在已配置的 ROS/Gazebo 环境下，从该版本项目根目录执行：
 
 ```bash
 /usr/bin/python3 demo/run_matrix.py docs/experiments/vision-repeat-20260908/protocol.json outputs/vision-repeat-new

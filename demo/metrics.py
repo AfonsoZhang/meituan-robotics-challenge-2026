@@ -95,7 +95,7 @@ def quaternion_rpy(q):
             math.atan2(2*(w*z+x*y), 1-2*(y*y+z*z))]
 
 
-def footprint(pose):
+def footprint(pose, target=TARGET):
     cx, cy = pose[:2]
     r, p, y = quaternion_rpy(pose[3:])
     # Only apply the upright rectangle approximation to near-upright batteries.
@@ -105,16 +105,16 @@ def footprint(pose):
     n = 400
     x, yy = np.meshgrid((np.arange(n)+.5)/n*.070-.035, (np.arange(n)+.5)/n*.080-.040)
     pts = np.column_stack([x.ravel(), yy.ravel()]) @ R.T + [cx, cy]
-    coverage = float(np.mean(np.sum((pts-TARGET)**2, axis=1) <= .040**2))
+    coverage = float(np.mean(np.sum((pts-target)**2, axis=1) <= .040**2))
     corners = np.array([[-.035,-.040], [-.035,.040], [.035,-.040], [.035,.040]]) @ R.T + [cx, cy]
     return {'upright': True, 'coverage': coverage,
-            'inside_outer': bool(np.all(np.abs(corners-TARGET) <= .075))}
+            'inside_outer': bool(np.all(np.abs(corners-target) <= .075))}
 
 
-def evaluate(samples, initial, end_time):
+def evaluate(samples, initial, end_time, model=MODELS[1], target=TARGET):
     """Require >=3 s of fresh post-motion observations; retain all bystander checks."""
     recent = [s for s in samples if s['t'] >= end_time]
-    result = {'scope': 'Single yellow-to-P1 simulation checks; not full competition scoring',
+    result = {'scope': f'Single {model} placement checks; not full competition scoring',
               'contact_collision_check': 'not instrumented',
               'thresholds': {'stability_s': 3., 'stability_translation_m': .002,
                              'stability_rotation_deg': 2., 'bystander_translation_m': .002,
@@ -123,21 +123,21 @@ def evaluate(samples, initial, end_time):
         return dict(result, passed=False, reason='Insufficient post-motion observations')
     if max(b['t']-a['t'] for a,b in zip(recent,recent[1:])) > .25:
         return dict(result, passed=False, reason='Gaps in post-motion state observations')
-    final = recent[-1]['poses'][MODELS[1]]
-    geo = footprint(final)
-    positions = np.array([s['poses'][MODELS[1]][:3] for s in recent])
+    final = recent[-1]['poses'][model]
+    geo = footprint(final,target)
+    positions = np.array([s['poses'][model][:3] for s in recent])
     translation = float(np.max(np.linalg.norm(positions-positions[-1], axis=1)))
     def rotation(a, b):
         a, b = np.array(a[3:]), np.array(b[3:])
         return math.degrees(2*math.acos(float(np.clip(abs(a@b)/(np.linalg.norm(a)*np.linalg.norm(b)), 0, 1))))
-    rotation_span = max(rotation(s['poses'][MODELS[1]], final) for s in recent)
+    rotation_span = max(rotation(s['poses'][model], final) for s in recent)
     bystanders = {}
-    for name in (MODELS[0], MODELS[2], MODELS[3]):
+    for name in (n for n in MODELS if n != model):
         bystanders[name] = {'max_translation_m': max(float(np.linalg.norm(np.array(s['poses'][name][:3])-initial[name][:3])) for s in samples),
                             'max_rotation_deg': max(rotation(s['poses'][name], initial[name]) for s in samples)}
     run_start, longest, previous = None, 0., None
     for s in samples:
-        lifted = s['poses'][MODELS[1]][2] > .02
+        lifted = s['poses'][model][2] > .02
         if previous is not None and s['t']-previous > .25:
             run_start = None
         if lifted:
@@ -150,6 +150,6 @@ def evaluate(samples, initial, end_time):
           and abs(final[2]) <= .005 and translation <= .002 and rotation_span <= 2.
           and longest >= 2. and all(v['max_translation_m'] <= .002 and v['max_rotation_deg'] <= 2. for v in bystanders.values()))
     return dict(result, passed=bool(ok), final_pose=final, footprint=geo,
-                center_error_mm=float(np.linalg.norm(np.array(final[:2])-TARGET)*1000),
+                center_error_mm=float(np.linalg.norm(np.array(final[:2])-target)*1000),
                 stability_translation_m=translation, stability_rotation_deg=rotation_span,
                 observed_lift_duration_s=longest, bystanders=bystanders)

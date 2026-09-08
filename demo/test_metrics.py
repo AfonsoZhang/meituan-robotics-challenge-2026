@@ -34,6 +34,17 @@ class EvaluationTests(unittest.TestCase):
         for s in self.samples[60:]: s['poses'][MODELS[1]][0] += .1
         self.assertFalse(evaluate(self.samples,self.initial,6)['passed'])
 
+    def test_green_target_and_previously_placed_yellow(self):
+        import numpy as np
+        target=np.array([.2166,.3639])
+        for poses in [self.initial]+[s['poses'] for s in self.samples]:
+            poses[MODELS[1]],poses[MODELS[2]]=poses[MODELS[2]],poses[MODELS[1]]
+            poses[MODELS[2]][:2]=target.tolist()
+        self.assertTrue(evaluate(self.samples,self.initial,6,MODELS[2],target)['passed'])
+        self.assertFalse(evaluate(self.samples,self.initial,6,MODELS[2],TARGET)['passed'])
+        self.samples[20]['poses'][MODELS[1]][0]+=.01
+        self.assertFalse(evaluate(self.samples,self.initial,6,MODELS[2],target)['passed'])
+
 
 if __name__ == '__main__':
     unittest.main()

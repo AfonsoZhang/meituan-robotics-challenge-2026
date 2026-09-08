@@ -53,3 +53,11 @@ bash demo/run.sh --vision correct
 ```
 
 固定偏移重复实验可使用 `run_matrix.py` 与 `summarize_matrix.py`。运行协议、命令和完整计数规则见 [重复实验说明](../docs/vision-repeat.md)。
+
+## 三块逐次观察（集成调试）
+
+```bash
+bash demo/run.sh --sequence --timeout 180
+```
+
+同一世界按黄、绿、蓝顺序逐块定位和抓取，失败停止。原单块入口保留；三块模式自动应用视觉修正，不与 `--vision` 或 `--smoke` 混用。蓝块接触记录只用于审计。全部开发尝试、视频计时边界和未解决问题见 [三块集成记录](../docs/vision-sequence.md)。
