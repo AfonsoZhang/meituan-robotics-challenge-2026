@@ -239,8 +239,8 @@ class Recorder(Node):
                 phase = next((v for k,v in phases.items() if stage.startswith(k)), 'transition')
         lines = [(f'SIMULATION | AUBO S3 + passive hook | {self.task_label}', (20,758)),
                  (f'Sim elapsed {elapsed:6.2f} s | wall elapsed {time.monotonic()-self.wall_start:6.1f} s | planned stage: {phase}', (20,795)),
-                 (('RGB-D snapshot correction applied; trajectory execution open-loop.' if self.vision_mode == 'correct'
-                   else 'RGB-D observed only; frozen open-loop trajectory.' if self.vision_mode == 'observe'
+                 ((f'Joint control: {self.control_mode} | RGB-D: one pre-grasp correction' if self.vision_mode == 'correct'
+                   else f'Joint control: {self.control_mode} | RGB-D: observation only' if self.vision_mode == 'observe'
                    else f'Effort feedback: {self.control_mode} | no grasp in probe' if self.task_label == 'robustness probe'
                    else f'Arm control: {self.control_mode}. Ideal wrist RGB shown separately.'), (20,835)),
                  ('Wrist RGB', (1300,32)), ('44 mm tongue', (1295,330)), ('5 mm thickness', (1295,365)),

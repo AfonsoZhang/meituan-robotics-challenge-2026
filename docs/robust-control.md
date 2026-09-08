@@ -85,3 +85,5 @@ bash demo/run.sh --control pd_matched --robust-probe --disturbance-nm 2
 没有逆动力学惯性/科氏补偿，没有证明不确定性上界足以由 rho 覆盖，也没有考虑限幅下的全局稳定性证明。边界层和输出限幅不等于形式化安全控制；实机可用性、三块掉落原因和约 11 mm 释放偏移仍需各自验证。
 
 实现由 OpenAI Codex 协助；调用 ROS 2 Control、Orocos KDL/kdl_parser 和 Gazebo 官方接口，未复制论文或第三方控制器源代码。源码保留 Apache-2.0 声明及参考来源，便于技术报告披露。
+
+冻结九次实验的代码提交为 `cdb03bbf82e765f841f7c38e8878d61ca916bd05`。随后只修正录制界面文案，明确关节控制模式与视觉更新频率；控制插件和算法未改。归档抓取视频中的旧 “trajectory execution open-loop” 指冻结的视觉参考轨迹，并不表示本轮没有关节力矩反馈；新录像已使用明确标签。
