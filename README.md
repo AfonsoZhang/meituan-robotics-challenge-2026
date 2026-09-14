@@ -35,7 +35,7 @@
 
 ```text
 meituan-robotics-challenge-2026/
-├── AGENTS.md
+├── CLAUDE.md
 ├── README.md
 ├── docs/
 │   ├── rules-summary.md
