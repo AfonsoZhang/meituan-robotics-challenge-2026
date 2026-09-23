@@ -734,6 +734,11 @@
           "original_question": "S3 以何种 ROS 驱动或 SDK 封装接入",
           "resolved_by": "USER-HW-20260923-08",
           "resolution": "S3 用 aubo_ros2_driver；与控制柜版本兼容性未验证。"
+        },
+        {
+          "original_question": "D435i 的 ROS 驱动",
+          "resolved_by": "USER-HW-20260923-09",
+          "resolution": "D435i 用 realsense-ros；安装版本与实际话题未验证。"
         }
       ]
     },
@@ -903,6 +908,24 @@
         ]
       },
       "scope_note": "只确定 S3 的 ROS 2 驱动。未验证 aubo_type:=aubo_S3 能否驱动实机、该 SDK 版本与用户 S3 控制柜/软件版本的兼容性（Q02）、驱动在 NUC 上能否构建（需联网下载 SDK）；aubo_sdk 二进制的许可条款未核对，按 FAQ p6/Q17 披露前须确认。是否使用仓库内 aubo_moveit_config（MoveIt）未确认。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20260923-09",
+      "kind": "user_message",
+      "date": "2026-09-23",
+      "source": "本项目当前会话，用户回复",
+      "original_text": "D435i 用 realsense-ros",
+      "context": "助手列出 Q17 余项「D435i 用哪个 ROS 2 驱动」后，用户给出此答复。",
+      "confirmed": {
+        "d435i_ros2_driver": "realsense-ros（RS-ROS2）"
+      },
+      "clarifies": "USER-HW-20260923 scope_note 与 Q17 中「D435i 的 ROS 驱动」",
+      "scope_note": "只确定驱动项目。未确定安装方式（apt 包还是源码）与版本；D435i 在 NUC 上能否枚举、固件版本未核实；实际话题名、深度编码（本项目视觉代码目前只接受 32FC1 米制深度）与深度对齐方式未验证。USER-SIM-20260906-02 的仿真相机不受影响。",
       "derived_files": [
         "README.md",
         "docs/open-questions.md",
@@ -1183,6 +1206,30 @@
       "usage": "核对负责人研究方向：康复机器人安全、学习与协同控制；用于评估申请展示方向，不证明用户已有这些研究经历。",
       "derived_files": [
         "docs/demo-readiness.md"
+      ]
+    },
+    {
+      "id": "RS-ROS2",
+      "kind": "open_source_repository",
+      "title": "realsenseai/realsense-ros（RealSense ROS 2 封装，原 IntelRealSense/realsense-ros）",
+      "url": "https://github.com/realsenseai/realsense-ros",
+      "accessed_on": "2026-09-23",
+      "default_branch": "ros2-master",
+      "repo_pushed_at": "2026-09-17T14:35:24Z",
+      "latest_release": "4.58.3（2026-07-20）",
+      "license_status": "GitHub API license 字段为 Apache-2.0；未核对各包 package.xml。",
+      "apt_candidate_on_dev_pc": "ros-humble-realsense2-camera 4.58.4-1jammy.20260908.100350，依赖 ros-humble-librealsense2 2.58.4（开发电脑 apt-cache，未安装；NUC 上未查）",
+      "archived_path": null,
+      "cloned": false,
+      "usage": "实机 D435i 的 ROS 2 驱动（USER-HW-20260923-09）。仅查阅仓库元数据与 apt 候选版本，未安装、未复制代码。",
+      "unverified": [
+        "NUC 上的实际安装版本",
+        "D435i 固件与该版本的兼容性",
+        "实际话题名、深度编码与对齐选项（装好后以 ros2 topic list / echo 为准）"
+      ],
+      "derived_files": [
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md"
       ]
     }
   ],
