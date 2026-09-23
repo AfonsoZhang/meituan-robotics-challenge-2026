@@ -390,6 +390,11 @@
           "original_question": "操作系统选择（unresolved 中注明不据「不确定」确定）",
           "resolved_by": "USER-HW-20260923-03",
           "resolution": "实机运行在原生 Ubuntu（非 WSL2）；Ubuntu 版本及是否同一台电脑未说明。"
+        },
+        {
+          "original_question": "实机部署用哪台计算机",
+          "resolved_by": "USER-HW-20260923-04",
+          "resolution": "部署计算机为 NUC（Ubuntu 22.04）；「本机」原意是否即该 NUC 无法从原话判断，保留原记录。"
         }
       ]
     },
@@ -752,6 +757,33 @@
       },
       "clarifies": "USER-HW-20260923 scope_note 中「运行在 WSL2 还是原生 Ubuntu」；USER-HW-20260906-02 unresolved 中未确定的操作系统选择；Q05「最终选择 Windows 还是当前 WSL 环境」",
       "scope_note": "未说明 Ubuntu 版本（ROS 2 Humble 的一级支持平台是 22.04，属工程推断，未经用户确认）；未说明原生 Ubuntu 是本机双系统/重装还是另一台电脑，因此不据此修改 USER-HW-20260906-02「计算使用本机」；相机与 S3 在该系统上的可见性、实时内核等均未核实。ENV-LOCAL-20260906 的 WSL2 观测不代表该部署环境。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "original_question": "Ubuntu 版本；原生系统是本机双系统/重装还是另一台电脑",
+          "resolved_by": "USER-HW-20260923-04",
+          "resolution": "Ubuntu 22.04，运行在 NUC 上。"
+        }
+      ]
+    },
+    {
+      "id": "USER-HW-20260923-04",
+      "kind": "user_message",
+      "date": "2026-09-23",
+      "source": "本项目当前会话，用户回复",
+      "original_text": "22.04，NUC",
+      "context": "助手指出 USER-HW-20260923-03 未说明 Ubuntu 版本、以及原生系统是本机双系统/重装还是另一台电脑后，用户给出此答复。",
+      "confirmed": {
+        "real_robot_os_version": "Ubuntu 22.04",
+        "real_robot_compute": "NUC（小型主机）"
+      },
+      "interpretation_note": "「NUC」按通用用法理解为 NUC 类小型主机，作为实机部署的计算机；与当前开发用的 Windows + WSL2 电脑（ENV-LOCAL-20260906）不是同一台。",
+      "clarifies": "USER-HW-20260923-03 scope_note 中「Ubuntu 版本」「是否同一台电脑」",
+      "scope_note": "未说明 NUC 的品牌/型号、CPU、内存、USB 3 接口（D435i 需要）与网口数量（连 S3 控制柜）；未核实 NUC 是否已有、是否已装系统、相机与 S3 能否在其上枚举/连通。USER-HW-20260906-02 的「本机」原意是这台 NUC 还是当前开发电脑，原话无法判断，该条历史记录保留不改，部署计算机以本条为准。",
       "derived_files": [
         "README.md",
         "docs/open-questions.md",
