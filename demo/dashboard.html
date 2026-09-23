@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>仿真监控台</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.css">
+<script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/lib/addon-fit.js"></script>
+<style>
+:root{--bg:#0f1216;--panel:#161b21;--line:#262d36;--text:#d7dde4;--dim:#7d8894;--ok:#4cc38a;--warn:#e5b454;--bad:#e5654e;--accent:#58a6ff}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:13px/1.4 system-ui,"Noto Sans CJK SC",sans-serif}
+header{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 14px;border-bottom:1px solid var(--line)}
+header h1{font-size:15px;margin:0 8px 0 0;font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:2px 9px;border:1px solid var(--line);border-radius:999px;color:var(--dim);white-space:nowrap}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--dim)}
+.chip.ok i{background:var(--ok)}.chip.warn i{background:var(--warn)}.chip.bad i{background:var(--bad)}
+.chip.ok,.chip.warn,.chip.bad{color:var(--text)}
+header .sp{flex:1}
+main{display:grid;grid-template-columns:minmax(360px,42%) 1fr;gap:10px;padding:10px;height:calc(100% - 45px)}
+section{display:flex;flex-direction:column;min-height:0;gap:8px}
+.bar{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.bar h2{font-size:13px;margin:0 auto 0 0;color:var(--dim);font-weight:600;letter-spacing:.04em}
+select,button{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:4px;padding:3px 7px;font:inherit}
+button{cursor:pointer}button:hover{border-color:var(--accent)}
+.grid{flex:1;display:grid;gap:8px;min-height:0;overflow:auto}
+#videos{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));align-content:start}
+#terms{grid-template-columns:repeat(auto-fit,minmax(420px,1fr));grid-auto-rows:minmax(220px,1fr)}
+.pane{background:var(--panel);border:1px solid var(--line);border-radius:6px;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.pane .hd{display:flex;gap:6px;align-items:center;padding:4px 6px;border-bottom:1px solid var(--line)}
+.pane .hd .t{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--dim);font-family:ui-monospace,monospace;font-size:12px}
+.pane .hd select{max-width:70%}
+.pane .x{padding:0 7px;border:none;color:var(--dim);background:none}
+.pane .x:hover{color:var(--bad)}
+.screen{position:relative;aspect-ratio:4/3;background:#000;display:flex;align-items:center;justify-content:center}
+.screen img,.screen video{width:100%;height:100%;object-fit:contain;display:block}
+.screen .msg{position:absolute;color:var(--dim);padding:10px;text-align:center}
+.screen .ov{position:absolute;left:6px;bottom:6px;background:#000a;padding:1px 6px;border-radius:3px;font-family:ui-monospace,monospace;font-size:11px}
+.term{flex:1;min-height:0;padding:4px}
+.side{font-family:ui-monospace,monospace;font-size:12px;color:var(--dim);max-height:120px;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 8px;white-space:pre}
+@media (max-width:900px){main{grid-template-columns:1fr;height:auto}#terms{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1>美团挑战赛 · 仿真监控台</h1>
+  <span class="chip" id="c-ros"><i></i>ROS</span>
+  <span class="chip" id="c-gz"><i></i>gzserver</span>
+  <span class="chip" id="c-rec"><i></i>record.py</span>
+  <span class="chip" id="c-nodes"><i></i>节点 –</span>
+  <span class="sp"></span>
+  <span class="chip" id="c-env">domain –</span>
+</header>
+<main>
+  <section>
+    <div class="bar"><h2>画面</h2>
+      <button id="add-live">＋ 实时话题</button><button id="add-rec">＋ 录像回放</button></div>
+    <div class="grid" id="videos"></div>
+    <div class="side" id="nodes">节点列表：等待 ROS…</div>
+  </section>
+  <section>
+    <div class="bar"><h2>ROS 终端</h2>
+      <select id="preset"></select><button id="add-term">＋ 终端</button></div>
+    <div class="grid" id="terms"></div>
+  </section>
+</main>
+<script>
+// enter:false 的只键入不回车，按 Enter 才执行
+const PRESETS = [
+  {name:'空 shell', cmd:''},
+  {name:'运行 demo（待确认）', cmd:'bash demo/run.sh --smoke', enter:false},
+  {name:'节点列表', cmd:'watch -n 2 ros2 node list'},
+  {name:'话题列表', cmd:'watch -n 2 ros2 topic list'},
+  {name:'控制器状态', cmd:'watch -n 2 ros2 control list_controllers'},
+  {name:'关节跟踪误差', cmd:'ros2 topic echo /joint_trajectory_controller/controller_state --field error.positions'},
+  {name:'腕部相机帧率', cmd:'ros2 topic hz /d435i/color/image_raw'},
+  {name:'俯视相机帧率', cmd:'ros2 topic hz /demo/overview/image_raw'},
+];
+const DEFAULT_TERMS = [1, 2, 4, 6];
+const DEFAULT_LIVE = ['/demo/overview/image_raw', '/d435i/color/image_raw', '/d435i/depth/depth/image_raw'];
+const $ = s => document.querySelector(s);
+const el = (tag, props={}, ...kids) => { const e = Object.assign(document.createElement(tag), props); e.append(...kids); return e; };
+const store = { get(k, d){ try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
+                set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch {} } };
+
+// ---------- 终端 ----------
+PRESETS.forEach((p, i) => $('#preset').append(el('option', {value:i, textContent:p.name})));
+function addTerm(preset) {
+  const box = el('div', {className:'term'});
+  const close = el('button', {className:'x', textContent:'×', title:'关闭（结束该 shell）'});
+  const pane = el('div', {className:'pane'}, el('div', {className:'hd'}, el('span', {className:'t', textContent:preset.name + (preset.cmd ? ' — ' + preset.cmd : '')}), close), box);
+  $('#terms').append(pane);
+  const term = new Terminal({fontSize:12, fontFamily:'ui-monospace,Menlo,Consolas,monospace', theme:{background:'#161b21'}, scrollback:5000, convertEol:false});
+  const fit = new FitAddon.FitAddon(); term.loadAddon(fit); term.open(box);
+  const q = new URLSearchParams({cmd:preset.cmd}); if (preset.enter === false) q.set('enter', '0');
+  const ws = new WebSocket(`${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/ws/term?${q}`);
+  ws.binaryType = 'arraybuffer';
+  const send = m => ws.readyState === 1 && ws.send(JSON.stringify(m));
+  const resize = () => { try { fit.fit(); send({type:'resize', cols:term.cols, rows:term.rows}); } catch {} };
+  ws.onopen = resize;
+  ws.onmessage = e => term.write(new Uint8Array(e.data));
+  ws.onclose = () => term.write('\r\n\x1b[90m[连接已断开]\x1b[0m\r\n');
+  term.onData(d => send({type:'input', data:d}));
+  const ro = new ResizeObserver(resize); ro.observe(box);
+  close.onclick = () => { ro.disconnect(); ws.close(); term.dispose(); pane.remove(); };
+}
+$('#add-term').onclick = () => addTerm(PRESETS[$('#preset').value]);
+DEFAULT_TERMS.forEach(i => addTerm(PRESETS[i]));
+
+// ---------- 画面 ----------
+let imageTopics = [], recs = [];
+const liveTiles = new Set();
+function addLive(topic) {
+  const sel = el('select');
+  const img = el('img', {alt:''}), msg = el('div', {className:'msg', textContent:'等待画面…'}), ov = el('div', {className:'ov'});
+  const close = el('button', {className:'x', textContent:'×'});
+  const pane = el('div', {className:'pane'}, el('div', {className:'hd'}, sel, el('span', {className:'t'}), close), el('div', {className:'screen'}, img, msg, ov));
+  const tile = {sel, img, msg, ov, topic:null};
+  const fill = () => { const cur = tile.topic; sel.replaceChildren(...[...new Set([cur, ...imageTopics].filter(Boolean))].map(t => el('option', {value:t, textContent:t, selected:t === cur}))); };
+  const show = t => {
+    tile.topic = t; fill(); msg.textContent = '等待画面…'; msg.hidden = false;
+    img.onload = () => { msg.hidden = true; };
+    img.onerror = () => { msg.hidden = false; msg.textContent = 'ROS 不可用或话题无数据'; setTimeout(() => tile.topic === t && (img.src = '/video' + t + '?r=' + Date.now()), 3000); };
+    img.src = '/video' + t;
+    saveLayout();
+  };
+  tile.fill = fill;
+  sel.onchange = () => show(sel.value);
+  close.onclick = () => { img.src = ''; liveTiles.delete(tile); pane.remove(); saveLayout(); };
+  liveTiles.add(tile); $('#videos').append(pane); show(topic);
+}
+function addRec(path) {
+  const sel = el('select'), video = el('video', {controls:true, muted:true, loop:true});
+  const close = el('button', {className:'x', textContent:'×'});
+  const pane = el('div', {className:'pane'}, el('div', {className:'hd'}, sel, el('span', {className:'t', textContent:'录像'}), close), el('div', {className:'screen'}, video));
+  sel.append(...recs.map(r => el('option', {value:r.path, textContent:`${r.path}  (${r.mtime}, ${r.mb} MB)`})));
+  const load = p => { if (!p) return; sel.value = p; video.src = '/outputs/' + p.split('/').map(encodeURIComponent).join('/'); };
+  sel.onchange = () => load(sel.value);
+  close.onclick = () => { video.removeAttribute('src'); video.load(); pane.remove(); };
+  $('#videos').append(pane); load(path || recs[0]?.path);
+  if (!recs.length) sel.append(el('option', {textContent:'outputs/ 下没有 mp4'}));
+}
+const saveLayout = () => store.set('dash.live', [...liveTiles].map(t => t.topic));
+$('#add-live').onclick = () => addLive(imageTopics.find(t => ![...liveTiles].some(x => x.topic === t)) || DEFAULT_LIVE[0]);
+$('#add-rec').onclick = () => addRec();
+
+// ---------- 状态 ----------
+const chip = (id, cls, text) => { const c = $(id); c.className = 'chip ' + cls; c.lastChild.textContent = text; };
+async function poll() {
+  try {
+    const s = await (await fetch('/api/status')).json();
+    $('#c-env').textContent = `ROS_DOMAIN_ID=${s.env.ROS_DOMAIN_ID} · GZ ${s.env.GAZEBO_MASTER_URI.split(':').pop()}`;
+    chip('#c-ros', s.ros_error ? 'bad' : 'ok', s.ros_error ? 'ROS 不可用' : 'ROS');
+    chip('#c-gz', s.processes.gzserver.length ? 'ok' : 'warn', s.processes.gzserver.length ? `gzserver ${s.processes.gzserver.join(',')}` : 'gzserver 未运行');
+    chip('#c-rec', s.processes['record.py'].length ? 'ok' : '', s.processes['record.py'].length ? 'record.py 运行中' : 'record.py 空闲');
+    const nodes = s.graph?.nodes || [];
+    chip('#c-nodes', nodes.length ? 'ok' : '', `节点 ${nodes.length} · 话题 ${s.graph?.topics ?? '–'}`);
+    $('#nodes').textContent = s.ros_error ? s.ros_error : (nodes.length ? nodes.join('\n') : '无节点（仿真未启动）');
+    for (const t of liveTiles) {
+      const st = s.streams[t.topic];
+      t.ov.textContent = !st ? '' : st.error ? st.error :
+        st.age_s == null ? '无数据' : `${st.fps} fps · ${st.size?.slice(0,2).join('×')} ${st.size?.[2]} · ${st.age_s}s 前`;
+      t.ov.style.color = st?.age_s > 2 || st?.error ? 'var(--warn)' : '';
+    }
+  } catch { chip('#c-ros', 'bad', '监控台后端断开'); }
+}
+async function refreshLists() {
+  try { imageTopics = await (await fetch('/api/topics')).json(); liveTiles.forEach(t => t.fill()); } catch {}
+}
+(async () => {
+  try { recs = await (await fetch('/api/recordings')).json(); } catch {}
+  store.get('dash.live', DEFAULT_LIVE).forEach(addLive);
+  addRec();
+  refreshLists(); poll();
+  setInterval(poll, 2000); setInterval(refreshLists, 5000);
+})();
+</script>
+</body>
+</html>
