@@ -681,6 +681,13 @@
         "README.md",
         "docs/simulation-plan.md",
         "docs/open-questions.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "original_question": "是否同时用 MoveIt 做规划",
+          "resolved_by": "USER-SIM-20260923",
+          "resolution": "仿真也用 MoveIt；尚未实现，已冻结实验保留原方法。"
+        }
       ]
     },
     {
@@ -962,6 +969,31 @@
         "README.md",
         "docs/open-questions.md",
         "docs/hardware-vision-plan.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "original_question": "Q16 仿真是否一并使用 MoveIt",
+          "resolved_by": "USER-SIM-20260923",
+          "resolution": "仿真也用 MoveIt；尚未实现，已冻结实验保留原方法。"
+        }
+      ]
+    },
+    {
+      "id": "USER-SIM-20260923",
+      "kind": "user_message",
+      "date": "2026-09-23",
+      "source": "本项目当前会话，用户回复",
+      "original_text": "仿真也用MoveIt",
+      "context": "助手在记录 USER-HW-20260923-10（实机用 MoveIt）后询问 Q16「仿真是否同时用 MoveIt 规划」是否一并改为使用，用户给出此答复。",
+      "confirmed": {
+        "simulation_motion_planning": "MoveIt（与实机一致）"
+      },
+      "clarifies": "USER-SIM-20260906-02 scope_note 与 Q16 中「是否同时用 MoveIt 做规划」",
+      "scope_note": "只确定仿真改用 MoveIt 规划。已冻结的实验（DEMO-*、VISION-*、ROBUST-CONTROL-*）用的是冻结轨迹与自写 IK，作为历史证据保留、不因此改写；MoveIt 接入仿真尚未实现。与实机共用同一套 MoveIt 配置还是分开、配置来源（上游 aubo_moveit_config 或自建）、规划器选择均未确认。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/simulation-plan.md"
       ]
     }
   ],
