@@ -114,7 +114,7 @@ python3 -c "import fitz; d=fitz.open('materials/original/《2026年挑战赛规�
 
 `main` 跟踪 `origin`（GitHub `AfonsoZhang/meituan-robotics-challenge-2026`），已发布 release `demo-v1.0.0`、`vision-v1.1.0`。原始 PDF/JPG 和 `docs/experiments/` 冻结证据入库；`outputs/`、`runs/`、`datasets/`、`checkpoints/`、`recordings/` 在 `.gitignore`。
 
-Codex / Claude 的分工规则在本机专用的 `AGENTS.md` 和 `.claude/CLAUDE.md`（均不提交）。
+本机工作规则（2026-09-23 起本仓库由 Claude 一个人负责，不再与 Codex 分工）在本机专用的 `.claude/CLAUDE.md`，计划与进度在 `.agents/`（均不提交）。
 
 每次改动后可用下面这句自查「文档引用的标识是否都已登记」（输出为空即通过）：
 
