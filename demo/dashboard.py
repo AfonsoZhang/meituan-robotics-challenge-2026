@@ -57,9 +57,18 @@ def to_bgr(encoding, height, width, step, data):
     return out
 
 
-def terminal_spec(preset, readonly):
+def load_presets(path):
+    """--presets 文件：[{name, cmd, kind}]，kind 只能是 shell / type / monitor。"""
+    presets = json.loads(Path(path).read_text())
+    for p in presets:
+        if set(p) != {'name', 'cmd', 'kind'} or p['kind'] not in ('shell', 'type', 'monitor'):
+            raise ValueError(f'预设格式不对：{p}')
+    return presets
+
+
+def terminal_spec(preset, readonly, presets=PRESETS):
     """预设编号 → (argv, 开头键入的字节, 是否接受键盘输入)；只读模式拒绝非 monitor 预设。"""
-    p = PRESETS[int(preset)]
+    p = presets[int(preset)]
     if readonly:
         if p['kind'] != 'monitor': raise PermissionError('只读模式只允许监控预设')
         return ['bash', '-c', p['cmd']], b'', False
@@ -165,7 +174,7 @@ async def status(request):
 async def config(request):
     ro = request.app['readonly']
     return web.json_response({'readonly': ro, 'presets': [{'id': i, 'name': p['name'], 'cmd': p['cmd'], 'kind': p['kind']}
-                              for i, p in enumerate(PRESETS) if not ro or p['kind'] == 'monitor']})
+                              for i, p in enumerate(request.app['presets']) if not ro or p['kind'] == 'monitor']})
 
 
 async def topics(request):
@@ -207,7 +216,7 @@ async def mjpeg(request):
 async def terminal(request):
     """一个 WebSocket 对应一个 PTY；普通模式是交互 bash（预设命令先键入，Ctrl-C 后仍是可用 shell），只读模式直接跑监控命令。"""
     if not same_origin(request): raise web.HTTPForbidden(text='cross-origin terminal refused')
-    try: argv, typed, accept_input = terminal_spec(request.query.get('preset', '0'), request.app['readonly'])
+    try: argv, typed, accept_input = terminal_spec(request.query.get('preset', '0'), request.app['readonly'], request.app['presets'])
     except (IndexError, ValueError): raise web.HTTPBadRequest(text='unknown preset')
     except PermissionError as e: raise web.HTTPForbidden(text=str(e))
     ws = web.WebSocketResponse(max_msg_size=1 << 20)
@@ -249,9 +258,9 @@ async def terminal(request):
     return ws
 
 
-def make_app(ros, env=SIM_ENV, readonly=False):
+def make_app(ros, env=SIM_ENV, readonly=False, presets=PRESETS):
     app = web.Application()
-    app['ros'], app['env'], app['readonly'] = ros, env, readonly
+    app['ros'], app['env'], app['readonly'], app['presets'] = ros, env, readonly, presets
     app.add_routes([web.get('/', index), web.get('/api/status', status), web.get('/api/config', config), web.get('/api/topics', topics),
                     web.get('/api/recordings', list_recordings), web.get('/outputs/{path:.+}', output_file),
                     web.get('/video/{topic:.+}', mjpeg), web.get('/ws/term', terminal)])
@@ -264,13 +273,15 @@ def main():
     ap.add_argument('--host', default='127.0.0.1', help='终端即本机 shell，非回环地址等于开放远程执行；远程查看请用 SSH 隧道')
     ap.add_argument('--readonly', action='store_true', help='不开交互 shell，只允许监控预设、不接受键盘输入')
     ap.add_argument('--ros-domain-id', default=SIM_ENV['ROS_DOMAIN_ID'], help='默认 67 对应仿真；看实机时填实机所用值')
+    ap.add_argument('--presets', help='终端预设 JSON（如 robot/bringup_check.py camera 按实测话题生成的文件）；默认为仿真预设')
     a = ap.parse_args()
+    presets = load_presets(a.presets) if a.presets else PRESETS
     env = {**SIM_ENV, 'ROS_DOMAIN_ID': str(a.ros_domain_id)}
     os.environ.update(env)   # rclpy 在 init 时读 ROS_DOMAIN_ID
     ros = RosBridge()
     if ros.error: print(ros.error)
     print(f'监控台：http://{a.host}:{a.port}/' + ('（只读）' if a.readonly else ''))
-    web.run_app(make_app(ros, env, a.readonly), host=a.host, port=a.port, print=None)
+    web.run_app(make_app(ros, env, a.readonly, presets), host=a.host, port=a.port, print=None)
 
 
 if __name__ == '__main__':

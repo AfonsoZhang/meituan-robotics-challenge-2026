@@ -69,7 +69,7 @@ button{cursor:pointer}button:hover{border-color:var(--accent)}
 <script>
 // 预设由后端 /api/config 下发；只读模式下只有监控预设
 let PRESETS = [], READONLY = false;
-const DEFAULT_TERMS = ['运行 demo（待确认）', '节点列表', '控制器状态', '腕部相机帧率'];
+const DEFAULT_TERMS = ['运行 demo（待确认）', '节点列表', '控制器状态', '腕部相机帧率', '关节角', '彩色帧率'];
 const DEFAULT_LIVE = ['/demo/overview/image_raw', '/d435i/color/image_raw', '/d435i/depth/depth/image_raw'];
 const $ = s => document.querySelector(s);
 const el = (tag, props={}, ...kids) => { const e = Object.assign(document.createElement(tag), props); e.append(...kids); return e; };
@@ -165,7 +165,7 @@ async function refreshLists() {
     PRESETS.forEach(p => $('#preset').append(el('option', {value:p.id, textContent:p.name})));
     if (READONLY) { $('#c-ro').hidden = false; $('#terms-title').textContent = 'ROS 监控（只读）'; }
     const defs = DEFAULT_TERMS.map(n => PRESETS.find(p => p.name === n)).filter(Boolean);
-    (defs.length ? defs : PRESETS.slice(0, 4)).forEach(addTerm);
+    (defs.length ? defs : PRESETS).slice(0, 4).forEach(addTerm);
   } catch {}
   try { recs = await (await fetch('/api/recordings')).json(); } catch {}
   store.get('dash.live', DEFAULT_LIVE).forEach(addLive);

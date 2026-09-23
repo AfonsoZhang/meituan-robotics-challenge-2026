@@ -83,6 +83,6 @@ bash demo/dashboard.sh --readonly --ros-domain-id <实机所用值>
 ssh -N -L 8766:127.0.0.1:8765 <用户>@<NUC 地址>
 ```
 
-NUC 上仍只监听 127.0.0.1，不要为远程访问改 `--host`；WSL2 里建立的隧道，Windows 浏览器也能经 localhost 转发访问。`--ros-domain-id` 默认 67 只对应仿真，实机值未定。实机话题名以届时的相机与 S3 驱动为准（Q17），监控台自动列出图像话题，终端预设里的仿真话题需相应替换。所有模式下终端 WebSocket 都校验 Origin，拒绝其他网页借浏览器连本机终端。只读模式与跨站校验已在开发电脑上验证，尚未在 NUC 上运行过，SSH 隧道也未实测。
+NUC 上仍只监听 127.0.0.1，不要为远程访问改 `--host`；WSL2 里建立的隧道，Windows 浏览器也能经 localhost 转发访问。`--ros-domain-id` 默认 67 只对应仿真，实机值未定。`--presets <文件>` 换成按实测话题生成的预设（`robot/bringup_check.py camera` 会写出 `dashboard-presets.json`，见 [NUC 实机接入](../robot/README.md)）。实机话题名以届时的相机与 S3 驱动为准（Q17），监控台自动列出图像话题，终端预设里的仿真话题需相应替换。所有模式下终端 WebSocket 都校验 Origin，拒绝其他网页借浏览器连本机终端。只读模式与跨站校验已在开发电脑上验证，尚未在 NUC 上运行过，SSH 隧道也未实测。
 
 终端组件 xterm.js（MIT，`@xterm/xterm@5.5.0`、`@xterm/addon-fit@0.10.0`）从 jsdelivr CDN 加载，离线时终端不可用；页面与后端 `dashboard.py` 由 Claude Code 编写，未引入其他第三方代码。

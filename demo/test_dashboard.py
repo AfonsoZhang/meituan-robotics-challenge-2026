@@ -2,7 +2,10 @@ import unittest
 
 import numpy as np
 
-from dashboard import PRESETS, same_origin, terminal_spec, to_bgr
+import json
+import tempfile
+
+from dashboard import PRESETS, load_presets, same_origin, terminal_spec, to_bgr
 
 
 class ToBgrTest(unittest.TestCase):
@@ -48,6 +51,16 @@ class TerminalSpecTest(unittest.TestCase):
         self.assertEqual(argv, ['bash', '-i'])
         self.assertFalse(typed.endswith(b'\n'))
         self.assertTrue(accept)
+
+
+    def test_custom_presets_and_bad_file(self):
+        custom = [{'name': 'hz', 'cmd': 'ros2 topic hz /c', 'kind': 'monitor'}]
+        argv, _, _ = terminal_spec(0, True, custom)
+        self.assertEqual(argv, ['bash', '-c', 'ros2 topic hz /c'])
+        with tempfile.NamedTemporaryFile('w', suffix='.json') as f:
+            json.dump([{'name': 'x', 'cmd': 'rm -rf /', 'kind': 'root'}], f); f.flush()
+            with self.assertRaises(ValueError):
+                load_presets(f.name)
 
 
 class SameOriginTest(unittest.TestCase):
