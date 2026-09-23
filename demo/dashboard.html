@@ -50,6 +50,7 @@ button{cursor:pointer}button:hover{border-color:var(--accent)}
   <span class="chip" id="c-rec"><i></i>record.py</span>
   <span class="chip" id="c-nodes"><i></i>节点 –</span>
   <span class="sp"></span>
+  <span class="chip warn" id="c-ro" hidden><i></i>只读</span>
   <span class="chip" id="c-env">domain –</span>
 </header>
 <main>
@@ -60,24 +61,15 @@ button{cursor:pointer}button:hover{border-color:var(--accent)}
     <div class="side" id="nodes">节点列表：等待 ROS…</div>
   </section>
   <section>
-    <div class="bar"><h2>ROS 终端</h2>
+    <div class="bar"><h2 id="terms-title">ROS 终端</h2>
       <select id="preset"></select><button id="add-term">＋ 终端</button></div>
     <div class="grid" id="terms"></div>
   </section>
 </main>
 <script>
-// enter:false 的只键入不回车，按 Enter 才执行
-const PRESETS = [
-  {name:'空 shell', cmd:''},
-  {name:'运行 demo（待确认）', cmd:'bash demo/run.sh --smoke', enter:false},
-  {name:'节点列表', cmd:'watch -n 2 ros2 node list'},
-  {name:'话题列表', cmd:'watch -n 2 ros2 topic list'},
-  {name:'控制器状态', cmd:'watch -n 2 ros2 control list_controllers'},
-  {name:'关节跟踪误差', cmd:'ros2 topic echo /joint_trajectory_controller/controller_state --field error.positions'},
-  {name:'腕部相机帧率', cmd:'ros2 topic hz /d435i/color/image_raw'},
-  {name:'俯视相机帧率', cmd:'ros2 topic hz /demo/overview/image_raw'},
-];
-const DEFAULT_TERMS = [1, 2, 4, 6];
+// 预设由后端 /api/config 下发；只读模式下只有监控预设
+let PRESETS = [], READONLY = false;
+const DEFAULT_TERMS = ['运行 demo（待确认）', '节点列表', '控制器状态', '腕部相机帧率'];
 const DEFAULT_LIVE = ['/demo/overview/image_raw', '/d435i/color/image_raw', '/d435i/depth/depth/image_raw'];
 const $ = s => document.querySelector(s);
 const el = (tag, props={}, ...kids) => { const e = Object.assign(document.createElement(tag), props); e.append(...kids); return e; };
@@ -85,7 +77,6 @@ const store = { get(k, d){ try { return JSON.parse(localStorage.getItem(k)) ?? d
                 set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch {} } };
 
 // ---------- 终端 ----------
-PRESETS.forEach((p, i) => $('#preset').append(el('option', {value:i, textContent:p.name})));
 function addTerm(preset) {
   const box = el('div', {className:'term'});
   const close = el('button', {className:'x', textContent:'×', title:'关闭（结束该 shell）'});
@@ -93,7 +84,7 @@ function addTerm(preset) {
   $('#terms').append(pane);
   const term = new Terminal({fontSize:12, fontFamily:'ui-monospace,Menlo,Consolas,monospace', theme:{background:'#161b21'}, scrollback:5000, convertEol:false});
   const fit = new FitAddon.FitAddon(); term.loadAddon(fit); term.open(box);
-  const q = new URLSearchParams({cmd:preset.cmd}); if (preset.enter === false) q.set('enter', '0');
+  const q = new URLSearchParams({preset:preset.id});
   const ws = new WebSocket(`${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/ws/term?${q}`);
   ws.binaryType = 'arraybuffer';
   const send = m => ws.readyState === 1 && ws.send(JSON.stringify(m));
@@ -101,12 +92,11 @@ function addTerm(preset) {
   ws.onopen = resize;
   ws.onmessage = e => term.write(new Uint8Array(e.data));
   ws.onclose = () => term.write('\r\n\x1b[90m[连接已断开]\x1b[0m\r\n');
-  term.onData(d => send({type:'input', data:d}));
+  if (!READONLY) term.onData(d => send({type:'input', data:d}));
   const ro = new ResizeObserver(resize); ro.observe(box);
   close.onclick = () => { ro.disconnect(); ws.close(); term.dispose(); pane.remove(); };
 }
-$('#add-term').onclick = () => addTerm(PRESETS[$('#preset').value]);
-DEFAULT_TERMS.forEach(i => addTerm(PRESETS[i]));
+$('#add-term').onclick = () => addTerm(PRESETS.find(p => p.id == $('#preset').value));
 
 // ---------- 画面 ----------
 let imageTopics = [], recs = [];
@@ -169,6 +159,14 @@ async function refreshLists() {
   try { imageTopics = await (await fetch('/api/topics')).json(); liveTiles.forEach(t => t.fill()); } catch {}
 }
 (async () => {
+  try {
+    const c = await (await fetch('/api/config')).json();
+    PRESETS = c.presets; READONLY = c.readonly;
+    PRESETS.forEach(p => $('#preset').append(el('option', {value:p.id, textContent:p.name})));
+    if (READONLY) { $('#c-ro').hidden = false; $('#terms-title').textContent = 'ROS 监控（只读）'; }
+    const defs = DEFAULT_TERMS.map(n => PRESETS.find(p => p.name === n)).filter(Boolean);
+    (defs.length ? defs : PRESETS.slice(0, 4)).forEach(addTerm);
+  } catch {}
   try { recs = await (await fetch('/api/recordings')).json(); } catch {}
   store.get('dash.live', DEFAULT_LIVE).forEach(addLive);
   addRec();

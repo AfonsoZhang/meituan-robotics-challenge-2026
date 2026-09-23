@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """本地仿真监控台：多个 ROS 终端 + 相机实时画面 + 已录视频，一个浏览器页面。
 
-只监听 127.0.0.1（终端就是本机 shell，不要暴露到网络）。ROS 部分可选：
-没有 rclpy 时终端和录像仍可用，实时画面与节点状态显示为不可用。
+只监听 127.0.0.1（终端就是本机 shell，不要暴露到网络）；远程查看走 SSH 隧道。
+--readonly 时不开交互 shell，只能运行白名单里的监控命令，且不接受键盘输入。
+ROS 部分可选：没有 rclpy 时终端和录像仍可用，实时画面与节点状态显示为不可用。
 用 demo/dashboard.sh 启动，它和 run.sh 一样先 source ROS 与工作空间。
 """
 import argparse, asyncio, fcntl, json, os, pty, signal, struct, subprocess, termios, threading, time
@@ -15,8 +16,19 @@ from aiohttp import web, WSMsgType
 ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parent
 OUTPUTS = REPO/'outputs'
-# 与 record.py 写死的实例一致，否则终端里看不到仿真
+# 默认与 record.py 写死的仿真实例一致；看实机时用 --ros-domain-id 改成实机所用值
 SIM_ENV = {'ROS_DOMAIN_ID': '67', 'GAZEBO_MASTER_URI': 'http://127.0.0.1:11365'}
+# kind：shell 键入并回车；type 只键入不回车，留给人确认；monitor 只读监控，--readonly 下唯一允许的一类
+PRESETS = [
+    {'name': '空 shell', 'cmd': '', 'kind': 'shell'},
+    {'name': '运行 demo（待确认）', 'cmd': 'bash demo/run.sh --smoke', 'kind': 'type'},
+    {'name': '节点列表', 'cmd': 'watch -n 2 ros2 node list', 'kind': 'monitor'},
+    {'name': '话题列表', 'cmd': 'watch -n 2 ros2 topic list', 'kind': 'monitor'},
+    {'name': '控制器状态', 'cmd': 'watch -n 2 ros2 control list_controllers', 'kind': 'monitor'},
+    {'name': '关节跟踪误差', 'cmd': 'ros2 topic echo /joint_trajectory_controller/controller_state --field error.positions', 'kind': 'monitor'},
+    {'name': '腕部相机帧率', 'cmd': 'ros2 topic hz /d435i/color/image_raw', 'kind': 'monitor'},
+    {'name': '俯视相机帧率', 'cmd': 'ros2 topic hz /demo/overview/image_raw', 'kind': 'monitor'},
+]
 WATCHED = ('gzserver', 'gzclient', 'record.py', 'robot_state_publisher', 'ros2')
 STREAM_FPS = 15
 
@@ -43,6 +55,23 @@ def to_bgr(encoding, height, width, step, data):
     out = cv2.applyColorMap(scaled, cv2.COLORMAP_TURBO)
     out[~valid] = 0
     return out
+
+
+def terminal_spec(preset, readonly):
+    """预设编号 → (argv, 开头键入的字节, 是否接受键盘输入)；只读模式拒绝非 monitor 预设。"""
+    p = PRESETS[int(preset)]
+    if readonly:
+        if p['kind'] != 'monitor': raise PermissionError('只读模式只允许监控预设')
+        return ['bash', '-c', p['cmd']], b'', False
+    typed = p['cmd'].encode() + (b'\n' if p['cmd'] and p['kind'] != 'type' else b'')
+    return ['bash', '-i'], typed, True
+
+
+def same_origin(request):
+    """浏览器跨站也能连 ws://127.0.0.1，必须校验 Origin，否则任意网页都能借终端执行命令。"""
+    origin = request.headers.get('Origin')
+    if origin is None: return True   # 非浏览器客户端（curl、测试脚本）
+    return origin.split('://', 1)[-1] == request.host
 
 
 def processes():
@@ -128,9 +157,15 @@ async def index(request):
 async def status(request):
     ros = request.app['ros']
     graph = await asyncio.to_thread(ros.graph) if not ros.error else None
-    return web.json_response({'env': SIM_ENV, 'ros_error': ros.error, 'graph': graph,
+    return web.json_response({'env': request.app['env'], 'ros_error': ros.error, 'graph': graph,
                               'processes': await asyncio.to_thread(processes),
                               'streams': ros.stream_stats() if not ros.error else {}})
+
+
+async def config(request):
+    ro = request.app['readonly']
+    return web.json_response({'readonly': ro, 'presets': [{'id': i, 'name': p['name'], 'cmd': p['cmd'], 'kind': p['kind']}
+                              for i, p in enumerate(PRESETS) if not ro or p['kind'] == 'monitor']})
 
 
 async def topics(request):
@@ -170,12 +205,16 @@ async def mjpeg(request):
 
 
 async def terminal(request):
-    """一个 WebSocket 对应一个 PTY 里的交互 bash；cmd 参数作为首条命令键入，Ctrl-C 后仍是可用 shell。"""
+    """一个 WebSocket 对应一个 PTY；普通模式是交互 bash（预设命令先键入，Ctrl-C 后仍是可用 shell），只读模式直接跑监控命令。"""
+    if not same_origin(request): raise web.HTTPForbidden(text='cross-origin terminal refused')
+    try: argv, typed, accept_input = terminal_spec(request.query.get('preset', '0'), request.app['readonly'])
+    except (IndexError, ValueError): raise web.HTTPBadRequest(text='unknown preset')
+    except PermissionError as e: raise web.HTTPForbidden(text=str(e))
     ws = web.WebSocketResponse(max_msg_size=1 << 20)
     await ws.prepare(request)
     master, slave = pty.openpty()
-    env = {**os.environ, **SIM_ENV, 'TERM': 'xterm-256color'}
-    proc = subprocess.Popen(['bash', '-i'], stdin=slave, stdout=slave, stderr=slave, cwd=REPO, env=env,
+    env = {**os.environ, **request.app['env'], 'TERM': 'xterm-256color'}
+    proc = subprocess.Popen(argv, stdin=slave, stdout=slave, stderr=slave, cwd=REPO, env=env,
                             start_new_session=True, close_fds=True)
     os.close(slave)
     os.set_blocking(master, False)
@@ -192,14 +231,12 @@ async def terminal(request):
         asyncio.ensure_future(ws.send_bytes(data))
 
     loop.add_reader(master, readable)
-    cmd = request.query.get('cmd', '').strip()
-    if cmd:   # enter=0：只键入不回车，留给人确认（如启动仿真）
-        os.write(master, cmd.encode()+(b'' if request.query.get('enter') == '0' else b'\n'))
+    if typed: os.write(master, typed)
     try:
         async for msg in ws:
             if msg.type != WSMsgType.TEXT: continue
             m = json.loads(msg.data)
-            if m['type'] == 'input':
+            if m['type'] == 'input' and accept_input:
                 os.write(master, m['data'].encode())
             elif m['type'] == 'resize':
                 fcntl.ioctl(master, termios.TIOCSWINSZ, struct.pack('HHHH', int(m['rows']), int(m['cols']), 0, 0))
@@ -212,10 +249,10 @@ async def terminal(request):
     return ws
 
 
-def make_app(ros):
+def make_app(ros, env=SIM_ENV, readonly=False):
     app = web.Application()
-    app['ros'] = ros
-    app.add_routes([web.get('/', index), web.get('/api/status', status), web.get('/api/topics', topics),
+    app['ros'], app['env'], app['readonly'] = ros, env, readonly
+    app.add_routes([web.get('/', index), web.get('/api/status', status), web.get('/api/config', config), web.get('/api/topics', topics),
                     web.get('/api/recordings', list_recordings), web.get('/outputs/{path:.+}', output_file),
                     web.get('/video/{topic:.+}', mjpeg), web.get('/ws/term', terminal)])
     return app
@@ -224,13 +261,16 @@ def make_app(ros):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--port', type=int, default=8765)
-    ap.add_argument('--host', default='127.0.0.1', help='终端即本机 shell，非回环地址等于开放远程执行')
+    ap.add_argument('--host', default='127.0.0.1', help='终端即本机 shell，非回环地址等于开放远程执行；远程查看请用 SSH 隧道')
+    ap.add_argument('--readonly', action='store_true', help='不开交互 shell，只允许监控预设、不接受键盘输入')
+    ap.add_argument('--ros-domain-id', default=SIM_ENV['ROS_DOMAIN_ID'], help='默认 67 对应仿真；看实机时填实机所用值')
     a = ap.parse_args()
-    os.environ.update(SIM_ENV)   # rclpy 在 init 时读 ROS_DOMAIN_ID
+    env = {**SIM_ENV, 'ROS_DOMAIN_ID': str(a.ros_domain_id)}
+    os.environ.update(env)   # rclpy 在 init 时读 ROS_DOMAIN_ID
     ros = RosBridge()
     if ros.error: print(ros.error)
-    print(f'监控台：http://{a.host}:{a.port}/')
-    web.run_app(make_app(ros), host=a.host, port=a.port, print=None)
+    print(f'监控台：http://{a.host}:{a.port}/' + ('（只读）' if a.readonly else ''))
+    web.run_app(make_app(ros, env, a.readonly), host=a.host, port=a.port, print=None)
 
 
 if __name__ == '__main__':
