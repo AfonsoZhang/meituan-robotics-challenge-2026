@@ -63,6 +63,7 @@ materials/extracted/ + previews/               docs/experiments/<实验>-<日期
 - `demo/data/`：`sequence-v1.json` 是历史轨迹冻结副本，`provenance.json` / `vision-provenance.json` 记来源、哈希和 AI 使用说明。
 - `simulation/meituan_sim/`：S3 + 钩具 + D435i 的 xacro、控制器配置、launch，`scripts/gen_scene.py` 在构建时生成电池/底图/world。
 - `simulation/meituan_robust_control/`：C++ 力矩控制插件（重力补偿＋边界层滑模，继承 Humble JTC），单测 `test/test_sliding.cpp`。
+- `robot/`：NUC 实机接入（`setup-nuc.sh` 锁定 `aubo_ros2_driver` 提交构建驱动与 MoveIt 配置，`bringup_check.py` 分 env/driver/camera 三阶段只读检查，`jog.py` 单关节 ≤5° 点动，纯逻辑在 `checks.py`）；尚未在实机运行。
 - `simulation/provenance.json`：自建源码出处与打包改动。上游 `aubo_description` 由 `demo/setup-workspace.sh` 锁定提交 `47fa5e02…` 获取，**不归档进本仓库**。
 
 ## 常用命令
@@ -70,6 +71,7 @@ materials/extracted/ + previews/               docs/experiments/<实验>-<日期
 ```bash
 # Python 单测（离线，不需 ROS/Gazebo；用 unittest，不是 pytest）
 python3 -m unittest discover -s demo -p 'test_*.py'
+python3 -m unittest discover -s robot -p 'test_*.py'
 
 # 构建仿真工作空间（三个包；已存在且提交不符时脚本停止，不 reset）
 export AUBO_ROS2_WS="$HOME/aubo_ros2_ws"; bash demo/setup-workspace.sh
@@ -120,6 +122,6 @@ python3 -c "import fitz; d=fitz.open('materials/original/《2026年挑战赛规�
 
 ```bash
 comm -23 \
-  <(grep -rhoE 'USER-[A-Z]+-[0-9]{8}(-[0-9]+)?|(VAC|AUBO|RS|CV)-[A-Z0-9]+|(VISION|ROBUST|DEMO|ENV)-[A-Z-]+-[0-9]{8}|CTRL-[A-Z]+-[0-9]{4}|TEAMMATE-[A-Z]+-[0-9]{8}|POLYU-[A-Z0-9]+(-[A-Z0-9]+)*' README.md docs/*.md demo/*.md materials/README.md | sort -u) \
+  <(grep -rhoE 'USER-[A-Z]+-[0-9]{8}(-[0-9]+)?|(VAC|AUBO|RS|CV)-[A-Z0-9]+|(VISION|ROBUST|DEMO|ENV)-[A-Z-]+-[0-9]{8}|CTRL-[A-Z]+-[0-9]{4}|TEAMMATE-[A-Z]+-[0-9]{8}|POLYU-[A-Z0-9]+(-[A-Z0-9]+)*' README.md docs/*.md demo/*.md robot/*.md materials/README.md | sort -u) \
   <(python3 -c "import json;d=json.load(open('materials/manifest.json'));print('\n'.join(sorted(e['id'] for k in ('sources','project_decisions','external_references','local_observations') for e in d[k])))")
 ```
