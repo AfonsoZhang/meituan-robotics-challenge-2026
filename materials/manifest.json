@@ -729,6 +729,11 @@
           "original_question": "运行在 WSL2 还是原生 Ubuntu",
           "resolved_by": "USER-HW-20260923-03",
           "resolution": "实机运行在原生 Ubuntu（非 WSL2）；Ubuntu 版本及是否同一台电脑未说明。"
+        },
+        {
+          "original_question": "S3 以何种 ROS 驱动或 SDK 封装接入",
+          "resolved_by": "USER-HW-20260923-08",
+          "resolution": "S3 用 aubo_ros2_driver；与控制柜版本兼容性未验证。"
         }
       ]
     },
@@ -873,6 +878,35 @@
         "docs/open-questions.md",
         "docs/hardware-vision-plan.md",
         "demo/README.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20260923-08",
+      "kind": "user_message",
+      "date": "2026-09-23",
+      "source": "本项目当前会话，用户回复",
+      "original_text": "S3 用 aubo_ros2_driver",
+      "context": "助手列出 Q17 余项「S3 通过哪种 ROS 2 驱动或 SDK 封装接入」后，用户给出此答复。",
+      "confirmed": {
+        "s3_ros2_driver": "aubo_ros2_driver（AUBO-ROS2）"
+      },
+      "clarifies": "USER-HW-20260923 scope_note 与 Q17 中「S3 以何种 ROS 驱动或 SDK 封装接入」",
+      "verification": {
+        "checked_on": "2026-09-23",
+        "method": "只读查看开发电脑本地克隆 ~/aubo_ros2_ws/src/aubo_ros2_driver（提交 85684075d6ff06c5385e39611208e99ebf0f94c6，仿真搭建时克隆，驱动包带 COLCON_IGNORE 未构建）",
+        "findings": [
+          "驱动包 aubo_ros2_driver 是 ros2_control 硬件接口插件 aubo_driver/AuboHardwareInterface；默认控制器配置含 joint_state_broadcaster、joint_trajectory_controller、forward_command_controller_position，与仿真所用 joint_trajectory_controller 同名。",
+          "实机启动示例：ros2 launch aubo_ros2_driver aubo_control.launch.py aubo_type:=<型号> robot_ip:=<控制柜 IP> use_fake_hardware:=false；aubo_type 默认 aubo_i5。",
+          "CMakeLists 构建时用 FetchContent 从 download.aubo-robotics.cn 下载二进制 aubo_sdk 0.24.1-rc.3（x86_64 与 aarch64 两个包，按架构选择）。",
+          "驱动包 package.xml 声明 BSD-3-Clause；该声明不覆盖下载的二进制 aubo_sdk。",
+          "仓库 README 建议实机驱动前先用 aubo_description/scripts/calibrate_urdf_dh.py（需 pyaubo_sdk、控制柜 IP）生成校准版 URDF。"
+        ]
+      },
+      "scope_note": "只确定 S3 的 ROS 2 驱动。未验证 aubo_type:=aubo_S3 能否驱动实机、该 SDK 版本与用户 S3 控制柜/软件版本的兼容性（Q02）、驱动在 NUC 上能否构建（需联网下载 SDK）；aubo_sdk 二进制的许可条款未核对，按 FAQ p6/Q17 披露前须确认。是否使用仓库内 aubo_moveit_config（MoveIt）未确认。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md"
       ]
     }
   ],
@@ -1082,15 +1116,22 @@
       "archived_path": null,
       "cloned": false,
       "license_status": "GitHub API license 字段为 null；未核对包内声明。",
-      "usage": "候选 ROS2 路线参考：仓库内含 aubo_gazebo、aubo_moveit_config、aubo_ros2_driver 等包，aubo_description 为指向 AUBO-DESC 的 submodule，launch 以 aubo_type:=aubo_i5 为例参数化。",
+      "usage": "候选 ROS2 路线参考：仓库内含 aubo_gazebo、aubo_moveit_config、aubo_ros2_driver 等包，aubo_description 为指向 AUBO-DESC 的 submodule，launch 以 aubo_type:=aubo_i5 为例参数化。 2026-09-23 起为实机 S3 驱动（USER-HW-20260923-08）。",
       "unverified": [
         "aubo_type 是否支持 aubo_S3",
         "适用的 ROS 2 发行版",
         "与用户实机控制柜/软件版本的兼容性"
       ],
       "derived_files": [
-        "docs/simulation-plan.md"
-      ]
+        "docs/simulation-plan.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md"
+      ],
+      "local_clone_check": {
+        "date": "2026-09-23",
+        "commit": "85684075d6ff06c5385e39611208e99ebf0f94c6",
+        "license_in_driver_package_xml": "BSD-3-Clause（仅驱动包；构建时下载的二进制 aubo_sdk 0.24.1-rc.3 许可未核对）"
+      }
     },
     {
       "id": "TEAMMATE-DEMO-20260906",
