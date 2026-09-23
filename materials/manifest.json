@@ -385,6 +385,11 @@
           "original_question": "第二处“夹爪”是否指相机计划安装在未来夹爪/机械臂末端，已提问澄清但尚无答复。",
           "resolved_by": "USER-HW-20260906-03",
           "resolution": "已确认相机计划末端安装。"
+        },
+        {
+          "original_question": "操作系统选择（unresolved 中注明不据「不确定」确定）",
+          "resolved_by": "USER-HW-20260923-03",
+          "resolution": "实机运行在原生 Ubuntu（非 WSL2）；Ubuntu 版本及是否同一台电脑未说明。"
         }
       ]
     },
@@ -709,6 +714,11 @@
           "original_question": "ROS 1 还是 ROS 2 及发行版",
           "resolved_by": "USER-HW-20260923-02",
           "resolution": "实机使用 ROS 2 Humble。"
+        },
+        {
+          "original_question": "运行在 WSL2 还是原生 Ubuntu",
+          "resolved_by": "USER-HW-20260923-03",
+          "resolution": "实机运行在原生 Ubuntu（非 WSL2）；Ubuntu 版本及是否同一台电脑未说明。"
         }
       ]
     },
@@ -724,6 +734,24 @@
       },
       "clarifies": "USER-HW-20260923 scope_note 中「ROS 1 还是 ROS 2 及发行版」",
       "scope_note": "只确定实机 ROS 发行版，与仿真一致。仍未确认运行在 WSL2 还是原生 Ubuntu（Q05）、S3 的 ROS 2 驱动或 SDK 封装及控制柜版本（Q02）、D435i 的 ROS 2 驱动及本机可见性、是否使用 MoveIt。发行版一致不等于仿真代码已在实机验证。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20260923-03",
+      "kind": "user_message",
+      "date": "2026-09-23",
+      "source": "本项目当前会话，用户回复",
+      "original_text": "原生 Ubuntu",
+      "context": "助手列出 Q17 余项「运行在 WSL2 还是原生 Ubuntu」后，用户给出此答复。",
+      "confirmed": {
+        "real_robot_os": "原生 Ubuntu（非 WSL2）"
+      },
+      "clarifies": "USER-HW-20260923 scope_note 中「运行在 WSL2 还是原生 Ubuntu」；USER-HW-20260906-02 unresolved 中未确定的操作系统选择；Q05「最终选择 Windows 还是当前 WSL 环境」",
+      "scope_note": "未说明 Ubuntu 版本（ROS 2 Humble 的一级支持平台是 22.04，属工程推断，未经用户确认）；未说明原生 Ubuntu 是本机双系统/重装还是另一台电脑，因此不据此修改 USER-HW-20260906-02「计算使用本机」；相机与 S3 在该系统上的可见性、实时内核等均未核实。ENV-LOCAL-20260906 的 WSL2 观测不代表该部署环境。",
       "derived_files": [
         "README.md",
         "docs/open-questions.md",
