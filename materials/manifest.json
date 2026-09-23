@@ -739,6 +739,11 @@
           "original_question": "D435i 的 ROS 驱动",
           "resolved_by": "USER-HW-20260923-09",
           "resolution": "D435i 用 realsense-ros；安装版本与实际话题未验证。"
+        },
+        {
+          "original_question": "是否使用 MoveIt",
+          "resolved_by": "USER-HW-20260923-10",
+          "resolution": "实机使用 MoveIt；配置来源未定。"
         }
       ]
     },
@@ -926,6 +931,33 @@
       },
       "clarifies": "USER-HW-20260923 scope_note 与 Q17 中「D435i 的 ROS 驱动」",
       "scope_note": "只确定驱动项目。未确定安装方式（apt 包还是源码）与版本；D435i 在 NUC 上能否枚举、固件版本未核实；实际话题名、深度编码（本项目视觉代码目前只接受 32FC1 米制深度）与深度对齐方式未验证。USER-SIM-20260906-02 的仿真相机不受影响。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20260923-10",
+      "kind": "user_message",
+      "date": "2026-09-23",
+      "source": "本项目当前会话，用户回复",
+      "original_text": "用 MoveIt",
+      "context": "助手列出 Q17 余项「是否使用 MoveIt」（实机栈问题）后，用户给出此答复。",
+      "confirmed": {
+        "real_robot_motion_planning": "MoveIt（ROS 2 Humble 下即 MoveIt 2）"
+      },
+      "clarifies": "USER-HW-20260923 scope_note 与 Q17 中「是否使用 MoveIt」",
+      "verification": {
+        "checked_on": "2026-09-23",
+        "method": "只读查看开发电脑本地克隆 ~/aubo_ros2_ws/src/aubo_ros2_driver（提交 85684075），aubo_moveit_config 已在仿真工作空间构建；开发电脑已装 MoveIt 2.5.9",
+        "findings": [
+          "aubo_moveit_config 的 launch 只允许 SRDF aubo_robot.srdf（通用，规划组 manipulator，链 base_link→ee_link，KDL 运动学）；ee_link 由 aubo_ros2_macro.xacro 统一添加，关节名与 S3 模型一致。",
+          "该通用 SRDF 的自碰撞豁免表不是按 S3 几何生成；aubo_description 另有 aubo_S3.srdf（规划组 manipulator_S3，链 base_link→wrist3_Link），但 aubo_moveit_config 的 launch 未开放选择它。",
+          "上游 MoveIt 模型不含本项目的末端工具与 D435i 支架，碰撞几何需自行补入。"
+        ]
+      },
+      "scope_note": "按提问语境理解为实机使用 MoveIt。Q16 中「仿真是否同时用 MoveIt 规划」是否一并改为使用，原话未区分，不据此改动 Q16；现有仿真 demo 仍用冻结轨迹与自写 IK。未确认使用 aubo_moveit_config 还是自建 MoveIt 配置、规划器与运动学插件选择；未在实机验证。",
       "derived_files": [
         "README.md",
         "docs/open-questions.md",
