@@ -28,6 +28,7 @@
 - [固定偏移重复对照](docs/vision-repeat.md)：−6/0/+6 mm，各两轮、共 12 次；两种模式均 6/6 通过，尚无成功率优势结论。
 - [三块逐次观察集成](docs/vision-sequence.md)：同一世界逐块定位；最终版本两次通过，开发中蓝块掉落及约 11 mm 释放偏差仍保留。
 - [力矩鲁棒控制实验](docs/robust-control.md)：重力补偿＋边界层滑模，含基础/增益匹配 PD 对照；仿真接口，不代表实机或形式化安全证明。
+- [NUC 实机接入](robot/README.md)：环境安装脚本、逐项检查（环境/驱动/相机）与单关节小幅点动；尚未在实机上运行。
 - [浏览器监控台](demo/README.md#浏览器监控台)：多个 ROS 终端 + 相机实时画面 + 录像回放，`bash demo/dashboard.sh`；只做观察，不参与控制。
 - [资料说明](materials/README.md)：原件、提取文本及预览图的使用方式。
 - [来源清单](materials/manifest.json)：原始路径、文档页数和 SHA-256。

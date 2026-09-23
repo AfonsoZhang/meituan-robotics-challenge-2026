@@ -916,14 +916,18 @@
           "实机启动示例：ros2 launch aubo_ros2_driver aubo_control.launch.py aubo_type:=<型号> robot_ip:=<控制柜 IP> use_fake_hardware:=false；aubo_type 默认 aubo_i5。",
           "CMakeLists 构建时用 FetchContent 从 download.aubo-robotics.cn 下载二进制 aubo_sdk 0.24.1-rc.3（x86_64 与 aarch64 两个包，按架构选择）。",
           "驱动包 package.xml 声明 BSD-3-Clause；该声明不覆盖下载的二进制 aubo_sdk。",
-          "仓库 README 建议实机驱动前先用 aubo_description/scripts/calibrate_urdf_dh.py（需 pyaubo_sdk、控制柜 IP）生成校准版 URDF。"
+          "仓库 README 建议实机驱动前先用 aubo_description/scripts/calibrate_urdf_dh.py（需 pyaubo_sdk、控制柜 IP）生成校准版 URDF。",
+          "aubo_hardware_interface.cpp：连接控制柜 RPC 30004、RTDE 30010，均以写死的账号 aubo / 123456 登录。",
+          "连接后调用 setHardwareCustomParameters 写入 vff_enable = false，即改动控制柜硬件参数；随后 startServoMode，激活时以当前实测位置作为初始指令保持。",
+          "write() 仅在控制柜 Running 且安全模式为 Normal/Reduced 时下发 Servoj，否则返回 ERROR 并提示检查机器人状态后重启驱动。"
         ]
       },
       "scope_note": "只确定 S3 的 ROS 2 驱动。未验证 aubo_type:=aubo_S3 能否驱动实机、该 SDK 版本与用户 S3 控制柜/软件版本的兼容性（Q02）、驱动在 NUC 上能否构建（需联网下载 SDK）；aubo_sdk 二进制的许可条款未核对，按 FAQ p6/Q17 披露前须确认。是否使用仓库内 aubo_moveit_config（MoveIt）未确认。",
       "derived_files": [
         "README.md",
         "docs/open-questions.md",
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "robot/README.md"
       ]
     },
     {
@@ -941,7 +945,8 @@
       "derived_files": [
         "README.md",
         "docs/open-questions.md",
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "robot/README.md"
       ]
     },
     {
@@ -968,7 +973,8 @@
       "derived_files": [
         "README.md",
         "docs/open-questions.md",
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "robot/README.md"
       ],
       "subsequent_resolutions": [
         {
@@ -1082,7 +1088,8 @@
       "scope_note": "只确认三件设备到位。NUC 是否已装好 Ubuntu 22.04 与 ROS 2 Humble、S3 控制柜 IP 与软件版本、网络连接、D435i 固件与 USB 3 连接、相机是否已装到末端，均未说明；末端工具（三方案）是否在手未涉及。",
       "derived_files": [
         "docs/open-questions.md",
-        "README.md"
+        "README.md",
+        "robot/README.md"
       ]
     }
   ],
@@ -1382,7 +1389,8 @@
       ],
       "derived_files": [
         "docs/hardware-vision-plan.md",
-        "docs/open-questions.md"
+        "docs/open-questions.md",
+        "robot/README.md"
       ]
     }
   ],
