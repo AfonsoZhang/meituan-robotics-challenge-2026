@@ -59,7 +59,7 @@ materials/extracted/ + previews/               docs/experiments/<实验>-<日期
 ## 代码结构
 
 - `demo/run.sh`：source ROS Humble 和 `${AUBO_ROS2_WS:-$HOME/aubo_ros2_ws}` 后 exec `/usr/bin/python3 demo/record.py`。`record.py` 是唯一仿真入口：起 Gazebo、生成世界、执行冻结轨迹、录视频、写 `outputs/demo-*`。模式开关：`--check`、`--smoke`、`--vision off|observe|correct`、`--sequence`、`--control position|pd|pd_matched|smc`、`--robust-probe`。
-- `demo/vision.py`（RGB-D 检测与局部 IK 修正）、`sequence.py`（三块逐次）、`metrics.py`（抓放判定）、`robust_probe.py`；离线工具 `report.py`（轨迹/误差图）、`replay_vision.py`（重放已存相机快照，不需 ROS）、`run_matrix.py` / `summarize_matrix.py` / `run_robust_matrix.py` / `summarize_contacts.py`；测试 `test_*.py`。
+- `demo/dashboard.py` + `dashboard.html`（`dashboard.sh` 启动的浏览器监控台：PTY 终端、MJPEG 相机流、录像回放，只观察）、`demo/vision.py`（RGB-D 检测与局部 IK 修正）、`sequence.py`（三块逐次）、`metrics.py`（抓放判定）、`robust_probe.py`；离线工具 `report.py`（轨迹/误差图）、`replay_vision.py`（重放已存相机快照，不需 ROS）、`run_matrix.py` / `summarize_matrix.py` / `run_robust_matrix.py` / `summarize_contacts.py`；测试 `test_*.py`。
 - `demo/data/`：`sequence-v1.json` 是历史轨迹冻结副本，`provenance.json` / `vision-provenance.json` 记来源、哈希和 AI 使用说明。
 - `simulation/meituan_sim/`：S3 + 钩具 + D435i 的 xacro、控制器配置、launch，`scripts/gen_scene.py` 在构建时生成电池/底图/world。
 - `simulation/meituan_robust_control/`：C++ 力矩控制插件（重力补偿＋边界层滑模，继承 Humble JTC），单测 `test/test_sliding.cpp`。

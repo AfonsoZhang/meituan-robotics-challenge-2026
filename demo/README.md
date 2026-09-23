@@ -65,3 +65,13 @@ bash demo/run.sh --sequence --timeout 180
 ## 可选力矩闭环
 
 重新构建后可执行 `bash demo/run.sh --control smc --vision correct`；`--control pd` 为重力补偿 PD 基线，`--control pd_matched` 为边界层增益匹配对照。默认仍为 position。高位受扰对照使用 `--robust-probe --disturbance-nm 2`，不要与抓取/序列选项混用；详见 [算法、协议和实测结果](../docs/robust-control.md)。
+
+## 浏览器监控台
+
+```bash
+bash demo/dashboard.sh            # 打开 http://127.0.0.1:8765/
+```
+
+一个页面里并排：多个 ROS 终端（每个是本机 PTY 中的交互 bash，已设 `ROS_DOMAIN_ID=67`、`GAZEBO_MASTER_URI`，工作目录为仓库根；可选预设如节点/话题列表、控制器状态、关节跟踪误差、相机帧率，「运行 demo」预设只键入命令不回车）、相机实时画面（自动列出 `sensor_msgs/Image` 话题，经 MJPEG 限 15 fps 推送；深度图按每帧 2–98 分位伪彩，只作目视，不是量测）、`outputs/` 下已录 mp4 回放，以及 gzserver / record.py 进程与 ROS 节点状态。
+
+监控台只观察、不改 `record.py` 的任何行为；仿真由 `record.py` 自行起停，所以实时画面只在一次运行期间有。终端即本机 shell，默认只监听 127.0.0.1，不要改成对外地址。终端组件 xterm.js（MIT，`@xterm/xterm@5.5.0`、`@xterm/addon-fit@0.10.0`）从 jsdelivr CDN 加载，离线时终端不可用；页面与后端 `dashboard.py` 由 Claude Code 编写，未引入其他第三方代码。
