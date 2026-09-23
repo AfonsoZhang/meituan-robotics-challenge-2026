@@ -31,7 +31,7 @@ from sensor_msgs.msg import Image, CameraInfo
 from std_msgs.msg import Float64MultiArray
 from tf2_ros import Buffer, TransformListener
 from scipy.spatial.transform import Rotation
-from detector import detect
+from detector import depth_to_meters, detect
 from vision import OBSERVER, COLORS, correction, translated_plan
 from trajectory_msgs.msg import JointTrajectoryPoint
 
@@ -376,8 +376,7 @@ def observe_yellow(node, color="yellow", observer=OBSERVER):
                 and node.tf_buffer.can_transform('base_link',d.header.frame_id,rclpy.time.Time.from_msg(d.header.stamp)))
     spin_until(node,coherent,25,'No fresh synchronized RGB-D / timestamped TF')
     c,d = node.rgbd['color'],node.rgbd['depth']
-    if d.encoding != '32FC1' or d.is_bigendian: raise RuntimeError('Unsupported depth format')
-    depth = np.frombuffer(d.data,np.float32).reshape(d.height,d.step//4)[:,:d.width].copy()
+    depth = depth_to_meters(d.encoding,d.height,d.width,d.step,d.data,d.is_bigendian)
     Kc,Kd = [np.array(node.rgbd[k].k).reshape(3,3) for k in ('cinfo','dinfo')]
     transform = node.tf_buffer.lookup_transform('base_link',d.header.frame_id,rclpy.time.Time.from_msg(d.header.stamp)).transform
     q = transform.rotation; t = transform.translation

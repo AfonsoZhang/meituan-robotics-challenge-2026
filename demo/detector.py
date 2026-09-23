@@ -16,6 +16,21 @@ import cv2
 NOMINAL = dict(body_w=0.070, body_l=0.080, body_h=0.050, top_h=0.080)
 
 
+def depth_to_meters(encoding, height, width, step, data, is_bigendian=False):
+    """sensor_msgs/Image 深度 → 米制 float32；0 与非有限值记为 NaN（无效）。
+    仿真发 32FC1（米）；realsense-ros 默认发 16UC1，单位按其默认深度刻度 1 mm 换算。"""
+    if is_bigendian: raise ValueError('big-endian depth unsupported')
+    buf = np.frombuffer(data, np.uint8)
+    if encoding == '32FC1':
+        d = buf.view(np.float32).reshape(height, step//4)[:, :width].astype(np.float32)
+    elif encoding == '16UC1':
+        d = buf.view(np.uint16).reshape(height, step//2)[:, :width].astype(np.float32)/1000.
+    else:
+        raise ValueError('unsupported depth encoding: '+encoding)
+    d[~np.isfinite(d) | (d <= 0)] = np.nan
+    return d
+
+
 def hsv_mask(bgr, ranges):
     hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
     m = np.zeros(hsv.shape[:2], np.uint8)
