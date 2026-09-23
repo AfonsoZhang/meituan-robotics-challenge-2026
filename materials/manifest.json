@@ -395,6 +395,11 @@
           "original_question": "实机部署用哪台计算机",
           "resolved_by": "USER-HW-20260923-04",
           "resolution": "部署计算机为 NUC（Ubuntu 22.04）；「本机」原意是否即该 NUC 无法从原话判断，保留原记录。"
+        },
+        {
+          "original_question": "「本机」指开发电脑还是 NUC",
+          "resolved_by": "USER-HW-20260923-05",
+          "resolution": "「本机」指当前开发电脑，不是 NUC；实机部署计算机已由 USER-HW-20260923-04 改为 NUC。"
         }
       ]
     },
@@ -786,6 +791,30 @@
       "scope_note": "未说明 NUC 的品牌/型号、CPU、内存、USB 3 接口（D435i 需要）与网口数量（连 S3 控制柜）；未核实 NUC 是否已有、是否已装系统、相机与 S3 能否在其上枚举/连通。USER-HW-20260906-02 的「本机」原意是这台 NUC 还是当前开发电脑，原话无法判断，该条历史记录保留不改，部署计算机以本条为准。",
       "derived_files": [
         "README.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "original_question": "scope_note 中 USER-HW-20260906-02 的「本机」原意无法判断",
+          "resolved_by": "USER-HW-20260923-05",
+          "resolution": "「本机」指当前开发电脑，不是 NUC；实机部署计算机已由 USER-HW-20260923-04 改为 NUC。"
+        }
+      ]
+    },
+    {
+      "id": "USER-HW-20260923-05",
+      "kind": "user_message",
+      "date": "2026-09-23",
+      "source": "本项目当前会话，用户回复",
+      "original_text": "当时说的本机是指这台开发电脑",
+      "context": "助手记录 USER-HW-20260923-04 时注明 USER-HW-20260906-02 的「本机」原意无法判断，用户随后澄清。",
+      "confirmed": {
+        "USER-HW-20260906-02_本机_meaning": "当前开发电脑（Windows + WSL2，ENV-LOCAL-20260906 观测的那台），不是 NUC"
+      },
+      "clarifies": "USER-HW-20260906-02 中「本机」的所指",
+      "scope_note": "只澄清 2026-09-06 原话所指。实机部署计算机以 USER-HW-20260923-04（NUC，Ubuntu 22.04）为准，即当时「计算使用本机」的计划在部署层面已改为 NUC；开发电脑今后承担哪些工作（开发、仿真、远程查看等）用户未说明。",
+      "derived_files": [
         "docs/open-questions.md",
         "docs/hardware-vision-plan.md"
       ]
