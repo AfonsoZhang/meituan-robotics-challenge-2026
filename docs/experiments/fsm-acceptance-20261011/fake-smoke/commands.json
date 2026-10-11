@@ -1,0 +1,79 @@
+[
+  {
+    "name": "preflight-nodes",
+    "argv": [
+      "ros2",
+      "node",
+      "list",
+      "--no-daemon",
+      "--spin-time",
+      "2"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "hardware",
+    "argv": [
+      "ros2",
+      "control",
+      "list_hardware_components",
+      "-c",
+      "/controller_manager",
+      "-v"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "controllers",
+    "argv": [
+      "ros2",
+      "control",
+      "list_controllers",
+      "-c",
+      "/controller_manager"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "interfaces",
+    "argv": [
+      "ros2",
+      "control",
+      "list_hardware_interfaces",
+      "-c",
+      "/controller_manager"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "update-rate",
+    "argv": [
+      "ros2",
+      "param",
+      "get",
+      "/controller_manager",
+      "update_rate"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "topics",
+    "argv": [
+      "ros2",
+      "topic",
+      "list",
+      "-t"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "actions",
+    "argv": [
+      "ros2",
+      "action",
+      "list",
+      "-t"
+    ],
+    "exit_code": 0
+  }
+]

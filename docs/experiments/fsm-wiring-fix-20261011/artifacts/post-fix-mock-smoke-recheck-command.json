@@ -1,0 +1,18 @@
+{
+  "name": "post-fix-mock-smoke-recheck",
+  "argv": [
+    "/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe",
+    "exec",
+    "mtc-acceptance-20261011-164931",
+    "bash",
+    "-lc",
+    "set -eo pipefail; source /opt/ros/jazzy/setup.bash; source /work/install/setup.bash; source /fix-work/install/setup.bash; export PYTHONNOUSERSITE=1 PYTHONDONTWRITEBYTECODE=1; timeout 100 python3 /fix-src/mock_smoke_recheck.py"
+  ],
+  "cwd": "/home/afonso/meituan-robotics-challenge-2026",
+  "started_at": "2026-10-11T17:18:03.670500+08:00",
+  "ended_at": "2026-10-11T17:18:23.228190+08:00",
+  "duration_sec": 19.57,
+  "exit_code": 0,
+  "log": "logs/post-fix-mock-smoke-recheck.log",
+  "log_sha256": "cec11f5f139ef59e8eb9627fb95b061ba110e4db57c2c20389f5dbd3e0577e3b"
+}

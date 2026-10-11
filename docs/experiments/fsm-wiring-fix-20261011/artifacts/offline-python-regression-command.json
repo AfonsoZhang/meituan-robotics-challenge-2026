@@ -1,0 +1,18 @@
+{
+  "name": "offline-python-regression",
+  "argv": [
+    "/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe",
+    "exec",
+    "mtc-acceptance-20261011-164931",
+    "bash",
+    "-lc",
+    "set -eo pipefail; source /opt/ros/jazzy/setup.bash; source /work/install/setup.bash; source /fix-work/install/setup.bash; export PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONDONTWRITEBYTECODE=1; cd /fix-src; python3 -m pytest -q -p no:cacheprovider src/mtc_aubo_bridge/test src/mtc_manipulation/test src/mtc_motion_execution/test src/mtc_safety/test src/mtc_task/test src/mtc_tool/test --junitxml=/fix-evidence/offline-python.xml; python3 tests/test_mock_end_to_end.py"
+  ],
+  "cwd": "/home/afonso/meituan-robotics-challenge-2026",
+  "started_at": "2026-10-11T17:17:10.865948+08:00",
+  "ended_at": "2026-10-11T17:17:12.113009+08:00",
+  "duration_sec": 1.247,
+  "exit_code": 2,
+  "log": "logs/offline-python-regression.log",
+  "log_sha256": "f83231612c651efc40f7ddb9551893e87d16551c7661b79b11b3816265ebf722"
+}

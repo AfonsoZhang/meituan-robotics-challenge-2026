@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "mode": "ros",
+  "session_id": "0bf600fc-07c4-4e28-95a9-eae0a3db7827",
+  "snapshot_seq": 295,
+  "event_seq": 4,
+  "generated_at": "2026-10-11T10:10:55.712+00:00",
+  "freshness_limit_ms": 3000,
+  "task": null,
+  "task_state": {
+    "available": false,
+    "data": null,
+    "source": null,
+    "received_at": null,
+    "age_ms": null
+  },
+  "external_task": null,
+  "robot": {
+    "available": false,
+    "data": null,
+    "source": null,
+    "received_at": null,
+    "age_ms": null
+  },
+  "tool": {
+    "available": false,
+    "data": null,
+    "source": null,
+    "received_at": null,
+    "age_ms": null
+  },
+  "joints": {
+    "available": false,
+    "data": null,
+    "source": null,
+    "received_at": null,
+    "age_ms": null
+  },
+  "camera": {
+    "color": {
+      "available": false,
+      "data": null,
+      "source": null,
+      "received_at": null,
+      "age_ms": null
+    },
+    "depth": {
+      "available": false,
+      "data": null,
+      "source": null,
+      "received_at": null,
+      "age_ms": null
+    }
+  },
+  "connection": {
+    "connected": false,
+    "reason": "ROS 接入失败：AttributeError: 'dict' object has no attribute 'publisher_gid'",
+    "action_ready": false,
+    "stop_ready": false,
+    "publishers": {
+      "task_state": {
+        "topic": "/mtc/task/state",
+        "expected_node": "/webui_isolated_fixture",
+        "candidates": [
+          {
+            "node": "/webui_isolated_fixture",
+            "gid": "010f7f014407ccbc0000000000001303"
+          }
+        ],
+        "selected": "/webui_isolated_fixture · /mtc/task/state · 010f7f01"
+      },
+      "robot": {
+        "topic": "/mtc/robot/state",
+        "expected_node": "/webui_isolated_fixture",
+        "candidates": [
+          {
+            "node": "/webui_isolated_fixture",
+            "gid": "010f7f014407ccbc0000000000001403"
+          }
+        ],
+        "selected": "/webui_isolated_fixture · /mtc/robot/state · 010f7f01"
+      },
+      "tool": {
+        "topic": "/mtc/tool/state",
+        "expected_node": "",
+        "candidates": [
+          {
+            "node": "/webui_isolated_fixture",
+            "gid": "010f7f014407ccbc0000000000001503"
+          }
+        ],
+        "selected": "/webui_isolated_fixture · /mtc/tool/state · 010f7f01"
+      },
+      "joints": {
+        "topic": "/joint_states",
+        "expected_node": "",
+        "candidates": [
+          {
+            "node": "/webui_isolated_fixture",
+            "gid": "010f7f014407ccbc0000000000001603"
+          }
+        ],
+        "selected": "/webui_isolated_fixture · /joint_states · 010f7f01"
+      },
+      "color": {
+        "topic": "/camera/camera/color/image_raw",
+        "expected_node": "",
+        "candidates": [
+          {
+            "node": "/webui_isolated_fixture",
+            "gid": "010f7f014407ccbc0000000000001703"
+          }
+        ],
+        "selected": "/webui_isolated_fixture · /camera/camera/color/image_raw · 010f7f01"
+      },
+      "depth": {
+        "topic": "/camera/camera/aligned_depth_to_color/image_raw",
+        "expected_node": "",
+        "candidates": [
+          {
+            "node": "/webui_isolated_fixture",
+            "gid": "010f7f014407ccbc0000000000001803"
+          }
+        ],
+        "selected": "/webui_isolated_fixture · /camera/camera/aligned_depth_to_color/image_raw · 010f7f01"
+      }
+    },
+    "image_topics": [
+      "/camera/camera/aligned_depth_to_color/image_raw",
+      "/camera/camera/color/image_raw"
+    ],
+    "action_servers": [
+      "/webui_isolated_fixture"
+    ],
+    "stop_servers": [
+      "/webui_isolated_fixture"
+    ]
+  },
+  "config": {
+    "domain_id": 94,
+    "read_only": false,
+    "task_action": "/mtc/task/execute",
+    "task_topic": "/mtc/task/state",
+    "task_publisher": "/webui_isolated_fixture",
+    "robot_topic": "/mtc/robot/state",
+    "robot_publisher": "/webui_isolated_fixture",
+    "tool_topic": "/mtc/tool/state",
+    "tool_publisher": "",
+    "joint_topic": "/joint_states",
+    "joint_publisher": "",
+    "stop_service": "/mtc/bridge/request_stop",
+    "color_topic": "",
+    "depth_topic": "",
+    "freshness_ms": 3000
+  },
+  "stop_request": null,
+  "operations": {
+    "submit": false,
+    "cancel": false,
+    "stop": false,
+    "confirm_mock_stop": false,
+    "reasons": [
+      "ROS 接入失败：AttributeError: 'dict' object has no attribute 'publisher_gid'",
+      "ExecuteTask Action 服务不可用或存在多个服务端",
+      "任务状态缺失、过期或时间戳无效",
+      "机器人状态缺失、过期或时间戳无效",
+      "工具状态缺失、过期或时间戳无效"
+    ]
+  },
+  "history": [],
+  "events": [
+    {
+      "seq": 1,
+      "at": "2026-10-11T10:10:40.734+00:00",
+      "kind": "SESSION_STARTED",
+      "message": "实机操作台启动；只接受 ROS 原始反馈，不自动提交或恢复运动",
+      "level": "info",
+      "mode": "ros",
+      "task_id": null,
+      "goal_id": null
+    },
+    {
+      "seq": 2,
+      "at": "2026-10-11T10:10:40.754+00:00",
+      "kind": "ROS_CONNECTION",
+      "message": "ROS 已连接；等待有效设备状态",
+      "level": "info",
+      "mode": "ros",
+      "task_id": null,
+      "goal_id": null
+    },
+    {
+      "seq": 3,
+      "at": "2026-10-11T10:10:41.258+00:00",
+      "kind": "ROS_CONNECTION",
+      "message": "ROS 已连接；设备状态按来源与时间戳核验",
+      "level": "info",
+      "mode": "ros",
+      "task_id": null,
+      "goal_id": null
+    },
+    {
+      "seq": 4,
+      "at": "2026-10-11T10:10:41.329+00:00",
+      "kind": "ROS_CONNECTION",
+      "message": "ROS 接入失败：AttributeError: 'dict' object has no attribute 'publisher_gid'",
+      "level": "info",
+      "mode": "ros",
+      "task_id": null,
+      "goal_id": null
+    }
+  ]
+}
+setUpClass (__main__.RosIntegrationTests) ... ERROR
+
+======================================================================
+ERROR: setUpClass (__main__.RosIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/ui-src/webui/ros_integration_check.py", line 163, in setUpClass
+    wait_for(lambda: cls.backend.snapshot()["operations"]["submit"], 15)
+  File "/ui-src/webui/ros_integration_check.py", line 28, in wait_for
+    raise AssertionError("Timed out waiting for ROS fixture condition")
+AssertionError: Timed out waiting for ROS fixture condition
+
+----------------------------------------------------------------------
+Ran 0 tests in 15.337s
+
+FAILED (errors=1)

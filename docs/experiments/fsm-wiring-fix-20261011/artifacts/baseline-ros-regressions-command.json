@@ -1,0 +1,18 @@
+{
+  "name": "baseline-ros-regressions",
+  "argv": [
+    "/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe",
+    "exec",
+    "mtc-acceptance-20261011-164931",
+    "bash",
+    "-lc",
+    "set -eo pipefail; source /opt/ros/jazzy/setup.bash; source /work/install/setup.bash; export ROS_DOMAIN_ID=95 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONDONTWRITEBYTECODE=1 ROS_LOG_DIR=/fix-evidence/baseline-ros-logs; timeout 90 python3 -m pytest -q -p no:cacheprovider /fix-src/tests/test_ros_wiring.py --junitxml=/fix-evidence/baseline-ros.xml"
+  ],
+  "cwd": "/home/afonso/meituan-robotics-challenge-2026",
+  "started_at": "2026-10-11T17:14:41.519338+08:00",
+  "ended_at": "2026-10-11T17:14:45.128052+08:00",
+  "duration_sec": 3.609,
+  "exit_code": 1,
+  "log": "logs/baseline-ros-regressions.log",
+  "log_sha256": "f64289c4b9aec83f81387d3d1844a1eaec288cff26fa962183ca47ca40b967f4"
+}

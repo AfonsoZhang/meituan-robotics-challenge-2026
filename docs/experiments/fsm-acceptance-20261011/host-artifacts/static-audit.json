@@ -1,0 +1,456 @@
+{
+  "source_commit": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+  "checks": [
+    {
+      "name": "locked_source",
+      "passed": true,
+      "expected": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+      "actual": "1d940f7c5f12561fed6641457c0b4b630a282b05"
+    },
+    {
+      "name": "sdk_update_only_docs",
+      "passed": true,
+      "files": [
+        "README.md",
+        "docs/setup/AUBO_ROS2_DRIVER_JAZZY.md"
+      ]
+    },
+    {
+      "name": "README.md",
+      "passed": true,
+      "sha256": "7a2beb7f2667d57ca1e038f491542b524d022eed2660ad3e74f7d7e9863fad06"
+    },
+    {
+      "name": "docs/setup/AUBO_ROS2_DRIVER_JAZZY.md",
+      "passed": true,
+      "sha256": "26da0fa30a9d84d69d07fe67b8a7e1a3f8c2143f6f7cb9e0faed5e98aa902d36"
+    },
+    {
+      "name": "docs/migration/patches/driver_version_fingerprint.txt",
+      "passed": true,
+      "sha256": "603bb25ebe21307eb70a6899a4d195a306403b50573167ac9f4fe269685960e5"
+    },
+    {
+      "name": "docs/migration/AUBO_DRIVER_FAKE_HARDWARE_FIX_AUDIT.md",
+      "passed": true,
+      "sha256": "6ebe9dc801ffd8f8734e67d12156dd1af007e1690c4054b2b5ad223663de6778"
+    },
+    {
+      "name": "docs/migration/patches/aubo_description_fake_hardware_jazzy.patch",
+      "passed": true,
+      "sha256": "18c4c72afcc9aaba334390b48cad796512d8df29e0b2cde319eb700c936cd145"
+    },
+    {
+      "name": "docs/migration/patches/aubo.ros2_control.xacro.upstream",
+      "passed": true,
+      "sha256": "3972c3017e50de69efedd6a91b5a152dc6545e473a51cef6f7bee7869ec45ba5"
+    },
+    {
+      "name": "docs/migration/patches/aubo.ros2_control.xacro.locally_fixed",
+      "passed": true,
+      "sha256": "c0f6311bdb2bd347241266169970888c0e73d11b4c8052ac15ca57e22e9d52f6"
+    },
+    {
+      "name": "registered_packages",
+      "passed": true,
+      "count": 12
+    },
+    {
+      "name": "fake_patch_apply_and_byte_match",
+      "passed": true,
+      "sha256": "c0f6311bdb2bd347241266169970888c0e73d11b4c8052ac15ca57e22e9d52f6",
+      "commands": [
+        {
+          "argv": [
+            "patch",
+            "-p1",
+            "--batch",
+            "--forward",
+            "--input",
+            "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/docs/migration/patches/aubo_description_fake_hardware_jazzy.patch",
+            "--dry-run"
+          ],
+          "exit_code": 0,
+          "output": "checking file urdf/xacro/inc/aubo.ros2_control.xacro\n"
+        },
+        {
+          "argv": [
+            "patch",
+            "-p1",
+            "--batch",
+            "--forward",
+            "--input",
+            "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/docs/migration/patches/aubo_description_fake_hardware_jazzy.patch"
+          ],
+          "exit_code": 0,
+          "output": "patching file urdf/xacro/inc/aubo.ros2_control.xacro\n"
+        }
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "path": "src/mtc_interfaces/msg/BatteryDetection.msg",
+      "sha256": "fcc08c7e58292f902ad01cf7ed2a420d025f21613c1059132a04deef286f4c73",
+      "sections": [
+        [
+          "uint8 COLOR_UNKNOWN=0",
+          "uint8 COLOR_RED=1",
+          "uint8 COLOR_BLUE=2",
+          "uint8 COLOR_YELLOW=3",
+          "uint8 COLOR_GREEN=4",
+          "string object_id",
+          "uint8 color",
+          "geometry_msgs/PoseStamped body_pose",
+          "geometry_msgs/PoseStamped ring_pose",
+          "float32 confidence",
+          "bool ring_pose_valid"
+        ]
+      ]
+    },
+    {
+      "path": "src/mtc_interfaces/msg/BatteryDetectionArray.msg",
+      "sha256": "e1d1d26bb86b743193efb9bb29dbc5b930e3ffae01ac5c9e66164e83994abd1e",
+      "sections": [
+        [
+          "std_msgs/Header header",
+          "BatteryDetection[] detections"
+        ]
+      ]
+    },
+    {
+      "path": "src/mtc_interfaces/msg/ErrorCodes.msg",
+      "sha256": "2dbc5da2d25e916b4977a5f5858bb2bfbfb798c49602ca42d41b555537468506",
+      "sections": [
+        [
+          "uint16 OK=0",
+          "uint16 INVALID_TASK=100",
+          "uint16 TARGET_NOT_FOUND=110",
+          "uint16 POSE_STALE=120",
+          "uint16 PLANNING_FAILED=200",
+          "uint16 EXECUTION_REJECTED=210",
+          "uint16 MOTION_TIMEOUT=220",
+          "uint16 MOTION_STATUS_UNKNOWN=230",
+          "uint16 ENGAGE_FAILED=300",
+          "uint16 ATTACH_NOT_VERIFIED=310",
+          "uint16 OBJECT_DROPPED=320",
+          "uint16 SEAT_NOT_VERIFIED=400",
+          "uint16 UNLOCK_FAILED=410",
+          "uint16 RELEASE_NOT_VERIFIED=420",
+          "uint16 PLACEMENT_FAILED=430",
+          "uint16 SAFETY_INTERLOCK=500",
+          "uint16 HARDWARE_FAULT=510",
+          "uint16 CANCEL_NOT_CONFIRMED=520"
+        ]
+      ]
+    },
+    {
+      "path": "src/mtc_interfaces/msg/RobotState.msg",
+      "sha256": "a8f2a50349ff0340b746880a17ef79f3abfb54e7f8e621923d34ed68f85d3247",
+      "sections": [
+        [
+          "std_msgs/Header header",
+          "bool communication_ok",
+          "bool robot_ready",
+          "bool motion_active",
+          "bool safety_normal",
+          "bool stop_confirmed",
+          "bool simulation_mode",
+          "string controller_mode",
+          "string detail"
+        ]
+      ]
+    },
+    {
+      "path": "src/mtc_interfaces/msg/TaskState.msg",
+      "sha256": "261da70d1bcff7e9b3b22062f86f4b8522a4f6cfc50040f4fe7bd120a9bab0aa",
+      "sections": [
+        [
+          "std_msgs/Header header",
+          "string task_id",
+          "string state",
+          "string substate",
+          "uint8 completed_count",
+          "uint8 total_count",
+          "uint16 last_error_code",
+          "string detail"
+        ]
+      ]
+    },
+    {
+      "path": "src/mtc_interfaces/msg/ToolState.msg",
+      "sha256": "ad34f2a84f2f90feb7cd61244bacb7a48bee338abfa762dfbabbb18d63fbeb70",
+      "sections": [
+        [
+          "uint8 STATE_UNKNOWN=0",
+          "uint8 STATE_DETACHED=1",
+          "uint8 STATE_ENGAGING=2",
+          "uint8 STATE_ATTACHED=3",
+          "uint8 STATE_RELEASING=4",
+          "uint8 STATE_FAULT=5",
+          "uint8 EVIDENCE_NONE=0",
+          "uint8 EVIDENCE_COMMAND_ONLY=1",
+          "uint8 EVIDENCE_GEOMETRY=2",
+          "uint8 EVIDENCE_SENSOR_OR_VISION=3",
+          "std_msgs/Header header",
+          "uint8 state",
+          "uint8 evidence_level",
+          "bool verified",
+          "string tool_type",
+          "string object_id",
+          "string detail"
+        ]
+      ]
+    },
+    {
+      "path": "src/mtc_interfaces/srv/GetMotionCapabilities.srv",
+      "sha256": "07eef5819c8e10fb9d6f41aa9249808bb2473c5ce30f8ba8f3f1e4808c2b6d9c",
+      "sections": [
+        [],
+        [
+          "bool joint_goal_supported",
+          "bool timed_trajectory_supported",
+          "bool cartesian_motion_supported",
+          "bool cancel_supported",
+          "string backend_name",
+          "string detail"
+        ]
+      ]
+    },
+    {
+      "path": "src/mtc_interfaces/srv/RequestStop.srv",
+      "sha256": "22d9fde29c706998d2d92bcf68c6f4f1cd984cb7bd589f2765ea4458c23fea1e",
+      "sections": [
+        [
+          "string reason"
+        ],
+        [
+          "bool request_delivered",
+          "string message"
+        ]
+      ]
+    },
+    {
+      "path": "src/mtc_interfaces/srv/TriggerUnlock.srv",
+      "sha256": "5c2a9eb5e4bfea600e9a3caac525e49eeae1f887325e7bf94e2bbd80d730b32f",
+      "sections": [
+        [
+          "string request_id",
+          "uint32 pulse_ms"
+        ],
+        [
+          "bool accepted",
+          "string message"
+        ]
+      ]
+    },
+    {
+      "path": "src/mtc_interfaces/action/ExecuteJointMove.action",
+      "sha256": "f9fd3458c26009c58fcfb29294c53e05a52d46db63947471427053003f633e26",
+      "sections": [
+        [
+          "string COMMAND_OK=ok",
+          "string COMMAND_REJECTED=rejected",
+          "string COMMAND_UNKNOWN=unknown",
+          "string command_id",
+          "string[6] joint_names",
+          "float64[6] target_rad",
+          "float32 velocity_scaling",
+          "float32 acceleration_scaling",
+          "uint32 timeout_ms"
+        ],
+        [
+          "bool success",
+          "bool stop_confirmed",
+          "float64[6] final_position_rad",
+          "uint16 error_code",
+          "string message"
+        ],
+        [
+          "float64[6] actual_position_rad",
+          "float64[6] actual_velocity_rad_s",
+          "float32 progress",
+          "string execution_state"
+        ]
+      ]
+    },
+    {
+      "path": "src/mtc_interfaces/action/ExecuteTask.action",
+      "sha256": "e8163ea178ed7573a1b97ec9a85db39555313b3d6ce20d5ea0974196ec352252",
+      "sections": [
+        [
+          "uint8 MODE_BASIC=1",
+          "uint8 MODE_SEQUENCE=2",
+          "string task_id",
+          "uint8 mode",
+          "uint8[] ordered_colors",
+          "uint32 timeout_ms",
+          "float32 placement_stability_sec"
+        ],
+        [
+          "bool success",
+          "uint8 completed_count",
+          "string[] completed_slots",
+          "uint16 error_code",
+          "string message"
+        ],
+        [
+          "uint8 current_index",
+          "uint8 total_count",
+          "string state",
+          "string current_slot",
+          "string current_object_id",
+          "string substate"
+        ]
+      ]
+    },
+    {
+      "path": "src/mtc_interfaces/action/PickPlace.action",
+      "sha256": "d9da2418c5bcb4003d94a848493ee99bbb2c21f3ae0aac696bedceee96a6c3d1",
+      "sections": [
+        [
+          "string request_id",
+          "string object_id",
+          "uint8 expected_color",
+          "string target_slot",
+          "float32 placement_stability_sec"
+        ],
+        [
+          "bool success",
+          "bool placement_verified",
+          "uint16 error_code",
+          "string message"
+        ],
+        [
+          "string substate",
+          "float32 progress",
+          "bool object_attached_estimated",
+          "string detail"
+        ]
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "name": "mtc_aubo_bridge",
+      "version": "0.1.0",
+      "path": "src/mtc_aubo_bridge/package.xml",
+      "license": [
+        "Apache-2.0"
+      ],
+      "build_type": "ament_python",
+      "sha256": "aef27a0934a68c1f2b6445a0a855339753d234959d3a4eccd399354875adc3aa"
+    },
+    {
+      "name": "mtc_bringup",
+      "version": "0.1.0",
+      "path": "src/mtc_bringup/package.xml",
+      "license": [
+        "Apache-2.0"
+      ],
+      "build_type": "ament_python",
+      "sha256": "c88bd8546f94306e99e98660c8e8d0d0a3f8630c91aa59ab2655b648966819fc"
+    },
+    {
+      "name": "mtc_core_cpp",
+      "version": "0.1.0",
+      "path": "src/mtc_core_cpp/package.xml",
+      "license": [
+        "MIT"
+      ],
+      "build_type": "ament_cmake",
+      "sha256": "e071fa12e4fedf86ebb4dfba7a460ee09dc876e3128e0b7ae5c566643fd7f5ee"
+    },
+    {
+      "name": "mtc_interfaces",
+      "version": "0.1.0",
+      "path": "src/mtc_interfaces/package.xml",
+      "license": [
+        "Apache-2.0"
+      ],
+      "build_type": "ament_cmake",
+      "sha256": "832417ac4721493fb10f02a7e8416b03372d18636712f47f58ccc9c10c1fcebd"
+    },
+    {
+      "name": "mtc_manipulation",
+      "version": "0.1.0",
+      "path": "src/mtc_manipulation/package.xml",
+      "license": [
+        "Apache-2.0"
+      ],
+      "build_type": "ament_python",
+      "sha256": "32cf8a66122197c47b4f4f80b5f501f7da807ce7c0c299d47458d1c867e95154"
+    },
+    {
+      "name": "mtc_manipulation_cpp",
+      "version": "0.1.0",
+      "path": "src/mtc_manipulation_cpp/package.xml",
+      "license": [
+        "MIT"
+      ],
+      "build_type": "ament_cmake",
+      "sha256": "77eeb9d044dab5000675819562e97ae4c7a22ff58d41a42555632463d5fc81c5"
+    },
+    {
+      "name": "mtc_motion_execution",
+      "version": "0.1.0",
+      "path": "src/mtc_motion_execution/package.xml",
+      "license": [
+        "Apache-2.0"
+      ],
+      "build_type": "ament_python",
+      "sha256": "cf35b99635f9989b7a188701c1741f7d0966f56c06c79f7039f6b08192323a3d"
+    },
+    {
+      "name": "mtc_motion_execution_cpp",
+      "version": "0.1.0",
+      "path": "src/mtc_motion_execution_cpp/package.xml",
+      "license": [
+        "MIT"
+      ],
+      "build_type": "ament_cmake",
+      "sha256": "77f9ea7dc51de86af6729221d51a1b08dc0a1e0838a9203c767ab20241231f7e"
+    },
+    {
+      "name": "mtc_safety",
+      "version": "0.1.0",
+      "path": "src/mtc_safety/package.xml",
+      "license": [
+        "Apache-2.0"
+      ],
+      "build_type": "ament_python",
+      "sha256": "9d61e39a81294a1ae6dbcfda58cb1adb6cee6c370cd918ccb153ca94072f7e54"
+    },
+    {
+      "name": "mtc_task",
+      "version": "0.1.0",
+      "path": "src/mtc_task/package.xml",
+      "license": [
+        "Apache-2.0"
+      ],
+      "build_type": "ament_python",
+      "sha256": "c20241a693a47c145f405197c3f1d2837d5900b2d5b1d59624e3ea3ffc120d62"
+    },
+    {
+      "name": "mtc_task_cpp",
+      "version": "0.1.0",
+      "path": "src/mtc_task_cpp/package.xml",
+      "license": [
+        "MIT"
+      ],
+      "build_type": "ament_cmake",
+      "sha256": "937c70daa7790c2123b3e64de3ce0b3dbfc5aac062f5e7e74278819cfe84253b"
+    },
+    {
+      "name": "mtc_tool",
+      "version": "0.1.0",
+      "path": "src/mtc_tool/package.xml",
+      "license": [
+        "Proprietary"
+      ],
+      "build_type": "ament_python",
+      "sha256": "4ebdd47c874228c2222de0070b8b32c98362750a48d630a0e0d0cd2588cffa08"
+    }
+  ],
+  "harness_note": "Initial git apply from an ignored subdirectory of the parent Git worktree skipped the file and produced a byte mismatch. Retained static-audit-initial.json; reran patch -p1 with explicit cwd, actual patch and byte comparison PASS. No upstream source was changed."
+}

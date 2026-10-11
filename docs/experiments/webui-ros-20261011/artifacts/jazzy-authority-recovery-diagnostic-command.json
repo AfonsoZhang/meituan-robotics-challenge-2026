@@ -1,0 +1,18 @@
+{
+  "name": "jazzy-authority-recovery-diagnostic",
+  "argv": [
+    "/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe",
+    "exec",
+    "mtc-webui-20261011",
+    "bash",
+    "-lc",
+    "source /opt/ros/jazzy/setup.bash; source /work/install/setup.bash; export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST PYTHONUNBUFFERED=1; cd /ui-src; python3 - <<'PY'\nimport unittest\nimport webui.ros_integration_check as checks\nunittest.main(module=checks,argv=[\"test\", \"RosIntegrationTests.test_09_duplicate_authority_is_unavailable\"],verbosity=2)\nPY"
+  ],
+  "cwd": "/home/afonso/meituan-robotics-challenge-2026",
+  "started_at": "2026-10-11T18:14:34.613401+08:00",
+  "ended_at": "2026-10-11T18:14:46.370971+08:00",
+  "duration_sec": 11.758,
+  "exit_code": 1,
+  "log": "logs/jazzy-authority-recovery-diagnostic.log",
+  "log_sha256": "568b712fecf6c0378ad3058d471c5aab3ec6082e93990dd92362d140445935b8"
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="21" failures="0" disabled="0" errors="0" time="0.002" timestamp="2026-10-11T16:54:11" name="AllTests">
+  <testsuite name="TaskFsmTables" tests="3" failures="0" disabled="0" errors="0" time="0" timestamp="2026-10-11T16:54:11">
+    <testcase name="VerifyTablesReportsNoProblem" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmTables" />
+    <testcase name="AllStatesHaveEntryActionAndTimeout" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmTables" />
+    <testcase name="EveryActiveStateRegistersConcurrentGoalRejection" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmTables" />
+  </testsuite>
+  <testsuite name="TaskFsmBoot" tests="4" failures="0" disabled="0" errors="0" time="0" timestamp="2026-10-11T16:54:11">
+    <testcase name="InitToSelfCheckToWaitTask" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmBoot" />
+    <testcase name="SelfCheckFailureGoesToFaultWithStopAndLock" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmBoot" />
+    <testcase name="InitTimeoutGoesToFault" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmBoot" />
+    <testcase name="NoTimeoutBeforeDeadline" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmBoot" />
+  </testsuite>
+  <testsuite name="TaskFsmBasic" tests="5" failures="0" disabled="0" errors="0" time="0.001" timestamp="2026-10-11T16:54:11">
+    <testcase name="FullHappyPathReachesFinished" status="run" result="completed" time="0.001" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmBasic" />
+    <testcase name="SuccessRequiresPlacementVerified" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmBasic" />
+    <testcase name="TargetFoundWithoutObjectIdIsRejected" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmBasic" />
+    <testcase name="ExpectedColorMismatchIsRejected" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmBasic" />
+    <testcase name="ItemResultIgnoredOutsideExecuteItem" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmBasic" />
+  </testsuite>
+  <testsuite name="TaskFsmSequence" tests="3" failures="0" disabled="0" errors="0" time="0" timestamp="2026-10-11T16:54:11">
+    <testcase name="ThreeItemsCompleteInSlotOrder" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmSequence" />
+    <testcase name="InvalidSequenceFailsWithoutGuessing" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmSequence" />
+    <testcase name="DuplicateSlotIsNotRecordedTwice" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmSequence" />
+  </testsuite>
+  <testsuite name="TaskFsmReset" tests="2" failures="0" disabled="0" errors="0" time="0.001" timestamp="2026-10-11T16:54:11">
+    <testcase name="ResetFromFinishedClearsTaskContext" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmReset" />
+    <testcase name="ResetAllowedFromTaskFailedAndCancelled" status="run" result="completed" time="0.001" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmReset" />
+  </testsuite>
+  <testsuite name="TaskFsmSnapshot" tests="4" failures="0" disabled="0" errors="0" time="0" timestamp="2026-10-11T16:54:11">
+    <testcase name="SnapshotCarriesTaskAndProgress" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmSnapshot" />
+    <testcase name="EveryStepPublishesState" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmSnapshot" />
+    <testcase name="TransitionLogRecordsPath" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmSnapshot" />
+    <testcase name="UnknownEventIsIgnoredNotFatal" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:11" classname="mtc_task_cpp.TaskFsmSnapshot" />
+  </testsuite>
+</testsuites>

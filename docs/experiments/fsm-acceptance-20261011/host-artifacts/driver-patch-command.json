@@ -1,0 +1,16 @@
+{
+  "name": "driver-patch",
+  "argv": [
+    "bash",
+    "-e",
+    "-c",
+    "MTC_DRIVER=outputs/integration-20261011-164931-1d940f7/driver_ws/src/aubo_ros2_driver; MTC_PATCH=outputs/integration-20261011-164931-1d940f7/source/docs/migration/patches; cmp \"$MTC_DRIVER/aubo_description/urdf/xacro/inc/aubo.ros2_control.xacro\" \"$MTC_PATCH/aubo.ros2_control.xacro.upstream\"; patch -p1 -d \"$MTC_DRIVER/aubo_description\" --batch --forward < \"$MTC_PATCH/aubo_description_fake_hardware_jazzy.patch\"; cmp \"$MTC_DRIVER/aubo_description/urdf/xacro/inc/aubo.ros2_control.xacro\" \"$MTC_PATCH/aubo.ros2_control.xacro.locally_fixed\"; git -C \"$MTC_DRIVER/aubo_description\" diff --stat"
+  ],
+  "cwd": "/home/afonso/meituan-robotics-challenge-2026",
+  "started_at": "2026-10-11T16:53:47.587282+08:00",
+  "ended_at": "2026-10-11T16:53:47.654707+08:00",
+  "duration_sec": 0.067,
+  "exit_code": 0,
+  "log": "logs/driver-patch.log",
+  "log_sha256": "bf7bf61d1f8767c618a2bc8eaab47e4a4cd11738b15073675f5b125ebbc751d5"
+}

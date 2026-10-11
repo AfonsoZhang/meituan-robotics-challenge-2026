@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "mode": "ros",
+  "session_id": "4fdfd177-1a9e-4995-b8fe-79e6ffdcf429",
+  "snapshot_seq": 1,
+  "event_seq": 2,
+  "generated_at": "2026-10-11T10:10:28.634+00:00",
+  "freshness_limit_ms": 3000,
+  "task": null,
+  "task_state": {
+    "available": false,
+    "data": null,
+    "source": null,
+    "received_at": null,
+    "age_ms": null
+  },
+  "external_task": null,
+  "robot": {
+    "available": false,
+    "data": null,
+    "source": null,
+    "received_at": null,
+    "age_ms": null
+  },
+  "tool": {
+    "available": false,
+    "data": null,
+    "source": null,
+    "received_at": null,
+    "age_ms": null
+  },
+  "joints": {
+    "available": false,
+    "data": null,
+    "source": null,
+    "received_at": null,
+    "age_ms": null
+  },
+  "camera": {
+    "color": {
+      "available": false,
+      "data": null,
+      "source": null,
+      "received_at": null,
+      "age_ms": null
+    },
+    "depth": {
+      "available": false,
+      "data": null,
+      "source": null,
+      "received_at": null,
+      "age_ms": null
+    }
+  },
+  "connection": {
+    "connected": false,
+    "reason": "ROS 接入失败：ImportError: cannot import name 'qos_profile_rosout_default' from 'rclpy.qos' (/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/qos.py)",
+    "action_ready": false,
+    "stop_ready": false,
+    "publishers": {},
+    "image_topics": []
+  },
+  "config": {
+    "domain_id": 94,
+    "read_only": false,
+    "task_action": "/mtc/task/execute",
+    "task_topic": "/mtc/task/state",
+    "task_publisher": "/webui_isolated_fixture",
+    "robot_topic": "/mtc/robot/state",
+    "robot_publisher": "/webui_isolated_fixture",
+    "tool_topic": "/mtc/tool/state",
+    "tool_publisher": "",
+    "joint_topic": "/joint_states",
+    "joint_publisher": "",
+    "stop_service": "/mtc/bridge/request_stop",
+    "color_topic": "",
+    "depth_topic": "",
+    "freshness_ms": 3000
+  },
+  "stop_request": null,
+  "operations": {
+    "submit": false,
+    "cancel": false,
+    "stop": false,
+    "confirm_mock_stop": false,
+    "reasons": [
+      "ROS 接入失败：ImportError: cannot import name 'qos_profile_rosout_default' from 'rclpy.qos' (/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/qos.py)",
+      "ExecuteTask Action 服务不可用或存在多个服务端",
+      "任务状态缺失、过期或时间戳无效",
+      "机器人状态缺失、过期或时间戳无效",
+      "工具状态缺失、过期或时间戳无效"
+    ]
+  },
+  "history": [],
+  "events": [
+    {
+      "seq": 1,
+      "at": "2026-10-11T10:10:25.633+00:00",
+      "kind": "SESSION_STARTED",
+      "message": "实机操作台启动；只接受 ROS 原始反馈，不自动提交或恢复运动",
+      "level": "info",
+      "mode": "ros",
+      "task_id": null,
+      "goal_id": null
+    },
+    {
+      "seq": 2,
+      "at": "2026-10-11T10:10:25.634+00:00",
+      "kind": "ROS_CONNECTION",
+      "message": "ROS 接入失败：ImportError: cannot import name 'qos_profile_rosout_default' from 'rclpy.qos' (/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/qos.py)",
+      "level": "info",
+      "mode": "ros",
+      "task_id": null,
+      "goal_id": null
+    }
+  ]
+}

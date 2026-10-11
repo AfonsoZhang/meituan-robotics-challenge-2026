@@ -1,0 +1,55 @@
+[
+  {
+    "id": "B01",
+    "status": "FIX_VERIFIED_REVIEW_PENDING",
+    "fix": "Separate FSM callable clock from Node Clock",
+    "patch_author": "张叔阳（OpenAI Codex 协助）",
+    "reviewer": "FSM/Action 负责人；GitHub review requested from F1u0rite"
+  },
+  {
+    "id": "B02",
+    "status": "FIX_VERIFIED_REVIEW_PENDING",
+    "fix": "Map existing ROS parameter to perception_max_age_s",
+    "patch_author": "张叔阳（OpenAI Codex 协助）",
+    "reviewer": "FSM/Action 负责人；GitHub review requested from F1u0rite"
+  },
+  {
+    "id": "B04",
+    "status": "FIX_VERIFIED_REVIEW_PENDING",
+    "fix": "Align default TriggerUnlock service name",
+    "patch_author": "张叔阳（OpenAI Codex 协助）",
+    "reviewer": "FSM/Action 负责人；GitHub review requested from F1u0rite"
+  },
+  {
+    "id": "B03",
+    "status": "OPEN",
+    "owner": "孙嘉明",
+    "module": "PickPlaceServer Action binding",
+    "evidence": "Generated PickPlace lacks Server and CancelResponse; still masked by B05",
+    "unblock": "Real ActionServer Goal/Cancel/Result validation"
+  },
+  {
+    "id": "B05",
+    "status": "OPEN",
+    "owner": "孙嘉明",
+    "module": "RosMotionPort.__init__",
+    "evidence": "Two starts fail at pick_place_server.py:212: ExecuteJointMove has no create_client",
+    "unblock": "Real ActionClient adapter with result/cancel validation"
+  },
+  {
+    "id": "B06",
+    "status": "OPEN",
+    "owner": "孙嘉明",
+    "module": "Task initialization and watchdog lifecycle",
+    "evidence": "Two delayed first Goals: INIT expired before send, accepted then FAULT feedback and ABORTED / 510, completed_count=0",
+    "unblock": "Define initialization/idle contract and cover delayed first Goal; no state transition changed here"
+  },
+  {
+    "id": "C01",
+    "status": "OBSERVED",
+    "owner": "安全节点负责人",
+    "module": "safety_supervisor shutdown",
+    "evidence": "SIGINT cleanup reports rcl_shutdown already called, process exit 1",
+    "unblock": "Verify clean idempotent shutdown separately"
+  }
+]

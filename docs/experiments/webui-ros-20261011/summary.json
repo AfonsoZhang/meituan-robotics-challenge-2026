@@ -1,0 +1,48 @@
+{
+  "source_id": "ENV-WEBUI-ROS-20261011",
+  "scope": "Real ROS Web client, verified against an isolated DDS/Action fixture; not hardware acceptance",
+  "results": {
+    "offline_unittest_python310": {
+      "passed": 33
+    },
+    "offline_unittest_jazzy_python312": {
+      "passed": 33
+    },
+    "jazzy_ros_integration": {
+      "passed": 9,
+      "log": "logs/jazzy-ros-integration-cleanup-fix.log"
+    },
+    "browser_fixture_tasks": 2,
+    "browser_cancel_and_stop_independent": true,
+    "browser_rgb_depth_and_joints": true,
+    "offline_widths_without_overflow": [
+      320,
+      390,
+      768,
+      1024,
+      1440
+    ],
+    "browser_download_file": "NOT VERIFIED; HTTP attachment and JSON only"
+  },
+  "runtime": {
+    "python": "3.12.3",
+    "rclpy": "7.1.12",
+    "opencv": "4.6.0",
+    "numpy": "1.26.4"
+  },
+  "not_verified": [
+    "NUC deployment and SSH/domain identity",
+    "Physical robot motion, tool and camera calibration",
+    "Full upstream FSM / MoveIt integration, B03/B05/B06 unresolved",
+    "Detection overlays and task video linkage"
+  ],
+  "retained_failures": [
+    "Missing OpenCV; dependency installation before ROS run",
+    "Missing rosout QoS alias",
+    "MessageInfo is dict without publisher_gid",
+    "Setup failure omitted teardown and exited 134",
+    "Duplicate-name removal lost graph identity; stale ActionServer resources prevented recovery until explicit destroy",
+    "31 HTTP 502 after deliberately stopping fixture; Ctrl+C traceback preserved"
+  ],
+  "ai_assistance": "OpenAI Codex; see webui/provenance.json"
+}

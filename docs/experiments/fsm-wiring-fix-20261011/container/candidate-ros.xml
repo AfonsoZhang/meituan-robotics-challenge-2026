@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="6" time="0.522" timestamp="2026-10-11T09:15:42.158708" hostname="17b05d1a83af"><testcase classname="test_ros_wiring" name="test_task_node_keeps_ros_clock_and_fsm_clock_independent[ros-clock]" time="0.131" /><testcase classname="test_ros_wiring" name="test_task_node_keeps_ros_clock_and_fsm_clock_independent[injected-clock]" time="0.067" /><testcase classname="test_ros_wiring" name="test_pickplace_entrypoint_maps_existing_ros_parameter[default]" time="0.027"><failure message="AttributeError: type object 'ExecuteJointMove' has no attribute 'create_client'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7cfc1f560e30&gt;
+max_age = None
+
+    @pytest.mark.parametrize("max_age", [None, 0.75], ids=["default", "ros-override"])
+    def test_pickplace_entrypoint_maps_existing_ros_parameter(monkeypatch, max_age):
+        nodes = []
+        captured = {}
+        create_node = rclpy.create_node
+    
+        def track_node(*args, **kwargs):
+            node = create_node(*args, **kwargs)
+            nodes.append(node)
+            return node
+    
+        class ConfigProbe:
+            def __init__(self, **kwargs):
+                captured.update(kwargs)
+    
+            def stop(self):
+                captured["stopped"] = True
+    
+        monkeypatch.setattr(rclpy, "create_node", track_node)
+        monkeypatch.setattr(rclpy, "spin", lambda node: None)
+        monkeypatch.setattr(pick_place_server, "PickPlaceServer", ConfigProbe)
+        args = [] if max_age is None else [
+            "--ros-args", "-p", "perception_max_age_sec:=" + str(max_age)
+        ]
+        try:
+&gt;           assert pick_place_server.main(args) == 0
+
+fix-src/tests/test_ros_wiring.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fix-work/install/mtc_manipulation/lib/python3.12/site-packages/mtc_manipulation/pick_place_server.py:672: in main
+    motion=RosMotionPort(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;mtc_manipulation.pick_place_server.RosMotionPort object at 0x7cfc26c28a10&gt;
+node = &lt;rclpy.node.Node object at 0x7cfc24229d00&gt;
+action_type = &lt;class 'mtc_interfaces.action._execute_joint_move.ExecuteJointMove'&gt;
+action_name = '/mtc/motion/execute_joint_move', server_wait_s = 2.0
+result_timeout_s = 60.0
+
+    def __init__(
+        self,
+        node: Any,
+        action_type: Any,
+        action_name: str = "/mtc/motion/execute_joint_move",
+        server_wait_s: float = 2.0,
+        result_timeout_s: float = 60.0,
+    ) -&gt; None:
+        self._node = node
+        self._action_type = action_type
+        self._action_name = action_name
+        self._server_wait_s = server_wait_s
+        self._result_timeout_s = result_timeout_s
+&gt;       self._client = action_type.create_client(node, action_name)
+E       AttributeError: type object 'ExecuteJointMove' has no attribute 'create_client'
+
+fix-work/install/mtc_manipulation/lib/python3.12/site-packages/mtc_manipulation/pick_place_server.py:212: AttributeError</failure></testcase><testcase classname="test_ros_wiring" name="test_pickplace_entrypoint_maps_existing_ros_parameter[ros-override]" time="0.013"><failure message="AttributeError: type object 'ExecuteJointMove' has no attribute 'create_client'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7cfc1c41b800&gt;
+max_age = 0.75
+
+    @pytest.mark.parametrize("max_age", [None, 0.75], ids=["default", "ros-override"])
+    def test_pickplace_entrypoint_maps_existing_ros_parameter(monkeypatch, max_age):
+        nodes = []
+        captured = {}
+        create_node = rclpy.create_node
+    
+        def track_node(*args, **kwargs):
+            node = create_node(*args, **kwargs)
+            nodes.append(node)
+            return node
+    
+        class ConfigProbe:
+            def __init__(self, **kwargs):
+                captured.update(kwargs)
+    
+            def stop(self):
+                captured["stopped"] = True
+    
+        monkeypatch.setattr(rclpy, "create_node", track_node)
+        monkeypatch.setattr(rclpy, "spin", lambda node: None)
+        monkeypatch.setattr(pick_place_server, "PickPlaceServer", ConfigProbe)
+        args = [] if max_age is None else [
+            "--ros-args", "-p", "perception_max_age_sec:=" + str(max_age)
+        ]
+        try:
+&gt;           assert pick_place_server.main(args) == 0
+
+fix-src/tests/test_ros_wiring.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fix-work/install/mtc_manipulation/lib/python3.12/site-packages/mtc_manipulation/pick_place_server.py:672: in main
+    motion=RosMotionPort(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;mtc_manipulation.pick_place_server.RosMotionPort object at 0x7cfc144e2cf0&gt;
+node = &lt;rclpy.node.Node object at 0x7cfc144e1b50&gt;
+action_type = &lt;class 'mtc_interfaces.action._execute_joint_move.ExecuteJointMove'&gt;
+action_name = '/mtc/motion/execute_joint_move', server_wait_s = 2.0
+result_timeout_s = 60.0
+
+    def __init__(
+        self,
+        node: Any,
+        action_type: Any,
+        action_name: str = "/mtc/motion/execute_joint_move",
+        server_wait_s: float = 2.0,
+        result_timeout_s: float = 60.0,
+    ) -&gt; None:
+        self._node = node
+        self._action_type = action_type
+        self._action_name = action_name
+        self._server_wait_s = server_wait_s
+        self._result_timeout_s = result_timeout_s
+&gt;       self._client = action_type.create_client(node, action_name)
+E       AttributeError: type object 'ExecuteJointMove' has no attribute 'create_client'
+
+fix-work/install/mtc_manipulation/lib/python3.12/site-packages/mtc_manipulation/pick_place_server.py:212: AttributeError</failure></testcase><testcase classname="test_ros_wiring" name="test_default_unlock_client_reaches_tool_manager_without_release_claim[interlock]" time="0.026" /><testcase classname="test_ros_wiring" name="test_default_unlock_client_reaches_tool_manager_without_release_claim[mock-accepted]" time="0.027"><failure message="assert () == (175,)&#10;  Right contains one more item: 175&#10;  Use -v to get more diff">gates_open = True
+
+    @pytest.mark.parametrize("gates_open", [False, True], ids=["interlock", "mock-accepted"])
+    def test_default_unlock_client_reaches_tool_manager_without_release_claim(gates_open):
+        rclpy.init(args=[
+            "--ros-args",
+            "-p", "tool_type:=magnetic_latch_v2",
+            "-p", "simulation_mode:=true",
+            "-p", "unlock_io_backend:=mock",
+            "-p", "seated_verified:=" + str(gates_open).lower(),
+            "-p", "unloaded:=" + str(gates_open).lower(),
+        ])
+        manager = client_node = executor = thread = None
+        try:
+            manager = ToolManagerNode()
+            assert isinstance(manager._io, MockUnlockIo)
+            executor = SingleThreadedExecutor()
+            executor.add_node(manager)
+            thread = threading.Thread(target=executor.spin, daemon=True)
+            thread.start()
+            client_node = rclpy.create_node("unlock_wiring_probe")
+            port = pick_place_server.RosToolPort(
+                client_node, tool_type="magnetic_latch_v2", unlock_srv_type=TriggerUnlock
+            )
+            evidence = port.unlock(pulse_ms=175)
+            assert "服务不可用" not in evidence.message
+            assert "调用超时" not in evidence.message
+            assert not evidence.ok
+            assert not evidence.verified
+            if gates_open:
+&gt;               assert manager._io.history == (175,)
+E               assert () == (175,)
+E                 Right contains one more item: 175
+E                 Use -v to get more diff
+
+fix-src/tests/test_ros_wiring.py:112: AssertionError</failure></testcase></testsuite></testsuites>

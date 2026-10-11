@@ -1,0 +1,15 @@
+{
+  "name": "syntax-checks",
+  "argv": [
+    "bash",
+    "-c",
+    "set -e; node --check webui/static/app.js; bash -n webui/run.sh; python3 -m compileall -q webui; git diff --check"
+  ],
+  "cwd": "/home/afonso/meituan-robotics-challenge-2026",
+  "started_at": "2026-10-11T18:19:30.662501+08:00",
+  "ended_at": "2026-10-11T18:19:30.741676+08:00",
+  "duration_sec": 0.079,
+  "exit_code": 0,
+  "log": "logs/syntax-checks.log",
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

@@ -1,0 +1,17 @@
+setUpClass (__main__.RosIntegrationTests) ... ERROR
+
+======================================================================
+ERROR: setUpClass (__main__.RosIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/ui-src/webui/ros_integration_check.py", line 162, in setUpClass
+    wait_for(lambda: cls.backend.snapshot()["operations"]["submit"], 15)
+  File "/ui-src/webui/ros_integration_check.py", line 28, in wait_for
+    raise AssertionError("Timed out waiting for ROS fixture condition")
+AssertionError: Timed out waiting for ROS fixture condition
+
+----------------------------------------------------------------------
+Ran 0 tests in 15.602s
+
+FAILED (errors=1)
+terminate called without an active exception

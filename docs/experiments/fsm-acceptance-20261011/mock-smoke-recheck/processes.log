@@ -1,0 +1,12 @@
+  PID  PPID COMMAND
+    1     0 sleep infinity
+  476     0 apt-get install --download-only -y --no-install-recommends libboost-dev socat ros-jazzy-ros2-control ros-jazzy-ros2-controllers ros-jazzy-xacro ros-jazzy-robot-state-publisher ros-jazzy-rviz2 ros-jazzy-joint-state-publisher ros-jazzy-tf2-geometry-msgs ros-jazzy-urdf
+  590   476 /usr/lib/apt/methods/http
+  591   476 /usr/lib/apt/methods/http
+ 3096     1 /usr/bin/python3 -c from ros2cli.daemon.daemonize import main; main() --name ros2-daemon --ros-domain-id 93 --rmw-implementation rmw_fastrtps_cpp
+ 3181     0 python3 /tools/mock_smoke_recheck.py
+ 3216  3181 /usr/bin/python3 /opt/ros/jazzy/bin/ros2 launch mtc_bringup mock_bringup.launch.py backend:=mock
+ 3219  3216 /usr/bin/python3 /work/install/mtc_motion_execution/lib/mtc_motion_execution/motion_executor --ros-args -r __node:=motion_executor --params-file /tmp/launch_params_qa2p3maz
+ 3222  3216 /usr/bin/python3 /work/install/mtc_tool/lib/mtc_tool/tool_manager --ros-args -r __node:=tool_manager --params-file /tmp/launch_params_c9r_akqk
+ 3223  3216 /usr/bin/python3 /work/install/mtc_safety/lib/mtc_safety/safety_supervisor --ros-args -r __node:=safety_supervisor
+ 3344  3181 ps -eo pid,ppid,args

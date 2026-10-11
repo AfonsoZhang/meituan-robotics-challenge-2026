@@ -1,0 +1,173 @@
+..FF.F                                                                   [100%]
+=================================== FAILURES ===================================
+________ test_pickplace_entrypoint_maps_existing_ros_parameter[default] ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7cfc1f560e30>
+max_age = None
+
+    @pytest.mark.parametrize("max_age", [None, 0.75], ids=["default", "ros-override"])
+    def test_pickplace_entrypoint_maps_existing_ros_parameter(monkeypatch, max_age):
+        nodes = []
+        captured = {}
+        create_node = rclpy.create_node
+    
+        def track_node(*args, **kwargs):
+            node = create_node(*args, **kwargs)
+            nodes.append(node)
+            return node
+    
+        class ConfigProbe:
+            def __init__(self, **kwargs):
+                captured.update(kwargs)
+    
+            def stop(self):
+                captured["stopped"] = True
+    
+        monkeypatch.setattr(rclpy, "create_node", track_node)
+        monkeypatch.setattr(rclpy, "spin", lambda node: None)
+        monkeypatch.setattr(pick_place_server, "PickPlaceServer", ConfigProbe)
+        args = [] if max_age is None else [
+            "--ros-args", "-p", "perception_max_age_sec:=" + str(max_age)
+        ]
+        try:
+>           assert pick_place_server.main(args) == 0
+
+fix-src/tests/test_ros_wiring.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fix-work/install/mtc_manipulation/lib/python3.12/site-packages/mtc_manipulation/pick_place_server.py:672: in main
+    motion=RosMotionPort(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <mtc_manipulation.pick_place_server.RosMotionPort object at 0x7cfc26c28a10>
+node = <rclpy.node.Node object at 0x7cfc24229d00>
+action_type = <class 'mtc_interfaces.action._execute_joint_move.ExecuteJointMove'>
+action_name = '/mtc/motion/execute_joint_move', server_wait_s = 2.0
+result_timeout_s = 60.0
+
+    def __init__(
+        self,
+        node: Any,
+        action_type: Any,
+        action_name: str = "/mtc/motion/execute_joint_move",
+        server_wait_s: float = 2.0,
+        result_timeout_s: float = 60.0,
+    ) -> None:
+        self._node = node
+        self._action_type = action_type
+        self._action_name = action_name
+        self._server_wait_s = server_wait_s
+        self._result_timeout_s = result_timeout_s
+>       self._client = action_type.create_client(node, action_name)
+E       AttributeError: type object 'ExecuteJointMove' has no attribute 'create_client'
+
+fix-work/install/mtc_manipulation/lib/python3.12/site-packages/mtc_manipulation/pick_place_server.py:212: AttributeError
+_____ test_pickplace_entrypoint_maps_existing_ros_parameter[ros-override] ______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7cfc1c41b800>
+max_age = 0.75
+
+    @pytest.mark.parametrize("max_age", [None, 0.75], ids=["default", "ros-override"])
+    def test_pickplace_entrypoint_maps_existing_ros_parameter(monkeypatch, max_age):
+        nodes = []
+        captured = {}
+        create_node = rclpy.create_node
+    
+        def track_node(*args, **kwargs):
+            node = create_node(*args, **kwargs)
+            nodes.append(node)
+            return node
+    
+        class ConfigProbe:
+            def __init__(self, **kwargs):
+                captured.update(kwargs)
+    
+            def stop(self):
+                captured["stopped"] = True
+    
+        monkeypatch.setattr(rclpy, "create_node", track_node)
+        monkeypatch.setattr(rclpy, "spin", lambda node: None)
+        monkeypatch.setattr(pick_place_server, "PickPlaceServer", ConfigProbe)
+        args = [] if max_age is None else [
+            "--ros-args", "-p", "perception_max_age_sec:=" + str(max_age)
+        ]
+        try:
+>           assert pick_place_server.main(args) == 0
+
+fix-src/tests/test_ros_wiring.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fix-work/install/mtc_manipulation/lib/python3.12/site-packages/mtc_manipulation/pick_place_server.py:672: in main
+    motion=RosMotionPort(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <mtc_manipulation.pick_place_server.RosMotionPort object at 0x7cfc144e2cf0>
+node = <rclpy.node.Node object at 0x7cfc144e1b50>
+action_type = <class 'mtc_interfaces.action._execute_joint_move.ExecuteJointMove'>
+action_name = '/mtc/motion/execute_joint_move', server_wait_s = 2.0
+result_timeout_s = 60.0
+
+    def __init__(
+        self,
+        node: Any,
+        action_type: Any,
+        action_name: str = "/mtc/motion/execute_joint_move",
+        server_wait_s: float = 2.0,
+        result_timeout_s: float = 60.0,
+    ) -> None:
+        self._node = node
+        self._action_type = action_type
+        self._action_name = action_name
+        self._server_wait_s = server_wait_s
+        self._result_timeout_s = result_timeout_s
+>       self._client = action_type.create_client(node, action_name)
+E       AttributeError: type object 'ExecuteJointMove' has no attribute 'create_client'
+
+fix-work/install/mtc_manipulation/lib/python3.12/site-packages/mtc_manipulation/pick_place_server.py:212: AttributeError
+_ test_default_unlock_client_reaches_tool_manager_without_release_claim[mock-accepted] _
+
+gates_open = True
+
+    @pytest.mark.parametrize("gates_open", [False, True], ids=["interlock", "mock-accepted"])
+    def test_default_unlock_client_reaches_tool_manager_without_release_claim(gates_open):
+        rclpy.init(args=[
+            "--ros-args",
+            "-p", "tool_type:=magnetic_latch_v2",
+            "-p", "simulation_mode:=true",
+            "-p", "unlock_io_backend:=mock",
+            "-p", "seated_verified:=" + str(gates_open).lower(),
+            "-p", "unloaded:=" + str(gates_open).lower(),
+        ])
+        manager = client_node = executor = thread = None
+        try:
+            manager = ToolManagerNode()
+            assert isinstance(manager._io, MockUnlockIo)
+            executor = SingleThreadedExecutor()
+            executor.add_node(manager)
+            thread = threading.Thread(target=executor.spin, daemon=True)
+            thread.start()
+            client_node = rclpy.create_node("unlock_wiring_probe")
+            port = pick_place_server.RosToolPort(
+                client_node, tool_type="magnetic_latch_v2", unlock_srv_type=TriggerUnlock
+            )
+            evidence = port.unlock(pulse_ms=175)
+            assert "服务不可用" not in evidence.message
+            assert "调用超时" not in evidence.message
+            assert not evidence.ok
+            assert not evidence.verified
+            if gates_open:
+>               assert manager._io.history == (175,)
+E               assert () == (175,)
+E                 Right contains one more item: 175
+E                 Use -v to get more diff
+
+fix-src/tests/test_ros_wiring.py:112: AssertionError
+----------------------------- Captured stderr call -----------------------------
+[WARN] [1791710142.661072386] [mtc_tool_manager]: unlock_io_backend=mock 且 simulation_mode=true：使用 MockUnlockIo（仅离线，不含真实 IO）。
+[WARN] [1791710142.662379127] [mtc_tool_manager]: 真实电磁解锁 IO 已禁用：unlock_io=mock_unlock_io；tools=magnetic_latch_v2；所有解锁请求都不会驱动真实硬件。
+[WARN] [1791710142.662704950] [mtc_tool_manager]: 当前工具 magnetic_latch_v2 需要解锁脉冲，联锁要求 seated_verified=True 且 unloaded=True。
+[WARN] [1791710142.668467832] [mtc_tool_manager]: 解锁请求被安全联锁拒绝（request_id=, SAFETY_INTERLOCK=500）：工具未处于 RELEASING 阶段（当前 STATE_DETACHED）（request_id=）
+------------- generated xml file: /fix-evidence/candidate-ros.xml --------------
+=========================== short test summary info ============================
+FAILED fix-src/tests/test_ros_wiring.py::test_pickplace_entrypoint_maps_existing_ros_parameter[default]
+FAILED fix-src/tests/test_ros_wiring.py::test_pickplace_entrypoint_maps_existing_ros_parameter[ros-override]
+FAILED fix-src/tests/test_ros_wiring.py::test_default_unlock_client_reaches_tool_manager_without_release_claim[mock-accepted]
+3 failed, 3 passed in 0.52s

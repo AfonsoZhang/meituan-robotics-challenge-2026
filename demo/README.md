@@ -1,5 +1,7 @@
 # 单块钩取录制入口
 
+本目录保留 **Humble / Gazebo Classic 11 的历史实验复现入口**。2026-10-11 后续开发已按 USER-HW-20261011 切到 FSM Core v0.1 的 Ubuntu 24.04 / Jazzy / C++17 基线，见 [接入计划](../docs/hardware-vision-plan.md#5-软件组织与验证顺序)。本目录尚未迁移，以下命令和既有成绩均不代表 Jazzy 集成已验证。
+
 此入口仅连接自行启动的 Gazebo Classic 仿真实例，使用 ROS domain 67、Gazebo master 11365。需要 ROS 2 Humble 和已构建的仿真工作空间；通过 `AUBO_ROS2_WS` 指定路径，默认 `$HOME/aubo_ros2_ws`。不连接实机、不重规划、不附着电池。[另一台机器的完整搭建步骤](SETUP.md)包含上游模型获取、自建包构建和短试录检查。
 
 ```bash
@@ -67,6 +69,8 @@ bash demo/run.sh --sequence --timeout 180
 重新构建后可执行 `bash demo/run.sh --control smc --vision correct`；`--control pd` 为重力补偿 PD 基线，`--control pd_matched` 为边界层增益匹配对照。默认仍为 position。高位受扰对照使用 `--robust-probe --disturbance-nm 2`，不要与抓取/序列选项混用；详见 [算法、协议和实测结果](../docs/robust-control.md)。
 
 ## 浏览器监控台
+
+2026-10-11 用户先确认负责 **Web UI**（USER-HW-20261011-02），随后明确为**系统集成与验收，兼做 Web UI**（USER-HW-20261011-03）。下面的历史监控台保留原用途。用户后续澄清需要实机操作台（USER-HW-20261011-07），新版 [webui/](../webui/README.md) 默认走 Jazzy ROS 任务、状态、图像和日志，使用 8767 端口；此处旧代码未迁移。早期 UI Mock 验证见 DEMO-WEBUI-MOCK-20261011，现在须显式 `python3 -m webui.server --mock`；新版实现与验证见 [Web UI](../docs/web-ui.md)，NUC/实体设备尚未验收。界面分工见 [方案第 6 节](../docs/hardware-vision-plan.md#6-用户负责的-web-ui)，系统集成 P0 见第 7 节。DEMO-WEBUI-20261011 保留早先仅静态核对旧路由的范围。
 
 ```bash
 bash demo/dashboard.sh            # 打开 http://127.0.0.1:8765/

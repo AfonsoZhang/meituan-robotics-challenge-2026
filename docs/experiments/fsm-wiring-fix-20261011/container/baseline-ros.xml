@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="6" skipped="0" tests="6" time="2.566" timestamp="2026-10-11T09:14:42.355694" hostname="17b05d1a83af"><testcase classname="test_ros_wiring" name="test_task_node_keeps_ros_clock_and_fsm_clock_independent[ros-clock]" time="0.089"><failure message="AttributeError: 'function' object has no attribute 'now'">injected = False
+
+    @pytest.mark.parametrize("injected", [False, True], ids=["ros-clock", "injected-clock"])
+    def test_task_node_keeps_ros_clock_and_fsm_clock_independent(injected):
+        rclpy.init(args=[])
+        node = None
+        fake_time = [123.0]
+        try:
+&gt;           node = TaskExecutorNode(clock=(lambda: fake_time[0]) if injected else None)
+
+fix-src/tests/test_ros_wiring.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+work/install/mtc_task/lib/python3.12/site-packages/mtc_task/task_executor.py:183: in __init__
+    self.fsm = TaskFsm(clock=self._clock, config=config)
+work/install/mtc_task/lib/python3.12/site-packages/mtc_task/task_fsm.py:600: in __init__
+    self.state_entered_at: float = self._clock()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;mtc_task.task_executor.TaskExecutorNode object at 0x71beeff87bf0&gt;
+
+    def _ros_clock(self) -&gt; float:
+&gt;       return self.get_clock().now().nanoseconds / 1e9
+E       AttributeError: 'function' object has no attribute 'now'
+
+work/install/mtc_task/lib/python3.12/site-packages/mtc_task/task_executor.py:243: AttributeError</failure></testcase><testcase classname="test_ros_wiring" name="test_task_node_keeps_ros_clock_and_fsm_clock_independent[injected-clock]" time="0.033"><failure message="AttributeError: 'function' object has no attribute 'handle'">injected = True
+
+    @pytest.mark.parametrize("injected", [False, True], ids=["ros-clock", "injected-clock"])
+    def test_task_node_keeps_ros_clock_and_fsm_clock_independent(injected):
+        rclpy.init(args=[])
+        node = None
+        fake_time = [123.0]
+        try:
+&gt;           node = TaskExecutorNode(clock=(lambda: fake_time[0]) if injected else None)
+
+fix-src/tests/test_ros_wiring.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+work/install/mtc_task/lib/python3.12/site-packages/mtc_task/task_executor.py:203: in __init__
+    self._action_server = ActionServer(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;rclpy.action.server.ActionServer object at 0x71beef378b30&gt;
+node = &lt;mtc_task.task_executor.TaskExecutorNode object at 0x71beec4ce390&gt;
+action_type = &lt;class 'mtc_interfaces.action._execute_task.ExecuteTask'&gt;
+action_name = '/mtc/task/execute'
+execute_callback = &lt;bound method TaskExecutorNode._execute_callback of &lt;mtc_task.task_executor.TaskExecutorNode object at 0x71beec4ce390&gt;&gt;
+
+    def __init__(
+        self,
+        node,
+        action_type,
+        action_name,
+        execute_callback=None,
+        *,
+        callback_group=None,
+        goal_callback=default_goal_callback,
+        handle_accepted_callback=default_handle_accepted_callback,
+        cancel_callback=default_cancel_callback,
+        goal_service_qos_profile=qos_profile_services_default,
+        result_service_qos_profile=qos_profile_services_default,
+        cancel_service_qos_profile=qos_profile_services_default,
+        feedback_pub_qos_profile=QoSProfile(depth=10),
+        status_pub_qos_profile=qos_profile_action_status_default,
+        result_timeout=900
+    ):
+        """
+        Create an ActionServer.
+    
+        :param node: The ROS node to add the action server to.
+        :param action_type: Type of the action.
+        :param action_name: Name of the action.
+            Used as part of the underlying topic and service names.
+        :param execute_callback: Callback function for processing accepted goals.
+            This is called if when :class:`ServerGoalHandle.execute()` is called for
+            a goal handle that is being tracked by this action server.
+        :param callback_group: Callback group to add the action server to.
+            If None, then the node's default callback group is used.
+        :param goal_callback: Callback function for handling new goal requests.
+        :param handle_accepted_callback: Callback function for handling newly accepted goals.
+            Passes an instance of `ServerGoalHandle` as an argument.
+        :param cancel_callback: Callback function for handling cancel requests.
+        :param goal_service_qos_profile: QoS profile for the goal service.
+        :param result_service_qos_profile: QoS profile for the result service.
+        :param cancel_service_qos_profile: QoS profile for the cancel service.
+        :param feedback_pub_qos_profile: QoS profile for the feedback publisher.
+        :param status_pub_qos_profile: QoS profile for the status publisher.
+        :param result_timeout: How long in seconds a result is kept by the server after a goal
+            reaches a terminal state.
+        """
+        if callback_group is None:
+            callback_group = node.default_callback_group
+    
+        super().__init__(callback_group)
+    
+        self._lock = threading.Lock()
+    
+        self.register_handle_accepted_callback(handle_accepted_callback)
+        self.register_goal_callback(goal_callback)
+        self.register_cancel_callback(cancel_callback)
+        if execute_callback:
+            self.register_execute_callback(execute_callback)
+        elif handle_accepted_callback is default_handle_accepted_callback:
+            self._logger.warning(
+                'Not handling nor executing the goal, this server will do nothing')
+    
+        # Import the typesupport for the action module if not already done
+        check_for_type_support(action_type)
+        self._node = node
+        self._action_type = action_type
+&gt;       with node.handle, node.get_clock().handle:
+E       AttributeError: 'function' object has no attribute 'handle'
+
+opt/ros/jazzy/lib/python3.12/site-packages/rclpy/action/server.py:265: AttributeError</failure></testcase><testcase classname="test_ros_wiring" name="test_pickplace_entrypoint_maps_existing_ros_parameter[default]" time="0.017"><failure message="TypeError: PickPlaceConfig.__init__() got an unexpected keyword argument 'perception_max_age_sec'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x71beec575910&gt;
+max_age = None
+
+    @pytest.mark.parametrize("max_age", [None, 0.75], ids=["default", "ros-override"])
+    def test_pickplace_entrypoint_maps_existing_ros_parameter(monkeypatch, max_age):
+        nodes = []
+        captured = {}
+        create_node = rclpy.create_node
+    
+        def track_node(*args, **kwargs):
+            node = create_node(*args, **kwargs)
+            nodes.append(node)
+            return node
+    
+        class ConfigProbe:
+            def __init__(self, **kwargs):
+                captured.update(kwargs)
+    
+            def stop(self):
+                captured["stopped"] = True
+    
+        monkeypatch.setattr(rclpy, "create_node", track_node)
+        monkeypatch.setattr(rclpy, "spin", lambda node: None)
+        monkeypatch.setattr(pick_place_server, "PickPlaceServer", ConfigProbe)
+        args = [] if max_age is None else [
+            "--ros-args", "-p", "perception_max_age_sec:=" + str(max_age)
+        ]
+        try:
+&gt;           assert pick_place_server.main(args) == 0
+
+fix-src/tests/test_ros_wiring.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+argv = []
+
+    def main(argv: Optional[Sequence[str]] = None) -&gt; int:
+        """可执行入口（ROS 2 ament_python console_scripts）。"""
+        import rclpy
+    
+        from mtc_interfaces.action import PickPlace
+        from mtc_interfaces.msg import BatteryDetectionArray, ToolState
+        from mtc_interfaces.srv import TriggerUnlock
+    
+        from .tool_strategy import make_strategy
+    
+        rclpy.init(args=list(argv) if argv is not None else None)
+        node = rclpy.create_node("pick_place_server")
+        node.declare_parameter("tool_type", "passive_hook_v1")
+        node.declare_parameter("placement_stability_sec", 3.0)
+        node.declare_parameter("perception_max_age_sec", 0.3)
+        node.declare_parameter("recovery_max_attempts", 1)
+        node.declare_parameter("verify_test_lift", True)
+        node.declare_parameter("verify_placement", True)
+        node.declare_parameter("motion_action_name", "/mtc/motion/execute_joint_move")
+    
+        tool_type = str(node.get_parameter("tool_type").value)
+        strategy = make_strategy(tool_type)
+&gt;       config = PickPlaceConfig(
+            tool_type=tool_type,
+            placement_stability_sec=float(node.get_parameter("placement_stability_sec").value),
+            perception_max_age_sec=float(node.get_parameter("perception_max_age_sec").value),
+            recovery_max_attempts=int(node.get_parameter("recovery_max_attempts").value),
+            verify_test_lift=bool(node.get_parameter("verify_test_lift").value),
+            verify_placement=bool(node.get_parameter("verify_placement").value),
+        )
+E       TypeError: PickPlaceConfig.__init__() got an unexpected keyword argument 'perception_max_age_sec'
+
+work/install/mtc_manipulation/lib/python3.12/site-packages/mtc_manipulation/pick_place_server.py:651: TypeError</failure></testcase><testcase classname="test_ros_wiring" name="test_pickplace_entrypoint_maps_existing_ros_parameter[ros-override]" time="0.012"><failure message="TypeError: PickPlaceConfig.__init__() got an unexpected keyword argument 'perception_max_age_sec'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x71beec575b80&gt;
+max_age = 0.75
+
+    @pytest.mark.parametrize("max_age", [None, 0.75], ids=["default", "ros-override"])
+    def test_pickplace_entrypoint_maps_existing_ros_parameter(monkeypatch, max_age):
+        nodes = []
+        captured = {}
+        create_node = rclpy.create_node
+    
+        def track_node(*args, **kwargs):
+            node = create_node(*args, **kwargs)
+            nodes.append(node)
+            return node
+    
+        class ConfigProbe:
+            def __init__(self, **kwargs):
+                captured.update(kwargs)
+    
+            def stop(self):
+                captured["stopped"] = True
+    
+        monkeypatch.setattr(rclpy, "create_node", track_node)
+        monkeypatch.setattr(rclpy, "spin", lambda node: None)
+        monkeypatch.setattr(pick_place_server, "PickPlaceServer", ConfigProbe)
+        args = [] if max_age is None else [
+            "--ros-args", "-p", "perception_max_age_sec:=" + str(max_age)
+        ]
+        try:
+&gt;           assert pick_place_server.main(args) == 0
+
+fix-src/tests/test_ros_wiring.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+argv = ['--ros-args', '-p', 'perception_max_age_sec:=0.75']
+
+    def main(argv: Optional[Sequence[str]] = None) -&gt; int:
+        """可执行入口（ROS 2 ament_python console_scripts）。"""
+        import rclpy
+    
+        from mtc_interfaces.action import PickPlace
+        from mtc_interfaces.msg import BatteryDetectionArray, ToolState
+        from mtc_interfaces.srv import TriggerUnlock
+    
+        from .tool_strategy import make_strategy
+    
+        rclpy.init(args=list(argv) if argv is not None else None)
+        node = rclpy.create_node("pick_place_server")
+        node.declare_parameter("tool_type", "passive_hook_v1")
+        node.declare_parameter("placement_stability_sec", 3.0)
+        node.declare_parameter("perception_max_age_sec", 0.3)
+        node.declare_parameter("recovery_max_attempts", 1)
+        node.declare_parameter("verify_test_lift", True)
+        node.declare_parameter("verify_placement", True)
+        node.declare_parameter("motion_action_name", "/mtc/motion/execute_joint_move")
+    
+        tool_type = str(node.get_parameter("tool_type").value)
+        strategy = make_strategy(tool_type)
+&gt;       config = PickPlaceConfig(
+            tool_type=tool_type,
+            placement_stability_sec=float(node.get_parameter("placement_stability_sec").value),
+            perception_max_age_sec=float(node.get_parameter("perception_max_age_sec").value),
+            recovery_max_attempts=int(node.get_parameter("recovery_max_attempts").value),
+            verify_test_lift=bool(node.get_parameter("verify_test_lift").value),
+            verify_placement=bool(node.get_parameter("verify_placement").value),
+        )
+E       TypeError: PickPlaceConfig.__init__() got an unexpected keyword argument 'perception_max_age_sec'
+
+work/install/mtc_manipulation/lib/python3.12/site-packages/mtc_manipulation/pick_place_server.py:651: TypeError</failure></testcase><testcase classname="test_ros_wiring" name="test_default_unlock_client_reaches_tool_manager_without_release_claim[interlock]" time="1.029"><failure message="AssertionError: assert '服务不可用' not in '解锁服务不可用'&#10;  '服务不可用' is contained here:&#10;    解锁服务不可用">gates_open = False
+
+    @pytest.mark.parametrize("gates_open", [False, True], ids=["interlock", "mock-accepted"])
+    def test_default_unlock_client_reaches_tool_manager_without_release_claim(gates_open):
+        rclpy.init(args=[
+            "--ros-args",
+            "-p", "tool_type:=magnetic_latch_v2",
+            "-p", "simulation_mode:=true",
+            "-p", "unlock_io_backend:=mock",
+            "-p", "seated_verified:=" + str(gates_open).lower(),
+            "-p", "unloaded:=" + str(gates_open).lower(),
+        ])
+        manager = client_node = executor = thread = None
+        try:
+            manager = ToolManagerNode()
+            assert isinstance(manager._io, MockUnlockIo)
+            executor = SingleThreadedExecutor()
+            executor.add_node(manager)
+            thread = threading.Thread(target=executor.spin, daemon=True)
+            thread.start()
+            client_node = rclpy.create_node("unlock_wiring_probe")
+            port = pick_place_server.RosToolPort(
+                client_node, tool_type="magnetic_latch_v2", unlock_srv_type=TriggerUnlock
+            )
+            evidence = port.unlock(pulse_ms=175)
+&gt;           assert "服务不可用" not in evidence.message
+E           AssertionError: assert '服务不可用' not in '解锁服务不可用'
+E             '服务不可用' is contained here:
+E               解锁服务不可用
+
+fix-src/tests/test_ros_wiring.py:107: AssertionError</failure></testcase><testcase classname="test_ros_wiring" name="test_default_unlock_client_reaches_tool_manager_without_release_claim[mock-accepted]" time="1.025"><failure message="AssertionError: assert '服务不可用' not in '解锁服务不可用'&#10;  '服务不可用' is contained here:&#10;    解锁服务不可用">gates_open = True
+
+    @pytest.mark.parametrize("gates_open", [False, True], ids=["interlock", "mock-accepted"])
+    def test_default_unlock_client_reaches_tool_manager_without_release_claim(gates_open):
+        rclpy.init(args=[
+            "--ros-args",
+            "-p", "tool_type:=magnetic_latch_v2",
+            "-p", "simulation_mode:=true",
+            "-p", "unlock_io_backend:=mock",
+            "-p", "seated_verified:=" + str(gates_open).lower(),
+            "-p", "unloaded:=" + str(gates_open).lower(),
+        ])
+        manager = client_node = executor = thread = None
+        try:
+            manager = ToolManagerNode()
+            assert isinstance(manager._io, MockUnlockIo)
+            executor = SingleThreadedExecutor()
+            executor.add_node(manager)
+            thread = threading.Thread(target=executor.spin, daemon=True)
+            thread.start()
+            client_node = rclpy.create_node("unlock_wiring_probe")
+            port = pick_place_server.RosToolPort(
+                client_node, tool_type="magnetic_latch_v2", unlock_srv_type=TriggerUnlock
+            )
+            evidence = port.unlock(pulse_ms=175)
+&gt;           assert "服务不可用" not in evidence.message
+E           AssertionError: assert '服务不可用' not in '解锁服务不可用'
+E             '服务不可用' is contained here:
+E               解锁服务不可用
+
+fix-src/tests/test_ros_wiring.py:107: AssertionError</failure></testcase></testsuite></testsuites>

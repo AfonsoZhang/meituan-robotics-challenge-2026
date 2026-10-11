@@ -1,0 +1,18 @@
+{
+  "name": "ros-package-licenses",
+  "argv": [
+    "/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe",
+    "exec",
+    "mtc-webui-20261011",
+    "python3",
+    "-c",
+    "from pathlib import Path; import json,xml.etree.ElementTree as E; result={}; pkgs=[\"rclpy\",\"sensor_msgs\",\"rcl_interfaces\",\"unique_identifier_msgs\"]; exec(\"for p in pkgs:\\n r=E.parse(Path(\\\"/opt/ros/jazzy/share\\\")/p/\\\"package.xml\\\").getroot()\\n result[p]={\\\"version\\\":r.findtext(\\\"version\\\"),\\\"licenses\\\":[e.text for e in r.findall(\\\"license\\\")]}\\n\"); print(json.dumps(result,indent=2))"
+  ],
+  "cwd": "/home/afonso/meituan-robotics-challenge-2026",
+  "started_at": "2026-10-11T18:10:56.096463+08:00",
+  "ended_at": "2026-10-11T18:10:56.329515+08:00",
+  "duration_sec": 0.233,
+  "exit_code": 0,
+  "log": "logs/ros-package-licenses.log",
+  "log_sha256": "178db41c914471c2db5addf7a546e456a9eef84d5f847d866b6bf58389f1fb5e"
+}

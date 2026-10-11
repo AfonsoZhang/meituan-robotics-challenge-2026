@@ -1,6 +1,6 @@
 # 硬件与传统视觉方案
 
-更新日期：2026-09-06。状态：方案草案，尚无采集、标定、驱动联通或实机测试结果。
+更新日期：2026-10-11。状态：按用户指定的 FSM Core v0.1 登记后续开发基线；已有仿真证据保留，尚无实机采集、标定、驱动联通或抓放验收结果。
 
 本文区分用户确认、官方资料和工程建议。比赛事实沿用 [资料说明](../materials/README.md) 中的 RULES、FAQ、MAP 标识及 PDF 页码；新增来源同步登记在 [manifest.json](../materials/manifest.json)。
 
@@ -12,7 +12,8 @@
 | 相机 | RealSense D435i，计划末端安装（eye-in-hand，眼在手上） | 型号来自 USER-HW-20260906；安装方式由 USER-HW-20260906-03 确认，具体支架、固件和连接环境待确定，安装完成状态未核实 |
 | 技术路线 | 传统视觉 | 同上；具体算法和控制架构为下文工程建议 |
 | 末端执行方式 | 方案一：钩取提手；方案二：吸盘侧面吸附；方案三：卡环 | 分别来自 USER-EE-20260906-01、USER-EE-20260906-02、USER-EE-20260906-04；三方案并列评估，候选不局限于这三种（USER-EE-20260923-02），具体工具与最终选用方案待实物验证 |
-| 计算平台 | 实机部署在 NUC：原生 Ubuntu 22.04 + ROS 2 Humble | 用户确认 USER-HW-20260923-02、USER-HW-20260923-03、USER-HW-20260923-04（早先 USER-HW-20260906-02 的「本机」指当前开发电脑，USER-HW-20260923-05 澄清；部署已改为 NUC，开发电脑用于开发和跑仿真并经 SSH 隧道远程查看 NUC，USER-HW-20260923-06、USER-HW-20260923-07）；NUC 型号、USB 3 与网口、是否到位未说明。当时终端观测的 Ubuntu 22.04.5 LTS / WSL2 x86_64（ENV-LOCAL-20260906）是开发环境，不代表部署环境 |
+| 软件开发基线 | FSM Core v0.1，Ubuntu 24.04 / ROS 2 Jazzy / C++17 | USER-HW-20261011（用户会话“按照这个版本”）；固定仓库版本见 TEAMMATE-FSM-20261011，下文第 5 节区分上游完成范围和本项目接入缺口 |
+| 计算平台 | 实机部署仍计划使用 NUC；实际安装版本待核验 | USER-HW-20260923-03、USER-HW-20260923-04 确认原生 Ubuntu / NUC；当时选定的 Ubuntu 22.04 / Humble（USER-HW-20260923-02）保留为历史，后续开发目标按 USER-HW-20261011 更新。NUC 已到位（USER-HW-20260923-11），型号、USB 3、网口及新基线部署未核实。开发电脑用于开发、仿真并经 SSH 隧道远程查看 NUC（USER-HW-20260923-05、USER-HW-20260923-06、USER-HW-20260923-07）；ENV-LOCAL-20260906 的 WSL 观测不代表 NUC 环境 |
 | 道具几何资料 | 带提手圆角盒体；名义底面 70×80、本体高 50、提手高出 30 | 用户提供 BATTERY-RENDER、BATTERY-DRAWING；单位暂按 mm 解释，设计图不等于实测，详见 [几何与抓取分析](battery-geometry.md) |
 | 实施范围 | 按初赛固定工位设计 | 用户确认只做初赛、报名已完成（USER-RULE-20260923）；初赛底座不可移动（RULES p2；FAQ p1–2） |
 
@@ -108,7 +109,37 @@ flowchart LR
 
 ### 5. 软件组织与验证顺序
 
-建议先用 Python + OpenCV + RealSense SDK 2.0 做视觉原型，依赖版本待电脑系统及相机固件确认后固定。S3 通过独立运动适配层接入，实际 SDK、通信方式和调用约定以该台控制器资料为准；2026-09-23 用户确定实机使用 ROS（USER-HW-20260923），发行版为 ROS 2 Humble（USER-HW-20260923-02），与仿真一致；运动适配层、相机接入与状态监控据此按 ROS 2 节点组织。运行环境为 NUC 上的原生 Ubuntu 22.04（USER-HW-20260923-03、USER-HW-20260923-04）。S3 用 `aubo_ros2_driver`（USER-HW-20260923-08，AUBO-ROS2）：它是 ros2_control 硬件接口，控制器同为 `joint_trajectory_controller`，仿真侧轨迹执行接口可沿用；构建时下载二进制 aubo_sdk 0.24.1-rc.3，与控制柜版本的兼容性、`aubo_type:=aubo_S3` 实机可用性、SDK 许可及上游建议的实机 URDF 校准均待验证。D435i 用 realsense-ros（USER-HW-20260923-09，RS-ROS2），安装版本、实际话题名与深度编码待在 NUC 上验证，现有视觉代码只接受 32FC1 米制深度，需补单位换算。实机用 MoveIt（USER-HW-20260923-10）做规划；上游 `aubo_moveit_config` 只接受通用 SRDF，自碰撞豁免表与末端工具/相机碰撞几何需按 S3 和所选末端补齐，配置来源待定（Q17）；发行版一致不代表仿真代码已在实机验证。固定被动钩候选以运动阶段及视觉判定组织状态机；侧吸分支另抽象“建立真空、读取真空状态、泄压、确认释放”操作及超时，不提前指定 IO 引脚、电压或通信协议。主动止退机构仅在后续实际选用时增加驱动。
+2026-10-11 用户在提供仓库链接并获知环境差异后回复“按照这个版本”（USER-HW-20261011，用户会话）。后续开发采用 **F1u0rite/meituan_challenge_ws 的 FSM Core v0.1，Ubuntu 24.04 / ROS 2 Jazzy / C++17**。初次审阅锁定到 `main` 提交 `f477f689bb3e3d2a28437a3984458ec43e950c70`；其中第一阶段合并提交为 `c2be85724111f6fb4dfcc62a2c974f7be1233cba`。源码取得方式见 [版本锁定与接入入口](../robot/README.md)。2026-09-23 的 Ubuntu 22.04 / Humble 决策保留在 USER-HW-20260923-02、USER-HW-20260923-04 的后续澄清链中；本次没有核验或升级 NUC。
+
+**SDK 资料更新后的当前快照**：用户随后提示“repo已经补充SDK”（USER-HW-20261011-04）。已核对 `main@1d940f7c5f12561fed6641457c0b4b630a282b05`，仅新增 `docs/setup/AUBO_ROS2_DRIVER_JAZZY.md` 并修改 README，未改 FSM 或接口源码；当前源码锁定随此文档更新推进，初始提交和测试来源继续保留。新增资料登记于 TEAMMATE-SDK-20261011（2026-10-11 查阅），[部署手册](https://github.com/F1u0rite/meituan_challenge_ws/blob/1d940f7c5f12561fed6641457c0b4b630a282b05/docs/setup/AUBO_ROS2_DRIVER_JAZZY.md)及本项目 [SDK/驱动复现入口](../robot/README.md#sdk-与-jazzy-驱动资料已核对)已可用于系统集成交接。
+
+**版本证据**：TEAMMATE-FSM-20261011（2026-10-11 查阅）登记 [固定版本 README](https://github.com/F1u0rite/meituan_challenge_ws/blob/f477f689bb3e3d2a28437a3984458ec43e950c70/README.md)、[最终离线验收报告](https://github.com/F1u0rite/meituan_challenge_ws/blob/f477f689bb3e3d2a28437a3984458ec43e950c70/docs/migration/CPP_FSM_FINAL_SAFETY_GATE.md)和[第二阶段计划](https://github.com/F1u0rite/meituan_challenge_ws/blob/f477f689bb3e3d2a28437a3984458ec43e950c70/docs/migration/PHASE2_ROS2_INTEGRATION_PLAN.md)。仓库根许可证为 MIT；本次仅审阅源码并登记引用，没有复制实现。上游报告的 318 项 C++、269 项 Python、15 项纯 Python Mock E2E，现已在本项目独立 Ubuntu 24.04 / Jazzy 容器复跑通过，12 包构建成功（ENV-FSM-20261011，见[阶段验收](fsm-acceptance.md)）；TSan 动态竞态验收仍未完成。旧 Python ROS 节点仍在仓库中，不能将其存在写成新 C++ Action 外壳已完成。
+
+四个 C++ 核心包 `mtc_core_cpp`、`mtc_task_cpp`、`mtc_manipulation_cpp`、`mtc_motion_execution_cpp` 已由上游交付；核心逻辑不依赖 `rclcpp`，但构建仍使用 ament。采用以下接口组织本项目的后续接入，状态均为**待实现 / 待验证**：
+
+| 基线接口或模块 | 本项目接入内容 | 必须验证的边界 |
+| --- | --- | --- |
+| `TaskFsm` → `PickPlaceFsm` | 将正式口令传入基础任务或三块序列任务 | T0 / P1–P3 与颜色映射；示例顺序不写死；并发任务拒绝和故障锁定 |
+| `PerceptionPort` | 适配现有 RGB-D 检测、采图时 TF 与放后复核 | 6D 位姿、坐标系、时间戳和新鲜度；已有抓前定位不能冒充持续的挂载/落座/释放证据 |
+| `PlannerPort` | MoveIt 2 规划接近、搬运和撤离 | S3、相机、工具及电池碰撞几何；规划输出确实进入执行；失败时拒绝默认目标 |
+| `MotionPort` / `MotionExecutorCore` | 通过 ROS 2 Action 向 `FollowJointTrajectory` 提交整条时间参数化轨迹 | 单在途命令、按命令 ID 取消、独立停稳证据、超时或反馈未知后禁止自动重发 |
+| `ToolPort` / `ToolStrategy` | 按最终工具实现接合、承托、卸载和释放反馈 | 上游被动钩 V1 / 电磁解锁 V2 是软件策略；不据此认定本项目已具备电磁机构，侧吸和卡环也不能直接套用 V2 |
+| 放置结果与本项目评测 | 用独立观测核验颜色、位次、稳定性、外框和内框 | 沿用本项目赛事口径；Mock 的 `placement_verified` 不替代实际视觉或物理证据 |
+
+坐标接入须先核对本项目 `flange` 与上游设计中的 `tool0`、`hook_tcp` 的定义，不能按名字直接等同。上游 `ring_frame` 轴向仍是提案，数值 TCP、工具负载与工位参数待标定（TEAMMATE-FSM-20261011 的 TF 约定）。原有三类末端及开放候选范围继续按 Q03 处理；吸盘不做真空接触仿真的约定继续有效。
+
+| 软件推进顺序 | 可检查的产物 | 当前状态与验收重点 |
+| --- | --- | --- |
+| 1 | 固定提交的 Jazzy 独立工作空间与离线回归记录 | `PASS`：独立 Jazzy 容器完成 12 包构建、318 C++ / 269 Python / 15 Mock E2E；日志与环境见 ENV-FSM-20261011，不外推到 NUC |
+| 2 | C++ Task / PickPlace / Motion 的 ROS 2 Action 外壳 | 未实现；核对现有接口、错误码、状态发布来源和取消传播；FSM 事件串行推进 |
+| 3 | MoveIt `PlannerPort` 与完整轨迹执行适配 | 未实现；确定轨迹传递接口，一条轨迹一个 Goal，禁止拆为多次单点命令 |
+| 4 | `ros2_control` Mock Hardware 的规划—执行闭环 | 上游手册已报告独立 GenericSystem、FollowJointTrajectory、MoveIt Plan → Execute 的历史成功（TEAMMATE-SDK-20261011）；本项目现已复现独立 Fake 控制器、关节/TF、单点/多点轨迹到位（ENV-FSM-20261011）；MoveIt 及 FSM 完整接线仍未验证。取消确认、反馈断流、超时、并发拒绝及 V1/V2 的完整运行链路仍待核对 |
+| 5 | 本项目 RGB-D、场景与放置评测接入 | 未集成；单块 T0 后三块序列；模拟感知与真实相机输入分别标记；另行确定 Gazebo 迁移方式 |
+| 6 | NUC、控制柜、相机与实体工具联调记录 | 未验证；按 Q02–Q05、Q17 核实实际设备与标定后开展，Mock 成功不计为实机验收 |
+
+阶段 2–4 对齐上游第二阶段计划；该计划含第一轮测试计数和旧审计待办，具体接口以固定提交源码、最终验收报告核对后落地。基线登记轮次只整理计划；本轮阶段验收已复跑离线核心并启动现有 Python Mock，发现 Task/PickPlace 启动故障（ENV-FSM-20261011）。第二阶段新 C++ 外壳及 Humble / Classic 迁移仍未完成。
+
+设备选择仍沿用已确认项：S3 用 `aubo_ros2_driver`（USER-HW-20260923-08，AUBO-ROS2），D435i 用 realsense-ros（USER-HW-20260923-09，RS-ROS2），规划用 MoveIt（USER-HW-20260923-10）。此前 Humble 驱动的 `85684075` 记录只对应旧检查。新增资料已明确 Jazzy 驱动 `53aab83735236f0c262ecb11e04ef2600241d9d9`、模型子模块 `47fa5e02…` 与 Fake Xacro 修复；官方 CMake 的 SDK 构建依赖仍为 `aubo_sdk-0.24.1-rc.3-Linux_x86_64+318754d.zip`（TEAMMATE-SDK-20261011，手册 §01–02 及官方 CMake 核对）。本轮已在独立容器通过构建下载 SDK、记录包 SHA-256 并核验库链接（ENV-FSM-20261011）；厂商独立校验值、许可、NUC 部署和控制柜兼容性仍待核实。视觉可保留 Python / OpenCV 实现，通过适配接口接入 C++ FSM；真实流的对齐、编码和单位仍须以 NUC 观测核验。
 
 厂商 ARCS SDK 文档提供 RPC 运动调用及 RTDE 状态订阅等能力（AUBO-SDK），可作为两方案的运动控制候选接口。该文档不证明用户控制器已经支持某个 SDK 版本或真空设备接口；固定被动钩候选本身无需开合通信。
 
@@ -121,6 +152,80 @@ flowchart LR
 | 5 | 可配置序列任务和放后复核日志 | 按不同测试口令完成三块摆放，分别记录颜色位次、外框完整包含、内框投影覆盖率及 ≥70% 判定、稳定性和耗时 |
 
 测试口令只是调试输入；正式口令由组委会公布（RULES p3；FAQ p5）。每次实验记录软硬件版本、标定版本、口令、时间戳、候选目标及失败原因。重复次数与精度门槛在实物容差明确后制定；目前不声称达到任何成功率或毫米级精度。
+
+### 6. 用户负责的 Web UI
+
+**已确认分工**：用户先回复“Web UI”（USER-HW-20261011-02），提供 v2 任务书后进一步明确“系统集成与验收，兼做 Web UI”（USER-HW-20261011-03，2026-10-11 用户会话）。当前主责见第 7 节，本节保留兼任的界面工作。以下为基于第 5 节固定版本的工程拆分；用户现已选择开发新版操作台（USER-HW-20261011-06），早期完成本地 Mock 版本（DEMO-WEBUI-MOCK-20261011）。用户随后澄清“我要的是实机操作台”（USER-HW-20261011-07），当前默认实现 rclpy 实机客户端，Mock 改为显式选项；真实设备联调跟踪 Q19。界面实现与交互、接口对接和前端验收由此规划；FSM/Action 内核、视觉识别、轨迹规划分别由任务书中的模块负责人交付。
+
+**可复用基础**：本仓库 [浏览器监控台](../demo/README.md#浏览器监控台) 已有 HTML/JavaScript 页面和 Python/aiohttp 后端，可显示 ROS 图与进程、MJPEG 相机流、PTY 终端及 `outputs/` 录像。静态核查见 DEMO-WEBUI-20261011（2026-10-11，本机源码观测）：`/api/status` 尚无业务任务状态，`/api/recordings` 仅列出 MP4 文件，`/ws/term` 是终端通道，尚无 FSM 任务 API。该次静态核查未运行页面、ROS 节点或 NUC；旧代码的存在不代表 Jazzy 联调已通过，原有代码的作者与 AI 披露继续保留。
+
+**当前交付**：[启动与 HTTP 契约](../webui/README.md)、[实现与验证](web-ui.md)。默认 ROS 模式提供真实 Action Goal/Cancel/Result、RequestStop、带来源/时间戳的 Task/Robot/ToolState、关节、RGB-D 和日志。默认核对 `/mtc_aubo_bridge` 且话题必须只有一个发布端，多个来源时禁用数据；设备缺失/过期或 simulation_mode=true 时禁止实机 Goal。33 项离线/HTTP 与 9 项实际 Jazzy ROS fixture 检查通过（ENV-WEBUI-ROS-20261011）；NUC 与完整上游 FSM 联调尚未完成，隔离测试与旧本地 Mock 证据分开。
+
+| Web UI 工作项（工程建议） | 页面内容与交付要求 | 现有基础与缺口 |
+| --- | --- | --- |
+| 任务总览与口令 | 显示任务 ID、基础/序列模式、输入的颜色顺序、T0 或 P1–P3、当前对象、主/子状态与完成数量；口令可配置，正式值以比赛日通知为准（RULES p3；FAQ p5） | 真实 Action 客户端已实现，进度仅来自反馈/TaskState/Result；上游整体任务与实机待验 |
+| 设备与工具状态 | 分别显示通信、就绪、运动、停稳确认、工具状态、独立验证与证据等级；标明数据来源、更新时间和运行模式 | 真实业务字段与来源/GID、采样龄期已接入；缺失或过期显示未知，实机来源仍须现场核对 |
+| 相机与观察 | 彩色/深度画面切换、连接状态、帧率与画面更新时间；若叠加检测结果，须匹配图像帧与时间戳 | 新版 ROS Image/CompressedImage 观察已接入，支持自动发现唯一相机与显式配置；深度伪彩仅供观察，真实编码/单位/标定与检测叠图待验 |
+| 日志、结果与回放 | 按任务 ID 查看事件时间线、错误码与原因、完成位次、最终结果及关联录像；保留失败记录 | 按真实 task/goal ID 关联事件/Result 与 JSON/JSONL，接收 ROS 日志；任务录像关联仍待补 |
+| 提交与取消交互 | Mock 环境下验证口令输入、提交中、受理/拒绝、执行反馈、取消等待及终态；防止重复点击与重连重发 | 已实现真实任务提交/精确 Goal Cancel 与软件停止回执；提供 --readonly。SSH 隧道沿用 USER-HW-20260923-07；本轮未执行实体运动（USER-HW-20261011-07） |
+
+**接口对接**：下表来自 TEAMMATE-FSM-20261011 的固定提交（查阅日期 2026-10-11），依据 [接口定义](https://github.com/F1u0rite/meituan_challenge_ws/tree/f477f689bb3e3d2a28437a3984458ec43e950c70/src/mtc_interfaces)与现有 Python 节点的默认名称；这些不是已经提供给浏览器的 HTTP/WebSocket 地址，也不证明新 C++ Action 外壳已实现。
+
+| ROS 接口与默认名称 | 提供给界面的信息或动作 | 对接约束 |
+| --- | --- | --- |
+| `TaskState`：`/mtc/task/state` | `task_id`、`state`、`substate`、`completed_count`、`total_count`、`last_error_code`、`detail`、消息时间戳 | 作为可重取的任务快照；前端不自行推进 FSM，不用计时器推算完成数 |
+| `ExecuteTask`：`/mtc/task/execute` | Goal：`task_id`、`mode`、`ordered_colors`、`timeout_ms`、`placement_stability_sec`；Feedback：`current_index`、`total_count`、`state`、`substate`、`current_slot`、`current_object_id`；Result：`success`、`completed_count`、`completed_slots`、`error_code`、`message` | 桥接保存 task ID 与 Action goal ID 的关联；受理、执行、终态分开显示。稳定时长参数须符合赛事口径，不能由界面任意缩短 |
+| `RobotState`：`/mtc/robot/state` | `communication_ok`、`robot_ready`、`motion_active`、`safety_normal`、`stop_confirmed`、`simulation_mode`、`controller_mode`、`detail` | 现有 motion executor 与 aubo bridge 均定义该话题发布端，联调须确定权威发布源；不能混用两个来源的状态。单个 `simulation_mode` 布尔值不足以区分离线回放、Mock 与物理仿真 |
+| `ToolState`：`/mtc/tool/state` | `state`、`evidence_level`、`verified`、`tool_type`、`object_id`、`detail` | 工具估计状态与独立验证分开显示；UI 不把 `ATTACHED` 或命令送达解释为已验证抓起 |
+| Action Cancel；`RequestStop`：默认 `/mtc/bridge/request_stop`，可配置运动层 `/mtc/motion/request_stop` | 按当前 goal ID 取消任务；软件停止请求的 `reason`、`request_delivered`、`message` | 新版已增加单独软件停止入口；`request_delivered` 不是停稳证据，需另看 `stop_confirmed`；软件停止不标为实体急停 |
+
+建议由 **Web/ROS 桥接**适配以上接口并提供快照与事件流，浏览器负责展示与输入。桥接还需约定连接状态、明确的运行模式、状态来源、接收时间/数据龄期、可执行操作，以及按任务关联的结果/文件索引；这些属于 Web 包装层的数据契约，不能写成已有 ROS 字段。本轮采用原生页面与 HTTP 快照轮询，新增 v1 Web 契约见 webui/README.md；当前 rclpy 桥接按该契约实现，时间戳、发布源和 Action 生命周期以隔离测试验证；真实设备仍需联调确认。
+
+刷新或断线重连后先重新获取当前任务快照与可用操作，不自动重发任务或取消请求；迟到反馈按 task/goal ID 归属，不能覆盖另一任务。相机断流应显著标记画面过期。新的任务 API 不借用 PTY 输入执行 shell 命令。NUC 访问继续使用 SSH 隧道，--readonly 可禁用全部写操作。当前实机控制入口属于 USER-HW-20261011-07 要求的开发范围；未在实体设备执行运动或把 UI 验证当实机验收。
+
+| 交付顺序 | 可检查产物 | 当前进展与验收边界 |
+| --- | --- | --- |
+| 1. 页面与数据契约 | 任务、设备、相机、日志/回放页面；字段映射；Mock 样例 | 早期 Mock 场景保留；当前默认 ROS，真实相机客户端已实现，录像待接 |
+| 2. 只读联调 | Web/ROS 桥接适配及状态、图像、结果记录接入 | 与同一时刻的 ROS 消息核对；验证断流、重连、旧消息与任务切换；核对唯一状态来源 |
+| 3. 任务交互验证 | 在隔离 ROS 测试发布器环境提交/取消任务的浏览器操作记录 | 验证非法口令拒绝、重复提交拒绝、超时、取消传播和独立停稳确认；界面终态与后端结果一致 |
+| 4. 交付说明 | 启动/连接配置、接口约定、故障显示、测试记录、截图与版本信息 | 新增依赖锁定版本与许可证，保留 AI 协助范围；NUC/Jazzy 与实体设备结果单独记录，不以 Mock 通过替代 |
+
+### 7. 系统集成与验收主责
+
+**依据与分工**：SPRINT-PLAN-20261011 为用户提供的《10 月 11 日晚五人冲刺分工任务书》v2.0，原件见 [归档任务书](../materials/original/美团挑战赛_1011晚五人冲刺分工任务书_v2.md)，以下按 §01、§06–10 引用，无 PDF 页码。任务书列张叔阳主责 System Integration & Validation；用户进一步确认**系统集成与验收，兼做 Web UI**（USER-HW-20261011-03），因此保留第 6 节的界面工作。任务书写的是待交付目标，本节没有将目标记为运行结果。
+
+| 对接人 | 任务书分工与提供给集成的材料 | 张叔阳的接收与验收边界 |
+| --- | --- | --- |
+| 孙嘉明 | C++ FSM、ROS 2 Action、Motion Execution；Goal/Feedback/Result/Cancel 证据，驱动部署 SOP，接口最终裁决 | 核对实际节点实现与调用链，记录拒绝、异常、取消和停稳结果；问题回交负责人，集成层不接管 FSM/Action 内部状态转换 |
+| 常建烁 | MoveIt 2 规划；完整时间参数化轨迹、关节顺序、配置版本及 `PlannerPort` 映射 | 核验输入/输出与执行接线，保留轨迹文件和失败原因；规划算法由常建烁负责 |
+| 孙浩然 | 四色检测、稳定 object ID、`BatteryDetectionArray` 发布/回放及位姿有效性说明 | 核对 `/mtc/perception/batteries` 的实际类型、QoS、时间戳与有效性；未观测到的话题保留为约定名称，不标为已上线 |
+| 韩明赫 | `TF_AND_CALIBRATION_HANDOFF.md`、坐标链、已测/待测表、验证命令与现场采集顺序 | 核对真实 frame、时钟与 m/rad 单位，检查变换缺失时的拒绝行为；不把估计值或示例外参写成标定完成 |
+| 张叔阳 | 系统启动与验证、日志与问题单、视频/报告材料；兼做 Web UI（用户补充） | 统一复现入口与证据归档，组织模块交接及故障分派，界面服务于集成观察与记录 |
+
+**P0 交付清单**（SPRINT-PLAN-20261011 §06、§08）：任务书要求 2026-10-11 22:30 提供产物、实际结果、复现命令和 Git commit。以下为当前计划与证据缺口；没有执行的检查统一写 `NOT RUN`，运行失败写 `FAIL` 并保留日志。
+
+| 编号 | 张叔阳需交付的产物 | 验收证据与当前状态 |
+| --- | --- | --- |
+| I01 | Ubuntu 24.04 / Jazzy 工作空间的构建与离线检查记录 | 记录实际源码 SHA、环境、包清单、命令、退出码和日志；任务书以 12 包为检查起点。本轮独立 Jazzy 容器构建 12/12 包及 318 C++、269 Python、15 Mock E2E 通过；原始命令、退出码和 XML 见 ENV-FSM-20261011，不代替 NUC 验证 |
+| I02 | Action / Topic / Node / TF 通信矩阵 | 原基线 3 个 Python 节点存活，Task/PickPlace 启动退出（ENV-FSM-20261011）。候选补丁 `1d3dccf…` 下 4 个节点存活，Task/Motion 服务器可用，PickPlace 因 B05 退出；逐节点服务器查询与 wait_for_server 已核对，不能把通用 Action 列表中的客户端当成服务器。Mock 无完整感知/TF，新 C++ 节点未交付；见 ENV-FSM-FIX-20261011 |
+| I03 | 独立 Fake Hardware 的驱动复现记录 | 已从 `1d940f7…` 核对 `docs/setup/AUBO_ROS2_DRIVER_JAZZY.md`（TEAMMATE-SDK-20261011）；驱动/SDK 版本、Fake 修复和三终端 SOP 已提供。已在独立容器完成 5 包构建、两控制器 active、六关节/TF、单点与多点 FollowJointTrajectory；独立 Fake 范围 `PASS`（ENV-FSM-20261011）。MoveIt Plan → Execute 仍为 `NOT RUN`；上游参考目录保持只读 |
+| I04 | Mock 启动/检查 SOP 或 `scripts/run_mock_smoke.sh` | 驱动/MoveIt 三终端 SOP 已由新手册提供（TEAMMATE-SDK-20261011）。原 Python Mock 因 B01/B02 启动失败（ENV-FSM-20261011）；本轮三项接线补丁和独立 overlay 命令已提交 PR，Task 可启动但 PickPlace 在 B05 退出，仍不能标为通过的整体 SOP；新 C++ FSM 整体启动待交付，见 ENV-FSM-FIX-20261011 |
+| I05 | 基础任务 Goal 烟测记录与阻断问题单 | 原版 Goal 未发送（ENV-FSM-20261011）；候选补丁两次延迟基础 Goal 均已受理并保存 Feedback/Result，但此前 INIT 已超时进入 FAULT，返回 ABORTED / 510，完成数 0，整体仍为 FAIL。B01/B02/B04 已定向修复、待审阅；B03/B05/B06 由孙嘉明处理，见[补丁复验](fsm-wiring-fix.md)（ENV-FSM-FIX-20261011）。Cancel/迟到取消与停稳证据仍按模块交付验收 |
+| I06 | 视频/报告准备清单和数据命名规范 | 核对官方纸质底图、电池、固定第三视角、计时与设备可用性，记录口令、版本和原始素材；要求同时准备视频与报告（FAQ p1–3）。清单字段见下文，实物和机位逐项检查 `NOT RUN` |
+
+**版本与运行边界**：任务书要求从“最新 main”开始；初始快照 `f477f689…` 来自 USER-HW-20261011 / TEAMMATE-FSM-20261011，SDK 更新提示后的当前快照为 `1d940f7c5f12561fed6641457c0b4b630a282b05`（USER-HW-20261011-04、TEAMMATE-SDK-20261011）。本次差异仅为两份文档，已推进锁定并单独校验源码导入；本轮完成独立 Jazzy 构建/离线复跑，ROS Mock 启动失败另列（ENV-FSM-20261011）。后续接收模块时记录实际提交、代码差异、构建结果和接口变化；不能只写浮动 `main`，也不能把旧快照的运行结果外推到新代码。使用独立工作空间/输出目录，保留已有 `build/install/log`。
+
+**接口变更与问题分派**：按任务书 §07，`mtc_interfaces` 和 C++ Core 公共接口的变更须列明字段、原因与影响方，由孙嘉明确认；各模块使用独立 feature 分支，测试后集成。统一启动、测试协调与 Web UI 对接由张叔阳推进，遇到 FSM 状态转换、Cancel 或运动执行内部错误，保留复现证据后交给孙嘉明。该流程是团队交接约定，本次没有代发群消息或代队长确认接口变更。
+
+**本轮有限修复授权与交接**：用户回复“按照你的建议执行”（USER-HW-20261011-05），同意由集成侧提交 B01/B02/B04 小补丁，B03 和 FSM/Cancel 内核仍由孙嘉明负责。候选提交 `1d3dccf23c53d299d457564daeb6438190ea2d77` 已发布为 [PR #2](https://github.com/F1u0rite/meituan_challenge_ws/pull/2)，并请求仓库负责人 `F1u0rite` 审阅；尚未合并，正式基线未推进。两包构建、6 项 ROS 回归、269 Python / 15 Mock E2E 通过，新增 B05 ActionClient 与 B06 INIT 生命周期及退出观测已列入交接，完整任务仍失败（ENV-FSM-FIX-20261011）。
+
+**Web UI 的安排**：先满足系统集成 P0，复用旧监控台承载连接状态、相机、任务反馈、日志和录像的观察入口；新增字段以接口矩阵为准。第 6 节的页面改造、桥接及提交/取消交互是兼任工作的工程建议，任务书没有把完整 Web UI 列为今晚 P0，不据此增加硬性交付。界面按钮不能绕过后端 Goal 所有权和取消语义。
+
+**证据与拍摄准备**（目录/字段为工程建议）：每次运行可用 `outputs/integration-<时间>-<提交短号>/` 单独存放环境与源码版本、启动配置、graph、Goal/Feedback/Result、完整日志、结果摘要与问题单。每条问题至少有 `issue_id / 模块 / 负责人 / 复现命令 / 日志路径 / PASS|FAIL|NOT RUN / 解除条件`。实际完成后再按仓库约定冻结摘要、登记 index 与哈希，不能提前把空目录当成实验记录。
+
+拍摄检查表逐项记录 **可用/缺失/未检查、检查人、时间、证据路径**：官方纸质底图、比赛电池与工具、固定第三视角、机械臂及底图/电池完整入镜、计时显示、开场口令及初始状态、连续原始录像、文件备份、技术报告与提交格式。画面和连续录制要求来自 FAQ p1–3；当前任务书的“10/15 提交”仅作为团队交付目标登记，官方准确截止时刻、平台和文件格式待 Q11 核实。
+
+**时间节点与现场交接**（SPRINT-PLAN-20261011 §08–10）：10/11 的 18:00、20:30、22:30、23:00 为任务书中的基线确认、首次对接、交付和验收会节点，不代表已举行；10/12 先做设备/只读状态核验与标定，再按现场条件逐段验证基础单块到 T0；10/13 重复验证，条件具备后扩展序列；10/14 录像与报告，10/15 提交。任务书称“10/12 全部实物预计到位”，与 USER-HW-20260923-11 的“NUC/S3/D435i 已到位”在设备范围、地点和时点上尚未对齐，保留在 Q05，不据此改写旧记录。真实连接与运动仍需现场操作授权和监督，Mock/Fake 结果单独记录。
 
 ## 技术来源与使用说明
 
@@ -139,4 +244,18 @@ flowchart LR
 
 生成式 AI 使用记录：2026-09-06 使用 OpenAI Codex 协助核对公开资料、整理本方案和同步项目文档；硬件信息来自用户与所列官方资料，工程建议尚待实物验证。后续实际引用代码时，记录仓库、版本/提交、许可证和修改范围。比赛允许相关工具但须说明和标注（FAQ p6，Q17）。
 
+2026-10-11 使用 OpenAI Codex 协助静态审阅用户指定的 FSM 仓库、固定源码版本、登记用户决策并同步接入计划；随后按用户确认的 Web UI 分工，核对现有监控台与 ROS 接口并补充第 6 节。未在本项目复制上游实现、复跑其测试、实现新 UI/桥接、部署 Jazzy 或连接实体设备；本次源码观测范围与文件清单见 TEAMMATE-FSM-20261011、DEMO-WEBUI-20261011。
+
+同日使用 OpenAI Codex 协助按原始字节归档用户提供的 v2 任务书（SPRINT-PLAN-20261011），登记“系统集成与验收，兼做 Web UI”的澄清，补充第 7 节的交付、对接与证据清单；未修改任务书原文。此轮为文档更新，表内 `NOT RUN` 项尚无本项目运行结果。
+
 侧吸受力与真空控制的厂商技术来源另见 [末端两方案与侧吸设计](end-effector-options.md)，同样登记于来源清单；未将网页中的通用选型值视为本项目实测参数。
+
+SDK 更新轮次：使用 OpenAI Codex 协助核对 `1d940f7…` 与官方驱动 CMake，核验归档补丁在临时目录可复现，推进源码锁定并补充 I03/I04。上游 Mock 日志仅按报告引用，本项目未构建、下载或运行 SDK，未连接设备（TEAMMATE-SDK-20261011）。
+
+阶段验收轮次：使用 OpenAI Codex 在独立容器复跑构建与测试、采集实际 ROS graph 和失败日志；结果见 ENV-FSM-20261011。上面较早轮次的“未复跑”描述仅记录当时工作范围。
+
+接线修复轮次：使用 OpenAI Codex 编写 B01/B02/B04 补丁与六项 ROS 回归、复跑原有 Python/E2E、执行两次实际 Mock 并提交 PR；证据见 ENV-FSM-FIX-20261011，保留原失败记录，未接管 FSM 状态转换或 Cancel 内核。
+
+早期 Mock UI 实现轮次：按 USER-HW-20261011-06 使用 OpenAI Codex 编写独立 Mock 服务、页面、测试和契约，并执行浏览器 QA；见 DEMO-WEBUI-MOCK-20261011。未改 FSM 内核、旧监控台代码或已冻结实验，未连接 ROS/实机。
+
+实机 UI 实现轮次：按 USER-HW-20261011-07 使用 OpenAI Codex 实现默认 rclpy 客户端、相机/关节/日志、启动配置与测试；ENV-WEBUI-ROS-20261011 区分本机/隔离 Jazzy 接口验证和未完成的实体设备验收。未修改 FSM、驱动内核或旧冻结证据。

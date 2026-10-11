@@ -1,0 +1,152 @@
+{
+  "id": "DEMO-WEBUI-MOCK-20261011",
+  "scope": "本地 HTTP Mock 页面与交互验证；不是 ROS Mock、物理仿真或实机验收",
+  "tests": {
+    "webui": {
+      "passed": 16,
+      "failed": 0
+    },
+    "demo": {
+      "passed": 27,
+      "failed": 0
+    },
+    "robot": {
+      "passed": 7,
+      "failed": 0
+    }
+  },
+  "browser": {
+    "sequence": "3/3 Mock",
+    "basic": "1/1 Mock",
+    "failure_code": 110,
+    "timeout_code": 220,
+    "unconfirmed_stop_code": 520,
+    "cancel_result_separate_from_stop": true,
+    "refresh_recovers_same_task_and_goal_input": true,
+    "stale_and_missing_data_shown_unknown": true,
+    "disconnect_blocks_commands": true,
+    "reconnect_does_not_resubmit": true,
+    "old_record_does_not_replace_current": true,
+    "responsive_widths_without_page_overflow": [
+      320,
+      390,
+      768,
+      1024,
+      1440
+    ]
+  },
+  "tasks": [
+    {
+      "task_id": "ui-10bd202a-e9e6-4c40-82c6-158ede25f187",
+      "goal_id": "150e89a9-9431-4538-9698-e0f756397983",
+      "scenario": "success",
+      "status": "SUCCEEDED",
+      "completed_count": 3,
+      "result": {
+        "success": true,
+        "completed_count": 3,
+        "completed_slots": [
+          "P1",
+          "P2",
+          "P3"
+        ],
+        "error_code": 0,
+        "message": "全部目标放置完成（Mock 演示结果）"
+      }
+    },
+    {
+      "task_id": "ui-71c1cab5-ea9f-4795-abb4-afcda1900e76",
+      "goal_id": "e131de0e-b4ca-44e3-bede-8faa59e20890",
+      "scenario": "perception_failure",
+      "status": "ABORTED",
+      "completed_count": 0,
+      "result": {
+        "success": false,
+        "completed_count": 0,
+        "completed_slots": [],
+        "error_code": 110,
+        "message": "未找到目标颜色，Mock 演练中止"
+      }
+    },
+    {
+      "task_id": "ui-515f5eae-1fd5-40c6-a91b-8b373ba87d7d",
+      "goal_id": "ab5fca2c-0144-4d61-b49c-48bc17fe3dd2",
+      "scenario": "timeout",
+      "status": "ABORTED",
+      "completed_count": 0,
+      "result": {
+        "success": false,
+        "completed_count": 0,
+        "completed_slots": [],
+        "error_code": 220,
+        "message": "任务演练超时（Mock），等待独立停稳反馈"
+      }
+    },
+    {
+      "task_id": "ui-3bb60ed4-b583-4757-a1b1-313a0d1db458",
+      "goal_id": "8c0e3cfd-8ce1-4ed5-be4f-62ff84a9d8a9",
+      "scenario": "success",
+      "status": "CANCELED",
+      "completed_count": 0,
+      "result": {
+        "success": false,
+        "completed_count": 0,
+        "completed_slots": [],
+        "error_code": 0,
+        "message": "任务已取消；停稳反馈单独记录（Mock）"
+      }
+    },
+    {
+      "task_id": "ui-cfe2a1bc-c91b-4568-9a3b-0d41a52b7d46",
+      "goal_id": "895fe0c3-3aa0-4ed4-9cc4-72744262eed1",
+      "scenario": "unconfirmed_stop",
+      "status": "ABORTED",
+      "completed_count": 0,
+      "result": {
+        "success": false,
+        "completed_count": 0,
+        "completed_slots": [],
+        "error_code": 520,
+        "message": "取消后停稳未确认（Mock）"
+      }
+    },
+    {
+      "task_id": "ui-04f24f8f-b42a-494e-899d-24a7916be299",
+      "goal_id": "36cb8165-ad53-4c07-9698-e99f52003331",
+      "scenario": "success",
+      "status": "SUCCEEDED",
+      "completed_count": 1,
+      "result": {
+        "success": true,
+        "completed_count": 1,
+        "completed_slots": [
+          "T0"
+        ],
+        "error_code": 0,
+        "message": "全部目标放置完成（Mock 演示结果）"
+      }
+    }
+  ],
+  "export": {
+    "http": "PASS",
+    "browser_download_file": "NOT VERIFIED: automation download event timed out"
+  },
+  "retained_failures": [
+    {
+      "issue": "精确设备数据标签定位超时",
+      "resolution": "拆分 label 与 select，复验通过"
+    },
+    {
+      "issue": "浏览器 download 事件等待超时",
+      "resolution": "HTTP attachment 导出通过；浏览器文件落盘待验"
+    }
+  ],
+  "unverified": [
+    "真实 ROS 桥接与 Action 生命周期",
+    "相机和按任务关联录像",
+    "Jazzy/NUC 部署",
+    "实体设备",
+    "完整可访问性审计"
+  ],
+  "ai_assistance": "OpenAI Codex 协助实现、测试、浏览器 QA 与证据整理"
+}

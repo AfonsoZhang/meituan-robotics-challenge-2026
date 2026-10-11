@@ -1,0 +1,26 @@
+test_01_topics_joints_camera_and_authority (__main__.RosIntegrationTests.test_01_topics_joints_camera_and_authority) ... [WARN] [1791713542.654549600] [webui_isolated_fixture.mtc_integration]: webui_jazzy_log_probe
+ok
+test_02_action_goal_feedback_result (__main__.RosIntegrationTests.test_02_action_goal_feedback_result) ... ok
+test_03_rejected_goal (__main__.RosIntegrationTests.test_03_rejected_goal) ... ok
+test_04_aborted_result (__main__.RosIntegrationTests.test_04_aborted_result) ... ok
+test_05_cancel_and_stop_are_independent (__main__.RosIntegrationTests.test_05_cancel_and_stop_are_independent) ... ok
+test_06_stale_messages_block_commands_and_camera (__main__.RosIntegrationTests.test_06_stale_messages_block_commands_and_camera) ... ok
+test_07_simulation_flag_blocks_real_goals (__main__.RosIntegrationTests.test_07_simulation_flag_blocks_real_goals) ... ok
+test_08_any_second_robot_publisher_blocks_ambiguous_data (__main__.RosIntegrationTests.test_08_any_second_robot_publisher_blocks_ambiguous_data) ... ok
+test_09_duplicate_authority_is_unavailable (__main__.RosIntegrationTests.test_09_duplicate_authority_is_unavailable) ... [WARN] [1791713549.582447695] [rcl.logging_rosout]: Publisher already registered for node name: 'webui_isolated_fixture'. If this is due to multiple nodes with the same name then all logs for the logger named 'webui_isolated_fixture' will go out over the existing publisher. As soon as any node with that name is destructed it will unregister the publisher, preventing any further logs for that name from being published on the rosout topic.
+FAIL
+
+======================================================================
+FAIL: test_09_duplicate_authority_is_unavailable (__main__.RosIntegrationTests.test_09_duplicate_authority_is_unavailable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/ui-src/webui/ros_integration_check.py", line 274, in test_09_duplicate_authority_is_unavailable
+    wait_for(lambda: self.backend.snapshot()["operations"]["submit"])
+  File "/ui-src/webui/ros_integration_check.py", line 28, in wait_for
+    raise AssertionError("Timed out waiting for ROS fixture condition")
+AssertionError: Timed out waiting for ROS fixture condition
+
+----------------------------------------------------------------------
+Ran 9 tests in 17.987s
+
+FAILED (failures=1)

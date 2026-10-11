@@ -76,7 +76,21 @@
       ],
       "text_extraction": "PDF text layer, page separated; no OCR",
       "derived_files": [
-        "materials/extracted/faq.txt"
+        "CLAUDE.md",
+        "README.md",
+        "docs/battery-geometry.md",
+        "docs/demo-readiness.md",
+        "docs/demo-recording.md",
+        "docs/end-effector-options.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/rules-summary.md",
+        "docs/simulation-plan.md",
+        "docs/web-ui.md",
+        "materials/README.md",
+        "materials/extracted/faq.txt",
+        "webui/README.md",
+        "docs/experiments/webui-ros-20261011/protocol.md"
       ]
     },
     {
@@ -103,6 +117,13 @@
       ],
       "text_extraction": "PDF text layer, page separated; no OCR",
       "derived_files": [
+        "CLAUDE.md",
+        "docs/battery-geometry.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/rules-summary.md",
+        "docs/simulation-plan.md",
+        "materials/README.md",
         "materials/extracted/task-map.txt",
         "materials/previews/task-map-1.png",
         "materials/previews/task-map-2.png"
@@ -151,7 +172,18 @@
         }
       ],
       "text_extraction": "No text layer; scanned pages read visually; summary is not a full transcription",
-      "derived_files": []
+      "derived_files": [
+        "CLAUDE.md",
+        "docs/battery-geometry.md",
+        "docs/demo-readiness.md",
+        "docs/demo-recording.md",
+        "docs/end-effector-options.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/rules-summary.md",
+        "materials/README.md",
+        "webui/README.md"
+      ]
     },
     {
       "id": "BATTERY-RENDER",
@@ -174,13 +206,14 @@
       "version_note": "用户本次提供版本；图内无可识别版本日期。原文件逐字节保存，非实物摄影。",
       "unit_note": "无尺寸标注。",
       "derived_files": [
+        "CLAUDE.md",
+        "README.md",
         "docs/battery-geometry.md",
+        "docs/end-effector-options.md",
         "docs/hardware-vision-plan.md",
         "docs/open-questions.md",
         "docs/rules-summary.md",
-        "README.md",
-        "materials/README.md",
-        "docs/end-effector-options.md"
+        "materials/README.md"
       ]
     },
     {
@@ -204,13 +237,15 @@
       "version_note": "用户本次提供版本；图内无可识别版本日期。原文件逐字节保存，非实物摄影。",
       "unit_note": "尺寸图未明示单位；工程分析暂按毫米理解，与 MAP p1–2 的 7×8 cm 注记对应。",
       "derived_files": [
+        "CLAUDE.md",
+        "README.md",
         "docs/battery-geometry.md",
+        "docs/end-effector-options.md",
         "docs/hardware-vision-plan.md",
         "docs/open-questions.md",
         "docs/rules-summary.md",
-        "README.md",
-        "materials/README.md",
-        "docs/end-effector-options.md"
+        "docs/simulation-plan.md",
+        "materials/README.md"
       ]
     },
     {
@@ -228,6 +263,11 @@
         "Ideal co-located RGB-D and simulated TF",
         "No continuous visual servo, full-path collision check or hardware validation",
         "Shifted baseline also succeeded; no demonstrated success-rate improvement"
+      ],
+      "derived_files": [
+        "docs/open-questions.md",
+        "docs/simulation-plan.md",
+        "docs/vision-correction.md"
       ]
     },
     {
@@ -262,7 +302,8 @@
           "size": 8707191
         }
       ],
-      "verification": "All five remote sizes and SHA-256 digests matched local artifacts."
+      "verification": "All five remote sizes and SHA-256 digests matched local artifacts.",
+      "derived_files": []
     },
     {
       "id": "VISION-REPEAT-20260908",
@@ -281,6 +322,11 @@
         "Same ideal simulator; no yaw/noise/real hardware",
         "Two repeats per condition only",
         "No full-path collision verification"
+      ],
+      "derived_files": [
+        "docs/open-questions.md",
+        "docs/simulation-plan.md",
+        "docs/vision-repeat.md"
       ]
     },
     {
@@ -297,6 +343,11 @@
         "Blue failure cause not captured by contacts in failed run",
         "Green/blue release offset about 11 mm",
         "No complete collision check or real hardware validation"
+      ],
+      "derived_files": [
+        "docs/open-questions.md",
+        "docs/simulation-plan.md",
+        "docs/vision-sequence.md"
       ]
     },
     {
@@ -313,7 +364,10 @@
         4
       ],
       "accessed_on": "2026-09-08",
-      "usage": "Sliding surface and boundary-layer design inspiration; not a complete reproduction or borrowed stability proof."
+      "usage": "Sliding surface and boundary-layer design inspiration; not a complete reproduction or borrowed stability proof.",
+      "derived_files": [
+        "CLAUDE.md"
+      ]
     },
     {
       "id": "ROBUST-CONTROL-20260908",
@@ -337,10 +391,438 @@
         "Effort interface only verified in simulation",
         "SMC indistinguishable from gain-matched PD inside tested boundary layer",
         "No robust stability or formal safety proof; no disturbed grasp or effort-mode three-pick validation"
+      ],
+      "derived_files": [
+        "docs/open-questions.md",
+        "docs/robust-control.md",
+        "docs/simulation-plan.md"
+      ]
+    },
+    {
+      "id": "SPRINT-PLAN-20261011",
+      "type": "user_provided_team_taskbook",
+      "title": "美团无人机挑战赛｜10 月 11 日晚五人冲刺分工任务书（v2.0）",
+      "filename": "美团挑战赛_1011晚五人冲刺分工任务书_v2.md",
+      "original_windows_path": "C:\\Users\\afonso\\Downloads\\美团挑战赛_1011晚五人冲刺分工任务书_v2.md",
+      "accessed_source_path": "/mnt/c/Users/afonso/Downloads/美团挑战赛_1011晚五人冲刺分工任务书_v2.md",
+      "archived_path": "materials/original/美团挑战赛_1011晚五人冲刺分工任务书_v2.md",
+      "accessed_on": "2026-10-11",
+      "document_version": "v2.0",
+      "execution_date": "2026-10-11",
+      "format": "Markdown",
+      "bytes": 16213,
+      "sha256": "2b910549e490849af8623b26551310c2ff371431bd33ad5783854878e0b39502",
+      "text_extraction": "Direct UTF-8 Markdown read; byte-for-byte archive with original filename; no content edits or page numbers.",
+      "citation_method": "按文内 §01–10 章节引用；开头排期注明开头，不编造 PDF 页码。",
+      "stated_assignments": {
+        "孙嘉明": "FSM / ROS 2 Action / Motion Execution；AUBO 驱动技术交接；接口最终裁决",
+        "常建烁": "MoveIt 2 Motion Planning",
+        "孙浩然": "Perception / 电池与提环检测",
+        "韩明赫": "Calibration / TF / TCP",
+        "张叔阳": "System Integration & Validation；启动、日志、故障分派、测试与视频/报告准备；不编写 FSM Action 内核"
+      },
+      "reported_schedule": {
+        "scope": "任务书中的团队计划与目标，不证明已执行或官方截止已核实。",
+        "2026-10-11": [
+          "18:00 基线/阻断确认",
+          "20:30 首次跨模块对接",
+          "22:30 P0 交付",
+          "23:00 验收会"
+        ],
+        "2026-10-12": "全部实物预计到位，现场标定与基础单块闭环",
+        "2026-10-13": "基础任务重复验证，条件允许时扩展序列",
+        "2026-10-14": "正式连续录像与报告定稿",
+        "2026-10-15": "团队确认的提交目标；准确截止时刻、平台与格式以最新官方通知核实"
+      },
+      "section_usage": {
+        "01, 06": "用户主责和六项集成 P0 交付",
+        "02-05, 07": "模块负责人、交接材料与公共接口变更流程",
+        "08-10": "验收节点、现场联调顺序、证据与拍摄准备"
+      },
+      "differences_and_limits": [
+        {
+          "subject": "个人职责",
+          "source_statement": "任务书写张叔阳专职系统集成与验收；此前会话只说 Web UI。",
+          "resolved_by": "USER-HW-20261011-03",
+          "resolution": "用户进一步确认系统集成与验收，兼做 Web UI；保留原件及此前原话。"
+        },
+        {
+          "subject": "设备到位",
+          "related_decision": "USER-HW-20260923-11",
+          "status": "OPEN: Q05",
+          "detail": "任务书说 10/12 全部实物预计到位；旧会话说 NUC/S3/D435i 已到位。设备范围、地点与时点未对齐，不改写旧事实。"
+        },
+        {
+          "subject": "源码版本",
+          "related_decision": "USER-HW-20261011",
+          "status": "Q18 跟踪每次集成交接的实际 SHA",
+          "detail": "任务书要求最新 main；任务书首次登记时保留初始 f477f689bb3e3d2a28437a3984458ec43e950c70。用户随后提示 SDK 更新，经核对仅文档变更，当前推进到 1d940f7c5f12561fed6641457c0b4b630a282b05；见 USER-HW-20261011-04、TEAMMATE-SDK-20261011，后续仍逐次记录 SHA 和验证范围。"
+        },
+        {
+          "subject": "验收与截止",
+          "status": "NOT RUN / Q11",
+          "detail": "P0 清单、22:30 节点和驱动验证参考路径不证明本项目已完成运行；10/15 是任务书记载的团队交付目标，官方通知未归档核实。"
+        }
+      ],
+      "scope_note": "用户提供的团队分工任务书，不是官方规则、实机验收报告或用户当场完成证明。原文未标作者，本轮不推断其生成方式。只读驱动参考工作空间未在本项目复现；不把路径存在、Mock/Fake 目标或上游测试替代本项目结果。",
+      "derived_files": [
+        "CLAUDE.md",
+        "README.md",
+        "docs/fsm-acceptance.md",
+        "docs/fsm-wiring-fix.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "materials/README.md",
+        "robot/README.md"
+      ]
+    },
+    {
+      "id": "ENV-FSM-20261011",
+      "type": "local_integration_acceptance",
+      "date": "2026-10-11",
+      "title": "固定 FSM 基线的 Jazzy 离线回归、实际 ROS Mock 启动与独立 Fake 驱动验收",
+      "report": "docs/fsm-acceptance.md",
+      "protocol": "docs/experiments/fsm-acceptance-20261011/protocol.json",
+      "inputs": "docs/experiments/fsm-acceptance-20261011/inputs.json",
+      "summary": "docs/experiments/fsm-acceptance-20261011/summary.json",
+      "index": "docs/experiments/fsm-acceptance-20261011/index.json",
+      "index_sha256": "34c11134914e8cbedfe951a1e758c9b6f63d8b89731bd0ee99de51cb2c4711bc",
+      "raw_directory": "outputs/integration-20261011-164931-1d940f7",
+      "source_references": [
+        "TEAMMATE-FSM-20261011",
+        "TEAMMATE-SDK-20261011",
+        "SPRINT-PLAN-20261011"
+      ],
+      "source_commit": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+      "method": "锁定源码并隔离测试依赖；在新 Ubuntu 24.04/Jazzy Docker 容器完整构建/测试12包，检查GTest身份，显式执行纯Python E2E；两次启动原始Python Mock采集实际ROS graph和启动失败；独立克隆驱动与模型并应用归档Fake补丁，构建5包，在断开外部网络的容器中核对GenericSystem、控制器、关节/TF与单点/多点FollowJointTrajectory；保留原始日志与XML。",
+      "environment": {
+        "target": "Ubuntu 24.04.5 / ROS 2 Jazzy / C++17 / GCC 13.3 / Python 3.12.3",
+        "container_image": "ros@sha256:066420e07f60aa18262f2479981def87ebcfcec42eefb0c0c57c4a46098348ca",
+        "container": "mtc-acceptance-20261011-164931",
+        "end_state": "stopped and retained",
+        "host_supplement": "Ubuntu 22.04.5 WSL2 / Humble; supplementary C++ and Python results not counted again"
+      },
+      "results": {
+        "jazzy": {
+          "build_packages": 12,
+          "build_status": "PASS",
+          "cpp_gtest": 318,
+          "cpp_executables": 16,
+          "original_cpp_cases_preserved": 290,
+          "additional_cpp_cases": 28,
+          "python_pytest": 269,
+          "python_mock_e2e": 15,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "colcon_aggregate_including_wrappers_and_lint": 608,
+          "test_cases_excluding_wrappers": 602
+        },
+        "ros_mock": {
+          "status": "FAIL",
+          "attempts": 2,
+          "running_application_nodes": [
+            "motion_executor",
+            "tool_manager",
+            "safety_supervisor"
+          ],
+          "failed_nodes": [
+            "task_executor",
+            "pick_place_server"
+          ],
+          "planned_goal": {
+            "task_id": "acceptance-20261011-basic-yellow",
+            "mode": 1,
+            "ordered_colors": [
+              3
+            ],
+            "timeout_ms": 5000,
+            "placement_stability_sec": 3.0
+          },
+          "goal_sent": false,
+          "goal_accepted": null,
+          "feedback_received": false,
+          "result_received": false,
+          "action_error_code": null,
+          "reason": "Task server unavailable following startup failures",
+          "cpp_ros_action_delivered": false
+        },
+        "independent_fake_driver": {
+          "status": "PASS",
+          "built_packages": 5,
+          "plugin": [
+            "mock_components/GenericSystem"
+          ],
+          "controller_states": {
+            "joint_trajectory_controller": "active",
+            "joint_state_broadcaster": "active"
+          },
+          "joint_names": [
+            "foreArm_joint",
+            "shoulder_joint",
+            "upperArm_joint",
+            "wrist1_joint",
+            "wrist2_joint",
+            "wrist3_joint"
+          ],
+          "joint_state_samples": 1610,
+          "distinct_timestamps": 1610,
+          "tf": [
+            "world->base_link",
+            "base_link->ee_link"
+          ],
+          "trajectories": [
+            {
+              "case": "single",
+              "action_status": 4,
+              "error_code": 0,
+              "max_error_rad": 0.0
+            },
+            {
+              "case": "multi",
+              "action_status": 4,
+              "error_code": 0,
+              "max_error_rad": 0.0
+            }
+          ],
+          "effort_scope": "No effort state interface; raw JointState effort NaN preserved in result.raw.txt and projected as null in result.json."
+        }
+      },
+      "sdk_observation": {
+        "version": "0.24.1-rc.3+318754d",
+        "archive_bytes": 22312004,
+        "archive_sha256": "b76fc5024c4e2a91a6b55e4217ce326a3c263ae53091526eedce3eab46609e80",
+        "linkage": "driver built; installed plugin ldd resolved libaubo_sdkd.so with no missing dependency",
+        "scope": "本机下载观测值，未与厂商独立校验值比较；包内命名为LICENSE/COPYING/NOTICE的文件搜索为空，不据此认定无其他许可条款；许可仍待核对。"
+      },
+      "limitations": [
+        "New C++ ROS Action / MoveIt adapter / full FSM closed loop",
+        "Independent MoveIt Plan Execute reproduction",
+        "Driver automated tests and full MoveIt runtime dependency audit",
+        "TSan dynamic race verification",
+        "SDK license and vendor checksum comparison",
+        "NUC deployment, hardware compatibility, real calibration and grasp/placement"
+      ],
+      "scope_note": "离线核心及独立GenericSystem轨迹通过，现有Python Task/PickPlace启动失败，基础Goal未发送。不是MoveIt/FSM完整闭环、真实动力学/抓放、NUC安装或实机验证；Fake位置误差0来自理想反馈。未改上游FSM/Action源码，未代发队友消息。",
+      "algorithm_provenance": {
+        "upstream_fsm": "TEAMMATE-FSM-20261011; fixed source commit above; root LICENSE MIT, package.xml license declarations preserved separately",
+        "driver_and_fake_patch": "TEAMMATE-SDK-20261011; aubo_ros2_driver@53aab83735236f0c262ecb11e04ef2600241d9d9; aubo_description@47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1 + delivered Fake Xacro patch",
+        "modifications": "本项目仅编写验收编排/日志脚本并在独立模型副本应用已有Fake补丁；未接管FSM/Action或规划开发。第三方源码、模型与SDK二进制未入库。",
+        "ai_assistance": "OpenAI Codex: commands, acceptance probes, evidence collection, documentation and source-index updates."
+      },
+      "derived_files": [
+        "CLAUDE.md",
+        "README.md",
+        "docs/experiments/fsm-acceptance-20261011/index.json",
+        "docs/experiments/fsm-acceptance-20261011/inputs.json",
+        "docs/experiments/fsm-acceptance-20261011/summary.json",
+        "docs/experiments/fsm-wiring-fix-20261011/inputs.json",
+        "docs/fsm-acceptance.md",
+        "docs/fsm-wiring-fix.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/simulation-plan.md",
+        "robot/README.md"
+      ]
+    },
+    {
+      "id": "ENV-FSM-FIX-20261011",
+      "type": "local_integration_repair_acceptance",
+      "date": "2026-10-11",
+      "title": "B01/B02/B04 Python ROS 接线补丁、真实 ROS 回归及 PR 交接",
+      "report": "docs/fsm-wiring-fix.md",
+      "protocol": "docs/experiments/fsm-wiring-fix-20261011/protocol.json",
+      "inputs": "docs/experiments/fsm-wiring-fix-20261011/inputs.json",
+      "summary": "docs/experiments/fsm-wiring-fix-20261011/summary.json",
+      "issues": "docs/experiments/fsm-wiring-fix-20261011/issues.json",
+      "index": "docs/experiments/fsm-wiring-fix-20261011/index.json",
+      "index_sha256": "a6597fc4d0fb355bb0512b1dd4c931cf675e0fab5fc85aeff908fffdf374a544",
+      "raw_directory": "outputs/fsm-wiring-fix-20261011-171337",
+      "source_references": [
+        "ENV-FSM-20261011",
+        "USER-HW-20261011-05",
+        "TEAMMATE-FSM-20261011",
+        "TEAMMATE-SDK-20261011",
+        "SPRINT-PLAN-20261011"
+      ],
+      "base_commit": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+      "source_commit": "1d3dccf23c53d299d457564daeb6438190ea2d77",
+      "branch": "fix/ros-startup-wiring-b01-b02-b04",
+      "pull_request": {
+        "baseRefName": "main",
+        "baseRefOid": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+        "changedFiles": 5,
+        "headRefName": "fix/ros-startup-wiring-b01-b02-b04",
+        "headRefOid": "1d3dccf23c53d299d457564daeb6438190ea2d77",
+        "isDraft": false,
+        "number": 2,
+        "reviewRequests": [
+          {
+            "__typename": "User",
+            "login": "F1u0rite"
+          }
+        ],
+        "state": "OPEN",
+        "statusCheckRollup": [],
+        "url": "https://github.com/F1u0rite/meituan_challenge_ws/pull/2"
+      },
+      "method": "在同一隔离 Jazzy 容器使用原 12 包安装作 underlay，独立构建两个修改的 Python 包；同一最终版 6 项 ROS 回归在基线全部失败、补丁全部通过；逐包复跑 269 Python 和 15 显式 E2E；两次实际 Mock 保留 graph 与 Goal/Feedback/Result，逐节点确认服务器，记录剩余 Action/INIT 缺陷；安装文件哈希与提交匹配，补丁已推送独立分支并请求 PR 审阅。",
+      "environment": {
+        "target": "Ubuntu 24.04.5 / ROS 2 Jazzy / Python 3.12.3",
+        "container": "mtc-acceptance-20261011-164931",
+        "inherited_from": "ENV-FSM-20261011",
+        "ros_domain_id": 95,
+        "discovery": "LOCALHOST",
+        "network": {},
+        "devices": [],
+        "published_ports": {},
+        "end_state": "stopped and retained"
+      },
+      "results": {
+        "source_id": "ENV-FSM-FIX-20261011",
+        "candidate_commit": "1d3dccf23c53d299d457564daeb6438190ea2d77",
+        "pull_request": "https://github.com/F1u0rite/meituan_challenge_ws/pull/2",
+        "overall_status": "SCOPED_FIX_PASS_FULL_TASK_FAIL",
+        "review_status": "OPEN_REVIEW_REQUESTED_NOT_MERGED",
+        "build": {
+          "packages": [
+            "mtc_task",
+            "mtc_manipulation"
+          ],
+          "status": "PASS",
+          "underlay_packages": 12,
+          "note": "Only the two Python packages rebuilt this round."
+        },
+        "same_final_ros_regressions": {
+          "baseline": {
+            "tests": 6,
+            "failures": 6,
+            "errors": 0,
+            "skipped": 0
+          },
+          "candidate": {
+            "tests": 6,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          }
+        },
+        "offline_pytest": {
+          "tests": 269,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "explicit_python_mock_e2e": {
+          "tests": 15,
+          "failures": 0,
+          "skipped": 0
+        },
+        "passing_cases_this_round": 290,
+        "actual_ros_mock": [
+          {
+            "directory": "mock-smoke",
+            "status": "FAIL",
+            "task_server_available": true,
+            "pickplace_server_available": null,
+            "goal_sent": true,
+            "goal_accepted": true,
+            "goal_uuid": "ff81277a697e47f1a99a48794e24d150",
+            "feedback": [
+              {
+                "current_index": 0,
+                "total_count": 0,
+                "state": "FAULT",
+                "current_slot": "",
+                "current_object_id": "",
+                "substate": "FAULT"
+              }
+            ],
+            "result": {
+              "status": 6,
+              "result": {
+                "success": false,
+                "completed_count": 0,
+                "completed_slots": [],
+                "error_code": 510,
+                "message": "state INIT timed out after 5.044s -> HARDWARE_FAULT"
+              }
+            },
+            "launch_exit_code": 0
+          },
+          {
+            "directory": "mock-smoke-recheck",
+            "status": "FAIL",
+            "task_server_available": true,
+            "pickplace_server_available": false,
+            "goal_sent": true,
+            "goal_accepted": true,
+            "goal_uuid": "7e8ab2d3b862434f921e1b22928cbcce",
+            "feedback": [
+              {
+                "current_index": 0,
+                "total_count": 0,
+                "state": "FAULT",
+                "current_slot": "",
+                "current_object_id": "",
+                "substate": "FAULT"
+              }
+            ],
+            "result": {
+              "status": 6,
+              "result": {
+                "success": false,
+                "completed_count": 0,
+                "completed_slots": [],
+                "error_code": 510,
+                "message": "state INIT timed out after 5.046s -> HARDWARE_FAULT"
+              }
+            },
+            "launch_exit_code": 0
+          }
+        ],
+        "action_discovery_note": "General action names include clients; per-node server query and wait_for_server confirm PickPlace server absent.",
+        "not_repeated": [
+          "318 unchanged C++ tests",
+          "Independent Fake driver"
+        ],
+        "not_verified": [
+          "Full task success and Cancel lifecycle",
+          "MoveIt and new C++ ROS FSM closed loop",
+          "NUC and hardware"
+        ],
+        "known_attempts": [
+          "Initial candidate ROS suite: 3 PASS / 3 FAIL; two failures exposed B05 after config construction, one fixture had not entered RELEASING.",
+          "Final regression fixture revised, then identical final tests rerun against both baseline and candidate.",
+          "Unsupported optional colcon --allow-overriding argument removed, build retried successfully.",
+          "Combined pytest collection hit a shared test-module namespace; all six packages then passed in separate processes."
+        ],
+        "scope_note": "Only B01/B02/B04 wiring verified. Mock accepted unlock is not release confirmation. Delayed first Goal failures are retained; no claim about early Goals or hardware."
+      },
+      "scope_note": "B01/B02/B04 三项范围内通过、PR 尚待审核及合并，正式锁定不推进。完整 Python ROS 任务仍失败：PickPlace ActionClient 绑定错误 B05 遮挡 B03，延迟首次 Goal 前 INIT 超时 B06，返回 ABORTED/510。工具测试仅 Mock IO，受理不等于释放；未改或重跑 C++/驱动，不证明 MoveIt、完整 FSM、NUC 或实机。",
+      "algorithm_provenance": {
+        "upstream": "F1u0rite/meituan_challenge_ws@1d940f7c5f12561fed6641457c0b4b630a282b05; root MIT license included with patch",
+        "modifications": "两个 Python 外壳 5 行新增/4 行删除，新增六项 ROS 回归和说明；FSM 核心、Cancel、IDL、C++、驱动不变",
+        "ai_assistance": "OpenAI Codex: minimal wiring patch, tests, isolated execution, evidence/manifest and GitHub PR",
+        "license_file": "docs/experiments/fsm-wiring-fix-20261011/artifacts/upstream-LICENSE.txt"
+      },
+      "derived_files": [
+        "CLAUDE.md",
+        "README.md",
+        "docs/experiments/fsm-wiring-fix-20261011/index.json",
+        "docs/experiments/fsm-wiring-fix-20261011/inputs.json",
+        "docs/experiments/fsm-wiring-fix-20261011/issues.json",
+        "docs/experiments/fsm-wiring-fix-20261011/protocol.json",
+        "docs/experiments/fsm-wiring-fix-20261011/summary.json",
+        "docs/fsm-acceptance.md",
+        "docs/fsm-wiring-fix.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "robot/README.md"
       ]
     }
   ],
-  "updated_on": "2026-09-07",
+  "updated_on": "2026-10-11",
   "project_decisions": [
     {
       "id": "USER-HW-20260906",
@@ -356,8 +838,8 @@
       "scope_note": "未确认夹爪、相机安装方式、计算平台、控制器/SDK 版本或是否同时准备决赛。",
       "derived_files": [
         "README.md",
-        "docs/open-questions.md",
         "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
         "materials/README.md"
       ]
     },
@@ -377,8 +859,8 @@
       ],
       "derived_files": [
         "README.md",
-        "docs/open-questions.md",
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md"
       ],
       "subsequent_resolutions": [
         {
@@ -417,8 +899,10 @@
       "clarifies": "USER-HW-20260906-02 中第二处“夹爪”的指代",
       "derived_files": [
         "README.md",
+        "docs/hardware-vision-plan.md",
         "docs/open-questions.md",
-        "docs/hardware-vision-plan.md"
+        "docs/simulation-plan.md",
+        "materials/README.md"
       ]
     },
     {
@@ -447,9 +931,9 @@
         ]
       },
       "derived_files": [
-        "docs/rules-summary.md",
-        "docs/open-questions.md",
         "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/rules-summary.md",
         "materials/README.md"
       ],
       "subsequent_resolutions": [
@@ -498,13 +982,16 @@
       },
       "clarifies": "USER-RULE-20260906-01",
       "derived_files": [
+        "CLAUDE.md",
         "README.md",
-        "docs/rules-summary.md",
-        "docs/open-questions.md",
-        "docs/hardware-vision-plan.md",
-        "materials/README.md",
         "docs/battery-geometry.md",
-        "docs/end-effector-options.md"
+        "docs/demo-readiness.md",
+        "docs/demo-recording.md",
+        "docs/end-effector-options.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/rules-summary.md",
+        "materials/README.md"
       ]
     },
     {
@@ -529,12 +1016,13 @@
         "单钩悬挂摆动及物体相对工具位姿变化需实测；不将末端位姿直接当成放置成功。"
       ],
       "derived_files": [
+        "CLAUDE.md",
         "README.md",
-        "docs/open-questions.md",
         "docs/battery-geometry.md",
+        "docs/end-effector-options.md",
         "docs/hardware-vision-plan.md",
-        "materials/README.md",
-        "docs/end-effector-options.md"
+        "docs/open-questions.md",
+        "materials/README.md"
       ],
       "related_decisions": [
         "USER-EE-20260906-02"
@@ -565,11 +1053,12 @@
         "目标位除电池足迹外还须预留侧向撤离通道及管路空间；不为获得通道自行移动规定的初始位置（RULES p2）。"
       ],
       "derived_files": [
+        "CLAUDE.md",
         "README.md",
-        "docs/open-questions.md",
-        "docs/end-effector-options.md",
         "docs/battery-geometry.md",
+        "docs/end-effector-options.md",
         "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
         "materials/README.md"
       ]
     },
@@ -595,10 +1084,11 @@
         "USER-SIM-20260906-03"
       ],
       "derived_files": [
+        "CLAUDE.md",
         "README.md",
-        "docs/open-questions.md",
         "docs/end-effector-options.md",
         "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
         "materials/README.md"
       ]
     },
@@ -639,8 +1129,8 @@
       ],
       "derived_files": [
         "README.md",
-        "docs/simulation-plan.md",
-        "docs/open-questions.md"
+        "docs/open-questions.md",
+        "docs/simulation-plan.md"
       ]
     },
     {
@@ -679,8 +1169,8 @@
       },
       "derived_files": [
         "README.md",
-        "docs/simulation-plan.md",
-        "docs/open-questions.md"
+        "docs/open-questions.md",
+        "docs/simulation-plan.md"
       ],
       "subsequent_resolutions": [
         {
@@ -703,10 +1193,11 @@
       "relation_note": "细化 USER-SIM-20260906-02；方案一钩取继续作为本轮接触物理仿真对象。",
       "engineering_consequence": "方案二转入实物台架与实机验证，重点记录气密、真空保持、抗滑、偏心力矩、释放和位移；侧吸支架如需几何占位，只用于碰撞/路径检查，不代表吸附能力仿真。",
       "derived_files": [
+        "CLAUDE.md",
         "README.md",
-        "docs/simulation-plan.md",
+        "docs/end-effector-options.md",
         "docs/open-questions.md",
-        "docs/end-effector-options.md"
+        "docs/simulation-plan.md"
       ]
     },
     {
@@ -723,8 +1214,8 @@
       "scope_note": "原话只说 ROS：未确认 ROS 1 还是 ROS 2 及发行版（仿真用 ROS 2 Humble，不据此外推到实机）、运行在 WSL2 还是原生 Ubuntu（Q05）、S3 以何种 ROS 驱动或 SDK 封装接入及控制柜版本（Q02）、D435i 的 ROS 驱动与本机可见性、是否使用 MoveIt。不改变末端三方案并列状态。",
       "derived_files": [
         "README.md",
-        "docs/open-questions.md",
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md"
       ],
       "subsequent_resolutions": [
         {
@@ -751,6 +1242,11 @@
           "original_question": "是否使用 MoveIt",
           "resolved_by": "USER-HW-20260923-10",
           "resolution": "实机使用 MoveIt；配置来源未定。"
+        },
+        {
+          "original_question": "后续开发继续使用原 Ubuntu 22.04 / Humble 目标，还是采用本轮用户提供的仓库版本",
+          "resolved_by": "USER-HW-20261011",
+          "resolution": "后续开发采用固定的 FSM Core v0.1 版本与其 Ubuntu 24.04 / Jazzy / C++17 目标。原记录作为历史保留；不证明 NUC 已迁移，NUC 部署计划及现有 Humble / Classic 复现结果不据此改写。"
         }
       ]
     },
@@ -768,8 +1264,16 @@
       "scope_note": "只确定实机 ROS 发行版，与仿真一致。仍未确认运行在 WSL2 还是原生 Ubuntu（Q05）、S3 的 ROS 2 驱动或 SDK 封装及控制柜版本（Q02）、D435i 的 ROS 2 驱动及本机可见性、是否使用 MoveIt。发行版一致不等于仿真代码已在实机验证。",
       "derived_files": [
         "README.md",
+        "docs/hardware-vision-plan.md",
         "docs/open-questions.md",
-        "docs/hardware-vision-plan.md"
+        "robot/README.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "original_question": "后续开发继续使用原 Ubuntu 22.04 / Humble 目标，还是采用本轮用户提供的仓库版本",
+          "resolved_by": "USER-HW-20261011",
+          "resolution": "后续开发采用固定的 FSM Core v0.1 版本与其 Ubuntu 24.04 / Jazzy / C++17 目标。原记录作为历史保留；不证明 NUC 已迁移，NUC 部署计划及现有 Humble / Classic 复现结果不据此改写。"
+        }
       ]
     },
     {
@@ -786,8 +1290,8 @@
       "scope_note": "未说明 Ubuntu 版本（ROS 2 Humble 的一级支持平台是 22.04，属工程推断，未经用户确认）；未说明原生 Ubuntu 是本机双系统/重装还是另一台电脑，因此不据此修改 USER-HW-20260906-02「计算使用本机」；相机与 S3 在该系统上的可见性、实时内核等均未核实。ENV-LOCAL-20260906 的 WSL2 观测不代表该部署环境。",
       "derived_files": [
         "README.md",
-        "docs/open-questions.md",
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md"
       ],
       "subsequent_resolutions": [
         {
@@ -813,14 +1317,19 @@
       "scope_note": "未说明 NUC 的品牌/型号、CPU、内存、USB 3 接口（D435i 需要）与网口数量（连 S3 控制柜）；未核实 NUC 是否已有、是否已装系统、相机与 S3 能否在其上枚举/连通。USER-HW-20260906-02 的「本机」原意是这台 NUC 还是当前开发电脑，原话无法判断，该条历史记录保留不改，部署计算机以本条为准。",
       "derived_files": [
         "README.md",
-        "docs/open-questions.md",
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md"
       ],
       "subsequent_resolutions": [
         {
           "original_question": "scope_note 中 USER-HW-20260906-02 的「本机」原意无法判断",
           "resolved_by": "USER-HW-20260923-05",
           "resolution": "「本机」指当前开发电脑，不是 NUC；实机部署计算机已由 USER-HW-20260923-04 改为 NUC。"
+        },
+        {
+          "original_question": "后续开发继续使用原 Ubuntu 22.04 / Humble 目标，还是采用本轮用户提供的仓库版本",
+          "resolved_by": "USER-HW-20261011",
+          "resolution": "后续开发采用固定的 FSM Core v0.1 版本与其 Ubuntu 24.04 / Jazzy / C++17 目标。原记录作为历史保留；不证明 NUC 已迁移，NUC 部署计划及现有 Humble / Classic 复现结果不据此改写。"
         }
       ]
     },
@@ -837,8 +1346,8 @@
       "clarifies": "USER-HW-20260906-02 中「本机」的所指",
       "scope_note": "只澄清 2026-09-06 原话所指。实机部署计算机以 USER-HW-20260923-04（NUC，Ubuntu 22.04）为准，即当时「计算使用本机」的计划在部署层面已改为 NUC；开发电脑今后承担哪些工作（开发、仿真、远程查看等）用户未说明。",
       "derived_files": [
-        "docs/open-questions.md",
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md"
       ],
       "subsequent_resolutions": [
         {
@@ -866,8 +1375,8 @@
       "scope_note": "只确认开发电脑承担开发与仿真；是否也用它远程查看/操作 NUC、代码如何从开发电脑部署到 NUC 未说明。",
       "derived_files": [
         "README.md",
-        "docs/open-questions.md",
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md"
       ],
       "subsequent_resolutions": [
         {
@@ -892,9 +1401,17 @@
       "scope_note": "原话是「看」：是否允许经隧道在 NUC 上远程操作（终端输入）未说明；代码如何从开发电脑部署到 NUC 未说明；NUC 与开发电脑的网络连接方式、SSH 账户与密钥未核实。",
       "derived_files": [
         "README.md",
-        "docs/open-questions.md",
+        "demo/README.md",
         "docs/hardware-vision-plan.md",
-        "demo/README.md"
+        "docs/open-questions.md",
+        "webui/README.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "source_id": "USER-HW-20261011-07",
+          "date": "2026-10-11",
+          "resolution": "新版增加真实任务/取消/软件停止客户端和可选只读模式；继续以 SSH 隧道访问。此次未连接 NUC 或执行实体运动，SSH 网络参数仍待核验。"
+        }
       ]
     },
     {
@@ -925,8 +1442,8 @@
       "scope_note": "只确定 S3 的 ROS 2 驱动。未验证 aubo_type:=aubo_S3 能否驱动实机、该 SDK 版本与用户 S3 控制柜/软件版本的兼容性（Q02）、驱动在 NUC 上能否构建（需联网下载 SDK）；aubo_sdk 二进制的许可条款未核对，按 FAQ p6/Q17 披露前须确认。是否使用仓库内 aubo_moveit_config（MoveIt）未确认。",
       "derived_files": [
         "README.md",
-        "docs/open-questions.md",
         "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
         "robot/README.md"
       ]
     },
@@ -944,8 +1461,8 @@
       "scope_note": "只确定驱动项目。未确定安装方式（apt 包还是源码）与版本；D435i 在 NUC 上能否枚举、固件版本未核实；实际话题名、深度编码（本项目视觉代码目前只接受 32FC1 米制深度）与深度对齐方式未验证。USER-SIM-20260906-02 的仿真相机不受影响。",
       "derived_files": [
         "README.md",
-        "docs/open-questions.md",
         "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
         "robot/README.md"
       ]
     },
@@ -972,8 +1489,9 @@
       "scope_note": "按提问语境理解为实机使用 MoveIt。Q16 中「仿真是否同时用 MoveIt 规划」是否一并改为使用，原话未区分，不据此改动 Q16；现有仿真 demo 仍用冻结轨迹与自写 IK。未确认使用 aubo_moveit_config 还是自建 MoveIt 配置、规划器与运动学插件选择；未在实机验证。",
       "derived_files": [
         "README.md",
-        "docs/open-questions.md",
         "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/simulation-plan.md",
         "robot/README.md"
       ],
       "subsequent_resolutions": [
@@ -1017,8 +1535,8 @@
       "scope_note": "只确定项目准备范围与报名状态。决赛规则（RULES p5–6）仍作为比赛资料保留在规则摘要，不删除；Q13 中决赛目标公布方式、Q14 决赛障碍区分值不影响当前工作，保留待查。报名的队伍信息、报名凭证未提供，未归档；若晋级后是否改为准备决赛，原话未涉及。",
       "derived_files": [
         "README.md",
-        "docs/open-questions.md",
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md"
       ]
     },
     {
@@ -1035,6 +1553,18 @@
       "scope_note": "只表示 Q07 不需要跟踪，未给出分工、时间、设备或预算的具体内容；不据此推断预算充足或设备齐备。涉及买硬件或花钱的事仍须逐项问用户。",
       "derived_files": [
         "docs/open-questions.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "original_question": "关闭 Q07 时未载明的用户个人分工",
+          "resolved_by": "USER-HW-20261011-02",
+          "resolution": "2026-10-11 用户明确个人负责 Web UI；Q07 继续保持已关闭，不据此推断其他队员、时间、预算或硬件情况。Web UI 技术接入余项跟踪 Q19。"
+        },
+        {
+          "original_question": "个人分工在后续团队任务书中的主责与兼任关系",
+          "resolved_by": "USER-HW-20261011-03",
+          "resolution": "系统集成与验收为主责，兼做 Web UI；Q07 保持已关闭，技术与运行缺口分别跟踪 Q18/Q19，未推断预算或可投入时间。"
+        }
       ]
     },
     {
@@ -1087,8 +1617,9 @@
       "clarifies": "Q05「NUC 是否已到位」；Q02、Q04 中实物是否在手",
       "scope_note": "只确认三件设备到位。NUC 是否已装好 Ubuntu 22.04 与 ROS 2 Humble、S3 控制柜 IP 与软件版本、网络连接、D435i 固件与 USB 3 连接、相机是否已装到末端，均未说明；末端工具（三方案）是否在手未涉及。",
       "derived_files": [
-        "docs/open-questions.md",
         "README.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
         "robot/README.md"
       ]
     },
@@ -1106,9 +1637,9 @@
       "clarifies": "Q03 三方案的制作途径",
       "scope_note": "未说明 PolyU 3D 的具体部门/设备、打印工艺、成型尺寸、精度、排期与费用；PLA 以外材料（PETG、尼龙、树脂等）待邮件答复；「价格不要太高」未给出金额上限；网购对象（吸盘、真空件、紧固件等）未具体化。末尾关于 SolidWorks 的是提问，不是决策。不涉及三方案选型。",
       "derived_files": [
+        "README.md",
         "docs/end-effector-options.md",
-        "docs/open-questions.md",
-        "README.md"
+        "docs/open-questions.md"
       ]
     },
     {
@@ -1125,12 +1656,219 @@
       "clarifies": "Q03 候选范围；Q08 设计阶段尺寸依据",
       "scope_note": "「之前提供的CAD文件」按 BATTERY-RENDER/BATTERY-DRAWING 理解，归档中没有电池的 CAD 源文件（STEP/SLDPRT 等）。「暂时」表示实测前的设计依据，不等于实物尺寸已确认，实测后以实测为准；图纸未给的量（提手孔以外的圆角、壁厚、公差、质量、重心）仍未知。未说明 S3 法兰尺寸依据。不局限于三方案不代表放弃任一已有方案，也未指定新增方案，最终选型仍未定。",
       "derived_files": [
-        "docs/end-effector-options.md",
+        "CLAUDE.md",
+        "README.md",
         "docs/battery-geometry.md",
+        "docs/end-effector-options.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20261011",
+      "kind": "user_message",
+      "date": "2026-10-11",
+      "source": "本项目当前会话，用户提供仓库链接后回复",
+      "original_text": "> 你希望我重点看这个仓库的哪一部分？\n\n按照这个版本",
+      "context": "用户先提供 https://github.com/F1u0rite/meituan_challenge_ws；助手审阅 main@f477f689bb3e3d2a28437a3984458ec43e950c70，说明 FSM Core v0.1、Ubuntu 24.04 / ROS 2 Jazzy / C++17 与本项目旧 Humble 路线的差异及上游离线验收范围，并询问关注部分，用户答复按此版本。",
+      "confirmed": {
+        "development_baseline_repository": "https://github.com/F1u0rite/meituan_challenge_ws",
+        "development_baseline_version": "FSM Core v0.1",
+        "reviewed_commit": "f477f689bb3e3d2a28437a3984458ec43e950c70",
+        "phase1_merge_commit": "c2be85724111f6fb4dfcc62a2c974f7be1233cba",
+        "development_target": {
+          "os": "Ubuntu 24.04",
+          "ros_distribution": "ROS 2 Jazzy",
+          "core_language": "C++17"
+        },
+        "source_lock": "robot/fsm-baseline.repos"
+      },
+      "interpretation_note": "“这个版本”按本轮已经审阅并向用户说明的仓库提交及其开发栈理解，固定到提交号而不是浮动跟随 main。系统和 ROS 数字来自该版本 README，是对用户整体指代的解析，并非用户另行逐项报出的机器现状。",
+      "clarifies": "后续开发的软件基线与目标环境；更新 USER-HW-20260923-02、USER-HW-20260923-04 的旧版本目标，跟踪 Q05、Q16、Q17、Q18。",
+      "scope_note": "确定后续开发按指定版本推进，不证明 NUC 已安装/升级 Ubuntu 24.04 或 Jazzy，不证明上游实机交接记录对应本项目设备，不把上游 Mock 测试认作本项目复跑或实机验收。旧 Humble / Gazebo Classic 脚本和冻结实验继续按原环境复现；新基线物理仿真器及迁移方式未定。未重新确认末端硬件、TCP、相机外参、控制柜/SDK 兼容性或正式口令，不以 V1/V2 软件策略替代原有末端候选与赛事规则。",
+      "derived_files": [
+        "CLAUDE.md",
+        "README.md",
+        "demo/README.md",
+        "demo/SETUP.md",
         "docs/hardware-vision-plan.md",
         "docs/open-questions.md",
+        "docs/simulation-plan.md",
+        "robot/README.md",
+        "robot/fsm-baseline.repos"
+      ],
+      "subsequent_resolutions": [
+        {
+          "original_question": "初始 f477f689… 基线之后的 SDK/驱动交接资料更新",
+          "resolved_by": "USER-HW-20261011-04",
+          "resolution": "用户提示更新后核对 main@1d940f7…；仅文档新增，当前源码锁定推进到该快照，原始确认、初始 SHA 和上游离线验收记录保留。"
+        }
+      ]
+    },
+    {
+      "id": "USER-HW-20261011-02",
+      "kind": "user_message",
+      "date": "2026-10-11",
+      "source": "本项目当前会话，用户回答分工澄清问题",
+      "original_text": "Web UI",
+      "context": "在 USER-HW-20261011 固定 FSM Core v0.1 后，用户要求“补充我负责的部分”。助手问“现有记录没有明确你的具体分工。你负责哪些模块？这次是补充方案文档，还是直接补代码？”，用户答复“Web UI”。",
+      "confirmed": {
+        "personal_responsibility": "Web UI"
+      },
+      "interpretation_note": "本轮将职责补入当前方案和接入计划；页面功能、接口映射及验收顺序标为工程建议，未把建议写成用户逐项确认或已完成的成果。",
+      "clarifies": "Q07 历史记录中未载明的个人职责；技术接入余项另列 Q19，不重新打开 Q07。",
+      "scope_note": "只明确职责领域；未选择前端框架、Web/ROS 桥接方案及实现归属，也未明确此次直接编写运行代码。未分配其他队员或底层 FSM、视觉、规划、驱动模块，不把旧监控台和上游代码自动归为用户个人成果。未扩大 USER-HW-20260923-07 的实体 NUC 远程查看范围，不代表已完成 Jazzy/浏览器/实机联调。",
+      "derived_files": [
+        "CLAUDE.md",
         "README.md",
-        "CLAUDE.md"
+        "demo/README.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "original_question": "Web UI 是否为用户唯一职责，与 v2 任务书中的系统集成分工如何衔接",
+          "resolved_by": "USER-HW-20261011-03",
+          "resolution": "用户主责系统集成与验收，同时兼做 Web UI；原话保留，UI 工作继续，不据此承担 FSM/Action 内核。"
+        },
+        {
+          "original_question": "是否开始编写新版 Web UI 运行代码",
+          "resolved_by": "USER-HW-20261011-06",
+          "resolution": "用户本轮选择开发新版操作台，范围为任务、状态、日志与 Mock 交互；先前职责登记和范围说明保留。"
+        }
+      ]
+    },
+    {
+      "id": "USER-HW-20261011-03",
+      "kind": "user_message",
+      "date": "2026-10-11",
+      "source": "本项目当前会话，用户对任务书与前次分工的澄清",
+      "original_text": "系统集成与验收，兼做 Web UI",
+      "context": "用户提供 Windows Downloads 中的五人冲刺分工任务书 v2。助手指出此前“Web UI”与任务书“张叔阳专职系统集成与验收”的范围差异，询问以哪种职责为准；用户答复系统集成与验收，兼做 Web UI。",
+      "confirmed": {
+        "primary_responsibility": "系统集成与验收",
+        "additional_responsibility": "Web UI"
+      },
+      "clarifies": "USER-HW-20261011-02 的个人职责范围，并对 SPRINT-PLAN-20261011 中的系统集成分工补充兼任 Web UI。",
+      "scope_note": "确认个人主责与兼任关系，未声称已完成 P0、构建/烟测/Fake Hardware 复现、UI 或实机验收；未选择前端框架或桥接实现归属。任务书中其他队员分工按该文件来源记录，FSM/Action 内核仍由孙嘉明负责；未授权代发群消息或实体设备操作。设备预计到位与历史记录差异、准确官方截止时刻及最新 main 的实际提交仍须分别核实。",
+      "derived_files": [
+        "CLAUDE.md",
+        "README.md",
+        "demo/README.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "materials/README.md",
+        "robot/README.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "decision_id": "USER-HW-20261011-05",
+          "resolution": "主责仍为系统集成与验收、兼 Web UI；用户另授权 B01/B02/B04 的有限接线补丁与 PR，不接管 FSM 状态转换或 Cancel 内核。"
+        }
+      ]
+    },
+    {
+      "id": "USER-HW-20261011-04",
+      "kind": "user_message",
+      "date": "2026-10-11",
+      "source": "本项目当前会话，用户补充仓库更新",
+      "original_text": "repo已经补充SDK",
+      "context": "在系统集成与验收（兼 Web UI）分工更新后，用户提示此前提供的 F1u0rite/meituan_challenge_ws 已补充 SDK；助手按该提示核对远端 main 的新提交与官方驱动构建文件。",
+      "confirmed": {
+        "repository_update_reported": "repo 已补充 SDK 相关内容"
+      },
+      "interpretation_note": "将提示作为继续核对与同步集成输入的要求；实际核对为新提交 1d940f7…新增驱动/SDK 部署手册并更新 README，源码/接口未变。因此把当前文档快照锁定推进到该 SHA，具体技术事实由 TEAMMATE-SDK-20261011 支持，不冒充用户逐项报出的版本或运行结果。",
+      "clarifies": "系统集成 I03/I04 不再等待驱动/SDK 手册；当前快照更新，实际构建和动态复验仍待完成。",
+      "scope_note": "未表示 SDK 二进制已随本项目入库、已在本机/NUC 安装或可用于实体设备；不把上游 Mock 结果当成本项目复跑。不授权连接控制柜、运行 SDK 示例或实际运动。",
+      "derived_files": [
+        "CLAUDE.md",
+        "README.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/simulation-plan.md",
+        "robot/README.md",
+        "robot/fsm-baseline.repos"
+      ]
+    },
+    {
+      "id": "USER-HW-20261011-05",
+      "kind": "user_message",
+      "date": "2026-10-11",
+      "source": "本项目当前会话，用户采纳有限集成修复与 PR 交接建议",
+      "original_text": "按照你的建议执行",
+      "context": "用户先问是否应该由自己修复。助手建议仅修 B01 时钟成员冲突、B02 配置字段错误、B04 服务名称不一致；B03 由孙嘉明主导，以独立分支/PR 交其复核，由用户复验，保留原失败证据并用新提交号登记。用户随后采纳此建议。",
+      "confirmed": {
+        "scoped_repairs": [
+          "B01",
+          "B02",
+          "B04"
+        ],
+        "delivery": "独立分支/PR，模块负责人复核，集成侧复验",
+        "deferred": "B03、FSM 状态转换和 Cancel 内核仍由孙嘉明负责",
+        "evidence": "保留原失败记录，以新提交号登记复验"
+      },
+      "scope_note": "此授权涵盖准备补丁、回归、推送独立修复分支及创建 PR 请求审阅；不转移整个 FSM/Action 实现职责，不表示队友已审阅或已合并，不扩大到 B05/B06 内核修复、自动合并 main、实体硬件或群消息。",
+      "derived_files": [
+        "CLAUDE.md",
+        "README.md",
+        "docs/experiments/fsm-wiring-fix-20261011/inputs.json",
+        "docs/fsm-wiring-fix.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "robot/README.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20261011-06",
+      "kind": "user_message",
+      "date": "2026-10-11",
+      "source": "本项目当前会话；用户回答 Web UI 工作范围的澄清问题",
+      "original_text": "开发新版操作台：任务、状态、日志与 Mock 交互（推荐）",
+      "context": "用户先回复“Web UI”；助手询问本次优先推进新版 Mock 操作台、扩展历史仿真监控台或仅梳理方案，用户选择新版开发。",
+      "confirmed": {
+        "task_scope": "开发新版操作台：任务、状态、日志与 Mock 交互"
+      },
+      "interpretation_note": "基于既有第 6 节接口计划，在本仓库实现独立本地 Mock 页面和 HTTP 服务；原生页面/Python 标准库是工程选择，未把它记为用户指定框架。",
+      "scope_note": "本次授权页面、状态、日志与 Mock 交互开发；不接管 FSM/Action/Cancel 内核、不确定真实桥接负责人、不扩大 NUC/实体设备控制权限，不确认相机、工具最终选型或硬件连接。",
+      "derived_files": [
+        "README.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "materials/README.md",
+        "webui/README.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "source_id": "USER-HW-20261011-07",
+          "date": "2026-10-11",
+          "resolution": "用户澄清目标为实机操作台；早期 Mock 选择及证据保留，当前入口改为真实 ROS 客户端，Mock 仅显式开启。"
+        }
+      ]
+    },
+    {
+      "id": "USER-HW-20261011-07",
+      "kind": "user_message",
+      "date": "2026-10-11",
+      "source": "本项目当前会话；用户澄清 Web UI 的目标",
+      "original_text": "我要的是实机操作台",
+      "context": "此前助手将新版 UI 限定为 Mock 演练，用户要求面向实机；助手询问连接参数后，用户回复“repo里面没有？”，因此先从固定仓库复用默认工作空间与 ROS 接口。",
+      "confirmed": {
+        "task_scope": "开发面向实机的操作台，包含真实 ROS 任务、设备、相机和日志接入"
+      },
+      "scope_note": "这是操作台开发与实机接口接入要求，不证明 NUC/实体设备已经连接，不提供已核验的 SSH 地址或实机 ROS domain；不接管上游 FSM/Action/Cancel 内核，不启动实体运动或确定末端选型。旧远程查看约定与新版控制入口的开发区分记录。",
+      "derived_files": [
+        "README.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "materials/README.md",
+        "webui/README.md",
+        "webui/provenance.json",
+        "demo/README.md",
+        "robot/README.md",
+        "docs/experiments/webui-ros-20261011/protocol.md"
       ]
     }
   ],
@@ -1177,7 +1915,8 @@
       "archived_path": null,
       "usage": "彩色/深度视场、最大分辨率下最小深度距离；工作距离估算依据。",
       "derived_files": [
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "docs/simulation-plan.md"
       ]
     },
     {
@@ -1190,7 +1929,8 @@
       "archived_path": null,
       "usage": "深度单位与对齐流程；master 查阅版本未固定提交，示例标注 Apache-2.0，未复制代码。",
       "derived_files": [
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "docs/simulation-plan.md"
       ]
     },
     {
@@ -1308,9 +2048,9 @@
       "license_status": "冲突未决：package.xml 声明 <license>BSD</license>（未注明 2/3-clause），仓库根目录无 LICENSE 文件，GitHub API license 字段为 null；按 FAQ p6/Q17 披露前须向遨博确认。",
       "usage": "S3 仿真模型来源（用户指定，USER-SIM-20260906-01）：aubo_S3.urdf/.srdf、版本变体 _10/_T0、meshes/aubo_S3；另参考其 README 的型号命名规范与 scripts/calibrate_urdf_dh.py 校准流程。本次仅在线查阅，未克隆、未复制文件。",
       "derived_files": [
-        "docs/simulation-plan.md",
+        "README.md",
         "docs/open-questions.md",
-        "README.md"
+        "docs/simulation-plan.md"
       ],
       "accessed_commit_full": "47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1",
       "accessed_commit_date": "2026-03-13T10:13:58Z",
@@ -1347,9 +2087,9 @@
         "与用户实机控制柜/软件版本的兼容性"
       ],
       "derived_files": [
-        "docs/simulation-plan.md",
         "docs/hardware-vision-plan.md",
-        "docs/open-questions.md"
+        "docs/open-questions.md",
+        "docs/simulation-plan.md"
       ],
       "local_clone_check": {
         "date": "2026-09-23",
@@ -1433,6 +2173,293 @@
         "docs/open-questions.md",
         "robot/README.md"
       ]
+    },
+    {
+      "id": "TEAMMATE-FSM-20261011",
+      "kind": "third_party_repository_baseline",
+      "title": "F1u0rite/meituan_challenge_ws：用户指定的 FSM Core v0.1 开发基线",
+      "url": "https://github.com/F1u0rite/meituan_challenge_ws",
+      "accessed_on": "2026-10-11",
+      "default_branch": "main",
+      "commit": "f477f689bb3e3d2a28437a3984458ec43e950c70",
+      "commit_date": "2026-10-11T15:45:04+08:00",
+      "phase1_merge_commit": "c2be85724111f6fb4dfcc62a2c974f7be1233cba",
+      "tag": {
+        "name": "fsm-core-v0.1.0",
+        "annotated_tag_object": "b3d93c92557efa533a4dcc3c0f8c327b283a0c4a",
+        "peeled_commit": "c2be85724111f6fb4dfcc62a2c974f7be1233cba"
+      },
+      "version_lock_file": "robot/fsm-baseline.repos",
+      "archived_path": null,
+      "verification_method": "GitHub 只读接口读取 README、仓库树、提交与各包文档；临时 shallow clone 后静态核对 CMake、FSM 头文件、运动适配与 launch；git ls-remote 核对 main 和 tag 的解引用提交。未构建或执行上游测试/节点。 另用 robot/fsm-baseline.repos 在独立临时目录完成 vcs import 并读回提交，工作树干净；只验证源码取得。 补充 Web UI 分工时静态核对固定提交的接口定义及 Python 节点默认话题/Action/服务名称，未据此认定新 C++ 外壳或浏览器链路已完成。",
+      "reviewed_files": [
+        "README.md",
+        "LICENSE",
+        "src/mtc_core_cpp/CMakeLists.txt",
+        "src/mtc_task_cpp/CMakeLists.txt",
+        "src/mtc_task_cpp/README.md",
+        "src/mtc_manipulation_cpp/CMakeLists.txt",
+        "src/mtc_manipulation_cpp/README.md",
+        "src/mtc_manipulation_cpp/include/mtc_manipulation_cpp/pick_place_fsm.hpp",
+        "src/mtc_manipulation_cpp/include/mtc_manipulation_cpp/pick_place_types.hpp",
+        "src/mtc_motion_execution_cpp/CMakeLists.txt",
+        "src/mtc_motion_execution_cpp/README.md",
+        "src/mtc_motion_execution_cpp/src/motion_adapter.cpp",
+        "src/mtc_bringup/launch/mock_bringup.launch.py",
+        "src/mtc_bringup/launch/sim_bringup.launch.py",
+        "docs/architecture/TF_CONVENTIONS.md",
+        "docs/migration/CPP_FSM_FINAL_SAFETY_GATE.md",
+        "docs/migration/PHASE2_ROS2_INTEGRATION_PLAN.md",
+        "docs/migration/patches/driver_version_fingerprint.txt",
+        "README_FSM.md",
+        "src/mtc_interfaces/README.md",
+        "src/mtc_interfaces/action/ExecuteTask.action",
+        "src/mtc_interfaces/msg/TaskState.msg",
+        "src/mtc_interfaces/msg/RobotState.msg",
+        "src/mtc_interfaces/msg/ToolState.msg",
+        "src/mtc_interfaces/srv/RequestStop.srv",
+        "src/mtc_task/mtc_task/task_executor.py",
+        "src/mtc_motion_execution/mtc_motion_execution/motion_executor_node.py",
+        "src/mtc_aubo_bridge/mtc_aubo_bridge/bridge_node.py",
+        "src/mtc_tool/mtc_tool/tool_manager_node.py"
+      ],
+      "evidence_urls": {
+        "readme": "https://github.com/F1u0rite/meituan_challenge_ws/blob/f477f689bb3e3d2a28437a3984458ec43e950c70/README.md",
+        "license": "https://github.com/F1u0rite/meituan_challenge_ws/blob/f477f689bb3e3d2a28437a3984458ec43e950c70/LICENSE",
+        "final_gate": "https://github.com/F1u0rite/meituan_challenge_ws/blob/f477f689bb3e3d2a28437a3984458ec43e950c70/docs/migration/CPP_FSM_FINAL_SAFETY_GATE.md",
+        "phase2_plan": "https://github.com/F1u0rite/meituan_challenge_ws/blob/f477f689bb3e3d2a28437a3984458ec43e950c70/docs/migration/PHASE2_ROS2_INTEGRATION_PLAN.md",
+        "tf_conventions": "https://github.com/F1u0rite/meituan_challenge_ws/blob/f477f689bb3e3d2a28437a3984458ec43e950c70/docs/architecture/TF_CONVENTIONS.md",
+        "web_ui_ros_interfaces": "https://github.com/F1u0rite/meituan_challenge_ws/tree/f477f689bb3e3d2a28437a3984458ec43e950c70/src/mtc_interfaces"
+      },
+      "license_status": "固定提交根 LICENSE 为 MIT，Copyright (c) 2026 Fluorite；本次仅引用和登记，未复制实现。上游驱动、SDK 等依赖的许可不据此统一视为 MIT。",
+      "reported_environment": {
+        "os": "Ubuntu 24.04",
+        "ros_distribution": "ROS 2 Jazzy",
+        "core_language": "C++17"
+      },
+      "reported_validation": {
+        "source": "固定提交 README 与最终离线验收报告；本项目未复跑",
+        "workspace_packages_passed": 12,
+        "cpp_gtest_passed": 318,
+        "python_pytest_passed": 269,
+        "python_mock_e2e_passed": 15,
+        "tsan": "NOT RUN，运行时 unexpected memory mapping",
+        "cpp_ros_action_moveit_mock_hardware_integration": "尚未完成",
+        "real_robot_grasp_and_tool_io": "NOT RUN"
+      },
+      "usage": "按 USER-HW-20261011 固定后续软件开发基线，登记四个 C++ 核心包和第二阶段 Action / Planner / Motion / Perception / Tool 接入计划。旧实验单独保留。 按 USER-HW-20261011-02 为 Web UI 建立任务、设备、工具状态和任务提交/取消的接口映射；浏览器桥接与功能拆分为待实施工程建议。",
+      "unverified": [
+        "本项目在 Jazzy 下复现上游构建与测试",
+        "新 C++ ROS 2 Action、MoveIt、整条轨迹执行与 Mock Hardware 闭环",
+        "NUC 系统现状和 Jazzy 驱动/SDK 与控制柜的兼容性",
+        "本项目视觉、坐标系、工具反馈及 Gazebo 场景迁移",
+        "实体末端、TCP、负载和实机抓放"
+      ],
+      "derived_files": [
+        "CLAUDE.md",
+        "README.md",
+        "docs/experiments/fsm-acceptance-20261011/summary.json",
+        "docs/fsm-acceptance.md",
+        "docs/fsm-wiring-fix.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/simulation-plan.md",
+        "docs/web-ui.md",
+        "robot/README.md",
+        "robot/fsm-baseline.repos",
+        "webui/README.md",
+        "webui/provenance.json"
+      ],
+      "local_source_import_check": {
+        "date": "2026-10-11",
+        "tool": "vcstool 0.3.0",
+        "input": "robot/fsm-baseline.repos",
+        "temporary_checkout": "/tmp/meituan-fsm-import-jzSIhd/meituan_challenge_ws",
+        "import_exit_code": 0,
+        "head": "f477f689bb3e3d2a28437a3984458ec43e950c70",
+        "working_tree_clean": true,
+        "validate_result": "vcs validate 对完整 SHA 报 UnboundLocalError: version_type；本地 vcstool/clients/git.py:744 的返回格式化读取了未赋值的 version_type。未修改工具，改用实际 import + Git HEAD 核对。",
+        "scope": "本机源码导入校验，未构建、未跑上游测试或 ROS 节点，不代表 Jazzy / NUC / 实机验证。"
+      },
+      "web_ui_review": {
+        "interface_scope": "ROS IDL 与现有 Python 节点默认名称；不是浏览器 API，也不是新 C++ ROS 外壳的完成证明。",
+        "robot_state_publishers": [
+          "mtc_motion_execution/motion_executor_node",
+          "mtc_aubo_bridge/bridge_node"
+        ],
+        "robot_state_topic": "/mtc/robot/state",
+        "publisher_scope": "静态代码中两个节点均定义同名发布端；未运行节点，未验证是否同时启动。桥接联调需明确权威发布源。",
+        "stop_semantics": "RequestStop.request_delivered 只表示请求送达，停稳必须另有 stop_confirmed；软件停止不是实体急停。",
+        "frontend_scope": "上游建议的功能分支未明确本用户分工；个人 Web UI 职责仅来自用户会话。"
+      },
+      "subsequent_reviews": [
+        {
+          "source_id": "TEAMMATE-SDK-20261011",
+          "triggered_by": "USER-HW-20261011-04",
+          "new_commit": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+          "change_scope": "新增 SDK/驱动手册与 README；核心源码不变。",
+          "resolution": "本条继续作为初次 f477f689… 审阅与导入证据，当前 robot/fsm-baseline.repos 已推进到新快照。"
+        },
+        {
+          "source_id": "ENV-FSM-20261011",
+          "date": "2026-10-11",
+          "commit": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+          "resolution": "本项目独立Jazzy回归与Fake轨迹通过；Python ROS Task/PickPlace启动失败，新C++ Action/MoveIt/FSM完整接线仍待完成。详见阶段验收及冻结日志；本条原有未复跑/未下载描述保留其早期静态核对范围。"
+        }
+      ]
+    },
+    {
+      "id": "TEAMMATE-SDK-20261011",
+      "kind": "third_party_driver_sdk_deployment_handoff",
+      "title": "FSM 仓库新增 AUBO S3 Jazzy 驱动与 SDK 构建依赖、Mock 部署手册",
+      "url": "https://github.com/F1u0rite/meituan_challenge_ws",
+      "accessed_on": "2026-10-11",
+      "commit": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+      "parent_commit": "f477f689bb3e3d2a28437a3984458ec43e950c70",
+      "commit_date": "2026-10-11T16:25:42+08:00",
+      "commit_subject": "docs: 添加 AUBO S3 Jazzy Mock 部署手册与团队 SOP",
+      "version_lock_file": "robot/fsm-baseline.repos",
+      "archived_path": null,
+      "verification_method": "git ls-remote 与 GitHub commit API 核对当次 main；取回固定提交，核对父提交、文件差异、部署手册、既有版本指纹和 Fake 补丁。另经 GitHub 只读接口直接读取官方驱动固定提交的 CMakeLists.txt；临时目录做补丁文件复现及新源码导入。未下载/运行 SDK、未构建或启动 ROS/驱动。",
+      "changed_files": [
+        {
+          "path": "README.md",
+          "status": "modified"
+        },
+        {
+          "path": "docs/setup/AUBO_ROS2_DRIVER_JAZZY.md",
+          "status": "added"
+        }
+      ],
+      "runtime_source_diff": "src/ 与父提交逐字节无差异；此提交未新增 SDK 二进制或 FSM/Action/Planner/MotionAdapter 实现。",
+      "reviewed_files": [
+        "README.md",
+        "docs/setup/AUBO_ROS2_DRIVER_JAZZY.md",
+        "docs/migration/patches/driver_version_fingerprint.txt",
+        "docs/migration/AUBO_DRIVER_FAKE_HARDWARE_FIX_AUDIT.md",
+        "docs/migration/patches/aubo_description_fake_hardware_jazzy.patch",
+        "docs/migration/patches/aubo.ros2_control.xacro.upstream",
+        "docs/migration/patches/aubo.ros2_control.xacro.locally_fixed"
+      ],
+      "reviewed_file_sha256": {
+        "README.md": "7a2beb7f2667d57ca1e038f491542b524d022eed2660ad3e74f7d7e9863fad06",
+        "docs/setup/AUBO_ROS2_DRIVER_JAZZY.md": "26da0fa30a9d84d69d07fe67b8a7e1a3f8c2143f6f7cb9e0faed5e98aa902d36",
+        "docs/migration/patches/driver_version_fingerprint.txt": "603bb25ebe21307eb70a6899a4d195a306403b50573167ac9f4fe269685960e5",
+        "docs/migration/AUBO_DRIVER_FAKE_HARDWARE_FIX_AUDIT.md": "6ebe9dc801ffd8f8734e67d12156dd1af007e1690c4054b2b5ad223663de6778",
+        "docs/migration/patches/aubo_description_fake_hardware_jazzy.patch": "18c4c72afcc9aaba334390b48cad796512d8df29e0b2cde319eb700c936cd145",
+        "docs/migration/patches/aubo.ros2_control.xacro.upstream": "3972c3017e50de69efedd6a91b5a152dc6545e473a51cef6f7bee7869ec45ba5",
+        "docs/migration/patches/aubo.ros2_control.xacro.locally_fixed": "c0f6311bdb2bd347241266169970888c0e73d11b4c8052ac15ca57e22e9d52f6"
+      },
+      "evidence_urls": {
+        "commit": "https://github.com/F1u0rite/meituan_challenge_ws/commit/1d940f7c5f12561fed6641457c0b4b630a282b05",
+        "handbook": "https://github.com/F1u0rite/meituan_challenge_ws/blob/1d940f7c5f12561fed6641457c0b4b630a282b05/docs/setup/AUBO_ROS2_DRIVER_JAZZY.md",
+        "driver_fingerprint": "https://github.com/F1u0rite/meituan_challenge_ws/blob/1d940f7c5f12561fed6641457c0b4b630a282b05/docs/migration/patches/driver_version_fingerprint.txt",
+        "fake_fix_audit": "https://github.com/F1u0rite/meituan_challenge_ws/blob/1d940f7c5f12561fed6641457c0b4b630a282b05/docs/migration/AUBO_DRIVER_FAKE_HARDWARE_FIX_AUDIT.md",
+        "fake_patch": "https://github.com/F1u0rite/meituan_challenge_ws/blob/1d940f7c5f12561fed6641457c0b4b630a282b05/docs/migration/patches/aubo_description_fake_hardware_jazzy.patch",
+        "official_driver_cmake": "https://github.com/AuboRobot/aubo_ros2_driver/blob/53aab83735236f0c262ecb11e04ef2600241d9d9/aubo_ros2_driver/CMakeLists.txt"
+      },
+      "driver_inputs": {
+        "repository": "https://github.com/AuboRobot/aubo_ros2_driver",
+        "branch": "jazzy",
+        "commit": "53aab83735236f0c262ecb11e04ef2600241d9d9",
+        "description_commit": "47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1",
+        "required_local_fix": "docs/migration/patches/aubo_description_fake_hardware_jazzy.patch",
+        "sdk_version": "0.24.1-rc.3",
+        "sdk_x86_64_archive": "aubo_sdk-0.24.1-rc.3-Linux_x86_64+318754d.zip",
+        "sdk_declared_url": "https://download.aubo-robotics.cn/sdk/aubo_sdk-0.24.1-rc.3-Linux_x86_64+318754d.zip",
+        "sdk_acquisition": "CMake FetchContent 下载二进制依赖；官方该提交未设置 URL_HASH；ARM64 分支另有 aarch64 下载地址。",
+        "sdk_package_sha256": null,
+        "sdk_downloaded_by_this_review": false,
+        "sdk_license_status": "二进制包许可未在本轮核验；根仓库 MIT 或驱动许可不代替 SDK 许可。"
+      },
+      "reported_validation": {
+        "source": "部署手册 §12，上游已有历史日志摘要；本项目未访问其本机原始日志或复跑动态验证。",
+        "historical_pass": [
+          "普通复制安装的五个驱动相关包构建",
+          "GenericSystem 与两控制器激活，200 Hz 配置/启动",
+          "直接 FollowJointTrajectory 完成",
+          "MoveIt Plan → Execute 成功"
+        ],
+        "historical_fail": [
+          "description symlink 安装失败",
+          "旧规划起点偏差导致 ABORTED"
+        ],
+        "remaining": [
+          "新机器修复快照与完整部署复验",
+          "MoveIt 退出异常：SIGINT 未及时退出，SIGTERM 后 -11",
+          "依赖完整性：缺 joint_state_publisher_gui",
+          "驱动自动测试缺 test_results 证据",
+          "完整 C++ FSM + ROS Action/MoveIt 抓放闭环",
+          "实体设备、工具 IO、负载与标定"
+        ]
+      },
+      "local_checks": {
+        "scope": "仅本机源码/补丁文件一致性；不是 Jazzy 安装、Xacro 展开、SDK/ROS 或硬件验证。",
+        "patch_check": {
+          "temporary_directory": "/tmp/meituan-fake-patch-check-pabs2_23",
+          "git_apply_check": "PASS",
+          "apply_to_archived_upstream": "PASS",
+          "matches_archived_fixed_file": true,
+          "patch_sha256": "18c4c72afcc9aaba334390b48cad796512d8df29e0b2cde319eb700c936cd145",
+          "fixed_file_sha256": "c0f6311bdb2bd347241266169970888c0e73d11b4c8052ac15ca57e22e9d52f6"
+        },
+        "source_import": {
+          "tool": "vcstool 0.3.0",
+          "input": "robot/fsm-baseline.repos",
+          "temporary_checkout": "/tmp/meituan-sdk-import-gOBsbb/meituan_challenge_ws",
+          "exit_code": 0,
+          "head": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+          "working_tree_clean": true,
+          "handbook_present": true
+        }
+      },
+      "usage": "按用户 SDK 更新提示推进仅文档变更的当前源码快照，更新 I03/I04 为驱动/SDK 手册已取得、独立部署与复现待执行；保留初始 FSM 验收与旧 Humble 证据。",
+      "license_status": "相对初始已读 MIT 根许可证无变动；本项目仅整理引用，未引入 SDK 或驱动实现。aubo_description 既有许可冲突继续保留。",
+      "scope_note": "文档和官方 CMake 可证明构建依赖及交接说明已经明确，不能证明本机 SDK 已下载/安装、许可已确认、NUC 已部署或控制柜兼容。上游独立 Mock 成功与本项目复跑及完整 FSM 闭环分开记录。",
+      "derived_files": [
+        "CLAUDE.md",
+        "README.md",
+        "docs/experiments/fsm-acceptance-20261011/summary.json",
+        "docs/fsm-acceptance.md",
+        "docs/fsm-wiring-fix.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/simulation-plan.md",
+        "docs/web-ui.md",
+        "robot/README.md",
+        "robot/fsm-baseline.repos",
+        "webui/README.md",
+        "webui/provenance.json",
+        "docs/experiments/webui-ros-20261011/protocol.md"
+      ],
+      "subsequent_reviews": [
+        {
+          "source_id": "ENV-FSM-20261011",
+          "date": "2026-10-11",
+          "commit": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+          "resolution": "本项目独立Jazzy回归与Fake轨迹通过；Python ROS Task/PickPlace启动失败，新C++ Action/MoveIt/FSM完整接线仍待完成。详见阶段验收及冻结日志；本条原有未复跑/未下载描述保留其早期静态核对范围。"
+        }
+      ]
+    },
+    {
+      "id": "ROS2-RCLPY-20261011",
+      "kind": "official_ros_client_api_reference",
+      "title": "ROS 2 Jazzy rclpy Action 与订阅 API",
+      "url": "https://github.com/ros2/rclpy/tree/jazzy",
+      "accessed_on": "2026-10-11",
+      "version": "官方 jazzy 分支用于 API 查阅；实际测试发行包 7.1.12",
+      "evidence_urls": [
+        "https://github.com/ros2/rclpy/blob/jazzy/rclpy/rclpy/action/client.py",
+        "https://github.com/ros2/rclpy/blob/jazzy/rclpy/rclpy/node.py",
+        "https://github.com/ros2/rclpy/blob/jazzy/rclpy/rclpy/subscription.py"
+      ],
+      "license": "Apache License 2.0；调用 API，未复制实现",
+      "usage": "为实机 Web 客户端选择 send_goal_async/cancel_goal_async/get_result_async 和双参数订阅回调；安装包差异以 ENV-WEBUI-ROS-20261011 核验",
+      "scope_note": "分支 URL 非不可变版本；实际测试包、MessageInfo 限制和许可证以本地 Jazzy 输出登记。官方文档站访问受阻，改读官方 GitHub 源码。",
+      "derived_files": [
+        "webui/README.md",
+        "webui/provenance.json"
+      ]
     }
   ],
   "local_observations": [
@@ -1465,8 +2492,10 @@
       },
       "limitations": "未验证库可导入、相机采流或机器人连接；未安装依赖。",
       "derived_files": [
+        "CLAUDE.md",
+        "docs/hardware-vision-plan.md",
         "docs/open-questions.md",
-        "docs/hardware-vision-plan.md"
+        "docs/simulation-plan.md"
       ]
     },
     {
@@ -1544,8 +2573,9 @@
         "回归用的是真值外参而非标定结果，证明的是算法逻辑与变换链正确，不是实机精度。"
       ],
       "derived_files": [
-        "docs/simulation-plan.md",
-        "README.md"
+        "README.md",
+        "docs/demo-readiness.md",
+        "docs/simulation-plan.md"
       ],
       "correction": {
         "date": "2026-09-06",
@@ -1737,9 +2767,9 @@
       "interpretation_correction": "0.8–1.9mm视觉定位误差不等于插入总误差；单次预校正不保证消除4–6mm运动跟踪误差。",
       "ai_assistance": "OpenAI Codex辅助本轮审计、静态计算与文档；历史仿真和舌规Claude Code辅助见已有记录。",
       "derived_files": [
+        "README.md",
         "docs/demo-readiness.md",
-        "docs/simulation-plan.md",
-        "README.md"
+        "docs/simulation-plan.md"
       ]
     },
     {
@@ -1947,12 +2977,12 @@
       ],
       "ai_assistance": "OpenAI Codex: recording, measurements, checks and plots. Historical trajectory and simulation wiring: Claude Code. No teammate code transplanted.",
       "derived_files": [
-        "docs/demo-recording.md",
-        "docs/demo-readiness.md",
-        "docs/simulation-plan.md",
-        "docs/open-questions.md",
         "README.md",
-        "demo/README.md"
+        "demo/README.md",
+        "docs/demo-readiness.md",
+        "docs/demo-recording.md",
+        "docs/open-questions.md",
+        "docs/simulation-plan.md"
       ]
     },
     {
@@ -2046,10 +3076,186 @@
       "ai_assistance": "OpenAI Codex: release packaging, source packaging, configurable workspace and setup documentation. Original source authorship and hashes in simulation/provenance.json.",
       "derived_files": [
         "README.md",
-        "docs/demo-recording.md",
         "demo/README.md",
         "demo/SETUP.md",
+        "docs/demo-recording.md",
         "simulation/provenance.json"
+      ]
+    },
+    {
+      "id": "DEMO-WEBUI-20261011",
+      "kind": "static_code_review",
+      "date": "2026-10-11",
+      "source": "本机项目工作树中的历史浏览器监控台源码",
+      "repository_head": "818faa7d70868501ee770999bc1027178d68bfb6",
+      "reviewed_files": [
+        {
+          "path": "demo/dashboard.py",
+          "sha256": "fe19214ef398da691b64bc5c132af19fcf50791d185ebfbee8a6aa6dbc69ac7a"
+        },
+        {
+          "path": "demo/dashboard.html",
+          "sha256": "724ee4647079203747431097113b69c52cf642e9b9beb1c24e4fcda07debc360"
+        },
+        {
+          "path": "demo/dashboard.sh",
+          "sha256": "cd996fec9a9f46d30f5d6801b06b056b7302188c8fcbef30ee0cdf62a9611f6e"
+        },
+        {
+          "path": "demo/test_dashboard.py",
+          "sha256": "18855b1a2acefeb7e13a5406142dbff74dd805b3d54ed3eb6a14630468be0cbb"
+        }
+      ],
+      "method": "只读核对 aiohttp 路由、状态/录像处理、图像桥接、前端调用、启动参数及既有测试代码；本轮未执行测试、浏览器、ROS 节点、仿真或 NUC 命令。",
+      "observed": {
+        "implementation": "HTML/JavaScript 页面 + Python/aiohttp；ROS 图像订阅转 MJPEG；PTY WebSocket；历史 Humble 入口。",
+        "routes": [
+          "GET /",
+          "GET /api/status",
+          "GET /api/config",
+          "GET /api/topics",
+          "GET /api/recordings",
+          "GET /outputs/{path:.+}",
+          "GET /video/{topic:.+}",
+          "GET /ws/term"
+        ],
+        "status_payload": [
+          "env",
+          "ros_error",
+          "graph",
+          "processes",
+          "streams"
+        ],
+        "recordings": "枚举 outputs 下 MP4 路径、大小与修改时间，没有按 task_id 关联的任务记录。",
+        "task_api": "当前未订阅 TaskState/ToolState/RobotState 业务消息，未提供 ExecuteTask/Cancel 的 Web 桥接接口。",
+        "image_display": "彩色与逐帧分位深度伪彩，限 15 fps，流状态含 age_s/fps/size/error；深度伪彩仅供目视。",
+        "readonly": "--readonly 限监控预设、忽略终端键盘输入；默认监听 127.0.0.1。"
+      },
+      "scope": "静态观测只用于判断旧监控台的复用基础和缺口，不证明实际浏览器渲染、Jazzy 兼容、SSH 隧道、NUC 或实机可用；原作者和 AI 记录保留在 demo/README.md。",
+      "ai_assistance": "OpenAI Codex 协助核对源码、整理 Web UI 职责与接口/验收计划；本轮未改运行代码。",
+      "derived_files": [
+        "demo/README.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md"
+      ]
+    },
+    {
+      "id": "DEMO-WEBUI-MOCK-20261011",
+      "kind": "local_web_ui_implementation_validation",
+      "date": "2026-10-11",
+      "source": "本机独立 webui/ HTTP Mock 服务、unittest 与 Windows Chrome 交互",
+      "triggered_by": "USER-HW-20261011-06",
+      "report": "docs/web-ui.md",
+      "index": "docs/experiments/webui-mock-20261011/index.json",
+      "index_sha256": "7e094dc61a0d58be8e58590a66aced239c7c511f4cb030298974c8d0e2fba001",
+      "inputs": "docs/experiments/webui-mock-20261011/inputs.json",
+      "summary": "docs/experiments/webui-mock-20261011/summary.json",
+      "raw_output_directory": "outputs/webui-20261011-174136-4cc5db",
+      "method": "Python unittest、HTTP 契约与文件持久化检查；通过 windows-playwright 操作任务、刷新、暂停、取消、故障、断流、记录与移动布局；记录开发失败和下载事件验证限制。",
+      "observed": {
+        "implementation": "原生 HTML/CSS/JavaScript + Python 标准库，无第三方运行包或 CDN",
+        "webui_tests_passed": 16,
+        "demo_regression_passed": 27,
+        "robot_regression_passed": 7,
+        "browser_mock_tasks": 6,
+        "tested_widths": [
+          320,
+          390,
+          768,
+          1024,
+          1440
+        ],
+        "http_export": "HTTP 200 / attachment / JSON 结构通过",
+        "browser_download": "未捕获 download 事件，文件落盘未验证"
+      },
+      "scope": "仅本机 UI 与 HTTP 定时 Mock 样例，非上游 ROS Mock、物理仿真或实机验收；未启动 ROS/Gazebo/MoveIt，未改变历史监控台运行代码。相机、录像关联、真实桥接、NUC/Jazzy 与设备仍待验证。",
+      "retained_failures": [
+        "标签精确定位超时，拆分 label/select 后通过",
+        "浏览器 download 事件等待超时，保留验证限制"
+      ],
+      "algorithm_provenance": "webui/provenance.json",
+      "ai_assistance": "OpenAI Codex 协助设计、实现、测试、浏览器 QA、截图与证据登记",
+      "derived_files": [
+        "README.md",
+        "demo/README.md",
+        "docs/experiments/webui-mock-20261011/summary.json",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "materials/README.md",
+        "webui/README.md"
+      ]
+    },
+    {
+      "id": "ENV-WEBUI-ROS-20261011",
+      "kind": "real_ros_web_client_isolated_validation",
+      "date": "2026-10-11",
+      "triggered_by": "USER-HW-20261011-07",
+      "report": "docs/web-ui.md",
+      "index": "docs/experiments/webui-ros-20261011/index.json",
+      "index_sha256": "a5bbc0b68643f22e7b12733ccf9f40552a1ab8f4464fd49ea99a1e3c3404a46c",
+      "inputs": "docs/experiments/webui-ros-20261011/inputs.json",
+      "summary": "docs/experiments/webui-ros-20261011/summary.json",
+      "raw_output_directory": "outputs/webui-real-20261011-175646",
+      "method": "33 项 unittest（开发 Python3.10 和隔离 Jazzy Python3.12）；9 项实际 rclpy/DDS/Action fixture 回归；Windows Chrome 经临时本机转发访问无网络容器；检查来源冲突、时效、任务/取消/停止、RGB-D、关节、日志与布局。",
+      "observed": {
+        "offline_unittest_python310": {
+          "passed": 33
+        },
+        "offline_unittest_jazzy_python312": {
+          "passed": 33
+        },
+        "jazzy_ros_integration": {
+          "passed": 9,
+          "log": "logs/jazzy-ros-integration-cleanup-fix.log"
+        },
+        "browser_fixture_tasks": 2,
+        "browser_cancel_and_stop_independent": true,
+        "browser_rgb_depth_and_joints": true,
+        "offline_widths_without_overflow": [
+          320,
+          390,
+          768,
+          1024,
+          1440
+        ],
+        "browser_download_file": "NOT VERIFIED; HTTP attachment and JSON only"
+      },
+      "runtime": {
+        "python": "3.12.3",
+        "rclpy": "7.1.12",
+        "opencv": "4.6.0",
+        "numpy": "1.26.4"
+      },
+      "scope": "默认实机 ROS 客户端的接口验证；测试数据与 Action 服务为明确的隔离 fixture，simulation_mode=false 仅用于门禁测试。没有连接 NUC/实体设备、启动驱动/FSM/SDK/MoveIt 或执行实体运动。",
+      "retained_failures": [
+        "Missing OpenCV; dependency installation before ROS run",
+        "Missing rosout QoS alias",
+        "MessageInfo is dict without publisher_gid",
+        "Setup failure omitted teardown and exited 134",
+        "Duplicate-name removal lost graph identity; stale ActionServer resources prevented recovery until explicit destroy",
+        "31 HTTP 502 after deliberately stopping fixture; Ctrl+C traceback preserved"
+      ],
+      "not_verified": [
+        "NUC deployment and SSH/domain identity",
+        "Physical robot motion, tool and camera calibration",
+        "Full upstream FSM / MoveIt integration, B03/B05/B06 unresolved",
+        "Detection overlays and task video linkage"
+      ],
+      "algorithm_provenance": "webui/provenance.json",
+      "ai_assistance": "OpenAI Codex 协助实现、测试、浏览器 QA、文档与证据登记",
+      "derived_files": [
+        "README.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "materials/README.md",
+        "robot/README.md",
+        "webui/README.md",
+        "webui/provenance.json",
+        "docs/experiments/webui-ros-20261011/protocol.md",
+        "docs/experiments/webui-ros-20261011/summary.json",
+        "docs/experiments/webui-ros-20261011/index.json"
       ]
     }
   ]

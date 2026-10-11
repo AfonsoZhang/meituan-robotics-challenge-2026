@@ -1,0 +1,42 @@
+{
+  "source_commit": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+  "checks": [
+    {
+      "id": "UNLOCK_ENDPOINT",
+      "status": "FAIL",
+      "consumer": {
+        "source": "src/mtc_manipulation/mtc_manipulation/pick_place_server.py",
+        "value": "/mtc/tool/unlock",
+        "line": 51
+      },
+      "provider": {
+        "source": "src/mtc_tool/mtc_tool/tool_manager_node.py",
+        "value": "/mtc/tool/trigger_unlock",
+        "line": 38
+      },
+      "scope": "V2 unlock defaults; no remapping in fixed mock launch."
+    }
+  ],
+  "cpp_runtime_targets": [
+    {
+      "path": "src/mtc_core_cpp/CMakeLists.txt",
+      "add_executable_present": false,
+      "core_library_present": true
+    },
+    {
+      "path": "src/mtc_manipulation_cpp/CMakeLists.txt",
+      "add_executable_present": false,
+      "core_library_present": true
+    },
+    {
+      "path": "src/mtc_motion_execution_cpp/CMakeLists.txt",
+      "add_executable_present": false,
+      "core_library_present": true
+    },
+    {
+      "path": "src/mtc_task_cpp/CMakeLists.txt",
+      "add_executable_present": false,
+      "core_library_present": true
+    }
+  ]
+}

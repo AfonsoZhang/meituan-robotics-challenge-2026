@@ -1,0 +1,509 @@
+{
+  "launch": [
+    "ros2",
+    "launch",
+    "mtc_bringup",
+    "mock_bringup.launch.py",
+    "backend:=mock"
+  ],
+  "task_id": "wiring-fix-20261011-basic-yellow",
+  "runtime": "ROS DDS Mock; yellow is an acceptance example, not a competition command",
+  "feedback": [
+    {
+      "current_index": 0,
+      "total_count": 0,
+      "state": "FAULT",
+      "current_slot": "",
+      "current_object_id": "",
+      "substate": "FAULT"
+    }
+  ],
+  "generated_PickPlace_has_Server": false,
+  "runtime_graph": {
+    "nodes": [
+      [
+        "motion_executor",
+        "/"
+      ],
+      [
+        "task_executor",
+        "/"
+      ],
+      [
+        "tool_manager",
+        "/"
+      ],
+      [
+        "safety_supervisor",
+        "/"
+      ],
+      [
+        "_ros2cli_daemon_95_22f33a12ed984ea4aa3c3782cfc43ade",
+        "/"
+      ],
+      [
+        "acceptance_basic_goal_probe",
+        "/"
+      ]
+    ],
+    "actions": [
+      [
+        "/mtc/manipulation/pick_place",
+        [
+          "mtc_interfaces/action/PickPlace"
+        ]
+      ],
+      [
+        "/mtc/motion/execute_joint_move",
+        [
+          "mtc_interfaces/action/ExecuteJointMove"
+        ]
+      ],
+      [
+        "/mtc/task/execute",
+        [
+          "mtc_interfaces/action/ExecuteTask"
+        ]
+      ]
+    ],
+    "services": [
+      [
+        "/acceptance_basic_goal_probe/describe_parameters",
+        [
+          "rcl_interfaces/srv/DescribeParameters"
+        ]
+      ],
+      [
+        "/acceptance_basic_goal_probe/get_parameter_types",
+        [
+          "rcl_interfaces/srv/GetParameterTypes"
+        ]
+      ],
+      [
+        "/acceptance_basic_goal_probe/get_parameters",
+        [
+          "rcl_interfaces/srv/GetParameters"
+        ]
+      ],
+      [
+        "/acceptance_basic_goal_probe/get_type_description",
+        [
+          "type_description_interfaces/srv/GetTypeDescription"
+        ]
+      ],
+      [
+        "/acceptance_basic_goal_probe/list_parameters",
+        [
+          "rcl_interfaces/srv/ListParameters"
+        ]
+      ],
+      [
+        "/acceptance_basic_goal_probe/set_parameters",
+        [
+          "rcl_interfaces/srv/SetParameters"
+        ]
+      ],
+      [
+        "/acceptance_basic_goal_probe/set_parameters_atomically",
+        [
+          "rcl_interfaces/srv/SetParametersAtomically"
+        ]
+      ],
+      [
+        "/motion_executor/describe_parameters",
+        [
+          "rcl_interfaces/srv/DescribeParameters"
+        ]
+      ],
+      [
+        "/motion_executor/get_parameter_types",
+        [
+          "rcl_interfaces/srv/GetParameterTypes"
+        ]
+      ],
+      [
+        "/motion_executor/get_parameters",
+        [
+          "rcl_interfaces/srv/GetParameters"
+        ]
+      ],
+      [
+        "/motion_executor/get_type_description",
+        [
+          "type_description_interfaces/srv/GetTypeDescription"
+        ]
+      ],
+      [
+        "/motion_executor/list_parameters",
+        [
+          "rcl_interfaces/srv/ListParameters"
+        ]
+      ],
+      [
+        "/motion_executor/set_parameters",
+        [
+          "rcl_interfaces/srv/SetParameters"
+        ]
+      ],
+      [
+        "/motion_executor/set_parameters_atomically",
+        [
+          "rcl_interfaces/srv/SetParametersAtomically"
+        ]
+      ],
+      [
+        "/mtc/manipulation/pick_place/_action/cancel_goal",
+        [
+          "action_msgs/srv/CancelGoal"
+        ]
+      ],
+      [
+        "/mtc/manipulation/pick_place/_action/get_result",
+        [
+          "mtc_interfaces/action/PickPlace_GetResult"
+        ]
+      ],
+      [
+        "/mtc/manipulation/pick_place/_action/send_goal",
+        [
+          "mtc_interfaces/action/PickPlace_SendGoal"
+        ]
+      ],
+      [
+        "/mtc/motion/capabilities",
+        [
+          "mtc_interfaces/srv/GetMotionCapabilities"
+        ]
+      ],
+      [
+        "/mtc/motion/execute_joint_move/_action/cancel_goal",
+        [
+          "action_msgs/srv/CancelGoal"
+        ]
+      ],
+      [
+        "/mtc/motion/execute_joint_move/_action/get_result",
+        [
+          "mtc_interfaces/action/ExecuteJointMove_GetResult"
+        ]
+      ],
+      [
+        "/mtc/motion/execute_joint_move/_action/send_goal",
+        [
+          "mtc_interfaces/action/ExecuteJointMove_SendGoal"
+        ]
+      ],
+      [
+        "/mtc/motion/request_stop",
+        [
+          "mtc_interfaces/srv/RequestStop"
+        ]
+      ],
+      [
+        "/mtc/task/execute/_action/cancel_goal",
+        [
+          "action_msgs/srv/CancelGoal"
+        ]
+      ],
+      [
+        "/mtc/task/execute/_action/get_result",
+        [
+          "mtc_interfaces/action/ExecuteTask_GetResult"
+        ]
+      ],
+      [
+        "/mtc/task/execute/_action/send_goal",
+        [
+          "mtc_interfaces/action/ExecuteTask_SendGoal"
+        ]
+      ],
+      [
+        "/mtc/tool/trigger_unlock",
+        [
+          "mtc_interfaces/srv/TriggerUnlock"
+        ]
+      ],
+      [
+        "/safety_supervisor/describe_parameters",
+        [
+          "rcl_interfaces/srv/DescribeParameters"
+        ]
+      ],
+      [
+        "/safety_supervisor/get_parameter_types",
+        [
+          "rcl_interfaces/srv/GetParameterTypes"
+        ]
+      ],
+      [
+        "/safety_supervisor/get_parameters",
+        [
+          "rcl_interfaces/srv/GetParameters"
+        ]
+      ],
+      [
+        "/safety_supervisor/get_type_description",
+        [
+          "type_description_interfaces/srv/GetTypeDescription"
+        ]
+      ],
+      [
+        "/safety_supervisor/list_parameters",
+        [
+          "rcl_interfaces/srv/ListParameters"
+        ]
+      ],
+      [
+        "/safety_supervisor/set_parameters",
+        [
+          "rcl_interfaces/srv/SetParameters"
+        ]
+      ],
+      [
+        "/safety_supervisor/set_parameters_atomically",
+        [
+          "rcl_interfaces/srv/SetParametersAtomically"
+        ]
+      ],
+      [
+        "/task_executor/describe_parameters",
+        [
+          "rcl_interfaces/srv/DescribeParameters"
+        ]
+      ],
+      [
+        "/task_executor/get_parameter_types",
+        [
+          "rcl_interfaces/srv/GetParameterTypes"
+        ]
+      ],
+      [
+        "/task_executor/get_parameters",
+        [
+          "rcl_interfaces/srv/GetParameters"
+        ]
+      ],
+      [
+        "/task_executor/get_type_description",
+        [
+          "type_description_interfaces/srv/GetTypeDescription"
+        ]
+      ],
+      [
+        "/task_executor/list_parameters",
+        [
+          "rcl_interfaces/srv/ListParameters"
+        ]
+      ],
+      [
+        "/task_executor/set_parameters",
+        [
+          "rcl_interfaces/srv/SetParameters"
+        ]
+      ],
+      [
+        "/task_executor/set_parameters_atomically",
+        [
+          "rcl_interfaces/srv/SetParametersAtomically"
+        ]
+      ],
+      [
+        "/tool_manager/describe_parameters",
+        [
+          "rcl_interfaces/srv/DescribeParameters"
+        ]
+      ],
+      [
+        "/tool_manager/get_parameter_types",
+        [
+          "rcl_interfaces/srv/GetParameterTypes"
+        ]
+      ],
+      [
+        "/tool_manager/get_parameters",
+        [
+          "rcl_interfaces/srv/GetParameters"
+        ]
+      ],
+      [
+        "/tool_manager/get_type_description",
+        [
+          "type_description_interfaces/srv/GetTypeDescription"
+        ]
+      ],
+      [
+        "/tool_manager/list_parameters",
+        [
+          "rcl_interfaces/srv/ListParameters"
+        ]
+      ],
+      [
+        "/tool_manager/set_parameters",
+        [
+          "rcl_interfaces/srv/SetParameters"
+        ]
+      ],
+      [
+        "/tool_manager/set_parameters_atomically",
+        [
+          "rcl_interfaces/srv/SetParametersAtomically"
+        ]
+      ]
+    ],
+    "topics": [
+      [
+        "/mtc/manipulation/pick_place/_action/feedback",
+        [
+          "mtc_interfaces/action/PickPlace_FeedbackMessage"
+        ]
+      ],
+      [
+        "/mtc/manipulation/pick_place/_action/status",
+        [
+          "action_msgs/msg/GoalStatusArray"
+        ]
+      ],
+      [
+        "/mtc/motion/execute_joint_move/_action/feedback",
+        [
+          "mtc_interfaces/action/ExecuteJointMove_FeedbackMessage"
+        ]
+      ],
+      [
+        "/mtc/motion/execute_joint_move/_action/status",
+        [
+          "action_msgs/msg/GoalStatusArray"
+        ]
+      ],
+      [
+        "/mtc/robot/state",
+        [
+          "mtc_interfaces/msg/RobotState"
+        ]
+      ],
+      [
+        "/mtc/safety/interlock_state",
+        [
+          "mtc_interfaces/msg/RobotState"
+        ]
+      ],
+      [
+        "/mtc/task/execute/_action/feedback",
+        [
+          "mtc_interfaces/action/ExecuteTask_FeedbackMessage"
+        ]
+      ],
+      [
+        "/mtc/task/execute/_action/status",
+        [
+          "action_msgs/msg/GoalStatusArray"
+        ]
+      ],
+      [
+        "/mtc/task/state",
+        [
+          "mtc_interfaces/msg/TaskState"
+        ]
+      ],
+      [
+        "/mtc/tool/state",
+        [
+          "mtc_interfaces/msg/ToolState"
+        ]
+      ],
+      [
+        "/parameter_events",
+        [
+          "rcl_interfaces/msg/ParameterEvent"
+        ]
+      ],
+      [
+        "/rosout",
+        [
+          "rcl_interfaces/msg/Log"
+        ]
+      ]
+    ]
+  },
+  "runtime_action_servers": [
+    {
+      "node": "motion_executor",
+      "namespace": "/",
+      "servers": [
+        [
+          "/mtc/motion/execute_joint_move",
+          [
+            "mtc_interfaces/action/ExecuteJointMove"
+          ]
+        ]
+      ]
+    },
+    {
+      "node": "task_executor",
+      "namespace": "/",
+      "servers": [
+        [
+          "/mtc/task/execute",
+          [
+            "mtc_interfaces/action/ExecuteTask"
+          ]
+        ]
+      ]
+    },
+    {
+      "node": "tool_manager",
+      "namespace": "/",
+      "servers": []
+    },
+    {
+      "node": "safety_supervisor",
+      "namespace": "/",
+      "servers": []
+    },
+    {
+      "node": "_ros2cli_daemon_95_22f33a12ed984ea4aa3c3782cfc43ade",
+      "namespace": "/",
+      "servers": []
+    },
+    {
+      "node": "acceptance_basic_goal_probe",
+      "namespace": "/",
+      "servers": []
+    }
+  ],
+  "pickplace_server_available": false,
+  "planned_goal": {
+    "task_id": "wiring-fix-20261011-basic-yellow",
+    "mode": 1,
+    "ordered_colors": [
+      3
+    ],
+    "timeout_ms": 5000,
+    "placement_stability_sec": 3.0
+  },
+  "task_server_available": true,
+  "goal": {
+    "task_id": "wiring-fix-20261011-basic-yellow",
+    "mode": 1,
+    "ordered_colors": [
+      3
+    ],
+    "timeout_ms": 5000,
+    "placement_stability_sec": 3.0
+  },
+  "goal_response_received": true,
+  "accepted": true,
+  "goal_uuid": "7e8ab2d3b862434f921e1b22928cbcce",
+  "result_received": true,
+  "result": {
+    "status": 6,
+    "result": {
+      "success": false,
+      "completed_count": 0,
+      "completed_slots": [],
+      "error_code": 510,
+      "message": "state INIT timed out after 5.046s -> HARDWARE_FAULT"
+    }
+  },
+  "launch_exit_code": 0
+}

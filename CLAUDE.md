@@ -11,6 +11,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 动手前先读 `README.md`、`docs/rules-summary.md`、`docs/open-questions.md`；改代码或跑仿真先读 `demo/README.md`、`demo/SETUP.md`。
 
+## 当前开发基线（2026-10-11）
+
+用户确定后续“按照这个版本”（USER-HW-20261011）：`F1u0rite/meituan_challenge_ws` 的 FSM Core v0.1，初始快照 `f477f689…` 登记于 TEAMMATE-FSM-20261011。用户随后提示 SDK 已补充（USER-HW-20261011-04），当前锁定为 `1d940f7c5f12561fed6641457c0b4b630a282b05`（TEAMMATE-SDK-20261011）；该次更新仅增加 SDK/驱动部署说明和 README，FSM/接口源码未变。新开发目标为 **Ubuntu 24.04 / ROS 2 Jazzy / C++17**，源码锁定在 `robot/fsm-baseline.repos`，接口映射与推进顺序见 `docs/hardware-vision-plan.md` 第 5 节。
+
+旧 `demo/`、`simulation/` 与 `robot/` 脚本仍对应 Humble / Gazebo Classic 历史路线，不能把它们或冻结证据直接标为已迁移。新 C++ Action、MoveIt、轨迹执行与 Mock Hardware 闭环尚未接入；上游离线测试报告与本项目复跑分开记录。新版手册已给出 Jazzy 驱动 `53aab837…`、SDK `0.24.1-rc.3` 的 FetchContent 依赖及 Fake Xacro 修复；独立 MoveIt Mock 成功是上游报告，本项目待复现，SDK 许可/厂商校验值与实机兼容性待核对。NUC 实际系统、设备接入和最终末端选型未由本次回复确认。下文环境命令均按其历史适用范围使用。
+
+本项目阶段验收已执行（ENV-FSM-20261011）：独立 Ubuntu 24.04 / Jazzy 容器 12 包构建、318 C++ / 269 Python / 15 Mock E2E 通过；5 包独立 Fake 驱动、六关节/TF、单点和多点 FollowJointTrajectory 通过，SDK 观测 SHA-256 已记录，许可/厂商校验值及实机兼容性仍待核对。实际 Python Mock 的 Task/PickPlace 启动失败，基础 Goal 未发送；B01–B04 见 `docs/fsm-acceptance.md`，按职责回交孙嘉明。独立 MoveIt、新 C++ FSM 完整接线、NUC 与实机仍未验收，旧仿真范围不变。
+
+用户随后授权有限修复 B01/B02/B04（USER-HW-20261011-05），候选提交 `1d3dccf23c53d299d457564daeb6438190ea2d77` 已发布为 PR #2 并请求仓库负责人 F1u0rite 审阅，尚未合并、未推进正式基线。两包构建、6 项 ROS 回归、269 Python / 15 Mock E2E 通过；Task 已可受理 Goal，PickPlace 仍在 B05 ActionClient 绑定处退出，B03 尚未解除，延迟首次 Goal 前 INIT 超时（B06）返回 ABORTED / 510。三项补丁之外的 FSM/Action/Cancel 仍归孙嘉明；新证据 ENV-FSM-FIX-20261011 见 `docs/fsm-wiring-fix.md`，原冻结失败证据保持原状。
+
+用户个人主责**系统集成与验收，兼做 Web UI**（USER-HW-20261011-03）；先前 Web UI 答复（USER-HW-20261011-02）保留在澄清链中。v2 任务书原件为 SPRINT-PLAN-20261011，按章节引用；当前分工与 P0 见 `docs/hardware-vision-plan.md` 第 7 节，UI 见第 6 节和 Q19。孙嘉明负责 FSM/Action/Motion Execution，张叔阳负责启动、检查、日志、系统回归与材料准备；不把集成职责变成接管 FSM 状态转换/Cancel 内核。Web UI 具体功能是工程建议，桥接实现归属待落实，现有 dashboard 尚未接通新版 FSM。任务书排期与设备预期不是运行结果或官方通知；旧记录差异保留在 Q05/Q11。
+
 ## 事实链路（必须理解的整体结构）
 
 ```
@@ -38,6 +50,7 @@ materials/extracted/ + previews/               docs/experiments/<实验>-<日期
 | 类别 | 标识 | 引用方式 |
 | --- | --- | --- |
 | 比赛 PDF | `RULES` / `FAQ` / `MAP` | 必须带 PDF 页序页码，如 `RULES p4` |
+| 团队任务书 | `SPRINT-PLAN-20261011` | Markdown 原件按 §01–10 章节引用，无 PDF 页码；团队计划不冒充运行结果或官方规则 |
 | 用户提供图片 | `BATTERY-RENDER` / `BATTERY-DRAWING` | **不得编造页码**，用视图位置描述 |
 | 用户确认 | `USER-<HW|RULE|EE|SIM>-<日期>[-<序号>]` | 无页码，注明「用户会话」或「用户转述组委会」 |
 | 仿真实验 / 发布 | `VISION-*-<日期>` / `ROBUST-CONTROL-<日期>` | 指向 `docs/experiments/` 冻结证据和对应实验文档 |
@@ -45,7 +58,7 @@ materials/extracted/ + previews/               docs/experiments/<实验>-<日期
 | 研究文献 | `CTRL-SLOTINE-1985` | 注明文献 |
 | 外部网页 | `AUBO-*` / `RS-*` / `CV-*` / `VAC-*` / `TEAMMATE-*` / `POLYU-*` | 无页码，注明查阅日期 |
 
-`docs/open-questions.md` 的 Q01–Q16 是稳定编号：已解决的**不删除**，改标 `（已确认）` / `（部分确认）` 并保留历史差异。
+`docs/open-questions.md` 的 Q01–Q19 是稳定编号：已解决的**不删除**，改标 `（已确认）` / `（部分确认）` 并保留历史差异。
 
 ## 新增事实时的同步义务
 
@@ -122,6 +135,6 @@ python3 -c "import fitz; d=fitz.open('materials/original/《2026年挑战赛规�
 
 ```bash
 comm -23 \
-  <(grep -rhoE 'USER-[A-Z]+-[0-9]{8}(-[0-9]+)?|(VAC|AUBO|RS|CV)-[A-Z0-9]+|(VISION|ROBUST|DEMO|ENV)-[A-Z-]+-[0-9]{8}|CTRL-[A-Z]+-[0-9]{4}|TEAMMATE-[A-Z]+-[0-9]{8}|POLYU-[A-Z0-9]+(-[A-Z0-9]+)*' README.md docs/*.md demo/*.md robot/*.md materials/README.md | sort -u) \
+  <(grep -rhoE 'USER-[A-Z]+-[0-9]{8}(-[0-9]+)?|(VAC|AUBO|RS|CV)-[A-Z0-9]+|(VISION|ROBUST|DEMO|ENV|SPRINT)-[A-Z-]+-[0-9]{8}|CTRL-[A-Z]+-[0-9]{4}|TEAMMATE-[A-Z]+-[0-9]{8}|POLYU-[A-Z0-9]+(-[A-Z0-9]+)*' README.md docs/*.md demo/*.md robot/*.md materials/README.md | sort -u) \
   <(python3 -c "import json;d=json.load(open('materials/manifest.json'));print('\n'.join(sorted(e['id'] for k in ('sources','project_decisions','external_references','local_observations') for e in d[k])))")
 ```

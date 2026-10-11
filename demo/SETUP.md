@@ -1,5 +1,7 @@
 # 在另一台机器重建仿真工作空间
 
+本文用于复现 **历史 Humble / Gazebo Classic 实验**。当前后续开发目标已按 USER-HW-20261011 改为 FSM Core v0.1 的 Ubuntu 24.04 / Jazzy / C++17，源码锁定与接入状态见 [当前入口](../robot/README.md)。本文的依赖和构建脚本尚未迁移，不能通过替换发行版名称把本流程当作 Jazzy 安装说明。
+
 观看视频或查看结果不需要 ROS：[Demo Release](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/releases/tag/demo-v1.0.0)。下载其中 `demo-evidence.zip` 可获得视频、图表、轨迹与结果记录。
 
 ## 环境和依赖

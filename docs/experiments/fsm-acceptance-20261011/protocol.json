@@ -1,0 +1,39 @@
+{
+  "protocol_written_at": "2026-10-11T16:55:52.364666+08:00",
+  "basis": "Previous-session four-item acceptance checklist; project hardware-vision-plan sections 5 and 7.",
+  "source_commit": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+  "gates": [
+    {
+      "id": "A01",
+      "scope": "Source lock, registered packages, IDL/error codes, driver SDK/Fake patch, startup handoff consistency",
+      "expected": "Exact pinned source and patch identity; no unresolved interface mismatch"
+    },
+    {
+      "id": "A02",
+      "scope": "Pure Python offline regression and Mock E2E",
+      "expected": "269 pytest and 15 explicit E2E, no failure or skip; separate from ROS execution"
+    },
+    {
+      "id": "A03",
+      "scope": "C++ core on Ubuntu 24.04/Jazzy/C++17",
+      "expected": "4 core packages; 318 distinct tests across 16 executables; original 290 identities preserved"
+    },
+    {
+      "id": "A04",
+      "scope": "Independent GenericSystem driver on Jazzy",
+      "expected": "Exactly GenericSystem, both controllers active, 6 finite advancing JointState values, world/base_link and base_link/ee_link TF, single/multi-point FJT succeeded and endpoint error <= 0.001 rad"
+    }
+  ],
+  "supplementary": [
+    "Humble C++ portabilty check is separate from formal Jazzy gate",
+    "12 package full build and test",
+    "Actual ROS Python Mock graph and basic Goal to identify runtime blockers"
+  ],
+  "not_in_scope": [
+    "Real hardware, controller RPC/RTDE, real tool IO, NUC deployment",
+    "C++ FSM/Action/MoveIt implementation",
+    "Competition grasp/placement or physical collision validation"
+  ],
+  "failure_policy": "Preserve failed commands and logs. Do not change upstream FSM/Action source to make acceptance pass. Mark missing execution NOT RUN, actual failure FAIL.",
+  "timing_note": "Checklist criteria derive from the prior session; this protocol record was written during acceptance after host-only tests, not preregistered."
+}

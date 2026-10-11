@@ -1,0 +1,11 @@
+  PID  PPID COMMAND
+    1     0 sleep infinity
+  414     1 /usr/bin/python3 -c from ros2cli.daemon.daemonize import main; main() --name ros2-daemon --ros-domain-id 95 --rmw-implementation rmw_fastrtps_cpp
+  702     0 timeout 100 python3 /fix-src/mock_smoke_recheck.py
+  764   702 python3 /fix-src/mock_smoke_recheck.py
+  788   764 /usr/bin/python3 /opt/ros/jazzy/bin/ros2 launch mtc_bringup mock_bringup.launch.py backend:=mock
+  791   788 /usr/bin/python3 /work/install/mtc_motion_execution/lib/mtc_motion_execution/motion_executor --ros-args -r __node:=motion_executor --params-file /tmp/launch_params_yjrd6xgk
+  792   788 /usr/bin/python3 /fix-work/install/mtc_task/lib/mtc_task/task_executor --ros-args -r __node:=task_executor
+  794   788 /usr/bin/python3 /work/install/mtc_tool/lib/mtc_tool/tool_manager --ros-args -r __node:=tool_manager --params-file /tmp/launch_params_7lhcuyjr
+  795   788 /usr/bin/python3 /work/install/mtc_safety/lib/mtc_safety/safety_supervisor --ros-args -r __node:=safety_supervisor
+  910   764 ps -eo pid,ppid,args

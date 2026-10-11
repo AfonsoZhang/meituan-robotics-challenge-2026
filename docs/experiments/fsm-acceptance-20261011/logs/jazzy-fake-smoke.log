@@ -1,0 +1,291 @@
+{
+  "plugins": [
+    "mock_components/GenericSystem"
+  ],
+  "xacro_command": [
+    "xacro",
+    "/driver_work/install/aubo_description/share/aubo_description/urdf/xacro/inc/aubo_ros2.xacro",
+    "aubo_type:=aubo_S3",
+    "use_fake_hardware:=true"
+  ],
+  "trajectories": [
+    {
+      "case": "single",
+      "goal_uuid": "6912bf931b954d15b24b4bf48f717c2c",
+      "goal": {
+        "trajectory": {
+          "header": {
+            "stamp": {
+              "sec": 0,
+              "nanosec": 0
+            },
+            "frame_id": ""
+          },
+          "joint_names": [
+            "shoulder_joint",
+            "upperArm_joint",
+            "foreArm_joint",
+            "wrist1_joint",
+            "wrist2_joint",
+            "wrist3_joint"
+          ],
+          "points": [
+            {
+              "positions": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.03
+              ],
+              "velocities": [],
+              "accelerations": [],
+              "effort": [],
+              "time_from_start": {
+                "sec": 3,
+                "nanosec": 0
+              }
+            }
+          ]
+        },
+        "multi_dof_trajectory": {
+          "header": {
+            "stamp": {
+              "sec": 0,
+              "nanosec": 0
+            },
+            "frame_id": ""
+          },
+          "joint_names": [],
+          "points": []
+        },
+        "path_tolerance": [],
+        "component_path_tolerance": [],
+        "goal_tolerance": [],
+        "component_goal_tolerance": [],
+        "goal_time_tolerance": {
+          "sec": 0,
+          "nanosec": 0
+        }
+      },
+      "result": {
+        "status": 4,
+        "result": {
+          "error_code": 0,
+          "error_string": "Goal successfully reached!"
+        }
+      },
+      "actual_position_rad": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.03
+      ],
+      "max_error_rad": 0.0
+    },
+    {
+      "case": "multi",
+      "goal_uuid": "3af91d0d02464e7c8c600998e60dac70",
+      "goal": {
+        "trajectory": {
+          "header": {
+            "stamp": {
+              "sec": 0,
+              "nanosec": 0
+            },
+            "frame_id": ""
+          },
+          "joint_names": [
+            "shoulder_joint",
+            "upperArm_joint",
+            "foreArm_joint",
+            "wrist1_joint",
+            "wrist2_joint",
+            "wrist3_joint"
+          ],
+          "points": [
+            {
+              "positions": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.015
+              ],
+              "velocities": [],
+              "accelerations": [],
+              "effort": [],
+              "time_from_start": {
+                "sec": 2,
+                "nanosec": 0
+              }
+            },
+            {
+              "positions": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "velocities": [],
+              "accelerations": [],
+              "effort": [],
+              "time_from_start": {
+                "sec": 4,
+                "nanosec": 0
+              }
+            }
+          ]
+        },
+        "multi_dof_trajectory": {
+          "header": {
+            "stamp": {
+              "sec": 0,
+              "nanosec": 0
+            },
+            "frame_id": ""
+          },
+          "joint_names": [],
+          "points": []
+        },
+        "path_tolerance": [],
+        "component_path_tolerance": [],
+        "goal_tolerance": [],
+        "component_goal_tolerance": [],
+        "goal_time_tolerance": {
+          "sec": 0,
+          "nanosec": 0
+        }
+      },
+      "result": {
+        "status": 4,
+        "result": {
+          "error_code": 0,
+          "error_string": "Goal successfully reached!"
+        }
+      },
+      "actual_position_rad": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max_error_rad": 0.0
+    }
+  ],
+  "initial_joint_state": {
+    "header": {
+      "stamp": {
+        "sec": 1791709353,
+        "nanosec": 443855642
+      },
+      "frame_id": "base_link"
+    },
+    "name": [
+      "foreArm_joint",
+      "shoulder_joint",
+      "upperArm_joint",
+      "wrist1_joint",
+      "wrist2_joint",
+      "wrist3_joint"
+    ],
+    "position": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "velocity": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "effort": [
+      NaN,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
+      NaN
+    ]
+  },
+  "joint_state_samples": 1610,
+  "distinct_timestamps": 1610,
+  "tf": {
+    "world->base_link": {
+      "header": {
+        "stamp": {
+          "sec": 0,
+          "nanosec": 0
+        },
+        "frame_id": "world"
+      },
+      "child_frame_id": "base_link",
+      "transform": {
+        "translation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        }
+      }
+    },
+    "base_link->ee_link": {
+      "header": {
+        "stamp": {
+          "sec": 1791709353,
+          "nanosec": 393950174
+        },
+        "frame_id": "base_link"
+      },
+      "child_frame_id": "ee_link",
+      "transform": {
+        "translation": {
+          "x": -8.688660222541301e-17,
+          "y": -0.2562,
+          "z": 0.8071999999999999
+        },
+        "rotation": {
+          "x": 0.5000000000000004,
+          "y": -0.49999999999999944,
+          "z": 0.5000000000000006,
+          "w": 0.49999999999999956
+        }
+      }
+    }
+  },
+  "controller_states": {
+    "joint_trajectory_controller": "active",
+    "joint_state_broadcaster": "active"
+  },
+  "status": "PASS",
+  "launch": [
+    "ros2",
+    "launch",
+    "aubo_ros2_driver",
+    "aubo_control.launch.py",
+    "aubo_type:=aubo_S3",
+    "use_fake_hardware:=true",
+    "initial_joint_controller:=joint_trajectory_controller",
+    "launch_rviz:=false"
+  ],
+  "launch_exit_code": 0
+}

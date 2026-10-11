@@ -1,0 +1,70 @@
+[INFO] [launch]: All log files can be found below /evidence/mock-smoke-recheck/ros-logs/2026-10-11-08-58-25-649335-17b05d1a83af-3216
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [launch.user]: ==============================================================================
+!! 警告：Mock 模式，未连接真实 AUBO S3。
+!! 本次启动不会建立任何真实控制通路：不连接控制柜、不发送真实运动指令、
+!! 不触发电磁铁、不启动 Gazebo；软件停止请求也不等价于实体急停。
+!! Mock 通过 != 实机抓放成功。
+==============================================================================
+[INFO] [launch.user]: 组合参数：backend=mock tool_type=passive_hook_v1 placement_stability_sec=3.0 config_dir=(包内 share)
+[INFO] [launch.user]: Mock 组合启动完成。再次提醒：未连接真实 AUBO S3；任何实机操作都必须获得单独的现场授权。
+[INFO] [motion_executor-1]: process started with pid [3219]
+[INFO] [task_executor-2]: process started with pid [3220]
+[INFO] [pick_place_server-3]: process started with pid [3221]
+[INFO] [tool_manager-4]: process started with pid [3222]
+[INFO] [safety_supervisor-5]: process started with pid [3223]
+[pick_place_server-3] Traceback (most recent call last):
+[pick_place_server-3]   File "/work/install/mtc_manipulation/lib/mtc_manipulation/pick_place_server", line 33, in <module>
+[pick_place_server-3]     sys.exit(load_entry_point('mtc-manipulation==0.1.0', 'console_scripts', 'pick_place_server')())
+[motion_executor-1] [33m[WARN] [1791709106.254058658] [motion_executor]: 运动后端 = mock；joint_goal_supported=True；timed_trajectory_supported=False；cartesian_motion_supported=False。真实 AUBO S3 通路默认禁用，未经现场授权与实测不得启用。[0m
+[pick_place_server-3]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[pick_place_server-3]   File "/work/install/mtc_manipulation/lib/python3.12/site-packages/mtc_manipulation/pick_place_server.py", line 651, in main
+[pick_place_server-3]     config = PickPlaceConfig(
+[pick_place_server-3]              ^^^^^^^^^^^^^^^^
+[pick_place_server-3] TypeError: PickPlaceConfig.__init__() got an unexpected keyword argument 'perception_max_age_sec'
+[task_executor-2] Traceback (most recent call last):
+[task_executor-2]   File "/work/install/mtc_task/lib/mtc_task/task_executor", line 33, in <module>
+[task_executor-2]     sys.exit(load_entry_point('mtc-task==0.1.0', 'console_scripts', 'task_executor')())
+[task_executor-2]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[task_executor-2]   File "/work/install/mtc_task/lib/python3.12/site-packages/mtc_task/task_executor.py", line 521, in main
+[task_executor-2]     node = TaskExecutorNode()
+[task_executor-2]            ^^^^^^^^^^^^^^^^^^
+[task_executor-2]   File "/work/install/mtc_task/lib/python3.12/site-packages/mtc_task/task_executor.py", line 183, in __init__
+[task_executor-2]     self.fsm = TaskFsm(clock=self._clock, config=config)
+[task_executor-2]                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[task_executor-2]   File "/work/install/mtc_task/lib/python3.12/site-packages/mtc_task/task_fsm.py", line 600, in __init__
+[task_executor-2]     self.state_entered_at: float = self._clock()
+[task_executor-2]                                    ^^^^^^^^^^^^^
+[task_executor-2]   File "/work/install/mtc_task/lib/python3.12/site-packages/mtc_task/task_executor.py", line 243, in _ros_clock
+[task_executor-2]     return self.get_clock().now().nanoseconds / 1e9
+[task_executor-2]            ^^^^^^^^^^^^^^^^^^^^
+[task_executor-2] AttributeError: 'function' object has no attribute 'now'
+[tool_manager-4] [33m[WARN] [1791709106.366569138] [tool_manager]: 真实电磁解锁 IO 已禁用：unlock_io=disabled_unlock_io；tools=passive_hook_v1；所有解锁请求都不会驱动真实硬件。[0m
+[tool_manager-4] [0m[INFO] [1791709106.367017247] [tool_manager]: 当前工具 passive_hook_v1 为纯机械舌规：不使用电磁解锁 IO。[0m
+[safety_supervisor-5] [0m[INFO] [1791709106.459848656] [safety_supervisor]: mtc_safety 已启动：/mtc/robot/state / /mtc/tool/state → /mtc/motion/request_stop；超时参数={"robot_state_timeout_sec": 0.5, "tool_state_timeout_sec": 1.0, "stop_confirm_timeout_sec": 2.0}[0m
+[safety_supervisor-5] [33m[WARN] [1791709106.478220496] [safety_supervisor]: {"error_code": 230, "error_name": "MOTION_STATUS_UNKNOWN", "event": "stop_requested_event", "message": "stop request dispatched asynchronously (delivery unknown yet)", "reason": "robot_state_never_received", "request_delivered": null, "stop_confirmed": false, "stop_requested": true, "timeouts": {"robot_state_timeout_sec": 0.5, "stop_confirm_timeout_sec": 2.0, "tool_state_timeout_sec": 1.0}, "timestamp": 882762.64194646}[0m
+[safety_supervisor-5] [33m[WARN] [1791709106.478712127] [safety_supervisor]: {"error_code": 230, "error_name": "MOTION_STATUS_UNKNOWN", "event": "stop_requested_event", "message": "stop request dispatched asynchronously (delivery unknown yet)", "reason": "tool_state_never_received", "request_delivered": null, "stop_confirmed": false, "stop_requested": true, "timeouts": {"robot_state_timeout_sec": 0.5, "stop_confirm_timeout_sec": 2.0, "tool_state_timeout_sec": 1.0}, "timestamp": 882762.64194646}[0m
+[motion_executor-1] [33m[WARN] [1791709106.480735173] [motion_executor]: 收到软件停止请求，reason="tool_state_never_received"；delivered=True。注意：停止请求送达不等于已确认停稳，且软件停止请求不能替代实体急停。[0m
+[motion_executor-1] [33m[WARN] [1791709106.481390964] [motion_executor]: 收到软件停止请求，reason="robot_state_never_received"；delivered=True。注意：停止请求送达不等于已确认停稳，且软件停止请求不能替代实体急停。[0m
+[ERROR] [task_executor-2]: process has died [pid 3220, exit code 1, cmd '/work/install/mtc_task/lib/mtc_task/task_executor --ros-args -r __node:=task_executor'].
+[ERROR] [pick_place_server-3]: process has died [pid 3221, exit code 1, cmd '/work/install/mtc_manipulation/lib/mtc_manipulation/pick_place_server --ros-args -r __node:=pick_place_server --params-file /tmp/launch_params_au1e39bt'].
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [safety_supervisor-5]: sending signal 'SIGINT' to process[safety_supervisor-5]
+[INFO] [tool_manager-4]: sending signal 'SIGINT' to process[tool_manager-4]
+[INFO] [motion_executor-1]: sending signal 'SIGINT' to process[motion_executor-1]
+[safety_supervisor-5] Traceback (most recent call last):
+[safety_supervisor-5]   File "/work/install/mtc_safety/lib/mtc_safety/safety_supervisor", line 33, in <module>
+[safety_supervisor-5]     sys.exit(load_entry_point('mtc-safety==0.1.0', 'console_scripts', 'safety_supervisor')())
+[safety_supervisor-5]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[safety_supervisor-5]   File "/work/install/mtc_safety/lib/python3.12/site-packages/mtc_safety/safety_supervisor.py", line 225, in main
+[safety_supervisor-5]     rclpy.shutdown()
+[safety_supervisor-5]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py", line 134, in shutdown
+[safety_supervisor-5]     _shutdown(context=context)
+[safety_supervisor-5]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/utilities.py", line 82, in shutdown
+[safety_supervisor-5]     context.shutdown()
+[safety_supervisor-5]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/context.py", line 129, in shutdown
+[safety_supervisor-5]     self.__context.shutdown()
+[safety_supervisor-5] rclpy._rclpy_pybind11.RCLError: failed to shutdown: rcl_shutdown already called on the given context, at ./src/rcl/init.c:333
+[INFO] [tool_manager-4]: process has finished cleanly [pid 3222]
+[INFO] [motion_executor-1]: process has finished cleanly [pid 3219]
+[ERROR] [safety_supervisor-5]: process has died [pid 3223, exit code 1, cmd '/work/install/mtc_safety/lib/mtc_safety/safety_supervisor --ros-args -r __node:=safety_supervisor'].

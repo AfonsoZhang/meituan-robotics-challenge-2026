@@ -1,0 +1,46 @@
+[
+  {
+    "id": "B01",
+    "status": "FAIL",
+    "owner": "孙嘉明",
+    "kind": "runtime_startup",
+    "source": "src/mtc_task/mtc_task/task_executor.py:178",
+    "finding": "self._clock callable overrides rclpy Node Clock; get_clock().now() raises AttributeError.",
+    "reproduced_runs": [
+      "mock-smoke",
+      "mock-smoke-recheck"
+    ],
+    "unblock": "Preserve Node clock; verify actual ExecuteTask startup, Goal, Feedback, Result and Cancel."
+  },
+  {
+    "id": "B02",
+    "status": "FAIL",
+    "owner": "孙嘉明",
+    "kind": "runtime_startup",
+    "source": "src/mtc_manipulation/mtc_manipulation/pick_place_server.py:654",
+    "finding": "perception_max_age_sec keyword is not accepted by PickPlaceConfig; field is perception_max_age_s.",
+    "reproduced_runs": [
+      "mock-smoke",
+      "mock-smoke-recheck"
+    ],
+    "unblock": "Align constructor fields and verify the real generated ROS Action entrypoint."
+  },
+  {
+    "id": "B03",
+    "status": "FAIL",
+    "owner": "孙嘉明",
+    "kind": "static_and_generated_api_check",
+    "source": "src/mtc_manipulation/mtc_manipulation/pick_place_server.py:492",
+    "finding": "Code calls action_type.Server, while actual generated PickPlace has no Server attribute; main startup is currently blocked earlier by B02.",
+    "unblock": "Bind rclpy ActionServer and validate goal/cancel/result with actual ROS types."
+  },
+  {
+    "id": "B04",
+    "status": "FAIL",
+    "owner": "孙嘉明",
+    "kind": "endpoint_contract",
+    "source": "src/mtc_manipulation/mtc_manipulation/pick_place_server.py:51 / src/mtc_tool/mtc_tool/tool_manager_node.py:38",
+    "finding": "Default client /mtc/tool/unlock differs from actual /mtc/tool/trigger_unlock; no remap in mock launch.",
+    "unblock": "Agree one endpoint or explicit remap; test V2 accepted-vs-released semantics."
+  }
+]

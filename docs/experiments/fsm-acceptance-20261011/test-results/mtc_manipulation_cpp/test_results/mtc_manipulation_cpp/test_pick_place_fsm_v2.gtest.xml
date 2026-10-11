@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="14" failures="0" disabled="0" errors="0" time="0.004" timestamp="2026-10-11T08:56:57.693" name="AllTests">
+  <testsuite name="PickPlaceV2" tests="5" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2026-10-11T08:56:57.693">
+    <testcase name="HappyPathReachesSuccessAndUnlocksOnce" file="/ws/src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp" line="141" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:57.693" classname="mtc_manipulation_cpp.PickPlaceV2" />
+    <testcase name="DifferencesAreConfinedToEngageAndDisengage" file="/ws/src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp" line="153" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:57.694" classname="mtc_manipulation_cpp.PickPlaceV2" />
+    <testcase name="MotionPrimitivesDifferFromV1OnlyInAcquireAndEngage" file="/ws/src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp" line="181" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:57.694" classname="mtc_manipulation_cpp.PickPlaceV2" />
+    <testcase name="UnlockPulseUsesStrategyConfiguration" file="/ws/src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp" line="200" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:57.695" classname="mtc_manipulation_cpp.PickPlaceV2" />
+    <testcase name="StateSequenceMatchesV1Pipeline" file="/ws/src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp" line="211" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:57.695" classname="mtc_manipulation_cpp.PickPlaceV2" />
+  </testsuite>
+  <testsuite name="PickPlaceV2Interlock" tests="9" failures="0" disabled="0" skipped="0" errors="0" time="0.002" timestamp="2026-10-11T08:56:57.695">
+    <testcase name="NoUnlockWhenSeatNotVerified" file="/ws/src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp" line="244" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:57.695" classname="mtc_manipulation_cpp.PickPlaceV2Interlock" />
+    <testcase name="NoUnlockWhenUnloadNotVerified" file="/ws/src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp" line="262" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:57.696" classname="mtc_manipulation_cpp.PickPlaceV2Interlock" />
+    <testcase name="StrategyRefusalBlocksUnlockIoEntirely" file="/ws/src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp" line="275" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:57.696" classname="mtc_manipulation_cpp.PickPlaceV2Interlock" />
+    <testcase name="RedundantInterlocksAreUnreachableButPresent" file="/ws/src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp" line="312" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:57.696" classname="mtc_manipulation_cpp.PickPlaceV2Interlock" />
+    <testcase name="UnlockHappensOnlyInsideDisengageAfterUnload" file="/ws/src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp" line="331" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:57.696" classname="mtc_manipulation_cpp.PickPlaceV2Interlock" />
+    <testcase name="UnlockFailureGoesToFaultAndDoesNotRetreat" file="/ws/src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp" line="351" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:57.697" classname="mtc_manipulation_cpp.PickPlaceV2Interlock" />
+    <testcase name="AcceptedPulseWithoutReleaseIsStillFailure" file="/ws/src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp" line="369" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:57.697" classname="mtc_manipulation_cpp.PickPlaceV2Interlock" />
+    <testcase name="DisengageReleaseUnknownGoesToFaultAndDoesNotRetreat" file="/ws/src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp" line="382" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:57.697" classname="mtc_manipulation_cpp.PickPlaceV2Interlock" />
+    <testcase name="UnlockNeverHappensBeforeConfirmedPlacement" file="/ws/src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp" line="398" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:57.697" classname="mtc_manipulation_cpp.PickPlaceV2Interlock" />
+  </testsuite>
+</testsuites>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="21" failures="0" disabled="0" errors="0" time="0.001" timestamp="2026-10-11T08:56:56.077" name="AllTests">
+  <testsuite name="TaskFsmTables" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="2026-10-11T08:56:56.078">
+    <testcase name="VerifyTablesReportsNoProblem" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="68" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.078" classname="mtc_task_cpp.TaskFsmTables" />
+    <testcase name="AllStatesHaveEntryActionAndTimeout" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="77" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.078" classname="mtc_task_cpp.TaskFsmTables" />
+    <testcase name="EveryActiveStateRegistersConcurrentGoalRejection" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="86" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.078" classname="mtc_task_cpp.TaskFsmTables" />
+  </testsuite>
+  <testsuite name="TaskFsmBoot" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="2026-10-11T08:56:56.078">
+    <testcase name="InitToSelfCheckToWaitTask" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="109" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.078" classname="mtc_task_cpp.TaskFsmBoot" />
+    <testcase name="SelfCheckFailureGoesToFaultWithStopAndLock" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="124" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.078" classname="mtc_task_cpp.TaskFsmBoot" />
+    <testcase name="InitTimeoutGoesToFault" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="137" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.078" classname="mtc_task_cpp.TaskFsmBoot" />
+    <testcase name="NoTimeoutBeforeDeadline" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="148" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.078" classname="mtc_task_cpp.TaskFsmBoot" />
+  </testsuite>
+  <testsuite name="TaskFsmBasic" tests="5" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="2026-10-11T08:56:56.078">
+    <testcase name="FullHappyPathReachesFinished" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="159" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.078" classname="mtc_task_cpp.TaskFsmBasic" />
+    <testcase name="SuccessRequiresPlacementVerified" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="202" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.079" classname="mtc_task_cpp.TaskFsmBasic" />
+    <testcase name="TargetFoundWithoutObjectIdIsRejected" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="217" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.079" classname="mtc_task_cpp.TaskFsmBasic" />
+    <testcase name="ExpectedColorMismatchIsRejected" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="230" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.079" classname="mtc_task_cpp.TaskFsmBasic" />
+    <testcase name="ItemResultIgnoredOutsideExecuteItem" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="243" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.079" classname="mtc_task_cpp.TaskFsmBasic" />
+  </testsuite>
+  <testsuite name="TaskFsmSequence" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="2026-10-11T08:56:56.079">
+    <testcase name="ThreeItemsCompleteInSlotOrder" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="256" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.079" classname="mtc_task_cpp.TaskFsmSequence" />
+    <testcase name="InvalidSequenceFailsWithoutGuessing" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="296" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.079" classname="mtc_task_cpp.TaskFsmSequence" />
+    <testcase name="DuplicateSlotIsNotRecordedTwice" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="313" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.079" classname="mtc_task_cpp.TaskFsmSequence" />
+  </testsuite>
+  <testsuite name="TaskFsmReset" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="2026-10-11T08:56:56.079">
+    <testcase name="ResetFromFinishedClearsTaskContext" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="334" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.079" classname="mtc_task_cpp.TaskFsmReset" />
+    <testcase name="ResetAllowedFromTaskFailedAndCancelled" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="355" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.079" classname="mtc_task_cpp.TaskFsmReset" />
+  </testsuite>
+  <testsuite name="TaskFsmSnapshot" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="2026-10-11T08:56:56.079">
+    <testcase name="SnapshotCarriesTaskAndProgress" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="381" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.079" classname="mtc_task_cpp.TaskFsmSnapshot" />
+    <testcase name="EveryStepPublishesState" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="403" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.079" classname="mtc_task_cpp.TaskFsmSnapshot" />
+    <testcase name="TransitionLogRecordsPath" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="417" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.079" classname="mtc_task_cpp.TaskFsmSnapshot" />
+    <testcase name="UnknownEventIsIgnoredNotFatal" file="/ws/src/mtc_task_cpp/test/test_task_fsm_core.cpp" line="432" status="run" result="completed" time="0." timestamp="2026-10-11T08:56:56.079" classname="mtc_task_cpp.TaskFsmSnapshot" />
+  </testsuite>
+</testsuites>

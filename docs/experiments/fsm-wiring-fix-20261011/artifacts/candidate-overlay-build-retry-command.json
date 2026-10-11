@@ -1,0 +1,18 @@
+{
+  "name": "candidate-overlay-build-retry",
+  "argv": [
+    "/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe",
+    "exec",
+    "mtc-acceptance-20261011-164931",
+    "bash",
+    "-lc",
+    "set -eo pipefail; source /opt/ros/jazzy/setup.bash; source /work/install/setup.bash; export PYTHONNOUSERSITE=1 PYTHONDONTWRITEBYTECODE=1; cd /fix-src; colcon --log-base /fix-evidence/build-log-retry build --base-paths src --packages-select mtc_task mtc_manipulation --build-base /fix-work/build --install-base /fix-work/install --executor sequential"
+  ],
+  "cwd": "/home/afonso/meituan-robotics-challenge-2026",
+  "started_at": "2026-10-11T17:15:27.103880+08:00",
+  "ended_at": "2026-10-11T17:15:30.180947+08:00",
+  "duration_sec": 3.077,
+  "exit_code": 0,
+  "log": "logs/candidate-overlay-build-retry.log",
+  "log_sha256": "5fee781105d9c95b2c5c49eba6b569271cdd546aca1095dfa72c657a2e219efd"
+}

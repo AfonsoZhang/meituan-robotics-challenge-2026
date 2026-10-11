@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="16" failures="0" disabled="0" errors="0" time="0.013" timestamp="2026-10-11T16:54:10" name="AllTests">
+  <testsuite name="GoalCancelGate" tests="10" failures="0" disabled="0" errors="0" time="0.007" timestamp="2026-10-11T16:54:10">
+    <testcase name="StaleGoalCancelDoesNotCallBackend" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.GoalCancelGate" />
+    <testcase name="StaleGoalCancelPreservesCurrentOwner" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.GoalCancelGate" />
+    <testcase name="StaleGoalCancelDoesNotModifyExecutionState" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.GoalCancelGate" />
+    <testcase name="StaleGoalCancelCannotInterruptNewGoal" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.GoalCancelGate" />
+    <testcase name="MatchingGoalCancelStillWorks" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.GoalCancelGate" />
+    <testcase name="ConcurrentGoalReplacementAndLateCancel" status="run" result="completed" time="0.004" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.GoalCancelGate" />
+    <testcase name="SupervisoryStopStillStopsCurrentGoal" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.GoalCancelGate" />
+    <testcase name="EmptyOrUnknownGoalIdHasNoSideEffect" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.GoalCancelGate" />
+    <testcase name="CompletedGoalCancelCannotStopLaterCompletedGoal" status="run" result="completed" time="0.001" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.GoalCancelGate" />
+    <testcase name="CancelRacingBackendDispatchRemainsSticky" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.GoalCancelGate" />
+  </testsuite>
+  <testsuite name="ExecutorConcurrency" tests="6" failures="0" disabled="0" errors="0" time="0.006" timestamp="2026-10-11T16:54:10">
+    <testcase name="SixteenThreadsHaveOneOwner" status="run" result="completed" time="0.002" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.ExecutorConcurrency" />
+    <testcase name="GoalsAndStopRespondWhileExecutionWaits" status="run" result="completed" time="0.001" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.ExecutorConcurrency" />
+    <testcase name="DuplicateStopsAndLateResultCannotUnlock" status="run" result="completed" time="0.001" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.ExecutorConcurrency" />
+    <testcase name="ConfirmedStopRetainsOwnerUntilResultDrains" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.ExecutorConcurrency" />
+    <testcase name="InvalidEvidenceCannotConfirmStop" status="run" result="completed" time="0.002" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.ExecutorConcurrency" />
+    <testcase name="OldGoalCancelCannotReplaceNewOwner" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.ExecutorConcurrency" />
+  </testsuite>
+</testsuites>

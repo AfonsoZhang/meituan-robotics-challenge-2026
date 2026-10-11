@@ -1,0 +1,218 @@
+{
+  "environment_overrides": {
+    "PYTHONNOUSERSITE": "1",
+    "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_aubo_bridge:/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_bringup:/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_core_cpp:/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_description:/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_interfaces:/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_manipulation:/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_manipulation_cpp:/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_motion_execution:/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_motion_execution_cpp:/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_motion_planning:/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_safety:/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_simulation:/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_task:/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_task_cpp:/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_tool"
+  },
+  "commands": [
+    {
+      "name": "source-identity",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source",
+      "started_at": "2026-10-11T16:49:54.979615+08:00",
+      "exit_code": 0,
+      "log": "logs/source-identity.log",
+      "log_sha256": "0685740e7fe0199cac7d536b0bea5b13a73a669a031ef02f29a2e616705c9a42"
+    },
+    {
+      "name": "source-status-before",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "cwd": "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source",
+      "started_at": "2026-10-11T16:49:54.984822+08:00",
+      "exit_code": 0,
+      "log": "logs/source-status-before.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "package-list",
+      "argv": [
+        "colcon",
+        "list",
+        "--base-paths",
+        "src"
+      ],
+      "cwd": "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source",
+      "started_at": "2026-10-11T16:49:54.997941+08:00",
+      "exit_code": 0,
+      "log": "logs/package-list.log",
+      "log_sha256": "dbec89391b33c8f430c504cf62709701d089d6c9d28b342a8892a85b50cecb1b"
+    },
+    {
+      "name": "python-version",
+      "argv": [
+        "/usr/bin/python3",
+        "-s",
+        "--version"
+      ],
+      "cwd": "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source",
+      "started_at": "2026-10-11T16:49:55.745257+08:00",
+      "exit_code": 0,
+      "log": "logs/python-version.log",
+      "log_sha256": "f6b75e07f1488db28a89724a522725e3e01af3dc78f6fd365f17eb4059e41056"
+    },
+    {
+      "name": "pytest-version",
+      "argv": [
+        "/usr/bin/python3",
+        "-s",
+        "-m",
+        "pytest",
+        "--version"
+      ],
+      "cwd": "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source",
+      "started_at": "2026-10-11T16:49:55.747830+08:00",
+      "exit_code": 0,
+      "log": "logs/pytest-version.log",
+      "log_sha256": "473502b23c83b8f1d01ac1ab146d2b1355b650d55928805b07d800fb3df4bdfc"
+    },
+    {
+      "name": "mtc_aubo_bridge-pytest",
+      "argv": [
+        "/usr/bin/python3",
+        "-s",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_aubo_bridge/test",
+        "--junitxml=/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/artifacts/mtc_aubo_bridge-pytest.xml"
+      ],
+      "cwd": "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source",
+      "started_at": "2026-10-11T16:49:55.910707+08:00",
+      "exit_code": 0,
+      "log": "logs/mtc_aubo_bridge-pytest.log",
+      "log_sha256": "c1810bfdcf985326ec6328ae25ae61f47bb7cb0f6c3606910cae7c6655f3943a"
+    },
+    {
+      "name": "mtc_manipulation-pytest",
+      "argv": [
+        "/usr/bin/python3",
+        "-s",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_manipulation/test",
+        "--junitxml=/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/artifacts/mtc_manipulation-pytest.xml"
+      ],
+      "cwd": "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source",
+      "started_at": "2026-10-11T16:49:56.130801+08:00",
+      "exit_code": 0,
+      "log": "logs/mtc_manipulation-pytest.log",
+      "log_sha256": "2a88b19f8df56cbb335789095d9137e9cafd3acd8b7ff6be4372e3e01921f123"
+    },
+    {
+      "name": "mtc_motion_execution-pytest",
+      "argv": [
+        "/usr/bin/python3",
+        "-s",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_motion_execution/test",
+        "--junitxml=/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/artifacts/mtc_motion_execution-pytest.xml"
+      ],
+      "cwd": "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source",
+      "started_at": "2026-10-11T16:49:56.483149+08:00",
+      "exit_code": 0,
+      "log": "logs/mtc_motion_execution-pytest.log",
+      "log_sha256": "804b7296402ef304748d665c0b181c23df10296a25b92288736aadfd7cb8a2ce"
+    },
+    {
+      "name": "mtc_safety-pytest",
+      "argv": [
+        "/usr/bin/python3",
+        "-s",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_safety/test",
+        "--junitxml=/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/artifacts/mtc_safety-pytest.xml"
+      ],
+      "cwd": "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source",
+      "started_at": "2026-10-11T16:49:56.984269+08:00",
+      "exit_code": 0,
+      "log": "logs/mtc_safety-pytest.log",
+      "log_sha256": "7158c854db096c9c7603c9df705e82068ce7d54e88f3e57fb382b731948c8dd1"
+    },
+    {
+      "name": "mtc_task-pytest",
+      "argv": [
+        "/usr/bin/python3",
+        "-s",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_task/test",
+        "--junitxml=/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/artifacts/mtc_task-pytest.xml"
+      ],
+      "cwd": "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source",
+      "started_at": "2026-10-11T16:49:57.296662+08:00",
+      "exit_code": 0,
+      "log": "logs/mtc_task-pytest.log",
+      "log_sha256": "a702478efe793873e9b92fc58f91e4355862b493062d75a3cae4c036cb32ff0f"
+    },
+    {
+      "name": "mtc_tool-pytest",
+      "argv": [
+        "/usr/bin/python3",
+        "-s",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source/src/mtc_tool/test",
+        "--junitxml=/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/artifacts/mtc_tool-pytest.xml"
+      ],
+      "cwd": "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source",
+      "started_at": "2026-10-11T16:49:57.652711+08:00",
+      "exit_code": 0,
+      "log": "logs/mtc_tool-pytest.log",
+      "log_sha256": "969c975b1777431fbb1ca7fc4cc95d458230d9ffea4ffbd8e076f9c52026cbcd"
+    },
+    {
+      "name": "python-mock-e2e",
+      "argv": [
+        "/usr/bin/python3",
+        "-s",
+        "tests/test_mock_end_to_end.py"
+      ],
+      "cwd": "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source",
+      "started_at": "2026-10-11T16:49:57.928610+08:00",
+      "exit_code": 0,
+      "log": "logs/python-mock-e2e.log",
+      "log_sha256": "20e8c7425233619c1c3425ff1503f0f1276b880fdae15d27b776542f72f69a1c"
+    },
+    {
+      "name": "source-status-after",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "cwd": "/home/afonso/meituan-robotics-challenge-2026/outputs/integration-20261011-164931-1d940f7/source",
+      "started_at": "2026-10-11T16:49:58.071871+08:00",
+      "exit_code": 0,
+      "log": "logs/source-status-after.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+Starting >>> aubo_dashboard_msgs
+Finished <<< aubo_dashboard_msgs [34.8s]
+Starting >>> aubo_description
+Finished <<< aubo_description [5.53s]
+--- stderr: aubo_description
+CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.5 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+ROS_VERSION2
+---
+Starting >>> aubo_msgs
+Finished <<< aubo_msgs [24.9s]
+Starting >>> aubo_moveit_config
+Finished <<< aubo_moveit_config [1.04s]
+Starting >>> aubo_ros2_driver
+--- stderr: aubo_ros2_driver
+aubo_ros2_driver: You did not request a specific build type: selecting 'RelWithDebInfo'.
+aubo_ros2_driver: current system processor type: selecting 'x86'.
+CMake Warning (dev) at /usr/share/cmake-3.28/Modules/FetchContent.cmake:1331 (message):
+  The DOWNLOAD_EXTRACT_TIMESTAMP option was not given and policy CMP0135 is
+  not set.  The policy's OLD behavior will be used.  When using a URL
+  download, the timestamps of extracted files should preferably be that of
+  the time of extraction, otherwise code that depends on the extracted
+  contents might not be rebuilt if the URL changes.  The OLD behavior
+  preserves the timestamps from the archive instead, but this is usually not
+  what you want.  Update your project to the NEW behavior or specify the
+  DOWNLOAD_EXTRACT_TIMESTAMP option with a value of true to avoid this
+  robustness issue.
+Call Stack (most recent call first):
+  CMakeLists.txt:29 (FetchContent_Declare)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+aubo_sdk_DIR/driver_work/build/aubo_ros2_driver/_deps/aubo_sdk-src/lib/cmake/aubo_sdk
+aubo_sdk_SOURCE_DIR /driver_work/build/aubo_ros2_driver/_deps/aubo_sdk-src
+CMake Deprecation Warning at /opt/ros/jazzy/share/tl_expected/cmake/tl_expectedConfig.cmake:37 (message):
+  Package 'tl_expected' is deprecated (This package will be removed in ROS 2
+  Lyrical Luth.
+
+        Use tl/expected.hpp from libexpected-dev,
+        or rcpputils/tl_expected/expected.hpp if the system header is not available)
+Call Stack (most recent call first):
+  /opt/ros/jazzy/share/parameter_traits/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+  /opt/ros/jazzy/share/parameter_traits/cmake/parameter_traitsConfig.cmake:41 (include)
+  /opt/ros/jazzy/share/controller_manager/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+  /opt/ros/jazzy/share/controller_manager/cmake/controller_managerConfig.cmake:41 (include)
+  CMakeLists.txt:42 (find_package)
+
+
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp: In member function ‘virtual hardware_interface::CallbackReturn aubo_driver::AuboHardwareInterface::on_init(const hardware_interface::HardwareInfo&)’:
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp:89:53: warning: ‘virtual rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn hardware_interface::HardwareComponentInterface::on_init(const hardware_interface::HardwareInfo&)’ is deprecated: Use on_init(const HardwareComponentInterfaceParams & params) instead. [-Wdeprecated-declarations]
+   89 |     if (hardware_interface::SystemInterface::on_init(system_info) !=
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+In file included from /opt/ros/jazzy/include/hardware_interface/hardware_interface/system_interface.hpp:18,
+                 from /driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/include/aubo_hardware_interface.h:18,
+                 from /driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp:1:
+/opt/ros/jazzy/include/hardware_interface/hardware_interface/hardware_component_interface.hpp:140:26: note: declared here
+  140 |   virtual CallbackReturn on_init(const HardwareInfo & hardware_info);
+      |                          ^~~~~~~
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp: In member function ‘int aubo_driver::AuboHardwareInterface::startServoMode()’:
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp:340:23: warning: ‘int arcs::common_interface::MotionControl::setServoMode(bool)’ is deprecated [-Wdeprecated-declarations]
+  338 |     rpc_client_->getRobotInterface(robot_name)
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  339 |         ->getMotionControl()
+      |         ~~~~~~~~~~~~~~~~~~~~
+  340 |         ->setServoMode(true);
+      |         ~~~~~~~~~~~~~~^~~~~~
+In file included from /driver_work/build/aubo_ros2_driver/_deps/aubo_sdk-src/include/aubo/robot_interface.h:9,
+           Finished <<< aubo_ros2_driver [28.1s]
+      from /driver_work/build/aubo_ros2_driver/_deps/aubo_sdk-src/include/aubo/aubo_api.h:10,
+                 from /driver_work/build/aubo_ros2_driver/_deps/aubo_sdk-src/include/aubo_sdk/rpc.h:10,
+                 from /driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/include/aubo_hardware_interface.h:32:
+/driver_work/build/aubo_ros2_driver/_deps/aubo_sdk-src/include/aubo/robot/motion_control.h:581:25: note: declared here
+  581 |     ARCS_DEPRECATED int setServoMode(bool enable);
+      |                         ^~~~~~~~~~~~
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp:344:37: warning: ‘bool arcs::common_interface::MotionControl::isServoModeEnabled()’ is deprecated [-Wdeprecated-declarations]
+  342 |     while (!rpc_client_->getRobotInterface(robot_name)
+      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  343 |                 ->getMotionControl()
+      |                 ~~~~~~~~~~~~~~~~~~~~ 
+  344 |                 ->isServoModeEnabled()) {
+      |                 ~~~~~~~~~~~~~~~~~~~~^~
+/driver_work/build/aubo_ros2_driver/_deps/aubo_sdk-src/include/aubo/robot/motion_control.h:598:26: note: declared here
+  598 |     ARCS_DEPRECATED bool isServoModeEnabled();
+      |                          ^~~~~~~~~~~~~~~~~~
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp:349:50: warning: ‘bool arcs::common_interface::MotionControl::isServoModeEnabled()’ is deprecated [-Wdeprecated-declarations]
+  347 |                       << rpc_client_->getRobotInterface(robot_name)
+      |                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  348 |                              ->getMotionControl()
+      |                              ~~~~~~~~~~~~~~~~~~~~ 
+  349 |                              ->isServoModeEnabled()
+      |                              ~~~~~~~~~~~~~~~~~~~~^~
+/driver_work/build/aubo_ros2_driver/_deps/aubo_sdk-src/include/aubo/robot/motion_control.h:598:26: note: declared here
+  598 |     ARCS_DEPRECATED bool isServoModeEnabled();
+      |                          ^~~~~~~~~~~~~~~~~~
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp: In member function ‘int aubo_driver::AuboHardwareInterface::stopServoMode()’:
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp:384:23: warning: ‘int arcs::common_interface::MotionControl::setServoMode(bool)’ is deprecated [-Wdeprecated-declarations]
+  382 |     rpc_client_->getRobotInterface(robot_name)
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  383 |         ->getMotionControl()
+      |         ~~~~~~~~~~~~~~~~~~~~
+  384 |         ->setServoMode(false);
+      |         ~~~~~~~~~~~~~~^~~~~~~
+/driver_work/build/aubo_ros2_driver/_deps/aubo_sdk-src/include/aubo/robot/motion_control.h:581:25: note: declared here
+  581 |     ARCS_DEPRECATED int setServoMode(bool enable);
+      |                         ^~~~~~~~~~~~
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp:387:36: warning: ‘bool arcs::common_interface::MotionControl::isServoModeEnabled()’ is deprecated [-Wdeprecated-declarations]
+  385 |     while (rpc_client_->getRobotInterface(robot_name)
+      |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  386 |                ->getMotionControl()
+      |                ~~~~~~~~~~~~~~~~~~~~ 
+  387 |                ->isServoModeEnabled()) {
+      |                ~~~~~~~~~~~~~~~~~~~~^~
+/driver_work/build/aubo_ros2_driver/_deps/aubo_sdk-src/include/aubo/robot/motion_control.h:598:26: note: declared here
+  598 |     ARCS_DEPRECATED bool isServoModeEnabled();
+      |                          ^~~~~~~~~~~~~~~~~~
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp:392:50: warning: ‘bool arcs::common_interface::MotionControl::isServoModeEnabled()’ is deprecated [-Wdeprecated-declarations]
+  390 |                       << rpc_client_->getRobotInterface(robot_name)
+      |                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  391 |                              ->getMotionControl()
+      |                              ~~~~~~~~~~~~~~~~~~~~ 
+  392 |                              ->isServoModeEnabled()
+      |                              ~~~~~~~~~~~~~~~~~~~~^~
+/driver_work/build/aubo_ros2_driver/_deps/aubo_sdk-src/include/aubo/robot/motion_control.h:598:26: note: declared here
+  598 |     ARCS_DEPRECATED bool isServoModeEnabled();
+      |                          ^~~~~~~~~~~~~~~~~~
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp: In member function ‘int aubo_driver::AuboHardwareInterface::Servoj(std::array<double, 6>)’:
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp:422:37: warning: ‘bool arcs::common_interface::MotionControl::isServoModeEnabled()’ is deprecated [-Wdeprecated-declarations]
+  420 |     if(!rpc_client_->getRobotInterface(robot_name)
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  421 |                 ->getMotionControl()
+      |                 ~~~~~~~~~~~~~~~~~~~~ 
+  422 |                 ->isServoModeEnabled()){
+      |                 ~~~~~~~~~~~~~~~~~~~~^~
+/driver_work/build/aubo_ros2_driver/_deps/aubo_sdk-src/include/aubo/robot/motion_control.h:598:26: note: declared here
+  598 |     ARCS_DEPRECATED bool isServoModeEnabled();
+      |                          ^~~~~~~~~~~~~~~~~~
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp:426:23: warning: ‘int arcs::common_interface::MotionControl::setServoMode(bool)’ is deprecated [-Wdeprecated-declarations]
+  424 |         rpc_client_->getRobotInterface(robot_name)
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  425 |         ->getMotionControl()
+      |         ~~~~~~~~~~~~~~~~~~~~
+  426 |         ->setServoMode(true);
+      |         ~~~~~~~~~~~~~~^~~~~~
+/driver_work/build/aubo_ros2_driver/_deps/aubo_sdk-src/include/aubo/robot/motion_control.h:581:25: note: declared here
+  581 |     ARCS_DEPRECATED int setServoMode(bool enable);
+      |                         ^~~~~~~~~~~~
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp: In member function ‘void aubo_driver::AuboHardwareInterface::setInput(arcs::aubo_sdk::RtdeClientPtr)’:
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp:446:9: warning: unused variable ‘topic5’ [-Wunused-variable]
+  446 |     int topic5 = cli->setTopic(
+      |         ^~~~~~
+/driver_ws/src/aubo_ros2_driver/aubo_ros2_driver/src/aubo_hardware_interface.cpp:456:9: warning: unused variable ‘topic6’ [-Wunused-variable]
+  456 |     int topic6 = cli->setTopic(
+      |         ^~~~~~
+---
+
+Summary: 5 packages finished [1min 34s]
+  2 packages had stderr output: aubo_description aubo_ros2_driver

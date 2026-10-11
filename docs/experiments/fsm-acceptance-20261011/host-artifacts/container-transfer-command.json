@@ -1,0 +1,18 @@
+{
+  "name": "container-transfer",
+  "argv": [
+    "bash",
+    "-e",
+    "-o",
+    "pipefail",
+    "-c",
+    "MTC_DOCKER=\"/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe\"; MTC_CONTAINER=mtc-acceptance-20261011-164931; MTC_RUN=outputs/integration-20261011-164931-1d940f7; \"$MTC_DOCKER\" exec \"$MTC_CONTAINER\" mkdir -p /ws /driver_ws /evidence /tools; tar -C \"$MTC_RUN/source\" -cf - . | \"$MTC_DOCKER\" cp - \"$MTC_CONTAINER:/ws\"; tar -C \"$MTC_RUN/driver_ws\" -cf - . | \"$MTC_DOCKER\" cp - \"$MTC_CONTAINER:/driver_ws\"; tar -C \"$MTC_RUN\" -cf - prepare_jazzy.sh build_fsm_jazzy.sh mock_smoke.py | \"$MTC_DOCKER\" cp - \"$MTC_CONTAINER:/tools\""
+  ],
+  "cwd": "/home/afonso/meituan-robotics-challenge-2026",
+  "started_at": "2026-10-11T16:53:52.582790+08:00",
+  "ended_at": "2026-10-11T16:54:09.225875+08:00",
+  "duration_sec": 16.643,
+  "exit_code": 0,
+  "log": "logs/container-transfer.log",
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

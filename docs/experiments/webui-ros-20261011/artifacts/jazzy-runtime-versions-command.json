@@ -1,0 +1,18 @@
+{
+  "name": "jazzy-runtime-versions",
+  "argv": [
+    "/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe",
+    "exec",
+    "mtc-webui-20261011",
+    "bash",
+    "-lc",
+    "source /opt/ros/jazzy/setup.bash; source /work/install/setup.bash; python3 -c \"import cv2,numpy,sys; from importlib.metadata import version; print(sys.version); print(\\\"rclpy\\\",version(\\\"rclpy\\\")); print(\\\"OpenCV\\\",cv2.__version__); print(\\\"NumPy\\\",numpy.__version__)\"; dpkg-query -W ros-jazzy-rclpy python3-opencv python3-numpy; grep -A3 -m1 \"License:\" /usr/share/doc/python3-opencv/copyright; grep -A3 -m1 \"License:\" /usr/share/doc/python3-numpy/copyright; grep license /opt/ros/jazzy/share/rclpy/package.xml"
+  ],
+  "cwd": "/home/afonso/meituan-robotics-challenge-2026",
+  "started_at": "2026-10-11T18:10:16.616972+08:00",
+  "ended_at": "2026-10-11T18:10:17.892297+08:00",
+  "duration_sec": 1.191,
+  "exit_code": 0,
+  "log": "logs/jazzy-runtime-versions.log",
+  "log_sha256": "90313508cb246e39042e9faf52d6f64b69a562dba179b746d996a973ffa46350"
+}

@@ -1,0 +1,65 @@
+{
+  "id": "ENV-FSM-FIX-20261011",
+  "recorded_at": "2026-10-11T17:15:06.020188+08:00",
+  "base_commit": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+  "branch": "fix/ros-startup-wiring-b01-b02-b04",
+  "scope": [
+    "B01 Node clock member collision",
+    "B02 ROS parameter to PickPlaceConfig mapping",
+    "B04 default unlock service name"
+  ],
+  "deferred": [
+    "B03 PickPlace ActionServer/Cancel binding",
+    "FSM state transitions and Cancel kernel",
+    "MoveIt and full task chain",
+    "NUC and physical hardware"
+  ],
+  "environment": {
+    "container": "mtc-acceptance-20261011-164931",
+    "baseline_install": "/work/install",
+    "candidate_source": "/fix-src",
+    "candidate_install": "/fix-work/install",
+    "ros_domain_id": 95,
+    "discovery": "LOCALHOST",
+    "network": {},
+    "devices": [],
+    "ports": {}
+  },
+  "checks": [
+    {
+      "name": "baseline_regression",
+      "criterion": "The same six added ROS regression cases fail against unmodified baseline; record reasons"
+    },
+    {
+      "name": "candidate_build",
+      "criterion": "Build mtc_task and mtc_manipulation in a separate overlay on the accepted Jazzy baseline"
+    },
+    {
+      "name": "candidate_regression",
+      "criterion": "All six real ROS wiring tests pass, zero skips"
+    },
+    {
+      "name": "offline_regression",
+      "criterion": "Existing 269 Python tests and 15 explicit Mock E2E pass"
+    },
+    {
+      "name": "actual_mock_smoke",
+      "criterion": "Observe Task starts, B02 config error removed, and remaining B03 startup exception; capture one bounded basic Goal without claiming whole task success"
+    },
+    {
+      "name": "scope_integrity",
+      "criterion": "No core FSM, Cancel, IDL, driver or frozen original evidence edits"
+    }
+  ],
+  "not_repeated": [
+    "318 unchanged C++ cases",
+    "independent Fake driver; production driver files unchanged"
+  ],
+  "disclosure": "OpenAI Codex assisted scoped fixes, regression tests, isolated execution and evidence registration.",
+  "amendments": [
+    "Fixing B02 exposed the earlier RosMotionPort ActionClient binding error (B05); B03 remains masked.",
+    "Delayed first Goals expose INIT watchdog expiry (B06); record results without changing FSM transitions.",
+    "Final config regression stops after real parameter/config construction; tool fixtures explicitly enter the release stage.",
+    "Original colcon optional-flag error and pytest shared test-module collection error retained; successful retries use supported CLI and per-package processes."
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "source_id": "ENV-FSM-20261011",
+  "frozen_at": "2026-10-11T17:04:41.141218+08:00",
+  "overall": "Offline logic and independent Fake driver PASS; ROS task integration FAIL.",
+  "checklist": {
+    "A01_source_and_interface_handoff": "FAIL (source/patch identity PASS; interface/runtime defects open)",
+    "A02_python_mock": "PASS",
+    "A03_cpp_core_jazzy": "PASS",
+    "A04_independent_fake_driver": "PASS"
+  },
+  "jazzy": {
+    "build_packages": 12,
+    "build_status": "PASS",
+    "cpp_gtest": 318,
+    "cpp_executables": 16,
+    "original_cpp_cases_preserved": 290,
+    "additional_cpp_cases": 28,
+    "python_pytest": 269,
+    "python_mock_e2e": 15,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "colcon_aggregate_including_wrappers_and_lint": 608,
+    "test_cases_excluding_wrappers": 602
+  },
+  "host_supplement": {
+    "python_pytest": 269,
+    "python_mock_e2e": 15,
+    "cpp_gtest": 318,
+    "cpp_packages": 4,
+    "scope": "Humble host-only supplement, not counted again in Jazzy acceptance."
+  },
+  "ros_mock": {
+    "status": "FAIL",
+    "attempts": 2,
+    "running_application_nodes": [
+      "motion_executor",
+      "tool_manager",
+      "safety_supervisor"
+    ],
+    "failed_nodes": [
+      "task_executor",
+      "pick_place_server"
+    ],
+    "planned_goal": {
+      "task_id": "acceptance-20261011-basic-yellow",
+      "mode": 1,
+      "ordered_colors": [
+        3
+      ],
+      "timeout_ms": 5000,
+      "placement_stability_sec": 3.0
+    },
+    "goal_sent": false,
+    "goal_accepted": null,
+    "feedback_received": false,
+    "result_received": false,
+    "action_error_code": null,
+    "reason": "Task server unavailable following startup failures",
+    "cpp_ros_action_delivered": false
+  },
+  "fake_driver": {
+    "status": "PASS",
+    "built_packages": 5,
+    "plugin": [
+      "mock_components/GenericSystem"
+    ],
+    "controller_states": {
+      "joint_trajectory_controller": "active",
+      "joint_state_broadcaster": "active"
+    },
+    "joint_names": [
+      "foreArm_joint",
+      "shoulder_joint",
+      "upperArm_joint",
+      "wrist1_joint",
+      "wrist2_joint",
+      "wrist3_joint"
+    ],
+    "joint_state_samples": 1610,
+    "distinct_timestamps": 1610,
+    "tf": [
+      "world->base_link",
+      "base_link->ee_link"
+    ],
+    "trajectories": [
+      {
+        "case": "single",
+        "action_status": 4,
+        "error_code": 0,
+        "max_error_rad": 0.0
+      },
+      {
+        "case": "multi",
+        "action_status": 4,
+        "error_code": 0,
+        "max_error_rad": 0.0
+      }
+    ],
+    "effort_scope": "No effort state interface; raw JointState effort NaN preserved in result.raw.txt and projected as null in result.json."
+  },
+  "remaining": [
+    "New C++ ROS Action / MoveIt adapter / full FSM closed loop",
+    "Independent MoveIt Plan Execute reproduction",
+    "Driver automated tests and full MoveIt runtime dependency audit",
+    "TSan dynamic race verification",
+    "SDK license and vendor checksum comparison",
+    "NUC deployment, hardware compatibility, real calibration and grasp/placement"
+  ],
+  "resolved_harness_incidents": [
+    "Initial git apply in ignored nested worktree skipped paths; patch -p1 plus byte comparison then passed.",
+    "Host pytest plugin collision avoided by PYTHONNOUSERSITE and disabling plugin autoload; no system package changes.",
+    "Container copied UID mismatch fixed only on private copies before Git identity/build.",
+    "Initial CLI Action/Service discovery empty; direct rclpy graph after discovery confirms Motion Action and services.",
+    "First Mock shutdown sent SIGINT to process group and produced teardown KeyboardInterrupt; recheck signals launch only. Startup faults reproduced unchanged."
+  ],
+  "safety_scope": "No real hardware mounts, real controller connection, physical motion, or tool IO. Fake runtime executed after container network disconnect.",
+  "container_end_state": "Stopped and retained after evidence export.",
+  "algorithm_provenance": {
+    "upstream": "TEAMMATE-FSM-20261011 / TEAMMATE-SDK-20261011",
+    "ai_assistance": "OpenAI Codex: acceptance orchestration, evidence collection, documentation. No upstream FSM source changes."
+  }
+}

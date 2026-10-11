@@ -1,0 +1,59 @@
+[
+  {
+    "name": "preflight-nodes",
+    "argv": [
+      "ros2",
+      "node",
+      "list",
+      "--no-daemon",
+      "--spin-time",
+      "2"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "nodes",
+    "argv": [
+      "ros2",
+      "node",
+      "list",
+      "--no-daemon",
+      "--spin-time",
+      "2"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "topics",
+    "argv": [
+      "ros2",
+      "topic",
+      "list",
+      "-t",
+      "--no-daemon",
+      "--spin-time",
+      "2"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "actions",
+    "argv": [
+      "ros2",
+      "action",
+      "list",
+      "-t"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "services",
+    "argv": [
+      "ros2",
+      "service",
+      "list",
+      "-t"
+    ],
+    "exit_code": 0
+  }
+]

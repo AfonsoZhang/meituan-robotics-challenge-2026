@@ -1,0 +1,25 @@
+1791710169.5470934 [INFO] [launch]: All log files can be found below /fix-evidence/mock-smoke/ros-logs/2026-10-11-09-16-09-545458-17b05d1a83af-307
+1791710169.5471966 [INFO] [launch]: Default logging verbosity is set to INFO
+1791710169.6022873 [INFO] [launch.user]: ==============================================================================
+!! 警告：Mock 模式，未连接真实 AUBO S3。
+!! 本次启动不会建立任何真实控制通路：不连接控制柜、不发送真实运动指令、
+!! 不触发电磁铁、不启动 Gazebo；软件停止请求也不等价于实体急停。
+!! Mock 通过 != 实机抓放成功。
+==============================================================================
+1791710169.6024039 [INFO] [launch.user]: 组合参数：backend=mock tool_type=passive_hook_v1 placement_stability_sec=3.0 config_dir=(包内 share)
+1791710169.6079903 [INFO] [launch.user]: Mock 组合启动完成。再次提醒：未连接真实 AUBO S3；任何实机操作都必须获得单独的现场授权。
+1791710169.6133094 [INFO] [motion_executor-1]: process started with pid [310]
+1791710169.6135402 [INFO] [task_executor-2]: process started with pid [311]
+1791710169.6136472 [INFO] [pick_place_server-3]: process started with pid [312]
+1791710169.6137292 [INFO] [tool_manager-4]: process started with pid [313]
+1791710169.6137745 [INFO] [safety_supervisor-5]: process started with pid [314]
+1791710170.4710410 [ERROR] [pick_place_server-3]: process has died [pid 312, exit code 1, cmd '/fix-work/install/mtc_manipulation/lib/mtc_manipulation/pick_place_server --ros-args -r __node:=pick_place_server --params-file /tmp/launch_params_jw8cyfnm'].
+1791710184.7807624 [WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+1791710184.7824025 [INFO] [safety_supervisor-5]: sending signal 'SIGINT' to process[safety_supervisor-5]
+1791710184.7827048 [INFO] [tool_manager-4]: sending signal 'SIGINT' to process[tool_manager-4]
+1791710184.7829890 [INFO] [task_executor-2]: sending signal 'SIGINT' to process[task_executor-2]
+1791710184.7833369 [INFO] [motion_executor-1]: sending signal 'SIGINT' to process[motion_executor-1]
+1791710184.9816778 [INFO] [tool_manager-4]: process has finished cleanly [pid 313]
+1791710184.9825435 [ERROR] [safety_supervisor-5]: process has died [pid 314, exit code 1, cmd '/work/install/mtc_safety/lib/mtc_safety/safety_supervisor --ros-args -r __node:=safety_supervisor'].
+1791710184.9939709 [INFO] [motion_executor-1]: process has finished cleanly [pid 310]
+1791710184.9953604 [INFO] [task_executor-2]: process has finished cleanly [pid 311]

@@ -1,0 +1,11 @@
+  PID  PPID COMMAND
+    1     0 sleep infinity
+  260     0 timeout 100 python3 /fix-src/mock_smoke.py
+  292   260 python3 /fix-src/mock_smoke.py
+  307   292 /usr/bin/python3 /opt/ros/jazzy/bin/ros2 launch mtc_bringup mock_bringup.launch.py backend:=mock
+  310   307 /usr/bin/python3 /work/install/mtc_motion_execution/lib/mtc_motion_execution/motion_executor --ros-args -r __node:=motion_executor --params-file /tmp/launch_params_e5ijf3l7
+  311   307 /usr/bin/python3 /fix-work/install/mtc_task/lib/mtc_task/task_executor --ros-args -r __node:=task_executor
+  313   307 /usr/bin/python3 /work/install/mtc_tool/lib/mtc_tool/tool_manager --ros-args -r __node:=tool_manager --params-file /tmp/launch_params_os0g28o8
+  314   307 /usr/bin/python3 /work/install/mtc_safety/lib/mtc_safety/safety_supervisor --ros-args -r __node:=safety_supervisor
+  414     1 /usr/bin/python3 -c from ros2cli.daemon.daemonize import main; main() --name ros2-daemon --ros-domain-id 95 --rmw-implementation rmw_fastrtps_cpp
+  455   292 ps -eo pid,ppid,args

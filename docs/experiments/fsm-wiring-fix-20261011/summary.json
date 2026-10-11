@@ -1,0 +1,121 @@
+{
+  "source_id": "ENV-FSM-FIX-20261011",
+  "candidate_commit": "1d3dccf23c53d299d457564daeb6438190ea2d77",
+  "pull_request": "https://github.com/F1u0rite/meituan_challenge_ws/pull/2",
+  "overall_status": "SCOPED_FIX_PASS_FULL_TASK_FAIL",
+  "review_status": "OPEN_REVIEW_REQUESTED_NOT_MERGED",
+  "build": {
+    "packages": [
+      "mtc_task",
+      "mtc_manipulation"
+    ],
+    "status": "PASS",
+    "underlay_packages": 12,
+    "note": "Only the two Python packages rebuilt this round."
+  },
+  "same_final_ros_regressions": {
+    "baseline": {
+      "tests": 6,
+      "failures": 6,
+      "errors": 0,
+      "skipped": 0
+    },
+    "candidate": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "offline_pytest": {
+    "tests": 269,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "explicit_python_mock_e2e": {
+    "tests": 15,
+    "failures": 0,
+    "skipped": 0
+  },
+  "passing_cases_this_round": 290,
+  "actual_ros_mock": [
+    {
+      "directory": "mock-smoke",
+      "status": "FAIL",
+      "task_server_available": true,
+      "pickplace_server_available": null,
+      "goal_sent": true,
+      "goal_accepted": true,
+      "goal_uuid": "ff81277a697e47f1a99a48794e24d150",
+      "feedback": [
+        {
+          "current_index": 0,
+          "total_count": 0,
+          "state": "FAULT",
+          "current_slot": "",
+          "current_object_id": "",
+          "substate": "FAULT"
+        }
+      ],
+      "result": {
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 510,
+          "message": "state INIT timed out after 5.044s -> HARDWARE_FAULT"
+        }
+      },
+      "launch_exit_code": 0
+    },
+    {
+      "directory": "mock-smoke-recheck",
+      "status": "FAIL",
+      "task_server_available": true,
+      "pickplace_server_available": false,
+      "goal_sent": true,
+      "goal_accepted": true,
+      "goal_uuid": "7e8ab2d3b862434f921e1b22928cbcce",
+      "feedback": [
+        {
+          "current_index": 0,
+          "total_count": 0,
+          "state": "FAULT",
+          "current_slot": "",
+          "current_object_id": "",
+          "substate": "FAULT"
+        }
+      ],
+      "result": {
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 510,
+          "message": "state INIT timed out after 5.046s -> HARDWARE_FAULT"
+        }
+      },
+      "launch_exit_code": 0
+    }
+  ],
+  "action_discovery_note": "General action names include clients; per-node server query and wait_for_server confirm PickPlace server absent.",
+  "not_repeated": [
+    "318 unchanged C++ tests",
+    "Independent Fake driver"
+  ],
+  "not_verified": [
+    "Full task success and Cancel lifecycle",
+    "MoveIt and new C++ ROS FSM closed loop",
+    "NUC and hardware"
+  ],
+  "known_attempts": [
+    "Initial candidate ROS suite: 3 PASS / 3 FAIL; two failures exposed B05 after config construction, one fixture had not entered RELEASING.",
+    "Final regression fixture revised, then identical final tests rerun against both baseline and candidate.",
+    "Unsupported optional colcon --allow-overriding argument removed, build retried successfully.",
+    "Combined pytest collection hit a shared test-module namespace; all six packages then passed in separate processes."
+  ],
+  "scope_note": "Only B01/B02/B04 wiring verified. Mock accepted unlock is not release confirmation. Delayed first Goal failures are retained; no claim about early Goals or hardware."
+}

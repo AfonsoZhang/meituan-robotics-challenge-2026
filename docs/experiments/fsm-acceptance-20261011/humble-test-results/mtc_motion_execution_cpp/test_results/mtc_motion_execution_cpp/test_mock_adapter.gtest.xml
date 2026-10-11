@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="27" failures="0" disabled="0" errors="0" time="0.003" timestamp="2026-10-11T16:54:10" name="AllTests">
+  <testsuite name="MockClockGate" tests="8" failures="0" disabled="0" errors="0" time="0.002" timestamp="2026-10-11T16:54:10">
+    <testcase name="MockDefaultClockExecutionContract" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockClockGate" />
+    <testcase name="MockSharedManualClockSettlementSucceeds" status="run" result="completed" time="0.001" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockClockGate" />
+    <testcase name="MockInsufficientStationaryIntervalRejected" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockClockGate" />
+    <testcase name="TinyPositiveSettleDurationCannotConfirmZeroInterval" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockClockGate" />
+    <testcase name="MockExecutorClockMismatchRejected" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockClockGate" />
+    <testcase name="ExplicitRealTimeOrInvalidMockClockIsRejected" status="run" result="completed" time="0.001" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockClockGate" />
+    <testcase name="VirtualClockCannotAuthorizeExecutableBackend" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockClockGate" />
+    <testcase name="StaleFeedbackCannotConfirmStop" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockClockGate" />
+  </testsuite>
+  <testsuite name="GoalCancelGate" tests="1" failures="0" disabled="0" errors="0" time="0" timestamp="2026-10-11T16:54:10">
+    <testcase name="AdapterScopedCancelCannotStopDifferentOwner" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.GoalCancelGate" />
+  </testsuite>
+  <testsuite name="MockAudit" tests="1" failures="0" disabled="0" errors="0" time="0" timestamp="2026-10-11T16:54:10">
+    <testcase name="VirtualSettlementStartsAfterArrivalAndRejectsInvalidTravel" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockAudit" />
+  </testsuite>
+  <testsuite name="MockAdapter" tests="14" failures="0" disabled="0" errors="0" time="0.001" timestamp="2026-10-11T16:54:10">
+    <testcase name="CapabilitiesAreDeclaredExplicitly" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockAdapter" />
+    <testcase name="SuccessfulMoveSettlesAndConfirmsStop" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockAdapter" />
+    <testcase name="RejectedRequestAllowsImmediateResend" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockAdapter" />
+    <testcase name="SecondCommandWhileInFlightIsRejected" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockAdapter" />
+    <testcase name="TimeoutIsReportedAndBlocksAutoResend" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockAdapter" />
+    <testcase name="StatusUnknownLocksAndBlocksAutoResend" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockAdapter" />
+    <testcase name="FailAtStatusUnknownIsEquivalent" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockAdapter" />
+    <testcase name="StopWithoutInFlightIsConfirmedAndReported" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockAdapter" />
+    <testcase name="StopWithInFlightAndConfirmationSucceeds" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockAdapter" />
+    <testcase name="CancelWithoutConfirmationDoesNotClaimStopped" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockAdapter" />
+    <testcase name="StopConfirmationFlagIsExposedSeparately" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockAdapter" />
+    <testcase name="TrajectoryIsRejectedAndNotSplitIntoJointMoves" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockAdapter" />
+    <testcase name="TrajectoryAcceptedWhenCapabilityDeclared" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockAdapter" />
+    <testcase name="BaseClassDefaultTrajectoryRejectsWithoutSplitting" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.MockAdapter" />
+  </testsuite>
+  <testsuite name="DisabledAdapter" tests="1" failures="0" disabled="0" errors="0" time="0" timestamp="2026-10-11T16:54:10">
+    <testcase name="AlwaysRejectsAndNeverClaimsCapability" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.DisabledAdapter" />
+  </testsuite>
+  <testsuite name="AdapterFactory" tests="2" failures="0" disabled="0" errors="0" time="0" timestamp="2026-10-11T16:54:10">
+    <testcase name="UnknownBackendFallsBackToDisabled" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.AdapterFactory" />
+    <testcase name="MockBackendIsCaseInsensitive" status="run" result="completed" time="0" timestamp="2026-10-11T16:54:10" classname="mtc_motion_execution_cpp.AdapterFactory" />
+  </testsuite>
+</testsuites>

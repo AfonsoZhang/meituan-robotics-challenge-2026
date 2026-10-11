@@ -1,0 +1,18 @@
+{
+  "name": "jazzy-connection-diagnostic",
+  "argv": [
+    "/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe",
+    "exec",
+    "mtc-webui-20261011",
+    "bash",
+    "-lc",
+    "source /opt/ros/jazzy/setup.bash; source /work/install/setup.bash; export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST; cd /ui-src; python3 - <<'PY'\nimport time,json\nfrom webui.ros_integration_check import Fixture\nfrom webui.ros_backend import RosBackend\nfrom webui.ros_transport import RosTransport\nfrom webui.config import RosConfig\nf=Fixture()\nb=RosBackend(RosConfig(domain_id=94,robot_publisher=\"/webui_isolated_fixture\",task_publisher=\"/webui_isolated_fixture\"))\ntry:\n RosTransport(b).start()\n time.sleep(3)\n print(json.dumps(b.snapshot(),ensure_ascii=False,indent=2))\nfinally:\n b.close()\n f.close()\nPY"
+  ],
+  "cwd": "/home/afonso/meituan-robotics-challenge-2026",
+  "started_at": "2026-10-11T18:10:24.795814+08:00",
+  "ended_at": "2026-10-11T18:10:28.849455+08:00",
+  "duration_sec": 4.054,
+  "exit_code": 0,
+  "log": "logs/jazzy-connection-diagnostic.log",
+  "log_sha256": "3c95d8b19ae0054f0d41ec5d80c22817664f9b4b7d5beba69d99a431070c58a6"
+}

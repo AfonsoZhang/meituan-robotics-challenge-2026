@@ -1,0 +1,710 @@
+test_01_topics_joints_camera_and_authority (__main__.RosIntegrationTests.test_01_topics_joints_camera_and_authority) ... [WARN] [1791713725.977097319] [webui_isolated_fixture.mtc_integration]: webui_jazzy_log_probe
+ok
+test_02_action_goal_feedback_result (__main__.RosIntegrationTests.test_02_action_goal_feedback_result) ... ok
+test_03_rejected_goal (__main__.RosIntegrationTests.test_03_rejected_goal) ... ok
+test_04_aborted_result (__main__.RosIntegrationTests.test_04_aborted_result) ... ok
+test_05_cancel_and_stop_are_independent (__main__.RosIntegrationTests.test_05_cancel_and_stop_are_independent) ... ok
+test_06_stale_messages_block_commands_and_camera (__main__.RosIntegrationTests.test_06_stale_messages_block_commands_and_camera) ... ok
+test_07_simulation_flag_blocks_real_goals (__main__.RosIntegrationTests.test_07_simulation_flag_blocks_real_goals) ... ok
+test_08_any_second_robot_publisher_blocks_ambiguous_data (__main__.RosIntegrationTests.test_08_any_second_robot_publisher_blocks_ambiguous_data) ... ok
+test_09_duplicate_authority_is_unavailable (__main__.RosIntegrationTests.test_09_duplicate_authority_is_unavailable) ... [WARN] [1791713732.452292867] [rcl.logging_rosout]: Publisher already registered for node name: 'webui_isolated_fixture'. If this is due to multiple nodes with the same name then all logs for the logger named 'webui_isolated_fixture' will go out over the existing publisher. As soon as any node with that name is destructed it will unregister the publisher, preventing any further logs for that name from being published on the rosout topic.
+{
+  "schema_version": 1,
+  "mode": "ros",
+  "session_id": "1e9c1bdb-4661-47bb-bf9e-ce7cae40167f",
+  "snapshot_seq": 362,
+  "event_seq": 25,
+  "generated_at": "2026-10-11T10:15:42.597+00:00",
+  "freshness_limit_ms": 3000,
+  "task": {
+    "task_id": "test_05_cancel_and_stop_are_independent",
+    "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be",
+    "mode": "ros",
+    "owned": true,
+    "goal": {
+      "task_id": "test_05_cancel_and_stop_are_independent",
+      "mode": 1,
+      "ordered_colors": [
+        1
+      ],
+      "timeout_ms": 120000,
+      "placement_stability_sec": 3
+    },
+    "status": "CANCELED",
+    "state": "EXECUTE_ITEM",
+    "substate": "",
+    "detail": "fixture canceled; stop deliberately unconfirmed",
+    "completed_count": 0,
+    "total_count": 1,
+    "completed_slots": [],
+    "current_index": 0,
+    "current_slot": "T0",
+    "current_object_id": "",
+    "last_error_code": 0,
+    "created_at": "2026-10-11T10:15:28.369+00:00",
+    "finished_at": "2026-10-11T10:15:28.451+00:00",
+    "elapsed_ms": 82,
+    "result": {
+      "success": false,
+      "completed_count": 0,
+      "completed_slots": [],
+      "error_code": 0,
+      "message": "fixture canceled; stop deliberately unconfirmed"
+    },
+    "cancel_ack": {
+      "request_delivered": true,
+      "message": "ROS 已确认接受取消"
+    },
+    "events": [
+      {
+        "seq": 17,
+        "at": "2026-10-11T10:15:28.369+00:00",
+        "kind": "GOAL_REQUESTED",
+        "message": "等待 ROS Goal 受理回执",
+        "level": "info",
+        "mode": "ros",
+        "task_id": "test_05_cancel_and_stop_are_independent",
+        "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+      },
+      {
+        "seq": 18,
+        "at": "2026-10-11T10:15:28.397+00:00",
+        "kind": "GOAL_ACCEPTED",
+        "message": "ROS Action 服务端已受理",
+        "level": "info",
+        "mode": "ros",
+        "task_id": "test_05_cancel_and_stop_are_independent",
+        "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+      },
+      {
+        "seq": 19,
+        "at": "2026-10-11T10:15:28.400+00:00",
+        "kind": "FEEDBACK",
+        "message": "EXECUTE_ITEM / FIXTURE_FEEDBACK",
+        "level": "info",
+        "mode": "ros",
+        "task_id": "test_05_cancel_and_stop_are_independent",
+        "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+      },
+      {
+        "seq": 20,
+        "at": "2026-10-11T10:15:28.420+00:00",
+        "kind": "CANCEL_REQUESTED",
+        "message": "取消已排队，等待 ROS Cancel 回执",
+        "level": "info",
+        "mode": "ros",
+        "task_id": "test_05_cancel_and_stop_are_independent",
+        "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+      },
+      {
+        "seq": 21,
+        "at": "2026-10-11T10:15:28.424+00:00",
+        "kind": "TASK_STATE",
+        "message": "ISOLATED ROS FIXTURE — no physical robot",
+        "level": "info",
+        "mode": "ros",
+        "task_id": "test_05_cancel_and_stop_are_independent",
+        "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+      },
+      {
+        "seq": 22,
+        "at": "2026-10-11T10:15:28.447+00:00",
+        "kind": "CANCEL_REPLY",
+        "message": "ROS 已确认接受取消；停稳以 RobotState 为准",
+        "level": "info",
+        "mode": "ros",
+        "task_id": "test_05_cancel_and_stop_are_independent",
+        "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+      },
+      {
+        "seq": 23,
+        "at": "2026-10-11T10:15:28.451+00:00",
+        "kind": "RESULT",
+        "message": "fixture canceled; stop deliberately unconfirmed",
+        "level": "info",
+        "mode": "ros",
+        "task_id": "test_05_cancel_and_stop_are_independent",
+        "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+      },
+      {
+        "seq": 24,
+        "at": "2026-10-11T10:15:28.471+00:00",
+        "kind": "STOP_REQUESTED",
+        "message": "等待 RequestStop 回执；不代表实体急停或已停稳",
+        "level": "info",
+        "mode": "ros",
+        "task_id": "test_05_cancel_and_stop_are_independent",
+        "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+      },
+      {
+        "seq": 25,
+        "at": "2026-10-11T10:15:28.497+00:00",
+        "kind": "STOP_REPLY",
+        "message": "isolated fixture delivery only; robot stop is independent；停稳以 RobotState 为准",
+        "level": "info",
+        "mode": "ros",
+        "task_id": "test_05_cancel_and_stop_are_independent",
+        "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+      }
+    ],
+    "recordings": []
+  },
+  "task_state": {
+    "available": true,
+    "data": {
+      "task_id": "",
+      "state": "WAIT_TASK",
+      "substate": "",
+      "completed_count": 0,
+      "total_count": 0,
+      "last_error_code": 0,
+      "detail": "ISOLATED ROS FIXTURE — no physical robot"
+    },
+    "source": "/webui_isolated_fixture · /mtc/task/state · 010f7f01",
+    "received_at": "2026-10-11T10:15:42.577+00:00",
+    "source_stamp_ns": 1791713742575497543,
+    "age_ms": 22,
+    "fresh": true
+  },
+  "external_task": null,
+  "robot": {
+    "available": true,
+    "data": {
+      "communication_ok": true,
+      "robot_ready": true,
+      "motion_active": false,
+      "safety_normal": true,
+      "stop_confirmed": true,
+      "simulation_mode": false,
+      "controller_mode": "ISOLATED_FIXTURE",
+      "detail": "Test stimulus only; not a hardware observation"
+    },
+    "source": "/webui_isolated_fixture · /mtc/robot/state · 010f7f01",
+    "received_at": "2026-10-11T10:15:42.577+00:00",
+    "source_stamp_ns": 1791713742575838113,
+    "age_ms": 21,
+    "fresh": true
+  },
+  "tool": {
+    "available": true,
+    "data": {
+      "state": 1,
+      "evidence_level": 3,
+      "verified": true,
+      "tool_type": "fixture",
+      "object_id": "",
+      "detail": ""
+    },
+    "source": "/webui_isolated_fixture · /mtc/tool/state · 010f7f01",
+    "received_at": "2026-10-11T10:15:42.577+00:00",
+    "source_stamp_ns": 1791713742575935101,
+    "age_ms": 21,
+    "fresh": true
+  },
+  "joints": {
+    "available": true,
+    "data": {
+      "name": [
+        "shoulder_joint_1",
+        "shoulder_joint_2",
+        "shoulder_joint_3",
+        "shoulder_joint_4",
+        "shoulder_joint_5",
+        "shoulder_joint_6"
+      ],
+      "position": [
+        0.1,
+        -0.2,
+        0.3,
+        -0.4,
+        0.5,
+        -0.6
+      ],
+      "velocity": [],
+      "effort": []
+    },
+    "source": "/webui_isolated_fixture · /joint_states · 010f7f01",
+    "received_at": "2026-10-11T10:15:42.577+00:00",
+    "source_stamp_ns": 1791713742576023635,
+    "age_ms": 21,
+    "fresh": true
+  },
+  "camera": {
+    "color": {
+      "available": true,
+      "data": {
+        "width": 640,
+        "height": 360,
+        "encoding": "bgr8",
+        "preview": "RGB 图像",
+        "frame_id": "isolated_fixture_camera",
+        "topic": "/camera/camera/color/image_raw"
+      },
+      "source": "/webui_isolated_fixture · /camera/camera/color/image_raw · 010f7f01",
+      "received_at": "2026-10-11T10:15:42.584+00:00",
+      "source_stamp_ns": 1791713742576122458,
+      "age_ms": 20,
+      "fresh": true
+    },
+    "depth": {
+      "available": true,
+      "data": {
+        "width": 640,
+        "height": 360,
+        "encoding": "16uc1",
+        "preview": "深度伪彩 0–2 m；非标定测量",
+        "frame_id": "isolated_fixture_camera",
+        "topic": "/camera/camera/aligned_depth_to_color/image_raw"
+      },
+      "source": "/webui_isolated_fixture · /camera/camera/aligned_depth_to_color/image_raw · 010f7f01",
+      "received_at": "2026-10-11T10:15:42.491+00:00",
+      "source_stamp_ns": 1791713742480026252,
+      "age_ms": 111,
+      "fresh": true
+    }
+  },
+  "connection": {
+    "connected": true,
+    "reason": "ROS 已连接；设备状态按来源与时间戳核验",
+    "action_ready": false,
+    "stop_ready": false,
+    "publishers": {
+      "task_state": {
+        "topic": "/mtc/task/state",
+        "expected_node": "/webui_isolated_fixture",
+        "candidates": [
+          {
+            "node": "/webui_isolated_fixture",
+            "gid": "010f7f01f00f3a810200000000001303"
+          }
+        ],
+        "selectFAIL
+ed": "/webui_isolated_fixture · /mtc/task/state · 010f7f01",
+        "attribution": "unique topic publisher; graph GID, not per-message GID"
+      },
+      "robot": {
+        "topic": "/mtc/robot/state",
+        "expected_node": "/webui_isolated_fixture",
+        "candidates": [
+          {
+            "node": "/webui_isolated_fixture",
+            "gid": "010f7f01f00f3a810200000000001403"
+          }
+        ],
+        "selected": "/webui_isolated_fixture · /mtc/robot/state · 010f7f01",
+        "attribution": "unique topic publisher; graph GID, not per-message GID"
+      },
+      "tool": {
+        "topic": "/mtc/tool/state",
+        "expected_node": "",
+        "candidates": [
+          {
+            "node": "/webui_isolated_fixture",
+            "gid": "010f7f01f00f3a810200000000001503"
+          }
+        ],
+        "selected": "/webui_isolated_fixture · /mtc/tool/state · 010f7f01",
+        "attribution": "unique topic publisher; graph GID, not per-message GID"
+      },
+      "joints": {
+        "topic": "/joint_states",
+        "expected_node": "",
+        "candidates": [
+          {
+            "node": "/webui_isolated_fixture",
+            "gid": "010f7f01f00f3a810200000000001603"
+          }
+        ],
+        "selected": "/webui_isolated_fixture · /joint_states · 010f7f01",
+        "attribution": "unique topic publisher; graph GID, not per-message GID"
+      },
+      "color": {
+        "topic": "/camera/camera/color/image_raw",
+        "expected_node": "",
+        "candidates": [
+          {
+            "node": "/webui_isolated_fixture",
+            "gid": "010f7f01f00f3a810200000000001703"
+          }
+        ],
+        "selected": "/webui_isolated_fixture · /camera/camera/color/image_raw · 010f7f01",
+        "attribution": "unique topic publisher; graph GID, not per-message GID"
+      },
+      "depth": {
+        "topic": "/camera/camera/aligned_depth_to_color/image_raw",
+        "expected_node": "",
+        "candidates": [
+          {
+            "node": "/webui_isolated_fixture",
+            "gid": "010f7f01f00f3a810200000000001803"
+          }
+        ],
+        "selected": "/webui_isolated_fixture · /camera/camera/aligned_depth_to_color/image_raw · 010f7f01",
+        "attribution": "unique topic publisher; graph GID, not per-message GID"
+      }
+    },
+    "image_topics": [
+      "/camera/camera/aligned_depth_to_color/image_raw",
+      "/camera/camera/color/image_raw"
+    ],
+    "action_servers": [],
+    "stop_servers": []
+  },
+  "config": {
+    "domain_id": 94,
+    "read_only": false,
+    "task_action": "/mtc/task/execute",
+    "task_topic": "/mtc/task/state",
+    "task_publisher": "/webui_isolated_fixture",
+    "robot_topic": "/mtc/robot/state",
+    "robot_publisher": "/webui_isolated_fixture",
+    "tool_topic": "/mtc/tool/state",
+    "tool_publisher": "",
+    "joint_topic": "/joint_states",
+    "joint_publisher": "",
+    "stop_service": "/mtc/bridge/request_stop",
+    "color_topic": "",
+    "depth_topic": "",
+    "freshness_ms": 3000
+  },
+  "stop_request": {
+    "request_id": "158e1f29-ad23-47f5-8aa2-40fe88697d97",
+    "status": "REPLIED",
+    "request_delivered": true,
+    "message": "isolated fixture delivery only; robot stop is independent"
+  },
+  "operations": {
+    "submit": false,
+    "cancel": false,
+    "stop": false,
+    "confirm_mock_stop": false,
+    "reasons": [
+      "ExecuteTask Action 服务不可用或存在多个服务端"
+    ]
+  },
+  "history": [
+    {
+      "task_id": "test_05_cancel_and_stop_are_independent",
+      "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be",
+      "status": "CANCELED",
+      "created_at": "2026-10-11T10:15:28.369+00:00",
+      "completed_count": 0,
+      "total_count": 1,
+      "result": {
+        "success": false,
+        "completed_count": 0,
+        "completed_slots": [],
+        "error_code": 0,
+        "message": "fixture canceled; stop deliberately unconfirmed"
+      }
+    },
+    {
+      "task_id": "test_04_aborted_result",
+      "goal_id": "e53fb6b7-67e2-4392-8249-6592d3df6b82",
+      "status": "ABORTED",
+      "created_at": "2026-10-11T10:15:27.253+00:00",
+      "completed_count": 0,
+      "total_count": 1,
+      "result": {
+        "success": false,
+        "completed_count": 0,
+        "completed_slots": [],
+        "error_code": 110,
+        "message": "isolated ROS fixture result, not hardware evidence"
+      }
+    },
+    {
+      "task_id": "test_03_rejected_goal",
+      "goal_id": "c70eb1c6-8715-4ef0-94b3-ff1ed58d34ee",
+      "status": "REJECTED",
+      "created_at": "2026-10-11T10:15:27.151+00:00",
+      "completed_count": 0,
+      "total_count": 1,
+      "result": null
+    },
+    {
+      "task_id": "test_02_action_goal_feedback_result",
+      "goal_id": "711f64b4-61a8-431c-bcf5-dcb12133fa5f",
+      "status": "SUCCEEDED",
+      "created_at": "2026-10-11T10:15:26.035+00:00",
+      "completed_count": 1,
+      "total_count": 1,
+      "result": {
+        "success": true,
+        "completed_count": 1,
+        "completed_slots": [
+          "T0"
+        ],
+        "error_code": 0,
+        "message": "isolated ROS fixture result, not hardware evidence"
+      }
+    }
+  ],
+  "events": [
+    {
+      "seq": 1,
+      "at": "2026-10-11T10:15:25.327+00:00",
+      "kind": "SESSION_STARTED",
+      "message": "实机操作台启动；只接受 ROS 原始反馈，不自动提交或恢复运动",
+      "level": "info",
+      "mode": "ros",
+      "task_id": null,
+      "goal_id": null
+    },
+    {
+      "seq": 2,
+      "at": "2026-10-11T10:15:25.344+00:00",
+      "kind": "ROS_CONNECTION",
+      "message": "ROS 已连接；等待有效设备状态",
+      "level": "info",
+      "mode": "ros",
+      "task_id": null,
+      "goal_id": null
+    },
+    {
+      "seq": 3,
+      "at": "2026-10-11T10:15:25.847+00:00",
+      "kind": "ROS_CONNECTION",
+      "message": "ROS 已连接；设备状态按来源与时间戳核验",
+      "level": "info",
+      "mode": "ros",
+      "task_id": null,
+      "goal_id": null
+    },
+    {
+      "seq": 4,
+      "at": "2026-10-11T10:15:25.978+00:00",
+      "kind": "ROS_LOG",
+      "message": "webui_isolated_fixture.mtc_integration: webui_jazzy_log_probe",
+      "level": "warning",
+      "mode": "ros",
+      "task_id": null,
+      "goal_id": null
+    },
+    {
+      "seq": 5,
+      "at": "2026-10-11T10:15:26.035+00:00",
+      "kind": "GOAL_REQUESTED",
+      "message": "等待 ROS Goal 受理回执",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_02_action_goal_feedback_result",
+      "goal_id": "711f64b4-61a8-431c-bcf5-dcb12133fa5f"
+    },
+    {
+      "seq": 6,
+      "at": "2026-10-11T10:15:26.049+00:00",
+      "kind": "GOAL_ACCEPTED",
+      "message": "ROS Action 服务端已受理",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_02_action_goal_feedback_result",
+      "goal_id": "711f64b4-61a8-431c-bcf5-dcb12133fa5f"
+    },
+    {
+      "seq": 7,
+      "at": "2026-10-11T10:15:26.049+00:00",
+      "kind": "FEEDBACK",
+      "message": "EXECUTE_ITEM / FIXTURE_FEEDBACK",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_02_action_goal_feedback_result",
+      "goal_id": "711f64b4-61a8-431c-bcf5-dcb12133fa5f"
+    },
+    {
+      "seq": 8,
+      "at": "2026-10-11T10:15:26.125+00:00",
+      "kind": "TASK_STATE",
+      "message": "ISOLATED ROS FIXTURE — no physical robot",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_02_action_goal_feedback_result",
+      "goal_id": "711f64b4-61a8-431c-bcf5-dcb12133fa5f"
+    },
+    {
+      "seq": 9,
+      "at": "2026-10-11T10:15:27.054+00:00",
+      "kind": "RESULT",
+      "message": "isolated ROS fixture result, not hardware evidence",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_02_action_goal_feedback_result",
+      "goal_id": "711f64b4-61a8-431c-bcf5-dcb12133fa5f"
+    },
+    {
+      "seq": 10,
+      "at": "2026-10-11T10:15:27.151+00:00",
+      "kind": "GOAL_REQUESTED",
+      "message": "等待 ROS Goal 受理回执",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_03_rejected_goal",
+      "goal_id": "c70eb1c6-8715-4ef0-94b3-ff1ed58d34ee"
+    },
+    {
+      "seq": 11,
+      "at": "2026-10-11T10:15:27.199+00:00",
+      "kind": "TASK_REJECTED",
+      "message": "ROS Action 服务端拒绝 Goal",
+      "level": "warning",
+      "mode": "ros",
+      "task_id": "test_03_rejected_goal",
+      "goal_id": "c70eb1c6-8715-4ef0-94b3-ff1ed58d34ee"
+    },
+    {
+      "seq": 12,
+      "at": "2026-10-11T10:15:27.253+00:00",
+      "kind": "GOAL_REQUESTED",
+      "message": "等待 ROS Goal 受理回执",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_04_aborted_result",
+      "goal_id": "e53fb6b7-67e2-4392-8249-6592d3df6b82"
+    },
+    {
+      "seq": 13,
+      "at": "2026-10-11T10:15:27.299+00:00",
+      "kind": "GOAL_ACCEPTED",
+      "message": "ROS Action 服务端已受理",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_04_aborted_result",
+      "goal_id": "e53fb6b7-67e2-4392-8249-6592d3df6b82"
+    },
+    {
+      "seq": 14,
+      "at": "2026-10-11T10:15:27.301+00:00",
+      "kind": "FEEDBACK",
+      "message": "EXECUTE_ITEM / FIXTURE_FEEDBACK",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_04_aborted_result",
+      "goal_id": "e53fb6b7-67e2-4392-8249-6592d3df6b82"
+    },
+    {
+      "seq": 15,
+      "at": "2026-10-11T10:15:27.325+00:00",
+      "kind": "TASK_STATE",
+      "message": "ISOLATED ROS FIXTURE — no physical robot",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_04_aborted_result",
+      "goal_id": "e53fb6b7-67e2-4392-8249-6592d3df6b82"
+    },
+    {
+      "seq": 16,
+      "at": "2026-10-11T10:15:28.307+00:00",
+      "kind": "RESULT",
+      "message": "isolated ROS fixture result, not hardware evidence",
+      "level": "error",
+      "mode": "ros",
+      "task_id": "test_04_aborted_result",
+      "goal_id": "e53fb6b7-67e2-4392-8249-6592d3df6b82"
+    },
+    {
+      "seq": 17,
+      "at": "2026-10-11T10:15:28.369+00:00",
+      "kind": "GOAL_REQUESTED",
+      "message": "等待 ROS Goal 受理回执",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_05_cancel_and_stop_are_independent",
+      "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+    },
+    {
+      "seq": 18,
+      "at": "2026-10-11T10:15:28.397+00:00",
+      "kind": "GOAL_ACCEPTED",
+      "message": "ROS Action 服务端已受理",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_05_cancel_and_stop_are_independent",
+      "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+    },
+    {
+      "seq": 19,
+      "at": "2026-10-11T10:15:28.400+00:00",
+      "kind": "FEEDBACK",
+      "message": "EXECUTE_ITEM / FIXTURE_FEEDBACK",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_05_cancel_and_stop_are_independent",
+      "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+    },
+    {
+      "seq": 20,
+      "at": "2026-10-11T10:15:28.420+00:00",
+      "kind": "CANCEL_REQUESTED",
+      "message": "取消已排队，等待 ROS Cancel 回执",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_05_cancel_and_stop_are_independent",
+      "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+    },
+    {
+      "seq": 21,
+      "at": "2026-10-11T10:15:28.424+00:00",
+      "kind": "TASK_STATE",
+      "message": "ISOLATED ROS FIXTURE — no physical robot",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_05_cancel_and_stop_are_independent",
+      "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+    },
+    {
+      "seq": 22,
+      "at": "2026-10-11T10:15:28.447+00:00",
+      "kind": "CANCEL_REPLY",
+      "message": "ROS 已确认接受取消；停稳以 RobotState 为准",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_05_cancel_and_stop_are_independent",
+      "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+    },
+    {
+      "seq": 23,
+      "at": "2026-10-11T10:15:28.451+00:00",
+      "kind": "RESULT",
+      "message": "fixture canceled; stop deliberately unconfirmed",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_05_cancel_and_stop_are_independent",
+      "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+    },
+    {
+      "seq": 24,
+      "at": "2026-10-11T10:15:28.471+00:00",
+      "kind": "STOP_REQUESTED",
+      "message": "等待 RequestStop 回执；不代表实体急停或已停稳",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_05_cancel_and_stop_are_independent",
+      "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+    },
+    {
+      "seq": 25,
+      "at": "2026-10-11T10:15:28.497+00:00",
+      "kind": "STOP_REPLY",
+      "message": "isolated fixture delivery only; robot stop is independent；停稳以 RobotState 为准",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "test_05_cancel_and_stop_are_independent",
+      "goal_id": "c94a525e-c9bd-4b86-adf5-c94cd1fc10be"
+    }
+  ]
+}
+
+======================================================================
+FAIL: test_09_duplicate_authority_is_unavailable (__main__.RosIntegrationTests.test_09_duplicate_authority_is_unavailable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/ui-src/webui/ros_integration_check.py", line 280, in test_09_duplicate_authority_is_unavailable
+    wait_for(lambda: self.backend.snapshot()["operations"]["submit"])
+  File "/ui-src/webui/ros_integration_check.py", line 28, in wait_for
+    raise AssertionError("Timed out waiting for ROS fixture condition")
+AssertionError: Timed out waiting for ROS fixture condition
+
+----------------------------------------------------------------------
+Ran 9 tests in 17.540s
+
+FAILED (failures=1)

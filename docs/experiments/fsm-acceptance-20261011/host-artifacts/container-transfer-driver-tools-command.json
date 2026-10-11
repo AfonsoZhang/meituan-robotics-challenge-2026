@@ -1,0 +1,18 @@
+{
+  "name": "container-transfer-driver-tools",
+  "argv": [
+    "bash",
+    "-e",
+    "-o",
+    "pipefail",
+    "-c",
+    "tar -C outputs/integration-20261011-164931-1d940f7 -cf - prepare_driver.sh build_driver.sh fake_smoke.py | \"/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe\" cp - mtc-acceptance-20261011-164931:/tools"
+  ],
+  "cwd": "/home/afonso/meituan-robotics-challenge-2026",
+  "started_at": "2026-10-11T16:55:21.061284+08:00",
+  "ended_at": "2026-10-11T16:55:21.224000+08:00",
+  "duration_sec": 0.163,
+  "exit_code": 0,
+  "log": "logs/container-transfer-driver-tools.log",
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

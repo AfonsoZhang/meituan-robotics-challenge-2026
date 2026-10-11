@@ -1,0 +1,18 @@
+{
+  "name": "candidate-api-and-file-identity",
+  "argv": [
+    "/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe",
+    "exec",
+    "mtc-acceptance-20261011-164931",
+    "bash",
+    "-lc",
+    "set -eo pipefail; source /opt/ros/jazzy/setup.bash; source /work/install/setup.bash; source /fix-work/install/setup.bash; python3 - <<'PY'\nimport hashlib,inspect,json\nfrom pathlib import Path\nfrom mtc_task import task_executor\nfrom mtc_manipulation import pick_place_server\nfrom mtc_interfaces.action import PickPlace,ExecuteJointMove\nr={\"PickPlace.Server\":hasattr(PickPlace,\"Server\"),\"PickPlace.CancelResponse\":hasattr(PickPlace,\"CancelResponse\"),\"ExecuteJointMove.create_client\":hasattr(ExecuteJointMove,\"create_client\")}\nfor m in (task_executor,pick_place_server):\n p=Path(inspect.getfile(m));r[m.__name__]={\"path\":str(p),\"sha256\":hashlib.sha256(p.read_bytes()).hexdigest()}\np=Path(\"/fix-src/tests/test_ros_wiring.py\");r[\"test_file_sha256\"]=hashlib.sha256(p.read_bytes()).hexdigest()\nPath(\"/fix-evidence/candidate-identity.json\").write_text(json.dumps(r,indent=2)+\"\\n\")\nprint(json.dumps(r,indent=2))\nPY"
+  ],
+  "cwd": "/home/afonso/meituan-robotics-challenge-2026",
+  "started_at": "2026-10-11T17:19:34.173152+08:00",
+  "ended_at": "2026-10-11T17:19:35.233679+08:00",
+  "duration_sec": 1.061,
+  "exit_code": 0,
+  "log": "logs/candidate-api-and-file-identity.log",
+  "log_sha256": "c09b132d4039b03e1a25b52af1cbc6430ee23d47b860fbc4d202ee6ef49a5484"
+}
