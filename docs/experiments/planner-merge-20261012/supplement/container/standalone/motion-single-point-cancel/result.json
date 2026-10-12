@@ -1,0 +1,649 @@
+{
+  "case": "motion-single-point-cancel",
+  "scope": "Standalone C++ Mock processes and ROS Action only",
+  "domain": 113,
+  "checks": [
+    {
+      "name": "/mtc/motion/execute_joint_move server available",
+      "passed": true
+    },
+    {
+      "name": "/mtc/motion/execute_joint_move unique delivered server",
+      "passed": true
+    },
+    {
+      "name": "motion scaling over limit rejected",
+      "passed": true
+    },
+    {
+      "name": "0.2 float32 boundary accepted",
+      "passed": true
+    },
+    {
+      "name": "motion concurrent goal rejected",
+      "passed": true
+    },
+    {
+      "name": "nonzero single point result exact",
+      "passed": true
+    },
+    {
+      "name": "finite backend feedback present",
+      "passed": true
+    },
+    {
+      "name": "motion completed ID rejected",
+      "passed": true
+    },
+    {
+      "name": "new motion accepted",
+      "passed": true
+    },
+    {
+      "name": "motion dispatched before cancellation",
+      "passed": true
+    },
+    {
+      "name": "associated Cancel accepted",
+      "passed": true
+    },
+    {
+      "name": "motion cancel has terminal stop confirmation",
+      "passed": true
+    }
+  ],
+  "goals": [
+    {
+      "goal": {
+        "command_id": "invalid-motion",
+        "joint_names": [
+          "shoulder_joint",
+          "upperArm_joint",
+          "foreArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "target_rad": [
+          0.05,
+          -0.02,
+          0.01,
+          0.03,
+          -0.04,
+          0.02
+        ],
+        "velocity_scaling": 0.2,
+        "acceleration_scaling": 1.0,
+        "timeout_ms": 2000
+      },
+      "feedback": [],
+      "accepted": false,
+      "goal_uuid": [
+        209,
+        254,
+        99,
+        224,
+        189,
+        191,
+        76,
+        134,
+        154,
+        195,
+        94,
+        11,
+        51,
+        21,
+        141,
+        243
+      ]
+    },
+    {
+      "goal": {
+        "command_id": "standalone-motion",
+        "joint_names": [
+          "shoulder_joint",
+          "upperArm_joint",
+          "foreArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "target_rad": [
+          0.05,
+          -0.02,
+          0.01,
+          0.03,
+          -0.04,
+          0.02
+        ],
+        "velocity_scaling": 0.2,
+        "acceleration_scaling": 0.2,
+        "timeout_ms": 2000
+      },
+      "feedback": [
+        {
+          "actual_position_rad": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "actual_velocity_rad_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "progress": 0.0,
+          "execution_state": "IDLE"
+        },
+        {
+          "actual_position_rad": [
+            0.05,
+            -0.02,
+            0.01,
+            0.03,
+            -0.04,
+            0.02
+          ],
+          "actual_velocity_rad_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "progress": 1.0,
+          "execution_state": "SETTLED"
+        },
+        {
+          "actual_position_rad": [
+            0.05,
+            -0.02,
+            0.01,
+            0.03,
+            -0.04,
+            0.02
+          ],
+          "actual_velocity_rad_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "progress": 1.0,
+          "execution_state": "SETTLED"
+        },
+        {
+          "actual_position_rad": [
+            0.05,
+            -0.02,
+            0.01,
+            0.03,
+            -0.04,
+            0.02
+          ],
+          "actual_velocity_rad_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "progress": 1.0,
+          "execution_state": "SETTLED"
+        },
+        {
+          "actual_position_rad": [
+            0.05,
+            -0.02,
+            0.01,
+            0.03,
+            -0.04,
+            0.02
+          ],
+          "actual_velocity_rad_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "progress": 1.0,
+          "execution_state": "SETTLED"
+        },
+        {
+          "actual_position_rad": [
+            0.05,
+            -0.02,
+            0.01,
+            0.03,
+            -0.04,
+            0.02
+          ],
+          "actual_velocity_rad_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "progress": 1.0,
+          "execution_state": "SETTLED"
+        },
+        {
+          "actual_position_rad": [
+            0.05,
+            -0.02,
+            0.01,
+            0.03,
+            -0.04,
+            0.02
+          ],
+          "actual_velocity_rad_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "progress": 1.0,
+          "execution_state": "SETTLED"
+        },
+        {
+          "actual_position_rad": [
+            0.05,
+            -0.02,
+            0.01,
+            0.03,
+            -0.04,
+            0.02
+          ],
+          "actual_velocity_rad_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "progress": 1.0,
+          "execution_state": "SETTLED"
+        },
+        {
+          "actual_position_rad": [
+            0.05,
+            -0.02,
+            0.01,
+            0.03,
+            -0.04,
+            0.02
+          ],
+          "actual_velocity_rad_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "progress": 1.0,
+          "execution_state": "SETTLED"
+        },
+        {
+          "actual_position_rad": [
+            0.05,
+            -0.02,
+            0.01,
+            0.03,
+            -0.04,
+            0.02
+          ],
+          "actual_velocity_rad_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "progress": 1.0,
+          "execution_state": "SETTLED"
+        },
+        {
+          "actual_position_rad": [
+            0.05,
+            -0.02,
+            0.01,
+            0.03,
+            -0.04,
+            0.02
+          ],
+          "actual_velocity_rad_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "progress": 1.0,
+          "execution_state": "SETTLED"
+        }
+      ],
+      "accepted": true,
+      "goal_uuid": [
+        172,
+        158,
+        49,
+        249,
+        166,
+        242,
+        67,
+        33,
+        129,
+        127,
+        230,
+        14,
+        67,
+        69,
+        37,
+        106
+      ],
+      "terminal": {
+        "status": 4,
+        "result": {
+          "success": true,
+          "stop_confirmed": true,
+          "final_position_rad": [
+            0.05,
+            -0.02,
+            0.01,
+            0.03,
+            -0.04,
+            0.02
+          ],
+          "error_code": 0,
+          "message": "已到位并停稳"
+        }
+      }
+    },
+    {
+      "goal": {
+        "command_id": "concurrent-motion",
+        "joint_names": [
+          "shoulder_joint",
+          "upperArm_joint",
+          "foreArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "target_rad": [
+          0.05,
+          -0.02,
+          0.01,
+          0.03,
+          -0.04,
+          0.02
+        ],
+        "velocity_scaling": 0.2,
+        "acceleration_scaling": 0.2,
+        "timeout_ms": 2000
+      },
+      "feedback": [],
+      "accepted": false,
+      "goal_uuid": [
+        16,
+        164,
+        140,
+        91,
+        185,
+        46,
+        69,
+        198,
+        156,
+        135,
+        13,
+        33,
+        251,
+        65,
+        25,
+        175
+      ]
+    },
+    {
+      "goal": {
+        "command_id": "standalone-motion",
+        "joint_names": [
+          "shoulder_joint",
+          "upperArm_joint",
+          "foreArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "target_rad": [
+          0.05,
+          -0.02,
+          0.01,
+          0.03,
+          -0.04,
+          0.02
+        ],
+        "velocity_scaling": 0.2,
+        "acceleration_scaling": 0.2,
+        "timeout_ms": 2000
+      },
+      "feedback": [],
+      "accepted": false,
+      "goal_uuid": [
+        232,
+        100,
+        164,
+        244,
+        217,
+        54,
+        75,
+        218,
+        130,
+        141,
+        144,
+        47,
+        210,
+        136,
+        127,
+        251
+      ]
+    },
+    {
+      "goal": {
+        "command_id": "standalone-motion-cancel",
+        "joint_names": [
+          "shoulder_joint",
+          "upperArm_joint",
+          "foreArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "target_rad": [
+          0.05,
+          -0.02,
+          0.01,
+          0.03,
+          -0.04,
+          0.02
+        ],
+        "velocity_scaling": 0.2,
+        "acceleration_scaling": 0.2,
+        "timeout_ms": 2000
+      },
+      "feedback": [
+        {
+          "actual_position_rad": [
+            0.05,
+            -0.02,
+            0.01,
+            0.03,
+            -0.04,
+            0.02
+          ],
+          "actual_velocity_rad_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "progress": 1.0,
+          "execution_state": "SETTLED"
+        },
+        {
+          "actual_position_rad": [
+            0.05,
+            -0.02,
+            0.01,
+            0.03,
+            -0.04,
+            0.02
+          ],
+          "actual_velocity_rad_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "progress": 1.0,
+          "execution_state": "SETTLED"
+        },
+        {
+          "actual_position_rad": [
+            0.05,
+            -0.02,
+            0.01,
+            0.03,
+            -0.04,
+            0.02
+          ],
+          "actual_velocity_rad_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "progress": 1.0,
+          "execution_state": "STOPPED"
+        }
+      ],
+      "accepted": true,
+      "goal_uuid": [
+        107,
+        125,
+        220,
+        237,
+        202,
+        103,
+        68,
+        109,
+        160,
+        210,
+        230,
+        86,
+        199,
+        1,
+        99,
+        9
+      ],
+      "cancel_response": {
+        "return_code": 0,
+        "goals_canceling": [
+          {
+            "goal_id": {
+              "uuid": [
+                107,
+                125,
+                220,
+                237,
+                202,
+                103,
+                68,
+                109,
+                160,
+                210,
+                230,
+                86,
+                199,
+                1,
+                99,
+                9
+              ]
+            },
+            "stamp": {
+              "sec": 1791736529,
+              "nanosec": 890340049
+            }
+          }
+        ]
+      },
+      "terminal": {
+        "status": 5,
+        "result": {
+          "success": false,
+          "stop_confirmed": true,
+          "final_position_rad": [
+            0.05,
+            -0.02,
+            0.01,
+            0.03,
+            -0.04,
+            0.02
+          ],
+          "error_code": 0,
+          "message": "无在途命令；停稳必须由关联证据确认：associated ROS motion cancel"
+        }
+      }
+    }
+  ],
+  "status": "PASS",
+  "servers": {
+    "/mtc/motion/execute_joint_move": [
+      {
+        "node": "mtc_mock_joint_move",
+        "namespace": "/",
+        "types": [
+          "mtc_interfaces/action/ExecuteJointMove"
+        ]
+      }
+    ]
+  },
+  "shutdown": [
+    {
+      "executable": "mock_motion_server",
+      "exit_code": 0,
+      "escalated": false
+    }
+  ],
+  "nodes_after_shutdown": [
+    [
+      "cpp_action_acceptance",
+      "/"
+    ]
+  ]
+}

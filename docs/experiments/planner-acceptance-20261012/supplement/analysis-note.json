@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "scope": "offline parser only, no ROS rerun",
+  "error": "Initial audit tried float() on raw URDF command-interface literals {-2*pi}/{2*pi}.",
+  "correction": "Report raw strings separately; audit trajectories against numeric planner_config.cpp limits, not a claim that runtime controller enforces these strings."
+}

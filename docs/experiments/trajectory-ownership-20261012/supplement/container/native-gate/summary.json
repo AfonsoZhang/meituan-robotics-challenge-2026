@@ -1,0 +1,54 @@
+{
+  "started_at": "2026-10-11T20:08:39.408680+00:00",
+  "scope": "Default GenericSystem+MoveIt+FjtMotionPort ownership gate with native Status evidence; no FJT Goal, no complete FSM/physical robot",
+  "observer_action_clients": 0,
+  "status": "FAIL",
+  "plugins": [
+    "mock_components/GenericSystem"
+  ],
+  "controller_only_graph": {
+    "clients": [],
+    "servers": [
+      {
+        "node": "joint_trajectory_controller",
+        "namespace": "/",
+        "types": [
+          "control_msgs/action/FollowJointTrajectory"
+        ]
+      }
+    ],
+    "direct_publishers": 0
+  },
+  "native_success": {
+    "argv": [
+      "ros2",
+      "run",
+      "mtc_trajectory_execution_cpp",
+      "fake_trajectory_probe",
+      "--verify-generic-system",
+      "success"
+    ],
+    "exit_code": 1,
+    "elapsed_seconds": 10.430089375935495,
+    "coexistence_graph": []
+  },
+  "exception": "AssertionError()",
+  "shutdown": [
+    {
+      "launch": "control",
+      "already_exited": false,
+      "escalated": false,
+      "exit_code": 0,
+      "child_failures": [],
+      "statistics_context_errors": [
+        "[ros2_control_node-1] [ERROR] [1791749351.961371043] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+        "[ros2_control_node-1] [ERROR] [1791749351.961371203] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+      ]
+    }
+  ],
+  "empty_after": true,
+  "clean_shutdown": "FAIL",
+  "driver_files_unchanged": true,
+  "driver_files_count": 5656,
+  "ended_at": "2026-10-11T20:09:16.051752+00:00"
+}

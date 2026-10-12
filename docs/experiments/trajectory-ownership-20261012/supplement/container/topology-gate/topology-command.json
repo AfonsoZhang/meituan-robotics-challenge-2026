@@ -1,0 +1,42 @@
+{
+  "argv": [
+    "ros2",
+    "run",
+    "mtc_trajectory_execution_cpp",
+    "fake_trajectory_probe",
+    "--verify-generic-system",
+    "topology"
+  ],
+  "exit_code": 2,
+  "elapsed_seconds": 10.37106615502853,
+  "coexistence_graph": [
+    {
+      "clients": [
+        {
+          "node": "moveit_simple_controller_manager",
+          "namespace": "/",
+          "types": [
+            "control_msgs/action/FollowJointTrajectory"
+          ]
+        },
+        {
+          "node": "mtc_fake_trajectory_probe",
+          "namespace": "/",
+          "types": [
+            "control_msgs/action/FollowJointTrajectory"
+          ]
+        }
+      ],
+      "servers": [
+        {
+          "node": "joint_trajectory_controller",
+          "namespace": "/",
+          "types": [
+            "control_msgs/action/FollowJointTrajectory"
+          ]
+        }
+      ],
+      "direct_publishers": 0
+    }
+  ]
+}

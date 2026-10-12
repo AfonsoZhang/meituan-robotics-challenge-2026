@@ -1,0 +1,218 @@
+{
+  "case": "task-associated-cancel",
+  "scope": "Standalone C++ Mock processes and ROS Action only",
+  "domain": 111,
+  "checks": [
+    {
+      "name": "/mtc/task/execute server available",
+      "passed": true
+    },
+    {
+      "name": "/mtc/task/execute unique delivered server",
+      "passed": true
+    },
+    {
+      "name": "/mtc/manipulation/pick_place server available",
+      "passed": true
+    },
+    {
+      "name": "/mtc/manipulation/pick_place unique delivered server",
+      "passed": true
+    },
+    {
+      "name": "cancel scenario accepted",
+      "passed": true
+    },
+    {
+      "name": "child motion state observed repeatedly",
+      "passed": true
+    },
+    {
+      "name": "associated Cancel accepted",
+      "passed": true
+    },
+    {
+      "name": "trusted child final cancel propagated",
+      "passed": true
+    }
+  ],
+  "goals": [
+    {
+      "goal": {
+        "task_id": "standalone-cancel",
+        "mode": 1,
+        "ordered_colors": [
+          1
+        ],
+        "timeout_ms": 20000,
+        "placement_stability_sec": 3.0
+      },
+      "feedback": [
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "EXECUTE_ITEM",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "EXECUTE_ITEM"
+        },
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "EXECUTE_ITEM",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "PLAN_ACQUIRE"
+        },
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "EXECUTE_ITEM",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "MOVE_PRE_ALIGN"
+        },
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "EXECUTE_ITEM",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "MOVE_PRE_ALIGN"
+        },
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "EXECUTE_ITEM",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "MOVE_PRE_ALIGN"
+        },
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "CANCEL_PENDING",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "MOVE_PRE_ALIGN"
+        },
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "CANCEL_PENDING",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "MOVE_PRE_ALIGN"
+        },
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "CANCELLED",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "CANCELLED"
+        }
+      ],
+      "accepted": true,
+      "goal_uuid": [
+        229,
+        49,
+        251,
+        243,
+        197,
+        98,
+        68,
+        31,
+        151,
+        13,
+        3,
+        180,
+        10,
+        250,
+        149,
+        252
+      ],
+      "cancel_response": {
+        "return_code": 0,
+        "goals_canceling": [
+          {
+            "goal_id": {
+              "uuid": [
+                229,
+                49,
+                251,
+                243,
+                197,
+                98,
+                68,
+                31,
+                151,
+                13,
+                3,
+                180,
+                10,
+                250,
+                149,
+                252
+              ]
+            },
+            "stamp": {
+              "sec": 1791733470,
+              "nanosec": 341102877
+            }
+          }
+        ]
+      },
+      "terminal": {
+        "status": 5,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 0,
+          "message": "cancelled after stop confirmation (completed 0)"
+        }
+      }
+    }
+  ],
+  "status": "PASS",
+  "servers": {
+    "/mtc/task/execute": [
+      {
+        "node": "mtc_mock_task",
+        "namespace": "/",
+        "types": [
+          "mtc_interfaces/action/ExecuteTask"
+        ]
+      }
+    ],
+    "/mtc/manipulation/pick_place": [
+      {
+        "node": "mtc_mock_pick_place",
+        "namespace": "/",
+        "types": [
+          "mtc_interfaces/action/PickPlace"
+        ]
+      }
+    ]
+  },
+  "stop_scope": "Only this delivered trusted Mock contract; public PickPlace result has no independent stop_confirmed field.",
+  "shutdown": [
+    {
+      "executable": "mock_task_server",
+      "exit_code": 0,
+      "escalated": false
+    },
+    {
+      "executable": "mock_pick_place_server",
+      "exit_code": 0,
+      "escalated": false
+    }
+  ],
+  "nodes_after_shutdown": [
+    [
+      "cpp_action_acceptance",
+      "/"
+    ]
+  ]
+}

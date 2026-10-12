@@ -1,0 +1,33 @@
+{
+  "container": "mtc-trajectory-review-688d80d",
+  "image": "sha256:ea5428ff0442ef925cb55124746cbf560b6172a59e8c5e5d3f547a2dbb0c940d",
+  "argv": [
+    "docker",
+    "run",
+    "-d",
+    "--name",
+    "mtc-trajectory-review-688d80d",
+    "--network",
+    "none",
+    "--cpus",
+    "2",
+    "--memory",
+    "4g",
+    "--pids-limit",
+    "512",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--label",
+    "mtc.purpose=trajectory-acceptance",
+    "--label",
+    "mtc.event=sha-688d80d63ba2196e3c1753b69d18c1bfa30919b3",
+    "sha256:ea5428ff0442ef925cb55124746cbf560b6172a59e8c5e5d3f547a2dbb0c940d",
+    "sleep",
+    "infinity"
+  ],
+  "source_container": "mtc-repro-5c8f61d8af9f-688d80d63ba2",
+  "commit": "688d80d63ba2196e3c1753b69d18c1bfa30919b3",
+  "ready_at": "2026-10-11T17:51:09.609520+00:00"
+}

@@ -1,0 +1,137 @@
+UpdateCTestConfiguration  from :/candidate-build/mtc_core_cpp/CTestConfiguration.ini
+Parse Config file:/candidate-build/mtc_core_cpp/CTestConfiguration.ini
+   Site: 6febfe114c78
+   Build name: (empty)
+ Add coverage exclude regular expressions.
+Create new tag: 20261011-1628 - Experimental
+UpdateCTestConfiguration  from :/candidate-build/mtc_core_cpp/CTestConfiguration.ini
+Parse Config file:/candidate-build/mtc_core_cpp/CTestConfiguration.ini
+Test project /candidate-build/mtc_core_cpp
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: test_core_types
+
+1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml" "--package-name" "mtc_core_cpp" "--output-file" "/candidate-build/mtc_core_cpp/ament_cmake_gtest/test_core_types.txt" "--command" "/candidate-build/mtc_core_cpp/test_core_types" "--gtest_output=xml:/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml"
+1: Working Directory: /candidate-build/mtc_core_cpp
+1: Test timeout computed to be: 60
+1: -- run_test.py: invoking following command in '/candidate-build/mtc_core_cpp':
+1:  - /candidate-build/mtc_core_cpp/test_core_types --gtest_output=xml:/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml
+1: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+1: [==========] Running 22 tests from 10 test suites.
+1: [----------] Global test environment set-up.
+1: [----------] 2 tests from CoreErrorCodes
+1: [ RUN      ] CoreErrorCodes.ValuesMatchFrozenInterfaceNumbers
+1: [       OK ] CoreErrorCodes.ValuesMatchFrozenInterfaceNumbers (0 ms)
+1: [ RUN      ] CoreErrorCodes.NameOfKnownAndUnknown
+1: [       OK ] CoreErrorCodes.NameOfKnownAndUnknown (0 ms)
+1: [----------] 2 tests from CoreErrorCodes (0 ms total)
+1: 
+1: [----------] 2 tests from CoreToolState
+1: [ RUN      ] CoreToolState.EvidenceLevelIsOrdered
+1: [       OK ] CoreToolState.EvidenceLevelIsOrdered (0 ms)
+1: [ RUN      ] CoreToolState.NamesAreStable
+1: [       OK ] CoreToolState.NamesAreStable (0 ms)
+1: [----------] 2 tests from CoreToolState (0 ms total)
+1: 
+1: [----------] 5 tests from CorePose
+1: [ RUN      ] CorePose.FullSixDofIsPreserved
+1: [       OK ] CorePose.FullSixDofIsPreserved (0 ms)
+1: [ RUN      ] CorePose.MissingFrameIdIsNotUsable
+1: [       OK ] CorePose.MissingFrameIdIsNotUsable (0 ms)
+1: [ RUN      ] CorePose.UnnormalizedQuaternionIsNotUsable
+1: [       OK ] CorePose.UnnormalizedQuaternionIsNotUsable (0 ms)
+1: [ RUN      ] CorePose.InvalidFlagBlocksUsability
+1: [       OK ] CorePose.InvalidFlagBlocksUsability (0 ms)
+1: [ RUN      ] CorePose.PoseEstimateRequiresBothFlagAndUsablePose
+1: [       OK ] CorePose.PoseEstimateRequiresBothFlagAndUsablePose (0 ms)
+1: [----------] 5 tests from CorePose (0 ms total)
+1: 
+1: [----------] 3 tests from CoreResults
+1: [ RUN      ] CoreResults.DetectionOkRequiresAllConditions
+1: [       OK ] CoreResults.DetectionOkRequiresAllConditions (0 ms)
+1: [ RUN      ] CoreResults.MotionResultRequiresBothSuccessAndArrived
+1: [       OK ] CoreResults.MotionResultRequiresBothSuccessAndArrived (0 ms)
+1: [ RUN      ] CoreResults.StopResultSeparatesDeliveryFromConfirmation
+1: [       OK ] CoreResults.StopResultSeparatesDeliveryFromConfirmation (0 ms)
+1: [----------] 3 tests from CoreResults (0 ms total)
+1: 
+1: [----------] 1 test from CoreMotionCommand
+1: [ RUN      ] CoreMotionCommand.ShapeValidation
+1: [       OK ] CoreMotionCommand.ShapeValidation (0 ms)
+1: [----------] 1 test from CoreMotionCommand (0 ms total)
+1: 
+1: [----------] 1 test from CoreMotionPrimitive
+1: [ RUN      ] CoreMotionPrimitive.EqualityIncludesContactFlag
+1: [       OK ] CoreMotionPrimitive.EqualityIncludesContactFlag (0 ms)
+1: [----------] 1 test from CoreMotionPrimitive (0 ms total)
+1: 
+1: [----------] 4 tests from CoreTimedTrajectory
+1: [ RUN      ] CoreTimedTrajectory.ShapeValidationAndDuration
+1: [       OK ] CoreTimedTrajectory.ShapeValidationAndDuration (0 ms)
+1: [ RUN      ] CoreTimedTrajectory.RejectsNonMonotonicTime
+1: [       OK ] CoreTimedTrajectory.RejectsNonMonotonicTime (0 ms)
+1: [ RUN      ] CoreTimedTrajectory.RejectsDimensionMismatch
+1: [       OK ] CoreTimedTrajectory.RejectsDimensionMismatch (0 ms)
+1: [ RUN      ] CoreTimedTrajectory.RejectsEmptyOrDuplicateJointNames
+1: [       OK ] CoreTimedTrajectory.RejectsEmptyOrDuplicateJointNames (0 ms)
+1: [----------] 4 tests from CoreTimedTrajectory (0 ms total)
+1: 
+1: [----------] 1 test from CoreClock
+1: [ RUN      ] CoreClock.ManualClockIsDeterministic
+1: [       OK ] CoreClock.ManualClockIsDeterministic (0 ms)
+1: [----------] 1 test from CoreClock (0 ms total)
+1: 
+1: [----------] 1 test from CoreExecState
+1: [ RUN      ] CoreExecState.StringMappingIsStable
+1: [       OK ] CoreExecState.StringMappingIsStable (0 ms)
+1: [----------] 1 test from CoreExecState (0 ms total)
+1: 
+1: [----------] 2 tests from CoreAudit
+1: [ RUN      ] CoreAudit.PoseRejectsNonFinitePositionStampAndQuaternion
+1: [       OK ] CoreAudit.PoseRejectsNonFinitePositionStampAndQuaternion (0 ms)
+1: [ RUN      ] CoreAudit.TrajectoryRejectsNonFiniteFieldsAndNegativeTimes
+1: [       OK ] CoreAudit.TrajectoryRejectsNonFiniteFieldsAndNegativeTimes (0 ms)
+1: [----------] 2 tests from CoreAudit (0 ms total)
+1: 
+1: [----------] Global test environment tear-down
+1: [==========] 22 tests from 10 test suites ran. (0 ms total)
+1: [  PASSED  ] 22 tests.
+1: -- run_test.py: return code 0
+1: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml'
+1: -- run_test.py: verify result file '/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml'
+1/2 Test #1: test_core_types ..................   Passed    0.08 sec
+test 2
+    Start 2: test_error_codes_msg_parity
+
+2: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml" "--package-name" "mtc_core_cpp" "--output-file" "/candidate-build/mtc_core_cpp/ament_cmake_gtest/test_error_codes_msg_parity.txt" "--command" "/candidate-build/mtc_core_cpp/test_error_codes_msg_parity" "--gtest_output=xml:/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml"
+2: Working Directory: /candidate-build/mtc_core_cpp
+2: Test timeout computed to be: 60
+2: -- run_test.py: invoking following command in '/candidate-build/mtc_core_cpp':
+2:  - /candidate-build/mtc_core_cpp/test_error_codes_msg_parity --gtest_output=xml:/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml
+2: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+2: [==========] Running 1 test from 1 test suite.
+2: [----------] Global test environment set-up.
+2: [----------] 1 test from ErrorCodesMsgParity
+2: [ RUN      ] ErrorCodesMsgParity.ConstantsMatchInterfacesMsg
+2: [       OK ] ErrorCodesMsgParity.ConstantsMatchInterfacesMsg (0 ms)
+2: [----------] 1 test from ErrorCodesMsgParity (0 ms total)
+2: 
+2: [----------] Global test environment tear-down
+2: [==========] 1 test from 1 test suite ran. (0 ms total)
+2: [  PASSED  ] 1 test.
+2: -- run_test.py: return code 0
+2: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml'
+2: -- run_test.py: verify result file '/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml'
+2/2 Test #2: test_error_codes_msg_parity ......   Passed    0.08 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Label Time Summary:
+gtest    =   0.16 sec*proc (2 tests)
+
+Total Test time (real) =   0.16 sec

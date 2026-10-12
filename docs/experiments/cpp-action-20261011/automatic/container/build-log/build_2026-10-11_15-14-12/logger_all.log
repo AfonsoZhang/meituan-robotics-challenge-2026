@@ -1,0 +1,1083 @@
+[0.304s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', '--log-base', '/candidate-evidence/build-log', 'build', '--build-base', '/candidate-build', '--install-base', '/candidate-install', '--executor', 'sequential', '--cmake-args', '-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17']
+[0.304s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base='/candidate-evidence/build-log', log_level=None, verb_name='build', build_base='/candidate-build', install_base='/candidate-install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='sequential', parallel_workers=16, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, cmake_args=['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17'], cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7479b62f7440>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7479b62f70e0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7479b62f70e0>>, mixin_verb=('build',))
+[0.396s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.397s] INFO:colcon.colcon_metadata.package_discovery.colcon_meta:Using configuration from '/root/.colcon/metadata/default/Gazebo.meta'
+[0.399s] INFO:colcon.colcon_metadata.package_discovery.colcon_meta:Using configuration from '/root/.colcon/metadata/default/fastdds.meta'
+[0.399s] INFO:colcon.colcon_metadata.package_discovery.colcon_meta:Using configuration from '/root/.colcon/metadata/default/fastrtps.meta'
+[0.399s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.399s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.399s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.399s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.399s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.399s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/candidate'
+[0.399s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.399s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.400s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.400s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.400s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.400s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.400s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.400s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.400s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.430s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.430s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.430s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.430s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(config) by extensions ['ignore', 'ignore_ament_install']
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(config) by extension 'ignore'
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(config) by extension 'ignore_ament_install'
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(config) by extensions ['colcon_pkg']
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(config) by extension 'colcon_pkg'
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(config) by extensions ['colcon_meta']
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(config) by extension 'colcon_meta'
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(config) by extensions ['ros']
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(config) by extension 'ros'
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(config) by extensions ['cmake', 'python']
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(config) by extension 'cmake'
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(config) by extension 'python'
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(config) by extensions ['python_setup_py']
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(config) by extension 'python_setup_py'
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['ignore', 'ignore_ament_install']
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'ignore'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'ignore_ament_install'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['colcon_pkg']
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'colcon_pkg'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['colcon_meta']
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'colcon_meta'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['ros']
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'ros'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['cmake', 'python']
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'cmake'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'python'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['python_setup_py']
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'python_setup_py'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs/architecture) by extensions ['ignore', 'ignore_ament_install']
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs/architecture) by extension 'ignore'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs/architecture) by extension 'ignore_ament_install'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs/architecture) by extensions ['colcon_pkg']
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs/architecture) by extension 'colcon_pkg'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs/architecture) by extensions ['colcon_meta']
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs/architecture) by extension 'colcon_meta'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs/architecture) by extensions ['ros']
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs/architecture) by extension 'ros'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs/architecture) by extensions ['cmake', 'python']
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs/architecture) by extension 'cmake'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs/architecture) by extension 'python'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(docs/architecture) by extensions ['python_setup_py']
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/architecture) by extension 'python_setup_py'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration) by extensions ['ignore', 'ignore_ament_install']
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration) by extension 'ignore'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration) by extension 'ignore_ament_install'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration) by extensions ['colcon_pkg']
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration) by extension 'colcon_pkg'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration) by extensions ['colcon_meta']
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration) by extension 'colcon_meta'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration) by extensions ['ros']
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration) by extension 'ros'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration) by extensions ['cmake', 'python']
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration) by extension 'cmake'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration) by extension 'python'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration) by extensions ['python_setup_py']
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration) by extension 'python_setup_py'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration/patches) by extensions ['ignore', 'ignore_ament_install']
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration/patches) by extension 'ignore'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration/patches) by extension 'ignore_ament_install'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration/patches) by extensions ['colcon_pkg']
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration/patches) by extension 'colcon_pkg'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration/patches) by extensions ['colcon_meta']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration/patches) by extension 'colcon_meta'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration/patches) by extensions ['ros']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration/patches) by extension 'ros'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration/patches) by extensions ['cmake', 'python']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration/patches) by extension 'cmake'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration/patches) by extension 'python'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration/patches) by extensions ['python_setup_py']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/migration/patches) by extension 'python_setup_py'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/prompts) by extensions ['ignore', 'ignore_ament_install']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/prompts) by extension 'ignore'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/prompts) by extension 'ignore_ament_install'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/prompts) by extensions ['colcon_pkg']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/prompts) by extension 'colcon_pkg'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/prompts) by extensions ['colcon_meta']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/prompts) by extension 'colcon_meta'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/prompts) by extensions ['ros']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/prompts) by extension 'ros'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/prompts) by extensions ['cmake', 'python']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/prompts) by extension 'cmake'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/prompts) by extension 'python'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/prompts) by extensions ['python_setup_py']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/prompts) by extension 'python_setup_py'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/reference) by extensions ['ignore', 'ignore_ament_install']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/reference) by extension 'ignore'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/reference) by extension 'ignore_ament_install'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/reference) by extensions ['colcon_pkg']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/reference) by extension 'colcon_pkg'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(docs/reference) by extensions ['colcon_meta']
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/reference) by extension 'colcon_meta'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/reference) by extensions ['ros']
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/reference) by extension 'ros'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/reference) by extensions ['cmake', 'python']
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/reference) by extension 'cmake'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/reference) by extension 'python'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/reference) by extensions ['python_setup_py']
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/reference) by extension 'python_setup_py'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/setup) by extensions ['ignore', 'ignore_ament_install']
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/setup) by extension 'ignore'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/setup) by extension 'ignore_ament_install'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/setup) by extensions ['colcon_pkg']
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/setup) by extension 'colcon_pkg'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/setup) by extensions ['colcon_meta']
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/setup) by extension 'colcon_meta'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/setup) by extensions ['ros']
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/setup) by extension 'ros'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/setup) by extensions ['cmake', 'python']
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/setup) by extension 'cmake'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/setup) by extension 'python'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/setup) by extensions ['python_setup_py']
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(docs/setup) by extension 'python_setup_py'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extensions ['ignore', 'ignore_ament_install']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'ignore'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'ignore_ament_install'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extensions ['colcon_pkg']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'colcon_pkg'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extensions ['colcon_meta']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'colcon_meta'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extensions ['ros']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'ros'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extensions ['cmake', 'python']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'cmake'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'python'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extensions ['python_setup_py']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'python_setup_py'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_aubo_bridge) by extensions ['ignore', 'ignore_ament_install']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_aubo_bridge) by extension 'ignore'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_aubo_bridge) by extension 'ignore_ament_install'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_aubo_bridge) by extensions ['colcon_pkg']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_aubo_bridge) by extension 'colcon_pkg'
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_aubo_bridge) by extensions ['colcon_meta']
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_aubo_bridge) by extension 'colcon_meta'
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_aubo_bridge) by extensions ['ros']
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_aubo_bridge) by extension 'ros'
+[0.440s] DEBUG:colcon.colcon_core.package_identification:Package 'src/mtc_aubo_bridge' with type 'ros.ament_python' and name 'mtc_aubo_bridge'
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_bringup) by extensions ['ignore', 'ignore_ament_install']
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_bringup) by extension 'ignore'
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_bringup) by extension 'ignore_ament_install'
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_bringup) by extensions ['colcon_pkg']
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_bringup) by extension 'colcon_pkg'
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_bringup) by extensions ['colcon_meta']
+[0.440s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_bringup) by extension 'colcon_meta'
+[0.441s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_bringup) by extensions ['ros']
+[0.441s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_bringup) by extension 'ros'
+[0.441s] DEBUG:colcon.colcon_core.package_identification:Package 'src/mtc_bringup' with type 'ros.ament_python' and name 'mtc_bringup'
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_core_cpp) by extensions ['ignore', 'ignore_ament_install']
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_core_cpp) by extension 'ignore'
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_core_cpp) by extension 'ignore_ament_install'
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_core_cpp) by extensions ['colcon_pkg']
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_core_cpp) by extension 'colcon_pkg'
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_core_cpp) by extensions ['colcon_meta']
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_core_cpp) by extension 'colcon_meta'
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_core_cpp) by extensions ['ros']
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_core_cpp) by extension 'ros'
+[0.442s] DEBUG:colcon.colcon_core.package_identification:Package 'src/mtc_core_cpp' with type 'ros.ament_cmake' and name 'mtc_core_cpp'
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_description) by extensions ['ignore', 'ignore_ament_install']
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_description) by extension 'ignore'
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_description) by extension 'ignore_ament_install'
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_description) by extensions ['colcon_pkg']
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_description) by extension 'colcon_pkg'
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_description) by extensions ['colcon_meta']
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_description) by extension 'colcon_meta'
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_description) by extensions ['ros']
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_description) by extension 'ros'
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_description) by extensions ['cmake', 'python']
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_description) by extension 'cmake'
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_description) by extension 'python'
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_description) by extensions ['python_setup_py']
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_description) by extension 'python_setup_py'
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_interfaces) by extension 'ignore'
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_interfaces) by extension 'ignore_ament_install'
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_interfaces) by extensions ['colcon_pkg']
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_interfaces) by extension 'colcon_pkg'
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_interfaces) by extensions ['colcon_meta']
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_interfaces) by extension 'colcon_meta'
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_interfaces) by extensions ['ros']
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_interfaces) by extension 'ros'
+[0.444s] DEBUG:colcon.colcon_core.package_identification:Package 'src/mtc_interfaces' with type 'ros.ament_cmake' and name 'mtc_interfaces'
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation) by extensions ['ignore', 'ignore_ament_install']
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation) by extension 'ignore'
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation) by extension 'ignore_ament_install'
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation) by extensions ['colcon_pkg']
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation) by extension 'colcon_pkg'
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation) by extensions ['colcon_meta']
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation) by extension 'colcon_meta'
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation) by extensions ['ros']
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation) by extension 'ros'
+[0.444s] DEBUG:colcon.colcon_core.package_identification:Package 'src/mtc_manipulation' with type 'ros.ament_python' and name 'mtc_manipulation'
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation_cpp) by extensions ['ignore', 'ignore_ament_install']
+[0.445s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation_cpp) by extension 'ignore'
+[0.445s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation_cpp) by extension 'ignore_ament_install'
+[0.445s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation_cpp) by extensions ['colcon_pkg']
+[0.445s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation_cpp) by extension 'colcon_pkg'
+[0.445s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation_cpp) by extensions ['colcon_meta']
+[0.445s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation_cpp) by extension 'colcon_meta'
+[0.445s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation_cpp) by extensions ['ros']
+[0.445s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_manipulation_cpp) by extension 'ros'
+[0.445s] DEBUG:colcon.colcon_core.package_identification:Package 'src/mtc_manipulation_cpp' with type 'ros.ament_cmake' and name 'mtc_manipulation_cpp'
+[0.445s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution) by extensions ['ignore', 'ignore_ament_install']
+[0.445s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution) by extension 'ignore'
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution) by extension 'ignore_ament_install'
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution) by extensions ['colcon_pkg']
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution) by extension 'colcon_pkg'
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution) by extensions ['colcon_meta']
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution) by extension 'colcon_meta'
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution) by extensions ['ros']
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution) by extension 'ros'
+[0.446s] DEBUG:colcon.colcon_core.package_identification:Package 'src/mtc_motion_execution' with type 'ros.ament_python' and name 'mtc_motion_execution'
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution_cpp) by extensions ['ignore', 'ignore_ament_install']
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution_cpp) by extension 'ignore'
+[0.447s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution_cpp) by extension 'ignore_ament_install'
+[0.447s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution_cpp) by extensions ['colcon_pkg']
+[0.447s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution_cpp) by extension 'colcon_pkg'
+[0.447s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution_cpp) by extensions ['colcon_meta']
+[0.447s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution_cpp) by extension 'colcon_meta'
+[0.447s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution_cpp) by extensions ['ros']
+[0.447s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_execution_cpp) by extension 'ros'
+[0.447s] DEBUG:colcon.colcon_core.package_identification:Package 'src/mtc_motion_execution_cpp' with type 'ros.ament_cmake' and name 'mtc_motion_execution_cpp'
+[0.447s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_planning) by extensions ['ignore', 'ignore_ament_install']
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_planning) by extension 'ignore'
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_planning) by extension 'ignore_ament_install'
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_planning) by extensions ['colcon_pkg']
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_planning) by extension 'colcon_pkg'
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_planning) by extensions ['colcon_meta']
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_planning) by extension 'colcon_meta'
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_planning) by extensions ['ros']
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_planning) by extension 'ros'
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_planning) by extensions ['cmake', 'python']
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_planning) by extension 'cmake'
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_planning) by extension 'python'
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_planning) by extensions ['python_setup_py']
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_motion_planning) by extension 'python_setup_py'
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_ros2_action_cpp) by extensions ['ignore', 'ignore_ament_install']
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_ros2_action_cpp) by extension 'ignore'
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_ros2_action_cpp) by extension 'ignore_ament_install'
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_ros2_action_cpp) by extensions ['colcon_pkg']
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_ros2_action_cpp) by extension 'colcon_pkg'
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_ros2_action_cpp) by extensions ['colcon_meta']
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_ros2_action_cpp) by extension 'colcon_meta'
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_ros2_action_cpp) by extensions ['ros']
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_ros2_action_cpp) by extension 'ros'
+[0.449s] DEBUG:colcon.colcon_core.package_identification:Package 'src/mtc_ros2_action_cpp' with type 'ros.ament_cmake' and name 'mtc_ros2_action_cpp'
+[0.449s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_safety) by extensions ['ignore', 'ignore_ament_install']
+[0.449s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_safety) by extension 'ignore'
+[0.449s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_safety) by extension 'ignore_ament_install'
+[0.449s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_safety) by extensions ['colcon_pkg']
+[0.449s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_safety) by extension 'colcon_pkg'
+[0.449s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_safety) by extensions ['colcon_meta']
+[0.449s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_safety) by extension 'colcon_meta'
+[0.449s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_safety) by extensions ['ros']
+[0.449s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_safety) by extension 'ros'
+[0.450s] DEBUG:colcon.colcon_core.package_identification:Package 'src/mtc_safety' with type 'ros.ament_python' and name 'mtc_safety'
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_simulation) by extensions ['ignore', 'ignore_ament_install']
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_simulation) by extension 'ignore'
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_simulation) by extension 'ignore_ament_install'
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_simulation) by extensions ['colcon_pkg']
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_simulation) by extension 'colcon_pkg'
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_simulation) by extensions ['colcon_meta']
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_simulation) by extension 'colcon_meta'
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_simulation) by extensions ['ros']
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_simulation) by extension 'ros'
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_simulation) by extensions ['cmake', 'python']
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_simulation) by extension 'cmake'
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_simulation) by extension 'python'
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_simulation) by extensions ['python_setup_py']
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_simulation) by extension 'python_setup_py'
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task) by extensions ['ignore', 'ignore_ament_install']
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task) by extension 'ignore'
+[0.451s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task) by extension 'ignore_ament_install'
+[0.451s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task) by extensions ['colcon_pkg']
+[0.451s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task) by extension 'colcon_pkg'
+[0.451s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task) by extensions ['colcon_meta']
+[0.451s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task) by extension 'colcon_meta'
+[0.451s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task) by extensions ['ros']
+[0.451s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task) by extension 'ros'
+[0.451s] DEBUG:colcon.colcon_core.package_identification:Package 'src/mtc_task' with type 'ros.ament_python' and name 'mtc_task'
+[0.451s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task_cpp) by extensions ['ignore', 'ignore_ament_install']
+[0.451s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task_cpp) by extension 'ignore'
+[0.451s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task_cpp) by extension 'ignore_ament_install'
+[0.452s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task_cpp) by extensions ['colcon_pkg']
+[0.452s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task_cpp) by extension 'colcon_pkg'
+[0.452s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task_cpp) by extensions ['colcon_meta']
+[0.452s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task_cpp) by extension 'colcon_meta'
+[0.452s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task_cpp) by extensions ['ros']
+[0.452s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_task_cpp) by extension 'ros'
+[0.452s] DEBUG:colcon.colcon_core.package_identification:Package 'src/mtc_task_cpp' with type 'ros.ament_cmake' and name 'mtc_task_cpp'
+[0.452s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_tool) by extensions ['ignore', 'ignore_ament_install']
+[0.452s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_tool) by extension 'ignore'
+[0.452s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_tool) by extension 'ignore_ament_install'
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_tool) by extensions ['colcon_pkg']
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_tool) by extension 'colcon_pkg'
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_tool) by extensions ['colcon_meta']
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_tool) by extension 'colcon_meta'
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_tool) by extensions ['ros']
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(src/mtc_tool) by extension 'ros'
+[0.453s] DEBUG:colcon.colcon_core.package_identification:Package 'src/mtc_tool' with type 'ros.ament_python' and name 'mtc_tool'
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(tests) by extensions ['ignore', 'ignore_ament_install']
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(tests) by extension 'ignore'
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(tests) by extension 'ignore_ament_install'
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(tests) by extensions ['colcon_pkg']
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(tests) by extension 'colcon_pkg'
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(tests) by extensions ['colcon_meta']
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(tests) by extension 'colcon_meta'
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(tests) by extensions ['ros']
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(tests) by extension 'ros'
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(tests) by extensions ['cmake', 'python']
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(tests) by extension 'cmake'
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(tests) by extension 'python'
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(tests) by extensions ['python_setup_py']
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(tests) by extension 'python_setup_py'
+[0.454s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.454s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.454s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.454s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.454s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'mtc_core_cpp' build argument 'cmake_args' from command line to '['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17']'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'mtc_core_cpp' build argument 'cmake_target' from command line to 'None'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'mtc_core_cpp' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'mtc_core_cpp' build argument 'cmake_clean_cache' from command line to 'False'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'mtc_core_cpp' build argument 'cmake_clean_first' from command line to 'False'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'mtc_core_cpp' build argument 'cmake_force_configure' from command line to 'False'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'mtc_core_cpp' build argument 'ament_cmake_args' from command line to 'None'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'mtc_core_cpp' build argument 'catkin_cmake_args' from command line to 'None'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'mtc_core_cpp' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.492s] DEBUG:colcon.colcon_core.verb:Building package 'mtc_core_cpp' with the following arguments: {'ament_cmake_args': None, 'build_base': '/candidate-build/mtc_core_cpp', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/candidate-install/mtc_core_cpp', 'merge_install': False, 'path': '/candidate/src/mtc_core_cpp', 'symlink_install': False, 'test_result_base': None}
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_interfaces' build argument 'cmake_args' from command line to '['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17']'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_interfaces' build argument 'cmake_target' from command line to 'None'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.493s] DEBUG:colcon.colcon_core.verb:Building package 'mtc_interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/candidate-build/mtc_interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/candidate-install/mtc_interfaces', 'merge_install': False, 'path': '/candidate/src/mtc_interfaces', 'symlink_install': False, 'test_result_base': None}
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_aubo_bridge' build argument 'cmake_args' from command line to '['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17']'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_aubo_bridge' build argument 'cmake_target' from command line to 'None'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_aubo_bridge' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_aubo_bridge' build argument 'cmake_clean_cache' from command line to 'False'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_aubo_bridge' build argument 'cmake_clean_first' from command line to 'False'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_aubo_bridge' build argument 'cmake_force_configure' from command line to 'False'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_aubo_bridge' build argument 'ament_cmake_args' from command line to 'None'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_aubo_bridge' build argument 'catkin_cmake_args' from command line to 'None'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_aubo_bridge' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.493s] DEBUG:colcon.colcon_core.verb:Building package 'mtc_aubo_bridge' with the following arguments: {'ament_cmake_args': None, 'build_base': '/candidate-build/mtc_aubo_bridge', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/candidate-install/mtc_aubo_bridge', 'merge_install': False, 'path': '/candidate/src/mtc_aubo_bridge', 'symlink_install': False, 'test_result_base': None}
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation' build argument 'cmake_args' from command line to '['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17']'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation' build argument 'cmake_target' from command line to 'None'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation' build argument 'cmake_clean_cache' from command line to 'False'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation' build argument 'cmake_clean_first' from command line to 'False'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation' build argument 'cmake_force_configure' from command line to 'False'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation' build argument 'ament_cmake_args' from command line to 'None'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation' build argument 'catkin_cmake_args' from command line to 'None'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.493s] DEBUG:colcon.colcon_core.verb:Building package 'mtc_manipulation' with the following arguments: {'ament_cmake_args': None, 'build_base': '/candidate-build/mtc_manipulation', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/candidate-install/mtc_manipulation', 'merge_install': False, 'path': '/candidate/src/mtc_manipulation', 'symlink_install': False, 'test_result_base': None}
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution' build argument 'cmake_args' from command line to '['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17']'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution' build argument 'cmake_target' from command line to 'None'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution' build argument 'cmake_clean_cache' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution' build argument 'cmake_clean_first' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution' build argument 'cmake_force_configure' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution' build argument 'ament_cmake_args' from command line to 'None'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution' build argument 'catkin_cmake_args' from command line to 'None'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.494s] DEBUG:colcon.colcon_core.verb:Building package 'mtc_motion_execution' with the following arguments: {'ament_cmake_args': None, 'build_base': '/candidate-build/mtc_motion_execution', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/candidate-install/mtc_motion_execution', 'merge_install': False, 'path': '/candidate/src/mtc_motion_execution', 'symlink_install': False, 'test_result_base': None}
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution_cpp' build argument 'cmake_args' from command line to '['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17']'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution_cpp' build argument 'cmake_target' from command line to 'None'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution_cpp' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution_cpp' build argument 'cmake_clean_cache' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution_cpp' build argument 'cmake_clean_first' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution_cpp' build argument 'cmake_force_configure' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution_cpp' build argument 'ament_cmake_args' from command line to 'None'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution_cpp' build argument 'catkin_cmake_args' from command line to 'None'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_motion_execution_cpp' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.494s] DEBUG:colcon.colcon_core.verb:Building package 'mtc_motion_execution_cpp' with the following arguments: {'ament_cmake_args': None, 'build_base': '/candidate-build/mtc_motion_execution_cpp', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/candidate-install/mtc_motion_execution_cpp', 'merge_install': False, 'path': '/candidate/src/mtc_motion_execution_cpp', 'symlink_install': False, 'test_result_base': None}
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_safety' build argument 'cmake_args' from command line to '['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17']'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_safety' build argument 'cmake_target' from command line to 'None'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_safety' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_safety' build argument 'cmake_clean_cache' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_safety' build argument 'cmake_clean_first' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_safety' build argument 'cmake_force_configure' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_safety' build argument 'ament_cmake_args' from command line to 'None'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_safety' build argument 'catkin_cmake_args' from command line to 'None'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'mtc_safety' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.494s] DEBUG:colcon.colcon_core.verb:Building package 'mtc_safety' with the following arguments: {'ament_cmake_args': None, 'build_base': '/candidate-build/mtc_safety', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/candidate-install/mtc_safety', 'merge_install': False, 'path': '/candidate/src/mtc_safety', 'symlink_install': False, 'test_result_base': None}
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task' build argument 'cmake_args' from command line to '['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17']'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task' build argument 'cmake_target' from command line to 'None'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task' build argument 'cmake_clean_cache' from command line to 'False'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task' build argument 'cmake_clean_first' from command line to 'False'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task' build argument 'cmake_force_configure' from command line to 'False'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task' build argument 'ament_cmake_args' from command line to 'None'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task' build argument 'catkin_cmake_args' from command line to 'None'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.495s] DEBUG:colcon.colcon_core.verb:Building package 'mtc_task' with the following arguments: {'ament_cmake_args': None, 'build_base': '/candidate-build/mtc_task', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/candidate-install/mtc_task', 'merge_install': False, 'path': '/candidate/src/mtc_task', 'symlink_install': False, 'test_result_base': None}
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task_cpp' build argument 'cmake_args' from command line to '['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17']'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task_cpp' build argument 'cmake_target' from command line to 'None'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task_cpp' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task_cpp' build argument 'cmake_clean_cache' from command line to 'False'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task_cpp' build argument 'cmake_clean_first' from command line to 'False'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task_cpp' build argument 'cmake_force_configure' from command line to 'False'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task_cpp' build argument 'ament_cmake_args' from command line to 'None'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task_cpp' build argument 'catkin_cmake_args' from command line to 'None'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_task_cpp' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.495s] DEBUG:colcon.colcon_core.verb:Building package 'mtc_task_cpp' with the following arguments: {'ament_cmake_args': None, 'build_base': '/candidate-build/mtc_task_cpp', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/candidate-install/mtc_task_cpp', 'merge_install': False, 'path': '/candidate/src/mtc_task_cpp', 'symlink_install': False, 'test_result_base': None}
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'mtc_tool' build argument 'cmake_args' from command line to '['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17']'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_tool' build argument 'cmake_target' from command line to 'None'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_tool' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_tool' build argument 'cmake_clean_cache' from command line to 'False'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_tool' build argument 'cmake_clean_first' from command line to 'False'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_tool' build argument 'cmake_force_configure' from command line to 'False'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_tool' build argument 'ament_cmake_args' from command line to 'None'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_tool' build argument 'catkin_cmake_args' from command line to 'None'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_tool' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.496s] DEBUG:colcon.colcon_core.verb:Building package 'mtc_tool' with the following arguments: {'ament_cmake_args': None, 'build_base': '/candidate-build/mtc_tool', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/candidate-install/mtc_tool', 'merge_install': False, 'path': '/candidate/src/mtc_tool', 'symlink_install': False, 'test_result_base': None}
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_bringup' build argument 'cmake_args' from command line to '['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17']'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_bringup' build argument 'cmake_target' from command line to 'None'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_bringup' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_bringup' build argument 'cmake_clean_cache' from command line to 'False'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_bringup' build argument 'cmake_clean_first' from command line to 'False'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_bringup' build argument 'cmake_force_configure' from command line to 'False'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_bringup' build argument 'ament_cmake_args' from command line to 'None'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_bringup' build argument 'catkin_cmake_args' from command line to 'None'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_bringup' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.496s] DEBUG:colcon.colcon_core.verb:Building package 'mtc_bringup' with the following arguments: {'ament_cmake_args': None, 'build_base': '/candidate-build/mtc_bringup', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/candidate-install/mtc_bringup', 'merge_install': False, 'path': '/candidate/src/mtc_bringup', 'symlink_install': False, 'test_result_base': None}
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation_cpp' build argument 'cmake_args' from command line to '['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17']'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation_cpp' build argument 'cmake_target' from command line to 'None'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation_cpp' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation_cpp' build argument 'cmake_clean_cache' from command line to 'False'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation_cpp' build argument 'cmake_clean_first' from command line to 'False'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation_cpp' build argument 'cmake_force_configure' from command line to 'False'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation_cpp' build argument 'ament_cmake_args' from command line to 'None'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation_cpp' build argument 'catkin_cmake_args' from command line to 'None'
+[0.496s] Level 5:colcon.colcon_core.verb:set package 'mtc_manipulation_cpp' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.496s] DEBUG:colcon.colcon_core.verb:Building package 'mtc_manipulation_cpp' with the following arguments: {'ament_cmake_args': None, 'build_base': '/candidate-build/mtc_manipulation_cpp', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/candidate-install/mtc_manipulation_cpp', 'merge_install': False, 'path': '/candidate/src/mtc_manipulation_cpp', 'symlink_install': False, 'test_result_base': None}
+[0.497s] Level 5:colcon.colcon_core.verb:set package 'mtc_ros2_action_cpp' build argument 'cmake_args' from command line to '['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17']'
+[0.497s] Level 5:colcon.colcon_core.verb:set package 'mtc_ros2_action_cpp' build argument 'cmake_target' from command line to 'None'
+[0.497s] Level 5:colcon.colcon_core.verb:set package 'mtc_ros2_action_cpp' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.497s] Level 5:colcon.colcon_core.verb:set package 'mtc_ros2_action_cpp' build argument 'cmake_clean_cache' from command line to 'False'
+[0.497s] Level 5:colcon.colcon_core.verb:set package 'mtc_ros2_action_cpp' build argument 'cmake_clean_first' from command line to 'False'
+[0.497s] Level 5:colcon.colcon_core.verb:set package 'mtc_ros2_action_cpp' build argument 'cmake_force_configure' from command line to 'False'
+[0.497s] Level 5:colcon.colcon_core.verb:set package 'mtc_ros2_action_cpp' build argument 'ament_cmake_args' from command line to 'None'
+[0.497s] Level 5:colcon.colcon_core.verb:set package 'mtc_ros2_action_cpp' build argument 'catkin_cmake_args' from command line to 'None'
+[0.497s] Level 5:colcon.colcon_core.verb:set package 'mtc_ros2_action_cpp' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.497s] DEBUG:colcon.colcon_core.verb:Building package 'mtc_ros2_action_cpp' with the following arguments: {'ament_cmake_args': None, 'build_base': '/candidate-build/mtc_ros2_action_cpp', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/candidate-install/mtc_ros2_action_cpp', 'merge_install': False, 'path': '/candidate/src/mtc_ros2_action_cpp', 'symlink_install': False, 'test_result_base': None}
+[0.497s] INFO:colcon.colcon_core.executor:Executing jobs using 'sequential' executor
+[0.499s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_core_cpp'
+[0.499s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/candidate/src/mtc_core_cpp' with build type 'ament_cmake'
+[0.499s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/candidate/src/mtc_core_cpp'
+[0.507s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.507s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.507s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.531s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_core_cpp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /candidate/src/mtc_core_cpp -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/candidate-install/mtc_core_cpp
+[2.042s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_core_cpp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /candidate/src/mtc_core_cpp -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/candidate-install/mtc_core_cpp
+[2.043s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_core_cpp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /candidate-build/mtc_core_cpp
+[8.968s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_core_cpp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /candidate-build/mtc_core_cpp
+[8.991s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_core_cpp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /candidate-build/mtc_core_cpp
+[9.035s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_core_cpp)
+[9.036s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_core_cpp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /candidate-build/mtc_core_cpp
+[9.046s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_core_cpp' for CMake module files
+[9.047s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_core_cpp' for CMake config files
+[9.047s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_core_cpp', 'cmake_prefix_path')
+[9.047s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/hook/cmake_prefix_path.ps1'
+[9.049s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/hook/cmake_prefix_path.dsv'
+[9.050s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/hook/cmake_prefix_path.sh'
+[9.051s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_core_cpp/lib'
+[9.051s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_core_cpp', 'ld_library_path_lib')
+[9.051s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/hook/ld_library_path_lib.ps1'
+[9.052s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/hook/ld_library_path_lib.dsv'
+[9.053s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/hook/ld_library_path_lib.sh'
+[9.054s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_core_cpp/bin'
+[9.054s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_core_cpp/lib/pkgconfig/mtc_core_cpp.pc'
+[9.055s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_core_cpp/lib/python3.12/site-packages'
+[9.055s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_core_cpp/bin'
+[9.056s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/package.ps1'
+[9.057s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/package.dsv'
+[9.057s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/package.sh'
+[9.058s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/package.bash'
+[9.059s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/package.zsh'
+[9.060s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_core_cpp/share/colcon-core/packages/mtc_core_cpp)
+[9.061s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_core_cpp)
+[9.062s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_core_cpp' for CMake module files
+[9.062s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_core_cpp' for CMake config files
+[9.062s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_core_cpp', 'cmake_prefix_path')
+[9.062s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/hook/cmake_prefix_path.ps1'
+[9.063s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/hook/cmake_prefix_path.dsv'
+[9.063s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/hook/cmake_prefix_path.sh'
+[9.064s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_core_cpp/lib'
+[9.064s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_core_cpp', 'ld_library_path_lib')
+[9.064s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/hook/ld_library_path_lib.ps1'
+[9.064s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/hook/ld_library_path_lib.dsv'
+[9.064s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/hook/ld_library_path_lib.sh'
+[9.065s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_core_cpp/bin'
+[9.065s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_core_cpp/lib/pkgconfig/mtc_core_cpp.pc'
+[9.065s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_core_cpp/lib/python3.12/site-packages'
+[9.065s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_core_cpp/bin'
+[9.065s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/package.ps1'
+[9.066s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/package.dsv'
+[9.066s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/package.sh'
+[9.067s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/package.bash'
+[9.067s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_core_cpp/share/mtc_core_cpp/package.zsh'
+[9.068s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_core_cpp/share/colcon-core/packages/mtc_core_cpp)
+[9.068s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_core_cpp' finished with '0'
+[9.068s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_interfaces'
+[9.068s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/candidate/src/mtc_interfaces' with build type 'ament_cmake'
+[9.068s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/candidate/src/mtc_interfaces'
+[9.068s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[9.068s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[9.084s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /candidate/src/mtc_interfaces -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/candidate-install/mtc_interfaces
+[13.360s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /candidate/src/mtc_interfaces -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/candidate-install/mtc_interfaces
+[13.361s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /candidate-build/mtc_interfaces
+[46.987s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /candidate-build/mtc_interfaces
+[46.989s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /candidate-build/mtc_interfaces
+[47.317s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_interfaces)
+[47.317s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /candidate-build/mtc_interfaces
+[47.318s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_interfaces' for CMake module files
+[47.319s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_interfaces' for CMake config files
+[47.320s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_interfaces', 'cmake_prefix_path')
+[47.320s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/cmake_prefix_path.ps1'
+[47.321s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/cmake_prefix_path.dsv'
+[47.322s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/cmake_prefix_path.sh'
+[47.322s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_interfaces/lib'
+[47.322s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_interfaces', 'ld_library_path_lib')
+[47.323s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/ld_library_path_lib.ps1'
+[47.323s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/ld_library_path_lib.dsv'
+[47.323s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/ld_library_path_lib.sh'
+[47.324s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_interfaces/bin'
+[47.324s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_interfaces/lib/pkgconfig/mtc_interfaces.pc'
+[47.324s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_interfaces/lib/python3.12/site-packages'
+[47.324s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_interfaces', 'pythonpath')
+[47.324s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/pythonpath.ps1'
+[47.325s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/pythonpath.dsv'
+[47.325s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/pythonpath.sh'
+[47.326s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_interfaces/bin'
+[47.326s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_interfaces/share/mtc_interfaces/package.ps1'
+[47.326s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_interfaces/share/mtc_interfaces/package.dsv'
+[47.327s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_interfaces/share/mtc_interfaces/package.sh'
+[47.327s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_interfaces/share/mtc_interfaces/package.bash'
+[47.327s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_interfaces/share/mtc_interfaces/package.zsh'
+[47.328s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_interfaces/share/colcon-core/packages/mtc_interfaces)
+[47.330s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_interfaces)
+[47.330s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_interfaces' for CMake module files
+[47.331s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_interfaces' for CMake config files
+[47.332s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_interfaces', 'cmake_prefix_path')
+[47.332s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/cmake_prefix_path.ps1'
+[47.332s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/cmake_prefix_path.dsv'
+[47.332s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/cmake_prefix_path.sh'
+[47.333s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_interfaces/lib'
+[47.333s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_interfaces', 'ld_library_path_lib')
+[47.333s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/ld_library_path_lib.ps1'
+[47.333s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/ld_library_path_lib.dsv'
+[47.333s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/ld_library_path_lib.sh'
+[47.334s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_interfaces/bin'
+[47.334s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_interfaces/lib/pkgconfig/mtc_interfaces.pc'
+[47.334s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_interfaces/lib/python3.12/site-packages'
+[47.334s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_interfaces', 'pythonpath')
+[47.334s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/pythonpath.ps1'
+[47.334s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/pythonpath.dsv'
+[47.334s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_interfaces/share/mtc_interfaces/hook/pythonpath.sh'
+[47.335s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_interfaces/bin'
+[47.335s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_interfaces/share/mtc_interfaces/package.ps1'
+[47.336s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_interfaces/share/mtc_interfaces/package.dsv'
+[47.336s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_interfaces/share/mtc_interfaces/package.sh'
+[47.337s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_interfaces/share/mtc_interfaces/package.bash'
+[47.337s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_interfaces/share/mtc_interfaces/package.zsh'
+[47.337s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_interfaces/share/colcon-core/packages/mtc_interfaces)
+[47.338s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_interfaces' finished with '0'
+[47.339s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_aubo_bridge'
+[47.339s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/candidate/src/mtc_aubo_bridge' with build type 'ament_python'
+[47.339s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_aubo_bridge', 'ament_prefix_path')
+[47.339s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_aubo_bridge/share/mtc_aubo_bridge/hook/ament_prefix_path.ps1'
+[47.342s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_aubo_bridge/share/mtc_aubo_bridge/hook/ament_prefix_path.dsv'
+[47.343s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_aubo_bridge/share/mtc_aubo_bridge/hook/ament_prefix_path.sh'
+[47.343s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[47.343s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[47.550s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/candidate/src/mtc_aubo_bridge'
+[47.550s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[47.550s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[48.268s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: symlink_data, build_ext, saveopts, build_py, rotate, upload_docs, sdist, bdist_dumb, bdist_egg, test, register, install, install_headers, bdist, build_scripts, build_clib, develop, setopt, dist_info, upload, install_lib, install_scripts, alias, egg_info, check, editable_wheel, install_data, bdist_rpm, clean, build, easy_install, install_egg_info
+[48.272s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate/src/mtc_aubo_bridge': AMENT_PREFIX_PATH=/candidate-install/mtc_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/candidate-install/mtc_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-build/mtc_aubo_bridge/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/candidate-install/mtc_aubo_bridge/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../candidate-build/mtc_aubo_bridge build --build-base /candidate-build/mtc_aubo_bridge/build install --record /candidate-build/mtc_aubo_bridge/install.log --install-scripts $base/lib/mtc_aubo_bridge --single-version-externally-managed install_data
+[48.707s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_aubo_bridge' for CMake module files
+[48.708s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate/src/mtc_aubo_bridge' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/candidate-install/mtc_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-build/mtc_aubo_bridge/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/candidate-install/mtc_aubo_bridge/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../candidate-build/mtc_aubo_bridge build --build-base /candidate-build/mtc_aubo_bridge/build install --record /candidate-build/mtc_aubo_bridge/install.log --install-scripts $base/lib/mtc_aubo_bridge --single-version-externally-managed install_data
+[48.709s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_aubo_bridge' for CMake config files
+[48.709s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_aubo_bridge/lib'
+[48.709s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_aubo_bridge/bin'
+[48.709s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_aubo_bridge/lib/pkgconfig/mtc_aubo_bridge.pc'
+[48.709s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_aubo_bridge/lib/python3.12/site-packages'
+[48.710s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_aubo_bridge', 'pythonpath')
+[48.710s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_aubo_bridge/share/mtc_aubo_bridge/hook/pythonpath.ps1'
+[48.710s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_aubo_bridge/share/mtc_aubo_bridge/hook/pythonpath.dsv'
+[48.711s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_aubo_bridge/share/mtc_aubo_bridge/hook/pythonpath.sh'
+[48.712s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_aubo_bridge/bin'
+[48.712s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_aubo_bridge)
+[48.712s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_aubo_bridge/share/mtc_aubo_bridge/package.ps1'
+[48.713s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_aubo_bridge/share/mtc_aubo_bridge/package.dsv'
+[48.713s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_aubo_bridge/share/mtc_aubo_bridge/package.sh'
+[48.714s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_aubo_bridge/share/mtc_aubo_bridge/package.bash'
+[48.714s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_aubo_bridge/share/mtc_aubo_bridge/package.zsh'
+[48.715s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_aubo_bridge/share/colcon-core/packages/mtc_aubo_bridge)
+[48.717s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_aubo_bridge' finished with '0'
+[48.717s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_manipulation'
+[48.717s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/candidate/src/mtc_manipulation' with build type 'ament_python'
+[48.717s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_manipulation', 'ament_prefix_path')
+[48.717s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_manipulation/share/mtc_manipulation/hook/ament_prefix_path.ps1'
+[48.721s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_manipulation/share/mtc_manipulation/hook/ament_prefix_path.dsv'
+[48.723s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_manipulation/share/mtc_manipulation/hook/ament_prefix_path.sh'
+[48.724s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[48.724s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[48.927s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/candidate/src/mtc_manipulation'
+[48.928s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[48.928s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[49.347s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: symlink_data, build_ext, saveopts, build_py, rotate, upload_docs, sdist, bdist_dumb, bdist_egg, test, register, install, install_headers, bdist, build_scripts, build_clib, develop, setopt, dist_info, upload, install_lib, install_scripts, alias, egg_info, check, editable_wheel, install_data, bdist_rpm, clean, build, easy_install, install_egg_info
+[49.349s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate/src/mtc_manipulation': AMENT_PREFIX_PATH=/candidate-install/mtc_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/candidate-install/mtc_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-build/mtc_manipulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/candidate-install/mtc_manipulation/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../candidate-build/mtc_manipulation build --build-base /candidate-build/mtc_manipulation/build install --record /candidate-build/mtc_manipulation/install.log --install-scripts $base/lib/mtc_manipulation --single-version-externally-managed install_data
+[49.817s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation' for CMake module files
+[49.817s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate/src/mtc_manipulation' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/candidate-install/mtc_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-build/mtc_manipulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/candidate-install/mtc_manipulation/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../candidate-build/mtc_manipulation build --build-base /candidate-build/mtc_manipulation/build install --record /candidate-build/mtc_manipulation/install.log --install-scripts $base/lib/mtc_manipulation --single-version-externally-managed install_data
+[49.818s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation' for CMake config files
+[49.818s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation/lib'
+[49.819s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation/bin'
+[49.819s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation/lib/pkgconfig/mtc_manipulation.pc'
+[49.819s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation/lib/python3.12/site-packages'
+[49.819s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_manipulation', 'pythonpath')
+[49.819s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_manipulation/share/mtc_manipulation/hook/pythonpath.ps1'
+[49.819s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_manipulation/share/mtc_manipulation/hook/pythonpath.dsv'
+[49.820s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_manipulation/share/mtc_manipulation/hook/pythonpath.sh'
+[49.821s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation/bin'
+[49.821s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_manipulation)
+[49.821s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_manipulation/share/mtc_manipulation/package.ps1'
+[49.821s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_manipulation/share/mtc_manipulation/package.dsv'
+[49.822s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_manipulation/share/mtc_manipulation/package.sh'
+[49.822s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_manipulation/share/mtc_manipulation/package.bash'
+[49.825s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_manipulation/share/mtc_manipulation/package.zsh'
+[49.825s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_manipulation/share/colcon-core/packages/mtc_manipulation)
+[49.827s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_manipulation' finished with '0'
+[49.827s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_motion_execution'
+[49.827s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/candidate/src/mtc_motion_execution' with build type 'ament_python'
+[49.827s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_motion_execution', 'ament_prefix_path')
+[49.828s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_motion_execution/share/mtc_motion_execution/hook/ament_prefix_path.ps1'
+[49.831s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_motion_execution/share/mtc_motion_execution/hook/ament_prefix_path.dsv'
+[49.831s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_motion_execution/share/mtc_motion_execution/hook/ament_prefix_path.sh'
+[49.831s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[49.831s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[50.025s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/candidate/src/mtc_motion_execution'
+[50.025s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[50.025s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[50.461s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: symlink_data, build_ext, saveopts, build_py, rotate, upload_docs, sdist, bdist_dumb, bdist_egg, test, register, install, install_headers, bdist, build_scripts, build_clib, develop, setopt, dist_info, upload, install_lib, install_scripts, alias, egg_info, check, editable_wheel, install_data, bdist_rpm, clean, build, easy_install, install_egg_info
+[50.467s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate/src/mtc_motion_execution': AMENT_PREFIX_PATH=/candidate-install/mtc_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/candidate-install/mtc_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-build/mtc_motion_execution/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/candidate-install/mtc_motion_execution/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../candidate-build/mtc_motion_execution build --build-base /candidate-build/mtc_motion_execution/build install --record /candidate-build/mtc_motion_execution/install.log --install-scripts $base/lib/mtc_motion_execution --single-version-externally-managed install_data
+[50.899s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution' for CMake module files
+[50.900s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate/src/mtc_motion_execution' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/candidate-install/mtc_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-build/mtc_motion_execution/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/candidate-install/mtc_motion_execution/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../candidate-build/mtc_motion_execution build --build-base /candidate-build/mtc_motion_execution/build install --record /candidate-build/mtc_motion_execution/install.log --install-scripts $base/lib/mtc_motion_execution --single-version-externally-managed install_data
+[50.900s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution' for CMake config files
+[50.901s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution/lib'
+[50.901s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution/bin'
+[50.901s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution/lib/pkgconfig/mtc_motion_execution.pc'
+[50.901s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution/lib/python3.12/site-packages'
+[50.901s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_motion_execution', 'pythonpath')
+[50.901s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_motion_execution/share/mtc_motion_execution/hook/pythonpath.ps1'
+[50.902s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_motion_execution/share/mtc_motion_execution/hook/pythonpath.dsv'
+[50.902s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_motion_execution/share/mtc_motion_execution/hook/pythonpath.sh'
+[50.903s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution/bin'
+[50.903s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_motion_execution)
+[50.903s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_motion_execution/share/mtc_motion_execution/package.ps1'
+[50.906s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_motion_execution/share/mtc_motion_execution/package.dsv'
+[50.906s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_motion_execution/share/mtc_motion_execution/package.sh'
+[50.907s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_motion_execution/share/mtc_motion_execution/package.bash'
+[50.907s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_motion_execution/share/mtc_motion_execution/package.zsh'
+[50.907s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_motion_execution/share/colcon-core/packages/mtc_motion_execution)
+[50.909s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_motion_execution' finished with '0'
+[50.909s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_motion_execution_cpp'
+[50.909s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/candidate/src/mtc_motion_execution_cpp' with build type 'ament_cmake'
+[50.909s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/candidate/src/mtc_motion_execution_cpp'
+[50.909s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[50.910s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[50.930s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_motion_execution_cpp': AMENT_PREFIX_PATH=/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /candidate/src/mtc_motion_execution_cpp -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/candidate-install/mtc_motion_execution_cpp
+[52.103s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_motion_execution_cpp' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /candidate/src/mtc_motion_execution_cpp -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/candidate-install/mtc_motion_execution_cpp
+[52.105s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_motion_execution_cpp': AMENT_PREFIX_PATH=/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /candidate-build/mtc_motion_execution_cpp
+[66.555s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_motion_execution_cpp' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /candidate-build/mtc_motion_execution_cpp
+[66.556s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_motion_execution_cpp': AMENT_PREFIX_PATH=/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /candidate-build/mtc_motion_execution_cpp
+[66.593s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_motion_execution_cpp)
+[66.594s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution_cpp' for CMake module files
+[66.594s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_motion_execution_cpp' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /candidate-build/mtc_motion_execution_cpp
+[66.595s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution_cpp' for CMake config files
+[66.595s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_motion_execution_cpp', 'cmake_prefix_path')
+[66.596s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/hook/cmake_prefix_path.ps1'
+[66.597s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/hook/cmake_prefix_path.dsv'
+[66.597s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/hook/cmake_prefix_path.sh'
+[66.598s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution_cpp/lib'
+[66.598s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_motion_execution_cpp', 'ld_library_path_lib')
+[66.598s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/hook/ld_library_path_lib.ps1'
+[66.598s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/hook/ld_library_path_lib.dsv'
+[66.599s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/hook/ld_library_path_lib.sh'
+[66.599s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution_cpp/bin'
+[66.599s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution_cpp/lib/pkgconfig/mtc_motion_execution_cpp.pc'
+[66.600s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution_cpp/lib/python3.12/site-packages'
+[66.600s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution_cpp/bin'
+[66.600s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/package.ps1'
+[66.601s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/package.dsv'
+[66.601s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/package.sh'
+[66.602s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/package.bash'
+[66.602s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/package.zsh'
+[66.603s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_motion_execution_cpp/share/colcon-core/packages/mtc_motion_execution_cpp)
+[66.604s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_motion_execution_cpp)
+[66.604s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution_cpp' for CMake module files
+[66.605s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution_cpp' for CMake config files
+[66.606s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_motion_execution_cpp', 'cmake_prefix_path')
+[66.606s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/hook/cmake_prefix_path.ps1'
+[66.606s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/hook/cmake_prefix_path.dsv'
+[66.607s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/hook/cmake_prefix_path.sh'
+[66.607s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution_cpp/lib'
+[66.607s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_motion_execution_cpp', 'ld_library_path_lib')
+[66.607s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/hook/ld_library_path_lib.ps1'
+[66.608s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/hook/ld_library_path_lib.dsv'
+[66.608s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/hook/ld_library_path_lib.sh'
+[66.609s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution_cpp/bin'
+[66.609s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution_cpp/lib/pkgconfig/mtc_motion_execution_cpp.pc'
+[66.609s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution_cpp/lib/python3.12/site-packages'
+[66.610s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_motion_execution_cpp/bin'
+[66.610s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/package.ps1'
+[66.611s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/package.dsv'
+[66.612s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/package.sh'
+[66.612s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/package.bash'
+[66.612s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_motion_execution_cpp/share/mtc_motion_execution_cpp/package.zsh'
+[66.613s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_motion_execution_cpp/share/colcon-core/packages/mtc_motion_execution_cpp)
+[66.614s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_motion_execution_cpp' finished with '0'
+[66.614s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_safety'
+[66.614s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/candidate/src/mtc_safety' with build type 'ament_python'
+[66.614s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_safety', 'ament_prefix_path')
+[66.614s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_safety/share/mtc_safety/hook/ament_prefix_path.ps1'
+[66.618s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_safety/share/mtc_safety/hook/ament_prefix_path.dsv'
+[66.618s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_safety/share/mtc_safety/hook/ament_prefix_path.sh'
+[66.619s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[66.619s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[66.834s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/candidate/src/mtc_safety'
+[66.834s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[66.834s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[67.330s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: symlink_data, build_ext, saveopts, build_py, rotate, upload_docs, sdist, bdist_dumb, bdist_egg, test, register, install, install_headers, bdist, build_scripts, build_clib, develop, setopt, dist_info, upload, install_lib, install_scripts, alias, egg_info, check, editable_wheel, install_data, bdist_rpm, clean, build, easy_install, install_egg_info
+[67.332s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate/src/mtc_safety': AMENT_PREFIX_PATH=/candidate-install/mtc_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/candidate-install/mtc_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-build/mtc_safety/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/candidate-install/mtc_safety/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../candidate-build/mtc_safety build --build-base /candidate-build/mtc_safety/build install --record /candidate-build/mtc_safety/install.log --install-scripts $base/lib/mtc_safety --single-version-externally-managed install_data
+[67.771s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_safety' for CMake module files
+[67.772s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate/src/mtc_safety' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/candidate-install/mtc_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-build/mtc_safety/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/candidate-install/mtc_safety/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../candidate-build/mtc_safety build --build-base /candidate-build/mtc_safety/build install --record /candidate-build/mtc_safety/install.log --install-scripts $base/lib/mtc_safety --single-version-externally-managed install_data
+[67.772s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_safety' for CMake config files
+[67.773s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_safety/lib'
+[67.773s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_safety/bin'
+[67.773s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_safety/lib/pkgconfig/mtc_safety.pc'
+[67.773s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_safety/lib/python3.12/site-packages'
+[67.773s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_safety', 'pythonpath')
+[67.774s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_safety/share/mtc_safety/hook/pythonpath.ps1'
+[67.774s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_safety/share/mtc_safety/hook/pythonpath.dsv'
+[67.774s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_safety/share/mtc_safety/hook/pythonpath.sh'
+[67.775s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_safety/bin'
+[67.775s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_safety)
+[67.775s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_safety/share/mtc_safety/package.ps1'
+[67.776s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_safety/share/mtc_safety/package.dsv'
+[67.776s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_safety/share/mtc_safety/package.sh'
+[67.777s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_safety/share/mtc_safety/package.bash'
+[67.777s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_safety/share/mtc_safety/package.zsh'
+[67.778s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_safety/share/colcon-core/packages/mtc_safety)
+[67.779s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_safety' finished with '0'
+[67.780s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_task'
+[67.780s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/candidate/src/mtc_task' with build type 'ament_python'
+[67.780s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_task', 'ament_prefix_path')
+[67.780s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_task/share/mtc_task/hook/ament_prefix_path.ps1'
+[67.783s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_task/share/mtc_task/hook/ament_prefix_path.dsv'
+[67.784s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_task/share/mtc_task/hook/ament_prefix_path.sh'
+[67.784s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[67.784s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[67.987s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/candidate/src/mtc_task'
+[67.987s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[67.987s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[68.413s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: symlink_data, build_ext, saveopts, build_py, rotate, upload_docs, sdist, bdist_dumb, bdist_egg, test, register, install, install_headers, bdist, build_scripts, build_clib, develop, setopt, dist_info, upload, install_lib, install_scripts, alias, egg_info, check, editable_wheel, install_data, bdist_rpm, clean, build, easy_install, install_egg_info
+[68.415s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate/src/mtc_task': AMENT_PREFIX_PATH=/candidate-install/mtc_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/candidate-install/mtc_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-build/mtc_task/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/candidate-install/mtc_task/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../candidate-build/mtc_task build --build-base /candidate-build/mtc_task/build install --record /candidate-build/mtc_task/install.log --install-scripts $base/lib/mtc_task --single-version-externally-managed install_data
+[68.839s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task' for CMake module files
+[68.840s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate/src/mtc_task' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/candidate-install/mtc_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-build/mtc_task/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/candidate-install/mtc_task/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../candidate-build/mtc_task build --build-base /candidate-build/mtc_task/build install --record /candidate-build/mtc_task/install.log --install-scripts $base/lib/mtc_task --single-version-externally-managed install_data
+[68.840s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task' for CMake config files
+[68.841s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task/lib'
+[68.841s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task/bin'
+[68.841s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task/lib/pkgconfig/mtc_task.pc'
+[68.841s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task/lib/python3.12/site-packages'
+[68.841s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_task', 'pythonpath')
+[68.841s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_task/share/mtc_task/hook/pythonpath.ps1'
+[68.842s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_task/share/mtc_task/hook/pythonpath.dsv'
+[68.842s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_task/share/mtc_task/hook/pythonpath.sh'
+[68.844s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task/bin'
+[68.844s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_task)
+[68.844s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_task/share/mtc_task/package.ps1'
+[68.844s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_task/share/mtc_task/package.dsv'
+[68.845s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_task/share/mtc_task/package.sh'
+[68.846s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_task/share/mtc_task/package.bash'
+[68.846s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_task/share/mtc_task/package.zsh'
+[68.847s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_task/share/colcon-core/packages/mtc_task)
+[68.848s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_task' finished with '0'
+[68.848s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_task_cpp'
+[68.848s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/candidate/src/mtc_task_cpp' with build type 'ament_cmake'
+[68.848s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/candidate/src/mtc_task_cpp'
+[68.849s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[68.849s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[68.867s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_task_cpp': AMENT_PREFIX_PATH=/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /candidate/src/mtc_task_cpp -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/candidate-install/mtc_task_cpp
+[69.991s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_task_cpp' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /candidate/src/mtc_task_cpp -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/candidate-install/mtc_task_cpp
+[69.992s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_task_cpp': AMENT_PREFIX_PATH=/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /candidate-build/mtc_task_cpp
+[78.019s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_task_cpp' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /candidate-build/mtc_task_cpp
+[78.020s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_task_cpp': AMENT_PREFIX_PATH=/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /candidate-build/mtc_task_cpp
+[78.056s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_task_cpp)
+[78.056s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task_cpp' for CMake module files
+[78.057s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_task_cpp' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /candidate-build/mtc_task_cpp
+[78.057s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task_cpp' for CMake config files
+[78.058s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_task_cpp', 'cmake_prefix_path')
+[78.058s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/hook/cmake_prefix_path.ps1'
+[78.059s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/hook/cmake_prefix_path.dsv'
+[78.060s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/hook/cmake_prefix_path.sh'
+[78.060s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task_cpp/lib'
+[78.060s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_task_cpp', 'ld_library_path_lib')
+[78.061s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/hook/ld_library_path_lib.ps1'
+[78.061s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/hook/ld_library_path_lib.dsv'
+[78.061s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/hook/ld_library_path_lib.sh'
+[78.061s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task_cpp/bin'
+[78.062s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task_cpp/lib/pkgconfig/mtc_task_cpp.pc'
+[78.062s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task_cpp/lib/python3.12/site-packages'
+[78.062s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task_cpp/bin'
+[78.062s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/package.ps1'
+[78.063s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/package.dsv'
+[78.063s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/package.sh'
+[78.063s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/package.bash'
+[78.064s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/package.zsh'
+[78.064s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_task_cpp/share/colcon-core/packages/mtc_task_cpp)
+[78.065s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_task_cpp)
+[78.066s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task_cpp' for CMake module files
+[78.066s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task_cpp' for CMake config files
+[78.066s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_task_cpp', 'cmake_prefix_path')
+[78.066s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/hook/cmake_prefix_path.ps1'
+[78.067s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/hook/cmake_prefix_path.dsv'
+[78.067s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/hook/cmake_prefix_path.sh'
+[78.068s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task_cpp/lib'
+[78.068s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_task_cpp', 'ld_library_path_lib')
+[78.068s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/hook/ld_library_path_lib.ps1'
+[78.068s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/hook/ld_library_path_lib.dsv'
+[78.069s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/hook/ld_library_path_lib.sh'
+[78.069s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task_cpp/bin'
+[78.069s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task_cpp/lib/pkgconfig/mtc_task_cpp.pc'
+[78.069s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task_cpp/lib/python3.12/site-packages'
+[78.070s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_task_cpp/bin'
+[78.070s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/package.ps1'
+[78.070s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/package.dsv'
+[78.071s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/package.sh'
+[78.071s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/package.bash'
+[78.071s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_task_cpp/share/mtc_task_cpp/package.zsh'
+[78.072s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_task_cpp/share/colcon-core/packages/mtc_task_cpp)
+[78.072s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_task_cpp' finished with '0'
+[78.072s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_tool'
+[78.072s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/candidate/src/mtc_tool' with build type 'ament_python'
+[78.072s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_tool', 'ament_prefix_path')
+[78.072s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_tool/share/mtc_tool/hook/ament_prefix_path.ps1'
+[78.076s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_tool/share/mtc_tool/hook/ament_prefix_path.dsv'
+[78.077s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_tool/share/mtc_tool/hook/ament_prefix_path.sh'
+[78.077s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[78.077s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[78.259s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/candidate/src/mtc_tool'
+[78.260s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[78.260s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[78.689s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: symlink_data, build_ext, saveopts, build_py, rotate, upload_docs, sdist, bdist_dumb, bdist_egg, test, register, install, install_headers, bdist, build_scripts, build_clib, develop, setopt, dist_info, upload, install_lib, install_scripts, alias, egg_info, check, editable_wheel, install_data, bdist_rpm, clean, build, easy_install, install_egg_info
+[78.691s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate/src/mtc_tool': AMENT_PREFIX_PATH=/candidate-install/mtc_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/candidate-install/mtc_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-build/mtc_tool/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/candidate-install/mtc_tool/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../candidate-build/mtc_tool build --build-base /candidate-build/mtc_tool/build install --record /candidate-build/mtc_tool/install.log --install-scripts $base/lib/mtc_tool --single-version-externally-managed install_data
+[79.096s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_tool' for CMake module files
+[79.096s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate/src/mtc_tool' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/candidate-install/mtc_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-build/mtc_tool/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/candidate-install/mtc_tool/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../candidate-build/mtc_tool build --build-base /candidate-build/mtc_tool/build install --record /candidate-build/mtc_tool/install.log --install-scripts $base/lib/mtc_tool --single-version-externally-managed install_data
+[79.097s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_tool' for CMake config files
+[79.098s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_tool/lib'
+[79.098s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_tool/bin'
+[79.098s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_tool/lib/pkgconfig/mtc_tool.pc'
+[79.099s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_tool/lib/python3.12/site-packages'
+[79.099s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_tool', 'pythonpath')
+[79.099s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_tool/share/mtc_tool/hook/pythonpath.ps1'
+[79.100s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_tool/share/mtc_tool/hook/pythonpath.dsv'
+[79.100s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_tool/share/mtc_tool/hook/pythonpath.sh'
+[79.101s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_tool/bin'
+[79.101s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_tool)
+[79.101s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_tool/share/mtc_tool/package.ps1'
+[79.102s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_tool/share/mtc_tool/package.dsv'
+[79.102s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_tool/share/mtc_tool/package.sh'
+[79.103s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_tool/share/mtc_tool/package.bash'
+[79.103s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_tool/share/mtc_tool/package.zsh'
+[79.103s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_tool/share/colcon-core/packages/mtc_tool)
+[79.104s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_tool' finished with '0'
+[79.105s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_bringup'
+[79.105s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/candidate/src/mtc_bringup' with build type 'ament_python'
+[79.105s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_bringup', 'ament_prefix_path')
+[79.105s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_bringup/share/mtc_bringup/hook/ament_prefix_path.ps1'
+[79.107s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_bringup/share/mtc_bringup/hook/ament_prefix_path.dsv'
+[79.108s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_bringup/share/mtc_bringup/hook/ament_prefix_path.sh'
+[79.108s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[79.108s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[79.308s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/candidate/src/mtc_bringup'
+[79.308s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[79.308s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[79.749s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: symlink_data, build_ext, saveopts, build_py, rotate, upload_docs, sdist, bdist_dumb, bdist_egg, test, register, install, install_headers, bdist, build_scripts, build_clib, develop, setopt, dist_info, upload, install_lib, install_scripts, alias, egg_info, check, editable_wheel, install_data, bdist_rpm, clean, build, easy_install, install_egg_info
+[79.751s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate/src/mtc_bringup': AMENT_PREFIX_PATH=/candidate-install/mtc_tool:/candidate-install/mtc_task:/candidate-install/mtc_safety:/candidate-install/mtc_motion_execution:/candidate-install/mtc_manipulation:/candidate-install/mtc_aubo_bridge:/candidate-install/mtc_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/candidate-install/mtc_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-build/mtc_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/candidate-install/mtc_bringup/lib/python3.12/site-packages:/candidate-install/mtc_tool/lib/python3.12/site-packages:/candidate-install/mtc_task/lib/python3.12/site-packages:/candidate-install/mtc_safety/lib/python3.12/site-packages:/candidate-install/mtc_motion_execution/lib/python3.12/site-packages:/candidate-install/mtc_manipulation/lib/python3.12/site-packages:/candidate-install/mtc_aubo_bridge/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../candidate-build/mtc_bringup build --build-base /candidate-build/mtc_bringup/build install --record /candidate-build/mtc_bringup/install.log --install-scripts $base/lib/mtc_bringup --single-version-externally-managed install_data
+[80.153s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_bringup' for CMake module files
+[80.154s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate/src/mtc_bringup' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_tool:/candidate-install/mtc_task:/candidate-install/mtc_safety:/candidate-install/mtc_motion_execution:/candidate-install/mtc_manipulation:/candidate-install/mtc_aubo_bridge:/candidate-install/mtc_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/candidate-install/mtc_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-build/mtc_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/candidate-install/mtc_bringup/lib/python3.12/site-packages:/candidate-install/mtc_tool/lib/python3.12/site-packages:/candidate-install/mtc_task/lib/python3.12/site-packages:/candidate-install/mtc_safety/lib/python3.12/site-packages:/candidate-install/mtc_motion_execution/lib/python3.12/site-packages:/candidate-install/mtc_manipulation/lib/python3.12/site-packages:/candidate-install/mtc_aubo_bridge/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../candidate-build/mtc_bringup build --build-base /candidate-build/mtc_bringup/build install --record /candidate-build/mtc_bringup/install.log --install-scripts $base/lib/mtc_bringup --single-version-externally-managed install_data
+[80.155s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_bringup' for CMake config files
+[80.155s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_bringup/lib'
+[80.155s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_bringup/bin'
+[80.155s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_bringup/lib/pkgconfig/mtc_bringup.pc'
+[80.155s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_bringup/lib/python3.12/site-packages'
+[80.155s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_bringup', 'pythonpath')
+[80.156s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_bringup/share/mtc_bringup/hook/pythonpath.ps1'
+[80.156s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_bringup/share/mtc_bringup/hook/pythonpath.dsv'
+[80.157s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_bringup/share/mtc_bringup/hook/pythonpath.sh'
+[80.157s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_bringup/bin'
+[80.157s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_bringup)
+[80.157s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_bringup/share/mtc_bringup/package.ps1'
+[80.158s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_bringup/share/mtc_bringup/package.dsv'
+[80.158s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_bringup/share/mtc_bringup/package.sh'
+[80.158s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_bringup/share/mtc_bringup/package.bash'
+[80.159s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_bringup/share/mtc_bringup/package.zsh'
+[80.159s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_bringup/share/colcon-core/packages/mtc_bringup)
+[80.162s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_bringup' finished with '0'
+[80.162s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_manipulation_cpp'
+[80.162s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/candidate/src/mtc_manipulation_cpp' with build type 'ament_cmake'
+[80.162s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/candidate/src/mtc_manipulation_cpp'
+[80.163s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[80.163s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[80.183s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_manipulation_cpp': AMENT_PREFIX_PATH=/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /candidate/src/mtc_manipulation_cpp -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/candidate-install/mtc_manipulation_cpp
+[81.292s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_manipulation_cpp' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /candidate/src/mtc_manipulation_cpp -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/candidate-install/mtc_manipulation_cpp
+[81.293s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_manipulation_cpp': AMENT_PREFIX_PATH=/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /candidate-build/mtc_manipulation_cpp
+[95.461s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_manipulation_cpp' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /candidate-build/mtc_manipulation_cpp
+[95.463s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_manipulation_cpp': AMENT_PREFIX_PATH=/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /candidate-build/mtc_manipulation_cpp
+[95.512s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_manipulation_cpp)
+[95.512s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation_cpp' for CMake module files
+[95.513s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_manipulation_cpp' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /candidate-build/mtc_manipulation_cpp
+[95.513s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation_cpp' for CMake config files
+[95.514s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_manipulation_cpp', 'cmake_prefix_path')
+[95.514s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/hook/cmake_prefix_path.ps1'
+[95.516s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/hook/cmake_prefix_path.dsv'
+[95.516s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/hook/cmake_prefix_path.sh'
+[95.517s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation_cpp/lib'
+[95.517s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_manipulation_cpp', 'ld_library_path_lib')
+[95.517s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/hook/ld_library_path_lib.ps1'
+[95.517s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/hook/ld_library_path_lib.dsv'
+[95.518s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/hook/ld_library_path_lib.sh'
+[95.519s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation_cpp/bin'
+[95.519s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation_cpp/lib/pkgconfig/mtc_manipulation_cpp.pc'
+[95.519s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation_cpp/lib/python3.12/site-packages'
+[95.519s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation_cpp/bin'
+[95.519s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/package.ps1'
+[95.520s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/package.dsv'
+[95.520s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/package.sh'
+[95.521s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/package.bash'
+[95.522s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/package.zsh'
+[95.522s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_manipulation_cpp/share/colcon-core/packages/mtc_manipulation_cpp)
+[95.525s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_manipulation_cpp)
+[95.525s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation_cpp' for CMake module files
+[95.525s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation_cpp' for CMake config files
+[95.525s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_manipulation_cpp', 'cmake_prefix_path')
+[95.526s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/hook/cmake_prefix_path.ps1'
+[95.526s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/hook/cmake_prefix_path.dsv'
+[95.527s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/hook/cmake_prefix_path.sh'
+[95.527s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation_cpp/lib'
+[95.527s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_manipulation_cpp', 'ld_library_path_lib')
+[95.528s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/hook/ld_library_path_lib.ps1'
+[95.528s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/hook/ld_library_path_lib.dsv'
+[95.528s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/hook/ld_library_path_lib.sh'
+[95.529s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation_cpp/bin'
+[95.529s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation_cpp/lib/pkgconfig/mtc_manipulation_cpp.pc'
+[95.529s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation_cpp/lib/python3.12/site-packages'
+[95.529s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_manipulation_cpp/bin'
+[95.529s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/package.ps1'
+[95.530s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/package.dsv'
+[95.530s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/package.sh'
+[95.531s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/package.bash'
+[95.531s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/package.zsh'
+[95.531s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_manipulation_cpp/share/colcon-core/packages/mtc_manipulation_cpp)
+[95.532s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_manipulation_cpp' finished with '0'
+[95.532s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_ros2_action_cpp'
+[95.532s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/candidate/src/mtc_ros2_action_cpp' with build type 'ament_cmake'
+[95.532s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/candidate/src/mtc_ros2_action_cpp'
+[95.532s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[95.532s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[95.571s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_ros2_action_cpp': AMENT_PREFIX_PATH=/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake /candidate/src/mtc_ros2_action_cpp -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/candidate-install/mtc_ros2_action_cpp
+[97.902s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_ros2_action_cpp' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake /candidate/src/mtc_ros2_action_cpp -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/candidate-install/mtc_ros2_action_cpp
+[97.903s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_ros2_action_cpp': AMENT_PREFIX_PATH=/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --build /candidate-build/mtc_ros2_action_cpp
+[140.982s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_ros2_action_cpp' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --build /candidate-build/mtc_ros2_action_cpp
+[141.027s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/candidate-build/mtc_ros2_action_cpp': AMENT_PREFIX_PATH=/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --install /candidate-build/mtc_ros2_action_cpp
+[141.078s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_ros2_action_cpp)
+[141.093s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_ros2_action_cpp' for CMake module files
+[141.095s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/candidate-build/mtc_ros2_action_cpp' returned '0': AMENT_PREFIX_PATH=/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/candidate-install/mtc_core_cpp/lib:${LD_LIBRARY_PATH} PYTHONPATH=/candidate-install/mtc_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --install /candidate-build/mtc_ros2_action_cpp
+[141.097s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_ros2_action_cpp' for CMake config files
+[141.098s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_ros2_action_cpp', 'cmake_prefix_path')
+[141.100s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/hook/cmake_prefix_path.ps1'
+[141.111s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/hook/cmake_prefix_path.dsv'
+[141.113s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/hook/cmake_prefix_path.sh'
+[141.120s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_ros2_action_cpp/lib'
+[141.120s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_ros2_action_cpp', 'ld_library_path_lib')
+[141.121s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/hook/ld_library_path_lib.ps1'
+[141.121s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/hook/ld_library_path_lib.dsv'
+[141.122s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/hook/ld_library_path_lib.sh'
+[141.122s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_ros2_action_cpp/bin'
+[141.122s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_ros2_action_cpp/lib/pkgconfig/mtc_ros2_action_cpp.pc'
+[141.125s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_ros2_action_cpp/lib/python3.12/site-packages'
+[141.126s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_ros2_action_cpp/bin'
+[141.127s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/package.ps1'
+[141.129s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/package.dsv'
+[141.130s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/package.sh'
+[141.131s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/package.bash'
+[141.133s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/package.zsh'
+[141.134s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_ros2_action_cpp/share/colcon-core/packages/mtc_ros2_action_cpp)
+[141.138s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mtc_ros2_action_cpp)
+[141.138s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_ros2_action_cpp' for CMake module files
+[141.138s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_ros2_action_cpp' for CMake config files
+[141.139s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_ros2_action_cpp', 'cmake_prefix_path')
+[141.139s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/hook/cmake_prefix_path.ps1'
+[141.139s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/hook/cmake_prefix_path.dsv'
+[141.139s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/hook/cmake_prefix_path.sh'
+[141.140s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_ros2_action_cpp/lib'
+[141.140s] Level 1:colcon.colcon_core.shell:create_environment_hook('mtc_ros2_action_cpp', 'ld_library_path_lib')
+[141.140s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/hook/ld_library_path_lib.ps1'
+[141.141s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/hook/ld_library_path_lib.dsv'
+[141.141s] INFO:colcon.colcon_core.shell:Creating environment hook '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/hook/ld_library_path_lib.sh'
+[141.141s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_ros2_action_cpp/bin'
+[141.141s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_ros2_action_cpp/lib/pkgconfig/mtc_ros2_action_cpp.pc'
+[141.141s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_ros2_action_cpp/lib/python3.12/site-packages'
+[141.142s] Level 1:colcon.colcon_core.environment:checking '/candidate-install/mtc_ros2_action_cpp/bin'
+[141.142s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/package.ps1'
+[141.142s] INFO:colcon.colcon_core.shell:Creating package descriptor '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/package.dsv'
+[141.143s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/package.sh'
+[141.143s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/package.bash'
+[141.143s] INFO:colcon.colcon_core.shell:Creating package script '/candidate-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/package.zsh'
+[141.144s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/candidate-install/mtc_ros2_action_cpp/share/colcon-core/packages/mtc_ros2_action_cpp)
+[141.144s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'mtc_ros2_action_cpp' finished with '0'
+[141.148s] DEBUG:colcon.colcon_core.executor.sequential:closing loop
+[141.154s] DEBUG:colcon.colcon_core.executor.sequential:loop closed
+[141.156s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[141.278s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.notify_send': Could not find 'notify-send'
+[141.278s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[141.278s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[141.278s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[141.279s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.NotSupported: Unable to autolaunch a dbus-daemon without a $DISPLAY for X11
+[141.280s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[141.282s] INFO:colcon.colcon_core.shell:Creating prefix script '/candidate-install/local_setup.ps1'
+[141.283s] INFO:colcon.colcon_core.shell:Creating prefix util module '/candidate-install/_local_setup_util_ps1.py'
+[141.285s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/candidate-install/setup.ps1'
+[141.287s] INFO:colcon.colcon_core.shell:Creating prefix script '/candidate-install/local_setup.sh'
+[141.288s] INFO:colcon.colcon_core.shell:Creating prefix util module '/candidate-install/_local_setup_util_sh.py'
+[141.289s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/candidate-install/setup.sh'
+[141.291s] INFO:colcon.colcon_core.shell:Creating prefix script '/candidate-install/local_setup.bash'
+[141.292s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/candidate-install/setup.bash'
+[141.293s] INFO:colcon.colcon_core.shell:Creating prefix script '/candidate-install/local_setup.zsh'
+[141.295s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/candidate-install/setup.zsh'

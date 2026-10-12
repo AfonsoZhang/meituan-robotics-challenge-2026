@@ -1,0 +1,132 @@
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 61 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 61 tests from FjtAction
+[ RUN      ] FjtAction.CompleteTrajectoryOneGoalAndFeedback
+[       OK ] FjtAction.CompleteTrajectoryOneGoalAndFeedback (443 ms)
+[ RUN      ] FjtAction.RepeatedTicksNeverResend
+[       OK ] FjtAction.RepeatedTicksNeverResend (325 ms)
+[ RUN      ] FjtAction.ConcurrentGoalsSingleOwner
+[       OK ] FjtAction.ConcurrentGoalsSingleOwner (166 ms)
+[ RUN      ] FjtAction.StartMismatchDoesNotSend
+[       OK ] FjtAction.StartMismatchDoesNotSend (87 ms)
+[ RUN      ] FjtAction.CorrectCancelUsesExactUuid
+[       OK ] FjtAction.CorrectCancelUsesExactUuid (169 ms)
+[ RUN      ] FjtAction.CancelBeforeGoalResponsePreserved
+[       OK ] FjtAction.CancelBeforeGoalResponsePreserved (159 ms)
+[ RUN      ] FjtAction.DuplicateCancelOnlyOneBackendCall
+[       OK ] FjtAction.DuplicateCancelOnlyOneBackendCall (169 ms)
+[ RUN      ] FjtAction.StaleCancelDoesNotAffectNewOwner
+[       OK ] FjtAction.StaleCancelDoesNotAffectNewOwner (418 ms)
+[ RUN      ] FjtAction.CancelWithoutOwnerNeverGlobalStops
+[       OK ] FjtAction.CancelWithoutOwnerNeverGlobalStops (91 ms)
+[ RUN      ] FjtAction.AckOnlyCannotConfirmStopAndTimeoutLocks
+[       OK ] FjtAction.AckOnlyCannotConfirmStopAndTimeoutLocks (504 ms)
+[ RUN      ] FjtAction.ExecutionTimeoutLocksAndNeverResends
+[       OK ] FjtAction.ExecutionTimeoutLocksAndNeverResends (506 ms)
+[ RUN      ] FjtAction.ControllerAbortedRemainsFaultLocked
+[       OK ] FjtAction.ControllerAbortedRemainsFaultLocked (313 ms)
+[ RUN      ] FjtAction.StaleJointFeedbackLocks
+[       OK ] FjtAction.StaleJointFeedbackLocks (109 ms)
+[ RUN      ] FjtAction.LostJointUpdatesCannotSettle
+[       OK ] FjtAction.LostJointUpdatesCannotSettle (400 ms)
+[ RUN      ] FjtAction.InsufficientStationaryIntervalDoesNotSucceed
+[       OK ] FjtAction.InsufficientStationaryIntervalDoesNotSucceed (1604 ms)
+[ RUN      ] FjtAction.WrongFinalPositionCannotSucceed
+[       OK ] FjtAction.WrongFinalPositionCannotSucceed (596 ms)
+[ RUN      ] FjtAction.NoAssociatedFeedbackCannotSucceed
+[       OK ] FjtAction.NoAssociatedFeedbackCannotSucceed (314 ms)
+[ RUN      ] FjtAction.HardwareProofLostLocksAndCancelsOwnedGoal
+[       OK ] FjtAction.HardwareProofLostLocksAndCancelsOwnedGoal (149 ms)
+[ RUN      ] FjtAction.WrongPluginRejectsBeforeSend
+[       OK ] FjtAction.WrongPluginRejectsBeforeSend (139 ms)
+[ RUN      ] FjtAction.InactiveControllerRejectsBeforeSend
+[       OK ] FjtAction.InactiveControllerRejectsBeforeSend (138 ms)
+[ RUN      ] FjtAction.MissingVelocityEvidenceRejectsBeforeSend
+[       OK ] FjtAction.MissingVelocityEvidenceRejectsBeforeSend (96 ms)
+[ RUN      ] FjtAction.ReplayedJointStampLocks
+[       OK ] FjtAction.ReplayedJointStampLocks (102 ms)
+[ RUN      ] FjtAction.GoalRejectionMeansNeverExecuted
+[       OK ] FjtAction.GoalRejectionMeansNeverExecuted (95 ms)
+[ RUN      ] FjtAction.ChangedCommandIdContentCannotResend
+[       OK ] FjtAction.ChangedCommandIdContentCannotResend (169 ms)
+[ RUN      ] FjtAction.SecondPortCannotOwnEndpoint
+[       OK ] FjtAction.SecondPortCannotOwnEndpoint (96 ms)
+[ RUN      ] FjtAction.DefaultDisabledNeverSends
+[       OK ] FjtAction.DefaultDisabledNeverSends (92 ms)
+[ RUN      ] FjtAction.DestroyDuringExecutionOnlyCancelsOwnedGoal
+[WARN] [1791748964.017090923] [fake_controller.rclcpp_action]: Failed to send cancel response fe05581a-c981-a122-c31e-38a58b3dba71 (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400
+[       OK ] FjtAction.DestroyDuringExecutionOnlyCancelsOwnedGoal (192 ms)
+[ RUN      ] FjtAction.HistoricalSettlementRequiresFreshCurrentEvidence
+[       OK ] FjtAction.HistoricalSettlementRequiresFreshCurrentEvidence (625 ms)
+[ RUN      ] FjtAction.ConcurrentGoalReplacementAndLateCancel
+[       OK ] FjtAction.ConcurrentGoalReplacementAndLateCancel (396 ms)
+[ RUN      ] FjtAction.OtherTrajectoryPublisherRejectsDispatch
+[       OK ] FjtAction.OtherTrajectoryPublisherRejectsDispatch (90 ms)
+[ RUN      ] FjtAction.ForeignActionClientRejectsDispatch
+[       OK ] FjtAction.ForeignActionClientRejectsDispatch (96 ms)
+[ RUN      ] FjtAction.SingleTargetEntryExplicitlyRejected
+[       OK ] FjtAction.SingleTargetEntryExplicitlyRejected (92 ms)
+[ RUN      ] FjtAction.StationaryWindowCannotGrowWithoutNewSamples
+[       OK ] FjtAction.StationaryWindowCannotGrowWithoutNewSamples (664 ms)
+[ RUN      ] FjtAction.ForeignInFlightGoalCannotBePreemptedAfterClientLeaves
+[       OK ] FjtAction.ForeignInFlightGoalCannotBePreemptedAfterClientLeaves (102 ms)
+[ RUN      ] FjtAction.ExistingPickPlaceFsmDelegatesWholeTrajectoryThroughPort
+[       OK ] FjtAction.ExistingPickPlaceFsmDelegatesWholeTrajectoryThroughPort (326 ms)
+[ RUN      ] FjtAction.DirectFsmCancelKeepsOriginalFaultWhenStopIsStillPending
+[       OK ] FjtAction.DirectFsmCancelKeepsOriginalFaultWhenStopIsStillPending (176 ms)
+[ RUN      ] FjtAction.CompletedGoalSameIdSameContentReturnsCachedResult
+[       OK ] FjtAction.CompletedGoalSameIdSameContentReturnsCachedResult (319 ms)
+[ RUN      ] FjtAction.CompletedGoalSameIdDifferentTrajectoryRejected
+[       OK ] FjtAction.CompletedGoalSameIdDifferentTrajectoryRejected (330 ms)
+[ RUN      ] FjtAction.CompletedGoalSameIdDifferentTimeoutRejected
+[       OK ] FjtAction.CompletedGoalSameIdDifferentTimeoutRejected (314 ms)
+[ RUN      ] FjtAction.CompletedGoalSameIdDifferentSafetySemanticsRejected
+[       OK ] FjtAction.CompletedGoalSameIdDifferentSafetySemanticsRejected (329 ms)
+[ RUN      ] FjtAction.CompletedGoalIdentityMismatchNeverSendsAgain
+[       OK ] FjtAction.CompletedGoalIdentityMismatchNeverSendsAgain (542 ms)
+[ RUN      ] FjtAction.InFlightIdentityIncludesOriginalOrderAndIntentPose
+[       OK ] FjtAction.InFlightIdentityIncludesOriginalOrderAndIntentPose (173 ms)
+[ RUN      ] FjtAction.CompletedIdentityPreservesEveryOriginalTrajectoryField
+[       OK ] FjtAction.CompletedIdentityPreservesEveryOriginalTrajectoryField (313 ms)
+[ RUN      ] FjtAction.FaultedIdentityMismatchPreservesLockAndResult
+[       OK ] FjtAction.FaultedIdentityMismatchPreservesLockAndResult (326 ms)
+[ RUN      ] FjtAction.MonotonicPlannerStampCannotBecomeRosScheduledStart
+[       OK ] FjtAction.MonotonicPlannerStampCannotBecomeRosScheduledStart (88 ms)
+[ RUN      ] FjtAction.PastPlannerGenerationStampDoesNotDispatch
+[       OK ] FjtAction.PastPlannerGenerationStampDoesNotDispatch (88 ms)
+[ RUN      ] FjtAction.NoStatusBeforeDispatchFailsClosed
+[       OK ] FjtAction.NoStatusBeforeDispatchFailsClosed (269 ms)
+[ RUN      ] FjtAction.StatusBeforeGoalResponsePreservesOwnership
+[       OK ] FjtAction.StatusBeforeGoalResponsePreservesOwnership (402 ms)
+[ RUN      ] FjtAction.ForeignGoalBeforeOwnGoalRejected
+[       OK ] FjtAction.ForeignGoalBeforeOwnGoalRejected (110 ms)
+[ RUN      ] FjtAction.GoalResponseBeforeStatusMatchesUuid
+[       OK ] FjtAction.GoalResponseBeforeStatusMatchesUuid (308 ms)
+[ RUN      ] FjtAction.ForeignGoalDuringPendingResponseFailsClosed
+[       OK ] FjtAction.ForeignGoalDuringPendingResponseFailsClosed (122 ms)
+[ RUN      ] FjtAction.CancelBeforeGoalResponseUsesOwnedUuidOnly
+[       OK ] FjtAction.CancelBeforeGoalResponseUsesOwnedUuidOnly (183 ms)
+[ RUN      ] FjtAction.HistoricalTerminalStatusDoesNotBecomeActive
+[       OK ] FjtAction.HistoricalTerminalStatusDoesNotBecomeActive (561 ms)
+[ RUN      ] FjtAction.StatusEvidenceLossDoesNotAuthorizeDispatch
+[       OK ] FjtAction.StatusEvidenceLossDoesNotAuthorizeDispatch (783 ms)
+[ RUN      ] FjtAction.LateResultDoesNotReleaseFaultLock
+[       OK ] FjtAction.LateResultDoesNotReleaseFaultLock (803 ms)
+[ RUN      ] FjtAction.NormalFakeTrajectoryStillExecutesOnce
+[       OK ] FjtAction.NormalFakeTrajectoryStillExecutesOnce (314 ms)
+[ RUN      ] FjtAction.LatchedEmptyStatusCannotAuthorizeDispatch
+[       OK ] FjtAction.LatchedEmptyStatusCannotAuthorizeDispatch (271 ms)
+[ RUN      ] FjtAction.InvalidStatusDoesNotAuthorizeDispatch
+[       OK ] FjtAction.InvalidStatusDoesNotAuthorizeDispatch (98 ms)
+[ RUN      ] FjtAction.PendingResponseTimeoutRetainsSessionAndLateHandle
+[       OK ] FjtAction.PendingResponseTimeoutRetainsSessionAndLateHandle (500 ms)
+[ RUN      ] FjtAction.RejectedResponseAfterUnknownStatusKeepsFaultLock
+[       OK ] FjtAction.RejectedResponseAfterUnknownStatusKeepsFaultLock (95 ms)
+[ RUN      ] FjtAction.TerminalResultBeforeStatusDoesNotAuthorizeSuccessor
+[       OK ] FjtAction.TerminalResultBeforeStatusDoesNotAuthorizeSuccessor (540 ms)
+[----------] 61 tests from FjtAction (18423 ms total)
+
+[----------] Global test environment tear-down
+[==========] 61 tests from 1 test suite ran. (18433 ms total)
+[  PASSED  ] 61 tests.

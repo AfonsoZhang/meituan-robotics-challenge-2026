@@ -1,0 +1,17 @@
+{
+  "observed_at": "2026-10-11T15:36:06.933529+00:00",
+  "commit": "c10f6ed59966401684851f917f9137b0a6cf12ae",
+  "previous": "c0f70172e4b0271046d5f52813e0730d40ae772a",
+  "refs": [
+    "refs/heads/main"
+  ],
+  "paths": [
+    "README.md",
+    "docs/migration/ROS_WIRING_FIX_20261011.md",
+    "src/mtc_manipulation/mtc_manipulation/pick_place_server.py",
+    "src/mtc_task/mtc_task/task_executor.py",
+    "tests/test_ros_wiring.py"
+  ],
+  "relevant": true,
+  "commit_info": "commit c10f6ed59966401684851f917f9137b0a6cf12ae\nMerge: c0f7017 1d3dccf\nAuthor:     Fluorite <46274026+F1u0rite@users.noreply.github.com>\nAuthorDate: Sun Oct 11 23:35:03 2026 +0800\nCommit:     GitHub <noreply@github.com>\nCommitDate: Sun Oct 11 23:35:03 2026 +0800\n\n    Merge pull request #2 from F1u0rite/fix/ros-startup-wiring-b01-b02-b04\n    \n    PR #2 我已经审查过了，B01/B02/B04 的修复可以保留。\n    不过现在 C++ FSM 和三个 C++ Action Server 都已经合并到 main。\n    因此后续不需要继续优先修复旧 Python Action 的 B03/B05/B06。\n    你接下来的主要任务是基于最新 main，开发 C++ Mock Bringup，确保 ExecuteTask → PickPlace 能够正常启动和通信。\n    之后我们再一起对接 MoveIt 2 和运动执行层。\n"
+}

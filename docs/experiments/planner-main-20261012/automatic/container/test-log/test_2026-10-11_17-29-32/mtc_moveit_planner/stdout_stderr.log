@@ -1,0 +1,164 @@
+UpdateCTestConfiguration  from :/candidate-build/mtc_moveit_planner/CTestConfiguration.ini
+Parse Config file:/candidate-build/mtc_moveit_planner/CTestConfiguration.ini
+   Site: 49dd2f5b5811
+   Build name: (empty)
+ Add coverage exclude regular expressions.
+Create new tag: 20261011-1729 - Experimental
+UpdateCTestConfiguration  from :/candidate-build/mtc_moveit_planner/CTestConfiguration.ini
+Parse Config file:/candidate-build/mtc_moveit_planner/CTestConfiguration.ini
+Test project /candidate-build/mtc_moveit_planner
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: test_pose_math
+
+1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_pose_math.gtest.xml" "--package-name" "mtc_moveit_planner" "--output-file" "/candidate-build/mtc_moveit_planner/ament_cmake_gtest/test_pose_math.txt" "--command" "/candidate-build/mtc_moveit_planner/test_pose_math" "--gtest_output=xml:/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_pose_math.gtest.xml"
+1: Working Directory: /candidate-build/mtc_moveit_planner
+1: Test timeout computed to be: 60
+1: -- run_test.py: invoking following command in '/candidate-build/mtc_moveit_planner':
+1:  - /candidate-build/mtc_moveit_planner/test_pose_math --gtest_output=xml:/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_pose_math.gtest.xml
+1: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+1: [==========] Running 5 tests from 1 test suite.
+1: [----------] Global test environment set-up.
+1: [----------] 5 tests from PoseMath
+1: [ RUN      ] PoseMath.RotateAboutZ
+1: [       OK ] PoseMath.RotateAboutZ (0 ms)
+1: [ RUN      ] PoseMath.ComposeWithInverseIsIdentity
+1: [       OK ] PoseMath.ComposeWithInverseIsIdentity (0 ms)
+1: [ RUN      ] PoseMath.OffsetAlongLocalAxisFollowsOrientation
+1: [       OK ] PoseMath.OffsetAlongLocalAxisFollowsOrientation (0 ms)
+1: [ RUN      ] PoseMath.TcpCompensationRoundTrip
+1: [       OK ] PoseMath.TcpCompensationRoundTrip (0 ms)
+1: [ RUN      ] PoseMath.TranslateInFrameKeepsOrientation
+1: [       OK ] PoseMath.TranslateInFrameKeepsOrientation (0 ms)
+1: [----------] 5 tests from PoseMath (0 ms total)
+1: 
+1: [----------] Global test environment tear-down
+1: [==========] 5 tests from 1 test suite ran. (0 ms total)
+1: [  PASSED  ] 5 tests.
+1: -- run_test.py: return code 0
+1: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_pose_math.gtest.xml'
+1: -- run_test.py: verify result file '/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_pose_math.gtest.xml'
+1/4 Test #1: test_pose_math ....................   Passed    0.08 sec
+test 2
+    Start 2: test_trajectory_conversion
+
+2: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_trajectory_conversion.gtest.xml" "--package-name" "mtc_moveit_planner" "--output-file" "/candidate-build/mtc_moveit_planner/ament_cmake_gtest/test_trajectory_conversion.txt" "--command" "/candidate-build/mtc_moveit_planner/test_trajectory_conversion" "--gtest_output=xml:/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_trajectory_conversion.gtest.xml"
+2: Working Directory: /candidate-build/mtc_moveit_planner
+2: Test timeout computed to be: 60
+2: -- run_test.py: invoking following command in '/candidate-build/mtc_moveit_planner':
+2:  - /candidate-build/mtc_moveit_planner/test_trajectory_conversion --gtest_output=xml:/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_trajectory_conversion.gtest.xml
+2: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+2: [==========] Running 4 tests from 1 test suite.
+2: [----------] Global test environment set-up.
+2: [----------] 4 tests from TrajectoryConversion
+2: [ RUN      ] TrajectoryConversion.ReordersByNameNotIndex
+2: [       OK ] TrajectoryConversion.ReordersByNameNotIndex (0 ms)
+2: [ RUN      ] TrajectoryConversion.RejectsMissingExtraOrDuplicateJoints
+2: [       OK ] TrajectoryConversion.RejectsMissingExtraOrDuplicateJoints (0 ms)
+2: [ RUN      ] TrajectoryConversion.RejectsInvalidShapes
+2: [       OK ] TrajectoryConversion.RejectsInvalidShapes (0 ms)
+2: [ RUN      ] TrajectoryConversion.StretchTimeKeepsPathAndScalesDerivatives
+2: [       OK ] TrajectoryConversion.StretchTimeKeepsPathAndScalesDerivatives (0 ms)
+2: [----------] 4 tests from TrajectoryConversion (0 ms total)
+2: 
+2: [----------] Global test environment tear-down
+2: [==========] 4 tests from 1 test suite ran. (0 ms total)
+2: [  PASSED  ] 4 tests.
+2: -- run_test.py: return code 0
+2: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_trajectory_conversion.gtest.xml'
+2: -- run_test.py: verify result file '/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_trajectory_conversion.gtest.xml'
+2/4 Test #2: test_trajectory_conversion ........   Passed    0.08 sec
+test 3
+    Start 3: test_moveit_planner_port
+
+3: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_moveit_planner_port.gtest.xml" "--package-name" "mtc_moveit_planner" "--output-file" "/candidate-build/mtc_moveit_planner/ament_cmake_gtest/test_moveit_planner_port.txt" "--command" "/candidate-build/mtc_moveit_planner/test_moveit_planner_port" "--gtest_output=xml:/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_moveit_planner_port.gtest.xml"
+3: Working Directory: /candidate-build/mtc_moveit_planner
+3: Test timeout computed to be: 60
+3: -- run_test.py: invoking following command in '/candidate-build/mtc_moveit_planner':
+3:  - /candidate-build/mtc_moveit_planner/test_moveit_planner_port --gtest_output=xml:/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_moveit_planner_port.gtest.xml
+3: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+3: [==========] Running 16 tests from 1 test suite.
+3: [----------] Global test environment set-up.
+3: [----------] 16 tests from MoveItPlannerPort
+3: [ RUN      ] MoveItPlannerPort.V1AcquireReturnsOneFullTrajectoryPerPrimitive
+3: [       OK ] MoveItPlannerPort.V1AcquireReturnsOneFullTrajectoryPerPrimitive (1 ms)
+3: [ RUN      ] MoveItPlannerPort.AcquireGeometryStandoffEngageGapAndTestLift
+3: [       OK ] MoveItPlannerPort.AcquireGeometryStandoffEngageGapAndTestLift (0 ms)
+3: [ RUN      ] MoveItPlannerPort.V2TopInsertIsPlanned
+3: [       OK ] MoveItPlannerPort.V2TopInsertIsPlanned (0 ms)
+3: [ RUN      ] MoveItPlannerPort.TransportPhaseUsesSlotAndChainsStates
+3: [       OK ] MoveItPlannerPort.TransportPhaseUsesSlotAndChainsStates (0 ms)
+3: [ RUN      ] MoveItPlannerPort.AnyPrimitiveFailureFailsWholePlan
+3: [       OK ] MoveItPlannerPort.AnyPrimitiveFailureFailsWholePlan (0 ms)
+3: [ RUN      ] MoveItPlannerPort.ToolOwnedPrimitiveIsRefused
+3: [       OK ] MoveItPlannerPort.ToolOwnedPrimitiveIsRefused (0 ms)
+3: [ RUN      ] MoveItPlannerPort.UnknownSlotIsRefused
+3: [       OK ] MoveItPlannerPort.UnknownSlotIsRefused (0 ms)
+3: [ RUN      ] MoveItPlannerPort.UntransformableFrameIsRefusedWithoutCopyingXyz
+3: [       OK ] MoveItPlannerPort.UntransformableFrameIsRefusedWithoutCopyingXyz (0 ms)
+3: [ RUN      ] MoveItPlannerPort.MissingRingPoseIsRefused
+3: [       OK ] MoveItPlannerPort.MissingRingPoseIsRefused (0 ms)
+3: [ RUN      ] MoveItPlannerPort.NoRobotStateIsRefused
+3: [       OK ] MoveItPlannerPort.NoRobotStateIsRefused (0 ms)
+3: [ RUN      ] MoveItPlannerPort.TrajectoryLongerThanStateWatchdogIsRefused
+3: [       OK ] MoveItPlannerPort.TrajectoryLongerThanStateWatchdogIsRefused (0 ms)
+3: [ RUN      ] MoveItPlannerPort.StartMismatchAndMissingJointAreRefused
+3: [       OK ] MoveItPlannerPort.StartMismatchAndMissingJointAreRefused (0 ms)
+3: [ RUN      ] MoveItPlannerPort.TighterControllerJointLimitsAreEnforced
+3: [       OK ] MoveItPlannerPort.TighterControllerJointLimitsAreEnforced (0 ms)
+3: [ RUN      ] MoveItPlannerPort.ScalingAboveExecutorCapIsRefused
+3: [       OK ] MoveItPlannerPort.ScalingAboveExecutorCapIsRefused (0 ms)
+3: [ RUN      ] MoveItPlannerPort.CalibrationGate
+3: [       OK ] MoveItPlannerPort.CalibrationGate (0 ms)
+3: [ RUN      ] MoveItPlannerPort.AsyncReturnsNulloptUntilDoneAndNeverDuplicatesWork
+3: [       OK ] MoveItPlannerPort.AsyncReturnsNulloptUntilDoneAndNeverDuplicatesWork (67 ms)
+3: [----------] 16 tests from MoveItPlannerPort (71 ms total)
+3: 
+3: [----------] Global test environment tear-down
+3: [==========] 16 tests from 1 test suite ran. (71 ms total)
+3: [  PASSED  ] 16 tests.
+3: -- run_test.py: return code 0
+3: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_moveit_planner_port.gtest.xml'
+3: -- run_test.py: verify result file '/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_moveit_planner_port.gtest.xml'
+3/4 Test #3: test_moveit_planner_port ..........   Passed    0.16 sec
+test 4
+    Start 4: test_fsm_accepts_planner_output
+
+4: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_fsm_accepts_planner_output.gtest.xml" "--package-name" "mtc_moveit_planner" "--output-file" "/candidate-build/mtc_moveit_planner/ament_cmake_gtest/test_fsm_accepts_planner_output.txt" "--command" "/candidate-build/mtc_moveit_planner/test_fsm_accepts_planner_output" "--gtest_output=xml:/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_fsm_accepts_planner_output.gtest.xml"
+4: Working Directory: /candidate-build/mtc_moveit_planner
+4: Test timeout computed to be: 60
+4: -- run_test.py: invoking following command in '/candidate-build/mtc_moveit_planner':
+4:  - /candidate-build/mtc_moveit_planner/test_fsm_accepts_planner_output --gtest_output=xml:/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_fsm_accepts_planner_output.gtest.xml
+4: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+4: [==========] Running 4 tests from 1 test suite.
+4: [----------] Global test environment set-up.
+4: [----------] 4 tests from FsmAcceptsPlannerOutput
+4: [ RUN      ] FsmAcceptsPlannerOutput.V1SingleBatteryToT0Synchronous
+4: [       OK ] FsmAcceptsPlannerOutput.V1SingleBatteryToT0Synchronous (2 ms)
+4: [ RUN      ] FsmAcceptsPlannerOutput.V2SingleBatteryToT0Synchronous
+4: [       OK ] FsmAcceptsPlannerOutput.V2SingleBatteryToT0Synchronous (0 ms)
+4: [ RUN      ] FsmAcceptsPlannerOutput.V1AsynchronousPlanningWithinPlanAcquireWatchdog
+4: [       OK ] FsmAcceptsPlannerOutput.V1AsynchronousPlanningWithinPlanAcquireWatchdog (361 ms)
+4: [ RUN      ] FsmAcceptsPlannerOutput.PlanningFailureStopsBeforeAnyMotion
+4: [       OK ] FsmAcceptsPlannerOutput.PlanningFailureStopsBeforeAnyMotion (0 ms)
+4: [----------] 4 tests from FsmAcceptsPlannerOutput (365 ms total)
+4: 
+4: [----------] Global test environment tear-down
+4: [==========] 4 tests from 1 test suite ran. (365 ms total)
+4: [  PASSED  ] 4 tests.
+4: -- run_test.py: return code 0
+4: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_fsm_accepts_planner_output.gtest.xml'
+4: -- run_test.py: verify result file '/candidate-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_fsm_accepts_planner_output.gtest.xml'
+4/4 Test #4: test_fsm_accepts_planner_output ...   Passed    0.44 sec
+
+100% tests passed, 0 tests failed out of 4
+
+Label Time Summary:
+gtest    =   0.76 sec*proc (4 tests)
+
+Total Test time (real) =   0.77 sec

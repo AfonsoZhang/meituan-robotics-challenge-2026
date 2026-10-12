@@ -1,0 +1,130 @@
+{
+  "planning-sop": {
+    "fixed": {
+      "point_count": 61,
+      "duration_s": 5.909337444,
+      "time_monotonic": true,
+      "finite_positions_velocities_accelerations": true,
+      "planner_declared_position_bounds": "PASS",
+      "joint_order": [
+        "shoulder_joint",
+        "upperArm_joint",
+        "foreArm_joint",
+        "wrist1_joint",
+        "wrist2_joint",
+        "wrist3_joint"
+      ],
+      "extremes_rad": {
+        "shoulder_joint": [
+          -0.0001394754026,
+          0
+        ],
+        "upperArm_joint": [
+          -0.03303023182,
+          0
+        ],
+        "foreArm_joint": [
+          0,
+          1.236729346
+        ],
+        "wrist1_joint": [
+          -0.3663814198,
+          0
+        ],
+        "wrist2_joint": [
+          0,
+          1.570987822
+        ],
+        "wrist3_joint": [
+          0,
+          0.0006366378061
+        ]
+      },
+      "planning_time_s": 0.06246622,
+      "final_position_error_m": 6.192415625e-05,
+      "final_orientation_error_rad": 0.001408115661,
+      "yaml": "fixed_pose_plan_20261011_155956.yaml",
+      "child_exit": 0
+    },
+    "sequences": {
+      "passive_hook_v1": {
+        "ok": false,
+        "commands": 0,
+        "message": "[TF_UNAVAILABLE] side_insert: cannot transform ring pose from 'base_link' to 'world'",
+        "child_exit": 1
+      },
+      "magnetic_latch_v2": {
+        "ok": false,
+        "commands": 0,
+        "message": "[TF_UNAVAILABLE] top_insert: cannot transform ring pose from 'base_link' to 'world'",
+        "child_exit": 1
+      }
+    },
+    "move_group_exit": -11,
+    "control_exit": -2
+  },
+  "diagnostic-tfwait": {
+    "fixed": {
+      "point_count": 157,
+      "duration_s": 15.58985093,
+      "time_monotonic": true,
+      "finite_positions_velocities_accelerations": true,
+      "planner_declared_position_bounds": "PASS",
+      "joint_order": [
+        "shoulder_joint",
+        "upperArm_joint",
+        "foreArm_joint",
+        "wrist1_joint",
+        "wrist2_joint",
+        "wrist3_joint"
+      ],
+      "extremes_rad": {
+        "shoulder_joint": [
+          0,
+          2.444721371
+        ],
+        "upperArm_joint": [
+          0,
+          0.03098605933
+        ],
+        "foreArm_joint": [
+          -1.247404335,
+          0
+        ],
+        "wrist1_joint": [
+          0,
+          0.3432900775
+        ],
+        "wrist2_joint": [
+          0,
+          4.668752136
+        ],
+        "wrist3_joint": [
+          -0.6950433055,
+          0
+        ]
+      },
+      "planning_time_s": 0.045840176,
+      "final_position_error_m": 9.044997035e-05,
+      "final_orientation_error_rad": 0.001185652259,
+      "yaml": "fixed_pose_plan_20261011_160130.yaml",
+      "child_exit": 0
+    },
+    "sequences": {
+      "passive_hook_v1": {
+        "ok": false,
+        "commands": 0,
+        "message": "[EXCEEDS_STATE_WATCHDOG] side_insert: trajectory lasts 136.515 s, more than 80% of the MOVE_PRE_ALIGN watchdog (30 s)",
+        "child_exit": 1
+      },
+      "magnetic_latch_v2": {
+        "ok": true,
+        "commands": 7,
+        "message": "planned 2 primitive(s) in frame 'world' for 'ee_link'; simulation_only=true (uncalibrated: TCP=PLACEHOLDER)",
+        "child_exit": 0
+      }
+    },
+    "move_group_exit": -11,
+    "control_exit": 0
+  }
+}

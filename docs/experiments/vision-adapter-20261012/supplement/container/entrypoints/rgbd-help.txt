@@ -1,0 +1,38 @@
+usage: live_rgbd_preview.py [-h] [--fps FPS] [--color-size W H]
+                            [--depth-size W H] [--min-depth-m MIN_DEPTH_M]
+                            [--max-depth-m MAX_DEPTH_M]
+                            [--scene {top,tilted,side}] [--output OUTPUT]
+                            [--dual-rate]
+                            [--continuous-max-seconds CONTINUOUS_MAX_SECONDS]
+                            [--continuous-max-frames CONTINUOUS_MAX_FRAMES]
+                            [--full-vision] [--replay REPLAY] [--headless]
+                            [--preview-authorized]
+                            [--vision-config VISION_CONFIG]
+                            [--replay-output REPLAY_OUTPUT] [--ui-smoke]
+                            [--max-frames MAX_FRAMES]
+
+D435i RGB-D preview; no automatic recording
+
+options:
+  -h, --help            show this help message and exit
+  --fps FPS
+  --color-size W H
+  --depth-size W H
+  --min-depth-m MIN_DEPTH_M
+  --max-depth-m MAX_DEPTH_M
+  --scene {top,tilted,side}
+  --output OUTPUT
+  --dual-rate           Bounded capture, fast detection and slower CAD worker
+  --continuous-max-seconds CONTINUOUS_MAX_SECONDS
+  --continuous-max-frames CONTINUOUS_MAX_FRAMES
+  --full-vision         Existing RGB-D segmentation + CAD + tracking
+                        diagnostic preview
+  --replay REPLAY       Offline session; never starts a camera
+  --headless
+  --preview-authorized  Only use after explicit human camera preparation
+                        confirmation
+  --vision-config VISION_CONFIG
+  --replay-output REPLAY_OUTPUT
+                        New offline results directory; must not exist
+  --ui-smoke            Finite offline GUI check only
+  --max-frames MAX_FRAMES

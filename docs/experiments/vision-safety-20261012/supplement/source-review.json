@@ -1,0 +1,84 @@
+{
+  "commit": "e53c09fba0ac6082d97d53676413d6e285140dc1",
+  "previous": "0e329f10e6f607c9c417a54ae60d290b8e2395b5",
+  "review_base": "0e329f10e6f607c9c417a54ae60d290b8e2395b5",
+  "parents": [
+    "0e329f10e6f607c9c417a54ae60d290b8e2395b5"
+  ],
+  "commit_metadata": "commit e53c09fba0ac6082d97d53676413d6e285140dc1\nAuthor:     BHBAllen <BHBAllen@users.noreply.github.com>\nAuthorDate: Mon Oct 12 02:19:07 2026 +0800\nCommit:     BHBAllen <BHBAllen@users.noreply.github.com>\nCommitDate: Mon Oct 12 02:19:07 2026 +0800\n\n    fix(vision): make replay shutdown idempotent and require trusted TF",
+  "incremental_commits": [
+    "e53c09fba0ac6082d97d53676413d6e285140dc1 0e329f10e6f607c9c417a54ae60d290b8e2395b5 fix(vision): make replay shutdown idempotent and require trusted TF"
+  ],
+  "incremental_changed_files": [
+    "src/mtc_vision_adapter/README.md",
+    "src/mtc_vision_adapter/mtc_vision_adapter/core.py",
+    "src/mtc_vision_adapter/mtc_vision_adapter/publisher.py",
+    "src/mtc_vision_adapter/package.xml",
+    "src/mtc_vision_adapter/test/ros_replay_validation.py",
+    "src/mtc_vision_adapter/test/test_motion_safety.py",
+    "src/mtc_vision_adapter/test/test_motion_tf_buffer.py",
+    "src/mtc_vision_adapter/test/test_publisher_cleanup.py"
+  ],
+  "cumulative_changed_files": [
+    "src/mtc_vision_adapter/README.md",
+    "src/mtc_vision_adapter/mtc_vision_adapter/core.py",
+    "src/mtc_vision_adapter/mtc_vision_adapter/publisher.py",
+    "src/mtc_vision_adapter/package.xml",
+    "src/mtc_vision_adapter/test/ros_replay_validation.py",
+    "src/mtc_vision_adapter/test/test_motion_safety.py",
+    "src/mtc_vision_adapter/test/test_motion_tf_buffer.py",
+    "src/mtc_vision_adapter/test/test_publisher_cleanup.py"
+  ],
+  "changed_file_inventory": [
+    {
+      "path": "src/mtc_vision_adapter/README.md",
+      "sha256": "232126c1fddeb160c4a05b72a07941aec74d2d3b277917d31fb99d7d1cc6519c",
+      "size_bytes": 1977
+    },
+    {
+      "path": "src/mtc_vision_adapter/mtc_vision_adapter/core.py",
+      "sha256": "517093c885d164ccb600cdc523f665ca962458b3306601dc60de237dd5205e6c",
+      "size_bytes": 8986
+    },
+    {
+      "path": "src/mtc_vision_adapter/mtc_vision_adapter/publisher.py",
+      "sha256": "d183e2feae2ea6f5f79f732e1a0eccf20758316ca0d28000d3ea5a7a5f3fc11a",
+      "size_bytes": 2126
+    },
+    {
+      "path": "src/mtc_vision_adapter/package.xml",
+      "sha256": "7e4f4ee3bad2d3f7d6fe831a2502056e7e129e8879f030d3ae7aeefba74af5fb",
+      "size_bytes": 593
+    },
+    {
+      "path": "src/mtc_vision_adapter/test/ros_replay_validation.py",
+      "sha256": "225e97ef16787b9db95854db6342a96301020e70234b1478a83bf7836529c12d",
+      "size_bytes": 6134
+    },
+    {
+      "path": "src/mtc_vision_adapter/test/test_motion_safety.py",
+      "sha256": "b454afb2107ea9a3d58e06a9b28767e3e9c48c8e45c855c3f3b35133211f56ca",
+      "size_bytes": 4555
+    },
+    {
+      "path": "src/mtc_vision_adapter/test/test_motion_tf_buffer.py",
+      "sha256": "e366960610dec517fa5ff831348a82186ebe1346303457d7671da2fde986fd11",
+      "size_bytes": 1992
+    },
+    {
+      "path": "src/mtc_vision_adapter/test/test_publisher_cleanup.py",
+      "sha256": "eeab0b50f3ea02fb3e80c9c56188ce1a45f347fef789b121fecd217ac6a792e5",
+      "size_bytes": 2057
+    }
+  ],
+  "all_nonadapter_sources_identical_to_previous_vision_acceptance": true,
+  "source_modified": false,
+  "formal_baseline_advanced": false,
+  "observed_refs": [
+    "refs/heads/feature/perception-adapter",
+    "refs/pull/5/head"
+  ],
+  "changes": "Eight adapter files only: strict trusted frames/capture-stamp TF helper, idempotent publisher cleanup, explicit tests and an instrumented process validator. Vision core and all other production sources unchanged.",
+  "integration_limit": "Existing IDL/FSM/Action unchanged; ROS publisher has no live sensor input, always invalid ring pose; no new perception subscription in C++ Task. Local motion_rejection helper is not invoked by production publisher or FSM consumer.",
+  "at": "2026-10-11T18:54:48.506743+00:00"
+}

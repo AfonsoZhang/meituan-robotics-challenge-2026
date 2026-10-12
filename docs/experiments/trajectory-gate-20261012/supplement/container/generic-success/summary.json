@@ -1,0 +1,128 @@
+{
+  "scope": "Delivered standalone FjtMotionPort/GenericSystem only; no MoveIt, complete FSM or physical device",
+  "started_at": "2026-10-11T18:39:35.911121+00:00",
+  "cases": [
+    {
+      "mode": "success",
+      "argv": [
+        "ros2",
+        "run",
+        "mtc_trajectory_execution_cpp",
+        "fake_trajectory_probe",
+        "--verify-generic-system",
+        "success"
+      ],
+      "start_monotonic": 917593.571544862,
+      "probe_finished_monotonic": 917597.477401336,
+      "observation_end_monotonic": 917598.081767848,
+      "exit_code": 0,
+      "before": {
+        "received_monotonic": 917593.571488755,
+        "stamp_ns": 1791743988278597026,
+        "names": [
+          "foreArm_joint",
+          "shoulder_joint",
+          "upperArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "positions": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "velocities": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "after": {
+        "received_monotonic": 917598.08141881,
+        "stamp_ns": 1791743992788566941,
+        "names": [
+          "foreArm_joint",
+          "shoulder_joint",
+          "upperArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "positions": [
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02
+        ],
+        "velocities": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "sample_index_range": [
+        246,
+        1148
+      ],
+      "status_index_range": [
+        0,
+        2
+      ],
+      "new_goal_uuids": [
+        "a929cbe1f9c45743cd30c01a56754383"
+      ],
+      "log": "success.log",
+      "uuid": "a929cbe1f9c45743cd30c01a56754383",
+      "observed_statuses": [
+        2,
+        4
+      ]
+    }
+  ],
+  "status": "PASS_DELIVERED_SINGLE_CASE",
+  "plugins": [
+    "mock_components/GenericSystem"
+  ],
+  "source": "45f497ce3444e255463faf41f7b736aa9ad07d7b",
+  "launch": {
+    "argv": [
+      "ros2",
+      "launch",
+      "aubo_ros2_driver",
+      "aubo_control.launch.py",
+      "aubo_type:=aubo_S3",
+      "use_fake_hardware:=true",
+      "initial_joint_controller:=joint_trajectory_controller",
+      "launch_rviz:=false"
+    ],
+    "pid": 4718
+  },
+  "observer_has_action_client": false,
+  "probe_binary": "/candidate-install/mtc_trajectory_execution_cpp/lib/mtc_trajectory_execution_cpp/fake_trajectory_probe",
+  "shutdown": {
+    "already_exited": false,
+    "escalated": false,
+    "exit_code": 0,
+    "child_failures": [],
+    "pal_statistics_context_errors": [
+      "[ros2_control_node-1] [ERROR] [1791743992.834384926] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+      "[ros2_control_node-1] [ERROR] [1791743992.834384956] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+    ]
+  },
+  "empty_after": true,
+  "ended_at": "2026-10-11T18:39:55.870499+00:00",
+  "samples": 1148,
+  "status_messages": 2
+}

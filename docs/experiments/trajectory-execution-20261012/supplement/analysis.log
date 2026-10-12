@@ -1,0 +1,209 @@
+{
+  "verdict": "PARTIAL_PASS_TRAJECTORY_TESTS_UBSAN_CONSUMER; GENERIC_SUCCESS_FAILED_PROOF_LOST; MISMATCH_AND_CANCEL_PASS; FULL_FSM_NOT_ACCEPTED",
+  "generic_cases": [
+    {
+      "mode": "success",
+      "exit_code": 1,
+      "probe": {
+        "goals_sent": 1,
+        "cancels_sent": 1,
+        "feedback_samples": 36,
+        "success": 0,
+        "arrived": 0,
+        "stop_confirmed": 0,
+        "timed_out": 0,
+        "status_unknown": 1,
+        "fault_locked": 1,
+        "error": 230
+      },
+      "uuid": "1ad994a3870c95d6b873a41f93123561",
+      "observed_statuses": [
+        2,
+        4
+      ],
+      "new_goal_uuids": [
+        "1ad994a3870c95d6b873a41f93123561"
+      ],
+      "observation_has_action_client": false,
+      "case_samples": 876,
+      "total_run_samples": 1122,
+      "distinct_case_stamps": 876,
+      "max_stamp_gap_sec": 0.009397871,
+      "max_receive_gap_sec": 0.009553455980494618,
+      "final_named_delta_rad": {
+        "foreArm_joint": 0.02,
+        "shoulder_joint": 0.02,
+        "upperArm_joint": 0.02,
+        "wrist1_joint": 0.02,
+        "wrist2_joint": 0.02,
+        "wrist3_joint": 0.02
+      },
+      "observed_final_velocities": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "source": "688d80d63ba2196e3c1753b69d18c1bfa30919b3",
+      "shutdown": {
+        "already_exited": false,
+        "escalated": false,
+        "exit_code": 0,
+        "child_failures": [],
+        "pal_statistics_context_errors": [
+          "[ros2_control_node-1] [ERROR] [1791741497.575350231] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+          "[ros2_control_node-1] [ERROR] [1791741497.575350226] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+        ]
+      },
+      "empty_after": true,
+      "probe_log": "/home/afonso/meituan-robotics-challenge-2026/outputs/trajectory-acceptance-20261012-688d80d/container/generic/success.log",
+      "observed_max_final_error_rad": 0.0,
+      "verdict": "FAIL_PORT_RUNTIME_PROOF_LOST_DESPITE_OBSERVED_CONTROLLER_SUCCESS",
+      "terminal_status_observed_monotonic": 915106.037644903,
+      "post_terminal_samples_before_probe_exit": 56,
+      "post_terminal_span_before_probe_exit_sec": 0.2748262149980292,
+      "post_terminal_max_velocity_rad_s": 0.0,
+      "post_terminal_max_position_rate_rad_s": 0.0,
+      "post_terminal_stationary_evidence_is_external": "Independent subscription only; not proof of which callbacks/proofs the port processed."
+    },
+    {
+      "mode": "mismatch",
+      "exit_code": 0,
+      "probe": {
+        "goals_sent": 0,
+        "cancels_sent": 0,
+        "feedback_samples": 0,
+        "success": 0,
+        "arrived": 0,
+        "stop_confirmed": 0,
+        "timed_out": 0,
+        "status_unknown": 0,
+        "fault_locked": 0,
+        "error": 210
+      },
+      "uuid": null,
+      "observed_statuses": [],
+      "new_goal_uuids": [],
+      "observation_has_action_client": false,
+      "case_samples": 477,
+      "total_run_samples": 723,
+      "distinct_case_stamps": 477,
+      "max_stamp_gap_sec": 0.006467019,
+      "max_receive_gap_sec": 0.00712805800139904,
+      "final_named_delta_rad": {
+        "foreArm_joint": 0.0,
+        "shoulder_joint": 0.0,
+        "upperArm_joint": 0.0,
+        "wrist1_joint": 0.0,
+        "wrist2_joint": 0.0,
+        "wrist3_joint": 0.0
+      },
+      "observed_final_velocities": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "source": "688d80d63ba2196e3c1753b69d18c1bfa30919b3",
+      "shutdown": {
+        "already_exited": false,
+        "escalated": false,
+        "exit_code": 0,
+        "child_failures": [],
+        "pal_statistics_context_errors": [
+          "[ros2_control_node-1] [ERROR] [1791741554.735703492] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+          "[ros2_control_node-1] [ERROR] [1791741554.735703522] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+        ]
+      },
+      "empty_after": true,
+      "probe_log": "/home/afonso/meituan-robotics-challenge-2026/outputs/trajectory-acceptance-20261012-688d80d/container/mismatch/mismatch.log",
+      "verdict": "PASS_START_MISMATCH_REJECTED_WITHOUT_GOAL"
+    },
+    {
+      "mode": "cancel",
+      "exit_code": 0,
+      "probe": {
+        "stop_confirmed": 1,
+        "goals_sent": 1,
+        "cancels_sent": 1,
+        "feedback_samples": 10,
+        "success": 0,
+        "arrived": 0,
+        "timed_out": 0,
+        "status_unknown": 0,
+        "fault_locked": 0,
+        "error": 0
+      },
+      "uuid": "edcbf44dd6198bfef5f9427c6e99afcb",
+      "observed_statuses": [
+        2,
+        3,
+        5
+      ],
+      "new_goal_uuids": [
+        "edcbf44dd6198bfef5f9427c6e99afcb"
+      ],
+      "observation_has_action_client": false,
+      "case_samples": 615,
+      "total_run_samples": 861,
+      "distinct_case_stamps": 615,
+      "max_stamp_gap_sec": 0.008647611,
+      "max_receive_gap_sec": 0.008912278921343386,
+      "final_named_delta_rad": {
+        "foreArm_joint": 0.004905708822455274,
+        "shoulder_joint": 0.004905708822455274,
+        "upperArm_joint": 0.004905708822455274,
+        "wrist1_joint": 0.004905708822455274,
+        "wrist2_joint": 0.004905708822455274,
+        "wrist3_joint": 0.004905708822455274
+      },
+      "observed_final_velocities": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "source": "688d80d63ba2196e3c1753b69d18c1bfa30919b3",
+      "shutdown": {
+        "already_exited": false,
+        "escalated": false,
+        "exit_code": 0,
+        "child_failures": [],
+        "pal_statistics_context_errors": [
+          "[ros2_control_node-1] [ERROR] [1791741585.134025384] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+          "[ros2_control_node-1] [ERROR] [1791741585.134025384] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+        ]
+      },
+      "empty_after": true,
+      "probe_log": "/home/afonso/meituan-robotics-challenge-2026/outputs/trajectory-acceptance-20261012-688d80d/container/cancel/cancel.log",
+      "verdict": "PASS_OWNED_CANCEL_TERMINAL_AND_STATIONARY",
+      "terminal_status_observed_monotonic": 915193.483509624,
+      "post_terminal_samples_before_probe_exit": 76,
+      "post_terminal_span_before_probe_exit_sec": 0.37527567509096116,
+      "post_terminal_max_velocity_rad_s": 0.0,
+      "post_terminal_max_position_rate_rad_s": 0.0,
+      "post_terminal_stationary_evidence_is_external": "Independent subscription only; not proof of which callbacks/proofs the port processed."
+    }
+  ],
+  "ubsan": {
+    "cases": 424,
+    "executables": 22,
+    "compile_commands_instrumented": {
+      "mtc_core_cpp": 5,
+      "mtc_manipulation_cpp": 12,
+      "mtc_motion_execution_cpp": 12,
+      "mtc_ros2_action_cpp": 13,
+      "mtc_task_cpp": 8,
+      "mtc_trajectory_execution_cpp": 7
+    },
+    "all_case_identities_match_automatic": true,
+    "colcon_aggregate": 446,
+    "scope": "Six C++ packages rebuilt; ROS/DDS/system libraries not instrumented; no TSan"
+  }
+}

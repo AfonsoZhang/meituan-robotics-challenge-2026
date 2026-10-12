@@ -1,0 +1,93 @@
+{
+  "case": "cancel",
+  "profile": "success",
+  "started_at": "2026-10-12T00:10:44.852648+00:00",
+  "goal_id": "5ab13dc6-eb60-41d3-b373-d98fd0dda11e",
+  "cancel_ack": {
+    "request_delivered": true,
+    "message": "ROS 已确认接受取消"
+  },
+  "status": "CANCELED",
+  "error_code": 0,
+  "completed_count": 0,
+  "feedback_events": 5,
+  "ok": false,
+  "error": "AssertionError('No actual downstream C++ Goal')",
+  "stack_exit_code": 0,
+  "cleanup": {
+    "started_at": "2026-10-12T00:10:44.932134+00:00",
+    "namespace": "/cpp_accept_cancel",
+    "domain_id": 161,
+    "profile": "success",
+    "result_delay_ms": 350,
+    "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+    "processes": [
+      {
+        "label": "pick_place",
+        "pid": 1440,
+        "argv": [
+          "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+          "--ros-args",
+          "-r",
+          "__ns:=/cpp_accept_cancel",
+          "-r",
+          "/mtc/task/execute:=/cpp_accept_cancel/task/execute",
+          "-r",
+          "/mtc/manipulation/pick_place:=/cpp_accept_cancel/manipulation/pick_place",
+          "-p",
+          "mock.result_delay_ms:=350",
+          "-p",
+          "mock.plan_available:=true",
+          "-p",
+          "mock.stop_evidence_available:=true",
+          "-p",
+          "mock.status_unknown:=false"
+        ],
+        "executable": "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+      },
+      {
+        "label": "task",
+        "pid": 1441,
+        "argv": [
+          "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+          "--ros-args",
+          "-r",
+          "__ns:=/cpp_accept_cancel",
+          "-r",
+          "/mtc/task/execute:=/cpp_accept_cancel/task/execute",
+          "-r",
+          "/mtc/manipulation/pick_place:=/cpp_accept_cancel/manipulation/pick_place"
+        ],
+        "executable": "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+      },
+      {
+        "label": "web",
+        "pid": 1478,
+        "argv": [
+          "/usr/bin/python3",
+          "-m",
+          "webui.server",
+          "--cpp-mock",
+          "--cpp-namespace",
+          "/cpp_accept_cancel",
+          "--ros-domain-id",
+          "161",
+          "--port",
+          "8767",
+          "--output-dir",
+          "/integration-evidence/acceptance-v2/cancel/stack/web-session"
+        ],
+        "executable": "/usr/bin/python3.12"
+      }
+    ],
+    "returncodes": {
+      "pick_place": 0,
+      "task": 0,
+      "web": 0
+    },
+    "ended_at": "2026-10-12T00:10:50.678567+00:00",
+    "cleanup_ok": true,
+    "exit_code": 0
+  },
+  "ended_at": "2026-10-12T00:10:50.855391+00:00"
+}

@@ -1,0 +1,491 @@
+diff --git a/src/mtc_vision_adapter/README.md b/src/mtc_vision_adapter/README.md
+index c10a586..da10a88 100644
+--- a/src/mtc_vision_adapter/README.md
++++ b/src/mtc_vision_adapter/README.md
+@@ -2,3 +2,31 @@ See ../../vision_core/README.md for installation and pending Jazzy checks.
+ Topic /mtc/perception/batteries; RELIABLE KEEP_LAST(5) VOLATILE.
+ UNKNOWN=0 RED=1 BLUE=2 YELLOW=3 GREEN=4.
+ Replay only; invalid poses JSON null -> ROS NaN; ring_pose_valid=false; no motion.
++
++Motion safety contract:
++`motion_rejection(..., mode="live")` rejects by default. A caller must supply
++`trusted_frames`, a trusted `target_frame`, and a callable
++`tf_validator(source_frame, target_frame, capture_stamp)`. The validator must
++return exactly `True` only after resolving a usable transform at the capture
++stamp (not latest TF) into the trusted motion frame. Lookup failures, timeouts,
++and missing/uncertain results reject. Frame names alone never establish trust.
++This is an independent safety helper; it does not wire or validate the C++ FSM
++ROS adapter. Synthetic/replay publication remains allowed and cannot be motion
++input. The publisher forces `ring_pose_valid=false`.
++
++Jazzy validation: source `/opt/ros/jazzy/setup.bash`, build this package and
++`mtc_interfaces`, then run `python3 -m pytest -q src/mtc_vision_adapter/test`
++with the workspace overlay sourced. TF tests use a local buffer, without a
++network listener or motion execution.
++
++Process validation: run python3 src/mtc_vision_adapter/test/ros_replay_validation.py
++with the overlay sourced and an isolated local ROS domain. Artifacts default to
++/tmp/mtc_vision_validation; override with MTC_VALIDATION_OUT.
++MTC_REPLAY_FIXTURE can select a replay JSONL fixture without changing capture stamps.
++
++QoS validation checks the profile on the created publisher and discovered
++endpoint compatibility. On this Jazzy RMW, discovery reports history UNKNOWN
++and depth 0; those fields do not verify publisher queue configuration.
++The process test waits for a matched subscriber before starting its timer.
++Replay validation may reuse synthetic records with mode=replay solely to test
++the replay path; this does not constitute a real camera recording.
+diff --git a/src/mtc_vision_adapter/mtc_vision_adapter/core.py b/src/mtc_vision_adapter/mtc_vision_adapter/core.py
+index 045c5f6..68f357f 100644
+--- a/src/mtc_vision_adapter/mtc_vision_adapter/core.py
++++ b/src/mtc_vision_adapter/mtc_vision_adapter/core.py
+@@ -88,22 +88,58 @@ def make_array(tracking,frame_id,timestamp):
+                            'confidence':float(t['confidence']),'ring_pose_valid':False})
+     return {'header':h,'detections':detections}
+ 
+-def motion_rejection(message,now_s,max_age_s=.5,mode='replay'):
++def motion_rejection(message,now_s,max_age_s=.5,mode='replay',*,
++                     trusted_frames=(),target_frame=None,tf_validator=None):
++    """Fail closed unless the caller supplies trusted frames and verified TF.
++
++    tf_validator(source, target, stamp) must return exactly True only after
++    validating a usable TF into the trusted motion frame at the capture stamp.
++    Missing TF, timeout and lookup errors must reject. No TF trust is inferred
++    from a frame name. This independent helper does not wire the C++ FSM.
++    """
++    try:
++        return _motion_rejection(message,now_s,max_age_s,mode,
++                                 trusted_frames,target_frame,tf_validator)
++    except (KeyError,TypeError,ValueError,OverflowError,AttributeError):
++        return 'MALFORMED_INPUT'
++
++def _motion_rejection(message,now_s,max_age_s,mode,trusted_frames,target_frame,tf_validator):
+     ids=[d['object_id'] for d in message['detections']]
+     if len(ids)!=len(set(ids)): return 'DUPLICATE_ID'
+     if mode!='live': return 'REPLAY_NOT_MOTION_INPUT'
+-    stamp=message['header']['stamp']; age=now_s-stamp['sec']-stamp['nanosec']*1e-9
++    if not math.isfinite(now_s) or not math.isfinite(max_age_s) or max_age_s<=0:
++        return 'MALFORMED_INPUT'
++    stamp=message['header']['stamp']
++    if (type(stamp['sec']) is not int or type(stamp['nanosec']) is not int
++            or stamp['sec']<=0 or not 0<=stamp['nanosec']<1000000000):
++        return 'MALFORMED_INPUT'
++    age=now_s-stamp['sec']-stamp['nanosec']*1e-9
+     if not math.isfinite(age) or age<0 or age>max_age_s: return 'STALE_OR_FUTURE'
+     for d in message['detections']:
+-        if not d['ring_pose_valid']: return 'RING_INVALID'
++        if d['ring_pose_valid'] is not True: return 'RING_INVALID'
+         for name in ('body_pose','ring_pose'):
+             p=d[name]
+             if p['header']!=message['header']: return 'POSE_HEADER_MISMATCH'
+-            values=list(p['pose']['position'].values())+list(p['pose']['orientation'].values())
++            values=[p['pose']['position'][key] for key in ('x','y','z')]+[p['pose']['orientation'][key] for key in ('x','y','z','w')]
+             if any(v is None or not math.isfinite(v) for v in values): return 'POSE_INVALID'
+-            q=list(p['pose']['orientation'].values())
++            q=[p['pose']['orientation'][key] for key in ('x','y','z','w')]
+             if abs(sum(x*x for x in q)-1)>1e-3: return 'QUATERNION_INVALID'
+-    return 'EMPTY' if not ids else 'NO_REJECTION'
++    if not ids: return 'EMPTY'
++    source=message['header']['frame_id']
++    if (not isinstance(source,str) or not source
++            or isinstance(trusted_frames,str) or source not in trusted_frames
++            or not isinstance(target_frame,str) or not target_frame
++            or target_frame not in trusted_frames):
++        return 'UNTRUSTED_FRAME'
++    if not callable(tf_validator): return 'TF_UNVERIFIED'
++    try:
++        # Require a transform at the capture timestamp, not latest TF.
++        # Strict True also rejects None, truthy objects and incomplete results.
++        verified=tf_validator(source,target_frame,dict(stamp)) is True
++    except Exception:
++        return 'TF_UNVERIFIED'
++    return 'NO_REJECTION' if verified else 'TF_UNVERIFIED'
++
+ 
+ def to_ros(data,array_type,detection_type):
+     """Dependency injection supports tests; production uses generated mtc_interfaces."""
+diff --git a/src/mtc_vision_adapter/mtc_vision_adapter/publisher.py b/src/mtc_vision_adapter/mtc_vision_adapter/publisher.py
+index acb22b3..f61e1bb 100644
+--- a/src/mtc_vision_adapter/mtc_vision_adapter/publisher.py
++++ b/src/mtc_vision_adapter/mtc_vision_adapter/publisher.py
+@@ -6,29 +6,40 @@ from .core import to_ros
+ def main():
+     import rclpy
+     from rclpy.node import Node
++    from rclpy.executors import ExternalShutdownException
+     from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy, DurabilityPolicy
+     from mtc_interfaces.msg import BatteryDetectionArray, BatteryDetection
+     rclpy.init()
+-    node=Node('vision_offline_replay')
+-    node.declare_parameter('input_jsonl','')
+-    node.declare_parameter('period_s',1.0)
+-    path=Path(node.get_parameter('input_jsonl').value)
+-    records=[json.loads(line) for line in path.read_text(encoding='utf-8').splitlines() if line]
+-    if not records or any(r.get('mode') not in ('replay','synthetic') for r in records):
+-        raise ValueError('explicit replay/synthetic records required')
+-    qos=QoSProfile(depth=5,reliability=ReliabilityPolicy.RELIABLE,
+-                   history=HistoryPolicy.KEEP_LAST,durability=DurabilityPolicy.VOLATILE)
+-    pub=node.create_publisher(BatteryDetectionArray,'/mtc/perception/batteries',qos)
+-    node.get_logger().warning('OFFLINE REPLAY: original timestamps; invalid poses; never motion input')
+-    index=0
+-    def tick():
+-        nonlocal index
+-        if index>=len(records):
+-            timer.cancel(); node.get_logger().info('replay complete'); return
+-        record=records[index]
+-        pub.publish(to_ros(record['message'],BatteryDetectionArray,BatteryDetection))
+-        node.get_logger().info(f"frame={index} mode={record['mode']} source={record['timestamp_source']}")
+-        index+=1
+-    timer=node.create_timer(float(node.get_parameter('period_s').value),tick)
+-    try:rclpy.spin(node)
+-    finally:node.destroy_node();rclpy.shutdown()
++    node=None
++    try:
++        node=Node('vision_offline_replay')
++        node.declare_parameter('input_jsonl','')
++        node.declare_parameter('period_s',1.0)
++        path=Path(node.get_parameter('input_jsonl').value)
++        records=[json.loads(line) for line in path.read_text(encoding='utf-8').splitlines() if line]
++        if not records or any(r.get('mode') not in ('replay','synthetic') for r in records):
++            raise ValueError('explicit replay/synthetic records required')
++        qos=QoSProfile(depth=5,reliability=ReliabilityPolicy.RELIABLE,
++                       history=HistoryPolicy.KEEP_LAST,durability=DurabilityPolicy.VOLATILE)
++        pub=node.create_publisher(BatteryDetectionArray,'/mtc/perception/batteries',qos)
++        node.get_logger().warning('OFFLINE REPLAY: original timestamps; invalid poses; never motion input')
++        index=0
++        def tick():
++            nonlocal index
++            if index>=len(records):
++                timer.cancel(); node.get_logger().info('replay complete'); return
++            record=records[index]
++            pub.publish(to_ros(record['message'],BatteryDetectionArray,BatteryDetection))
++            node.get_logger().info(f"frame={index} mode={record['mode']} source={record['timestamp_source']}")
++            index+=1
++        timer=node.create_timer(float(node.get_parameter('period_s').value),tick)
++        rclpy.spin(node)
++    except (KeyboardInterrupt, ExternalShutdownException):
++        pass
++    finally:
++        try:
++            if node is not None:
++                node.destroy_node()
++        finally:
++            # SIGINT may already have shut down the context in Jazzy.
++            rclpy.try_shutdown()
+diff --git a/src/mtc_vision_adapter/package.xml b/src/mtc_vision_adapter/package.xml
+index 732b7e7..68e677a 100644
+--- a/src/mtc_vision_adapter/package.xml
++++ b/src/mtc_vision_adapter/package.xml
+@@ -3,4 +3,5 @@
+ <description>Vision detection replay adapter</description><maintainer email="vision@example.invalid">vision team</maintainer>
+ <license>Apache-2.0</license><buildtool_depend>ament_python</buildtool_depend>
+ <exec_depend>rclpy</exec_depend><exec_depend>geometry_msgs</exec_depend><exec_depend>std_msgs</exec_depend><exec_depend>mtc_interfaces</exec_depend>
++<test_depend>python3-pytest</test_depend><test_depend>tf2_ros</test_depend>
+ <export><build_type>ament_python</build_type></export></package>
+diff --git a/src/mtc_vision_adapter/test/ros_replay_validation.py b/src/mtc_vision_adapter/test/ros_replay_validation.py
+new file mode 100644
+index 0000000..da92ee2
+--- /dev/null
++++ b/src/mtc_vision_adapter/test/ros_replay_validation.py
+@@ -0,0 +1,98 @@
++"""Explicit local ROS process validation; run with the installed overlay sourced."""
++import json
++import math
++import os
++from pathlib import Path
++import signal
++import sys
++import subprocess
++import time
++import rclpy
++from rclpy.node import Node
++from rclpy.qos import QoSProfile,ReliabilityPolicy,HistoryPolicy,DurabilityPolicy,LivelinessPolicy,qos_check_compatible
++from rosidl_runtime_py.convert import message_to_ordereddict
++from mtc_interfaces.msg import BatteryDetectionArray
++from mtc_vision_adapter.core import motion_rejection
++
++w=Path(__file__).resolve().parents[3];out=Path(os.environ.get('MTC_VALIDATION_OUT','/tmp/mtc_vision_validation'))
++out.mkdir(parents=True,exist_ok=True)
++os.environ.setdefault('ROS_LOG_DIR',str(out/'ros_logs'))
++fixture=Path(os.environ.get('MTC_REPLAY_FIXTURE',str(w/'src/mtc_vision_adapter/examples/synthetic.jsonl')))
++records=[json.loads(l) for l in fixture.read_text().splitlines() if l]
++qos=QoSProfile(depth=5,reliability=ReliabilityPolicy.RELIABLE,history=HistoryPolicy.KEEP_LAST,durability=DurabilityPolicy.VOLATILE,liveliness=LivelinessPolicy.AUTOMATIC)
++rclpy.init();node=Node('vision_sigint_acceptance');received=[];checks=[];endpoints=[];rejections=[]
++def equal(a,b):
++    if b is None:return isinstance(a,float) and math.isnan(a)
++    if isinstance(b,dict):return set(a)==set(b) and all(equal(a[k],v) for k,v in b.items())
++    if isinstance(b,list):return len(a)==len(b) and all(equal(x,y) for x,y in zip(a,b))
++    return a==b
++
++def callback(msg):
++    data=message_to_ordereddict(msg);i=len(received);received.append(data)
++    checks.append(i<len(records) and equal(data,records[i]['message']))
++    stamp=data['header']['stamp']
++    capture=stamp['sec']+stamp['nanosec']*1e-9
++    offline=motion_rejection(data,capture+.01,mode=records[i]['mode'])
++    live=motion_rejection(data,capture+.01,mode='live')
++    assert offline=='REPLAY_NOT_MOTION_INPUT'
++    assert live==('RING_INVALID' if data['detections'] else 'EMPTY')
++    rejections.append({'offline':offline,'live':live})
++    print('native received frame',i,'array length',len(msg.detections),'match',checks[-1],flush=True)
++
++sub=node.create_subscription(BatteryDetectionArray,'/mtc/perception/batteries',callback,qos)
++executable=str(w/'install/mtc_vision_adapter/lib/mtc_vision_adapter/replay_publisher')
++# Run the installed entry point and observe its created publisher QoS.
++# RMW graph discovery may omit history/depth; do not infer them from defaults.
++probe = '''
++import json, runpy, sys, time
++from rclpy.node import Node
++original=Node.create_publisher
++def observed(self,*args,**kwargs):
++    pub=original(self,*args,**kwargs)
++    if pub.topic_name!='/mtc/perception/batteries':return pub
++    deadline=time.monotonic()+20
++    while pub.get_subscription_count()<1 and time.monotonic()<deadline:
++        time.sleep(.05)
++    assert pub.get_subscription_count()>=1,'subscriber discovery timeout'
++    q=pub.qos_profile
++    print('CREATED_QOS='+json.dumps(dict(reliability=q.reliability.name,history=q.history.name,depth=q.depth,durability=q.durability.name)),flush=True)
++    return pub
++Node.create_publisher=observed
++entry=sys.argv[1]
++sys.argv=sys.argv[1:]
++runpy.run_path(entry,run_name='__main__')
++'''
++log=open(out/'ros_publisher.log','w');proc=subprocess.Popen([sys.executable,'-c',probe,executable,'--ros-args','-p','input_jsonl:='+str(fixture),'-p','period_s:=2.0'],stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
++result={}
++try:
++    deadline=time.monotonic()+120
++    while len(received)<4 and proc.poll() is None and time.monotonic()<deadline:rclpy.spin_once(node,timeout_sec=.2)
++    assert len(received)==4 and all(checks),('receive failure',len(received),proc.poll())
++    for ep in node.get_publishers_info_by_topic('/mtc/perception/batteries'):
++        compat=qos_check_compatible(ep.qos_profile,qos)
++        endpoints.append({'node':ep.node_name,'type':ep.topic_type,'reliability':ep.qos_profile.reliability.name,'durability':ep.qos_profile.durability.name,'history':ep.qos_profile.history.name,'depth':ep.qos_profile.depth,'compatibility':compat[0].name,'reason':compat[1]})
++    print('discovered QoS:',json.dumps(endpoints),flush=True)
++    assert endpoints and all(e['compatibility']=='OK' and e['reliability']=='RELIABLE' and e['durability']=='VOLATILE' for e in endpoints)
++    actual=[json.loads(line.split('=',1)[1]) for line in (out/'ros_publisher.log').read_text().splitlines() if line.startswith('CREATED_QOS=')]
++    assert actual==[dict(reliability='RELIABLE',history='KEEP_LAST',depth=5,durability='VOLATILE')],actual
++    # Await completion log before sending SIGINT, not a speculative startup delay.
++    deadline=time.monotonic()+30
++    while 'replay complete' not in (out/'ros_publisher.log').read_text() and time.monotonic()<deadline:rclpy.spin_once(node,timeout_sec=.2)
++    assert 'replay complete' in (out/'ros_publisher.log').read_text()
++    os.killpg(proc.pid,signal.SIGINT);code=proc.wait(timeout=30)
++    assert code==0,code
++    deadline=time.monotonic()+12
++    while any(name=='vision_offline_replay' for name,_ in node.get_node_names_and_namespaces()) and time.monotonic()<deadline:rclpy.spin_once(node,timeout_sec=.2)
++    remaining=[name for name,_ in node.get_node_names_and_namespaces() if name=='vision_offline_replay']
++    assert not remaining,remaining
++    result={'received_frames':len(received),'array_lengths':[len(m['detections']) for m in received],'exact_fixture_matches':checks,'qos':endpoints,'publisher_created_qos':actual,'motion_rejections':rejections,'publisher_exit':code,'replay_nodes_remaining':remaining,'scope':'Local ROS replay and subscriber only; no C++ FSM or real hardware'}
++    print(json.dumps(result,indent=2),flush=True)
++finally:
++    if proc.poll() is None:
++        os.killpg(proc.pid,signal.SIGINT)
++        try:proc.wait(timeout=30)
++        except subprocess.TimeoutExpired:os.killpg(proc.pid,signal.SIGKILL);proc.wait()
++    log.close();node.destroy_node();rclpy.try_shutdown()
++    result['subscriber_cleanup_complete']=True
++    (out/'ros_results.json').write_text(json.dumps(result,indent=2))
++    (out/'ros_received.json').write_text(json.dumps(received,indent=2,allow_nan=True))
+diff --git a/src/mtc_vision_adapter/test/test_motion_safety.py b/src/mtc_vision_adapter/test/test_motion_safety.py
+new file mode 100644
+index 0000000..05966bd
+--- /dev/null
++++ b/src/mtc_vision_adapter/test/test_motion_safety.py
+@@ -0,0 +1,105 @@
++import copy
++import json
++from pathlib import Path
++import pytest
++from mtc_vision_adapter.core import motion_rejection, to_ros
++
++NOW=1700000000.25
++TRUST={'camera_optical_frame','base_link'}
++
++def message():
++    header={'frame_id':'camera_optical_frame','stamp':{'sec':1700000000,'nanosec':250000000}}
++    pose={'header':copy.deepcopy(header),'pose':{'position':{'x':.1,'y':.2,'z':.3},'orientation':{'x':0.,'y':0.,'z':0.,'w':1.}}}
++    return {'header':header,'detections':[{'object_id':'battery-1','color':1,'confidence':.9,'ring_pose_valid':True,'body_pose':copy.deepcopy(pose),'ring_pose':copy.deepcopy(pose)}]}
++
++def check(msg,**kw):
++    options=dict(mode='live',trusted_frames=TRUST,target_frame='base_link',tf_validator=lambda *args:True)
++    options.update(kw)
++    return motion_rejection(msg,NOW,**options)
++
++def test_default_live_configuration_rejects():
++    assert motion_rejection(message(),NOW,mode='live')=='UNTRUSTED_FRAME'
++
++@pytest.mark.parametrize('frame',['unregistered_frame','synthetic_unregistered_color_optical_frame','',None])
++def test_unknown_frame_rejects_before_tf(frame):
++    m=message();m['header']['frame_id']=frame
++    for name in ('body_pose','ring_pose'):m['detections'][0][name]['header']['frame_id']=frame
++    assert check(m,tf_validator=lambda *args:pytest.fail('unknown frame reached TF'))=='UNTRUSTED_FRAME'
++
++@pytest.mark.parametrize('target',[None,'unknown_target',''])
++def test_untrusted_target_rejects(target):
++    assert check(message(),target_frame=target)=='UNTRUSTED_FRAME'
++
++@pytest.mark.parametrize('validator',[None,False])
++def test_missing_tf_rejects(validator):
++    assert check(message(),tf_validator=validator)=='TF_UNVERIFIED'
++
++@pytest.mark.parametrize('result',[False,None,1,'verified',object()])
++def test_unverified_tf_rejects(result):
++    assert check(message(),tf_validator=lambda *args:result)=='TF_UNVERIFIED'
++
++@pytest.mark.parametrize('error',[LookupError,TimeoutError,RuntimeError])
++def test_tf_exception_rejects(error):
++    def verify(*args):raise error('TF unavailable')
++    assert check(message(),tf_validator=verify)=='TF_UNVERIFIED'
++
++def test_verified_tf_receives_capture_timestamp():
++    calls=[]
++    def verify(*args):calls.append(args);return True
++    m=message()
++    assert check(m,tf_validator=verify)=='NO_REJECTION'
++    assert calls==[('camera_optical_frame','base_link',m['header']['stamp'])]
++
++def test_same_frame_still_requires_verification():
++    assert check(message(),target_frame='camera_optical_frame',tf_validator=None)=='TF_UNVERIFIED'
++
++@pytest.mark.parametrize('mode',['replay','synthetic'])
++def test_offline_not_motion_input(mode):
++    assert check(message(),mode=mode)=='REPLAY_NOT_MOTION_INPUT'
++
++@pytest.mark.parametrize('value',[None,float('nan'),float('inf'),-float('inf')])
++@pytest.mark.parametrize('pose',['body_pose','ring_pose'])
++def test_invalid_pose_values_reject(value,pose):
++    m=message();m['detections'][0][pose]['pose']['position']['x']=value
++    assert check(m)=='POSE_INVALID'
++
++@pytest.mark.parametrize('flag',[False,None,'true',1])
++def test_ring_flag_requires_boolean_true(flag):
++    m=message();m['detections'][0]['ring_pose_valid']=flag
++    assert check(m)=='RING_INVALID'
++
++@pytest.mark.parametrize('sec',[1699999999,1700000001])
++def test_stale_future_reject(sec):
++    m=message();m['header']['stamp']['sec']=sec
++    assert check(m)=='STALE_OR_FUTURE'
++
++def test_malformed_pose_rejects():
++    m=message();del m['detections'][0]['body_pose']['pose']['position']['z']
++    assert check(m)=='MALFORMED_INPUT'
++
++@pytest.mark.parametrize('nanosec',[-1,1000000000,float('nan')])
++def test_malformed_stamp_rejects(nanosec):
++    m=message();m['header']['stamp']['nanosec']=nanosec
++    assert check(m)=='MALFORMED_INPUT'
++
++def test_nan_age_limit_rejects():
++    assert check(message(),max_age_s=float('nan'))=='MALFORMED_INPUT'
++
++def test_pose_header_mismatch():
++    m=message();m['detections'][0]['body_pose']['header']['frame_id']='other'
++    assert check(m)=='POSE_HEADER_MISMATCH'
++
++def test_duplicate_id():
++    m=message();m['detections'].append(copy.deepcopy(m['detections'][0]))
++    assert check(m)=='DUPLICATE_ID'
++
++def test_zero_quaternion():
++    m=message();m['detections'][0]['ring_pose']['pose']['orientation']['w']=0.
++    assert check(m)=='QUATERNION_INVALID'
++
++def test_original_synthetic_records_rejected():
++    path=Path(__file__).parents[1]/'examples/synthetic.jsonl'
++    for line in path.read_text().splitlines():
++        r=json.loads(line)
++        assert r['body_pose_valid'] is False
++        assert motion_rejection(r['message'],NOW)=='REPLAY_NOT_MOTION_INPUT'
+diff --git a/src/mtc_vision_adapter/test/test_motion_tf_buffer.py b/src/mtc_vision_adapter/test/test_motion_tf_buffer.py
+new file mode 100644
+index 0000000..0d6b206
+--- /dev/null
++++ b/src/mtc_vision_adapter/test/test_motion_tf_buffer.py
+@@ -0,0 +1,44 @@
++"""Local TF buffer checks; no camera, network listener or motion execution."""
++import math
++import pytest
++from rclpy.time import Time
++from rclpy.duration import Duration
++from tf2_ros import Buffer
++from geometry_msgs.msg import TransformStamped
++from mtc_vision_adapter.core import motion_rejection
++
++STAMP={'sec':1700000000,'nanosec':250000000}
++
++def message():
++    h={'frame_id':'camera_optical_frame','stamp':dict(STAMP)}
++    def pose():
++        return {'header':{'frame_id':h['frame_id'],'stamp':dict(STAMP)},'pose':{'position':dict(x=.1,y=.2,z=.3),'orientation':dict(x=0.,y=0.,z=0.,w=1.)}}
++    return {'header':h,'detections':[dict(object_id='battery-1',color=1,confidence=1.,ring_pose_valid=True,body_pose=pose(),ring_pose=pose())]}
++
++def validator(buffer):
++    def verify(source,target,stamp):
++        capture=Time(seconds=stamp['sec'],nanoseconds=stamp['nanosec'])
++        t=buffer.lookup_transform(target,source,capture,timeout=Duration())
++        q=t.transform.rotation;p=t.transform.translation
++        values=[p.x,p.y,p.z,q.x,q.y,q.z,q.w]
++        return all(math.isfinite(v) for v in values) and abs(q.x*q.x+q.y*q.y+q.z*q.z+q.w*q.w-1)<1e-3
++    return verify
++
++def check(buffer):
++    return motion_rejection(message(),1700000000.25,mode='live',trusted_frames={'camera_optical_frame','base_link'},target_frame='base_link',tf_validator=validator(buffer))
++
++def transform(nanosec):
++    t=TransformStamped();t.header.frame_id='base_link';t.child_frame_id='camera_optical_frame'
++    t.header.stamp.sec=STAMP['sec'];t.header.stamp.nanosec=nanosec;t.transform.rotation.w=1.
++    return t
++
++def test_missing_tf_rejects():
++    assert check(Buffer())=='TF_UNVERIFIED'
++
++def test_transform_at_capture_time_verified():
++    b=Buffer();b.set_transform(transform(STAMP['nanosec']),'acceptance_fixture')
++    assert check(b)=='NO_REJECTION'
++
++def test_latest_tf_does_not_cover_historical_capture():
++    b=Buffer();b.set_transform(transform(750000000),'acceptance_fixture')
++    assert check(b)=='TF_UNVERIFIED'
+diff --git a/src/mtc_vision_adapter/test/test_publisher_cleanup.py b/src/mtc_vision_adapter/test/test_publisher_cleanup.py
+new file mode 100644
+index 0000000..a5787a9
+--- /dev/null
++++ b/src/mtc_vision_adapter/test/test_publisher_cleanup.py
+@@ -0,0 +1,37 @@
++import json
++import sys
++import types
++from unittest.mock import Mock
++import pytest
++from mtc_vision_adapter.publisher import main
++
++class ExternalShutdownException(Exception):pass
++
++@pytest.fixture
++def fake_ros(monkeypatch,tmp_path):
++    path=tmp_path/'replay.jsonl';path.write_text(json.dumps({'mode':'synthetic'})+'\n')
++    node=Mock();node.get_parameter.side_effect=lambda key:types.SimpleNamespace(value=str(path) if key=='input_jsonl' else 1.)
++    ros=types.ModuleType('rclpy');ros.init=Mock();ros.spin=Mock();ros.try_shutdown=Mock()
++    monkeypatch.setitem(sys.modules,'rclpy',ros)
++    monkeypatch.setitem(sys.modules,'rclpy.node',types.SimpleNamespace(Node=Mock(return_value=node)))
++    monkeypatch.setitem(sys.modules,'rclpy.executors',types.SimpleNamespace(ExternalShutdownException=ExternalShutdownException))
++    monkeypatch.setitem(sys.modules,'rclpy.qos',types.SimpleNamespace(QoSProfile=lambda **kw:kw,ReliabilityPolicy=types.SimpleNamespace(RELIABLE=1),HistoryPolicy=types.SimpleNamespace(KEEP_LAST=1),DurabilityPolicy=types.SimpleNamespace(VOLATILE=1)))
++    monkeypatch.setitem(sys.modules,'mtc_interfaces.msg',types.SimpleNamespace(BatteryDetectionArray=object,BatteryDetection=object))
++    return ros,node,path
++
++@pytest.mark.parametrize('error',[KeyboardInterrupt,ExternalShutdownException,None])
++def test_signal_or_normal_spin_cleanup(fake_ros,error):
++    ros,node,_=fake_ros
++    if error:ros.spin.side_effect=error()
++    assert main() is None
++    node.destroy_node.assert_called_once();ros.try_shutdown.assert_called_once()
++
++def test_invalid_input_still_cleans_resources(fake_ros):
++    ros,node,path=fake_ros;path.write_text('{"mode":"live"}\n')
++    with pytest.raises(ValueError,match='explicit replay'):main()
++    node.destroy_node.assert_called_once();ros.try_shutdown.assert_called_once()
++
++def test_destroy_error_still_shuts_context(fake_ros):
++    ros,node,_=fake_ros;node.destroy_node.side_effect=RuntimeError('destroy failed')
++    with pytest.raises(RuntimeError,match='destroy failed'):main()
++    ros.try_shutdown.assert_called_once()

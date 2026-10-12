@@ -1,0 +1,69 @@
+{
+  "observation": "ENV-UPSTREAM-WAKE-20261011",
+  "recorded_at": "2026-10-11T12:00:20.457749+00:00",
+  "verification_status": "PASS_ACTUAL_MAIN_RECEIPT",
+  "regressions": {
+    "passed": 30,
+    "new_wake_cases": 14,
+    "existing_robot_and_monitor_cases": 16,
+    "log": "tests-final.log"
+  },
+  "production": {
+    "enabled": true,
+    "pid_at_snapshot": 76874,
+    "status_at_snapshot": "WATCHING",
+    "last_successful_poll": "2026-10-11T11:59:48.667325+00:00",
+    "new_upstream_events_at_snapshot": 0,
+    "until": "2026-10-12T08:00:00+08:00",
+    "interval_seconds": 60,
+    "formal_baseline_unchanged": true
+  },
+  "e2e": {
+    "event": "sha-8a4f99632354642786e856788466a03984844075",
+    "fixture_sha": "8a4f99632354642786e856788466a03984844075",
+    "events": 1,
+    "runs": 1,
+    "queue_attempts": 1,
+    "queue_exit_code": 0,
+    "queue_message": "01a12acf-b9e8-7301-af99-e635bce8d189",
+    "main_thread": "01a12a25-b5c5-7b23-98b7-1cf673d68838",
+    "main_turn": "01a12ad3-b550-77e2-b29b-fb13acb41e70",
+    "ack_marker": "MOVEIT_WAKE_ACK_3c392fa680d4687280a3e289dbce1c2d",
+    "receipt": {
+      "event": "sha-8a4f99632354642786e856788466a03984844075",
+      "commit": "8a4f99632354642786e856788466a03984844075",
+      "token": "3c392fa680d4687280a3e289dbce1c2d",
+      "thread": "01a12a25-b5c5-7b23-98b7-1cf673d68838",
+      "ack_at": "2026-10-11T11:58:04.389923+00:00",
+      "completed_at": "2026-10-11T11:58:51.188003+00:00",
+      "report": "/home/afonso/meituan-robotics-challenge-2026/outputs/upstream-wake-20261011/e2e/main-analysis.md",
+      "outcome": "PASS: monitor discovery, isolated controlled timeout, cleanup and actual main-thread ACK; no new ROS/MoveIt functional verdict",
+      "report_sha256": "e6c3721f5493f5b4565c969849b785911f7ffadbf8ddbfe95f416fa48bf4584b"
+    },
+    "outbox_status": "COMPLETE",
+    "gate_cleared": true,
+    "fixture_monitor_stopped": true,
+    "container_stopped": true,
+    "timeout_exit_code": 124,
+    "latency": {
+      "queue_accepted_to_receipt_seconds": 265.288406,
+      "fixture_trigger_to_receipt_seconds": 291.30098,
+      "receipt_at": "2026-10-11T11:58:04.389923+00:00",
+      "queue_accepted_at": "2026-10-11T11:53:39.101517+00:00",
+      "clock": "Same host UTC timestamps",
+      "interpretation": "Includes the time the main conversation was busy in its implementation turn; queue delivery started its next turn. Not idle-thread latency."
+    }
+  },
+  "retained_failures": [
+    "Controlled 12-second timeout while building; interrupted stage has no complete build verdict",
+    "Existing rosdep ament_python definition error, exit 2",
+    "Keeper container exit 137 during intentional stop"
+  ],
+  "not_verified": [
+    "New teammate delivery",
+    "Complete candidate build or ROS/MoveIt functional behavior in this deliberately interrupted E2E test",
+    "NUC or physical hardware"
+  ],
+  "original_monitor_frozen_evidence_unchanged": true,
+  "ai_assistance": "OpenAI Codex implementation, testing, actual main-thread receipt and evidence registration"
+}

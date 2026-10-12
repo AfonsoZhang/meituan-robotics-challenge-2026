@@ -1,0 +1,2827 @@
+{
+  "at": "2026-10-11T19:40:22.548657+00:00",
+  "commit": "dc76a0bf0a43f9110f3d24cfa38a2b3478f48dcd",
+  "verdict": "PARTIAL_PASS_INSTALLED_REPLAY_NATURAL_EXIT_AND_SIGINT; PRIVATE_BENCHMARK_AND_FULL_FSM_NOT_VERIFIED",
+  "automatic": {
+    "counts": {
+      "at": "2026-10-11T19:36:42.456064+00:00",
+      "original_files_verified": 301,
+      "original_index_sha256": "ed6889fd9c72280768964f9d2933df3d7b9780b63e64990cfcca993c884f0c75",
+      "source_bundle_sha256": "a6c2e4ba66b31203c0b27c1c6af9c65454a09ce736ef94e076764278d1102397",
+      "summary_complete": true,
+      "summary_steps": 25,
+      "build_packages": 14,
+      "cpp_total": 358,
+      "cpp_executables": 20,
+      "cpp_by_package": {
+        "mtc_core_cpp": 23,
+        "mtc_manipulation_cpp": 120,
+        "mtc_motion_execution_cpp": 88,
+        "mtc_ros2_action_cpp": 40,
+        "mtc_task_cpp": 87
+      },
+      "all_cpp_case_identities_match_source": true,
+      "cpp_xml": [
+        {
+          "path": "container/test-results/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml",
+          "package": "mtc_core_cpp",
+          "cases": [
+            "CoreErrorCodes.ValuesMatchFrozenInterfaceNumbers",
+            "CoreErrorCodes.NameOfKnownAndUnknown",
+            "CoreToolState.EvidenceLevelIsOrdered",
+            "CoreToolState.NamesAreStable",
+            "CorePose.FullSixDofIsPreserved",
+            "CorePose.MissingFrameIdIsNotUsable",
+            "CorePose.UnnormalizedQuaternionIsNotUsable",
+            "CorePose.InvalidFlagBlocksUsability",
+            "CorePose.PoseEstimateRequiresBothFlagAndUsablePose",
+            "CoreResults.DetectionOkRequiresAllConditions",
+            "CoreResults.MotionResultRequiresBothSuccessAndArrived",
+            "CoreResults.StopResultSeparatesDeliveryFromConfirmation",
+            "CoreMotionCommand.ShapeValidation",
+            "CoreMotionPrimitive.EqualityIncludesContactFlag",
+            "CoreTimedTrajectory.ShapeValidationAndDuration",
+            "CoreTimedTrajectory.RejectsNonMonotonicTime",
+            "CoreTimedTrajectory.RejectsDimensionMismatch",
+            "CoreTimedTrajectory.RejectsEmptyOrDuplicateJointNames",
+            "CoreClock.ManualClockIsDeterministic",
+            "CoreExecState.StringMappingIsStable",
+            "CoreAudit.PoseRejectsNonFinitePositionStampAndQuaternion",
+            "CoreAudit.TrajectoryRejectsNonFiniteFieldsAndNegativeTimes"
+          ],
+          "source": "src/mtc_core_cpp/test/test_core_types.cpp",
+          "source_sha256": "4ce2b55fc26e752aeb344475a3a3f3317172b76838d8e9319254f2b1ca535c4b"
+        },
+        {
+          "path": "container/test-results/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml",
+          "package": "mtc_core_cpp",
+          "cases": [
+            "ErrorCodesMsgParity.ConstantsMatchInterfacesMsg"
+          ],
+          "source": "src/mtc_core_cpp/test/test_error_codes_msg_parity.cpp",
+          "source_sha256": "8560c59771548be210b7498a47ff5b951db24865022b75c7c87743ac608cedc8"
+        },
+        {
+          "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_audit.gtest.xml",
+          "package": "mtc_manipulation_cpp",
+          "cases": [
+            "PlacementAudit.NewFramesMustCoverFullThreeSeconds",
+            "PlacementAudit.FrozenTimestampCannotSucceedForFiveSeconds",
+            "PlacementAudit.InvalidOrStaleFrameInterruptsWindow",
+            "PlacementAudit.PerceptionStopsUpdatingCannotAccumulateTime",
+            "PlacementAudit.FutureBackwardsAndNonFiniteStampsInterrupt",
+            "PlacementAudit.GapBetweenFreshFramesInterruptsContinuity",
+            "PlanningAudit.NonZeroPlannerTargetsAndFullPoseReachAdapter",
+            "PlanningAudit.MissingOutputDoesNotReachMockAdapter",
+            "PlanningAudit.WholeTimedTrajectoryIsNeverSplit",
+            "PlanningAudit.MalformedPlanCannotExecute",
+            "CommandIdAudit.LongAndRepeatedRequestsRemainUniqueAcrossInstances",
+            "WatchdogAudit.LoadedContextCannotRecoverAndFaultCannotRestart",
+            "WatchdogAudit.InvalidStabilityNeverStartsMotion",
+            "PlacementGate.ZeroStabilityRejectedBeforeFirstFrame",
+            "PlacementGate.PositiveWindowNeedsTwoDistinctObservations",
+            "PlacementGate.InvalidConfiguredStabilityNeverStartsMotion"
+          ],
+          "source": "src/mtc_manipulation_cpp/test/test_pick_place_audit.cpp",
+          "source_sha256": "4c364f92dac9e017fdc20206d4e131263bc49d781bd9a15bebea3f27d51119b5"
+        },
+        {
+          "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v1.gtest.xml",
+          "package": "mtc_manipulation_cpp",
+          "cases": [
+            "PickPlaceV1.HappyPathReachesSuccess",
+            "PickPlaceV1.StateSequenceMatchesDesignOrder",
+            "PickPlaceV1.MotionCommandSequenceUsesOnlyNonToolPrimitives",
+            "PickPlaceV1.NoElectromagneticActionAtAll",
+            "PickPlaceV1.ToolPrimitivesAreRecordedInOrder",
+            "PickPlaceV1.CommandIdsAreUnique",
+            "PickPlaceV1.StabilityWindowIsActuallyElapsed",
+            "PickPlaceV1.ProgressReachesOneAtSuccess",
+            "PickPlaceV1.PlannerReceivesBothPhasesExactlyOnce",
+            "PickPlaceV1.PlacementVerificationSkipsColorCheck",
+            "PickPlaceV1.RunWithZeroTickDoesNotSucceedWithoutTime",
+            "PickPlaceV1.StepUntilTerminalReachesFailedOnPerceptionFailure",
+            "PickPlaceV1.ReadyToRunStatesAreReachedWithoutMotionOnPerceptionFailure"
+          ],
+          "source": "src/mtc_manipulation_cpp/test/test_pick_place_fsm_v1.cpp",
+          "source_sha256": "96d1c1365e5ed6d31e61b4fdb3525905dfcd9e75b5e827a8b5855c637c67d8f7"
+        },
+        {
+          "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v2.gtest.xml",
+          "package": "mtc_manipulation_cpp",
+          "cases": [
+            "PickPlaceV2.HappyPathReachesSuccessAndUnlocksOnce",
+            "PickPlaceV2.DifferencesAreConfinedToEngageAndDisengage",
+            "PickPlaceV2.MotionPrimitivesDifferFromV1OnlyInAcquireAndEngage",
+            "PickPlaceV2.UnlockPulseUsesStrategyConfiguration",
+            "PickPlaceV2.StateSequenceMatchesV1Pipeline",
+            "PickPlaceV2Interlock.NoUnlockWhenSeatNotVerified",
+            "PickPlaceV2Interlock.NoUnlockWhenUnloadNotVerified",
+            "PickPlaceV2Interlock.StrategyRefusalBlocksUnlockIoEntirely",
+            "PickPlaceV2Interlock.RedundantInterlocksAreUnreachableButPresent",
+            "PickPlaceV2Interlock.UnlockHappensOnlyInsideDisengageAfterUnload",
+            "PickPlaceV2Interlock.UnlockFailureGoesToFaultAndDoesNotRetreat",
+            "PickPlaceV2Interlock.AcceptedPulseWithoutReleaseIsStillFailure",
+            "PickPlaceV2Interlock.DisengageReleaseUnknownGoesToFaultAndDoesNotRetreat",
+            "PickPlaceV2Interlock.UnlockNeverHappensBeforeConfirmedPlacement"
+          ],
+          "source": "src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp",
+          "source_sha256": "bae72b2f1e5ddd227d355565ba61447e4069be2b89a2ea67406c5ef1392c3cea"
+        },
+        {
+          "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_safety.gtest.xml",
+          "package": "mtc_manipulation_cpp",
+          "cases": [
+            "PickPlaceSafety.PlacementVerifiedCannotBeWrittenOutsideVerifyPlaced",
+            "PickPlaceSafety.PlacementVerifiedOnlyTrueAfterSuccessfulVerifyPlaced",
+            "PickPlaceSafety.TargetNotFoundIsRecoverableThenFails",
+            "PickPlaceSafety.NonUniqueTargetIsRejected",
+            "PickPlaceSafety.StalePoseIsRejectedWithPoseStale",
+            "PickPlaceSafety.InvalidRingPoseBlocksMotion",
+            "PickPlaceSafety.UnknownColorIsRejectedEvenWhenExpected",
+            "PickPlaceSafety.ColorMismatchIsRejectedToPreventWrongPick",
+            "PickPlaceSafety.PlanningFailureIsRecoverable",
+            "PickPlaceSafety.TransportPlanningFailureGoesToFaultAfterAttachment",
+            "PickPlaceSafety.NonMotionStateTimeoutReportsMotionTimeout",
+            "PickPlaceSafety.MotionInFlightTimeoutGoesToFault230AndLocksResend",
+            "PickPlaceSafety.NoTimeoutBeforeDeadline",
+            "PickPlaceSafety.MotionStatusUnknownLocksAndDoesNotResend",
+            "PickPlaceSafety.MotionTimeoutLocksAndDoesNotResend",
+            "PickPlaceSafety.InFlightCommandIsReusedNeverResent",
+            "PickPlaceSafety.ProgressIsNotBlockedByInFlightPorts",
+            "PickPlaceSafety.EngageFailureGoesToEngageFailed300",
+            "PickPlaceSafety.InsufficientEngageEvidenceIsRejected",
+            "PickPlaceSafety.UnexpectedToolStateAfterEngageIsHardwareFault",
+            "PickPlaceSafety.AttachNotVerifiedBlocksLiftAndTransport",
+            "PickPlaceSafety.VisionFollowCanCompensateForWeakEvidence",
+            "PickPlaceSafety.TestLiftFailureIsReported",
+            "PickPlaceSafety.HoldingStateBlocksAutomaticRetry",
+            "PickPlaceSafety.UnknownHoldingStateIsConservative",
+            "PickPlaceSafety.SeatNotVerifiedBlocksUnload",
+            "PickPlaceSafety.PlacementNotAtTargetFailsAfterWindow",
+            "PickPlaceSafety.PlacementStaleSampleResetsStabilityTimer",
+            "PickPlaceSafety.PlacementNotSettledPreventsSuccess",
+            "PickPlaceSafety.PlacementFoundFalsePreventsSuccess",
+            "PickPlaceSafety.VerifyPlacementDisabledNeverClaimsSuccess",
+            "PickPlaceSafety.SuccessRequiresFullStabilityWindow",
+            "PickPlaceSafety.CancelWithConfirmedStopReachesCancelled",
+            "PickPlaceSafety.CancelWithoutStopConfirmationGoesToFault520",
+            "PickPlaceSafety.CancelNeverReachesCancelledWithoutConfirmation",
+            "PickPlaceSafety.RequestStopIsCalledAtMostOnce",
+            "PickPlaceSafety.CancelInTerminalStateIsIgnored",
+            "PickPlaceSafety.CancelDuringMotionStillRequiresConfirmation",
+            "PickPlaceSafety.RecoveryRetriesThenFails",
+            "PickPlaceSafety.RecoveryIsRefusedWhenMotionResendDisallowed",
+            "PickPlaceAudit.RepeatedFrameForFiveSecondsCannotSucceed",
+            "PickPlaceAudit.MissingPlanOutputNeverExecutesZeroTarget"
+          ],
+          "source": "src/mtc_manipulation_cpp/test/test_pick_place_safety.cpp",
+          "source_sha256": "1d831144f56759f40a7f48a6c7df8b4bc42865edb966ec9a1320971e772cae6e"
+        },
+        {
+          "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_tables.gtest.xml",
+          "package": "mtc_manipulation_cpp",
+          "cases": [
+            "PickPlaceTables.VerifyTablesReportsNoProblem",
+            "PickPlaceTables.EveryStateHasHandler",
+            "PickPlaceTables.StateNamesMatchPythonValues",
+            "PickPlaceTables.PipelineMatchesDesignOrder",
+            "PickPlaceTables.TerminalAndMotionInFlightSets",
+            "PickPlaceTables.DefaultTimeoutsCoverMotionStates",
+            "PickPlaceStart.IllegalTargetSlotFailsImmediatelyWithInvalidTask",
+            "PickPlaceStart.AllowedSlotsAreAccepted",
+            "PickPlaceStart.ToolTypeMismatchThrows",
+            "PickPlaceStart.RequiredConfigFieldsAreRecorded",
+            "PickPlaceStart.ConfigStabilityUsedWhenGoalOmitsIt",
+            "PickPlaceStart.PlacementVerifiedStartsFalseAndIsReadOnly",
+            "PickPlaceStart.MotionResendAllowedStartsTrue",
+            "PickPlaceFeedback.FeedbackCarriesSubstateAndProgress",
+            "PickPlaceFeedback.ProgressReachesOneOnlyAtSuccess",
+            "PickPlaceFeedback.StateHistoryRecordsEnteredStates",
+            "PickPlaceFeedback.EventCallbackReceivesStateEntered",
+            "PickPlaceFeedback.CallbackExceptionDoesNotBreakSequencing",
+            "PickPlaceTerminal.StepAtTerminalIsIdempotent",
+            "PickPlaceTerminal.ForceFaultOnTerminalKeepsOriginalState"
+          ],
+          "source": "src/mtc_manipulation_cpp/test/test_pick_place_tables.cpp",
+          "source_sha256": "70f4654cbe13c6da8fd5dadb5078a78a7776e7323bb97acebc53a66ba1a2c992"
+        },
+        {
+          "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_tool_strategy.gtest.xml",
+          "package": "mtc_manipulation_cpp",
+          "cases": [
+            "ToolStrategyV1.TypeAndPrimitives",
+            "ToolStrategyV1.SharedPrimitives",
+            "ToolStrategyV1.ContactPrimitivesAreMarkedAndSlow",
+            "ToolStrategyV1.PrimitivePreservesSixDofTargetPose",
+            "ToolStrategyV1.NoUnlockPulseAndNoIoChannels",
+            "ToolStrategyV2.TypeAndPrimitives",
+            "ToolStrategyV2.RequiresUnlockAndDeclaresIoChannel",
+            "ToolStrategyV2.UnlockRejectedWhenSeatNotVerified",
+            "ToolStrategyV2.UnlockRejectedWhenNotUnloaded",
+            "ToolStrategyV2.UnlockAllowedOnlyWhenBothConditionsHold",
+            "ToolStrategyV2.SeatedFalseUnloadedFalseStillRejectsSeatedFirst",
+            "ToolStrategyFactory.CreatesBothGenerations",
+            "ToolStrategyFactory.UnknownTypeThrows",
+            "ToolStrategyFactory.EmptyStringThrows",
+            "ToolStrategy.PrimitiveWithoutUsableRingPoseHasNoTargetPose"
+          ],
+          "source": "src/mtc_manipulation_cpp/test/test_tool_strategy.cpp",
+          "source_sha256": "b26b07ef694ac0831898f735954c22b2c87c7a08ee61f687090bfff6bb7d696e"
+        },
+        {
+          "path": "container/test-results/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_concurrency.gtest.xml",
+          "package": "mtc_motion_execution_cpp",
+          "cases": [
+            "GoalCancelGate.StaleGoalCancelDoesNotCallBackend",
+            "GoalCancelGate.StaleGoalCancelPreservesCurrentOwner",
+            "GoalCancelGate.StaleGoalCancelDoesNotModifyExecutionState",
+            "GoalCancelGate.StaleGoalCancelCannotInterruptNewGoal",
+            "GoalCancelGate.MatchingGoalCancelStillWorks",
+            "GoalCancelGate.ConcurrentGoalReplacementAndLateCancel",
+            "GoalCancelGate.SupervisoryStopStillStopsCurrentGoal",
+            "GoalCancelGate.EmptyOrUnknownGoalIdHasNoSideEffect",
+            "GoalCancelGate.CompletedGoalCancelCannotStopLaterCompletedGoal",
+            "GoalCancelGate.CancelRacingBackendDispatchRemainsSticky",
+            "ExecutorConcurrency.SixteenThreadsHaveOneOwner",
+            "ExecutorConcurrency.GoalsAndStopRespondWhileExecutionWaits",
+            "ExecutorConcurrency.DuplicateStopsAndLateResultCannotUnlock",
+            "ExecutorConcurrency.ConfirmedStopRetainsOwnerUntilResultDrains",
+            "ExecutorConcurrency.InvalidEvidenceCannotConfirmStop",
+            "ExecutorConcurrency.OldGoalCancelCannotReplaceNewOwner"
+          ],
+          "source": "src/mtc_motion_execution_cpp/test/test_executor_concurrency.cpp",
+          "source_sha256": "e7643297aeac2c1cc1b9fe38d006d9b66d03a65e8b132abe9a3f756fe7e5f710"
+        },
+        {
+          "path": "container/test-results/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_core.gtest.xml",
+          "package": "mtc_motion_execution_cpp",
+          "cases": [
+            "ExecutorCore.SuccessfulMoveGoesThroughSevenStepHandshake",
+            "ExecutorCore.CapabilitiesAreForwardedFromAdapter",
+            "ExecutorCore.ValidationFailureRejectsWithoutStartingMotion",
+            "ExecutorCore.ConcurrentGoalDuringMotionIsRejected",
+            "ExecutorCore.StatusUnknownLocksSubsequentRequests",
+            "ExecutorCore.ManualConfirmationClearsUnknownLock",
+            "ExecutorCore.BackendExceptionIsTreatedAsUnknownState",
+            "ExecutorCore.TimeoutMarksStateUnknown",
+            "ExecutorCore.BackendRejectionPropagatesRejectedStateAllowingResend",
+            "ExecutorCore.StopWithoutInFlightIsConfirmed",
+            "ExecutorCore.StopDeliveryIsNotConfirmationWhenBackendCannotConfirm",
+            "ExecutorCore.UnsupportedCancelNeverFabricatesStopConfirmed",
+            "ExecutorCore.StopAfterUnknownStateIsNeverConfirmed",
+            "ExecutorCore.SnapshotReflectsInternalState",
+            "ExecutorAudit.DeliveryWithoutEvidenceAndWithoutCommandNeverConfirms",
+            "ExecutorAudit.TimeoutWithoutUnknownFlagStillLocks",
+            "ExecutorAudit.CompletedCommandIdCannotExecuteTwice",
+            "ExecutorAudit.CancelBeforeBackendDispatchIsSticky"
+          ],
+          "source": "src/mtc_motion_execution_cpp/test/test_executor_core.cpp",
+          "source_sha256": "388299f59efd513d216ab6b387cbe709989b7080961f833c7fa87b8a0ee85be8"
+        },
+        {
+          "path": "container/test-results/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_in_flight_guard.gtest.xml",
+          "package": "mtc_motion_execution_cpp",
+          "cases": [
+            "InFlightGuard.AcquireSucceedsWhenFree",
+            "InFlightGuard.SecondAcquireIsRejectedWithInFlightId",
+            "InFlightGuard.EmptyCommandIdRejected",
+            "InFlightGuard.ReleaseOnlyByOwner",
+            "InFlightGuard.ForceReleaseIsAvailableForManualRecovery",
+            "InFlightGuard.SequentialCommandsAreAllowed"
+          ],
+          "source": "src/mtc_motion_execution_cpp/test/test_in_flight_guard.cpp",
+          "source_sha256": "24c8feadf7cbae5867d3427b2783eb8b29931bbf4acb9094eeb215e0f56ab00b"
+        },
+        {
+          "path": "container/test-results/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_mock_adapter.gtest.xml",
+          "package": "mtc_motion_execution_cpp",
+          "cases": [
+            "MockClockGate.MockDefaultClockExecutionContract",
+            "MockClockGate.MockSharedManualClockSettlementSucceeds",
+            "MockClockGate.MockInsufficientStationaryIntervalRejected",
+            "MockClockGate.TinyPositiveSettleDurationCannotConfirmZeroInterval",
+            "MockClockGate.MockExecutorClockMismatchRejected",
+            "MockClockGate.ExplicitRealTimeOrInvalidMockClockIsRejected",
+            "MockClockGate.VirtualClockCannotAuthorizeExecutableBackend",
+            "MockClockGate.StaleFeedbackCannotConfirmStop",
+            "GoalCancelGate.AdapterScopedCancelCannotStopDifferentOwner",
+            "MockAudit.VirtualSettlementStartsAfterArrivalAndRejectsInvalidTravel",
+            "MockAdapter.CapabilitiesAreDeclaredExplicitly",
+            "MockAdapter.SuccessfulMoveSettlesAndConfirmsStop",
+            "MockAdapter.RejectedRequestAllowsImmediateResend",
+            "MockAdapter.SecondCommandWhileInFlightIsRejected",
+            "MockAdapter.TimeoutIsReportedAndBlocksAutoResend",
+            "MockAdapter.StatusUnknownLocksAndBlocksAutoResend",
+            "MockAdapter.FailAtStatusUnknownIsEquivalent",
+            "MockAdapter.StopWithoutInFlightIsConfirmedAndReported",
+            "MockAdapter.StopWithInFlightAndConfirmationSucceeds",
+            "MockAdapter.CancelWithoutConfirmationDoesNotClaimStopped",
+            "MockAdapter.StopConfirmationFlagIsExposedSeparately",
+            "MockAdapter.TrajectoryIsRejectedAndNotSplitIntoJointMoves",
+            "MockAdapter.TrajectoryAcceptedWhenCapabilityDeclared",
+            "MockAdapter.BaseClassDefaultTrajectoryRejectsWithoutSplitting",
+            "DisabledAdapter.AlwaysRejectsAndNeverClaimsCapability",
+            "AdapterFactory.UnknownBackendFallsBackToDisabled",
+            "AdapterFactory.MockBackendIsCaseInsensitive"
+          ],
+          "source": "src/mtc_motion_execution_cpp/test/test_mock_adapter.cpp",
+          "source_sha256": "c188a3115c2ba917073e04bb768f915246aff17167783977b1dc9e92ce1c8614"
+        },
+        {
+          "path": "container/test-results/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_validation.gtest.xml",
+          "package": "mtc_motion_execution_cpp",
+          "cases": [
+            "Validation.ValidCommandPasses",
+            "Validation.MissingJointGoalCapabilityRejected",
+            "Validation.DimensionMismatchRejected",
+            "Validation.EmptyJointNamesRejected",
+            "Validation.DuplicateJointNamesRejected",
+            "Validation.JointOrderMustMatchConfiguration",
+            "Validation.EmptyExpectedNamesSkipsOrderCheck",
+            "Validation.ZeroTimeoutRejected",
+            "Validation.VelocityScalingAboveLimitIsSafetyInterlock",
+            "Validation.ZeroOrNegativeVelocityScalingRejected",
+            "Validation.AccelerationScalingAboveLimitIsSafetyInterlock",
+            "Validation.JointLimitsAreEnforced",
+            "Validation.JointLimitDimensionMismatchRejected",
+            "ValidationTrajectory.UnsupportedBackendIsRejectedNotDowngraded",
+            "ValidationTrajectory.SupportedBackendAcceptsValidTrajectory",
+            "ValidationTrajectory.InvalidShapeRejected",
+            "ValidationTrajectory.JointOrderMustMatchConfiguration",
+            "ValidationTrajectory.JointLimitsEnforcedOnEveryPoint",
+            "ValidationAudit.NonFiniteTargetsRejectedWithoutLimits",
+            "ValidationAudit.ExecutableBackendRequiresLimitsAndRejectsFakePlan",
+            "ValidationAudit.TrajectoryRejectsExcessiveDynamicsAndInvalidLimits"
+          ],
+          "source": "src/mtc_motion_execution_cpp/test/test_validation.cpp",
+          "source_sha256": "d8b63e975f4320c4110921315f3136fb588cbe171491b405b9330d99a6f86b7f"
+        },
+        {
+          "path": "container/test-results/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml",
+          "package": "mtc_ros2_action_cpp",
+          "cases": [
+            "ActionContracts.TaskConversionPreservesColorOrderIdentityAndDeadline",
+            "ActionContracts.RosFloatBoundaryDoesNotRelaxCoreUpperLimit",
+            "ActionContracts.MockPlannerPreservesSixDPoseFrameStampAndContactConstraints",
+            "ActionContracts.MockLoadEvidenceRemainsHoldingUntilVerifiedRelease",
+            "ActionContracts.MockFailedReleaseNeverReportsNoLoad",
+            "ActionContracts.TestLiftRequiresPriorSimulatedAttachmentEvidence",
+            "ActionContracts.TrajectoryBridgeRefusesAndNeverSplitsIntoJointMoves",
+            "ActionContracts.UnsupportedTrajectoryAndCartesianCapabilitiesCannotBeEnabled"
+          ],
+          "source": "src/mtc_ros2_action_cpp/test/test_action_contracts.cpp",
+          "source_sha256": "acdb545bbe5d2f06980ac77000dbd95e64236a362e02e78414a2d4539739bc8b"
+        },
+        {
+          "path": "container/test-results/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml",
+          "package": "mtc_ros2_action_cpp",
+          "cases": [
+            "MotionAction.LegalNonzeroGoalAndFeedbackUseExecutorResult",
+            "MotionAction.IllegalGoalRejectedWithoutBackendCall",
+            "MotionAction.ConcurrentGoalIsRejectedAndFirstCompletes",
+            "MotionAction.MatchingCancelStopsExactlyOnce",
+            "MotionAction.UnconfirmedCancelAborts520AndLocks",
+            "MotionAction.StaleCancelCannotReachBackendOrInterruptNewOwner",
+            "MotionAction.ExecutorTimeoutKeepsOriginal220AndRejectsNewMotion",
+            "MotionAction.RosDeadlineIndependentlyRequestsAssociatedStop"
+          ],
+          "source": "src/mtc_ros2_action_cpp/test/test_motion_action.cpp",
+          "source_sha256": "aff8a1925b475b9085a79418346f0cbf402bd3fc2cb373a003864508a7cd1b7c"
+        },
+        {
+          "path": "container/test-results/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml",
+          "package": "mtc_ros2_action_cpp",
+          "cases": [
+            "PickAction.LegalGoalSucceedsOnlyAfterPlacementFeedback",
+            "PickAction.InvalidParametersRejectedBeforeExecution",
+            "PickAction.ConcurrentSecondGoalRejected",
+            "PickAction.MatchingCancelRequiresIndependentStationaryEvidence",
+            "PickAction.CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked",
+            "PickAction.StaleGoalCancelCannotInterruptNewGoal",
+            "PickAction.MotionStatusUnknownNeverResendsOrAutoClearsFault",
+            "PickAction.MissingPlanNeverSucceeds",
+            "PickAction.ConcurrentRosRequestsHaveExactlyOneOwner",
+            "PickAction.InFlightWatchdogFaultStillDrainsAssociatedStopWorker",
+            "PickAction.CancelWhileCarryingStopsButKeepsLoadAdmissionLocked",
+            "PickAction.UnverifiedAttachmentLoadCannotBeClearedByNewGoal"
+          ],
+          "source": "src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp",
+          "source_sha256": "2b3f05076486005486c36feb67bd093f84dbd317396b0adc438f744fa3a48ff2"
+        },
+        {
+          "path": "container/test-results/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml",
+          "package": "mtc_ros2_action_cpp",
+          "cases": [
+            "TaskAction.BasicTaskUsesRealChildActionAndRecordsT0",
+            "TaskAction.SequenceTaskRecordsAllSlotsInOrder",
+            "TaskAction.InvalidColorsAndConcurrentTaskRejected",
+            "TaskAction.CancelAckWaitsForChildFinalStopResult",
+            "TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent",
+            "TaskAction.ChildStatusUnknownPropagatesOriginalError",
+            "TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess",
+            "TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild",
+            "TaskAction.MissingChildNeverFabricatesTaskSuccess",
+            "TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent",
+            "TaskAction.StaleParentCancelCannotReachNewChild",
+            "TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded"
+          ],
+          "source": "src/mtc_ros2_action_cpp/test/test_task_action.cpp",
+          "source_sha256": "30880ede17cd88e7da2bc601b90849d7408eaea48a57722cd683a9130561080c"
+        },
+        {
+          "path": "container/test-results/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_core.gtest.xml",
+          "package": "mtc_task_cpp",
+          "cases": [
+            "TaskFsmTables.VerifyTablesReportsNoProblem",
+            "TaskFsmTables.AllStatesHaveEntryActionAndTimeout",
+            "TaskFsmTables.EveryActiveStateRegistersConcurrentGoalRejection",
+            "TaskFsmBoot.InitToSelfCheckToWaitTask",
+            "TaskFsmBoot.SelfCheckFailureGoesToFaultWithStopAndLock",
+            "TaskFsmBoot.InitTimeoutGoesToFault",
+            "TaskFsmBoot.NoTimeoutBeforeDeadline",
+            "TaskFsmBasic.FullHappyPathReachesFinished",
+            "TaskFsmBasic.SuccessRequiresPlacementVerified",
+            "TaskFsmBasic.TargetFoundWithoutObjectIdIsRejected",
+            "TaskFsmBasic.ExpectedColorMismatchIsRejected",
+            "TaskFsmBasic.ItemResultIgnoredOutsideExecuteItem",
+            "TaskFsmSequence.ThreeItemsCompleteInSlotOrder",
+            "TaskFsmSequence.InvalidSequenceFailsWithoutGuessing",
+            "TaskFsmSequence.DuplicateSlotIsNotRecordedTwice",
+            "TaskFsmReset.ResetFromFinishedClearsTaskContext",
+            "TaskFsmReset.ResetAllowedFromTaskFailedAndCancelled",
+            "TaskFsmSnapshot.SnapshotCarriesTaskAndProgress",
+            "TaskFsmSnapshot.EveryStepPublishesState",
+            "TaskFsmSnapshot.TransitionLogRecordsPath",
+            "TaskFsmSnapshot.UnknownEventIsIgnoredNotFatal"
+          ],
+          "source": "src/mtc_task_cpp/test/test_task_fsm_core.cpp",
+          "source_sha256": "ee38499b07087a3b6333f4052df479a986db2fd7a960b45392d1f617f47338dd"
+        },
+        {
+          "path": "container/test-results/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_safety.gtest.xml",
+          "package": "mtc_task_cpp",
+          "cases": [
+            "TaskFsmConcurrency.SecondGoalRejectedInEveryActiveState",
+            "TaskFsmConcurrency.MissingGoalPayloadRejected",
+            "TaskFsmConcurrency.UnparsableGoalRejected",
+            "TaskFsmConcurrency.EmptyTaskIdRejected",
+            "TaskFsmConcurrency.RejectionDoesNotQueueSecondGoal",
+            "TaskFsmTimeout.WaitTaskAndTerminalStatesHaveNoTimeout",
+            "TaskFsmTimeout.ValidateTaskTimeoutGoesToTaskFailedWithInvalidTask",
+            "TaskFsmTimeout.ScanSceneTimeoutGoesToRecoveryWithTargetNotFound",
+            "TaskFsmTimeout.ExecuteItemTimeoutGoesToFaultAndDoesNotAutoResend",
+            "TaskFsmTimeout.RecordResultTimeoutMapsToPlacementFailed",
+            "TaskFsmTimeout.RecoveryTimeoutGoesToTaskFailed",
+            "TaskFsmTimeout.CustomTimeoutsAreInjectible",
+            "TaskFsmTimeout.TimeoutTimerResetsOnEffectiveProgress",
+            "TaskFsmDeadline.DeadlineExceededGoesToFaultWithMotionTimeout",
+            "TaskFsmDeadline.NoDeadlineWithoutActiveTask",
+            "TaskFsmDeadline.ElapsedTaskTimeTracksInProgressTask",
+            "TaskFsmCancel.CancelFromScanSceneEntersCancelPendingWithChildCancel",
+            "TaskFsmCancel.ConfirmedStopLeadsToCancelled",
+            "TaskFsmCancel.UnconfirmedStopTimesOutToFault520",
+            "TaskFsmCancel.LateStopConfirmationAfterFaultDoesNotBecomeCancelled",
+            "TaskFsmCancel.CancelFromExecuteItemIsAllowed",
+            "TaskFsmCancel.CancelFromRecoveryIsAllowed",
+            "TaskFsmCancel.ItemUnsafeInCancelPendingGoesToFault",
+            "TaskFsmCancel.CancelInTerminalStateIsIgnored",
+            "TaskFsmRecovery.TargetNotFoundRetryReturnsToScanScene",
+            "TaskFsmRecovery.RetryBudgetExhaustionGoesToTaskFailed",
+            "TaskFsmRecovery.DenyRetryGoesToTaskFailed",
+            "TaskFsmRecovery.PlanningFailureIsRecoverable",
+            "TaskFsmRecovery.PoseStaleIsRecoverable",
+            "TaskFsmRecovery.ExecutionRejectedIsRecoverable",
+            "TaskFsmRecovery.RecoveryAttemptsResetAfterCompletedItem",
+            "TaskFsmUnsafeErrors.MotionStatusUnknownGoesToFaultWithRealCode",
+            "TaskFsmUnsafeErrors.NonRecoverableCodesAllGoToFault",
+            "TaskFsmUnsafeErrors.RecoverableWhitelistIsConservative",
+            "TaskFsmUnsafeErrors.FaultWithoutSpecificCodeDegradesToHardwareFault",
+            "TaskFsmUnsafeErrors.FaultKeepsSpecificCodeWhenPresent",
+            "TaskFsmUnsafeErrors.ItemFailureWithZeroCodeDefaultsToPlacementFailed",
+            "TaskFsmSafety.RepeatedStepsInFaultProduceNoActions",
+            "TaskFsmSafety.GoalAfterTerminalRequiresReset",
+            "TaskFaultAudit.ActionFinishesButOrdinaryResetAndNewTasksStayLocked"
+          ],
+          "source": "src/mtc_task_cpp/test/test_task_fsm_safety.cpp",
+          "source_sha256": "cb7ad7caf6613380dc62664e87fe80aa2498e1f06900a25770db7efccef99c98"
+        },
+        {
+          "path": "container/test-results/mtc_task_cpp/test_results/mtc_task_cpp/test_task_validation.gtest.xml",
+          "package": "mtc_task_cpp",
+          "cases": [
+            "TaskValidation.BasicModeAccepted",
+            "TaskValidation.SequenceModeMapsSlotsInOrder",
+            "TaskValidation.EmptyTaskIdRejected",
+            "TaskValidation.UnknownModeRejected",
+            "TaskValidation.EmptyColorsRejected",
+            "TaskValidation.BasicModeRequiresExactlyOneColor",
+            "TaskValidation.SequenceModeRequiresExactlyThreeColors",
+            "TaskValidation.ColorZeroUnknownIsIllegal",
+            "TaskValidation.ColorOutOfRangeIsIllegal",
+            "TaskValidation.DuplicateColorsRejected",
+            "TaskValidation.ZeroTimeoutRejected",
+            "TaskValidation.NegativeStabilityRejected",
+            "TaskValidation.ExplicitSlotMustMatchDerivedSlot",
+            "TaskValidation.ExplicitSlotMustBeAllowed",
+            "TaskValidation.ExplicitSlotMatchingDerivedIsAccepted",
+            "TaskValidation.SlotNameValidation",
+            "TaskValidation.ExpectedSlotForIndex",
+            "TaskValidation.TaskRequestHelpers",
+            "TaskValidation.ModeNameOfUnknownMode",
+            "TaskValidationAudit.NonFiniteStabilityRejected",
+            "StabilityGate.ZeroStabilityRejected",
+            "StabilityGate.NegativeStabilityRejected",
+            "StabilityGate.NaNStabilityRejected",
+            "StabilityGate.InfiniteStabilityRejected",
+            "StabilityGate.PositiveStabilityAccepted",
+            "StabilityGate.DefaultStabilityRemainsThreeSeconds"
+          ],
+          "source": "src/mtc_task_cpp/test/test_task_validation.cpp",
+          "source_sha256": "c18e228bf39bf1ce0fb49a43918f653fdfb0f3d764317788edb9c1b87338456e"
+        }
+      ],
+      "python_cases": 269,
+      "python_mock_e2e": 15,
+      "ros_wiring_cases": 6,
+      "ros_wiring_identities": [
+        {
+          "classname": "tests.test_ros_wiring",
+          "name": "test_task_node_keeps_ros_clock_and_fsm_clock_independent[ros-clock]"
+        },
+        {
+          "classname": "tests.test_ros_wiring",
+          "name": "test_task_node_keeps_ros_clock_and_fsm_clock_independent[injected-clock]"
+        },
+        {
+          "classname": "tests.test_ros_wiring",
+          "name": "test_pickplace_entrypoint_maps_existing_ros_parameter[default]"
+        },
+        {
+          "classname": "tests.test_ros_wiring",
+          "name": "test_pickplace_entrypoint_maps_existing_ros_parameter[ros-override]"
+        },
+        {
+          "classname": "tests.test_ros_wiring",
+          "name": "test_default_unlock_client_reaches_tool_manager_without_release_claim[interlock]"
+        },
+        {
+          "classname": "tests.test_ros_wiring",
+          "name": "test_default_unlock_client_reaches_tool_manager_without_release_claim[mock-accepted]"
+        }
+      ],
+      "colcon_aggregate": {
+        "total": 652,
+        "note": "Includes wrappers/lint; empty adapter tests absent from successful XML summary; colcon-test exit 5 retained."
+      },
+      "old_fixed_audit": "FAIL: expects 16, sees 20 *_cpp executables. No missing/unexpected/duplicate/bad case. No Planner package in this branch.",
+      "new_action_audit_scope": "358 cases / 20 *_cpp executables; unchanged existing Action audit."
+    },
+    "failed_steps": [
+      "dependencies",
+      "colcon-test",
+      "cpp-audit",
+      "actual-task-mock",
+      "driver-rosdep",
+      "driver-tests",
+      "driver-test-results",
+      "moveit-plan-execute"
+    ],
+    "adapter_test_collection": "FAIL exit 5: unittest -v collects zero; setup.py has no pytest tests_require; aggregate 652 does not cover the adapter.",
+    "old_cpp_audit": "FAIL expects 16 executables, sees 20; individual source identities match 358 tests; delivered Action verifier passed.",
+    "dependency_gaps": [
+      "ament_python rosdep definition",
+      "docker.io",
+      "ros-jazzy-ros2-controllers-test-nodes"
+    ],
+    "driver_test_aggregate": {
+      "tests": 1104,
+      "errors": 0,
+      "failures": 279,
+      "skipped": 259,
+      "includes_wrappers_and_lint": true
+    },
+    "legacy_python": [
+      {
+        "case": "early-goal",
+        "delay_before_goal_sec": 0.0,
+        "cancel_requested": false,
+        "feedback": [
+          {
+            "current_index": 0,
+            "total_count": 1,
+            "state": "SCAN_SCENE",
+            "current_slot": "",
+            "current_object_id": "",
+            "substate": "SCAN_SCENE"
+          }
+        ],
+        "status": "FAIL",
+        "scope": "Delivered Python Mock launch, dry_run default",
+        "task_server_available": true,
+        "goal": {
+          "task_id": "acceptance-early-goal",
+          "mode": 1,
+          "ordered_colors": [
+            3
+          ],
+          "timeout_ms": 5000,
+          "placement_stability_sec": 3.0
+        },
+        "accepted": true,
+        "result_received": true,
+        "result": {
+          "status": 6,
+          "result": {
+            "success": false,
+            "completed_count": 0,
+            "completed_slots": [],
+            "error_code": 220,
+            "message": "task acceptance-early-goal exceeded timeout_ms=5000 (elapsed 5.017s)"
+          }
+        },
+        "pickplace_server_available": false,
+        "nodes": [
+          [
+            "task_acceptance_probe",
+            "/"
+          ],
+          [
+            "motion_executor",
+            "/"
+          ],
+          [
+            "task_executor",
+            "/"
+          ],
+          [
+            "tool_manager",
+            "/"
+          ],
+          [
+            "safety_supervisor",
+            "/"
+          ]
+        ],
+        "action_servers": [
+          {
+            "node": "task_acceptance_probe",
+            "namespace": "/",
+            "servers": []
+          },
+          {
+            "node": "motion_executor",
+            "namespace": "/",
+            "servers": [
+              [
+                "/mtc/motion/execute_joint_move",
+                [
+                  "mtc_interfaces/action/ExecuteJointMove"
+                ]
+              ]
+            ]
+          },
+          {
+            "node": "task_executor",
+            "namespace": "/",
+            "servers": [
+              [
+                "/mtc/task/execute",
+                [
+                  "mtc_interfaces/action/ExecuteTask"
+                ]
+              ]
+            ]
+          },
+          {
+            "node": "tool_manager",
+            "namespace": "/",
+            "servers": []
+          },
+          {
+            "node": "safety_supervisor",
+            "namespace": "/",
+            "servers": []
+          }
+        ],
+        "exception": "AssertionError('PickPlace server unavailable (B03/B05)')",
+        "shutdown_escalated": false,
+        "launch_exit_code": 0,
+        "child_failure": true
+      },
+      {
+        "case": "delayed-goal",
+        "delay_before_goal_sec": 7.0,
+        "cancel_requested": false,
+        "feedback": [
+          {
+            "current_index": 0,
+            "total_count": 0,
+            "state": "FAULT",
+            "current_slot": "",
+            "current_object_id": "",
+            "substate": "FAULT"
+          }
+        ],
+        "status": "FAIL",
+        "scope": "Delivered Python Mock launch, dry_run default",
+        "task_server_available": true,
+        "goal": {
+          "task_id": "acceptance-delayed-goal",
+          "mode": 1,
+          "ordered_colors": [
+            3
+          ],
+          "timeout_ms": 5000,
+          "placement_stability_sec": 3.0
+        },
+        "accepted": true,
+        "result_received": true,
+        "result": {
+          "status": 6,
+          "result": {
+            "success": false,
+            "completed_count": 0,
+            "completed_slots": [],
+            "error_code": 510,
+            "message": "state INIT timed out after 5.043s -> HARDWARE_FAULT"
+          }
+        },
+        "pickplace_server_available": false,
+        "nodes": [
+          [
+            "task_acceptance_probe",
+            "/"
+          ],
+          [
+            "motion_executor",
+            "/"
+          ],
+          [
+            "task_executor",
+            "/"
+          ],
+          [
+            "tool_manager",
+            "/"
+          ],
+          [
+            "safety_supervisor",
+            "/"
+          ]
+        ],
+        "action_servers": [
+          {
+            "node": "task_acceptance_probe",
+            "namespace": "/",
+            "servers": []
+          },
+          {
+            "node": "motion_executor",
+            "namespace": "/",
+            "servers": [
+              [
+                "/mtc/motion/execute_joint_move",
+                [
+                  "mtc_interfaces/action/ExecuteJointMove"
+                ]
+              ]
+            ]
+          },
+          {
+            "node": "task_executor",
+            "namespace": "/",
+            "servers": [
+              [
+                "/mtc/task/execute",
+                [
+                  "mtc_interfaces/action/ExecuteTask"
+                ]
+              ]
+            ]
+          },
+          {
+            "node": "tool_manager",
+            "namespace": "/",
+            "servers": []
+          },
+          {
+            "node": "safety_supervisor",
+            "namespace": "/",
+            "servers": []
+          }
+        ],
+        "exception": "AssertionError('PickPlace server unavailable (B03/B05)')",
+        "shutdown_escalated": false,
+        "launch_exit_code": 0,
+        "child_failure": true
+      },
+      {
+        "case": "cancel-goal",
+        "delay_before_goal_sec": 0.0,
+        "cancel_requested": true,
+        "feedback": [
+          {
+            "current_index": 0,
+            "total_count": 1,
+            "state": "SCAN_SCENE",
+            "current_slot": "",
+            "current_object_id": "",
+            "substate": "SCAN_SCENE"
+          },
+          {
+            "current_index": 0,
+            "total_count": 1,
+            "state": "CANCEL_PENDING",
+            "current_slot": "",
+            "current_object_id": "",
+            "substate": "CANCEL_PENDING"
+          }
+        ],
+        "status": "FAIL",
+        "scope": "Delivered Python Mock launch, dry_run default",
+        "task_server_available": true,
+        "goal": {
+          "task_id": "acceptance-cancel-goal",
+          "mode": 1,
+          "ordered_colors": [
+            3
+          ],
+          "timeout_ms": 5000,
+          "placement_stability_sec": 3.0
+        },
+        "accepted": true,
+        "cancel_response": {
+          "return_code": 0,
+          "goals_canceling": [
+            {
+              "goal_id": {
+                "uuid": [
+                  3,
+                  50,
+                  190,
+                  118,
+                  75,
+                  227,
+                  65,
+                  97,
+                  188,
+                  46,
+                  208,
+                  48,
+                  122,
+                  45,
+                  84,
+                  230
+                ]
+              },
+              "stamp": {
+                "sec": 1791747244,
+                "nanosec": 312523890
+              }
+            }
+          ]
+        },
+        "result_received": true,
+        "result": {
+          "status": 6,
+          "result": {
+            "success": false,
+            "completed_count": 0,
+            "completed_slots": [],
+            "error_code": 520,
+            "message": "cancel not confirmed before timeout (child never reported stopped)"
+          }
+        },
+        "pickplace_server_available": false,
+        "nodes": [
+          [
+            "motion_executor",
+            "/"
+          ],
+          [
+            "task_executor",
+            "/"
+          ],
+          [
+            "tool_manager",
+            "/"
+          ],
+          [
+            "safety_supervisor",
+            "/"
+          ],
+          [
+            "task_acceptance_probe",
+            "/"
+          ]
+        ],
+        "action_servers": [
+          {
+            "node": "motion_executor",
+            "namespace": "/",
+            "servers": [
+              [
+                "/mtc/motion/execute_joint_move",
+                [
+                  "mtc_interfaces/action/ExecuteJointMove"
+                ]
+              ]
+            ]
+          },
+          {
+            "node": "task_executor",
+            "namespace": "/",
+            "servers": [
+              [
+                "/mtc/task/execute",
+                [
+                  "mtc_interfaces/action/ExecuteTask"
+                ]
+              ]
+            ]
+          },
+          {
+            "node": "tool_manager",
+            "namespace": "/",
+            "servers": []
+          },
+          {
+            "node": "safety_supervisor",
+            "namespace": "/",
+            "servers": []
+          },
+          {
+            "node": "task_acceptance_probe",
+            "namespace": "/",
+            "servers": []
+          }
+        ],
+        "exception": "AssertionError('PickPlace server unavailable (B03/B05)')",
+        "shutdown_escalated": false,
+        "launch_exit_code": 0,
+        "child_failure": true
+      }
+    ],
+    "moveit": {
+      "scope": "Independent S3 MoveIt / GenericSystem; no FSM or physical robot",
+      "planning_execution": "PASS",
+      "clean_shutdown": "FAIL",
+      "plugins": [
+        "mock_components/GenericSystem"
+      ],
+      "tf": {
+        "world->base_link": {
+          "header": {
+            "stamp": {
+              "sec": 0,
+              "nanosec": 0
+            },
+            "frame_id": "world"
+          },
+          "child_frame_id": "base_link",
+          "transform": {
+            "translation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "w": 1.0
+            }
+          }
+        },
+        "base_link->ee_link": {
+          "header": {
+            "stamp": {
+              "sec": 1791747278,
+              "nanosec": 966682457
+            },
+            "frame_id": "base_link"
+          },
+          "child_frame_id": "ee_link",
+          "transform": {
+            "translation": {
+              "x": -8.688660222541301e-17,
+              "y": -0.2562,
+              "z": 0.8071999999999999
+            },
+            "rotation": {
+              "x": 0.5000000000000004,
+              "y": -0.49999999999999944,
+              "z": 0.5000000000000006,
+              "w": 0.49999999999999956
+            }
+          }
+        }
+      },
+      "controller_action_servers": [
+        {
+          "node": "joint_trajectory_controller",
+          "namespace": "/",
+          "types": [
+            "control_msgs/action/FollowJointTrajectory"
+          ]
+        }
+      ],
+      "initial_rad": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "target_rad": [
+        0.05,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "joint_names": [
+        "shoulder_joint",
+        "upperArm_joint",
+        "foreArm_joint",
+        "wrist1_joint",
+        "wrist2_joint",
+        "wrist3_joint"
+      ],
+      "plan": {
+        "trajectory_start": {
+          "joint_state": {
+            "header": {
+              "stamp": {
+                "sec": 0,
+                "nanosec": 0
+              },
+              "frame_id": "world"
+            },
+            "name": [
+              "shoulder_joint",
+              "upperArm_joint",
+              "foreArm_joint",
+              "wrist1_joint",
+              "wrist2_joint",
+              "wrist3_joint"
+            ],
+            "position": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "velocity": [
+              0.0003150000000000001,
+              -2.53569469328124e-07,
+              2.6424476691638887e-07,
+              1.660744875776686e-09,
+              -1.0913876177622424e-07,
+              -2.0877548644598117e-07
+            ],
+            "effort": []
+          },
+          "multi_dof_joint_state": {
+            "header": {
+              "stamp": {
+                "sec": 0,
+                "nanosec": 0
+              },
+              "frame_id": "world"
+            },
+            "joint_names": [],
+            "transforms": [],
+            "twist": [],
+            "wrench": []
+          },
+          "attached_collision_objects": [],
+          "is_diff": false
+        },
+        "group_name": "manipulator",
+        "trajectory": {
+          "joint_trajectory": {
+            "header": {
+              "stamp": {
+                "sec": 0,
+                "nanosec": 0
+              },
+              "frame_id": "world"
+            },
+            "joint_names": [
+              "shoulder_joint",
+              "upperArm_joint",
+              "foreArm_joint",
+              "wrist1_joint",
+              "wrist2_joint",
+              "wrist3_joint"
+            ],
+            "points": [
+              {
+                "positions": [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "velocities": [
+                  0.0003150000000000001,
+                  -2.53569469328124e-07,
+                  2.6424476691638887e-07,
+                  1.660744875776686e-09,
+                  -1.0913876177622424e-07,
+                  -2.0877548644598117e-07
+                ],
+                "accelerations": [
+                  0.3150000000000001,
+                  -0.000253569469328124,
+                  0.00026424476691638886,
+                  1.660744875776686e-06,
+                  -0.00010913876177622424,
+                  -0.00020877548644598117
+                ],
+                "effort": [],
+                "time_from_start": {
+                  "sec": 0,
+                  "nanosec": 0
+                }
+              },
+              {
+                "positions": [
+                  0.0015749999999999991,
+                  -1.267847346640619e-06,
+                  1.3212238345819432e-06,
+                  8.303724378883423e-09,
+                  -5.456938088811207e-07,
+                  -1.043877432229905e-06
+                ],
+                "velocities": [
+                  0.031500000000000146,
+                  -2.535694693281251e-05,
+                  2.6424476691638995e-05,
+                  1.6607448757766932e-07,
+                  -1.091387617762247e-05,
+                  -2.0877548644598205e-05
+                ],
+                "accelerations": [
+                  0.3150000000000892,
+                  -0.0002535694693281917,
+                  0.000264244766916458,
+                  1.660744875777143e-06,
+                  -0.00010913876177625461,
+                  -0.00020877548644603617
+                ],
+                "effort": [],
+                "time_from_start": {
+                  "sec": 0,
+                  "nanosec": 100000000
+                }
+              },
+              {
+                "positions": [
+                  0.006300000000000005,
+                  -5.071389386562483e-06,
+                  5.2848953383277795e-06,
+                  3.321489751553374e-08,
+                  -2.182775235524486e-06,
+                  -4.175509728919626e-06
+                ],
+                "velocities": [
+                  0.06300000000000072,
+                  -5.0713893865625364e-05,
+                  5.2848953383278356e-05,
+                  3.321489751553409e-07,
+                  -2.182775235524509e-05,
+                  -4.1755097289196694e-05
+                ],
+                "accelerations": [
+                  0.3150000000005368,
+                  -0.00025356946932855083,
+                  0.0002642447669168341,
+                  1.6607448757794724e-06,
+                  -0.00010913876177641046,
+                  -0.00020877548644632755
+                ],
+                "effort": [],
+                "time_from_start": {
+                  "sec": 0,
+                  "nanosec": 200000000
+                }
+              },
+              {
+                "positions": [
+                  0.01417500000000002,
+                  -1.1410626119765593e-05,
+                  1.1891014511237511e-05,
+                  7.473351940995095e-08,
+                  -4.911244279930096e-06,
+                  -9.394896890069164e-06
+                ],
+                "velocities": [
+                  0.09449999999999874,
+                  -7.607084079843616e-05,
+                  7.927343007491557e-05,
+                  4.982234627329991e-07,
+                  -3.274162853286682e-05,
+                  -6.263264593379349e-05
+                ],
+                "accelerations": [
+                  0.31499999999842737,
+                  -0.00025356946932685,
+                  0.00026424476691505193,
+                  1.6607448757683551e-06,
+                  -0.00010913876177567863,
+                  -0.00020877548644492486
+                ],
+                "effort": [],
+                "time_from_start": {
+                  "sec": 0,
+                  "nanosec": 300000000
+                }
+              },
+              {
+                "positions": [
+                  0.02519928793529557,
+                  -2.0284984346665062e-05,
+                  2.113898402197189e-05,
+                  1.3285583591035993e-07,
+                  -8.730854231430806e-06,
+                  -1.6701566973916433e-05
+                ],
+                "velocities": [
+                  0.12474000000000045,
+                  -0.00010041350985393745,
+                  0.00010464092769889034,
+                  6.576549708075699e-07,
+                  -4.321894966338494e-05,
+                  -8.267509263260882e-05
+                ],
+                "accelerations": [
+                  -0.31499999999999556,
+                  0.0002535694693281104,
+                  -0.0002642447669163801,
+                  -1.6607448757766137e-06,
+                  0.00010913876177621395,
+                  0.0002087754864459684
+                ],
+                "effort": [],
+                "time_from_start": {
+                  "sec": 0,
+                  "nanosec": 400000000
+                }
+              },
+              {
+                "positions": [
+                  0.036129570477944774,
+                  -2.908366988300162e-05,
+                  3.0308095015027803e-05,
+                  1.904825366198711e-07,
+                  -1.2517893922126089e-05,
+                  -2.394593222735644e-05
+                ],
+                "velocities": [
+                  0.09323999999999902,
+                  -7.50565629211239e-05,
+                  7.821645100725026e-05,
+                  4.915804832298938e-07,
+                  -3.230507348576202e-05,
+                  -6.179754398800975e-05
+                ],
+                "accelerations": [
+                  -0.3150000000013001,
+                  0.0002535694693291675,
+                  -0.0002642447669174643,
+                  -1.6607448757834958e-06,
+                  0.00010913876177667474,
+                  0.00020877548644684932
+                ],
+                "effort": [],
+                "time_from_start": {
+                  "sec": 0,
+                  "nanosec": 500000000
+                }
+              },
+              {
+                "positions": [
+                  0.04390985302059397,
+                  -3.534666072605693e-05,
+                  3.683475833891982e-05,
+                  2.3150178857161542e-07,
+                  -1.5213545995059125e-05,
+                  -2.9102542616336635e-05
+                ],
+                "velocities": [
+                  0.06174000000000451,
+                  -4.969961598831592e-05,
+                  5.179197431561598e-05,
+                  3.2550599565225416e-07,
+                  -2.1391197308141504e-05,
+                  -4.0919995343415286e-05
+                ],
+                "accelerations": [
+                  -0.31499999999567957,
+                  0.0002535694693246477,
+                  -0.00026424476691276155,
+                  -1.6607448757539026e-06,
+                  0.00010913876177472656,
+                  0.0002087754864431156
+                ],
+                "effort": [],
+                "time_from_start": {
+                  "sec": 0,
+                  "nanosec": 600000000
+                }
+              },
+              {
+                "positions": [
+                  0.048540135563243145,
+                  -3.907395687583099e-05,
+                  4.0718973993647934e-05,
+                  2.5591359176559276e-07,
+                  -1.681781045022991e-05,
+                  -3.2171398140857e-05
+                ],
+                "velocities": [
+                  0.030240000000002855,
+                  -2.4342669055502195e-05,
+                  2.5367497623975717e-05,
+                  1.5943150807457687e-07,
+                  -1.0477321130518512e-05,
+                  -2.004244669881608e-05
+                ],
+                "accelerations": [
+                  -0.31499999999723416,
+                  0.000253569469325899,
+                  -0.0002642447669140682,
+                  -1.6607448757621074e-06,
+                  0.00010913876177526723,
+                  0.00020877548644414844
+                ],
+                "effort": [],
+                "time_from_start": {
+                  "sec": 0,
+                  "nanosec": 700000000
+                }
+              },
+              {
+                "positions": [
+                  0.050021842137118806,
+                  -4.026670465245843e-05,
+                  4.1961936559528105e-05,
+                  2.637254539877154e-07,
+                  -1.733118067495525e-05,
+                  -3.315344261936843e-05
+                ],
+                "velocities": [
+                  -2.9273430685617174e-18,
+                  2.3564597728144654e-21,
+                  -2.455666942337769e-21,
+                  -1.5433555557950067e-23,
+                  1.0142431676096458e-21,
+                  1.9401824543912495e-21
+                ],
+                "accelerations": [
+                  -0.3149999999942673,
+                  0.00025356946932350924,
+                  -0.0002642447669115797,
+                  -1.6607448757464616e-06,
+                  0.00010913876177423797,
+                  0.00020877548644218159
+                ],
+                "effort": [],
+                "time_from_start": {
+                  "sec": 0,
+                  "nanosec": 796993096
+                }
+              }
+            ]
+          },
+          "multi_dof_joint_trajectory": {
+            "header": {
+              "stamp": {
+                "sec": 0,
+                "nanosec": 0
+              },
+              "frame_id": ""
+            },
+            "joint_names": [],
+            "points": []
+          }
+        },
+        "planning_time": 0.016381732,
+        "error_code": {
+          "val": 1,
+          "message": "",
+          "source": ""
+        }
+      },
+      "accepted": true,
+      "execute": {
+        "status": 4,
+        "result": {
+          "error_code": {
+            "val": 1,
+            "message": "",
+            "source": ""
+          }
+        }
+      },
+      "actual_rad": [
+        0.050021842137118806,
+        -4.026670465245843e-05,
+        4.1961936559528105e-05,
+        2.637254539877154e-07,
+        -1.733118067495525e-05,
+        -3.315344261936843e-05
+      ],
+      "max_error_rad": 4.1961936559528105e-05,
+      "distinct_joint_stamps": 208,
+      "shutdown": [
+        {
+          "launch": "move-group",
+          "escalated": false,
+          "already_exited": false,
+          "exit_code": 0,
+          "child_failures": [
+            "process has died [pid 4633, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_3lk12w88 --params-file /tmp/launch_params_gjwopqow']."
+          ]
+        },
+        {
+          "launch": "control",
+          "escalated": false,
+          "already_exited": false,
+          "exit_code": 0,
+          "child_failures": []
+        }
+      ],
+      "json_note": "Any non-finite optional ROS fields are null; original representation retained in result.raw.txt"
+    }
+  },
+  "supplement": {
+    "adapter_suite": {
+      "file": "adapter-tests.xml",
+      "counts": {
+        "PASS": 57
+      },
+      "by_class": {
+        "test.test_motion_safety": 45,
+        "test.test_motion_tf_buffer": 3,
+        "test.test_publisher_cleanup": 5,
+        "test.test_replay_process": 4
+      },
+      "cases": [
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_default_live_configuration_rejects",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_unknown_frame_rejects_before_tf[unregistered_frame]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_unknown_frame_rejects_before_tf[synthetic_unregistered_color_optical_frame]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_unknown_frame_rejects_before_tf[]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_unknown_frame_rejects_before_tf[None]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_untrusted_target_rejects[None]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_untrusted_target_rejects[unknown_target]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_untrusted_target_rejects[]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_missing_tf_rejects[None]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_missing_tf_rejects[False]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_unverified_tf_rejects[False]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_unverified_tf_rejects[None]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_unverified_tf_rejects[1]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_unverified_tf_rejects[verified]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_unverified_tf_rejects[result4]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_tf_exception_rejects[LookupError]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_tf_exception_rejects[TimeoutError]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_tf_exception_rejects[RuntimeError]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_verified_tf_receives_capture_timestamp",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_same_frame_still_requires_verification",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_offline_not_motion_input[replay]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_offline_not_motion_input[synthetic]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_invalid_pose_values_reject[body_pose-None]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_invalid_pose_values_reject[body_pose-nan]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_invalid_pose_values_reject[body_pose-inf]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_invalid_pose_values_reject[body_pose--inf]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_invalid_pose_values_reject[ring_pose-None]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_invalid_pose_values_reject[ring_pose-nan]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_invalid_pose_values_reject[ring_pose-inf]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_invalid_pose_values_reject[ring_pose--inf]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_ring_flag_requires_boolean_true[False]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_ring_flag_requires_boolean_true[None]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_ring_flag_requires_boolean_true[true]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_ring_flag_requires_boolean_true[1]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_stale_future_reject[1699999999]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_stale_future_reject[1700000001]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_malformed_pose_rejects",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_malformed_stamp_rejects[-1]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_malformed_stamp_rejects[1000000000]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_malformed_stamp_rejects[nan]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_nan_age_limit_rejects",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_pose_header_mismatch",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_duplicate_id",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_zero_quaternion",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_safety",
+          "name": "test_original_synthetic_records_rejected",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_tf_buffer",
+          "name": "test_missing_tf_rejects",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_tf_buffer",
+          "name": "test_transform_at_capture_time_verified",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_motion_tf_buffer",
+          "name": "test_latest_tf_does_not_cover_historical_capture",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_publisher_cleanup",
+          "name": "test_signal_or_normal_spin_cleanup[KeyboardInterrupt]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_publisher_cleanup",
+          "name": "test_signal_or_normal_spin_cleanup[ExternalShutdownException]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_publisher_cleanup",
+          "name": "test_signal_or_normal_spin_cleanup[None]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_publisher_cleanup",
+          "name": "test_invalid_input_still_cleans_resources",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_publisher_cleanup",
+          "name": "test_destroy_error_still_shuts_context",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_replay_process",
+          "name": "test_installed_replay_process[natural-synthetic]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_replay_process",
+          "name": "test_installed_replay_process[natural-replay]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_replay_process",
+          "name": "test_installed_replay_process[sigint-synthetic]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "test.test_replay_process",
+          "name": "test_installed_replay_process[sigint-replay]",
+          "status": "PASS",
+          "details": []
+        }
+      ]
+    },
+    "public_vision_suite": {
+      "file": "public-vision-tests.xml",
+      "counts": {
+        "PASS": 80,
+        "SKIP": 1
+      },
+      "by_class": {
+        "tests.test_battery_only": 2,
+        "tests.test_camera_pipeline": 4,
+        "tests.test_center_estimation": 5,
+        "tests.test_evaluator": 1,
+        "tests.test_fast_confirmation": 6,
+        "tests.test_generator": 2,
+        "tests.test_geometry": 2,
+        "tests.test_perception": 1,
+        "tests.test_real_workflow": 8,
+        "tests.test_rgbd_offline": 7,
+        "tests.test_rgbd_stage1": 6,
+        "tests.test_ros2_p0": 28,
+        "tests.test_unified_rgb": 4,
+        "tests.test_vision_interface": 5
+      },
+      "cases": [
+        {
+          "class": "tests.test_battery_only",
+          "name": "test_pixel_batteries_and_no_mm_coordinates",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_battery_only",
+          "name": "test_pixel_recording_summary",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_camera_pipeline",
+          "name": "test_projection_reproducible_and_in_frame",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_camera_pipeline",
+          "name": "test_corner_order",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_camera_pipeline",
+          "name": "test_gt_rectification_math_and_size",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_camera_pipeline",
+          "name": "test_mild_perspective_full_pipeline",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_center_estimation",
+          "name": "test_center_definitions_on_simple_rectangle",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_center_estimation",
+          "name": "test_mask_hole_changes_color_centroid_but_not_external_contour",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_center_estimation",
+          "name": "test_robust_fit_reduces_small_protrusion_leverage",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_center_estimation",
+          "name": "test_yaw_periodicity_and_empty_masks",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_center_estimation",
+          "name": "test_visible_geometry_yaw_gate_and_no_3d_pose",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_evaluator",
+          "name": "test_evaluator_math",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_fast_confirmation",
+          "name": "test_same_cad_confirmation_for_all_colors[red]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_fast_confirmation",
+          "name": "test_same_cad_confirmation_for_all_colors[blue]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_fast_confirmation",
+          "name": "test_same_cad_confirmation_for_all_colors[yellow]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_fast_confirmation",
+          "name": "test_same_cad_confirmation_for_all_colors[green]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_fast_confirmation",
+          "name": "test_small_background_footprint_not_confirmed",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_fast_confirmation",
+          "name": "test_motion_interval_after_table_capture_only",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_generator",
+          "name": "test_seed_reproducible",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_generator",
+          "name": "test_batteries_inside_and_separate",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_geometry",
+          "name": "test_conversion",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_geometry",
+          "name": "test_yaw",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_perception",
+          "name": "test_four_batteries_in_canonical_image",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_real_workflow",
+          "name": "test_quality_dark_empty_and_camera_missing_options",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_real_workflow",
+          "name": "test_roi_polygon_rectangle_mask_and_empty",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_real_workflow",
+          "name": "test_hsv_percentiles_and_red_wrap",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_real_workflow",
+          "name": "test_session_split_and_metadata_not_ground_truth",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_real_workflow",
+          "name": "test_four_class_config_and_empty_image",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_real_workflow",
+          "name": "test_calibration_replay_confusion_and_failures",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_real_workflow",
+          "name": "test_one_to_one_matching_and_insufficient_data",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_real_workflow",
+          "name": "test_rejected_capture_excluded_from_hsv",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_rgbd_offline",
+          "name": "test_table_foreground_rejects_background_and_preserves_invalid_body",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_rgbd_offline",
+          "name": "test_no_table_or_empty_cloud_refuses_pose",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_rgbd_offline",
+          "name": "test_alignment_and_components",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_rgbd_offline",
+          "name": "test_single_red_session_suppresses_second_candidate",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_rgbd_offline",
+          "name": "test_depth_growth_rejoins_split_bands_without_inventing_hole_pixels",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_rgbd_offline",
+          "name": "test_depth_growth_rejects_implausible_height_component",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_rgbd_offline",
+          "name": "test_plane_height_separable_and_ray_projection_equivalence",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_rgbd_stage1",
+          "name": "test_deprojection_and_depth_units",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_rgbd_stage1",
+          "name": "test_alignment_validation_empty_mask_and_holes",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_rgbd_stage1",
+          "name": "test_plane_fit_and_candidate_not_table_pose",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_rgbd_stage1",
+          "name": "test_lossless_record_replay_and_legacy_rgb_only",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_rgbd_stage1",
+          "name": "test_stream_selection_prefers_supported_combination",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_rgbd_stage1",
+          "name": "test_preview_handles_no_red_candidate",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_single_miss_reappearance",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_long_loss_new_identity",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_multiple_same_color_and_order",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_color_jump_suppressed",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_ambiguity_suppressed",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_duplicate_candidate_does_not_get_two_ids",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_color_map[red-1]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_color_map[blue-2]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_color_map[yellow-3]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_color_map[green-4]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_invalid_frame[]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_invalid_frame[/camera]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_invalid_frame[IMAGE PIXEL]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_invalid_frame[None]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_invalid_timestamp[0]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_invalid_timestamp[-1]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_invalid_timestamp[nan]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_invalid_timestamp[inf]",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_monotonic_tracker",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_duplicate_ids",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_empty",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_exact_ros_conversion_and_nan",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_ring_reject",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_stale_reject",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_replay_reject_and_json_units",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_no_groundtruth_or_pixel_as_pose",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_invalid_detection_not_tracked",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_ros2_p0",
+          "name": "test_saved_offline_evidence",
+          "status": "SKIP",
+          "details": [
+            {
+              "tag": "skipped",
+              "attributes": {
+                "type": "pytest.skip",
+                "message": "run replay first"
+              },
+              "text": "/candidate/vision_core/tests/test_ros2_p0.py:85: run replay first"
+            }
+          ]
+        },
+        {
+          "class": "tests.test_unified_rgb",
+          "name": "test_unified_four_colors_empty_and_pose_flags",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_unified_rgb",
+          "name": "test_cross_color_conflict_unknown_and_dominant_color",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_unified_rgb",
+          "name": "test_background_geometry_filter_and_separate_objects",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_unified_rgb",
+          "name": "test_codex_review_preserves_source_and_user_masks",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_vision_interface",
+          "name": "test_null_pose_and_confirmed_output_are_distinct",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_vision_interface",
+          "name": "test_complete_rotation_and_bidirectional_cad_candidates",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_vision_interface",
+          "name": "test_invalid_rotation_is_not_fabricated",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_vision_interface",
+          "name": "test_expired_same_frame_clears_current_candidate_and_keeps_history",
+          "status": "PASS",
+          "details": []
+        },
+        {
+          "class": "tests.test_vision_interface",
+          "name": "test_reused_frame_id_with_different_capture_is_stale",
+          "status": "PASS",
+          "details": []
+        }
+      ]
+    },
+    "installed_processes": {
+      "synthetic-natural": {
+        "exit_mode": "natural",
+        "passed": true,
+        "scope": "Local Ubuntu ROS2 only; no D435i, cross-host or C++ FSM",
+        "received_frames": 4,
+        "array_lengths": [
+          0,
+          4,
+          4,
+          4
+        ],
+        "exact_fixture_matches": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "motion_rejections": [
+          {
+            "offline": "REPLAY_NOT_MOTION_INPUT",
+            "live": "EMPTY"
+          },
+          {
+            "offline": "REPLAY_NOT_MOTION_INPUT",
+            "live": "RING_INVALID"
+          },
+          {
+            "offline": "REPLAY_NOT_MOTION_INPUT",
+            "live": "RING_INVALID"
+          },
+          {
+            "offline": "REPLAY_NOT_MOTION_INPUT",
+            "live": "RING_INVALID"
+          }
+        ],
+        "discovered_qos": [
+          {
+            "node": "_NODE_NAME_UNKNOWN_",
+            "type": "mtc_interfaces/msg/BatteryDetectionArray",
+            "reliability": "RELIABLE",
+            "durability": "VOLATILE",
+            "history": "UNKNOWN",
+            "depth": 0,
+            "compatibility": "OK",
+            "reason": ""
+          }
+        ],
+        "created_qos": "RELIABLE KEEP_LAST(5) VOLATILE",
+        "publisher_exit": 0,
+        "signal_sent": false,
+        "replay_nodes_remaining": [],
+        "subscriber_cleanup_complete": true,
+        "publisher_log_frame_lines": [
+          "[INFO] [1791747451.116028075] [vision_offline_replay]: frame=0 mode=synthetic source=synthetic_clock",
+          "[INFO] [1791747451.616257366] [vision_offline_replay]: frame=1 mode=synthetic source=synthetic_clock",
+          "[INFO] [1791747452.116822304] [vision_offline_replay]: frame=2 mode=synthetic source=synthetic_clock",
+          "[INFO] [1791747452.616850108] [vision_offline_replay]: frame=3 mode=synthetic source=synthetic_clock"
+        ]
+      },
+      "synthetic-sigint": {
+        "exit_mode": "sigint",
+        "passed": true,
+        "scope": "Local Ubuntu ROS2 only; no D435i, cross-host or C++ FSM",
+        "received_frames": 2,
+        "array_lengths": [
+          0,
+          4
+        ],
+        "exact_fixture_matches": [
+          true,
+          true
+        ],
+        "motion_rejections": [
+          {
+            "offline": "REPLAY_NOT_MOTION_INPUT",
+            "live": "EMPTY"
+          },
+          {
+            "offline": "REPLAY_NOT_MOTION_INPUT",
+            "live": "RING_INVALID"
+          }
+        ],
+        "discovered_qos": [
+          {
+            "node": "_NODE_NAME_UNKNOWN_",
+            "type": "mtc_interfaces/msg/BatteryDetectionArray",
+            "reliability": "RELIABLE",
+            "durability": "VOLATILE",
+            "history": "UNKNOWN",
+            "depth": 0,
+            "compatibility": "OK",
+            "reason": ""
+          }
+        ],
+        "created_qos": "RELIABLE KEEP_LAST(5) VOLATILE",
+        "publisher_exit": 0,
+        "signal_sent": true,
+        "replay_nodes_remaining": [],
+        "subscriber_cleanup_complete": true,
+        "publisher_log_frame_lines": [
+          "[INFO] [1791747457.016348330] [vision_offline_replay]: frame=0 mode=synthetic source=synthetic_clock",
+          "[INFO] [1791747457.517019557] [vision_offline_replay]: frame=1 mode=synthetic source=synthetic_clock"
+        ]
+      },
+      "replay-natural": {
+        "exit_mode": "natural",
+        "passed": true,
+        "scope": "Local Ubuntu ROS2 only; no D435i, cross-host or C++ FSM",
+        "received_frames": 4,
+        "array_lengths": [
+          0,
+          4,
+          4,
+          4
+        ],
+        "exact_fixture_matches": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "motion_rejections": [
+          {
+            "offline": "REPLAY_NOT_MOTION_INPUT",
+            "live": "EMPTY"
+          },
+          {
+            "offline": "REPLAY_NOT_MOTION_INPUT",
+            "live": "RING_INVALID"
+          },
+          {
+            "offline": "REPLAY_NOT_MOTION_INPUT",
+            "live": "RING_INVALID"
+          },
+          {
+            "offline": "REPLAY_NOT_MOTION_INPUT",
+            "live": "RING_INVALID"
+          }
+        ],
+        "discovered_qos": [
+          {
+            "node": "_NODE_NAME_UNKNOWN_",
+            "type": "mtc_interfaces/msg/BatteryDetectionArray",
+            "reliability": "RELIABLE",
+            "durability": "VOLATILE",
+            "history": "UNKNOWN",
+            "depth": 0,
+            "compatibility": "OK",
+            "reason": ""
+          }
+        ],
+        "created_qos": "RELIABLE KEEP_LAST(5) VOLATILE",
+        "publisher_exit": 0,
+        "signal_sent": false,
+        "replay_nodes_remaining": [],
+        "subscriber_cleanup_complete": true,
+        "publisher_log_frame_lines": [
+          "[INFO] [1791747454.054674155] [vision_offline_replay]: frame=0 mode=replay source=recorded_fixture",
+          "[INFO] [1791747454.555294489] [vision_offline_replay]: frame=1 mode=replay source=recorded_fixture",
+          "[INFO] [1791747455.054595146] [vision_offline_replay]: frame=2 mode=replay source=recorded_fixture",
+          "[INFO] [1791747455.554703055] [vision_offline_replay]: frame=3 mode=replay source=recorded_fixture"
+        ]
+      },
+      "replay-sigint": {
+        "exit_mode": "sigint",
+        "passed": true,
+        "scope": "Local Ubuntu ROS2 only; no D435i, cross-host or C++ FSM",
+        "received_frames": 2,
+        "array_lengths": [
+          0,
+          4
+        ],
+        "exact_fixture_matches": [
+          true,
+          true
+        ],
+        "motion_rejections": [
+          {
+            "offline": "REPLAY_NOT_MOTION_INPUT",
+            "live": "EMPTY"
+          },
+          {
+            "offline": "REPLAY_NOT_MOTION_INPUT",
+            "live": "RING_INVALID"
+          }
+        ],
+        "discovered_qos": [
+          {
+            "node": "_NODE_NAME_UNKNOWN_",
+            "type": "mtc_interfaces/msg/BatteryDetectionArray",
+            "reliability": "RELIABLE",
+            "durability": "VOLATILE",
+            "history": "UNKNOWN",
+            "depth": 0,
+            "compatibility": "OK",
+            "reason": ""
+          }
+        ],
+        "created_qos": "RELIABLE KEEP_LAST(5) VOLATILE",
+        "publisher_exit": 0,
+        "signal_sent": true,
+        "replay_nodes_remaining": [],
+        "subscriber_cleanup_complete": true,
+        "publisher_log_frame_lines": [
+          "[INFO] [1791747458.934919050] [vision_offline_replay]: frame=0 mode=replay source=recorded_fixture",
+          "[INFO] [1791747459.431026569] [vision_offline_replay]: frame=1 mode=replay source=recorded_fixture"
+        ]
+      }
+    },
+    "no_subscriber": [
+      {
+        "case": "default-natural",
+        "argv": [
+          "/candidate-install/mtc_vision_adapter/lib/mtc_vision_adapter/replay_publisher",
+          "--ros-args",
+          "-p",
+          "input_jsonl:=/candidate/src/mtc_vision_adapter/examples/synthetic.jsonl"
+        ],
+        "pid": 221,
+        "started_at": "2026-10-11T19:37:54.613482+00:00",
+        "ended_at": "2026-10-11T19:37:59.135953+00:00",
+        "elapsed_seconds": 4.522464736015536,
+        "exit_code": 0,
+        "signals": [],
+        "published_log_count": 4,
+        "remaining_nodes": [],
+        "checks": {
+          "exit_expected": true,
+          "no_cleanup_signals": true,
+          "node_gone": true,
+          "no_duplicate_shutdown": true,
+          "created_qos": true,
+          "four_publishes": true,
+          "natural_completion": true,
+          "no_traceback": true
+        },
+        "passed": true,
+        "scope": "No subscription created, no frame delivery claimed; graph observer only."
+      },
+      {
+        "case": "bounded-discovery-timeout",
+        "argv": [
+          "/candidate-install/mtc_vision_adapter/lib/mtc_vision_adapter/replay_publisher",
+          "--ros-args",
+          "-p",
+          "input_jsonl:=/candidate/src/mtc_vision_adapter/examples/synthetic.jsonl",
+          "-p",
+          "wait_for_subscriber_s:=2.0",
+          "-p",
+          "period_s:=0.25"
+        ],
+        "pid": 235,
+        "started_at": "2026-10-11T19:37:59.136321+00:00",
+        "ended_at": "2026-10-11T19:38:01.551208+00:00",
+        "elapsed_seconds": 2.414908446953632,
+        "exit_code": 1,
+        "signals": [],
+        "published_log_count": 0,
+        "remaining_nodes": [],
+        "checks": {
+          "exit_expected": true,
+          "no_cleanup_signals": true,
+          "node_gone": true,
+          "no_duplicate_shutdown": true,
+          "created_qos": true,
+          "zero_publishes": true,
+          "explicit_discovery_timeout": true,
+          "no_false_completion": true
+        },
+        "passed": true,
+        "scope": "No subscription created, no frame delivery claimed; graph observer only."
+      }
+    ],
+    "private_input_inventory": {
+      "required_private_inputs": [
+        {
+          "path": "outputs/cad_analysis/geometry.json",
+          "exists": false
+        },
+        {
+          "path": "assets/cad/电池道具.stp",
+          "exists": false
+        },
+        {
+          "path": "assets/cad/舌规V1.STEP",
+          "exists": false
+        },
+        {
+          "path": "outputs/live_rgbd_integration/v33_diagnostic/audit_frames.json",
+          "exists": false
+        },
+        {
+          "path": "outputs/live_rgbd_integration/v33_diagnostic/ring_axis_refined_frames.jsonl",
+          "exists": false
+        },
+        {
+          "path": "outputs/live_rgbd_integration/v33_diagnostic/paired_frames.jsonl",
+          "exists": false
+        },
+        {
+          "path": "outputs/live_rgbd_integration/v41/before.json",
+          "exists": false
+        },
+        {
+          "path": "outputs/live_rgbd_integration/dual_90dd28e6",
+          "exists": false
+        }
+      ],
+      "scope": "Read-only inventory; no private fixture or calibration fabricated."
+    },
+    "step_results": {
+      "private-v41": {
+        "label": "private-v41",
+        "started_at": "2026-10-11T19:38:34.598722+00:00",
+        "ended_at": "2026-10-11T19:38:36.018509+00:00",
+        "container": "mtc-vision-replay-review-dc76a0b",
+        "script": "/home/afonso/meituan-robotics-challenge-2026/outputs/vision-replay-acceptance-20261012-dc76a0b/logs/private-v41.sh",
+        "timeout_seconds": 45.0,
+        "exit_code": 1
+      },
+      "private-v42": {
+        "label": "private-v42",
+        "started_at": "2026-10-11T19:38:36.046883+00:00",
+        "ended_at": "2026-10-11T19:38:37.518429+00:00",
+        "container": "mtc-vision-replay-review-dc76a0b",
+        "script": "/home/afonso/meituan-robotics-challenge-2026/outputs/vision-replay-acceptance-20261012-dc76a0b/logs/private-v42.sh",
+        "timeout_seconds": 45.0,
+        "exit_code": 1
+      },
+      "public-tests": {
+        "label": "public-tests",
+        "started_at": "2026-10-11T19:38:11.010218+00:00",
+        "ended_at": "2026-10-11T19:38:14.638133+00:00",
+        "container": "mtc-vision-replay-review-dc76a0b",
+        "script": "/home/afonso/meituan-robotics-challenge-2026/outputs/vision-replay-acceptance-20261012-dc76a0b/logs/public-tests.sh",
+        "timeout_seconds": 240.0,
+        "exit_code": 0
+      },
+      "install-offline": {
+        "label": "install-offline",
+        "started_at": "2026-10-11T19:38:01.775499+00:00",
+        "ended_at": "2026-10-11T19:38:10.977601+00:00",
+        "container": "mtc-vision-replay-review-dc76a0b",
+        "script": "/home/afonso/meituan-robotics-challenge-2026/outputs/vision-replay-acceptance-20261012-dc76a0b/logs/install-offline.sh",
+        "timeout_seconds": 180.0,
+        "exit_code": 0
+      },
+      "no-subscriber": {
+        "label": "no-subscriber",
+        "started_at": "2026-10-11T19:37:53.896114+00:00",
+        "ended_at": "2026-10-11T19:38:01.747663+00:00",
+        "container": "mtc-vision-replay-review-dc76a0b",
+        "script": "/home/afonso/meituan-robotics-challenge-2026/outputs/vision-replay-acceptance-20261012-dc76a0b/logs/no-subscriber.sh",
+        "timeout_seconds": 60.0,
+        "exit_code": 0
+      },
+      "identity": {
+        "label": "identity",
+        "started_at": "2026-10-11T19:37:27.676398+00:00",
+        "ended_at": "2026-10-11T19:37:28.593838+00:00",
+        "container": "mtc-vision-replay-review-dc76a0b",
+        "script": "/home/afonso/meituan-robotics-challenge-2026/outputs/vision-replay-acceptance-20261012-dc76a0b/logs/identity.sh",
+        "timeout_seconds": 60.0,
+        "exit_code": 0
+      },
+      "entrypoint-inputs": {
+        "label": "entrypoint-inputs",
+        "started_at": "2026-10-11T19:38:34.006276+00:00",
+        "ended_at": "2026-10-11T19:38:34.572649+00:00",
+        "container": "mtc-vision-replay-review-dc76a0b",
+        "script": "/home/afonso/meituan-robotics-challenge-2026/outputs/vision-replay-acceptance-20261012-dc76a0b/logs/entrypoint-inputs.sh",
+        "timeout_seconds": 45.0,
+        "exit_code": 0
+      },
+      "adapter-tests": {
+        "label": "adapter-tests",
+        "started_at": "2026-10-11T19:37:28.626704+00:00",
+        "ended_at": "2026-10-11T19:37:40.330094+00:00",
+        "container": "mtc-vision-replay-review-dc76a0b",
+        "script": "/home/afonso/meituan-robotics-challenge-2026/outputs/vision-replay-acceptance-20261012-dc76a0b/logs/adapter-tests.sh",
+        "timeout_seconds": 180.0,
+        "exit_code": 0
+      }
+    },
+    "offline_environment": {
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "opencv": "4.8.1",
+      "numpy": "1.26.4",
+      "scipy": "1.11.4",
+      "yaml": "6.0.2",
+      "matplotlib": "3.8.4",
+      "pytest": "8.3.5"
+    },
+    "test_count_scope": "57 = earlier 53 adapter tests plus four installed-process cases; 80 public passes = earlier 62 plus 18 new cases. One private 22-frame evidence test skipped. Earlier 27 adapter-core cases already part of public suite.",
+    "process_scope": "Direct installed replay_publisher, no monkeypatch. Exact upstream test uses period 0.5 s and optional subscriber wait 15 s, domains 191-194. Natural cases receive 4/4 and exit without signal; SIGINT cases receive 2/4 and do not claim complete delivery.",
+    "input_scope": "Same four synthetic frames; replay case changes mode and timestamp_source metadata only; original messages and capture stamps retained. No actual recording or camera.",
+    "default_scope": "Default wait=0/period=1 with zero subscribers exits 0 after four publishes; no delivery claim. Positive wait=2/period=0.25 with zero subscribers exits 1 with explicit TimeoutError before any frame and leaves no node.",
+    "ack_limit": "Successful RELIABLE middleware acknowledgment does not establish application/FSM acceptance. Actual final-ack timeout branch was not fault-injected.",
+    "graph_identity_limit": "All four first discovered endpoint snapshots report _NODE_NAME_UNKNOWN_, history UNKNOWN and depth 0. Topic type/QoS compatibility are observed; named graph identity is not established by these snapshots. Executable/source identity and process exit are independently verified; final docker top contains only keeper.",
+    "startup_limit": "Optional wait now exists in publisher and is exercised by four installed-process cases; default remains zero and does not guarantee a subscriber or close previous default 1/4 loss/reliability gap.",
+    "private_entrypoints": "Both delivered V4.1 benchmark and V4.2 audit attempted exactly; exit 1 creating missing parent output directory, before data/frame processing. Private recordings, prior audit/paired/before results and CAD assets absent; BLOCKED, no performance or real accuracy claims.",
+    "vision_algorithm_scope": "New separable/ray plane-height equivalence tests, visual confirmation candidates, stale CAD clearing and diagnostic aliases pass on synthetic inputs. CONFIRMED_OBJECT is visual hypothesis; body/ring validity remains false; ROS clock not mapped.",
+    "safety_integration": "No changed FSM/IDL/Action sources; C++ Task still MockPerception and neither Task consumes topic/helper. Prior static predicate counterexample remains in earlier signed evidence, not re-executed or promoted to a real Goal.",
+    "source_changed": false,
+    "new_supplement_action_goals": 0,
+    "cameras_opened": false
+  },
+  "not_completed": [
+    "Default colcon pytest collection",
+    "Default zero-wait subscriber delivery guarantee and broader replay reliability",
+    "Real final-ack timeout failure injection",
+    "Private V4.1 paired benchmark and V4.2 saved-recording audit",
+    "Real D435i/USB/cross-host transport and actual measured XYZ/Yaw/ring accuracy",
+    "Actual FSM perception consumption and trusted capture-time TF/clock checks",
+    "Old Python B03/B05/B06 and Safety cleanup",
+    "MoveIt shutdown, dependencies/driver lint, SDK license/vendor checksum, NUC and real hardware",
+    "Deferred 08:00 C++ Bringup/Web UI task remains scheduled, not executed in this event"
+  ],
+  "handoff": {
+    "孙浩然": "colcon pytest registration, optional discovery wait SOP/default reliability, private benchmark inputs and live perception delivery",
+    "孙嘉明": "FSM perception consumer/source-time-finite-TF rejection, old Action/Cancel/kernel blockers; no kernel repair here",
+    "韩明赫": "Measured trusted TF/calibration and ROS/Core capture-time contracts",
+    "系统集成与验收": "Preserve original failures, exact source boundaries and isolated clean shutdown; execute later authorized integration only after deadline and monitor drain"
+  },
+  "cleanup": {
+    "recorded_at": "2026-10-11T19:38:59.623397+00:00",
+    "original_runner_pid": 56334,
+    "original_runner_absent": true,
+    "supplement_before_stop": "only sleep infinity; no ROS processes or daemons",
+    "stop": {
+      "exit_code": 0,
+      "stdout": "mtc-vision-replay-review-dc76a0b\n",
+      "stderr": ""
+    },
+    "containers": [
+      {
+        "container": "mtc-repro-5c8f61d8af9f-dc76a0bf0a43",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-11T19:31:15.099374082Z",
+          "FinishedAt": "2026-10-11T19:35:01.508912394Z"
+        },
+        "network": "none",
+        "cpus": 2000000000,
+        "memory": 4294967296,
+        "mounts": [],
+        "devices": [],
+        "ports": {}
+      },
+      {
+        "container": "mtc-vision-replay-review-dc76a0b",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-11T19:36:57.174395957Z",
+          "FinishedAt": "2026-10-11T19:38:59.313842765Z"
+        },
+        "network": "none",
+        "cpus": 2000000000,
+        "memory": 4294967296,
+        "mounts": [],
+        "devices": [],
+        "ports": {}
+      }
+    ],
+    "keeper_exit137_note": "docker stop terminates keeper; ROS child results checked separately."
+  }
+}

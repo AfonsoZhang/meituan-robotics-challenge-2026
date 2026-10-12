@@ -1,0 +1,156 @@
+{
+  "at": "2026-10-11T20:03:10.461376+00:00",
+  "commit": "681bb64bfb8cd482d1e78950cef4cfe395b21bff",
+  "previous": "45f497ce3444e255463faf41f7b736aa9ad07d7b",
+  "review_base": "45f497ce3444e255463faf41f7b736aa9ad07d7b",
+  "parents": [
+    "b8857de49ec5405812f87887b1407092af7335a5"
+  ],
+  "commit_metadata": "commit 681bb64bfb8cd482d1e78950cef4cfe395b21bff\nAuthor:     meituan_challenge team <team@example.invalid>\nAuthorDate: Mon Oct 12 03:46:16 2026 +0800\nCommit:     meituan_challenge team <team@example.invalid>\nCommitDate: Mon Oct 12 03:46:16 2026 +0800\n\n    docs(motion): record ownership audit and blocked native status gate",
+  "incremental_commits": [
+    "681bb64bfb8cd482d1e78950cef4cfe395b21bff b8857de49ec5405812f87887b1407092af7335a5 docs(motion): record ownership audit and blocked native status gate",
+    "b8857de49ec5405812f87887b1407092af7335a5 45f497ce3444e255463faf41f7b736aa9ad07d7b fix(motion): harden FJT pending-goal ownership and status evidence"
+  ],
+  "changed_files": [
+    "docs/migration/PHASE2B_OWNERSHIP_FINAL_REVIEW.md",
+    "src/mtc_trajectory_execution_cpp/README.md",
+    "src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/execution_state.hpp",
+    "src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp",
+    "src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp",
+    "src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp",
+    "src/mtc_trajectory_execution_cpp/test/verify_results.py"
+  ],
+  "changed_file_inventory": [
+    {
+      "path": "docs/migration/PHASE2B_OWNERSHIP_FINAL_REVIEW.md",
+      "size_bytes": 18628,
+      "sha256": "93b8af7e420645c0f26c6b0dc4db547a008ab862f1bbac4f6ed3c1b49ea34442"
+    },
+    {
+      "path": "src/mtc_trajectory_execution_cpp/README.md",
+      "size_bytes": 16705,
+      "sha256": "28b4f080bf3762c4c73d5d50b69102fecd21e15b986b10a0431365435cb76fc3"
+    },
+    {
+      "path": "src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/execution_state.hpp",
+      "size_bytes": 969,
+      "sha256": "984b44fa0a7939f48caf8658d77d3928d6ef765a3da92e40fe91a6cdc72f8ba0"
+    },
+    {
+      "path": "src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp",
+      "size_bytes": 6412,
+      "sha256": "5b9ac5960943eb59688c7ee833027bad64e0f2cf7bb4fdae52642577de04693f"
+    },
+    {
+      "path": "src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp",
+      "size_bytes": 30806,
+      "sha256": "225b611972c42fd62c314178928bef2de3a6358020daad857ed0068cca4518ca"
+    },
+    {
+      "path": "src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp",
+      "size_bytes": 45361,
+      "sha256": "c3e76300c3d08461c7e5eac490fcad3348c57926f5bab570117fdcc7c6749286"
+    },
+    {
+      "path": "src/mtc_trajectory_execution_cpp/test/verify_results.py",
+      "size_bytes": 4205,
+      "sha256": "323681436cf14f86e0ad84e2a84384da87a403c5b782ebc63e2a824cf2518c19"
+    }
+  ],
+  "fjt_registered_source": [
+    "CompleteTrajectoryOneGoalAndFeedback",
+    "RepeatedTicksNeverResend",
+    "ConcurrentGoalsSingleOwner",
+    "StartMismatchDoesNotSend",
+    "CorrectCancelUsesExactUuid",
+    "CancelBeforeGoalResponsePreserved",
+    "DuplicateCancelOnlyOneBackendCall",
+    "StaleCancelDoesNotAffectNewOwner",
+    "CancelWithoutOwnerNeverGlobalStops",
+    "AckOnlyCannotConfirmStopAndTimeoutLocks",
+    "ExecutionTimeoutLocksAndNeverResends",
+    "ControllerAbortedRemainsFaultLocked",
+    "StaleJointFeedbackLocks",
+    "LostJointUpdatesCannotSettle",
+    "InsufficientStationaryIntervalDoesNotSucceed",
+    "WrongFinalPositionCannotSucceed",
+    "NoAssociatedFeedbackCannotSucceed",
+    "HardwareProofLostLocksAndCancelsOwnedGoal",
+    "WrongPluginRejectsBeforeSend",
+    "InactiveControllerRejectsBeforeSend",
+    "MissingVelocityEvidenceRejectsBeforeSend",
+    "ReplayedJointStampLocks",
+    "GoalRejectionMeansNeverExecuted",
+    "ChangedCommandIdContentCannotResend",
+    "SecondPortCannotOwnEndpoint",
+    "DefaultDisabledNeverSends",
+    "DestroyDuringExecutionOnlyCancelsOwnedGoal",
+    "HistoricalSettlementRequiresFreshCurrentEvidence",
+    "ConcurrentGoalReplacementAndLateCancel",
+    "OtherTrajectoryPublisherRejectsDispatch",
+    "ForeignActionClientRejectsDispatch",
+    "SingleTargetEntryExplicitlyRejected",
+    "StationaryWindowCannotGrowWithoutNewSamples",
+    "ForeignInFlightGoalCannotBePreemptedAfterClientLeaves",
+    "ExistingPickPlaceFsmDelegatesWholeTrajectoryThroughPort",
+    "DirectFsmCancelKeepsOriginalFaultWhenStopIsStillPending",
+    "CompletedGoalSameIdSameContentReturnsCachedResult",
+    "CompletedGoalSameIdDifferentTrajectoryRejected",
+    "CompletedGoalSameIdDifferentTimeoutRejected",
+    "CompletedGoalSameIdDifferentSafetySemanticsRejected",
+    "CompletedGoalIdentityMismatchNeverSendsAgain",
+    "InFlightIdentityIncludesOriginalOrderAndIntentPose",
+    "CompletedIdentityPreservesEveryOriginalTrajectoryField",
+    "FaultedIdentityMismatchPreservesLockAndResult",
+    "MonotonicPlannerStampCannotBecomeRosScheduledStart",
+    "PastPlannerGenerationStampDoesNotDispatch",
+    "NoStatusBeforeDispatchFailsClosed",
+    "StatusBeforeGoalResponsePreservesOwnership",
+    "ForeignGoalBeforeOwnGoalRejected",
+    "GoalResponseBeforeStatusMatchesUuid",
+    "ForeignGoalDuringPendingResponseFailsClosed",
+    "CancelBeforeGoalResponseUsesOwnedUuidOnly",
+    "HistoricalTerminalStatusDoesNotBecomeActive",
+    "StatusEvidenceLossDoesNotAuthorizeDispatch",
+    "LateResultDoesNotReleaseFaultLock",
+    "NormalFakeTrajectoryStillExecutesOnce",
+    "LatchedEmptyStatusCannotAuthorizeDispatch",
+    "InvalidStatusDoesNotAuthorizeDispatch",
+    "PendingResponseTimeoutRetainsSessionAndLateHandle",
+    "RejectedResponseAfterUnknownStatusKeepsFaultLock",
+    "TerminalResultBeforeStatusDoesNotAuthorizeSuccessor"
+  ],
+  "new_tests": [
+    "CancelBeforeGoalResponseUsesOwnedUuidOnly",
+    "ForeignGoalBeforeOwnGoalRejected",
+    "ForeignGoalDuringPendingResponseFailsClosed",
+    "GoalResponseBeforeStatusMatchesUuid",
+    "HistoricalTerminalStatusDoesNotBecomeActive",
+    "InvalidStatusDoesNotAuthorizeDispatch",
+    "LatchedEmptyStatusCannotAuthorizeDispatch",
+    "LateResultDoesNotReleaseFaultLock",
+    "NoStatusBeforeDispatchFailsClosed",
+    "NormalFakeTrajectoryStillExecutesOnce",
+    "PendingResponseTimeoutRetainsSessionAndLateHandle",
+    "RejectedResponseAfterUnknownStatusKeepsFaultLock",
+    "StatusBeforeGoalResponsePreservesOwnership",
+    "StatusEvidenceLossDoesNotAuthorizeDispatch",
+    "TerminalResultBeforeStatusDoesNotAuthorizeSuccessor"
+  ],
+  "unchanged": [
+    "Core FSM",
+    "ROSIDL",
+    "Action servers",
+    "Planner",
+    "driver configuration"
+  ],
+  "changes": "Remove count==1 inferred ownership; require valid live Status with bounded local receive age (VOLATILE); retain pending UUIDs, exact handle comparison and fault lock; result-before-status successor gate; 15 controlled DDS status tests; probe diagnostics; verifier source/registration/XML comparison.",
+  "scope": "Controlled test status heartbeat/remap is fixture only; native GenericSystem supplies no initial live status. No strict cross-process lock/absolute freshness proof. Snapshot ABI changed: consumers require rebuilding. Default PickPlace remains MockPlanner/AsyncMockMotion, Task integration not covered.",
+  "source_modified": false,
+  "formal_baseline_advanced": false,
+  "local_merge_performed": false,
+  "observed_refs": [
+    "refs/heads/feature/phase2b-trajectory-execution",
+    "refs/pull/7/head"
+  ]
+}

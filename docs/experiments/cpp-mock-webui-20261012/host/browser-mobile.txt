@@ -1,0 +1,6 @@
+### Result
+{"case":"mobile_failure","width":390,"scrollWidth":375,"status":"失败","hardware":"硬件未接入"}
+### Ran Playwright code
+```js
+await (async (page) => { await page.setViewportSize({width:390,height:844}); const mobile=await page.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth,status:document.querySelector('#task-status').textContent,hardware:document.querySelector('#sample-quality').textContent})); await page.screenshot({path:'C:/Users/afonso/.local/share/playwright-mcp/output/cpp-mock-mobile-20261012.png',fullPage:true}); await page.setViewportSize({width:1440,height:1000}); return {case:'mobile_failure',...mobile}; })(page);
+```

@@ -1,0 +1,370 @@
+{
+  "commit": "f7eaa2c0d2887aeada4fd635112c63c237962ff7",
+  "previous": "a04ac6831dd3963e6b1ec4b9e27214eb564f9f24",
+  "parents": [
+    "a04ac6831dd3963e6b1ec4b9e27214eb564f9f24",
+    "4a1a81652fca39efe2916a19ad49187d29789697"
+  ],
+  "observed_refs": [
+    "refs/heads/main"
+  ],
+  "commit_metadata": "commit f7eaa2c0d2887aeada4fd635112c63c237962ff7\nMerge: a04ac68 4a1a816\nAuthor:     Fluorite <46274026+F1u0rite@users.noreply.github.com>\nAuthorDate: Mon Oct 12 01:09:48 2026 +0800\nCommit:     GitHub <noreply@github.com>\nCommitDate: Mon Oct 12 01:09:48 2026 +0800\n\n    Merge pull request #3 from F1u0rite/feature/moveit-planner\n    \n    feat(planning): MoveIt 2 PlannerPort 适配层（Mock/Fake，仅规划）",
+  "changed_files_from_main": [
+    "docs/planning/PLANNING_HANDOFF.md",
+    "docs/planning/README.md",
+    "docs/planning/evidence/20261011_075828/SUMMARY.txt",
+    "docs/planning/evidence/20261011_075828/aubo_S3_fake_expanded.urdf",
+    "docs/planning/evidence/20261011_075828/aubo_robot.srdf",
+    "docs/planning/evidence/20261011_075828/battery_sequence_magnetic_latch_v2_T0_20261011_075908.yaml",
+    "docs/planning/evidence/20261011_075828/battery_sequence_passive_hook_v1_T0_20261011_075907.yaml",
+    "docs/planning/evidence/20261011_075828/control_launch.log",
+    "docs/planning/evidence/20261011_075828/fixed_pose_plan_20261011_075906.yaml",
+    "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.gv",
+    "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.pdf",
+    "docs/planning/evidence/20261011_075828/move_group_launch.log",
+    "docs/planning/evidence/20261011_075828/plan_battery_sequence_v1.log",
+    "docs/planning/evidence/20261011_075828/plan_battery_sequence_v2.log",
+    "docs/planning/evidence/20261011_075828/plan_fixed_pose.log",
+    "docs/planning/evidence/20261011_075828/ros_graph.txt",
+    "docs/planning/evidence/20261011_075828/tf2_echo_base_link_to_ee_link.txt",
+    "docs/planning/evidence/20261011_075828/tf2_echo_world_to_base_link.txt",
+    "docs/planning/evidence/20261011_075828/tf2_echo_world_to_ee_link.txt",
+    "docs/planning/evidence/20261011_075828/view_frames.log",
+    "src/mtc_moveit_planner/CMakeLists.txt",
+    "src/mtc_moveit_planner/README.md",
+    "src/mtc_moveit_planner/config/planner.yaml",
+    "src/mtc_moveit_planner/config/sequence_v2_override.yaml",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/move_group_backend.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/moveit_planner_port.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/plan_report_io.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/planner_config.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/planning_backend.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/pose_math.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/ros_params.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/trajectory_conversion.hpp",
+    "src/mtc_moveit_planner/launch/plan_tool.launch.py",
+    "src/mtc_moveit_planner/package.xml",
+    "src/mtc_moveit_planner/scripts/build_driver_ws.sh",
+    "src/mtc_moveit_planner/scripts/build_planner.sh",
+    "src/mtc_moveit_planner/scripts/env.sh",
+    "src/mtc_moveit_planner/scripts/ros_graph_snapshot.py",
+    "src/mtc_moveit_planner/scripts/run_planning_evidence.sh",
+    "src/mtc_moveit_planner/scripts/setup_ros_jazzy.sh",
+    "src/mtc_moveit_planner/src/move_group_backend.cpp",
+    "src/mtc_moveit_planner/src/moveit_planner_port.cpp",
+    "src/mtc_moveit_planner/src/plan_battery_sequence_main.cpp",
+    "src/mtc_moveit_planner/src/plan_fixed_pose_main.cpp",
+    "src/mtc_moveit_planner/src/plan_report_io.cpp",
+    "src/mtc_moveit_planner/src/planner_config.cpp",
+    "src/mtc_moveit_planner/src/ros_params.cpp",
+    "src/mtc_moveit_planner/src/trajectory_conversion.cpp",
+    "src/mtc_moveit_planner/test/fake_backend.hpp",
+    "src/mtc_moveit_planner/test/test_fsm_accepts_planner_output.cpp",
+    "src/mtc_moveit_planner/test/test_moveit_planner_port.cpp",
+    "src/mtc_moveit_planner/test/test_pose_math.cpp",
+    "src/mtc_moveit_planner/test/test_trajectory_conversion.cpp"
+  ],
+  "changed_file_inventory": [
+    {
+      "path": "docs/planning/PLANNING_HANDOFF.md",
+      "sha256": "3094d43810cfe76176a669f7c769ac29f32387b373925fa101c960d5971a75b7",
+      "size_bytes": 19392
+    },
+    {
+      "path": "docs/planning/README.md",
+      "sha256": "bb950f9f8d3732a6b3bd3a24e29afd7762c2a9d5199211ea24e84656018cc117",
+      "size_bytes": 5721
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/SUMMARY.txt",
+      "sha256": "196bb549f388e537f08ef3fdd52fac4f129ac4cba7c08e4ce91acc6ad1dc961b",
+      "size_bytes": 2076
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/aubo_S3_fake_expanded.urdf",
+      "sha256": "6be44f5bd3ededc1ab46c76f4b713d4a19f1b164caf82565d2ccec50bda7f160",
+      "size_bytes": 13960
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/aubo_robot.srdf",
+      "sha256": "926b1306a6817aa4f13aff016ebb1a4247fe689e2f68794bde0a6b69fd8b9471",
+      "size_bytes": 3849
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/battery_sequence_magnetic_latch_v2_T0_20261011_075908.yaml",
+      "sha256": "69dbeeaaef8f2056a8c4a1cb1a93946f254a575e4e558e48b3ddf40af9afb0be",
+      "size_bytes": 69082
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/battery_sequence_passive_hook_v1_T0_20261011_075907.yaml",
+      "sha256": "470a8cdac11909f84d75a967647766f61d05f816f5fa3dc643919cbc9c016369",
+      "size_bytes": 1844
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/control_launch.log",
+      "sha256": "70a1dff72cad032e022af3e72b86f5a98b226ceab4e19e6b3d3d685bd6bdccc5",
+      "size_bytes": 10546
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/fixed_pose_plan_20261011_075906.yaml",
+      "sha256": "ae822c3a9a10ffbb33556203a1413d15c0a1a31be5721c37a891cc268fe7793f",
+      "size_bytes": 64177
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.gv",
+      "sha256": "8a935db711cd1dc21b263fba8be441ba008e4a9710e7e0844e2ead77e61c13e2",
+      "size_bytes": 1702
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.pdf",
+      "sha256": "da6a1c749e4c17b34471aed25aa1dadf4625f57c09867397cfdef1b12bf52ab1",
+      "size_bytes": 16031
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/move_group_launch.log",
+      "sha256": "dbcb17a602f4675b78841792eb73821cf96153b99bd4df2c5cf427e59ea44c67",
+      "size_bytes": 21853
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/plan_battery_sequence_v1.log",
+      "sha256": "61841b0ad86e2a09c4acc4be3e8782a15e7032cbbb923ce622c11907a04f3a24",
+      "size_bytes": 2835
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/plan_battery_sequence_v2.log",
+      "sha256": "f1e1df64c498bd303467d272e83050bead3e85d0d651e17b4caff819c87d4739",
+      "size_bytes": 3439
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/plan_fixed_pose.log",
+      "sha256": "9b9736be3097daaa8a68c60bb9702359996fc158621c8e26b89adf0e029b2721",
+      "size_bytes": 2087
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/ros_graph.txt",
+      "sha256": "a817c112aa4ab27400ee213c931409f621ef887d9f644ab2e29b2c7fe204a648",
+      "size_bytes": 3200
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/tf2_echo_base_link_to_ee_link.txt",
+      "sha256": "493613cb2273ef5332ee9247f290cc3c8f9693905193bdb16bb1c046d985b4ea",
+      "size_bytes": 2055
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/tf2_echo_world_to_base_link.txt",
+      "sha256": "2b671387667911fd1b68f4521dd91ebbe02505e764c858ca6392197c035ada92",
+      "size_bytes": 1944
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/tf2_echo_world_to_ee_link.txt",
+      "sha256": "12be8d25a48889efe07b6b3e45b3b6c1f7f9f5fc21856d42c0fb7bed3aedd38c",
+      "size_bytes": 2765
+    },
+    {
+      "path": "docs/planning/evidence/20261011_075828/view_frames.log",
+      "sha256": "2d882cef9704c265844622af09c049d1e02876cd8ec062d153018472e1a6e1b2",
+      "size_bytes": 1911
+    },
+    {
+      "path": "src/mtc_moveit_planner/CMakeLists.txt",
+      "sha256": "f762fcb7d8baa3bf02abd972568fba2120f5d843a91a06c13344c065a01f4abe",
+      "size_bytes": 4769
+    },
+    {
+      "path": "src/mtc_moveit_planner/README.md",
+      "sha256": "c373b2af576a3b4466c05f88a4a2ad269d01ca1a34d53c41c763810f6fafbd42",
+      "size_bytes": 4459
+    },
+    {
+      "path": "src/mtc_moveit_planner/config/planner.yaml",
+      "sha256": "2c7f73054560177c512a83771285c80dc85ada2d0ff3d5b65dc85eda67ef19c8",
+      "size_bytes": 2877
+    },
+    {
+      "path": "src/mtc_moveit_planner/config/sequence_v2_override.yaml",
+      "sha256": "4e8fe7c910779add4cf62455890393aacce1f7e8f6a83ae7ed151fe4748607ad",
+      "size_bytes": 296
+    },
+    {
+      "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/move_group_backend.hpp",
+      "sha256": "cd063a9a345fac576ca0ebde14d7414e4bdedf8063d46cf9f4f141d1f1967879",
+      "size_bytes": 2258
+    },
+    {
+      "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/moveit_planner_port.hpp",
+      "sha256": "e79743f903eb8b45d2d733daa1bae16dab9ffc7cf0a992e67afa085d30942acb",
+      "size_bytes": 4448
+    },
+    {
+      "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/plan_report_io.hpp",
+      "sha256": "3da29fe7eb6a5f67d6135bfe6aa9521f0f732c9201dff93ebef153eaeed68084",
+      "size_bytes": 1292
+    },
+    {
+      "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/planner_config.hpp",
+      "sha256": "60dfa654cf3d33b73f8ba28ce4aeb9154cc6628b9df045ba9c2a011e763cdf42",
+      "size_bytes": 5037
+    },
+    {
+      "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/planning_backend.hpp",
+      "sha256": "1a4a11e51c5ee9c8b04337c0a531eb88ef3ecc59ec92c3241dcf88ce68f680ab",
+      "size_bytes": 3978
+    },
+    {
+      "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/pose_math.hpp",
+      "sha256": "600ff681d600f7f102657e67f8d4af00e216d8697231130fe790322f4030970b",
+      "size_bytes": 4471
+    },
+    {
+      "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/ros_params.hpp",
+      "sha256": "7b0cdb98d7bcafc6a65cd9ff8b1e95859c74a6cb1587728851b03badfab76c6e",
+      "size_bytes": 804
+    },
+    {
+      "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/trajectory_conversion.hpp",
+      "sha256": "b525e3f3b576eed6993f0a4bf6f84cd638927aaf4f1406aafd5bf2d5238b654d",
+      "size_bytes": 2203
+    },
+    {
+      "path": "src/mtc_moveit_planner/launch/plan_tool.launch.py",
+      "sha256": "65d5a1b9aa972135eb50a360382c3c391a861e3275f36e585a0fb46d0b8a0e66",
+      "size_bytes": 3749
+    },
+    {
+      "path": "src/mtc_moveit_planner/package.xml",
+      "sha256": "38521ee52a07cebd056c735e6dcfb6a1e54aac2fdd1d4ee132bcb165fa1acf54",
+      "size_bytes": 1760
+    },
+    {
+      "path": "src/mtc_moveit_planner/scripts/build_driver_ws.sh",
+      "sha256": "e6122b47595bf9c4cd81ff5a132617949c8ae56c6f2cc7135ab6c521e99e1b18",
+      "size_bytes": 1626
+    },
+    {
+      "path": "src/mtc_moveit_planner/scripts/build_planner.sh",
+      "sha256": "c55943dc6e3040f93f37cbafd2ebfd65ced59c8bc633b915f88b595df288ecf8",
+      "size_bytes": 897
+    },
+    {
+      "path": "src/mtc_moveit_planner/scripts/env.sh",
+      "sha256": "d61a5ede7ac9e39833204e8828f0febcadd551c06eeab05e96986d4dde741f69",
+      "size_bytes": 1036
+    },
+    {
+      "path": "src/mtc_moveit_planner/scripts/ros_graph_snapshot.py",
+      "sha256": "baf68560a220d6b3d7eefc5310c9cab6e79e808a100f6cbdb134ae62f4bd2e80",
+      "size_bytes": 3041
+    },
+    {
+      "path": "src/mtc_moveit_planner/scripts/run_planning_evidence.sh",
+      "sha256": "a1ca1902589cdb12e713c7decea59641bcaeb09128c16c37c246d06cd53c3a81",
+      "size_bytes": 7395
+    },
+    {
+      "path": "src/mtc_moveit_planner/scripts/setup_ros_jazzy.sh",
+      "sha256": "1f6acefb45739892cc93f4c9cd8d1a7dc4a36b4cc95b349efe7641f7de9acdf5",
+      "size_bytes": 2380
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/move_group_backend.cpp",
+      "sha256": "2b9833954fb3e579342e7b41344b61d1b5021e4dc192b2fc916aae96182f4b60",
+      "size_bytes": 15607
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/moveit_planner_port.cpp",
+      "sha256": "c8017df3fcde1039c88b375db9d14de2a419953a32d681661c007106c314a693",
+      "size_bytes": 17905
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/plan_battery_sequence_main.cpp",
+      "sha256": "0946c963fb1ac1b0c24df4108843f060aa75d54c9fa34f8124fbc3e97168b269",
+      "size_bytes": 8908
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/plan_fixed_pose_main.cpp",
+      "sha256": "bae4f78b978b13b66e01f53291a2abd5fee52a4113aed9a33e4bb005c99c9878",
+      "size_bytes": 8708
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/plan_report_io.cpp",
+      "sha256": "20cd4e754ed237a766172a462743e2c8a8b93f937feb4a2be1173b992e810d61",
+      "size_bytes": 7103
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/planner_config.cpp",
+      "sha256": "6019304ece9d7bbc92cd80672aeca8a96a9423ce237cd9779a76b89f3fbce90a",
+      "size_bytes": 5380
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/ros_params.cpp",
+      "sha256": "0f1082d742c615ef9a26357c391357c3dd60a20c9680e24e990456666255e823",
+      "size_bytes": 4215
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/trajectory_conversion.cpp",
+      "sha256": "1258fa4c8bad8574a2790d83cbaf3d7b3edfc31e0fb1960bc4fea7389bbc73eb",
+      "size_bytes": 3738
+    },
+    {
+      "path": "src/mtc_moveit_planner/test/fake_backend.hpp",
+      "sha256": "f731fdefc2bc2b4bc1af03975f6004fac41bfb15c1a7cef98c5f9eb5d54bac4f",
+      "size_bytes": 5477
+    },
+    {
+      "path": "src/mtc_moveit_planner/test/test_fsm_accepts_planner_output.cpp",
+      "sha256": "b05db3ef2c6b14b673335d312bb20f35a5fb1551431990b2cf7ba4f530367b36",
+      "size_bytes": 6388
+    },
+    {
+      "path": "src/mtc_moveit_planner/test/test_moveit_planner_port.cpp",
+      "sha256": "d57c2cbfb4d4edaf0e0c6d0f6d79be8da96dbe0e182c9719d33276c2bba61812",
+      "size_bytes": 14520
+    },
+    {
+      "path": "src/mtc_moveit_planner/test/test_pose_math.cpp",
+      "sha256": "200146d83c6848cddb10747cf7e8e4ac6817f8e49bb2ba24f83d64b43143102d",
+      "size_bytes": 3154
+    },
+    {
+      "path": "src/mtc_moveit_planner/test/test_trajectory_conversion.cpp",
+      "sha256": "404a1ff8fb06b29912d821db4d4f8cd84eab95c43a6f216d46df6bf590258832",
+      "size_bytes": 3877
+    }
+  ],
+  "tree": "60a32b660177f50307c18ca3ae00432fcac0f282",
+  "previous_review_commit": "4a1a81652fca39efe2916a19ad49187d29789697",
+  "previous_review_tree": "60a32b660177f50307c18ca3ae00432fcac0f282",
+  "whole_tree_identical_to_reviewed_commit": true,
+  "changed_files_from_reviewed_commit": [],
+  "previous_frozen_index": "docs/experiments/planner-merge-20261012/index.json",
+  "previous_frozen_index_sha256": "11a2655ffd43f976ab2a9922e29b9d029e3bd2c60c98d5978cbfed9d29519b04",
+  "previous_frozen_files_verified": 486,
+  "previous_signed_report": "/home/afonso/meituan-robotics-challenge-2026/docs/planner-merge-acceptance.md",
+  "previous_signed_report_sha256": "aa9fedb6ad6fd895f9a84a6fcc1baf836bc53be15670ed609ec6ea56e2486cce",
+  "automatic_environment_and_harness_identical_to_previous": true,
+  "source_trees": {
+    "src/mtc_moveit_planner": "01a4d3e39f0aa7fb4135cd09749004005eb3a549",
+    "src/mtc_ros2_action_cpp": "0b05123d48ffd3a0220eb5edad4547d0ec9dbf33",
+    "src/mtc_task": "e7bb39f689ee9989996fdfbd84925707febd7826",
+    "src/mtc_manipulation": "57f0ee3200b5ba163e492ac66c189e5ad98dac75",
+    "src/mtc_interfaces": "88cc9cc50f7ceb77788703ddac97fd938a88fce9",
+    "tests": "1ccfe1e0fe03d9b7cbeb04d64da561427591d463"
+  },
+  "binding": {
+    "file": "src/mtc_ros2_action_cpp/src/pick_place_server.cpp",
+    "planner": "MockPlanner",
+    "motion": "AsyncMockMotion",
+    "moveit_dependency_in_cpp_action": false
+  },
+  "source_modified": false,
+  "local_merge_performed": false,
+  "formal_baseline_advanced": false,
+  "new_scene_and_vision_branches_included": false,
+  "review": "Upstream PR #3 merged into main; entire Git tree equals previously reviewed 4a1a816. No new entrypoint, source or configuration. Current automatic failure and previous results must stay separate.",
+  "supplement": "Current XML/source and installed identity audit plus one bounded MoveIt discovery-settle diagnostic motivated by new automatic execution -4. No repeated unchanged planner SOP, standalone Action, UBSan or CMake consumer.",
+  "at": "2026-10-11T17:35:56.015877+00:00",
+  "separate_branches_not_merged": {
+    "scene": "30e3c6e64516c47afe9ada25d02df7ed4669825c",
+    "vision": "0e329f10e6f607c9c417a54ae60d290b8e2395b5"
+  }
+}

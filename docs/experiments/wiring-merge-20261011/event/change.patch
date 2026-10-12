@@ -1,0 +1,276 @@
+diff --git a/README.md b/README.md
+index 4146d2e..b171d16 100644
+--- a/README.md
++++ b/README.md
+@@ -22,6 +22,7 @@ AUBO S3 实机抓放验收通过。
+ - [ROS 2 驱动与 MoveIt 2 部署手册](docs/setup/AUBO_ROS2_DRIVER_JAZZY.md)：已验证环境、Mock 启动、控制器/TF 检查和 10 月 12 日团队 SOP。
+ - [第一阶段最终安全验收报告](docs/migration/CPP_FSM_FINAL_SAFETY_GATE.md)：缺陷复现、修复、318/269/15 测试证据及 TSan 限制。
+ - [第二阶段 ROS 2 集成计划](docs/migration/PHASE2_ROS2_INTEGRATION_PLAN.md)：后续 Action / Planner / Mock 集成工作。
++- [Python ROS 接线修复与复验](docs/migration/ROS_WIRING_FIX_20261011.md)：B01/B02/B04 最小补丁、真实 ROS 回归，以及仍未通过的实际 Mock 任务链路。
+ - [原版本开发指南](README_FSM_v0.1.md)：保留原入口，当前使用说明以 `README_FSM.md` 为准。
+ 
+ ## 2. 项目目标与已完成范围
+diff --git a/docs/migration/ROS_WIRING_FIX_20261011.md b/docs/migration/ROS_WIRING_FIX_20261011.md
+new file mode 100644
+index 0000000..da865ae
+--- /dev/null
++++ b/docs/migration/ROS_WIRING_FIX_20261011.md
+@@ -0,0 +1,72 @@
++# Python ROS 接线修复与复验（2026-10-11）
++
++实际 Jazzy 启动发现，离线 Mock 通过并不能证明 Python ROS 外壳可启动。本补丁基于
++`1d940f7c5f12561fed6641457c0b4b630a282b05`，只修复三个接线问题：
++
++| 问题 | 修复与兼容范围 |
++| --- | --- |
++| B01 Task 覆盖 `rclpy.Node._clock`，启动报错 | 把 FSM 可调用时钟单独存为 `_fsm_clock`；保留真实 ROS Clock 及原 `clock=` 注入接口 |
++| B02 `PickPlaceConfig` 不接受 `perception_max_age_sec` | 映射到实际字段 `perception_max_age_s`；外部 ROS 参数名仍为 `perception_max_age_sec` |
++| B04 解锁客户端与工具服务名称不一致 | 默认客户端改为 `/mtc/tool/trigger_unlock`；显式 `unlock_service=` 覆盖接口保留 |
++
++FSM 状态转换、Cancel 内核、Action IDL、四个 C++ 核心包与驱动未修改。集成侧提交补丁，
++FSM/Action 负责人复核；B03 及后续生命周期问题继续由模块负责人处理。
++
++## 验证
++
++在独立 Ubuntu 24.04.5 / ROS 2 Jazzy / Python 3.12.3 容器中，以已构建的 12 包工作空间
++作为 underlay，另建 `mtc_task`、`mtc_manipulation` 两包 overlay，构建成功。
++容器无设备挂载、无端口映射且已断开外部网络，ROS domain 95，发现范围 LOCALHOST。
++
++| 检查 | 结果 |
++| --- | --- |
++| 同一版新增 ROS 回归在未修复基线上运行 | 6 FAIL，分别复现时钟冲突、配置 TypeError、解锁服务不可达 |
++| 新增 ROS 回归在补丁 overlay 上运行 | 6 PASS / 0 FAIL / 0 SKIP |
++| 既有 Python 包测试，逐包运行 | 269 PASS / 0 FAIL / 0 SKIP |
++| 显式纯 Python Mock E2E | 15 PASS / 0 FAIL / 0 SKIP；使用自带 MockPlanner |
++| 实际完整 Python Mock 启动及延迟基础 Goal，两次 | 仍为 FAIL，详见下面的剩余问题 |
++
++新增测试覆盖默认／注入时钟、默认／覆盖的 ROS 感知时效参数，以及真实 DDS 下的工具服务
++联锁拒绝与 Mock IO 受理。工具生命周期使用明确标注的合成测试证据；脉冲受理后依然断言
++`verified=False`、没有释放确认。配置测试在真实参数和配置对象构造后主动停止，
++不绕过剩余 Action 缺陷来宣称 PickPlace 已启动。
++
++已有 C++ 与独立 Fake 驱动代码未变，本轮未重复运行其验收。
++
++构建并 source 工作空间后，从仓库根运行（仅隔离 Mock 环境）：
++
++```bash
++export ROS_DOMAIN_ID=95 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
++export PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
++python3 -m pytest -q tests/test_ros_wiring.py
++
++# 各包存在同名 test 模块，分进程运行以避免 pytest 收集命名冲突。
++for package in mtc_aubo_bridge mtc_manipulation mtc_motion_execution mtc_safety mtc_task mtc_tool; do
++    python3 -m pytest -q "src/$package/test" || exit 1
++done
++python3 tests/test_mock_end_to_end.py
++```
++
++## 剩余问题与复核条件
++
++- **B03：PickPlace ActionServer 绑定。** `PickPlaceServer` 仍使用 `action_type.Server(...)`
++  和 `action_type.CancelResponse()`；生成 Action 类型没有这些绑定接口。此路径被 B05 遮挡，
++  本轮未修改，也未声称已运行到该行；需负责人接入真实 ActionServer 并验 Goal/Cancel/Result。
++- **B05：运动 ActionClient 绑定。** B02 修复后，真实启动进一步到
++  `RosMotionPort.__init__`，在 `action_type.create_client(...)` 报
++  `AttributeError: type object 'ExecuteJointMove' has no attribute 'create_client'`。
++  两次启动复现，PickPlace 进程退出 1；需负责人接入真实 ActionClient 并核对结果与取消行为。
++- **B06：等待首个任务时的 INIT 生命周期。** 两次均在启动约 5 秒后、发送 Goal 前出现
++  `state INIT timed out ... -> HARDWARE_FAULT`。随后基础 Goal 被受理，收到 FAULT 反馈，
++  最终 `ABORTED`（6）、`success=False`、`error_code=510`、完成数量 0。
++  这只证明延迟发送的测试路径失败；需负责人决定初始化／待命与看门狗契约并覆盖延迟首次 Goal。
++- **退出观测：** SIGINT 停止时 `safety_supervisor` 出现 `rcl_shutdown already called`，
++  其进程退出 1；保留为退出清理问题。launch 及日志采集退出 0 不代表任务成功。
++
++第二次检查通过逐节点 Action server 列表及 `wait_for_server` 确认：Task 和 Motion
++服务器可用，PickPlace 服务器不可用。通用 Action 列表会包含 Task 的 PickPlace **客户端**，
++不能据此认定 PickPlace 服务启动成功。两次 Task Goal 使用黄色作为验收示例，保持默认
++`dry_run=True`；不代表真实抓放、MoveIt 或新 C++ FSM 闭环通过。
++
++生成式 AI 披露：使用 OpenAI Codex 编写三项接线补丁、ROS 回归及验收编排并整理复验结果。
++生产变更仅涉及上述两个 Python 外壳文件，原有许可证与第三方来源约定保持适用。
+diff --git a/src/mtc_manipulation/mtc_manipulation/pick_place_server.py b/src/mtc_manipulation/mtc_manipulation/pick_place_server.py
+index 949caaf..6f11e4e 100644
+--- a/src/mtc_manipulation/mtc_manipulation/pick_place_server.py
++++ b/src/mtc_manipulation/mtc_manipulation/pick_place_server.py
+@@ -48,7 +48,7 @@ LOGGER = logging.getLogger("mtc_manipulation.pick_place_server")
+ ACTION_NAME = "/mtc/manipulation/pick_place"
+ TOOL_STATE_TOPIC = "/mtc/tool/state"
+ PERCEPTION_TOPIC = "/mtc/perception/batteries"
+-UNLOCK_SERVICE = "/mtc/tool/unlock"
++UNLOCK_SERVICE = "/mtc/tool/trigger_unlock"
+ 
+ 
+ # ---------------------------------------------------------------------------
+@@ -651,7 +651,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
+     config = PickPlaceConfig(
+         tool_type=tool_type,
+         placement_stability_sec=float(node.get_parameter("placement_stability_sec").value),
+-        perception_max_age_sec=float(node.get_parameter("perception_max_age_sec").value),
++        perception_max_age_s=float(node.get_parameter("perception_max_age_sec").value),
+         recovery_max_attempts=int(node.get_parameter("recovery_max_attempts").value),
+         verify_test_lift=bool(node.get_parameter("verify_test_lift").value),
+         verify_placement=bool(node.get_parameter("verify_placement").value),
+diff --git a/src/mtc_task/mtc_task/task_executor.py b/src/mtc_task/mtc_task/task_executor.py
+index 50bc255..b42e586 100644
+--- a/src/mtc_task/mtc_task/task_executor.py
++++ b/src/mtc_task/mtc_task/task_executor.py
+@@ -175,12 +175,13 @@ class TaskExecutorNode(Node):
+         self.declare_parameter("pickplace_action_name", PICKPLACE_ACTION_NAME)
+ 
+         # --- 依赖注入 -----------------------------------------------------
+-        self._clock: Callable[[], float] = clock or self._ros_clock
++        # Node._clock belongs to rclpy; keep the FSM's callable separate.
++        self._fsm_clock: Callable[[], float] = clock or self._ros_clock
+         self._perception_provider = perception_provider
+         self._external_state_publisher = state_publisher
+ 
+         config = fsm_config or self._config_from_parameters()
+-        self.fsm = TaskFsm(clock=self._clock, config=config)
++        self.fsm = TaskFsm(clock=self._fsm_clock, config=config)
+ 
+         if pickplace_client is not None:
+             self._pickplace = pickplace_client
+diff --git a/tests/test_ros_wiring.py b/tests/test_ros_wiring.py
+new file mode 100644
+index 0000000..a3016af
+--- /dev/null
++++ b/tests/test_ros_wiring.py
+@@ -0,0 +1,138 @@
++"""ROS wiring regressions; run explicitly after sourcing a built workspace.
++
++Uses real rclpy nodes, generated interfaces and DDS, with only Mock tool IO.
++The config test stops after real parameter/config construction. The remaining
++ActionServer/ActionClient bindings are separate issues, not a passing E2E claim.
++OpenAI Codex assisted implementation, 2026-10-11.
++"""
++
++import threading
++
++import pytest
++
++rclpy = pytest.importorskip("rclpy")
++pytest.importorskip("mtc_interfaces.action")
++
++from rclpy.clock import Clock
++from rclpy.executors import SingleThreadedExecutor
++
++from mtc_interfaces.srv import TriggerUnlock
++from mtc_manipulation import pick_place_server
++from mtc_task.task_executor import TaskExecutorNode
++from mtc_tool import codes
++from mtc_tool.io_port import MockUnlockIo
++from mtc_tool.strategy import PoseTarget
++from mtc_tool.tool_manager_node import ToolManagerNode
++
++
++@pytest.mark.parametrize("injected", [False, True], ids=["ros-clock", "injected-clock"])
++def test_task_node_keeps_ros_clock_and_fsm_clock_independent(injected):
++    rclpy.init(args=[])
++    node = None
++    fake_time = [123.0]
++    try:
++        node = TaskExecutorNode(clock=(lambda: fake_time[0]) if injected else None)
++        assert isinstance(node.get_clock(), Clock)
++        assert node.get_clock().now().nanoseconds > 0
++        if injected:
++            fake_time[0] += 2.0
++            assert node.fsm.elapsed_in_state() == pytest.approx(2.0)
++        # Exercise a real timer as well as the initial stamped state publish.
++        rclpy.spin_once(node, timeout_sec=0.2)
++    finally:
++        if node is not None:
++            node.destroy_node()
++        rclpy.try_shutdown()
++
++
++@pytest.mark.parametrize("max_age", [None, 0.75], ids=["default", "ros-override"])
++def test_pickplace_entrypoint_maps_existing_ros_parameter(monkeypatch, max_age):
++    nodes = []
++    captured = {}
++    create_node = rclpy.create_node
++    config_type = pick_place_server.PickPlaceConfig
++
++    def track_node(*args, **kwargs):
++        node = create_node(*args, **kwargs)
++        nodes.append(node)
++        return node
++
++    class ConfigCaptured(Exception):
++        pass
++
++    def capture_config(**kwargs):
++        captured["config"] = config_type(**kwargs)
++        # Stop before the separate, unresolved ROS Action adapter bindings.
++        raise ConfigCaptured
++
++    monkeypatch.setattr(rclpy, "create_node", track_node)
++    monkeypatch.setattr(pick_place_server, "PickPlaceConfig", capture_config)
++    args = [] if max_age is None else [
++        "--ros-args", "-p", "perception_max_age_sec:=" + str(max_age)
++    ]
++    try:
++        with pytest.raises(ConfigCaptured):
++            pick_place_server.main(args)
++        assert captured["config"].perception_max_age_s == pytest.approx(
++            0.3 if max_age is None else max_age
++        )
++    finally:
++        # The original B02 exits before main's cleanup block.
++        if rclpy.ok():
++            for node in nodes:
++                node.destroy_node()
++            rclpy.try_shutdown()
++
++
++@pytest.mark.parametrize("gates_open", [False, True], ids=["interlock", "mock-accepted"])
++def test_default_unlock_client_reaches_tool_manager_without_release_claim(gates_open):
++    rclpy.init(args=[
++        "--ros-args",
++        "-p", "tool_type:=magnetic_latch_v2",
++        "-p", "simulation_mode:=true",
++        "-p", "unlock_io_backend:=mock",
++        "-p", "seated_verified:=" + str(gates_open).lower(),
++        "-p", "unloaded:=" + str(gates_open).lower(),
++    ])
++    manager = client_node = executor = thread = None
++    try:
++        manager = ToolManagerNode()
++        assert isinstance(manager._io, MockUnlockIo)
++        # Synthetic test evidence only; prepare the public tool lifecycle so
++        # the service response tests the seat/unload gates, not DETACHED.
++        pose = PoseTarget("base_link", (0.3, 0.0, 0.1))
++        assert manager._manager.begin_acquire("wiring-test-battery", pose).ok
++        manager._manager.notify_engage_complete()
++        assert manager._manager.verify_attach(
++            codes.EVIDENCE_GEOMETRY, "synthetic wiring test"
++        ).verified
++        assert manager._manager.begin_release(pose).ok
++        executor = SingleThreadedExecutor()
++        executor.add_node(manager)
++        thread = threading.Thread(target=executor.spin, daemon=True)
++        thread.start()
++        client_node = rclpy.create_node("unlock_wiring_probe")
++        port = pick_place_server.RosToolPort(
++            client_node, tool_type="magnetic_latch_v2", unlock_srv_type=TriggerUnlock
++        )
++        evidence = port.unlock(pulse_ms=175)
++        assert "服务不可用" not in evidence.message
++        assert "调用超时" not in evidence.message
++        assert not evidence.ok
++        assert not evidence.verified
++        if gates_open:
++            assert manager._io.history == (175,)
++            assert evidence.released is None
++        else:
++            assert manager._io.history == ()
++            assert "SAFETY_INTERLOCK" in evidence.message
++            assert evidence.released is False
++    finally:
++        if executor is not None:
++            executor.shutdown(timeout_sec=2.0)
++        if thread is not None:
++            thread.join(timeout=3.0)
++        for node in (client_node, manager):
++            if node is not None:
++                node.destroy_node()
++        rclpy.try_shutdown()

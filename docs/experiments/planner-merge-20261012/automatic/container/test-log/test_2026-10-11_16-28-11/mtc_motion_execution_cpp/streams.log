@@ -1,0 +1,332 @@
+[0.038s] Invoking command in '/candidate-build/mtc_motion_execution_cpp': CMAKE_PREFIX_PATH=/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_moveit_planner:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_interfaces:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor LD_LIBRARY_PATH=/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_core_cpp/lib:/candidate-install/mtc_ros2_action_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_moveit_planner/lib:/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_interfaces/lib:/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process
+[0.051s] UpdateCTestConfiguration  from :/candidate-build/mtc_motion_execution_cpp/CTestConfiguration.ini
+[0.051s] Parse Config file:/candidate-build/mtc_motion_execution_cpp/CTestConfiguration.ini
+[0.051s]    Site: 6febfe114c78
+[0.051s]    Build name: (empty)
+[0.051s]  Add coverage exclude regular expressions.
+[0.052s] Create new tag: 20261011-1628 - Experimental
+[0.052s] UpdateCTestConfiguration  from :/candidate-build/mtc_motion_execution_cpp/CTestConfiguration.ini
+[0.052s] Parse Config file:/candidate-build/mtc_motion_execution_cpp/CTestConfiguration.ini
+[0.052s] Test project /candidate-build/mtc_motion_execution_cpp
+[0.052s] Constructing a list of tests
+[0.052s] Done constructing a list of tests
+[0.052s] Updating test list for fixtures
+[0.052s] Added 0 tests to meet fixture requirements
+[0.052s] Checking test dependency graph...
+[0.052s] Checking test dependency graph end
+[0.052s] test 1
+[0.052s]     Start 1: test_in_flight_guard
+[0.052s] 
+[0.052s] 1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_in_flight_guard.gtest.xml" "--package-name" "mtc_motion_execution_cpp" "--output-file" "/candidate-build/mtc_motion_execution_cpp/ament_cmake_gtest/test_in_flight_guard.txt" "--command" "/candidate-build/mtc_motion_execution_cpp/test_in_flight_guard" "--gtest_output=xml:/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_in_flight_guard.gtest.xml"
+[0.052s] 1: Working Directory: /candidate-build/mtc_motion_execution_cpp
+[0.052s] 1: Test timeout computed to be: 60
+[0.121s] 1: -- run_test.py: invoking following command in '/candidate-build/mtc_motion_execution_cpp':
+[0.121s] 1:  - /candidate-build/mtc_motion_execution_cpp/test_in_flight_guard --gtest_output=xml:/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_in_flight_guard.gtest.xml
+[0.126s] 1: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[0.126s] 1: [==========] Running 6 tests from 1 test suite.
+[0.126s] 1: [----------] Global test environment set-up.
+[0.126s] 1: [----------] 6 tests from InFlightGuard
+[0.126s] 1: [ RUN      ] InFlightGuard.AcquireSucceedsWhenFree
+[0.126s] 1: [       OK ] InFlightGuard.AcquireSucceedsWhenFree (0 ms)
+[0.126s] 1: [ RUN      ] InFlightGuard.SecondAcquireIsRejectedWithInFlightId
+[0.127s] 1: [       OK ] InFlightGuard.SecondAcquireIsRejectedWithInFlightId (0 ms)
+[0.127s] 1: [ RUN      ] InFlightGuard.EmptyCommandIdRejected
+[0.127s] 1: [       OK ] InFlightGuard.EmptyCommandIdRejected (0 ms)
+[0.127s] 1: [ RUN      ] InFlightGuard.ReleaseOnlyByOwner
+[0.127s] 1: [       OK ] InFlightGuard.ReleaseOnlyByOwner (0 ms)
+[0.127s] 1: [ RUN      ] InFlightGuard.ForceReleaseIsAvailableForManualRecovery
+[0.127s] 1: [       OK ] InFlightGuard.ForceReleaseIsAvailableForManualRecovery (0 ms)
+[0.127s] 1: [ RUN      ] InFlightGuard.SequentialCommandsAreAllowed
+[0.127s] 1: [       OK ] InFlightGuard.SequentialCommandsAreAllowed (0 ms)
+[0.127s] 1: [----------] 6 tests from InFlightGuard (0 ms total)
+[0.127s] 1: 
+[0.127s] 1: [----------] Global test environment tear-down
+[0.127s] 1: [==========] 6 tests from 1 test suite ran. (0 ms total)
+[0.127s] 1: [  PASSED  ] 6 tests.
+[0.127s] 1: -- run_test.py: return code 0
+[0.127s] 1: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_in_flight_guard.gtest.xml'
+[0.128s] 1: -- run_test.py: verify result file '/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_in_flight_guard.gtest.xml'
+[0.138s] 1/5 Test #1: test_in_flight_guard .............   Passed    0.09 sec
+[0.138s] test 2
+[0.138s]     Start 2: test_validation
+[0.138s] 
+[0.138s] 2: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_validation.gtest.xml" "--package-name" "mtc_motion_execution_cpp" "--output-file" "/candidate-build/mtc_motion_execution_cpp/ament_cmake_gtest/test_validation.txt" "--command" "/candidate-build/mtc_motion_execution_cpp/test_validation" "--gtest_output=xml:/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_validation.gtest.xml"
+[0.138s] 2: Working Directory: /candidate-build/mtc_motion_execution_cpp
+[0.138s] 2: Test timeout computed to be: 60
+[0.204s] 2: -- run_test.py: invoking following command in '/candidate-build/mtc_motion_execution_cpp':
+[0.204s] 2:  - /candidate-build/mtc_motion_execution_cpp/test_validation --gtest_output=xml:/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_validation.gtest.xml
+[0.208s] 2: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[0.209s] 2: [==========] Running 21 tests from 3 test suites.
+[0.209s] 2: [----------] Global test environment set-up.
+[0.209s] 2: [----------] 13 tests from Validation
+[0.209s] 2: [ RUN      ] Validation.ValidCommandPasses
+[0.209s] 2: [       OK ] Validation.ValidCommandPasses (0 ms)
+[0.210s] 2: [ RUN      ] Validation.MissingJointGoalCapabilityRejected
+[0.210s] 2: [       OK ] Validation.MissingJointGoalCapabilityRejected (0 ms)
+[0.210s] 2: [ RUN      ] Validation.DimensionMismatchRejected
+[0.210s] 2: [       OK ] Validation.DimensionMismatchRejected (0 ms)
+[0.210s] 2: [ RUN      ] Validation.EmptyJointNamesRejected
+[0.211s] 2: [       OK ] Validation.EmptyJointNamesRejected (0 ms)
+[0.211s] 2: [ RUN      ] Validation.DuplicateJointNamesRejected
+[0.211s] 2: [       OK ] Validation.DuplicateJointNamesRejected (0 ms)
+[0.211s] 2: [ RUN      ] Validation.JointOrderMustMatchConfiguration
+[0.211s] 2: [       OK ] Validation.JointOrderMustMatchConfiguration (0 ms)
+[0.211s] 2: [ RUN      ] Validation.EmptyExpectedNamesSkipsOrderCheck
+[0.211s] 2: [       OK ] Validation.EmptyExpectedNamesSkipsOrderCheck (0 ms)
+[0.211s] 2: [ RUN      ] Validation.ZeroTimeoutRejected
+[0.211s] 2: [       OK ] Validation.ZeroTimeoutRejected (0 ms)
+[0.211s] 2: [ RUN      ] Validation.VelocityScalingAboveLimitIsSafetyInterlock
+[0.211s] 2: [       OK ] Validation.VelocityScalingAboveLimitIsSafetyInterlock (0 ms)
+[0.211s] 2: [ RUN      ] Validation.ZeroOrNegativeVelocityScalingRejected
+[0.211s] 2: [       OK ] Validation.ZeroOrNegativeVelocityScalingRejected (0 ms)
+[0.211s] 2: [ RUN      ] Validation.AccelerationScalingAboveLimitIsSafetyInterlock
+[0.211s] 2: [       OK ] Validation.AccelerationScalingAboveLimitIsSafetyInterlock (0 ms)
+[0.211s] 2: [ RUN      ] Validation.JointLimitsAreEnforced
+[0.211s] 2: [       OK ] Validation.JointLimitsAreEnforced (0 ms)
+[0.212s] 2: [ RUN      ] Validation.JointLimitDimensionMismatchRejected
+[0.212s] 2: [       OK ] Validation.JointLimitDimensionMismatchRejected (0 ms)
+[0.212s] 2: [----------] 13 tests from Validation (0 ms total)
+[0.212s] 2: 
+[0.212s] 2: [----------] 5 tests from ValidationTrajectory
+[0.212s] 2: [ RUN      ] ValidationTrajectory.UnsupportedBackendIsRejectedNotDowngraded
+[0.212s] 2: [       OK ] ValidationTrajectory.UnsupportedBackendIsRejectedNotDowngraded (0 ms)
+[0.212s] 2: [ RUN      ] ValidationTrajectory.SupportedBackendAcceptsValidTrajectory
+[0.212s] 2: [       OK ] ValidationTrajectory.SupportedBackendAcceptsValidTrajectory (0 ms)
+[0.212s] 2: [ RUN      ] ValidationTrajectory.InvalidShapeRejected
+[0.212s] 2: [       OK ] ValidationTrajectory.InvalidShapeRejected (0 ms)
+[0.212s] 2: [ RUN      ] ValidationTrajectory.JointOrderMustMatchConfiguration
+[0.212s] 2: [       OK ] ValidationTrajectory.JointOrderMustMatchConfiguration (0 ms)
+[0.212s] 2: [ RUN      ] ValidationTrajectory.JointLimitsEnforcedOnEveryPoint
+[0.212s] 2: [       OK ] ValidationTrajectory.JointLimitsEnforcedOnEveryPoint (0 ms)
+[0.212s] 2: [----------] 5 tests from ValidationTrajectory (0 ms total)
+[0.212s] 2: 
+[0.212s] 2: [----------] 3 tests from ValidationAudit
+[0.212s] 2: [ RUN      ] ValidationAudit.NonFiniteTargetsRejectedWithoutLimits
+[0.212s] 2: [       OK ] ValidationAudit.NonFiniteTargetsRejectedWithoutLimits (0 ms)
+[0.212s] 2: [ RUN      ] ValidationAudit.ExecutableBackendRequiresLimitsAndRejectsFakePlan
+[0.212s] 2: [       OK ] ValidationAudit.ExecutableBackendRequiresLimitsAndRejectsFakePlan (0 ms)
+[0.212s] 2: [ RUN      ] ValidationAudit.TrajectoryRejectsExcessiveDynamicsAndInvalidLimits
+[0.213s] 2: [       OK ] ValidationAudit.TrajectoryRejectsExcessiveDynamicsAndInvalidLimits (0 ms)
+[0.213s] 2: [----------] 3 tests from ValidationAudit (0 ms total)
+[0.213s] 2: 
+[0.213s] 2: [----------] Global test environment tear-down
+[0.213s] 2: [==========] 21 tests from 3 test suites ran. (0 ms total)
+[0.213s] 2: [  PASSED  ] 21 tests.
+[0.213s] 2: -- run_test.py: return code 0
+[0.213s] 2: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_validation.gtest.xml'
+[0.213s] 2: -- run_test.py: verify result file '/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_validation.gtest.xml'
+[0.221s] 2/5 Test #2: test_validation ..................   Passed    0.08 sec
+[0.222s] test 3
+[0.222s]     Start 3: test_mock_adapter
+[0.222s] 
+[0.222s] 3: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_mock_adapter.gtest.xml" "--package-name" "mtc_motion_execution_cpp" "--output-file" "/candidate-build/mtc_motion_execution_cpp/ament_cmake_gtest/test_mock_adapter.txt" "--command" "/candidate-build/mtc_motion_execution_cpp/test_mock_adapter" "--gtest_output=xml:/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_mock_adapter.gtest.xml"
+[0.222s] 3: Working Directory: /candidate-build/mtc_motion_execution_cpp
+[0.222s] 3: Test timeout computed to be: 60
+[0.289s] 3: -- run_test.py: invoking following command in '/candidate-build/mtc_motion_execution_cpp':
+[0.289s] 3:  - /candidate-build/mtc_motion_execution_cpp/test_mock_adapter --gtest_output=xml:/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_mock_adapter.gtest.xml
+[0.295s] 3: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[0.295s] 3: [==========] Running 27 tests from 6 test suites.
+[0.295s] 3: [----------] Global test environment set-up.
+[0.296s] 3: [----------] 8 tests from MockClockGate
+[0.296s] 3: [ RUN      ] MockClockGate.MockDefaultClockExecutionContract
+[0.296s] 3: [       OK ] MockClockGate.MockDefaultClockExecutionContract (0 ms)
+[0.296s] 3: [ RUN      ] MockClockGate.MockSharedManualClockSettlementSucceeds
+[0.297s] 3: [       OK ] MockClockGate.MockSharedManualClockSettlementSucceeds (0 ms)
+[0.297s] 3: [ RUN      ] MockClockGate.MockInsufficientStationaryIntervalRejected
+[0.297s] 3: [       OK ] MockClockGate.MockInsufficientStationaryIntervalRejected (0 ms)
+[0.297s] 3: [ RUN      ] MockClockGate.TinyPositiveSettleDurationCannotConfirmZeroInterval
+[0.297s] 3: [       OK ] MockClockGate.TinyPositiveSettleDurationCannotConfirmZeroInterval (0 ms)
+[0.297s] 3: [ RUN      ] MockClockGate.MockExecutorClockMismatchRejected
+[0.297s] 3: [       OK ] MockClockGate.MockExecutorClockMismatchRejected (0 ms)
+[0.297s] 3: [ RUN      ] MockClockGate.ExplicitRealTimeOrInvalidMockClockIsRejected
+[0.297s] 3: [       OK ] MockClockGate.ExplicitRealTimeOrInvalidMockClockIsRejected (0 ms)
+[0.297s] 3: [ RUN      ] MockClockGate.VirtualClockCannotAuthorizeExecutableBackend
+[0.297s] 3: [       OK ] MockClockGate.VirtualClockCannotAuthorizeExecutableBackend (0 ms)
+[0.297s] 3: [ RUN      ] MockClockGate.StaleFeedbackCannotConfirmStop
+[0.297s] 3: [       OK ] MockClockGate.StaleFeedbackCannotConfirmStop (0 ms)
+[0.298s] 3: [----------] 8 tests from MockClockGate (0 ms total)
+[0.298s] 3: 
+[0.298s] 3: [----------] 1 test from GoalCancelGate
+[0.298s] 3: [ RUN      ] GoalCancelGate.AdapterScopedCancelCannotStopDifferentOwner
+[0.298s] 3: [       OK ] GoalCancelGate.AdapterScopedCancelCannotStopDifferentOwner (0 ms)
+[0.298s] 3: [----------] 1 test from GoalCancelGate (0 ms total)
+[0.298s] 3: 
+[0.299s] 3: [----------] 1 test from MockAudit
+[0.299s] 3: [ RUN      ] MockAudit.VirtualSettlementStartsAfterArrivalAndRejectsInvalidTravel
+[0.299s] 3: [       OK ] MockAudit.VirtualSettlementStartsAfterArrivalAndRejectsInvalidTravel (0 ms)
+[0.299s] 3: [----------] 1 test from MockAudit (0 ms total)
+[0.299s] 3: 
+[0.299s] 3: [----------] 14 tests from MockAdapter
+[0.299s] 3: [ RUN      ] MockAdapter.CapabilitiesAreDeclaredExplicitly
+[0.299s] 3: [       OK ] MockAdapter.CapabilitiesAreDeclaredExplicitly (0 ms)
+[0.299s] 3: [ RUN      ] MockAdapter.SuccessfulMoveSettlesAndConfirmsStop
+[0.299s] 3: [       OK ] MockAdapter.SuccessfulMoveSettlesAndConfirmsStop (0 ms)
+[0.299s] 3: [ RUN      ] MockAdapter.RejectedRequestAllowsImmediateResend
+[0.299s] 3: [       OK ] MockAdapter.RejectedRequestAllowsImmediateResend (0 ms)
+[0.299s] 3: [ RUN      ] MockAdapter.SecondCommandWhileInFlightIsRejected
+[0.299s] 3: [       OK ] MockAdapter.SecondCommandWhileInFlightIsRejected (0 ms)
+[0.299s] 3: [ RUN      ] MockAdapter.TimeoutIsReportedAndBlocksAutoResend
+[0.299s] 3: [       OK ] MockAdapter.TimeoutIsReportedAndBlocksAutoResend (0 ms)
+[0.299s] 3: [ RUN      ] MockAdapter.StatusUnknownLocksAndBlocksAutoResend
+[0.300s] 3: [       OK ] MockAdapter.StatusUnknownLocksAndBlocksAutoResend (0 ms)
+[0.300s] 3: [ RUN      ] MockAdapter.FailAtStatusUnknownIsEquivalent
+[0.300s] 3: [       OK ] MockAdapter.FailAtStatusUnknownIsEquivalent (0 ms)
+[0.300s] 3: [ RUN      ] MockAdapter.StopWithoutInFlightIsConfirmedAndReported
+[0.300s] 3: [       OK ] MockAdapter.StopWithoutInFlightIsConfirmedAndReported (0 ms)
+[0.300s] 3: [ RUN      ] MockAdapter.StopWithInFlightAndConfirmationSucceeds
+[0.300s] 3: [       OK ] MockAdapter.StopWithInFlightAndConfirmationSucceeds (0 ms)
+[0.300s] 3: [ RUN      ] MockAdapter.CancelWithoutConfirmationDoesNotClaimStopped
+[0.300s] 3: [       OK ] MockAdapter.CancelWithoutConfirmationDoesNotClaimStopped (0 ms)
+[0.300s] 3: [ RUN      ] MockAdapter.StopConfirmationFlagIsExposedSeparately
+[0.300s] 3: [       OK ] MockAdapter.StopConfirmationFlagIsExposedSeparately (0 ms)
+[0.300s] 3: [ RUN      ] MockAdapter.TrajectoryIsRejectedAndNotSplitIntoJointMoves
+[0.300s] 3: [       OK ] MockAdapter.TrajectoryIsRejectedAndNotSplitIntoJointMoves (0 ms)
+[0.300s] 3: [ RUN      ] MockAdapter.TrajectoryAcceptedWhenCapabilityDeclared
+[0.300s] 3: [       OK ] MockAdapter.TrajectoryAcceptedWhenCapabilityDeclared (0 ms)
+[0.300s] 3: [ RUN      ] MockAdapter.BaseClassDefaultTrajectoryRejectsWithoutSplitting
+[0.300s] 3: [       OK ] MockAdapter.BaseClassDefaultTrajectoryRejectsWithoutSplitting (0 ms)
+[0.300s] 3: [----------] 14 tests from MockAdapter (0 ms total)
+[0.300s] 3: 
+[0.300s] 3: [----------] 1 test from DisabledAdapter
+[0.300s] 3: [ RUN      ] DisabledAdapter.AlwaysRejectsAndNeverClaimsCapability
+[0.300s] 3: [       OK ] DisabledAdapter.AlwaysRejectsAndNeverClaimsCapability (0 ms)
+[0.300s] 3: [----------] 1 test from DisabledAdapter (0 ms total)
+[0.300s] 3: 
+[0.300s] 3: [----------] 2 tests from AdapterFactory
+[0.300s] 3: [ RUN      ] AdapterFactory.UnknownBackendFallsBackToDisabled
+[0.301s] 3: [       OK ] AdapterFactory.UnknownBackendFallsBackToDisabled (0 ms)
+[0.301s] 3: [ RUN      ] AdapterFactory.MockBackendIsCaseInsensitive
+[0.301s] 3: [       OK ] AdapterFactory.MockBackendIsCaseInsensitive (0 ms)
+[0.301s] 3: [----------] 2 tests from AdapterFactory (0 ms total)
+[0.301s] 3: 
+[0.301s] 3: [----------] Global test environment tear-down
+[0.301s] 3: [==========] 27 tests from 6 test suites ran. (1 ms total)
+[0.301s] 3: [  PASSED  ] 27 tests.
+[0.301s] 3: -- run_test.py: return code 0
+[0.301s] 3: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_mock_adapter.gtest.xml'
+[0.301s] 3: -- run_test.py: verify result file '/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_mock_adapter.gtest.xml'
+[0.309s] 3/5 Test #3: test_mock_adapter ................   Passed    0.09 sec
+[0.309s] test 4
+[0.309s]     Start 4: test_executor_core
+[0.310s] 
+[0.310s] 4: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_core.gtest.xml" "--package-name" "mtc_motion_execution_cpp" "--output-file" "/candidate-build/mtc_motion_execution_cpp/ament_cmake_gtest/test_executor_core.txt" "--command" "/candidate-build/mtc_motion_execution_cpp/test_executor_core" "--gtest_output=xml:/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_core.gtest.xml"
+[0.310s] 4: Working Directory: /candidate-build/mtc_motion_execution_cpp
+[0.310s] 4: Test timeout computed to be: 60
+[0.374s] 4: -- run_test.py: invoking following command in '/candidate-build/mtc_motion_execution_cpp':
+[0.374s] 4:  - /candidate-build/mtc_motion_execution_cpp/test_executor_core --gtest_output=xml:/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_core.gtest.xml
+[0.380s] 4: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[0.380s] 4: [==========] Running 18 tests from 2 test suites.
+[0.380s] 4: [----------] Global test environment set-up.
+[0.380s] 4: [----------] 14 tests from ExecutorCore
+[0.380s] 4: [ RUN      ] ExecutorCore.SuccessfulMoveGoesThroughSevenStepHandshake
+[0.381s] 4: [       OK ] ExecutorCore.SuccessfulMoveGoesThroughSevenStepHandshake (0 ms)
+[0.381s] 4: [ RUN      ] ExecutorCore.CapabilitiesAreForwardedFromAdapter
+[0.381s] 4: [       OK ] ExecutorCore.CapabilitiesAreForwardedFromAdapter (0 ms)
+[0.381s] 4: [ RUN      ] ExecutorCore.ValidationFailureRejectsWithoutStartingMotion
+[0.381s] 4: [       OK ] ExecutorCore.ValidationFailureRejectsWithoutStartingMotion (0 ms)
+[0.381s] 4: [ RUN      ] ExecutorCore.ConcurrentGoalDuringMotionIsRejected
+[0.381s] 4: [       OK ] ExecutorCore.ConcurrentGoalDuringMotionIsRejected (0 ms)
+[0.381s] 4: [ RUN      ] ExecutorCore.StatusUnknownLocksSubsequentRequests
+[0.381s] 4: [       OK ] ExecutorCore.StatusUnknownLocksSubsequentRequests (0 ms)
+[0.382s] 4: [ RUN      ] ExecutorCore.ManualConfirmationClearsUnknownLock
+[0.382s] 4: [       OK ] ExecutorCore.ManualConfirmationClearsUnknownLock (0 ms)
+[0.382s] 4: [ RUN      ] ExecutorCore.BackendExceptionIsTreatedAsUnknownState
+[0.382s] 4: [       OK ] ExecutorCore.BackendExceptionIsTreatedAsUnknownState (0 ms)
+[0.382s] 4: [ RUN      ] ExecutorCore.TimeoutMarksStateUnknown
+[0.382s] 4: [       OK ] ExecutorCore.TimeoutMarksStateUnknown (0 ms)
+[0.382s] 4: [ RUN      ] ExecutorCore.BackendRejectionPropagatesRejectedStateAllowingResend
+[0.382s] 4: [       OK ] ExecutorCore.BackendRejectionPropagatesRejectedStateAllowingResend (0 ms)
+[0.382s] 4: [ RUN      ] ExecutorCore.StopWithoutInFlightIsConfirmed
+[0.382s] 4: [       OK ] ExecutorCore.StopWithoutInFlightIsConfirmed (0 ms)
+[0.382s] 4: [ RUN      ] ExecutorCore.StopDeliveryIsNotConfirmationWhenBackendCannotConfirm
+[0.382s] 4: [       OK ] ExecutorCore.StopDeliveryIsNotConfirmationWhenBackendCannotConfirm (0 ms)
+[0.382s] 4: [ RUN      ] ExecutorCore.UnsupportedCancelNeverFabricatesStopConfirmed
+[0.382s] 4: [       OK ] ExecutorCore.UnsupportedCancelNeverFabricatesStopConfirmed (0 ms)
+[0.382s] 4: [ RUN      ] ExecutorCore.StopAfterUnknownStateIsNeverConfirmed
+[0.383s] 4: [       OK ] ExecutorCore.StopAfterUnknownStateIsNeverConfirmed (0 ms)
+[0.383s] 4: [ RUN      ] ExecutorCore.SnapshotReflectsInternalState
+[0.383s] 4: [       OK ] ExecutorCore.SnapshotReflectsInternalState (0 ms)
+[0.383s] 4: [----------] 14 tests from ExecutorCore (1 ms total)
+[0.383s] 4: 
+[0.383s] 4: [----------] 4 tests from ExecutorAudit
+[0.383s] 4: [ RUN      ] ExecutorAudit.DeliveryWithoutEvidenceAndWithoutCommandNeverConfirms
+[0.383s] 4: [       OK ] ExecutorAudit.DeliveryWithoutEvidenceAndWithoutCommandNeverConfirms (0 ms)
+[0.383s] 4: [ RUN      ] ExecutorAudit.TimeoutWithoutUnknownFlagStillLocks
+[0.383s] 4: [       OK ] ExecutorAudit.TimeoutWithoutUnknownFlagStillLocks (0 ms)
+[0.383s] 4: [ RUN      ] ExecutorAudit.CompletedCommandIdCannotExecuteTwice
+[0.383s] 4: [       OK ] ExecutorAudit.CompletedCommandIdCannotExecuteTwice (0 ms)
+[0.383s] 4: [ RUN      ] ExecutorAudit.CancelBeforeBackendDispatchIsSticky
+[0.383s] 4: [       OK ] ExecutorAudit.CancelBeforeBackendDispatchIsSticky (0 ms)
+[0.383s] 4: [----------] 4 tests from ExecutorAudit (0 ms total)
+[0.384s] 4: 
+[0.384s] 4: [----------] Global test environment tear-down
+[0.384s] 4: [==========] 18 tests from 2 test suites ran. (1 ms total)
+[0.384s] 4: [  PASSED  ] 18 tests.
+[0.384s] 4: -- run_test.py: return code 0
+[0.384s] 4: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_core.gtest.xml'
+[0.384s] 4: -- run_test.py: verify result file '/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_core.gtest.xml'
+[0.392s] 4/5 Test #4: test_executor_core ...............   Passed    0.08 sec
+[0.392s] test 5
+[0.392s]     Start 5: test_executor_concurrency
+[0.392s] 
+[0.392s] 5: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_concurrency.gtest.xml" "--package-name" "mtc_motion_execution_cpp" "--output-file" "/candidate-build/mtc_motion_execution_cpp/ament_cmake_gtest/test_executor_concurrency.txt" "--command" "/candidate-build/mtc_motion_execution_cpp/test_executor_concurrency" "--gtest_output=xml:/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_concurrency.gtest.xml"
+[0.392s] 5: Working Directory: /candidate-build/mtc_motion_execution_cpp
+[0.393s] 5: Test timeout computed to be: 30
+[0.459s] 5: -- run_test.py: invoking following command in '/candidate-build/mtc_motion_execution_cpp':
+[0.459s] 5:  - /candidate-build/mtc_motion_execution_cpp/test_executor_concurrency --gtest_output=xml:/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_concurrency.gtest.xml
+[0.462s] 5: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[0.462s] 5: [==========] Running 16 tests from 2 test suites.
+[0.462s] 5: [----------] Global test environment set-up.
+[0.462s] 5: [----------] 10 tests from GoalCancelGate
+[0.463s] 5: [ RUN      ] GoalCancelGate.StaleGoalCancelDoesNotCallBackend
+[0.463s] 5: [       OK ] GoalCancelGate.StaleGoalCancelDoesNotCallBackend (0 ms)
+[0.463s] 5: [ RUN      ] GoalCancelGate.StaleGoalCancelPreservesCurrentOwner
+[0.463s] 5: [       OK ] GoalCancelGate.StaleGoalCancelPreservesCurrentOwner (0 ms)
+[0.463s] 5: [ RUN      ] GoalCancelGate.StaleGoalCancelDoesNotModifyExecutionState
+[0.464s] 5: [       OK ] GoalCancelGate.StaleGoalCancelDoesNotModifyExecutionState (0 ms)
+[0.464s] 5: [ RUN      ] GoalCancelGate.StaleGoalCancelCannotInterruptNewGoal
+[0.464s] 5: [       OK ] GoalCancelGate.StaleGoalCancelCannotInterruptNewGoal (0 ms)
+[0.464s] 5: [ RUN      ] GoalCancelGate.MatchingGoalCancelStillWorks
+[0.464s] 5: [       OK ] GoalCancelGate.MatchingGoalCancelStillWorks (0 ms)
+[0.464s] 5: [ RUN      ] GoalCancelGate.ConcurrentGoalReplacementAndLateCancel
+[0.468s] 5: [       OK ] GoalCancelGate.ConcurrentGoalReplacementAndLateCancel (4 ms)
+[0.468s] 5: [ RUN      ] GoalCancelGate.SupervisoryStopStillStopsCurrentGoal
+[0.468s] 5: [       OK ] GoalCancelGate.SupervisoryStopStillStopsCurrentGoal (0 ms)
+[0.468s] 5: [ RUN      ] GoalCancelGate.EmptyOrUnknownGoalIdHasNoSideEffect
+[0.469s] 5: [       OK ] GoalCancelGate.EmptyOrUnknownGoalIdHasNoSideEffect (0 ms)
+[0.469s] 5: [ RUN      ] GoalCancelGate.CompletedGoalCancelCannotStopLaterCompletedGoal
+[0.469s] 5: [       OK ] GoalCancelGate.CompletedGoalCancelCannotStopLaterCompletedGoal (0 ms)
+[0.469s] 5: [ RUN      ] GoalCancelGate.CancelRacingBackendDispatchRemainsSticky
+[0.470s] 5: [       OK ] GoalCancelGate.CancelRacingBackendDispatchRemainsSticky (0 ms)
+[0.470s] 5: [----------] 10 tests from GoalCancelGate (7 ms total)
+[0.470s] 5: 
+[0.470s] 5: [----------] 6 tests from ExecutorConcurrency
+[0.470s] 5: [ RUN      ] ExecutorConcurrency.SixteenThreadsHaveOneOwner
+[0.472s] 5: [       OK ] ExecutorConcurrency.SixteenThreadsHaveOneOwner (2 ms)
+[0.472s] 5: [ RUN      ] ExecutorConcurrency.GoalsAndStopRespondWhileExecutionWaits
+[0.473s] 5: [       OK ] ExecutorConcurrency.GoalsAndStopRespondWhileExecutionWaits (1 ms)
+[0.473s] 5: [ RUN      ] ExecutorConcurrency.DuplicateStopsAndLateResultCannotUnlock
+[0.474s] 5: [       OK ] ExecutorConcurrency.DuplicateStopsAndLateResultCannotUnlock (0 ms)
+[0.475s] 5: [ RUN      ] ExecutorConcurrency.ConfirmedStopRetainsOwnerUntilResultDrains
+[0.475s] 5: [       OK ] ExecutorConcurrency.ConfirmedStopRetainsOwnerUntilResultDrains (0 ms)
+[0.475s] 5: [ RUN      ] ExecutorConcurrency.InvalidEvidenceCannotConfirmStop
+[0.477s] 5: [       OK ] ExecutorConcurrency.InvalidEvidenceCannotConfirmStop (2 ms)
+[0.477s] 5: [ RUN      ] ExecutorConcurrency.OldGoalCancelCannotReplaceNewOwner
+[0.477s] 5: [       OK ] ExecutorConcurrency.OldGoalCancelCannotReplaceNewOwner (0 ms)
+[0.477s] 5: [----------] 6 tests from ExecutorConcurrency (7 ms total)
+[0.478s] 5: 
+[0.478s] 5: [----------] Global test environment tear-down
+[0.478s] 5: [==========] 16 tests from 2 test suites ran. (15 ms total)
+[0.478s] 5: [  PASSED  ] 16 tests.
+[0.479s] 5: -- run_test.py: return code 0
+[0.479s] 5: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_concurrency.gtest.xml'
+[0.479s] 5: -- run_test.py: verify result file '/candidate-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_concurrency.gtest.xml'
+[0.489s] 5/5 Test #5: test_executor_concurrency ........   Passed    0.10 sec
+[0.490s] 
+[0.490s] 100% tests passed, 0 tests failed out of 5
+[0.490s] 
+[0.490s] Label Time Summary:
+[0.490s] gtest    =   0.44 sec*proc (5 tests)
+[0.490s] 
+[0.490s] Total Test time (real) =   0.44 sec
+[0.498s] Invoked command in '/candidate-build/mtc_motion_execution_cpp' returned '0': CMAKE_PREFIX_PATH=/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_moveit_planner:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_interfaces:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor LD_LIBRARY_PATH=/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_core_cpp/lib:/candidate-install/mtc_ros2_action_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_moveit_planner/lib:/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_interfaces/lib:/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process

@@ -1,0 +1,10 @@
+{
+  "attempt": "standalone-v1",
+  "status": "HARNESS_ERROR",
+  "error": "NumPy uint8 in manually constructed goal_uuid list was not JSON serializable",
+  "evidence": "logs/standalone.log and probe_cpp_actions-v1.py; child process logs retained in container/standalone-v1",
+  "effect": "First case result could not be saved; later cases did not run. No functional verdict from v1.",
+  "cleanup": "All started mock child processes had exited before retry; independently verified using container process listing.",
+  "fix": "Convert each UUID byte to built-in int; no change to scenarios, assertions or upstream code",
+  "retry": "standalone-v2"
+}

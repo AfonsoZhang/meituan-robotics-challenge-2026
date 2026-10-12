@@ -1,0 +1,65 @@
+UpdateCTestConfiguration  from :/candidate-build/mtc_interfaces/CTestConfiguration.ini
+Parse Config file:/candidate-build/mtc_interfaces/CTestConfiguration.ini
+   Site: 7d923986be87
+   Build name: (empty)
+ Add coverage exclude regular expressions.
+Create new tag: 20261011-1747 - Experimental
+UpdateCTestConfiguration  from :/candidate-build/mtc_interfaces/CTestConfiguration.ini
+Parse Config file:/candidate-build/mtc_interfaces/CTestConfiguration.ini
+Test project /candidate-build/mtc_interfaces
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: copyright
+
+1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_interfaces/test_results/mtc_interfaces/copyright.xunit.xml" "--package-name" "mtc_interfaces" "--output-file" "/candidate-build/mtc_interfaces/ament_copyright/copyright.txt" "--command" "/opt/ros/jazzy/bin/ament_copyright" "--xunit-file" "/candidate-build/mtc_interfaces/test_results/mtc_interfaces/copyright.xunit.xml"
+1: Working Directory: /candidate/src/mtc_interfaces
+1: Test timeout computed to be: 200
+1: -- run_test.py: invoking following command in '/candidate/src/mtc_interfaces':
+1:  - /opt/ros/jazzy/bin/ament_copyright --xunit-file /candidate-build/mtc_interfaces/test_results/mtc_interfaces/copyright.xunit.xml
+1: No repository roots and files found
+1: No problems found, checked 0 files
+1: -- run_test.py: return code 0
+1: -- run_test.py: verify result file '/candidate-build/mtc_interfaces/test_results/mtc_interfaces/copyright.xunit.xml'
+1/3 Test #1: copyright ........................   Passed    0.25 sec
+test 2
+    Start 2: lint_cmake
+
+2: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_interfaces/test_results/mtc_interfaces/lint_cmake.xunit.xml" "--package-name" "mtc_interfaces" "--output-file" "/candidate-build/mtc_interfaces/ament_lint_cmake/lint_cmake.txt" "--command" "/opt/ros/jazzy/bin/ament_lint_cmake" "--xunit-file" "/candidate-build/mtc_interfaces/test_results/mtc_interfaces/lint_cmake.xunit.xml"
+2: Working Directory: /candidate/src/mtc_interfaces
+2: Test timeout computed to be: 60
+2: -- run_test.py: invoking following command in '/candidate/src/mtc_interfaces':
+2:  - /opt/ros/jazzy/bin/ament_lint_cmake --xunit-file /candidate-build/mtc_interfaces/test_results/mtc_interfaces/lint_cmake.xunit.xml
+2: 
+2: No problems found
+2: -- run_test.py: return code 0
+2: -- run_test.py: verify result file '/candidate-build/mtc_interfaces/test_results/mtc_interfaces/lint_cmake.xunit.xml'
+2/3 Test #2: lint_cmake .......................   Passed    0.21 sec
+test 3
+    Start 3: xmllint
+
+3: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_interfaces/test_results/mtc_interfaces/xmllint.xunit.xml" "--package-name" "mtc_interfaces" "--output-file" "/candidate-build/mtc_interfaces/ament_xmllint/xmllint.txt" "--command" "/opt/ros/jazzy/bin/ament_xmllint" "--xunit-file" "/candidate-build/mtc_interfaces/test_results/mtc_interfaces/xmllint.xunit.xml"
+3: Working Directory: /candidate/src/mtc_interfaces
+3: Test timeout computed to be: 60
+3: -- run_test.py: invoking following command in '/candidate/src/mtc_interfaces':
+3:  - /opt/ros/jazzy/bin/ament_xmllint --xunit-file /candidate-build/mtc_interfaces/test_results/mtc_interfaces/xmllint.xunit.xml
+3: File 'package.xml' is valid
+3: 
+3: No problems found
+3: -- run_test.py: return code 0
+3: -- run_test.py: verify result file '/candidate-build/mtc_interfaces/test_results/mtc_interfaces/xmllint.xunit.xml'
+3/3 Test #3: xmllint ..........................   Passed    0.23 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Label Time Summary:
+copyright     =   0.25 sec*proc (1 test)
+lint_cmake    =   0.21 sec*proc (1 test)
+linter        =   0.68 sec*proc (3 tests)
+xmllint       =   0.23 sec*proc (1 test)
+
+Total Test time (real) =   0.69 sec

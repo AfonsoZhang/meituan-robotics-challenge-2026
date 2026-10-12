@@ -115,7 +115,7 @@ flowchart LR
 
 **版本证据**：TEAMMATE-FSM-20261011（2026-10-11 查阅）登记 [固定版本 README](https://github.com/F1u0rite/meituan_challenge_ws/blob/f477f689bb3e3d2a28437a3984458ec43e950c70/README.md)、[最终离线验收报告](https://github.com/F1u0rite/meituan_challenge_ws/blob/f477f689bb3e3d2a28437a3984458ec43e950c70/docs/migration/CPP_FSM_FINAL_SAFETY_GATE.md)和[第二阶段计划](https://github.com/F1u0rite/meituan_challenge_ws/blob/f477f689bb3e3d2a28437a3984458ec43e950c70/docs/migration/PHASE2_ROS2_INTEGRATION_PLAN.md)。仓库根许可证为 MIT；本次仅审阅源码并登记引用，没有复制实现。上游报告的 318 项 C++、269 项 Python、15 项纯 Python Mock E2E，现已在本项目独立 Ubuntu 24.04 / Jazzy 容器复跑通过，12 包构建成功（ENV-FSM-20261011，见[阶段验收](fsm-acceptance.md)）；TSan 动态竞态验收仍未完成。旧 Python ROS 节点仍在仓库中，不能将其存在写成新 C++ Action 外壳已完成。
 
-四个 C++ 核心包 `mtc_core_cpp`、`mtc_task_cpp`、`mtc_manipulation_cpp`、`mtc_motion_execution_cpp` 已由上游交付；核心逻辑不依赖 `rclcpp`，但构建仍使用 ament。采用以下接口组织本项目的后续接入，状态均为**待实现 / 待验证**：
+四个 C++ 核心包 `mtc_core_cpp`、`mtc_task_cpp`、`mtc_manipulation_cpp`、`mtc_motion_execution_cpp` 已由上游交付；核心逻辑不依赖 `rclcpp`，但构建仍使用 ament。以下接口描述最终系统适配，真实感知、MoveIt、轨迹与工具接入仍待实现/验证。后续 Phase 2A 候选 `c0f7017…` 已交付并通过 C++ Action Mock 检查（TEAMMATE-ACTION-20261011；ENV-CPP-ACTION-20261011），其中的模拟端口不替代下表实际适配：
 
 | 基线接口或模块 | 本项目接入内容 | 必须验证的边界 |
 | --- | --- | --- |
@@ -131,13 +131,13 @@ flowchart LR
 | 软件推进顺序 | 可检查的产物 | 当前状态与验收重点 |
 | --- | --- | --- |
 | 1 | 固定提交的 Jazzy 独立工作空间与离线回归记录 | `PASS`：独立 Jazzy 容器完成 12 包构建、318 C++ / 269 Python / 15 Mock E2E；日志与环境见 ENV-FSM-20261011，不外推到 NUC |
-| 2 | C++ Task / PickPlace / Motion 的 ROS 2 Action 外壳 | 未实现；核对现有接口、错误码、状态发布来源和取消传播；FSM 事件串行推进 |
-| 3 | MoveIt `PlannerPort` 与完整轨迹执行适配 | 未实现；确定轨迹传递接口，一条轨迹一个 Goal，禁止拆为多次单点命令 |
-| 4 | `ros2_control` Mock Hardware 的规划—执行闭环 | 上游手册已报告独立 GenericSystem、FollowJointTrajectory、MoveIt Plan → Execute 的历史成功（TEAMMATE-SDK-20261011）；本项目现已复现独立 Fake 控制器、关节/TF、单点/多点轨迹到位（ENV-FSM-20261011）；MoveIt 及 FSM 完整接线仍未验证。取消确认、反馈断流、超时、并发拒绝及 V1/V2 的完整运行链路仍待核对 |
-| 5 | 本项目 RGB-D、场景与放置评测接入 | 未集成；单块 T0 后三块序列；模拟感知与真实相机输入分别标记；另行确定 Gazebo 迁移方式 |
+| 2 | C++ Task / PickPlace / Motion 的 ROS 2 Action 外壳 | Phase 2A 候选 Mock 检查通过：358 C++、UBSan、外部库消费及独立进程四场景；Task→PickPlace 是 ROS Action，PickPlace→Motion 仍为本地 Mock。状态发布与真实执行边界未补齐，见 ENV-CPP-ACTION-20261011 |
+| 3 | MoveIt `PlannerPort` 与完整轨迹执行适配 | 独立规划分支 `fcdd8ea…` 已交付并补验：29 规划单测、固定姿态通过；默认 V1/V2 TF 失败，5 秒 TF 诊断下 V2 七段规划通过、V1 超状态预算被拒绝（TEAMMATE-PLANNER-20261011；ENV-PLANNER-20261012）。整条轨迹进入 Action/FJT、工具间隙与真实 FSM 接线仍未完成；一条轨迹一个 Goal，禁止拆为多次单点命令 |
+| 4 | `ros2_control` Mock Hardware 的规划—执行闭环 | 上游手册已报告独立 GenericSystem、FollowJointTrajectory、MoveIt Plan → Execute 的历史成功（TEAMMATE-SDK-20261011）；本项目现已复现独立 Fake 控制器、关节/TF、单点/多点轨迹到位（ENV-FSM-20261011）；本次资格检查已复现独立 MoveIt Plan → Execute，但退出 -11；FSM 完整接线仍未验证（ENV-UPSTREAM-WATCH-20261011）。取消确认、反馈断流、超时、并发拒绝及 V1/V2 的完整运行链路仍待核对 |
+| 5 | 本项目 RGB-D、场景与放置评测接入 | 新视觉分支公开测试 62 通过/1 跳过，ROS 默认回放漏帧、5 秒周期诊断通过；实际消费链未接，见 ENV-VISION-ADAPTER-20261012。未完成整体集成；单块 T0 后三块序列；模拟感知与真实相机输入分别标记；另行确定 Gazebo 迁移方式 |
 | 6 | NUC、控制柜、相机与实体工具联调记录 | 未验证；按 Q02–Q05、Q17 核实实际设备与标定后开展，Mock 成功不计为实机验收 |
 
-阶段 2–4 对齐上游第二阶段计划；该计划含第一轮测试计数和旧审计待办，具体接口以固定提交源码、最终验收报告核对后落地。基线登记轮次只整理计划；本轮阶段验收已复跑离线核心并启动现有 Python Mock，发现 Task/PickPlace 启动故障（ENV-FSM-20261011）。第二阶段新 C++ 外壳及 Humble / Classic 迁移仍未完成。
+阶段 2–4 对齐上游第二阶段计划；该计划含第一轮测试计数和旧审计待办，具体接口以固定提交源码、最终验收报告核对后落地。基线登记轮次只整理计划；本轮阶段验收已复跑离线核心并启动现有 Python Mock，发现 Task/PickPlace 启动故障（ENV-FSM-20261011）。随后新 C++ Action Mock 外壳已由独立分支交付并复验通过；[本轮候选验收](cpp-action-acceptance.md)区分新入口与仍失败的旧 Python 入口（ENV-CPP-ACTION-20261011）。完整 MoveIt/轨迹链路及 Humble / Classic 迁移仍未完成。
 
 设备选择仍沿用已确认项：S3 用 `aubo_ros2_driver`（USER-HW-20260923-08，AUBO-ROS2），D435i 用 realsense-ros（USER-HW-20260923-09，RS-ROS2），规划用 MoveIt（USER-HW-20260923-10）。此前 Humble 驱动的 `85684075` 记录只对应旧检查。新增资料已明确 Jazzy 驱动 `53aab83735236f0c262ecb11e04ef2600241d9d9`、模型子模块 `47fa5e02…` 与 Fake Xacro 修复；官方 CMake 的 SDK 构建依赖仍为 `aubo_sdk-0.24.1-rc.3-Linux_x86_64+318754d.zip`（TEAMMATE-SDK-20261011，手册 §01–02 及官方 CMake 核对）。本轮已在独立容器通过构建下载 SDK、记录包 SHA-256 并核验库链接（ENV-FSM-20261011）；厂商独立校验值、许可、NUC 部署和控制柜兼容性仍待核实。视觉可保留 Python / OpenCV 实现，通过适配接口接入 C++ FSM；真实流的对齐、编码和单位仍须以 NUC 观测核验。
 
@@ -206,18 +206,22 @@ flowchart LR
 
 | 编号 | 张叔阳需交付的产物 | 验收证据与当前状态 |
 | --- | --- | --- |
-| I01 | Ubuntu 24.04 / Jazzy 工作空间的构建与离线检查记录 | 记录实际源码 SHA、环境、包清单、命令、退出码和日志；任务书以 12 包为检查起点。本轮独立 Jazzy 容器构建 12/12 包及 318 C++、269 Python、15 Mock E2E 通过；原始命令、退出码和 XML 见 ENV-FSM-20261011，不代替 NUC 验证 |
-| I02 | Action / Topic / Node / TF 通信矩阵 | 原基线 3 个 Python 节点存活，Task/PickPlace 启动退出（ENV-FSM-20261011）。候选补丁 `1d3dccf…` 下 4 个节点存活，Task/Motion 服务器可用，PickPlace 因 B05 退出；逐节点服务器查询与 wait_for_server 已核对，不能把通用 Action 列表中的客户端当成服务器。Mock 无完整感知/TF，新 C++ 节点未交付；见 ENV-FSM-FIX-20261011 |
-| I03 | 独立 Fake Hardware 的驱动复现记录 | 已从 `1d940f7…` 核对 `docs/setup/AUBO_ROS2_DRIVER_JAZZY.md`（TEAMMATE-SDK-20261011）；驱动/SDK 版本、Fake 修复和三终端 SOP 已提供。已在独立容器完成 5 包构建、两控制器 active、六关节/TF、单点与多点 FollowJointTrajectory；独立 Fake 范围 `PASS`（ENV-FSM-20261011）。MoveIt Plan → Execute 仍为 `NOT RUN`；上游参考目录保持只读 |
-| I04 | Mock 启动/检查 SOP 或 `scripts/run_mock_smoke.sh` | 驱动/MoveIt 三终端 SOP 已由新手册提供（TEAMMATE-SDK-20261011）。原 Python Mock 因 B01/B02 启动失败（ENV-FSM-20261011）；本轮三项接线补丁和独立 overlay 命令已提交 PR，Task 可启动但 PickPlace 在 B05 退出，仍不能标为通过的整体 SOP；新 C++ FSM 整体启动待交付，见 ENV-FSM-FIX-20261011 |
-| I05 | 基础任务 Goal 烟测记录与阻断问题单 | 原版 Goal 未发送（ENV-FSM-20261011）；候选补丁两次延迟基础 Goal 均已受理并保存 Feedback/Result，但此前 INIT 已超时进入 FAULT，返回 ABORTED / 510，完成数 0，整体仍为 FAIL。B01/B02/B04 已定向修复、待审阅；B03/B05/B06 由孙嘉明处理，见[补丁复验](fsm-wiring-fix.md)（ENV-FSM-FIX-20261011）。Cancel/迟到取消与停稳证据仍按模块交付验收 |
+| I01 | Ubuntu 24.04 / Jazzy 工作空间的构建与离线检查记录 | 原基线 12 包、318 C++ / 269 Python / 15 Mock E2E 通过（ENV-FSM-20261011）。新候选 `c0f7017…` 为 13 包、358 C++ / 269 Python / 15 Mock E2E，补跑 UBSan 358 项及新审计入口通过（ENV-CPP-ACTION-20261011）；独立规划分支 `fcdd8ea…` 为 13 包 / 347 C++（318+29）/ 269 Python / 15 Mock E2E，尚不含 Action 包及六项 ROS 回归（ENV-PLANNER-20261012）。后续合并版本 `4a1a816…` 为 14 包 / 387 C++ / 269 Python / 15 Mock E2E / 6 ROS（ENV-PLANNER-MERGE-20261012）。新场景版本 `30e3c6e…` 增至 393 C++ / 25 程序，规划新增 6 项，其他计数不变（ENV-PLANNER-SCENE-20261012）。从主线分出的视觉 `0e329f1…` 为 14 包 / 358 C++，不含规划包；额外公开视觉 62 通过/1 跳过，新包 colcon 零测试失败另列（ENV-VISION-ADAPTER-20261012）。逐次记录，不累计、不推进正式锁定或代替 NUC 验证；主线 f7eaa2c 与 4a1a816 整树相同，本次 14 包 / 387 C++ / 269 Python / 15 E2E / 6 ROS 再核验通过（ENV-PLANNER-MAIN-20261012）；Phase 2B 独立分支 688d80d 本次14包、424 C++/22程序、269 Python/15 E2E/6 ROS通过；UBSan424及外部导出目标通过，旧审计程序数/宏展开误判分开保留（ENV-TRAJECTORY-20261012）；标定分支06ab689既有运行树等同f7eaa2c，14包/387 C++/269 Python/15 E2E/6 ROS及额外54标定测试通过；6示例/5反例/格式检查通过（ENV-CALIBRATION-20261012）；45f497c合入既有Planner并增加10身份/时钟测试，15包/463 C++普通及UBSan/269 Python/15 E2E/6 ROS通过；同一测试集合不重复计数（ENV-TRAJECTORY-GATE-20261012）；视觉e53c09f的14包/358 C++/269 Python/15 E2E/6 ROS通过；colcon仍用unittest收集零测试，手动新53项与公开62项通过、1私有证据跳过（ENV-VISION-SAFETY-20261012）；681bb64首次FJT61项套件120秒超时（417项其他C++ XML通过），同二进制61项补跑及独立478项UBSan通过；未关闭间歇挂起（ENV-TRAJECTORY-OWNERSHIP-20261012） |
+| I02 | Action / Topic / Node / TF 通信矩阵 | 原 Python 启动故障与 PR 候选 B05 见 ENV-FSM-20261011、ENV-FSM-FIX-20261011。新候选三个 C++ Action 各有唯一服务器，独立域逐节点查询和 Goal/Feedback/Result 已核验；Task→PickPlace 为 ROS 子 Action，但 PickPlace→Motion 为本地 Mock，无完整状态 Topic/感知/TF，见 ENV-CPP-ACTION-20261011。后续交接文档的 CLI 检查两轮出现短时图漏发现，反馈 QoS 匹配、诊断 Action 唯一服务器可见，但观察就绪尚未稳定（ENV-HANDOFF-20261012）；新视觉回放原生类型、RELIABLE/VOLATILE 与 NaN 已在隔离域观测，默认收 1/4、5 秒诊断收 4/4；C++ 仍 MockPerception，未有实际消费链（ENV-VISION-ADAPTER-20261012）；域138只读Fake核验world/base、wrist3/ee、base/ee、world/ee；903零关节戳、无Goal；相机/TCP/工位提案frames仍缺，latest TF和ROS/Core时基尚未接线（ENV-CALIBRATION-20261012） |
+| I03 | 独立 Fake Hardware 的驱动复现记录 | 已从 `1d940f7…` 核对 `docs/setup/AUBO_ROS2_DRIVER_JAZZY.md`（TEAMMATE-SDK-20261011）；驱动/SDK 版本、Fake 修复和三终端 SOP 已提供。已在独立容器完成 5 包构建、两控制器 active、六关节/TF、单点与多点 FollowJointTrajectory；独立 Fake 范围 `PASS`（ENV-FSM-20261011）。独立 MoveIt Plan → Execute 本次 `PASS`，退出 -11 为 `FAIL`，依赖声明与驱动 lint 仍有未通过项（ENV-UPSTREAM-WATCH-20261011）；规划分支补验还记录展开 URDF 三关节限位为未求值字面量，运行时强制限位待核验（ENV-PLANNER-20261012）；上游参考目录保持只读；新主线运行的外部图可见 FJT，但 MoveIt 内部客户端未连接，执行 ABORTED/-4；单次额外 5 秒等待诊断执行通过，退出仍 -11，不关闭就绪/退出缺口（ENV-PLANNER-MAIN-20261012）；新FjtMotionPort GenericSystem起点不符/取消通过，success虽到达目标但端口运行证明丢失/230，未验收通过；独立MoveIt本次执行通过、退出仍-11（ENV-TRAJECTORY-20261012）；45f497c本次四个独立Fake场景通过，前次230健康证明失败未关闭；默认MoveIt/FJT共存clients=2、ready=0、零Goal，联合执行仍BLOCKED，退出仍-11（ENV-TRAJECTORY-GATE-20261012）；681bb64新增实时Status证据门禁，原生GenericSystem received/fresh/ready=0，success零Goal BLOCKED；默认MoveIt共存clients=2也BLOCKED，旧45f497c四项执行通过仅为历史（ENV-TRAJECTORY-OWNERSHIP-20261012） |
+| I04 | Mock 启动/检查 SOP 或 `scripts/run_mock_smoke.sh` | 驱动/MoveIt SOP 已取得（TEAMMATE-SDK-20261011）；旧 Python 原版与 PR 候选仍有 ENV-FSM-20261011、ENV-FSM-FIX-20261011 的失败。新 C++ 包提供三个独立 Mock 程序与域隔离 SOP，实测四场景通过、六次服务器进程均正常退出（ENV-CPP-ACTION-20261011）；规划分支采证 SOP 已原样运行，默认序列 TF 失败，5 秒等待诊断仅获有条件 V2 规划通过、退出仍失败（ENV-PLANNER-20261012）；合并版本四场景 40 项检查通过，默认 V1 超预算、V2 TF 失败（ENV-PLANNER-MERGE-20261012）；场景版本默认初始化失败，5 秒 TF 诊断下 V2 七段/碰撞拒绝通过、V1 180.42 秒超预算（ENV-PLANNER-SCENE-20261012）；完整 FSM→MoveIt/Fake 统一启动尚未交付；新增Fake显式探针未接入默认Action/Bringup；FSM首段注入与完整任务不同，直接取消保留FAULT/520，异步停稳桥交孙嘉明（ENV-TRAJECTORY-20261012）；命令身份诊断入口已补验，统一宿主仍缺；规划生成时刻不能直接作FJT调度时刻，211点规划超出原窄执行速度限制，未改stamp或放宽门禁（ENV-TRAJECTORY-GATE-20261012）；视觉默认1秒回放本次4/4、两次插桩回放各4/4，SIGINT均exit 0；等待订阅仅在验证脚本，默认就绪可靠性和真实FSM消费门禁仍未完成（ENV-VISION-SAFETY-20261012）；pending UUID精确归属测试补验完成，原生Status/独占证据契约及异步Cancel宿主仍缺；完整Task→PickPlace与Web UI集成保留08:00后范围（ENV-TRAJECTORY-OWNERSHIP-20261012） |
+| I05 | 基础任务 Goal 烟测记录与阻断问题单 | 旧 Python 原版 Goal 未发送；PR 候选延迟 Goal 为 ABORTED / 510、完成 0，B03/B05/B06 保留（ENV-FSM-20261011；ENV-FSM-FIX-20261011）。新 C++ Mock 启动空闲 7 秒后 T0 与三色 P1/P2/P3 成功、关联 Task 取消 CANCELED / 0、缺失子服务器 ABORTED / 220 并锁定（ENV-CPP-ACTION-20261011）；这是新路径局部通过，实体停稳与完整 MoveIt 仍待验 |
 | I06 | 视频/报告准备清单和数据命名规范 | 核对官方纸质底图、电池、固定第三视角、计时与设备可用性，记录口令、版本和原始素材；要求同时准备视频与报告（FAQ p1–3）。清单字段见下文，实物和机位逐项检查 `NOT RUN` |
 
 **版本与运行边界**：任务书要求从“最新 main”开始；初始快照 `f477f689…` 来自 USER-HW-20261011 / TEAMMATE-FSM-20261011，SDK 更新提示后的当前快照为 `1d940f7c5f12561fed6641457c0b4b630a282b05`（USER-HW-20261011-04、TEAMMATE-SDK-20261011）。本次差异仅为两份文档，已推进锁定并单独校验源码导入；本轮完成独立 Jazzy 构建/离线复跑，ROS Mock 启动失败另列（ENV-FSM-20261011）。后续接收模块时记录实际提交、代码差异、构建结果和接口变化；不能只写浮动 `main`，也不能把旧快照的运行结果外推到新代码。使用独立工作空间/输出目录，保留已有 `build/install/log`。
 
 **接口变更与问题分派**：按任务书 §07，`mtc_interfaces` 和 C++ Core 公共接口的变更须列明字段、原因与影响方，由孙嘉明确认；各模块使用独立 feature 分支，测试后集成。统一启动、测试协调与 Web UI 对接由张叔阳推进，遇到 FSM 状态转换、Cancel 或运动执行内部错误，保留复现证据后交给孙嘉明。该流程是团队交接约定，本次没有代发群消息或代队长确认接口变更。
 
-**本轮有限修复授权与交接**：用户回复“按照你的建议执行”（USER-HW-20261011-05），同意由集成侧提交 B01/B02/B04 小补丁，B03 和 FSM/Cancel 内核仍由孙嘉明负责。候选提交 `1d3dccf23c53d299d457564daeb6438190ea2d77` 已发布为 [PR #2](https://github.com/F1u0rite/meituan_challenge_ws/pull/2)，并请求仓库负责人 `F1u0rite` 审阅；尚未合并，正式基线未推进。两包构建、6 项 ROS 回归、269 Python / 15 Mock E2E 通过，新增 B05 ActionClient 与 B06 INIT 生命周期及退出观测已列入交接，完整任务仍失败（ENV-FSM-FIX-20261011）。
+**本轮有限修复授权与交接**：用户回复“按照你的建议执行”（USER-HW-20261011-05），同意由集成侧提交 B01/B02/B04 小补丁，B03 和 FSM/Cancel 内核仍由孙嘉明负责。候选提交 `1d3dccf23c53d299d457564daeb6438190ea2d77` 已发布为 [PR #2](https://github.com/F1u0rite/meituan_challenge_ws/pull/2)，原提交时请求仓库负责人 `F1u0rite` 审阅；后续上游已在 `c10f6ed…` 合并（TEAMMATE-MERGE-20261011），本项目正式基线未推进。两包构建、6 项 ROS 回归、269 Python / 15 Mock E2E 通过，新增 B05 ActionClient 与 B06 INIT 生命周期及退出观测已列入交接，完整任务仍失败（ENV-FSM-FIX-20261011）。
+
+**今晚后续交付与监测**：用户告知孙嘉明今晚补充 MoveIt，并要求更新后执行剩余复现（USER-HW-20261011-08，用户会话）。已设置各分支/PR head 每 60 秒监测至 10 月 12 日 08:00；按提交单独排队，先完成已知入口的构建/依赖、实际 ROS Mock、独立 MoveIt Plan → Execute 与退出检查。新 C++ 完整启动仍按实际交付入口补充专门验收，不能用独立链路代替。设置记录 ENV-UPSTREAM-WATCH-20261011 及检查范围见[监测说明](upstream-monitor.md)；任务书中各人的整体职责和正式基线锁定不因交付预期自动改变。
+
+**自动主对话验收**（USER-HW-20261011-09）：固定复现终态（含失败、超时、中断）自动唤醒指定主对话，携带 SHA、实际差异与日志；由主对话补齐新交付的检查、分析失败、冻结并登记证据。收到完成回执后才启动下一 SHA，传输有限重试，未完成时保留队列。启用与回执测试见 ENV-UPSTREAM-WAKE-20261011、[唤醒验收](upstream-wake.md)。仅系统集成与验收，FSM/Action/Cancel 内核问题仍按 §7 分派孙嘉明。
 
 **Web UI 的安排**：先满足系统集成 P0，复用旧监控台承载连接状态、相机、任务反馈、日志和录像的观察入口；新增字段以接口矩阵为准。第 6 节的页面改造、桥接及提交/取消交互是兼任工作的工程建议，任务书没有把完整 Web UI 列为今晚 P0，不据此增加硬性交付。界面按钮不能绕过后端 Goal 所有权和取消语义。
 
@@ -259,3 +263,115 @@ SDK 更新轮次：使用 OpenAI Codex 协助核对 `1d940f7…` 与官方驱动
 早期 Mock UI 实现轮次：按 USER-HW-20261011-06 使用 OpenAI Codex 编写独立 Mock 服务、页面、测试和契约，并执行浏览器 QA；见 DEMO-WEBUI-MOCK-20261011。未改 FSM 内核、旧监控台代码或已冻结实验，未连接 ROS/实机。
 
 实机 UI 实现轮次：按 USER-HW-20261011-07 使用 OpenAI Codex 实现默认 rclpy 客户端、相机/关节/日志、启动配置与测试；ENV-WEBUI-ROS-20261011 区分本机/隔离 Jazzy 接口验证和未完成的实体设备验收。未修改 FSM、驱动内核或旧冻结证据。
+
+### 8. 23:35 合并候选的复验补充
+
+PR #2 已由上游合入 `main@c10f6ed…`，记录于 TEAMMATE-MERGE-20261011；本地锁定继续为 `1d940f7…`。I01 本次 13 包 / 358 C++ / 269 Python / 15 Mock E2E 及 6 项 ROS 回归通过；I02/I04/I05 的现有 C++ 默认程序、唯一 Action 服务器、基础/序列/取消/失败锁定四场景再次通过，仍为 Mock 端口，未新交付统一 Bringup 或 MoveIt/FJT 接线（ENV-WIRING-MERGE-20261011）。UBSan 和外部 consumer 只引用前轮 ENV-CPP-ACTION-20261011，不重复计为本次运行。
+
+旧 Python 任务仍 ABORTED / 220、510、520；独立 MoveIt 两次 Plan → Execute 通过而 move_group 两次 -11，原固定运行的 ros2_control_node 另有一次 -11、补跑未再现。维护者合并说明建议后续关注 C++ Mock Bringup，是上游交接信息，本事件未据此另行启动开发或改变 FSM/Action/Cancel 分工。完整轨迹、状态来源、Web UI、实体停稳与 NUC/实机待验；[合并后报告](wiring-merge-acceptance.md)保存结果和交接，原失败不覆盖。
+
+## 2026-10-12 独立规划交付补验
+
+常建烁的 `feature/moveit-planner@fcdd8ea…` 相对 SDK 基线增加 53 文件，未包含另一分支 C++ Action 或 PR #2；上游原始记录与本机复验分开登记（TEAMMATE-PLANNER-20261011；ENV-PLANNER-20261012）。13 包 / 347 C++ / 269 Python / 15 Mock E2E 与新包依赖通过，默认固定姿态规划通过；默认 V1/V2 均因工具内 TF 不可用失败。仅延长 TF 等待至 5 秒的独立诊断中，V1 因 136.515 秒超过 24 秒预算拒绝，V2 七段完整轨迹校验通过。默认失败未覆盖，MoveIt 两轮均退出 -11。
+
+I02/I04/I05 仍需验证实际异步 PlannerPort 的 2 秒 PLAN_ACQUIRE 时限、完整轨迹与工具动作后的真实起点、唯一执行权和 Cancel 停稳；本次序列入口只规划，不运行完整 FSM 或 FJT。试提/撤离前的软件工具位移、TCP/工位占位值及缺失的场景/附着物碰撞几何不具备实机效力。新发现的 URDF `{-2*pi}`/`{2*pi}` 限位字面量需驱动集成核对，当前仅核验规划器内数值边界。规划问题交常建烁；FSM/Action/Cancel 内核交孙嘉明，本轮仅本地登记交接。详见[规划验收](planner-acceptance.md)，未合并、推进基线或改变实体末端候选。
+
+OpenAI Codex 协助本轮运行已有规划 SOP、有限等待参数诊断、轨迹文件审计与来源同步；未修改规划、FSM 或驱动算法。
+
+## 2026-10-12 Phase 2A 交接文档补验
+
+`main@a04ac68…` 只更新 README / README_FSM，src/tests/config/scripts/docs 与 `c10f6ed…` 相同（TEAMMATE-HANDOFF-20261011）。新的交接文字明确 Task→PickPlace 为 ROS Action、PickPlace 使用本地 Mock Motion，独立 Motion 没有接入；统一 C++ Mock Bringup 仍为待办。交接点 `main@c0f7017` 不改变本项目正式版本锁定。
+
+ENV-HANDOFF-20261012 的 13 包 / 358 C++ / 269 Python / 15 Mock E2E / 6 ROS 回归和文档指向的身份审计通过。I02 的新增观察命令原样运行出现找不到节点/零服务器；一次无 daemon 节点查询加明确 daemon 等待的诊断中，三个 Action 唯一服务器和反馈 QoS 可见，但短时节点列表和 PickPlace info 仍有失败。两轮共六次 Mock 程序正常退出，无新增任务 Goal；SOP 的图发现就绪仍需集成跟踪，不按局部空图判定服务缺失。旧 Python Cancel 本次最终 ABORTED / 220，前轮 520 历史保留；独立 MoveIt 规划执行通过、退出仍 -11。
+
+[交接验收](cpp-handoff-acceptance.md)保留完整两轮失败、418 文件冻结索引与清理。上游新增开发安排只作交接资料，本事件没有创建新的生产 Bringup、改动 FSM/Action/Cancel、代发消息或推进基线；完整轨迹/唯一执行权/停稳问题继续交孙嘉明。OpenAI Codex 协助只读 CLI 探针、日志分析与文档登记，原算法未改。
+
+## 2026-10-12 规划与 Action 合并版本补验
+
+常建烁将 `main@a04ac68…` 同步到规划分支，得到 `4a1a816…`（TEAMMATE-INTEGRATION-20261012）。相对规划父提交改 28 文件、相对主线父提交只增加原有 53 个规划文件；两模块运行源码均与各自父提交相同。I01 本次 14 包 / 387 C++（318+40+29）/ 269 Python / 15 Mock E2E / 6 ROS 通过，交付的新审计只涵盖 358/20，规划 29/4 另按真实 XML 身份核对（ENV-PLANNER-MERGE-20261012）。
+
+I02/I04/I05 的当前合并安装环境补跑 C++ 四场景 40 项检查，六次服务器正常退出。原样规划 SOP 的固定姿态通过，V1 约 42.0717 秒超过 24 秒预算、V2 TF_UNAVAILABLE，两序列无命令输出；MoveIt 退出 -11。V1 本次进入规划阶段与前次默认 TF 失败分开保存，未改默认配置或重复旧等待诊断。源码仍绑定 MockPlanner/AsyncMockMotion，合并文件不证明真实 PlannerPort/FJT 已接通；图观察就绪、状态来源、工具后起点、Cancel 停稳、完整 FSM/实机仍待验。
+
+[合并版本报告](planner-merge-acceptance.md)及 486 文件冻结索引保留原始失败、当前结果和已停止容器。内核事项仅本地回交孙嘉明，规划事项交常建烁；未修改算法、代发消息或推进正式锁定。OpenAI Codex 协助复用验收入口、对照双父提交和同步事实链。
+
+## 2026-10-12 场景、载荷与起点一致性补验
+
+`feature/planning-scene-start-v1@30e3c6e…` 相对上次验收增加/修改 45 个规划及文档文件，非规划源码不变（TEAMMATE-SCENE-20261012）。本次 14 包 / 393 C++（318+40+35）/ 269 Python / 15 Mock E2E / 6 ROS 通过；新增起点/载荷/重规划 6 项单测及缺参数文件两个负例通过（ENV-PLANNER-SCENE-20261012）。真实 FJT 发送侧尚未调用新起点检查/单段重规划，已有 Action 仍绑定 Mock 端口。
+
+默认 SOP 固定姿态通过，碰撞探针及 V1/V2 在场景初始化退出 2；脚本返回 0 不代表通过。唯一参数改为 TF 等待 5 秒的诊断中，table/wrist3_Link 碰撞反例被拒，V2 带请求级占位载荷生成七段；V1 明确使用 joint_interpolated_ik 得到 180.415 秒，超 24 秒预算，与上游提供的 42.080 秒不符，根因未定。两轮 MoveIt 均退出 -11，全部原始失败保留。
+
+桌面/电池/TCP/工位仍为占位模型，按参数静态算出的载荷离桌面 15 mm 与上游“1 cm”文字不符，待常建烁澄清和实际标定。工具前后各 0.03 m 未输出运动仍需真实状态与重规划接线；完整执行/Cancel 内核交孙嘉明，未接管修复。见[本次报告及 545 文件冻结证据](planner-scene-acceptance.md)；没有实体接触、实机、选型或完整 FSM 通过结论。OpenAI Codex 协助验收与事实登记，未改算法或正式锁定。
+
+## 2026-10-12 视觉源码与回放接口补验
+
+`feature/perception-adapter@0e329f1…`（TEAMMATE-PERCEPTION-20261012）相对 `main@a04ac68…` 新增 111 文件，IDL/FSM/Action 不变。该分支未含 MoveIt 规划包；14 包 / 358 C++ / 269 Python / 15 Mock E2E / 6 ROS 通过，新 adapter 零测试使 colcon-test 失败。隔离补齐依赖后公开视觉 62 通过、私有 22 帧证据 1 跳过，16 帧合成输出仅为候选（ENV-VISION-ADAPTER-20261012）。
+
+实际 Jazzy 发布器保留旧时间戳、无效 pose 为 NaN、ring flag=false。默认周期收 1/4 帧，唯一一次改为 5 秒周期的诊断收 4/4；实际发现 RELIABLE/VOLATILE，history/depth 返回 UNKNOWN/0，源码 KEEP_LAST(5) 与运行观测分开。两次退出均重复 shutdown 报错。原默认失败未覆盖，真实相机与完整 FSM 消费链未交付。
+
+现有 Python 静态谓词拒绝实际 false-ring 候选，但人工 true-ring/NaN/旧时间反例会通过；仅为函数检查，未发 Goal。C++ Task 仍用 MockPerception，消费侧 replay/时效/有限数/TF 门禁交孙嘉明，回放/测试登记与源数据交孙浩然，标定交韩明赫。上游配置“official/calibrated”标签不提升为项目规则或实测。见[报告及 589 文件冻结证据](vision-adapter-acceptance.md)；未改内核、合并或推进正式锁定。OpenAI Codex 协助接口验收与事实登记。
+
+## 2026-10-12 规划 PR #3 合入 main 后补验
+
+上游 `f7eaa2c…` 的双父为 a04ac68 / 4a1a816，整树等同既有规划合并版本；只记录上游合并事实，本项目正式锁定仍为 1d940f7（TEAMMATE-PLANNERMAIN-20261012）。本次 I01 的 14 包 / 387 C++ / 269 Python / 15 Mock E2E / 6 ROS、交付的新审计 358/20 与两包安装身份通过（ENV-PLANNER-MAIN-20261012）。没有新增运行入口，因此原规划 SOP、独立四场景和 UBSan/consumer 不重复运行，ENV-PLANNER-MERGE-20261012 的默认 V1 42.0717 秒超预算与 V2 TF 失败仍作为历史问题保留。
+
+I03 新增默认执行失败：规划成功且外部可见 FJT，但 MoveIt 内部客户端未连接，ExecuteTrajectory ABORTED/-4、控制器未收到 Goal。单次隔离域 131 额外等待 5 秒诊断执行通过，最大误差约 0.000089 rad；两次 move_group 均 -11。外部可见性不能作为内部执行就绪证明，固定等待也未被证明可靠。旧 Python Cancel 本次为 ABORTED/520；其 FSM/Action/Cancel/停稳内核交孙嘉明，规划默认 TF/状态预算交常建烁。本轮未接管修复或代发外部消息。
+
+新场景/载荷和视觉分支不在此主线快照，实际 Planner/FJT/工具/感知、统一 Bringup 与完整状态 UI 尚待接通。原/补跑容器已停止，域 131 daemon 的首次清理守卫与实际停止保留；450 文件冻结见[主线合并报告](planner-main-acceptance.md)，OpenAI Codex 协助来源/测试身份核对、一次有限等待诊断及事实登记。无实体操作、合并或正式基线推进。
+
+## 2026-10-12 Phase 2B 整条轨迹端口补验
+
+TEAMMATE-TRAJECTORY-20261012 的 `688d80d…` 相对已验 a04ac68 仅新增13文件，其余源码未变；新增默认关闭、必须明确Fake及限位/运行证明的 FjtMotionPort，单条TimedTrajectory对应单个FJT Goal。此分支不含规划/视觉包，默认Action仍MockPlanner/AsyncMockMotion；正式1d940f7锁定不变。
+
+ENV-TRAJECTORY-20261012：14包、424 C++（318核心+40Action+66轨迹）、269 Python、15 E2E、6 ROS通过；新编译注册审计、四份安装身份、外部consumer、独立UBSan424通过。旧审计预期16/实际22程序且误识别宏占位符，不能把它当漏跑。GenericSystem三场景串行各一次：起点不符零Goal通过、取消取得CANCELED及停稳通过，success却返回运行证明失效/230并锁故障。外部控制器SUCCEEDED与六关节到达目标不能替代端口内部证明，未通过项按原始日志回交孙嘉明。
+
+现有FSM首段注入只证明首段运动；直接Cancel第一次取到pending停稳后保留FAULT/520，异步桥/runtime host和默认Action绑定尚未实现，不接管内核修复。独立MoveIt本次执行通过、move_group仍-11；旧Python220/510/220、依赖/lint及限位缺口保留。规划契约与标定输入归常建烁，系统集成负责可观测性、清理/Bringup/验收。原/补跑容器均停止；683文件冻结及逐项失败分析见[轨迹报告](trajectory-execution-acceptance.md)。OpenAI Codex协助交付入口复跑、独立订阅观察及事实登记，无实机、合并或基线推进。
+
+## 2026-10-12 标定与 TF 离线交付补验
+
+TEAMMATE-CALIBRATION-20261012 的06ab689相对规划主线f7eaa2c仅新增38个离线标定文件；运行src树、规划配置和默认Mock绑定未变。ENV-CALIBRATION-20261012补跑54项测试、6示例、5反例与格式检查通过，全部诊断motion_authorized=false。名义安装外参只是ESTIMATED夹具计算；真实清单8边UNKNOWN、阈值null、手眼/TCP/误差CSV仅表头。上游V1/相机安装“确认”仅记交接前提，本项目既有末端候选及实际安装待核验边界不变。
+
+只读Jazzy Fake运行新增四条TF验证，腕部wrist3_Link至ee_link零平移/Z+π/2，零关节base至ee约[0,-0.2562,0.8072]m；903个不同JointState时戳，FJT客户端0/服务端1、无Goal。按同一过去时刻可查零关节模型不等于运动相机时间同步或实体法兰F已对齐。实际robot_description哈希和4个AUBO Git blob身份已登记，相机/API原件未在本次独立复核。
+
+当前Planner查latest TF、已逆补偿TCP、工位使用TCP位置并沿用抓取姿态；离线拒绝规则没有被运行适配器消费。韩明赫负责实测标定/物理F，孙浩然负责相机参数/观测，常建烁负责观测时刻TF与规划语义，孙嘉明负责完整Pose6D、时钟/失败传播及FSM/Action/Cancel内核；本轮只本地交接。旧Python220/510/220与独立MoveIt执行通过但退出-11保留。原/补跑容器已停止，532文件冻结见[标定报告](calibration-acceptance.md)。OpenAI Codex协助离线入口复现、只读TF采证、清理与事实登记，无内核修复、合并或正式基线推进。
+
+## 2026-10-12 轨迹身份与联合执行权门禁
+
+TEAMMATE-TRAJECTORYGATE-20261012 / ENV-TRAJECTORY-GATE-20261012：45f497c相对688d80d有59路径，53个规划/证据路径与已验f7eaa2c相同，6个身份实现/测试/探针/文档增量。15包、463项普通及UBSan、269 Python/15 E2E/6 ROS通过；原424身份保留，加10新测试和29合入Planner。默认Action仍Mock，场景/视觉/标定独立分支尚未接入。
+
+新不可变命令副本拒绝同ID不同内容，四个原GenericSystem场景各一次通过；identity缓存重读及改路点/timeout/simulation_only三次拒绝保持1 Goal/0 Cancel。健康谓词未修改，前次688d80d的230失败单独保留，不以本轮通过关闭。默认move_group与端口共存时FJT客户端2、ready=0、零Goal，联合执行BLOCKED；单次CLI图列表不完整，直接客户端查询和日志另存。
+
+原fixed_pose生成211点/20.94617995秒规划，外部consumer能链接并转换数据，但原±0.5rad/0.2rad每秒能力拒绝velocity limit exceeded；未执行、改stamp或放宽限位。生成时刻与调度时刻、唯一执行管理者、FSM异步取消宿主仍需孙嘉明、常建烁和集成明确契约。旧Python220/510/520、两次MoveIt退出-11、统计线程/依赖/限位问题保留。869文件见[报告](trajectory-gate-acceptance.md)，源码和正式基线不变，两容器停止后登记回执；OpenAI Codex协助采证和登记，无内核修复或外部消息。
+
+## 2026-10-12 视觉安全、TF 与清理补验
+
+TEAMMATE-VISIONSAFETY-20261012 / ENV-VISION-SAFETY-20261012：e53c09f相对0e329f1仅改8个适配器文件，其余源码不变。新53项安全/TF/清理、公开62项通过（1私有证据跳过）；14包/358 C++/269 Python/15 E2E/6 ROS为本次固定结果，默认colcon仍收集零测试。不同分支的Planner/FJT/标定能力不并入本视觉分支。
+
+默认回放及synthetic、仅换replay标签的两次插桩验证各4/4且SIGINT exit 0，后两者确认实际publisher KEEP_LAST(5)。等待订阅屏障只在测试脚本；此前默认漏帧保留，不作可靠性提升推断。回放完成只取消timer，未证明进程自然退出。
+
+新helper要求可信源/目标帧与采集时刻TF，三个本地Buffer测试通过，仍未接实际FSM；Python静态true-ring/NaN/旧戳反例仍接受但未发布或发Goal。视觉自动登记/就绪交孙浩然，消费者及FSM/Action/Cancel交孙嘉明，可信TF/时钟交韩明赫。旧Python220/510/520、独立MoveIt执行通过但退出-11、依赖/实机缺口保留。463文件与清理见[报告](vision-safety-acceptance.md)；无源码修复/外部消息/合并/基线推进，OpenAI Codex协助复现与登记。
+
+<a id="2026-10-12-0800-后的-c-mock-与-web-ui-同轮交付待执行"></a>
+
+## 2026-10-12 08:00 后的 C++ Mock 与 Web UI 同轮交付（部分通过）
+
+用户会话 USER-HW-20261012 授权在北京时间 2026-10-12 08:00 上游监测结束后，完成统一 C++ Mock Bringup 与真实 Task→PickPlace Action 链路验收；USER-HW-20261012-02 将 Web UI 及必要桥接接口验证并入同轮。08:00 前只登记安排，不开始这些新增实现或复现。截止时若还有已触发事件，先完成其分析、冻结、回执及进程/容器清理，待原监测排空退出后再开始；不重复启动监测，不丢弃尾部事件。
+
+届时核对实际交付的固定 SHA、依赖和接口，在隔离副本提供带参数、命名空间、就绪检查与退出清理的统一 C++ Task/PickPlace/Mock 启动入口。验收须关联 Task 发出的下游 Action Goal UUID、反馈、成功/失败结果、取消传播与最终状态；独立服务器测试或 Cancel 受理不能代替真实链路。Web UI/桥接按同一候选版本验证提交、反馈/结果显示和取消，核查节点、唯一服务器、Topic 类型/QoS，以及启动/停止/重启残留，排除旧 Python 服务器冲突。
+
+沿用 Jazzy、Mock/必要 Fake、无外部网络/设备映射/宿主挂载/端口映射、2 CPU/4 GiB 隔离。允许修改启动、构建、参数、检查脚本、最小 ROS Action 接线及本轮 UI/必要桥接；FSM 状态转换、Action/Cancel 内核语义和 Motion Execution 内核仍归孙嘉明。缺陷保存最小复现并交接，不通过改写内核或放宽检查宣称通过。统一启动与 UI 接口验收不扩大为完整 MoveIt/FSM、NUC 或实机结果。
+
+交付顺序已获授权：先将启动、接线、Web UI 和必要桥接代码推送 `F1u0rite/meituan_challenge_ws` 的独立分支并创建 PR 请求负责人审阅；再将 SOP、验收报告、冻结证据、manifest/来源索引及此前已完成验收但尚未提交的相关监测脚本和证据推送 `AfonsoZhang/meituan-robotics-challenge-2026` 的 `origin/main`。两边互相记录实际验证 SHA、修复提交与 PR；按冻结 index 显式纳入被忽略证据，原始 outputs、缓存、本机配置不上传。不得自动合并或推进正式基线，未通过范围与负责人如实报告。
+
+以上为原授权与顺序。截止后已执行：监测 EXPIRED、14 份实际事件回执及旧进程清理核验后，从已交付 main `f7eaa2c…` 创建候选 `7da4322…`，未合并其余功能分支。统一启动与显式 cpp_mock Web 桥接已验真实 C++ Task→PickPlace；40 C++/39 UI 回归、六项实际链路正负场景和冲突/清理通过，但正常 Mock 的延迟 Cancel 为 ACK 后 ABORTED/520，C1 内核契约仍归孙嘉明。来源 TEAMMATE-CPPUI-20261012 / ENV-CPP-MOCK-WEBUI-20261012；[完整报告及固定提交 SOP](cpp-mock-webui-acceptance.md)列出命令、UUID、953 文件冻结和双仓库回执。[PR #8](https://github.com/F1u0rite/meituan_challenge_ws/pull/8)已请求 F1u0rite 审阅，不自动合并、不推进正式pin。本轮不关闭完整执行链、NUC 或实机。使用 OpenAI Codex 协助实现、验收与归档。
+
+## 2026-10-12 视觉回放自然退出补验
+
+TEAMMATE-VISIONREPLAY-20261012 / ENV-VISION-REPLAY-20261012 的 dc76a0b 相对父版本 e09d00e 修改6文件，自前验 e53c09f 累计18文件；中间仅视觉更新曾被监测过滤，本次一起核对。原14包/358 C++/269 Python/15 Mock E2E/6 ROS通过，colcon零测试、旧审计程序数和Python/MoveIt退出失败保留。原生安装程序新增自然退出与可选订阅等待，57项适配器测试通过；两次完整4/4自然退出、两次中途SIGINT收2帧均exit 0。无订阅者默认入口自然结束不表示送达；开启2秒等待的负例在首帧前明确exit 1。
+
+公开视觉80通过/1私有证据跳过，新增合成确认/过期CAD/数值等价不代表实测姿态或性能。V4.1/V4.2私有入口各exit 1、处理帧前缺目录和输入，完整失败保留。首次DDS快照节点名UNKNOWN、history/depth缺失；只证实消息类型/QoS兼容，代码身份和清理由独立记录核验。默认wait仍为0，未修复colcon登记、真实FSM消费者或实机。486文件、隔离清理和交接见[报告](vision-replay-acceptance.md)，没有改内核、合并或推进基线；08:00后授权任务继续待执行。OpenAI Codex协助原入口复现和来源登记。
+
+## 2026-10-12 Goal归属与实时Status补验
+
+TEAMMATE-OWNERSHIP-20261012 / ENV-TRAJECTORY-OWNERSHIP-20261012：681bb64相对45f497c的7文件改变轨迹端口pending UUID归属、Status合法性/接收龄和终态顺序门禁，新增15项受控真实DDS测试；Snapshot布局变化要求消费者重建。原始15包构建、269 Python/15 E2E/6 ROS通过，但FJT第7项DuplicateCancelOnlyOneBackendCall120秒超时，原XML为missing_result。其他417项C++ XML通过；同一未改二进制61项一次补跑及独立478项UBSan通过。原挂起没有现场线程栈，尚不能判定夹具/端口/中间件原因，交孙嘉明保留最小触发和差异分析。
+
+原生GenericSystem预检未收到Status，零Goal拒绝；测试夹具专用心跳不能当原生契约。默认move_group共存形成2个FJT客户端，再次零Goal BLOCKED。没有预热动作/伪造Status/放宽参数，原生其余执行场景NOT RUN，不沿用上轮四项PASS。完整FSM、异步Cancel/停稳宿主、Planner/FJT时间及独占执行契约仍未完成。固定MoveIt退出-11和旧Python220/510/520继续保留。708文件及清理见[验收报告](trajectory-ownership-acceptance.md)。08:00统一C++Mock/UI仍待触发，未修改内核、合并或推进正式基线；OpenAI Codex协助复现和登记。

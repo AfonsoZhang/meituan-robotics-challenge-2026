@@ -1,0 +1,1490 @@
+{
+  "observation": "ENV-CALIBRATION-20261012",
+  "recorded_at": "2026-10-11T18:19:38.803151+00:00",
+  "commit": "06ab689f25e87dcebf9fd04fdd581ec4755206f6",
+  "verdict": "PASS_OFFLINE_CALIBRATION_54_AND_READ_ONLY_FAKE_TF; REAL_CALIBRATION_AND_CONSUMER_WIRING_NOT_ACCEPTED; EXISTING_TASK_AND_MOVEIT_SHUTDOWN_FAILURES_RETAINED",
+  "formal_baseline_advanced": false,
+  "local_merge_performed": false,
+  "existing_sources_identical_to_reviewed_main": true,
+  "automatic_status": "COMPLETED_WITH_FAILURES",
+  "automatic_summary_complete": true,
+  "build_packages": 14,
+  "cpp_cases": 387,
+  "cpp_executables": 24,
+  "cpp_by_package": {
+    "mtc_core_cpp": 23,
+    "mtc_manipulation_cpp": 120,
+    "mtc_motion_execution_cpp": 88,
+    "mtc_moveit_planner": 29,
+    "mtc_ros2_action_cpp": 40,
+    "mtc_task_cpp": 87
+  },
+  "python_cases": 269,
+  "pure_python_mock_e2e": 15,
+  "ros_wiring_cases": 6,
+  "new_offline_calibration_tests": 54,
+  "analysis": {
+    "recorded_at": "2026-10-11T18:18:25.417567+00:00",
+    "verdict": "PASS_OFFLINE_CALIBRATION_54_AND_READ_ONLY_FAKE_TF; REAL_CALIBRATION_AND_CONSUMER_WIRING_NOT_ACCEPTED; EXISTING_TASK_AND_MOVEIT_SHUTDOWN_FAILURES_RETAINED",
+    "source": {
+      "at": "2026-10-11T18:14:06.802012+00:00",
+      "commit": "06ab689f25e87dcebf9fd04fdd581ec4755206f6",
+      "previous": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+      "review_base": "f7eaa2c0d2887aeada4fd635112c63c237962ff7",
+      "parents": [
+        "df02b2fac594b6cecfd0a76b70f62f70cf241ff3"
+      ],
+      "commit_metadata": "commit 06ab689f25e87dcebf9fd04fdd581ec4755206f6\nAuthor:     yyslyd <104951612+yyslyd@users.noreply.github.com>\nAuthorDate: Mon Oct 12 02:40:47 2026 +0900\nCommit:     yyslyd <104951612+yyslyd@users.noreply.github.com>\nCommitDate: Mon Oct 12 02:40:47 2026 +0900\n\n    docs(calibration): verify shared fake TF evidence and align planner handoff",
+      "incremental_commits": [
+        "06ab689f25e87dcebf9fd04fdd581ec4755206f6 df02b2fac594b6cecfd0a76b70f62f70cf241ff3 docs(calibration): verify shared fake TF evidence and align planner handoff",
+        "df02b2fac594b6cecfd0a76b70f62f70cf241ff3 3fc3417229304c40aaa139697153d8fafcd7dd7b f7eaa2c0d2887aeada4fd635112c63c237962ff7 Merge remote-tracking branch 'origin/main' into feat/calibration-tf-v1",
+        "3fc3417229304c40aaa139697153d8fafcd7dd7b 37fb74f53b5ed888d4612e30fe2d49d1865a96c9 fix(calibration): clarify mount datums and harden offline input validation",
+        "37fb74f53b5ed888d4612e30fe2d49d1865a96c9 1d940f7c5f12561fed6641457c0b4b630a282b05 feat(calibration): add S3 D435i V1 offline TF handoff and mount design"
+      ],
+      "incremental_changed_files": [
+        "TF_AND_CALIBRATION_HANDOFF.md",
+        "config/calibration/site_inventory.json",
+        "docs/calibration/D435I_OFFICIAL_PARAMETERS.md",
+        "docs/calibration/FAKE_RUNTIME_AUDIT.md",
+        "docs/calibration/FIELD_SOP.md",
+        "docs/calibration/IMPLEMENTATION_PLAN.md",
+        "docs/calibration/MODEL_FRAME_AUDIT.md",
+        "docs/calibration/OFFICIAL_SOURCE_RECEIPT.json",
+        "docs/calibration/S3_D435I_MOUNT_DESIGN.md",
+        "docs/calibration/TONIGHT_STATUS.md",
+        "docs/calibration/VALIDATION_REPORT.md",
+        "docs/calibration/frame_chain.svg",
+        "docs/calibration/handeye_samples.csv",
+        "docs/calibration/measurement_inventory.csv",
+        "docs/calibration/mount_design.png",
+        "docs/calibration/mount_design.svg",
+        "docs/calibration/tcp_samples.csv",
+        "docs/calibration/validation/design_not_real_case.json",
+        "docs/calibration/validation/fake_model_audit.json",
+        "docs/calibration/validation/generated_negative_inputs.json",
+        "docs/calibration/validation/nominal_mount.json",
+        "docs/calibration/validation/results.json",
+        "docs/calibration/validation/synthetic.json",
+        "docs/calibration/validation/unittest.txt",
+        "docs/calibration/validation/unknown_extrinsic.json",
+        "docs/calibration/validation_points.csv",
+        "examples/calibration/nominal_mount_design.json",
+        "examples/calibration/synthetic_case.json",
+        "examples/calibration/unknown_extrinsic_case.json",
+        "scripts/calibration/audit_fake_model.py",
+        "scripts/calibration/check_calibration.py",
+        "scripts/calibration/contract.py",
+        "scripts/calibration/derive_nominal_mount.py",
+        "scripts/calibration/geometry.py",
+        "scripts/calibration/run_offline_validation.py",
+        "tests/calibration/test_calibration.py",
+        "tests/calibration/test_fake_model_audit.py",
+        "tests/calibration/test_nominal_mount.py"
+      ],
+      "cumulative_changed_files": [
+        "README.md",
+        "README_FSM.md",
+        "TF_AND_CALIBRATION_HANDOFF.md",
+        "config/calibration/site_inventory.json",
+        "docs/calibration/D435I_OFFICIAL_PARAMETERS.md",
+        "docs/calibration/FAKE_RUNTIME_AUDIT.md",
+        "docs/calibration/FIELD_SOP.md",
+        "docs/calibration/IMPLEMENTATION_PLAN.md",
+        "docs/calibration/MODEL_FRAME_AUDIT.md",
+        "docs/calibration/OFFICIAL_SOURCE_RECEIPT.json",
+        "docs/calibration/S3_D435I_MOUNT_DESIGN.md",
+        "docs/calibration/TONIGHT_STATUS.md",
+        "docs/calibration/VALIDATION_REPORT.md",
+        "docs/calibration/frame_chain.svg",
+        "docs/calibration/handeye_samples.csv",
+        "docs/calibration/measurement_inventory.csv",
+        "docs/calibration/mount_design.png",
+        "docs/calibration/mount_design.svg",
+        "docs/calibration/tcp_samples.csv",
+        "docs/calibration/validation/design_not_real_case.json",
+        "docs/calibration/validation/fake_model_audit.json",
+        "docs/calibration/validation/generated_negative_inputs.json",
+        "docs/calibration/validation/nominal_mount.json",
+        "docs/calibration/validation/results.json",
+        "docs/calibration/validation/synthetic.json",
+        "docs/calibration/validation/unittest.txt",
+        "docs/calibration/validation/unknown_extrinsic.json",
+        "docs/calibration/validation_points.csv",
+        "docs/migration/PHASE2A_ROS2_ACTION_REPORT.md",
+        "docs/migration/ROS_WIRING_FIX_20261011.md",
+        "docs/planning/PLANNING_HANDOFF.md",
+        "docs/planning/README.md",
+        "docs/planning/evidence/20261011_075828/SUMMARY.txt",
+        "docs/planning/evidence/20261011_075828/aubo_S3_fake_expanded.urdf",
+        "docs/planning/evidence/20261011_075828/aubo_robot.srdf",
+        "docs/planning/evidence/20261011_075828/battery_sequence_magnetic_latch_v2_T0_20261011_075908.yaml",
+        "docs/planning/evidence/20261011_075828/battery_sequence_passive_hook_v1_T0_20261011_075907.yaml",
+        "docs/planning/evidence/20261011_075828/control_launch.log",
+        "docs/planning/evidence/20261011_075828/fixed_pose_plan_20261011_075906.yaml",
+        "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.gv",
+        "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.pdf",
+        "docs/planning/evidence/20261011_075828/move_group_launch.log",
+        "docs/planning/evidence/20261011_075828/plan_battery_sequence_v1.log",
+        "docs/planning/evidence/20261011_075828/plan_battery_sequence_v2.log",
+        "docs/planning/evidence/20261011_075828/plan_fixed_pose.log",
+        "docs/planning/evidence/20261011_075828/ros_graph.txt",
+        "docs/planning/evidence/20261011_075828/tf2_echo_base_link_to_ee_link.txt",
+        "docs/planning/evidence/20261011_075828/tf2_echo_world_to_base_link.txt",
+        "docs/planning/evidence/20261011_075828/tf2_echo_world_to_ee_link.txt",
+        "docs/planning/evidence/20261011_075828/view_frames.log",
+        "examples/calibration/nominal_mount_design.json",
+        "examples/calibration/synthetic_case.json",
+        "examples/calibration/unknown_extrinsic_case.json",
+        "scripts/calibration/audit_fake_model.py",
+        "scripts/calibration/check_calibration.py",
+        "scripts/calibration/contract.py",
+        "scripts/calibration/derive_nominal_mount.py",
+        "scripts/calibration/geometry.py",
+        "scripts/calibration/run_offline_validation.py",
+        "src/mtc_manipulation/mtc_manipulation/pick_place_server.py",
+        "src/mtc_moveit_planner/CMakeLists.txt",
+        "src/mtc_moveit_planner/README.md",
+        "src/mtc_moveit_planner/config/planner.yaml",
+        "src/mtc_moveit_planner/config/sequence_v2_override.yaml",
+        "src/mtc_moveit_planner/include/mtc_moveit_planner/move_group_backend.hpp",
+        "src/mtc_moveit_planner/include/mtc_moveit_planner/moveit_planner_port.hpp",
+        "src/mtc_moveit_planner/include/mtc_moveit_planner/plan_report_io.hpp",
+        "src/mtc_moveit_planner/include/mtc_moveit_planner/planner_config.hpp",
+        "src/mtc_moveit_planner/include/mtc_moveit_planner/planning_backend.hpp",
+        "src/mtc_moveit_planner/include/mtc_moveit_planner/pose_math.hpp",
+        "src/mtc_moveit_planner/include/mtc_moveit_planner/ros_params.hpp",
+        "src/mtc_moveit_planner/include/mtc_moveit_planner/trajectory_conversion.hpp",
+        "src/mtc_moveit_planner/launch/plan_tool.launch.py",
+        "src/mtc_moveit_planner/package.xml",
+        "src/mtc_moveit_planner/scripts/build_driver_ws.sh",
+        "src/mtc_moveit_planner/scripts/build_planner.sh",
+        "src/mtc_moveit_planner/scripts/env.sh",
+        "src/mtc_moveit_planner/scripts/ros_graph_snapshot.py",
+        "src/mtc_moveit_planner/scripts/run_planning_evidence.sh",
+        "src/mtc_moveit_planner/scripts/setup_ros_jazzy.sh",
+        "src/mtc_moveit_planner/src/move_group_backend.cpp",
+        "src/mtc_moveit_planner/src/moveit_planner_port.cpp",
+        "src/mtc_moveit_planner/src/plan_battery_sequence_main.cpp",
+        "src/mtc_moveit_planner/src/plan_fixed_pose_main.cpp",
+        "src/mtc_moveit_planner/src/plan_report_io.cpp",
+        "src/mtc_moveit_planner/src/planner_config.cpp",
+        "src/mtc_moveit_planner/src/ros_params.cpp",
+        "src/mtc_moveit_planner/src/trajectory_conversion.cpp",
+        "src/mtc_moveit_planner/test/fake_backend.hpp",
+        "src/mtc_moveit_planner/test/test_fsm_accepts_planner_output.cpp",
+        "src/mtc_moveit_planner/test/test_moveit_planner_port.cpp",
+        "src/mtc_moveit_planner/test/test_pose_math.cpp",
+        "src/mtc_moveit_planner/test/test_trajectory_conversion.cpp",
+        "src/mtc_ros2_action_cpp/CMakeLists.txt",
+        "src/mtc_ros2_action_cpp/README.md",
+        "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/action_slot.hpp",
+        "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/mock_ports.hpp",
+        "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/motion_server.hpp",
+        "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/pick_place_server.hpp",
+        "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/task_server.hpp",
+        "src/mtc_ros2_action_cpp/package.xml",
+        "src/mtc_ros2_action_cpp/src/mock_ports.cpp",
+        "src/mtc_ros2_action_cpp/src/motion_main.cpp",
+        "src/mtc_ros2_action_cpp/src/motion_server.cpp",
+        "src/mtc_ros2_action_cpp/src/pick_place_main.cpp",
+        "src/mtc_ros2_action_cpp/src/pick_place_server.cpp",
+        "src/mtc_ros2_action_cpp/src/task_main.cpp",
+        "src/mtc_ros2_action_cpp/src/task_server.cpp",
+        "src/mtc_ros2_action_cpp/test/ros_fixture.hpp",
+        "src/mtc_ros2_action_cpp/test/test_action_contracts.cpp",
+        "src/mtc_ros2_action_cpp/test/test_motion_action.cpp",
+        "src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp",
+        "src/mtc_ros2_action_cpp/test/test_task_action.cpp",
+        "src/mtc_ros2_action_cpp/test/verify_results.py",
+        "src/mtc_task/mtc_task/task_executor.py",
+        "tests/calibration/test_calibration.py",
+        "tests/calibration/test_fake_model_audit.py",
+        "tests/calibration/test_nominal_mount.py",
+        "tests/test_ros_wiring.py"
+      ],
+      "changed_file_inventory": [
+        {
+          "path": "TF_AND_CALIBRATION_HANDOFF.md",
+          "size_bytes": 13215,
+          "sha256": "688e5c139a92bdcac953f0787b132267c20b962fa8ebd7dac37bcaacf6de036b"
+        },
+        {
+          "path": "config/calibration/site_inventory.json",
+          "size_bytes": 3238,
+          "sha256": "c7aa5f53e771274177183ceb0db3031986733d0fc50e5b7beb4ef33feb2ef7ed"
+        },
+        {
+          "path": "docs/calibration/D435I_OFFICIAL_PARAMETERS.md",
+          "size_bytes": 5737,
+          "sha256": "ca3011f6e83d1f288b43f54424e7770bd2102d0b72688aacd0c1d48f88004220"
+        },
+        {
+          "path": "docs/calibration/FAKE_RUNTIME_AUDIT.md",
+          "size_bytes": 6993,
+          "sha256": "1664d69c15915ea674e4cc565a53b6c2dd7d3712c10fec888de562e9bddf0217"
+        },
+        {
+          "path": "docs/calibration/FIELD_SOP.md",
+          "size_bytes": 5839,
+          "sha256": "315e6f67398857c5f8b7a362307c598f8f5437f2a1eea4d3872592091f660291"
+        },
+        {
+          "path": "docs/calibration/IMPLEMENTATION_PLAN.md",
+          "size_bytes": 3369,
+          "sha256": "a4ef10f59b3cd562bfb8cd2ffa77fda7a2bc9ddc6d3b865068a9c010b124604d"
+        },
+        {
+          "path": "docs/calibration/MODEL_FRAME_AUDIT.md",
+          "size_bytes": 3968,
+          "sha256": "e8af25cb8a0a6f19b8dbf7a939422bef490cabcb353e54ea2aeac328e6059440"
+        },
+        {
+          "path": "docs/calibration/OFFICIAL_SOURCE_RECEIPT.json",
+          "size_bytes": 4724,
+          "sha256": "c1081a5bfff65a81b941604e3e41c6e91f019134c56be0770a8416455e1b6bbf"
+        },
+        {
+          "path": "docs/calibration/S3_D435I_MOUNT_DESIGN.md",
+          "size_bytes": 12687,
+          "sha256": "b1ae60d2ffb86abccf55bb345aab171be0954b919e853f77fbc250e1134a2c15"
+        },
+        {
+          "path": "docs/calibration/TONIGHT_STATUS.md",
+          "size_bytes": 3025,
+          "sha256": "4bd58dd249dd937a2b833921224f37a7abf2c3d2f54e49b5eeab03882f51536c"
+        },
+        {
+          "path": "docs/calibration/VALIDATION_REPORT.md",
+          "size_bytes": 4593,
+          "sha256": "8836c8e7fa32da5ba332b0abd96069a86de303692bd0530b3a86b6456de524ac"
+        },
+        {
+          "path": "docs/calibration/frame_chain.svg",
+          "size_bytes": 3252,
+          "sha256": "dfd4084d5ba83500ab0f235a63bf06ee8faedc8965d77ff9836b17e59b00be55"
+        },
+        {
+          "path": "docs/calibration/handeye_samples.csv",
+          "size_bytes": 348,
+          "sha256": "283249ab7a989688549ef2277656ec34b946597a0527dcf63d12cb92f3c11fff"
+        },
+        {
+          "path": "docs/calibration/measurement_inventory.csv",
+          "size_bytes": 2848,
+          "sha256": "fc4ecc9b17206ea79f85abf2e12bac601aa40dbf1384f866abcf82713d069e4e"
+        },
+        {
+          "path": "docs/calibration/mount_design.png",
+          "size_bytes": 172232,
+          "sha256": "5593909f6f885291cbd4689c398e55aaa92815b90dff21564adeff38120d4de3"
+        },
+        {
+          "path": "docs/calibration/mount_design.svg",
+          "size_bytes": 151721,
+          "sha256": "34296193eab381c9c342cdd52663fbe72866e6e3659c6e68befd33df737077e8"
+        },
+        {
+          "path": "docs/calibration/tcp_samples.csv",
+          "size_bytes": 205,
+          "sha256": "4de15ef272ac9549d024a85834ed8798322e86a047841804267dc92ee7ce86b0"
+        },
+        {
+          "path": "docs/calibration/validation/design_not_real_case.json",
+          "size_bytes": 143,
+          "sha256": "7b70ccaa24d96d343131afa844c74d32783c6403ba3b52638505a1aaad192fac"
+        },
+        {
+          "path": "docs/calibration/validation/fake_model_audit.json",
+          "size_bytes": 2840,
+          "sha256": "dec7e8cb53127228e2c68c14cdd68d19f0ecb6e0d7b04ce88eb22cc60af7576a"
+        },
+        {
+          "path": "docs/calibration/validation/generated_negative_inputs.json",
+          "size_bytes": 2958,
+          "sha256": "67a4b5ca4043564739248bf8d06f8d0139e35a40e3e2b9627d0c4233a939a631"
+        },
+        {
+          "path": "docs/calibration/validation/nominal_mount.json",
+          "size_bytes": 2763,
+          "sha256": "a4146d352bf83a0d0f6b6a79cbb97cb20ea17bd07472e16196072c9763a8095d"
+        },
+        {
+          "path": "docs/calibration/validation/results.json",
+          "size_bytes": 14165,
+          "sha256": "857cd92ac16f65068e514dbbd4e6e93f1e9b569a11687b5ffd561889e7f5aa9c"
+        },
+        {
+          "path": "docs/calibration/validation/synthetic.json",
+          "size_bytes": 463,
+          "sha256": "ae0417e4c419826690b45426abb0eb601a731125b1835123696fe112eafddb8d"
+        },
+        {
+          "path": "docs/calibration/validation/unittest.txt",
+          "size_bytes": 7413,
+          "sha256": "97c047a9993f56ce066ed17da3511f97a852d1623d85edda9893b711a01ea3cf"
+        },
+        {
+          "path": "docs/calibration/validation/unknown_extrinsic.json",
+          "size_bytes": 165,
+          "sha256": "b1e346f0e607785d7329a1d1b7822413a9953797d478ec6249a0a2175c4843b4"
+        },
+        {
+          "path": "docs/calibration/validation_points.csv",
+          "size_bytes": 305,
+          "sha256": "ecaca52ab6acd5e73a83e52df67c091f0ec8737c0cda56410c2fbd6e582a4916"
+        },
+        {
+          "path": "examples/calibration/nominal_mount_design.json",
+          "size_bytes": 636,
+          "sha256": "dc141e2b6a7c3d275cbf4e10d0bd34fb7d76e483a35beea8bf1b99ea319d2190"
+        },
+        {
+          "path": "examples/calibration/synthetic_case.json",
+          "size_bytes": 1304,
+          "sha256": "d1a5ab75a27c85351f60659d62a65b5deaadc7493002a04cde5ada6b6d13099c"
+        },
+        {
+          "path": "examples/calibration/unknown_extrinsic_case.json",
+          "size_bytes": 1518,
+          "sha256": "1eadcf390e7dcb0dda7ad0284b95805d1f5465cd97fc58304f1c86f5186a8218"
+        },
+        {
+          "path": "scripts/calibration/audit_fake_model.py",
+          "size_bytes": 7547,
+          "sha256": "6c154a4a8afb942c24e4e5de7ad0bbe461388b3700f15fa55ec3603f7211f087"
+        },
+        {
+          "path": "scripts/calibration/check_calibration.py",
+          "size_bytes": 2041,
+          "sha256": "9033a21d89a61d7bdf1db7d174ce65bebd67f6c7bec2da8a148ca39ce431f981"
+        },
+        {
+          "path": "scripts/calibration/contract.py",
+          "size_bytes": 8320,
+          "sha256": "a787563f7e55360e9f70777aaf7f6e9b38f3ee7c900523b4e04dc08a5a35869c"
+        },
+        {
+          "path": "scripts/calibration/derive_nominal_mount.py",
+          "size_bytes": 6981,
+          "sha256": "e8d57ce013e536e7e8b96a2ba4bf6dcac08abe85aa8596cda509cc25b3f4cd2e"
+        },
+        {
+          "path": "scripts/calibration/geometry.py",
+          "size_bytes": 3071,
+          "sha256": "ec4e48280b1ddfd6f9c81ea6cc25868bf5e2f81a6ff29791e7549b56578389f8"
+        },
+        {
+          "path": "scripts/calibration/run_offline_validation.py",
+          "size_bytes": 12263,
+          "sha256": "923babaa7a12d11538bd3142c5e5b2f87278d5bbd1348bc8ff03d84be22a7c3f"
+        },
+        {
+          "path": "tests/calibration/test_calibration.py",
+          "size_bytes": 15380,
+          "sha256": "8053974bbf398678596ceedea1deeecd3b398f15b2ae94251ffc31e778497bfc"
+        },
+        {
+          "path": "tests/calibration/test_fake_model_audit.py",
+          "size_bytes": 2832,
+          "sha256": "35ddf2018c606e032ac1039b1eb4018d23377b20de26111dd477dd5a7770f2b9"
+        },
+        {
+          "path": "tests/calibration/test_nominal_mount.py",
+          "size_bytes": 6374,
+          "sha256": "a84cb2ee768f051c0b56c3853d3faaef9938a5fcf62f2a1959433389dd9ba174"
+        }
+      ],
+      "all_existing_sources_identical_to_reviewed_main": true,
+      "src_tree": "34763d423d9c9bb8423a618620d710164b4ef45b",
+      "previous_src_tree": "34763d423d9c9bb8423a618620d710164b4ef45b",
+      "previous_frozen_files_verified": 450,
+      "previous_frozen_index_sha256": "a6641cd712b8538b6dbc5a848359aa483e295e5e76a1c04ccd5453406d35ac9e",
+      "previous_signed_report_sha256": "f2f31eb07f1dfd6cd5980ab2127d2cda7957dba17878e40686e59140abc1c837",
+      "automatic_environment_and_harness_identical_to_previous": true,
+      "observed_refs": [
+        "refs/heads/feat/calibration-tf-v1",
+        "refs/pull/6/head"
+      ],
+      "binding": {
+        "planner": "MockPlanner",
+        "motion": "AsyncMockMotion",
+        "calibration_contract_consumed": false
+      },
+      "other_branches_present": {
+        "new_trajectory": false,
+        "new_vision": false,
+        "new_planning_scene": false
+      },
+      "changes": "38 added offline calibration/TF/TCP geometry, input contract, mount estimate, model-log audit, examples, 54 tests, documentation and upstream generated evidence. No existing runtime source/config changes.",
+      "scope_warning": "Upstream claimed V1 and flange camera installation confirmations are upstream handoff premises, not new user decisions in this project. Real calibration stays UNKNOWN; no end-effector selection recorded.",
+      "integration_limit": "No ROS TF listener, hand-eye solver, TF publisher or planner/FSM consumer; diagnostic JSON motion_authorized=false. Existing planner uses latest TF and slot position without independently specified placement orientation.",
+      "source_modified": false,
+      "formal_baseline_advanced": false,
+      "local_merge_performed": false
+    },
+    "automatic": {
+      "status": "COMPLETED_WITH_FAILURES",
+      "summary_steps": 25,
+      "original_files_verified": 305,
+      "build_packages": 14,
+      "cpp_cases": 387,
+      "cpp_executables": 24,
+      "python_cases": 269,
+      "e2e": 15,
+      "ros_wiring": 6,
+      "cpp_audit_failure": "FAIL: expects 16, sees 20 *_cpp executables. No missing/unexpected/duplicate/bad case. Planner package excluded by that glob.",
+      "colcon_aggregate_note": "685 includes CTest wrappers and interface lint",
+      "legacy_task": [
+        {
+          "case": "early-goal",
+          "accepted": true,
+          "result": {
+            "status": 6,
+            "result": {
+              "success": false,
+              "completed_count": 0,
+              "completed_slots": [],
+              "error_code": 220,
+              "message": "task acceptance-early-goal exceeded timeout_ms=5000 (elapsed 5.004s)"
+            }
+          },
+          "child_failure": true,
+          "shutdown_escalated": false
+        },
+        {
+          "case": "delayed-goal",
+          "accepted": true,
+          "result": {
+            "status": 6,
+            "result": {
+              "success": false,
+              "completed_count": 0,
+              "completed_slots": [],
+              "error_code": 510,
+              "message": "state INIT timed out after 5.044s -> HARDWARE_FAULT"
+            }
+          },
+          "child_failure": true,
+          "shutdown_escalated": false
+        },
+        {
+          "case": "cancel-goal",
+          "accepted": true,
+          "result": {
+            "status": 6,
+            "result": {
+              "success": false,
+              "completed_count": 0,
+              "completed_slots": [],
+              "error_code": 220,
+              "message": "task acceptance-cancel-goal exceeded timeout_ms=5000 (elapsed 5.013s)"
+            }
+          },
+          "child_failure": true,
+          "shutdown_escalated": false
+        }
+      ],
+      "moveit": {
+        "scope": "Independent S3 MoveIt / GenericSystem; no FSM or physical robot",
+        "planning_execution": "PASS",
+        "clean_shutdown": "FAIL",
+        "plugins": [
+          "mock_components/GenericSystem"
+        ],
+        "controller_action_servers": [
+          {
+            "node": "joint_trajectory_controller",
+            "namespace": "/",
+            "types": [
+              "control_msgs/action/FollowJointTrajectory"
+            ]
+          }
+        ],
+        "initial_rad": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_rad": [
+          0.05,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "joint_names": [
+          "shoulder_joint",
+          "upperArm_joint",
+          "foreArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "accepted": true,
+        "execute": {
+          "status": 4,
+          "result": {
+            "error_code": {
+              "val": 1,
+              "message": "",
+              "source": ""
+            }
+          }
+        },
+        "actual_rad": [
+          0.05008431040695869,
+          1.9454540126025673e-05,
+          -8.892000624909997e-05,
+          2.826893841847778e-05,
+          3.25862598605454e-05,
+          -9.371537333354354e-05
+        ],
+        "max_error_rad": 9.371537333354354e-05,
+        "distinct_joint_stamps": 209,
+        "shutdown": [
+          {
+            "launch": "move-group",
+            "escalated": false,
+            "already_exited": false,
+            "exit_code": 0,
+            "child_failures": [
+              "process has died [pid 4954, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_2m61el53 --params-file /tmp/launch_params_ahsc0pop']."
+            ]
+          },
+          {
+            "launch": "control",
+            "escalated": false,
+            "already_exited": false,
+            "exit_code": 0,
+            "child_failures": []
+          }
+        ],
+        "json_note": "Any non-finite optional ROS fields are null; original representation retained in result.raw.txt"
+      },
+      "dependency_gaps": [
+        "ament_python rosdep key",
+        "driver docker.io",
+        "driver ros-jazzy-ros2-controllers-test-nodes"
+      ],
+      "driver_test_aggregate": {
+        "total": 1104,
+        "failures": 279,
+        "skipped": 259,
+        "scope": "Includes lint and CTest wrappers, not physical functionality"
+      }
+    },
+    "supplement": {
+      "delivered_action_verifier": "358 cases/20 executables PASS; planner29/4 checked separately",
+      "offline": {
+        "generated_at": "2026-10-11T18:13:24+00:00",
+        "generator": "python -B scripts/calibration/run_offline_validation.py",
+        "environment": {
+          "python": "3.12.3",
+          "platform": "linux",
+          "ROS": "NOT RUN",
+          "hardware": "NOT RUN",
+          "network": "NOT USED"
+        },
+        "git": {
+          "head": "06ab689f25e87dcebf9fd04fdd581ec4755206f6",
+          "uncommitted_calibration_paths": []
+        },
+        "unittest": {
+          "command": "python -B -m unittest discover -s tests/calibration -v",
+          "exit_code": 0,
+          "tests_ran": 54,
+          "skipped": 0,
+          "passed": true
+        },
+        "documented_cases": [
+          {
+            "name": "synthetic",
+            "command": "python -B scripts/calibration/check_calibration.py examples/calibration/synthetic_case.json",
+            "exit_code": 0,
+            "expected_exit_code": 0,
+            "expected_fields": {
+              "status": "DIAGNOSTIC_OK",
+              "simulation_only": true,
+              "calibration_status": "SYNTHETIC_ONLY",
+              "stamp_ns": 10000000000
+            },
+            "note": "pure math fixture, not hardware data",
+            "passed": true,
+            "problems": [],
+            "result": {
+              "status": "DIAGNOSTIC_OK",
+              "frame_id": "base_link",
+              "stamp_ns": 10000000000,
+              "time_domain": "synthetic",
+              "length_unit": "m",
+              "position": [
+                1.0,
+                1.1,
+                0.049999999999999996
+              ],
+              "orientation_xyzw": [
+                -0.7071067811865476,
+                0.0,
+                0.0,
+                0.7071067811865476
+              ],
+              "age_ns": 100000000,
+              "valid": true,
+              "ring_pose_valid": true,
+              "simulation_only": true,
+              "motion_authorized": false,
+              "calibration_status": "SYNTHETIC_ONLY"
+            },
+            "stderr_tail": ""
+          },
+          {
+            "name": "unknown_extrinsic",
+            "command": "python -B scripts/calibration/check_calibration.py examples/calibration/unknown_extrinsic_case.json",
+            "exit_code": 2,
+            "expected_exit_code": 2,
+            "expected_fields": {
+              "status": "REJECTED",
+              "code": "UNKNOWN_CALIBRATION"
+            },
+            "note": "UNKNOWN mount edge must not become identity",
+            "passed": true,
+            "problems": [],
+            "result": {
+              "status": "REJECTED",
+              "code": "UNKNOWN_CALIBRATION",
+              "message": "UNKNOWN_CALIBRATION: wrist3_Link <- camera_link is UNKNOWN",
+              "motion_authorized": false
+            },
+            "stderr_tail": ""
+          },
+          {
+            "name": "nominal_mount",
+            "command": "python -B scripts/calibration/derive_nominal_mount.py examples/calibration/nominal_mount_design.json",
+            "exit_code": 0,
+            "expected_exit_code": 0,
+            "expected_fields": {
+              "status": "ESTIMATED",
+              "deployment_ready": false
+            },
+            "note": "design estimate only",
+            "passed": true,
+            "problems": [],
+            "result": {
+              "status": "ESTIMATED",
+              "data_kind": "MOUNT_DESIGN",
+              "camera_model": "D435i",
+              "reference_frame": "flange_design_F",
+              "length_unit": "m",
+              "quaternion_order": "xyzw",
+              "T_F_front_glass_center": {
+                "translation": [
+                  0.1,
+                  0.0,
+                  0.04
+                ],
+                "rotation_xyzw": [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              "T_H_depth_optical_nominal": {
+                "translation": [
+                  -0.0175,
+                  0.0,
+                  -0.0042
+                ],
+                "rotation_xyzw": [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              "T_F_depth_optical": {
+                "translation": [
+                  0.0825,
+                  0.0,
+                  0.0358
+                ],
+                "rotation_xyzw": [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              "T_F_camera_link_nominal": {
+                "translation": [
+                  0.0825,
+                  0.0,
+                  0.0358
+                ],
+                "rotation_xyzw": [
+                  0.5,
+                  -0.5,
+                  0.5,
+                  0.5
+                ]
+              },
+              "assumptions": [
+                {
+                  "item": "screw_axis_x_in_H_m",
+                  "value": 0.0,
+                  "status": "ASSUMED",
+                  "basis": "1/4-20 centreline assumed on the housing width centre; not dimensioned in Fig.10-9 (the official ROS description makes the same approximation)"
+                },
+                {
+                  "item": "imager_axis_y_in_H_m",
+                  "value": 0.0,
+                  "status": "ASSUMED",
+                  "basis": "lens centreline (-C-) assumed at the housing height centre; not dimensioned in Fig.10-9"
+                },
+                {
+                  "item": "R_H_depth_optical",
+                  "value": "identity",
+                  "status": "ASSUMED",
+                  "basis": "housing axes parallel to the calibrated optical axes; no datasheet angular tolerance"
+                },
+                {
+                  "item": "left_imager_from_screw_axis_m",
+                  "value": 0.0175,
+                  "status": "DATASHEET_REFERENCE",
+                  "basis": "p146 Fig.10-9 reference dimension, from the 1/4-20 centreline towards optical -X"
+                },
+                {
+                  "item": "zero_depth_behind_glass_m",
+                  "value": 0.0042,
+                  "status": "DATASHEET",
+                  "basis": "p94 Table 4-16 for D435i; H lies on the front cover glass, about 0.1 mm behind the front aluminium plate"
+                },
+                {
+                  "item": "camera_link_origin",
+                  "value": "depth optical origin",
+                  "status": "WRAPPER_CONVENTION",
+                  "basis": "realsense-ros README: camera_link = left IR = depth origin; verify installed wrapper TF"
+                }
+              ],
+              "deployment_ready": false,
+              "motion_authorized": false,
+              "pending": [
+                "verify flange_design_F relative to deployed robot frame",
+                "check V1 tool and bracket geometry, holes, occlusion and cable space",
+                "measure rear M3 holes against the 1/4-20 axis or left imager if the bracket uses them",
+                "confirm the camera model label (f variants have a different zero-depth offset)",
+                "read actual depth/color/internal TF from this D435i",
+                "verify installation and calibration errors against task tolerance"
+              ]
+            },
+            "stderr_tail": ""
+          },
+          {
+            "name": "design_not_real_case",
+            "command": "python -B scripts/calibration/check_calibration.py examples/calibration/nominal_mount_design.json",
+            "exit_code": 2,
+            "expected_exit_code": 2,
+            "expected_fields": {
+              "status": "REJECTED",
+              "code": "INVALID_CONFIG"
+            },
+            "note": "schema mismatch only; status isolation is covered by unit tests",
+            "passed": true,
+            "problems": [],
+            "result": {
+              "status": "REJECTED",
+              "code": "INVALID_CONFIG",
+              "message": "INVALID_CONFIG: expected schema_version 1",
+              "motion_authorized": false
+            },
+            "stderr_tail": ""
+          },
+          {
+            "name": "site_inventory_not_a_case",
+            "command": "python -B scripts/calibration/check_calibration.py config/calibration/site_inventory.json",
+            "exit_code": 2,
+            "expected_exit_code": 2,
+            "expected_fields": {
+              "status": "REJECTED",
+              "code": "INVALID_POSE"
+            },
+            "note": "inventory has no observation and cannot produce a target",
+            "passed": true,
+            "problems": [],
+            "result": {
+              "status": "REJECTED",
+              "code": "INVALID_POSE",
+              "message": "INVALID_POSE: pose must be an object",
+              "motion_authorized": false
+            },
+            "stderr_tail": ""
+          },
+          {
+            "name": "fake_model_audit",
+            "command": "python -B scripts/calibration/audit_fake_model.py",
+            "exit_code": 0,
+            "expected_exit_code": 0,
+            "expected_fields": {
+              "all_passed": true,
+              "evidence_kind": "FAKE_RUNTIME_CAPTURE",
+              "real_calibration_verified": false
+            },
+            "note": "archived mock hardware model and TF logs; no live ROS or physical measurements",
+            "passed": true,
+            "problems": [],
+            "result": {
+              "all_passed": true,
+              "evidence_kind": "FAKE_RUNTIME_CAPTURE",
+              "real_calibration_verified": false,
+              "motion_authorized": false,
+              "checks": {
+                "fake_zero_initial_state": true,
+                "s3_joint_names": true,
+                "srdf_base_and_tip": true,
+                "world_base_identity": true,
+                "wrist_ee_positive_quarter_turn": true
+              },
+              "logs": {
+                "tf2_echo_world_to_base_link.txt": {
+                  "passed": true,
+                  "samples": 5,
+                  "first_stamp_text": "0.0",
+                  "last_stamp_text": "0.0",
+                  "max_translation_component_difference_m": 0.0,
+                  "max_rotation_matrix_component_difference": 0.0
+                },
+                "tf2_echo_base_link_to_ee_link.txt": {
+                  "passed": true,
+                  "samples": 5,
+                  "first_stamp_text": "1791723527.404980616",
+                  "last_stamp_text": "1791723531.359971157",
+                  "max_translation_component_difference_m": 0.00019999999999997797,
+                  "max_rotation_matrix_component_difference": 1.8519323399573677e-15
+                },
+                "tf2_echo_world_to_ee_link.txt": {
+                  "passed": true,
+                  "samples": 7,
+                  "first_stamp_text": "1791723533.41307182",
+                  "last_stamp_text": "1791723539.386979562",
+                  "max_translation_component_difference_m": 0.00019999999999997797,
+                  "max_rotation_matrix_component_difference": 1.8519323399573677e-15
+                }
+              },
+              "sha256_lf_normalized": {
+                "aubo_S3_fake_expanded.urdf": "6be44f5bd3ededc1ab46c76f4b713d4a19f1b164caf82565d2ccec50bda7f160",
+                "aubo_robot.srdf": "926b1306a6817aa4f13aff016ebb1a4247fe689e2f68794bde0a6b69fd8b9471",
+                "tf2_echo_world_to_base_link.txt": "2b671387667911fd1b68f4521dd91ebbe02505e764c858ca6392197c035ada92",
+                "tf2_echo_base_link_to_ee_link.txt": "493613cb2273ef5332ee9247f290cc3c8f9693905193bdb16bb1c046d985b4ea",
+                "tf2_echo_world_to_ee_link.txt": "12be8d25a48889efe07b6b3e45b3b6c1f7f9f5fc21856d42c0fb7bed3aedd38c"
+              },
+              "T_base_ee_q0": {
+                "translation_m": [
+                  -5.638273863274414e-17,
+                  -0.2562,
+                  0.8072
+                ],
+                "matrix": [
+                  [
+                    -6.123233995736778e-17,
+                    -1.0,
+                    1.8519323399573677e-15,
+                    -5.638273863274414e-17
+                  ],
+                  [
+                    1.2246467991473544e-16,
+                    -1.8519323399573677e-15,
+                    -1.0,
+                    -0.2562
+                  ],
+                  [
+                    1.0,
+                    -6.123233995736756e-17,
+                    1.2246467991473554e-16,
+                    0.8072
+                  ],
+                  [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                  ]
+                ]
+              },
+              "T_wrist3_ee": {
+                "matrix": [
+                  [
+                    6.123233995736766e-17,
+                    -1.0,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    1.0,
+                    6.123233995736766e-17,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0
+                  ],
+                  [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                  ]
+                ]
+              },
+              "scope": "Archived fake capture only. No time-synchronized real joint states, camera/TCP or physical flange proof."
+            },
+            "stderr_tail": ""
+          }
+        ],
+        "generated_negative_cases": [
+          {
+            "name": "overflow_snapshot",
+            "command": "python -B scripts/calibration/check_calibration.py <tmp>/overflow_snapshot.json",
+            "exit_code": 2,
+            "expected_exit_code": 2,
+            "passed": true,
+            "problems": [],
+            "note": "synthetic case, first translation = 10**400"
+          },
+          {
+            "name": "overflow_mount",
+            "command": "python -B scripts/calibration/derive_nominal_mount.py <tmp>/overflow_mount.json",
+            "exit_code": 2,
+            "expected_exit_code": 2,
+            "passed": true,
+            "problems": [],
+            "note": "design, glass x = 10**400"
+          },
+          {
+            "name": "deep_nesting_snapshot",
+            "command": "python -B scripts/calibration/check_calibration.py <tmp>/deep_nesting.json",
+            "exit_code": 2,
+            "expected_exit_code": 2,
+            "passed": true,
+            "problems": [],
+            "note": "200000 nested JSON arrays"
+          },
+          {
+            "name": "deep_nesting_mount",
+            "command": "python -B scripts/calibration/derive_nominal_mount.py <tmp>/deep_nesting.json",
+            "exit_code": 2,
+            "expected_exit_code": 2,
+            "passed": true,
+            "problems": [],
+            "note": "200000 nested JSON arrays"
+          },
+          {
+            "name": "mm_typed_as_m_mount",
+            "command": "python -B scripts/calibration/derive_nominal_mount.py <tmp>/mm_typed_as_m_mount.json",
+            "exit_code": 2,
+            "expected_exit_code": 2,
+            "passed": true,
+            "problems": [],
+            "note": "design, [100, 0, 40] under length_unit m"
+          }
+        ],
+        "format_checks": {
+          "passed": true,
+          "problems": [],
+          "csv_column_counts": {
+            "handeye_samples.csv": [
+              27
+            ],
+            "measurement_inventory.csv": [
+              9
+            ],
+            "tcp_samples.csv": [
+              18
+            ],
+            "validation_points.csv": [
+              21
+            ]
+          },
+          "local_links_checked": 42
+        },
+        "all_passed": true,
+        "scope": "offline mechanism evidence only; not hand-eye accuracy, robot motion or competition tolerance"
+      },
+      "offline_source_identity": {
+        "source_test_identities": [
+          "test_calibration.FeatureGate.test_calibration_feature_exists",
+          "test_calibration.GeometryTests.test_rotation_and_translation_transform_position_and_orientation",
+          "test_calibration.GeometryTests.test_compose_matches_hand_computed_matrix_for_noncoaxial_rotations",
+          "test_calibration.GeometryTests.test_inverse_recovers_position_for_noncommuting_rotations",
+          "test_calibration.GeometryTests.test_tcp_compensation_is_inverse_and_includes_rotation",
+          "test_calibration.GeometryTests.test_zero_quaternion_rejected",
+          "test_calibration.GeometryTests.test_nonunit_quaternion_is_not_silently_normalized",
+          "test_calibration.GeometryTests.test_nan_and_infinity_rejected",
+          "test_calibration.GeometryTests.test_dimensions_and_non_numeric_values_rejected",
+          "test_calibration.ContractTests.test_multihop_eye_in_hand_at_observation_time",
+          "test_calibration.ContractTests.test_reverse_graph_lookup_recovers_original_pose",
+          "test_calibration.ContractTests.test_camera_moves_with_wrist_instead_of_world_static",
+          "test_calibration.ContractTests.test_unknown_extrinsic_is_rejected_not_identity",
+          "test_calibration.ContractTests.test_unknown_frame_and_disconnected_path_rejected",
+          "test_calibration.ContractTests.test_real_document_rejects_estimated_calibration",
+          "test_calibration.ContractTests.test_measured_snapshot_is_diagnostic_only",
+          "test_calibration.ContractTests.test_measured_edge_without_evidence_rejected",
+          "test_calibration.ContractTests.test_stale_future_and_zero_time_rejected",
+          "test_calibration.ContractTests.test_equal_max_age_is_allowed",
+          "test_calibration.ContractTests.test_dynamic_snapshot_at_wrong_time_rejected",
+          "test_calibration.ContractTests.test_static_edge_does_not_expire_like_dynamic_snapshot",
+          "test_calibration.ContractTests.test_wrong_clock_and_invalid_age_threshold_rejected",
+          "test_calibration.ContractTests.test_mm_is_rejected_instead_of_assumed_m",
+          "test_calibration.ContractTests.test_false_ring_valid_and_missing_pose_fields_rejected",
+          "test_calibration.ContractTests.test_missing_dynamic_time_and_zero_dynamic_time_rejected",
+          "test_calibration.ContractTests.test_duplicates_multiple_parents_and_cycles_rejected",
+          "test_calibration.ContractTests.test_unknown_numeric_identity_not_allowed",
+          "test_calibration.ContractTests.test_unknown_data_kind_and_invalid_flags_rejected",
+          "test_calibration.ContractTests.test_schema_version_must_be_integer_one",
+          "test_calibration.ContractTests.test_invalid_frame_names_rejected",
+          "test_calibration.ContractTests.test_whitespace_only_evidence_is_missing_evidence",
+          "test_calibration.ContractTests.test_invalid_now_rejected",
+          "test_calibration.ContractTests.test_stamp_beyond_int64_nanoseconds_rejected",
+          "test_calibration.CliTests.test_cli_success_and_unknown_extrinsic_exit_codes",
+          "test_calibration.CliTests.test_cli_bad_input_never_prints_success",
+          "test_calibration.CliTests.test_cli_deeply_nested_json_is_a_parse_rejection",
+          "test_calibration.CliTests.test_cli_output_error_keeps_motion_unauthorized",
+          "test_fake_model_audit.FakeAuditGate.test_audit_available",
+          "test_fake_model_audit.FakeAuditTests.test_saved_fake_chain_matches_fk_with_rounding_and_no_motion_permission",
+          "test_fake_model_audit.FakeAuditTests.test_omitting_ee_quarter_turn_disagrees_with_saved_orientation",
+          "test_fake_model_audit.FakeAuditTests.test_wrong_log_translation_is_detected",
+          "test_fake_model_audit.FakeAuditTests.test_missing_valid_samples_cannot_pass",
+          "test_fake_model_audit.FakeAuditTests.test_wrong_moveit_tip_is_detected",
+          "test_nominal_mount.MountFeatureGate.test_nominal_mount_feature_exists",
+          "test_nominal_mount.MountDesignTests.test_optical_origin_is_left_imager_behind_front_glass",
+          "test_nominal_mount.MountDesignTests.test_sensor_offset_rotates_with_camera_housing",
+          "test_nominal_mount.MountDesignTests.test_ros_camera_axes_recover_designed_optical_axes",
+          "test_nominal_mount.MountDesignTests.test_camera_link_axes_follow_ros_convention_independently",
+          "test_nominal_mount.MountDesignTests.test_real_data_and_mm_are_not_accepted_as_mount_design",
+          "test_nominal_mount.MountDesignTests.test_camera_model_selects_datasheet_zero_depth_offset",
+          "test_nominal_mount.MountDesignTests.test_missing_or_unknown_camera_model_rejected",
+          "test_nominal_mount.MountDesignTests.test_datum_assumptions_are_reported_and_corrections_shift_origin",
+          "test_nominal_mount.MountDesignTests.test_implausible_scale_is_rejected",
+          "test_nominal_mount.MountDesignTests.test_cli_rejections_exit_2_and_never_authorize_motion"
+        ],
+        "cases": 54,
+        "ordinary_cpp_verifier": "358/20; planner29 audited separately",
+        "source_clean": true
+      },
+      "five_upstream_diagnostic_json_objects_equal": true,
+      "generated_negative_comparison": [
+        {
+          "name": "overflow_snapshot",
+          "result_and_noncommand_fields_equal": true,
+          "command_difference": "Windows versus Linux temporary path separator only"
+        },
+        {
+          "name": "overflow_mount",
+          "result_and_noncommand_fields_equal": true,
+          "command_difference": "Windows versus Linux temporary path separator only"
+        },
+        {
+          "name": "deep_nesting_snapshot",
+          "result_and_noncommand_fields_equal": true,
+          "command_difference": "Windows versus Linux temporary path separator only"
+        },
+        {
+          "name": "deep_nesting_mount",
+          "result_and_noncommand_fields_equal": true,
+          "command_difference": "Windows versus Linux temporary path separator only"
+        },
+        {
+          "name": "mm_typed_as_m_mount",
+          "result_and_noncommand_fields_equal": true,
+          "command_difference": "Windows versus Linux temporary path separator only"
+        }
+      ],
+      "archived_model_tf_audit": {
+        "all_passed": true,
+        "evidence_kind": "FAKE_RUNTIME_CAPTURE",
+        "real_calibration_verified": false,
+        "motion_authorized": false,
+        "checks": {
+          "fake_zero_initial_state": true,
+          "s3_joint_names": true,
+          "srdf_base_and_tip": true,
+          "world_base_identity": true,
+          "wrist_ee_positive_quarter_turn": true
+        },
+        "logs": {
+          "tf2_echo_world_to_base_link.txt": {
+            "passed": true,
+            "samples": 5,
+            "first_stamp_text": "0.0",
+            "last_stamp_text": "0.0",
+            "max_translation_component_difference_m": 0.0,
+            "max_rotation_matrix_component_difference": 0.0
+          },
+          "tf2_echo_base_link_to_ee_link.txt": {
+            "passed": true,
+            "samples": 5,
+            "first_stamp_text": "1791723527.404980616",
+            "last_stamp_text": "1791723531.359971157",
+            "max_translation_component_difference_m": 0.00019999999999997797,
+            "max_rotation_matrix_component_difference": 1.8519323399573677e-15
+          },
+          "tf2_echo_world_to_ee_link.txt": {
+            "passed": true,
+            "samples": 7,
+            "first_stamp_text": "1791723533.41307182",
+            "last_stamp_text": "1791723539.386979562",
+            "max_translation_component_difference_m": 0.00019999999999997797,
+            "max_rotation_matrix_component_difference": 1.8519323399573677e-15
+          }
+        },
+        "sha256_lf_normalized": {
+          "aubo_S3_fake_expanded.urdf": "6be44f5bd3ededc1ab46c76f4b713d4a19f1b164caf82565d2ccec50bda7f160",
+          "aubo_robot.srdf": "926b1306a6817aa4f13aff016ebb1a4247fe689e2f68794bde0a6b69fd8b9471",
+          "tf2_echo_world_to_base_link.txt": "2b671387667911fd1b68f4521dd91ebbe02505e764c858ca6392197c035ada92",
+          "tf2_echo_base_link_to_ee_link.txt": "493613cb2273ef5332ee9247f290cc3c8f9693905193bdb16bb1c046d985b4ea",
+          "tf2_echo_world_to_ee_link.txt": "12be8d25a48889efe07b6b3e45b3b6c1f7f9f5fc21856d42c0fb7bed3aedd38c"
+        },
+        "T_base_ee_q0": {
+          "translation_m": [
+            -5.638273863274414e-17,
+            -0.2562,
+            0.8072
+          ],
+          "matrix": [
+            [
+              -6.123233995736778e-17,
+              -1.0,
+              1.8519323399573677e-15,
+              -5.638273863274414e-17
+            ],
+            [
+              1.2246467991473544e-16,
+              -1.8519323399573677e-15,
+              -1.0,
+              -0.2562
+            ],
+            [
+              1.0,
+              -6.123233995736756e-17,
+              1.2246467991473554e-16,
+              0.8072
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        "T_wrist3_ee": {
+          "matrix": [
+            [
+              6.123233995736766e-17,
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              6.123233995736766e-17,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        "scope": "Archived fake capture only. No time-synchronized real joint states, camera/TCP or physical flange proof."
+      },
+      "fake_tf_runtime": {
+        "started_at": "2026-10-11T18:15:29.896979+00:00",
+        "status": "PASS_READ_ONLY_FAKE_TF",
+        "scope": "Read-only isolated GenericSystem TF at zero joints; no camera, tool, calibration or complete FSM",
+        "action_clients_created": 0,
+        "goals_sent": 0,
+        "tf_publishers_created": 0,
+        "source_modified": false,
+        "model_commit": "47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1",
+        "model_receipts": [
+          {
+            "path": "urdf/aubo_S3.urdf",
+            "size_bytes": 8895,
+            "sha256": "2ad1d85b3ab53b82f1944a373e3e41b36ca2535e0edf5b70c9c32641679e1924",
+            "receipt_matches": true
+          },
+          {
+            "path": "urdf/xacro/inc/aubo_ros2_macro.xacro",
+            "size_bytes": 3538,
+            "sha256": "8bbf8f5e127650dd79760f3b2d3025d734fae4b6cfaaee3a923e923022e7a3b7",
+            "receipt_matches": true
+          },
+          {
+            "path": "meshes/aubo_S3/visual/link6.DAE",
+            "size_bytes": 401011,
+            "sha256": "c54dfeda3c8ab4e44039d35ab220b118c8e175792b522f5faaf3959fc8aff92c",
+            "receipt_matches": true
+          },
+          {
+            "path": "meshes/aubo_S3/collision/link6.STL",
+            "size_bytes": 14484,
+            "sha256": "cbe69bf761e7d25110633f6c7fdf62481de52a2847a4960a9fc5c49288ba3eea",
+            "receipt_matches": true
+          }
+        ],
+        "launch": {
+          "argv": [
+            "ros2",
+            "launch",
+            "aubo_ros2_driver",
+            "aubo_control.launch.py",
+            "aubo_type:=aubo_S3",
+            "use_fake_hardware:=true",
+            "initial_joint_controller:=joint_trajectory_controller",
+            "launch_rviz:=false"
+          ],
+          "pid": 171
+        },
+        "robot_description_sha256": "f36ba2a4944c16f86a58cb448ef06a7911c4c0d70a49b38da516e7943610618e",
+        "transforms": [
+          {
+            "parent": "world",
+            "child": "base_link",
+            "query_stamp_ns": 1791742548271182873,
+            "returned_stamp_ns": 1791742548271182873,
+            "translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_xyzw": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "max_position_component_error_m": 0.0,
+            "max_rotation_matrix_component_error": 0.0
+          },
+          {
+            "parent": "wrist3_Link",
+            "child": "ee_link",
+            "query_stamp_ns": 1791742548271182873,
+            "returned_stamp_ns": 1791742548271182873,
+            "translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_xyzw": [
+              0.0,
+              0.0,
+              0.7071067811865475,
+              0.7071067811865476
+            ],
+            "max_position_component_error_m": 0.0,
+            "max_rotation_matrix_component_error": 1.6081226496766364e-16
+          },
+          {
+            "parent": "base_link",
+            "child": "ee_link",
+            "query_stamp_ns": 1791742548271182873,
+            "returned_stamp_ns": 1791742548271182873,
+            "translation_m": [
+              -8.688660222541301e-17,
+              -0.2562,
+              0.8071999999999999
+            ],
+            "rotation_xyzw": [
+              0.5000000000000004,
+              -0.49999999999999944,
+              0.5000000000000006,
+              0.49999999999999956
+            ],
+            "max_position_component_error_m": 1.1102230246251565e-16,
+            "max_rotation_matrix_component_error": 1.464691043679141e-16
+          },
+          {
+            "parent": "world",
+            "child": "ee_link",
+            "query_stamp_ns": 1791742548271182873,
+            "returned_stamp_ns": 1791742548271182873,
+            "translation_m": [
+              -8.688660222541301e-17,
+              -0.2562,
+              0.8071999999999999
+            ],
+            "rotation_xyzw": [
+              0.5000000000000004,
+              -0.49999999999999944,
+              0.5000000000000006,
+              0.49999999999999956
+            ],
+            "max_position_component_error_m": 1.1102230246251565e-16,
+            "max_rotation_matrix_component_error": 1.464691043679141e-16
+          }
+        ],
+        "proposed_frames_unavailable": [
+          "camera_link",
+          "camera_color_optical_frame",
+          "hook_tcp_v1",
+          "table_frame",
+          "T0_frame",
+          "P1_frame",
+          "P2_frame",
+          "P3_frame"
+        ],
+        "distinct_joint_stamps": 903,
+        "joint_zero_verified": true,
+        "historical_lookup_scope": "One shared past stamp in a static zero-joint Fake run; not moving-camera synchronization or physical calibration.",
+        "shutdown": {
+          "already_exited": false,
+          "escalated": false,
+          "exit_code": 0,
+          "child_failures": [],
+          "statistics_context_errors": [
+            "[ros2_control_node-1] [ERROR] [1791742549.014310666] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+            "[ros2_control_node-1] [ERROR] [1791742549.014310666] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+          ]
+        },
+        "empty_after": true,
+        "ended_at": "2026-10-11T18:15:52.164110+00:00"
+      },
+      "nominal_mount_scope": "ESTIMATED arithmetic of the upstream design fixture; no deployed or measured transform. 17.5mm datum/4.2mm depth offset and camera wrapper conventions are upstream cited assumptions; camera source files/PDF not independently downloaded or checked in this event.",
+      "model_receipt_scope": "Four AUBO Git blobs in official-source receipt match pinned local model repo; remaining seven official reference artifacts are not present and not independently re-verified here.",
+      "real_inventory": {
+        "unknown_edges": 8,
+        "thresholds_null": true,
+        "handeye_tcp_validation_csvs": "header only, zero physical samples",
+        "user_decisions_imported": false
+      },
+      "cleanup_guard": "First helper assertion rejected a corrupted copied SHA literal; no source change and only keeper remained. Failed helper/process snapshot preserved; corrected comparison and verified actual HEAD before stopping container."
+    },
+    "not_rerun": {
+      "unchanged_runtime": "All existing src tree matches f7eaa2c and its450-file frozen set/report verified; no repeated planner SOP, independent Action scenarios, UBSan/consumer or FjtPort tests (new FjtPort absent). Current automatic runs stay distinct.",
+      "separate_branches": "Vision0e329f1, scene30e3c6e, trajectory688d80d/230 outcomes not attributed to this calibration snapshot."
+    },
+    "integration_gaps": [
+      "No ROS TF listener/publisher or hand-eye solver delivered; local read-only witness is acceptance harness only",
+      "Offline refusal/MEASURED semantics not consumed by runtime perception/planner/FSM adapters; evidence reference is nonempty text, not authenticity or accuracy proof",
+      "Planner uses latest TF for Pose6D whose stamp is FSM clock; observation-time dynamic TF and ROS/Core time conversion unresolved",
+      "Planner already applies inverse EE-to-TCP compensation; do not feed already-compensated EE pose as TCP/ring",
+      "Slot target uses TCP position and current grasp orientation; independent placement orientation is not consumed",
+      "Physical design flange F-to-wrist axes, camera/TCP/optical/scene transforms, ring axes and error/age limits UNKNOWN"
+    ],
+    "not_completed": [
+      "Real D435i intrinsics/internal extrinsics/mount, V1 TCP/tool selection/installation, table/T0/P1-P3 and physical accuracy",
+      "Moving-camera capture-time TF and time-domain bridge, live perception and failure propagation",
+      "Complete FSM/Action/Planner/FJT/tool chain; legacy B03/B05/B06 and cancellation stop confirmation",
+      "MoveIt -11 shutdown, Generic statistics context errors, driver dependencies/lint and evaluated joint limits",
+      "SDK licence/vendor checksums, TSan, NUC/physical robot and actual collision/contact"
+    ],
+    "handoff": {
+      "Han_Minghe": "Calibration data/physical frameF/TCP/field measurements and recorded assumptions; no fabricated or promoted MEASURED data",
+      "Sun_Haoran": "Device intrinsics/internal TF/optical frame and observation stamps/ring axes",
+      "Chang_Jianshuo": "ROS observation-time TF, one TCP compensation, slot semantic/orientation and calibrated planner parameters",
+      "Sun_Jiaming": "ROS/Core clock/full Pose6D/failure propagation and FSM/Action/Cancel kernel, old B03/B05/B06; local issue record only",
+      "integration": "Retain artifacts and declared-vs-observed boundaries, TF source ownership/bringup/logging and provenance; no kernel repair or external messages"
+    },
+    "source_modified": false,
+    "formal_baseline_advanced": false,
+    "local_merge_performed": false
+  },
+  "cleanup": {
+    "recorded_at": "2026-10-11T18:16:47.759263+00:00",
+    "original_runner_pid": 32186,
+    "original_runner_absent": true,
+    "supplement_before_stop": "only sleep infinity; no ROS processes or daemons",
+    "stop": {
+      "exit_code": 0,
+      "stdout": "mtc-calibration-review-06ab689\n",
+      "stderr": ""
+    },
+    "containers": [
+      {
+        "container": "mtc-repro-5c8f61d8af9f-06ab689f25e8",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-11T18:06:14.143070863Z",
+          "FinishedAt": "2026-10-11T18:11:21.95826259Z"
+        },
+        "network": "none",
+        "cpus": 2000000000,
+        "memory": 4294967296,
+        "mounts": [],
+        "devices": [],
+        "ports": {}
+      },
+      {
+        "container": "mtc-calibration-review-06ab689",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-11T18:12:58.203634049Z",
+          "FinishedAt": "2026-10-11T18:16:47.449082578Z"
+        },
+        "network": "none",
+        "cpus": 2000000000,
+        "memory": 4294967296,
+        "mounts": [],
+        "devices": [],
+        "ports": {}
+      }
+    ],
+    "keeper_exit137_note": "docker stop terminates keeper; ROS child results checked separately."
+  },
+  "main_receipt": {
+    "thread": "01a12a25-b5c5-7b23-98b7-1cf673d68838",
+    "ack_at": "2026-10-11T18:11:31.733472+00:00",
+    "queued_at": "2026-10-11T18:11:23.718172+00:00",
+    "queue_to_ack_seconds": 8.0153,
+    "attempts": 1,
+    "marker": "MOVEIT_WAKE_ACK_63cb6161f9e4cda066e9a716de7be22e",
+    "complete_at_freeze": false
+  },
+  "not_completed": [
+    "Real D435i intrinsics/internal extrinsics/mount, V1 TCP/tool selection/installation, table/T0/P1-P3 and physical accuracy",
+    "Moving-camera capture-time TF and time-domain bridge, live perception and failure propagation",
+    "Complete FSM/Action/Planner/FJT/tool chain; legacy B03/B05/B06 and cancellation stop confirmation",
+    "MoveIt -11 shutdown, Generic statistics context errors, driver dependencies/lint and evaluated joint limits",
+    "SDK licence/vendor checksums, TSan, NUC/physical robot and actual collision/contact"
+  ],
+  "handoff": {
+    "Han_Minghe": "Calibration data/physical frameF/TCP/field measurements and recorded assumptions; no fabricated or promoted MEASURED data",
+    "Sun_Haoran": "Device intrinsics/internal TF/optical frame and observation stamps/ring axes",
+    "Chang_Jianshuo": "ROS observation-time TF, one TCP compensation, slot semantic/orientation and calibrated planner parameters",
+    "Sun_Jiaming": "ROS/Core clock/full Pose6D/failure propagation and FSM/Action/Cancel kernel, old B03/B05/B06; local issue record only",
+    "integration": "Retain artifacts and declared-vs-observed boundaries, TF source ownership/bringup/logging and provenance; no kernel repair or external messages"
+  }
+}

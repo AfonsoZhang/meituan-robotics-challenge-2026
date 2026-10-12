@@ -1,0 +1,505 @@
+{
+  "original_index_sha256": "90d9ff27367b0fe1ff133367e4bf32f31c20100ead28c773a5d0babb863944f8",
+  "original_files_verified": 291,
+  "summary_steps": 25,
+  "summary_complete": true,
+  "cpp_total": 358,
+  "cpp_by_package": {
+    "mtc_core_cpp": 23,
+    "mtc_manipulation_cpp": 120,
+    "mtc_motion_execution_cpp": 88,
+    "mtc_ros2_action_cpp": 40,
+    "mtc_task_cpp": 87
+  },
+  "cpp_executables": 20,
+  "cpp_xml": [
+    {
+      "path": "container/test-results/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml",
+      "cases": [
+        "mtc_core_cpp.CoreErrorCodes.ValuesMatchFrozenInterfaceNumbers",
+        "mtc_core_cpp.CoreErrorCodes.NameOfKnownAndUnknown",
+        "mtc_core_cpp.CoreToolState.EvidenceLevelIsOrdered",
+        "mtc_core_cpp.CoreToolState.NamesAreStable",
+        "mtc_core_cpp.CorePose.FullSixDofIsPreserved",
+        "mtc_core_cpp.CorePose.MissingFrameIdIsNotUsable",
+        "mtc_core_cpp.CorePose.UnnormalizedQuaternionIsNotUsable",
+        "mtc_core_cpp.CorePose.InvalidFlagBlocksUsability",
+        "mtc_core_cpp.CorePose.PoseEstimateRequiresBothFlagAndUsablePose",
+        "mtc_core_cpp.CoreResults.DetectionOkRequiresAllConditions",
+        "mtc_core_cpp.CoreResults.MotionResultRequiresBothSuccessAndArrived",
+        "mtc_core_cpp.CoreResults.StopResultSeparatesDeliveryFromConfirmation",
+        "mtc_core_cpp.CoreMotionCommand.ShapeValidation",
+        "mtc_core_cpp.CoreMotionPrimitive.EqualityIncludesContactFlag",
+        "mtc_core_cpp.CoreTimedTrajectory.ShapeValidationAndDuration",
+        "mtc_core_cpp.CoreTimedTrajectory.RejectsNonMonotonicTime",
+        "mtc_core_cpp.CoreTimedTrajectory.RejectsDimensionMismatch",
+        "mtc_core_cpp.CoreTimedTrajectory.RejectsEmptyOrDuplicateJointNames",
+        "mtc_core_cpp.CoreClock.ManualClockIsDeterministic",
+        "mtc_core_cpp.CoreExecState.StringMappingIsStable",
+        "mtc_core_cpp.CoreAudit.PoseRejectsNonFinitePositionStampAndQuaternion",
+        "mtc_core_cpp.CoreAudit.TrajectoryRejectsNonFiniteFieldsAndNegativeTimes"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml",
+      "cases": [
+        "mtc_core_cpp.ErrorCodesMsgParity.ConstantsMatchInterfacesMsg"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_audit.gtest.xml",
+      "cases": [
+        "mtc_manipulation_cpp.PlacementAudit.NewFramesMustCoverFullThreeSeconds",
+        "mtc_manipulation_cpp.PlacementAudit.FrozenTimestampCannotSucceedForFiveSeconds",
+        "mtc_manipulation_cpp.PlacementAudit.InvalidOrStaleFrameInterruptsWindow",
+        "mtc_manipulation_cpp.PlacementAudit.PerceptionStopsUpdatingCannotAccumulateTime",
+        "mtc_manipulation_cpp.PlacementAudit.FutureBackwardsAndNonFiniteStampsInterrupt",
+        "mtc_manipulation_cpp.PlacementAudit.GapBetweenFreshFramesInterruptsContinuity",
+        "mtc_manipulation_cpp.PlanningAudit.NonZeroPlannerTargetsAndFullPoseReachAdapter",
+        "mtc_manipulation_cpp.PlanningAudit.MissingOutputDoesNotReachMockAdapter",
+        "mtc_manipulation_cpp.PlanningAudit.WholeTimedTrajectoryIsNeverSplit",
+        "mtc_manipulation_cpp.PlanningAudit.MalformedPlanCannotExecute",
+        "mtc_manipulation_cpp.CommandIdAudit.LongAndRepeatedRequestsRemainUniqueAcrossInstances",
+        "mtc_manipulation_cpp.WatchdogAudit.LoadedContextCannotRecoverAndFaultCannotRestart",
+        "mtc_manipulation_cpp.WatchdogAudit.InvalidStabilityNeverStartsMotion",
+        "mtc_manipulation_cpp.PlacementGate.ZeroStabilityRejectedBeforeFirstFrame",
+        "mtc_manipulation_cpp.PlacementGate.PositiveWindowNeedsTwoDistinctObservations",
+        "mtc_manipulation_cpp.PlacementGate.InvalidConfiguredStabilityNeverStartsMotion"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v1.gtest.xml",
+      "cases": [
+        "mtc_manipulation_cpp.PickPlaceV1.HappyPathReachesSuccess",
+        "mtc_manipulation_cpp.PickPlaceV1.StateSequenceMatchesDesignOrder",
+        "mtc_manipulation_cpp.PickPlaceV1.MotionCommandSequenceUsesOnlyNonToolPrimitives",
+        "mtc_manipulation_cpp.PickPlaceV1.NoElectromagneticActionAtAll",
+        "mtc_manipulation_cpp.PickPlaceV1.ToolPrimitivesAreRecordedInOrder",
+        "mtc_manipulation_cpp.PickPlaceV1.CommandIdsAreUnique",
+        "mtc_manipulation_cpp.PickPlaceV1.StabilityWindowIsActuallyElapsed",
+        "mtc_manipulation_cpp.PickPlaceV1.ProgressReachesOneAtSuccess",
+        "mtc_manipulation_cpp.PickPlaceV1.PlannerReceivesBothPhasesExactlyOnce",
+        "mtc_manipulation_cpp.PickPlaceV1.PlacementVerificationSkipsColorCheck",
+        "mtc_manipulation_cpp.PickPlaceV1.RunWithZeroTickDoesNotSucceedWithoutTime",
+        "mtc_manipulation_cpp.PickPlaceV1.StepUntilTerminalReachesFailedOnPerceptionFailure",
+        "mtc_manipulation_cpp.PickPlaceV1.ReadyToRunStatesAreReachedWithoutMotionOnPerceptionFailure"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v2.gtest.xml",
+      "cases": [
+        "mtc_manipulation_cpp.PickPlaceV2.HappyPathReachesSuccessAndUnlocksOnce",
+        "mtc_manipulation_cpp.PickPlaceV2.DifferencesAreConfinedToEngageAndDisengage",
+        "mtc_manipulation_cpp.PickPlaceV2.MotionPrimitivesDifferFromV1OnlyInAcquireAndEngage",
+        "mtc_manipulation_cpp.PickPlaceV2.UnlockPulseUsesStrategyConfiguration",
+        "mtc_manipulation_cpp.PickPlaceV2.StateSequenceMatchesV1Pipeline",
+        "mtc_manipulation_cpp.PickPlaceV2Interlock.NoUnlockWhenSeatNotVerified",
+        "mtc_manipulation_cpp.PickPlaceV2Interlock.NoUnlockWhenUnloadNotVerified",
+        "mtc_manipulation_cpp.PickPlaceV2Interlock.StrategyRefusalBlocksUnlockIoEntirely",
+        "mtc_manipulation_cpp.PickPlaceV2Interlock.RedundantInterlocksAreUnreachableButPresent",
+        "mtc_manipulation_cpp.PickPlaceV2Interlock.UnlockHappensOnlyInsideDisengageAfterUnload",
+        "mtc_manipulation_cpp.PickPlaceV2Interlock.UnlockFailureGoesToFaultAndDoesNotRetreat",
+        "mtc_manipulation_cpp.PickPlaceV2Interlock.AcceptedPulseWithoutReleaseIsStillFailure",
+        "mtc_manipulation_cpp.PickPlaceV2Interlock.DisengageReleaseUnknownGoesToFaultAndDoesNotRetreat",
+        "mtc_manipulation_cpp.PickPlaceV2Interlock.UnlockNeverHappensBeforeConfirmedPlacement"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_safety.gtest.xml",
+      "cases": [
+        "mtc_manipulation_cpp.PickPlaceSafety.PlacementVerifiedCannotBeWrittenOutsideVerifyPlaced",
+        "mtc_manipulation_cpp.PickPlaceSafety.PlacementVerifiedOnlyTrueAfterSuccessfulVerifyPlaced",
+        "mtc_manipulation_cpp.PickPlaceSafety.TargetNotFoundIsRecoverableThenFails",
+        "mtc_manipulation_cpp.PickPlaceSafety.NonUniqueTargetIsRejected",
+        "mtc_manipulation_cpp.PickPlaceSafety.StalePoseIsRejectedWithPoseStale",
+        "mtc_manipulation_cpp.PickPlaceSafety.InvalidRingPoseBlocksMotion",
+        "mtc_manipulation_cpp.PickPlaceSafety.UnknownColorIsRejectedEvenWhenExpected",
+        "mtc_manipulation_cpp.PickPlaceSafety.ColorMismatchIsRejectedToPreventWrongPick",
+        "mtc_manipulation_cpp.PickPlaceSafety.PlanningFailureIsRecoverable",
+        "mtc_manipulation_cpp.PickPlaceSafety.TransportPlanningFailureGoesToFaultAfterAttachment",
+        "mtc_manipulation_cpp.PickPlaceSafety.NonMotionStateTimeoutReportsMotionTimeout",
+        "mtc_manipulation_cpp.PickPlaceSafety.MotionInFlightTimeoutGoesToFault230AndLocksResend",
+        "mtc_manipulation_cpp.PickPlaceSafety.NoTimeoutBeforeDeadline",
+        "mtc_manipulation_cpp.PickPlaceSafety.MotionStatusUnknownLocksAndDoesNotResend",
+        "mtc_manipulation_cpp.PickPlaceSafety.MotionTimeoutLocksAndDoesNotResend",
+        "mtc_manipulation_cpp.PickPlaceSafety.InFlightCommandIsReusedNeverResent",
+        "mtc_manipulation_cpp.PickPlaceSafety.ProgressIsNotBlockedByInFlightPorts",
+        "mtc_manipulation_cpp.PickPlaceSafety.EngageFailureGoesToEngageFailed300",
+        "mtc_manipulation_cpp.PickPlaceSafety.InsufficientEngageEvidenceIsRejected",
+        "mtc_manipulation_cpp.PickPlaceSafety.UnexpectedToolStateAfterEngageIsHardwareFault",
+        "mtc_manipulation_cpp.PickPlaceSafety.AttachNotVerifiedBlocksLiftAndTransport",
+        "mtc_manipulation_cpp.PickPlaceSafety.VisionFollowCanCompensateForWeakEvidence",
+        "mtc_manipulation_cpp.PickPlaceSafety.TestLiftFailureIsReported",
+        "mtc_manipulation_cpp.PickPlaceSafety.HoldingStateBlocksAutomaticRetry",
+        "mtc_manipulation_cpp.PickPlaceSafety.UnknownHoldingStateIsConservative",
+        "mtc_manipulation_cpp.PickPlaceSafety.SeatNotVerifiedBlocksUnload",
+        "mtc_manipulation_cpp.PickPlaceSafety.PlacementNotAtTargetFailsAfterWindow",
+        "mtc_manipulation_cpp.PickPlaceSafety.PlacementStaleSampleResetsStabilityTimer",
+        "mtc_manipulation_cpp.PickPlaceSafety.PlacementNotSettledPreventsSuccess",
+        "mtc_manipulation_cpp.PickPlaceSafety.PlacementFoundFalsePreventsSuccess",
+        "mtc_manipulation_cpp.PickPlaceSafety.VerifyPlacementDisabledNeverClaimsSuccess",
+        "mtc_manipulation_cpp.PickPlaceSafety.SuccessRequiresFullStabilityWindow",
+        "mtc_manipulation_cpp.PickPlaceSafety.CancelWithConfirmedStopReachesCancelled",
+        "mtc_manipulation_cpp.PickPlaceSafety.CancelWithoutStopConfirmationGoesToFault520",
+        "mtc_manipulation_cpp.PickPlaceSafety.CancelNeverReachesCancelledWithoutConfirmation",
+        "mtc_manipulation_cpp.PickPlaceSafety.RequestStopIsCalledAtMostOnce",
+        "mtc_manipulation_cpp.PickPlaceSafety.CancelInTerminalStateIsIgnored",
+        "mtc_manipulation_cpp.PickPlaceSafety.CancelDuringMotionStillRequiresConfirmation",
+        "mtc_manipulation_cpp.PickPlaceSafety.RecoveryRetriesThenFails",
+        "mtc_manipulation_cpp.PickPlaceSafety.RecoveryIsRefusedWhenMotionResendDisallowed",
+        "mtc_manipulation_cpp.PickPlaceAudit.RepeatedFrameForFiveSecondsCannotSucceed",
+        "mtc_manipulation_cpp.PickPlaceAudit.MissingPlanOutputNeverExecutesZeroTarget"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_tables.gtest.xml",
+      "cases": [
+        "mtc_manipulation_cpp.PickPlaceTables.VerifyTablesReportsNoProblem",
+        "mtc_manipulation_cpp.PickPlaceTables.EveryStateHasHandler",
+        "mtc_manipulation_cpp.PickPlaceTables.StateNamesMatchPythonValues",
+        "mtc_manipulation_cpp.PickPlaceTables.PipelineMatchesDesignOrder",
+        "mtc_manipulation_cpp.PickPlaceTables.TerminalAndMotionInFlightSets",
+        "mtc_manipulation_cpp.PickPlaceTables.DefaultTimeoutsCoverMotionStates",
+        "mtc_manipulation_cpp.PickPlaceStart.IllegalTargetSlotFailsImmediatelyWithInvalidTask",
+        "mtc_manipulation_cpp.PickPlaceStart.AllowedSlotsAreAccepted",
+        "mtc_manipulation_cpp.PickPlaceStart.ToolTypeMismatchThrows",
+        "mtc_manipulation_cpp.PickPlaceStart.RequiredConfigFieldsAreRecorded",
+        "mtc_manipulation_cpp.PickPlaceStart.ConfigStabilityUsedWhenGoalOmitsIt",
+        "mtc_manipulation_cpp.PickPlaceStart.PlacementVerifiedStartsFalseAndIsReadOnly",
+        "mtc_manipulation_cpp.PickPlaceStart.MotionResendAllowedStartsTrue",
+        "mtc_manipulation_cpp.PickPlaceFeedback.FeedbackCarriesSubstateAndProgress",
+        "mtc_manipulation_cpp.PickPlaceFeedback.ProgressReachesOneOnlyAtSuccess",
+        "mtc_manipulation_cpp.PickPlaceFeedback.StateHistoryRecordsEnteredStates",
+        "mtc_manipulation_cpp.PickPlaceFeedback.EventCallbackReceivesStateEntered",
+        "mtc_manipulation_cpp.PickPlaceFeedback.CallbackExceptionDoesNotBreakSequencing",
+        "mtc_manipulation_cpp.PickPlaceTerminal.StepAtTerminalIsIdempotent",
+        "mtc_manipulation_cpp.PickPlaceTerminal.ForceFaultOnTerminalKeepsOriginalState"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_tool_strategy.gtest.xml",
+      "cases": [
+        "mtc_manipulation_cpp.ToolStrategyV1.TypeAndPrimitives",
+        "mtc_manipulation_cpp.ToolStrategyV1.SharedPrimitives",
+        "mtc_manipulation_cpp.ToolStrategyV1.ContactPrimitivesAreMarkedAndSlow",
+        "mtc_manipulation_cpp.ToolStrategyV1.PrimitivePreservesSixDofTargetPose",
+        "mtc_manipulation_cpp.ToolStrategyV1.NoUnlockPulseAndNoIoChannels",
+        "mtc_manipulation_cpp.ToolStrategyV2.TypeAndPrimitives",
+        "mtc_manipulation_cpp.ToolStrategyV2.RequiresUnlockAndDeclaresIoChannel",
+        "mtc_manipulation_cpp.ToolStrategyV2.UnlockRejectedWhenSeatNotVerified",
+        "mtc_manipulation_cpp.ToolStrategyV2.UnlockRejectedWhenNotUnloaded",
+        "mtc_manipulation_cpp.ToolStrategyV2.UnlockAllowedOnlyWhenBothConditionsHold",
+        "mtc_manipulation_cpp.ToolStrategyV2.SeatedFalseUnloadedFalseStillRejectsSeatedFirst",
+        "mtc_manipulation_cpp.ToolStrategyFactory.CreatesBothGenerations",
+        "mtc_manipulation_cpp.ToolStrategyFactory.UnknownTypeThrows",
+        "mtc_manipulation_cpp.ToolStrategyFactory.EmptyStringThrows",
+        "mtc_manipulation_cpp.ToolStrategy.PrimitiveWithoutUsableRingPoseHasNoTargetPose"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_concurrency.gtest.xml",
+      "cases": [
+        "mtc_motion_execution_cpp.GoalCancelGate.StaleGoalCancelDoesNotCallBackend",
+        "mtc_motion_execution_cpp.GoalCancelGate.StaleGoalCancelPreservesCurrentOwner",
+        "mtc_motion_execution_cpp.GoalCancelGate.StaleGoalCancelDoesNotModifyExecutionState",
+        "mtc_motion_execution_cpp.GoalCancelGate.StaleGoalCancelCannotInterruptNewGoal",
+        "mtc_motion_execution_cpp.GoalCancelGate.MatchingGoalCancelStillWorks",
+        "mtc_motion_execution_cpp.GoalCancelGate.ConcurrentGoalReplacementAndLateCancel",
+        "mtc_motion_execution_cpp.GoalCancelGate.SupervisoryStopStillStopsCurrentGoal",
+        "mtc_motion_execution_cpp.GoalCancelGate.EmptyOrUnknownGoalIdHasNoSideEffect",
+        "mtc_motion_execution_cpp.GoalCancelGate.CompletedGoalCancelCannotStopLaterCompletedGoal",
+        "mtc_motion_execution_cpp.GoalCancelGate.CancelRacingBackendDispatchRemainsSticky",
+        "mtc_motion_execution_cpp.ExecutorConcurrency.SixteenThreadsHaveOneOwner",
+        "mtc_motion_execution_cpp.ExecutorConcurrency.GoalsAndStopRespondWhileExecutionWaits",
+        "mtc_motion_execution_cpp.ExecutorConcurrency.DuplicateStopsAndLateResultCannotUnlock",
+        "mtc_motion_execution_cpp.ExecutorConcurrency.ConfirmedStopRetainsOwnerUntilResultDrains",
+        "mtc_motion_execution_cpp.ExecutorConcurrency.InvalidEvidenceCannotConfirmStop",
+        "mtc_motion_execution_cpp.ExecutorConcurrency.OldGoalCancelCannotReplaceNewOwner"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_core.gtest.xml",
+      "cases": [
+        "mtc_motion_execution_cpp.ExecutorCore.SuccessfulMoveGoesThroughSevenStepHandshake",
+        "mtc_motion_execution_cpp.ExecutorCore.CapabilitiesAreForwardedFromAdapter",
+        "mtc_motion_execution_cpp.ExecutorCore.ValidationFailureRejectsWithoutStartingMotion",
+        "mtc_motion_execution_cpp.ExecutorCore.ConcurrentGoalDuringMotionIsRejected",
+        "mtc_motion_execution_cpp.ExecutorCore.StatusUnknownLocksSubsequentRequests",
+        "mtc_motion_execution_cpp.ExecutorCore.ManualConfirmationClearsUnknownLock",
+        "mtc_motion_execution_cpp.ExecutorCore.BackendExceptionIsTreatedAsUnknownState",
+        "mtc_motion_execution_cpp.ExecutorCore.TimeoutMarksStateUnknown",
+        "mtc_motion_execution_cpp.ExecutorCore.BackendRejectionPropagatesRejectedStateAllowingResend",
+        "mtc_motion_execution_cpp.ExecutorCore.StopWithoutInFlightIsConfirmed",
+        "mtc_motion_execution_cpp.ExecutorCore.StopDeliveryIsNotConfirmationWhenBackendCannotConfirm",
+        "mtc_motion_execution_cpp.ExecutorCore.UnsupportedCancelNeverFabricatesStopConfirmed",
+        "mtc_motion_execution_cpp.ExecutorCore.StopAfterUnknownStateIsNeverConfirmed",
+        "mtc_motion_execution_cpp.ExecutorCore.SnapshotReflectsInternalState",
+        "mtc_motion_execution_cpp.ExecutorAudit.DeliveryWithoutEvidenceAndWithoutCommandNeverConfirms",
+        "mtc_motion_execution_cpp.ExecutorAudit.TimeoutWithoutUnknownFlagStillLocks",
+        "mtc_motion_execution_cpp.ExecutorAudit.CompletedCommandIdCannotExecuteTwice",
+        "mtc_motion_execution_cpp.ExecutorAudit.CancelBeforeBackendDispatchIsSticky"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_in_flight_guard.gtest.xml",
+      "cases": [
+        "mtc_motion_execution_cpp.InFlightGuard.AcquireSucceedsWhenFree",
+        "mtc_motion_execution_cpp.InFlightGuard.SecondAcquireIsRejectedWithInFlightId",
+        "mtc_motion_execution_cpp.InFlightGuard.EmptyCommandIdRejected",
+        "mtc_motion_execution_cpp.InFlightGuard.ReleaseOnlyByOwner",
+        "mtc_motion_execution_cpp.InFlightGuard.ForceReleaseIsAvailableForManualRecovery",
+        "mtc_motion_execution_cpp.InFlightGuard.SequentialCommandsAreAllowed"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_mock_adapter.gtest.xml",
+      "cases": [
+        "mtc_motion_execution_cpp.MockClockGate.MockDefaultClockExecutionContract",
+        "mtc_motion_execution_cpp.MockClockGate.MockSharedManualClockSettlementSucceeds",
+        "mtc_motion_execution_cpp.MockClockGate.MockInsufficientStationaryIntervalRejected",
+        "mtc_motion_execution_cpp.MockClockGate.TinyPositiveSettleDurationCannotConfirmZeroInterval",
+        "mtc_motion_execution_cpp.MockClockGate.MockExecutorClockMismatchRejected",
+        "mtc_motion_execution_cpp.MockClockGate.ExplicitRealTimeOrInvalidMockClockIsRejected",
+        "mtc_motion_execution_cpp.MockClockGate.VirtualClockCannotAuthorizeExecutableBackend",
+        "mtc_motion_execution_cpp.MockClockGate.StaleFeedbackCannotConfirmStop",
+        "mtc_motion_execution_cpp.GoalCancelGate.AdapterScopedCancelCannotStopDifferentOwner",
+        "mtc_motion_execution_cpp.MockAudit.VirtualSettlementStartsAfterArrivalAndRejectsInvalidTravel",
+        "mtc_motion_execution_cpp.MockAdapter.CapabilitiesAreDeclaredExplicitly",
+        "mtc_motion_execution_cpp.MockAdapter.SuccessfulMoveSettlesAndConfirmsStop",
+        "mtc_motion_execution_cpp.MockAdapter.RejectedRequestAllowsImmediateResend",
+        "mtc_motion_execution_cpp.MockAdapter.SecondCommandWhileInFlightIsRejected",
+        "mtc_motion_execution_cpp.MockAdapter.TimeoutIsReportedAndBlocksAutoResend",
+        "mtc_motion_execution_cpp.MockAdapter.StatusUnknownLocksAndBlocksAutoResend",
+        "mtc_motion_execution_cpp.MockAdapter.FailAtStatusUnknownIsEquivalent",
+        "mtc_motion_execution_cpp.MockAdapter.StopWithoutInFlightIsConfirmedAndReported",
+        "mtc_motion_execution_cpp.MockAdapter.StopWithInFlightAndConfirmationSucceeds",
+        "mtc_motion_execution_cpp.MockAdapter.CancelWithoutConfirmationDoesNotClaimStopped",
+        "mtc_motion_execution_cpp.MockAdapter.StopConfirmationFlagIsExposedSeparately",
+        "mtc_motion_execution_cpp.MockAdapter.TrajectoryIsRejectedAndNotSplitIntoJointMoves",
+        "mtc_motion_execution_cpp.MockAdapter.TrajectoryAcceptedWhenCapabilityDeclared",
+        "mtc_motion_execution_cpp.MockAdapter.BaseClassDefaultTrajectoryRejectsWithoutSplitting",
+        "mtc_motion_execution_cpp.DisabledAdapter.AlwaysRejectsAndNeverClaimsCapability",
+        "mtc_motion_execution_cpp.AdapterFactory.UnknownBackendFallsBackToDisabled",
+        "mtc_motion_execution_cpp.AdapterFactory.MockBackendIsCaseInsensitive"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_validation.gtest.xml",
+      "cases": [
+        "mtc_motion_execution_cpp.Validation.ValidCommandPasses",
+        "mtc_motion_execution_cpp.Validation.MissingJointGoalCapabilityRejected",
+        "mtc_motion_execution_cpp.Validation.DimensionMismatchRejected",
+        "mtc_motion_execution_cpp.Validation.EmptyJointNamesRejected",
+        "mtc_motion_execution_cpp.Validation.DuplicateJointNamesRejected",
+        "mtc_motion_execution_cpp.Validation.JointOrderMustMatchConfiguration",
+        "mtc_motion_execution_cpp.Validation.EmptyExpectedNamesSkipsOrderCheck",
+        "mtc_motion_execution_cpp.Validation.ZeroTimeoutRejected",
+        "mtc_motion_execution_cpp.Validation.VelocityScalingAboveLimitIsSafetyInterlock",
+        "mtc_motion_execution_cpp.Validation.ZeroOrNegativeVelocityScalingRejected",
+        "mtc_motion_execution_cpp.Validation.AccelerationScalingAboveLimitIsSafetyInterlock",
+        "mtc_motion_execution_cpp.Validation.JointLimitsAreEnforced",
+        "mtc_motion_execution_cpp.Validation.JointLimitDimensionMismatchRejected",
+        "mtc_motion_execution_cpp.ValidationTrajectory.UnsupportedBackendIsRejectedNotDowngraded",
+        "mtc_motion_execution_cpp.ValidationTrajectory.SupportedBackendAcceptsValidTrajectory",
+        "mtc_motion_execution_cpp.ValidationTrajectory.InvalidShapeRejected",
+        "mtc_motion_execution_cpp.ValidationTrajectory.JointOrderMustMatchConfiguration",
+        "mtc_motion_execution_cpp.ValidationTrajectory.JointLimitsEnforcedOnEveryPoint",
+        "mtc_motion_execution_cpp.ValidationAudit.NonFiniteTargetsRejectedWithoutLimits",
+        "mtc_motion_execution_cpp.ValidationAudit.ExecutableBackendRequiresLimitsAndRejectsFakePlan",
+        "mtc_motion_execution_cpp.ValidationAudit.TrajectoryRejectsExcessiveDynamicsAndInvalidLimits"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml",
+      "cases": [
+        "mtc_ros2_action_cpp.ActionContracts.TaskConversionPreservesColorOrderIdentityAndDeadline",
+        "mtc_ros2_action_cpp.ActionContracts.RosFloatBoundaryDoesNotRelaxCoreUpperLimit",
+        "mtc_ros2_action_cpp.ActionContracts.MockPlannerPreservesSixDPoseFrameStampAndContactConstraints",
+        "mtc_ros2_action_cpp.ActionContracts.MockLoadEvidenceRemainsHoldingUntilVerifiedRelease",
+        "mtc_ros2_action_cpp.ActionContracts.MockFailedReleaseNeverReportsNoLoad",
+        "mtc_ros2_action_cpp.ActionContracts.TestLiftRequiresPriorSimulatedAttachmentEvidence",
+        "mtc_ros2_action_cpp.ActionContracts.TrajectoryBridgeRefusesAndNeverSplitsIntoJointMoves",
+        "mtc_ros2_action_cpp.ActionContracts.UnsupportedTrajectoryAndCartesianCapabilitiesCannotBeEnabled"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml",
+      "cases": [
+        "mtc_ros2_action_cpp.MotionAction.LegalNonzeroGoalAndFeedbackUseExecutorResult",
+        "mtc_ros2_action_cpp.MotionAction.IllegalGoalRejectedWithoutBackendCall",
+        "mtc_ros2_action_cpp.MotionAction.ConcurrentGoalIsRejectedAndFirstCompletes",
+        "mtc_ros2_action_cpp.MotionAction.MatchingCancelStopsExactlyOnce",
+        "mtc_ros2_action_cpp.MotionAction.UnconfirmedCancelAborts520AndLocks",
+        "mtc_ros2_action_cpp.MotionAction.StaleCancelCannotReachBackendOrInterruptNewOwner",
+        "mtc_ros2_action_cpp.MotionAction.ExecutorTimeoutKeepsOriginal220AndRejectsNewMotion",
+        "mtc_ros2_action_cpp.MotionAction.RosDeadlineIndependentlyRequestsAssociatedStop"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml",
+      "cases": [
+        "mtc_ros2_action_cpp.PickAction.LegalGoalSucceedsOnlyAfterPlacementFeedback",
+        "mtc_ros2_action_cpp.PickAction.InvalidParametersRejectedBeforeExecution",
+        "mtc_ros2_action_cpp.PickAction.ConcurrentSecondGoalRejected",
+        "mtc_ros2_action_cpp.PickAction.MatchingCancelRequiresIndependentStationaryEvidence",
+        "mtc_ros2_action_cpp.PickAction.CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked",
+        "mtc_ros2_action_cpp.PickAction.StaleGoalCancelCannotInterruptNewGoal",
+        "mtc_ros2_action_cpp.PickAction.MotionStatusUnknownNeverResendsOrAutoClearsFault",
+        "mtc_ros2_action_cpp.PickAction.MissingPlanNeverSucceeds",
+        "mtc_ros2_action_cpp.PickAction.ConcurrentRosRequestsHaveExactlyOneOwner",
+        "mtc_ros2_action_cpp.PickAction.InFlightWatchdogFaultStillDrainsAssociatedStopWorker",
+        "mtc_ros2_action_cpp.PickAction.CancelWhileCarryingStopsButKeepsLoadAdmissionLocked",
+        "mtc_ros2_action_cpp.PickAction.UnverifiedAttachmentLoadCannotBeClearedByNewGoal"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml",
+      "cases": [
+        "mtc_ros2_action_cpp.TaskAction.BasicTaskUsesRealChildActionAndRecordsT0",
+        "mtc_ros2_action_cpp.TaskAction.SequenceTaskRecordsAllSlotsInOrder",
+        "mtc_ros2_action_cpp.TaskAction.InvalidColorsAndConcurrentTaskRejected",
+        "mtc_ros2_action_cpp.TaskAction.CancelAckWaitsForChildFinalStopResult",
+        "mtc_ros2_action_cpp.TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent",
+        "mtc_ros2_action_cpp.TaskAction.ChildStatusUnknownPropagatesOriginalError",
+        "mtc_ros2_action_cpp.TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess",
+        "mtc_ros2_action_cpp.TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild",
+        "mtc_ros2_action_cpp.TaskAction.MissingChildNeverFabricatesTaskSuccess",
+        "mtc_ros2_action_cpp.TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent",
+        "mtc_ros2_action_cpp.TaskAction.StaleParentCancelCannotReachNewChild",
+        "mtc_ros2_action_cpp.TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_core.gtest.xml",
+      "cases": [
+        "mtc_task_cpp.TaskFsmTables.VerifyTablesReportsNoProblem",
+        "mtc_task_cpp.TaskFsmTables.AllStatesHaveEntryActionAndTimeout",
+        "mtc_task_cpp.TaskFsmTables.EveryActiveStateRegistersConcurrentGoalRejection",
+        "mtc_task_cpp.TaskFsmBoot.InitToSelfCheckToWaitTask",
+        "mtc_task_cpp.TaskFsmBoot.SelfCheckFailureGoesToFaultWithStopAndLock",
+        "mtc_task_cpp.TaskFsmBoot.InitTimeoutGoesToFault",
+        "mtc_task_cpp.TaskFsmBoot.NoTimeoutBeforeDeadline",
+        "mtc_task_cpp.TaskFsmBasic.FullHappyPathReachesFinished",
+        "mtc_task_cpp.TaskFsmBasic.SuccessRequiresPlacementVerified",
+        "mtc_task_cpp.TaskFsmBasic.TargetFoundWithoutObjectIdIsRejected",
+        "mtc_task_cpp.TaskFsmBasic.ExpectedColorMismatchIsRejected",
+        "mtc_task_cpp.TaskFsmBasic.ItemResultIgnoredOutsideExecuteItem",
+        "mtc_task_cpp.TaskFsmSequence.ThreeItemsCompleteInSlotOrder",
+        "mtc_task_cpp.TaskFsmSequence.InvalidSequenceFailsWithoutGuessing",
+        "mtc_task_cpp.TaskFsmSequence.DuplicateSlotIsNotRecordedTwice",
+        "mtc_task_cpp.TaskFsmReset.ResetFromFinishedClearsTaskContext",
+        "mtc_task_cpp.TaskFsmReset.ResetAllowedFromTaskFailedAndCancelled",
+        "mtc_task_cpp.TaskFsmSnapshot.SnapshotCarriesTaskAndProgress",
+        "mtc_task_cpp.TaskFsmSnapshot.EveryStepPublishesState",
+        "mtc_task_cpp.TaskFsmSnapshot.TransitionLogRecordsPath",
+        "mtc_task_cpp.TaskFsmSnapshot.UnknownEventIsIgnoredNotFatal"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_safety.gtest.xml",
+      "cases": [
+        "mtc_task_cpp.TaskFsmConcurrency.SecondGoalRejectedInEveryActiveState",
+        "mtc_task_cpp.TaskFsmConcurrency.MissingGoalPayloadRejected",
+        "mtc_task_cpp.TaskFsmConcurrency.UnparsableGoalRejected",
+        "mtc_task_cpp.TaskFsmConcurrency.EmptyTaskIdRejected",
+        "mtc_task_cpp.TaskFsmConcurrency.RejectionDoesNotQueueSecondGoal",
+        "mtc_task_cpp.TaskFsmTimeout.WaitTaskAndTerminalStatesHaveNoTimeout",
+        "mtc_task_cpp.TaskFsmTimeout.ValidateTaskTimeoutGoesToTaskFailedWithInvalidTask",
+        "mtc_task_cpp.TaskFsmTimeout.ScanSceneTimeoutGoesToRecoveryWithTargetNotFound",
+        "mtc_task_cpp.TaskFsmTimeout.ExecuteItemTimeoutGoesToFaultAndDoesNotAutoResend",
+        "mtc_task_cpp.TaskFsmTimeout.RecordResultTimeoutMapsToPlacementFailed",
+        "mtc_task_cpp.TaskFsmTimeout.RecoveryTimeoutGoesToTaskFailed",
+        "mtc_task_cpp.TaskFsmTimeout.CustomTimeoutsAreInjectible",
+        "mtc_task_cpp.TaskFsmTimeout.TimeoutTimerResetsOnEffectiveProgress",
+        "mtc_task_cpp.TaskFsmDeadline.DeadlineExceededGoesToFaultWithMotionTimeout",
+        "mtc_task_cpp.TaskFsmDeadline.NoDeadlineWithoutActiveTask",
+        "mtc_task_cpp.TaskFsmDeadline.ElapsedTaskTimeTracksInProgressTask",
+        "mtc_task_cpp.TaskFsmCancel.CancelFromScanSceneEntersCancelPendingWithChildCancel",
+        "mtc_task_cpp.TaskFsmCancel.ConfirmedStopLeadsToCancelled",
+        "mtc_task_cpp.TaskFsmCancel.UnconfirmedStopTimesOutToFault520",
+        "mtc_task_cpp.TaskFsmCancel.LateStopConfirmationAfterFaultDoesNotBecomeCancelled",
+        "mtc_task_cpp.TaskFsmCancel.CancelFromExecuteItemIsAllowed",
+        "mtc_task_cpp.TaskFsmCancel.CancelFromRecoveryIsAllowed",
+        "mtc_task_cpp.TaskFsmCancel.ItemUnsafeInCancelPendingGoesToFault",
+        "mtc_task_cpp.TaskFsmCancel.CancelInTerminalStateIsIgnored",
+        "mtc_task_cpp.TaskFsmRecovery.TargetNotFoundRetryReturnsToScanScene",
+        "mtc_task_cpp.TaskFsmRecovery.RetryBudgetExhaustionGoesToTaskFailed",
+        "mtc_task_cpp.TaskFsmRecovery.DenyRetryGoesToTaskFailed",
+        "mtc_task_cpp.TaskFsmRecovery.PlanningFailureIsRecoverable",
+        "mtc_task_cpp.TaskFsmRecovery.PoseStaleIsRecoverable",
+        "mtc_task_cpp.TaskFsmRecovery.ExecutionRejectedIsRecoverable",
+        "mtc_task_cpp.TaskFsmRecovery.RecoveryAttemptsResetAfterCompletedItem",
+        "mtc_task_cpp.TaskFsmUnsafeErrors.MotionStatusUnknownGoesToFaultWithRealCode",
+        "mtc_task_cpp.TaskFsmUnsafeErrors.NonRecoverableCodesAllGoToFault",
+        "mtc_task_cpp.TaskFsmUnsafeErrors.RecoverableWhitelistIsConservative",
+        "mtc_task_cpp.TaskFsmUnsafeErrors.FaultWithoutSpecificCodeDegradesToHardwareFault",
+        "mtc_task_cpp.TaskFsmUnsafeErrors.FaultKeepsSpecificCodeWhenPresent",
+        "mtc_task_cpp.TaskFsmUnsafeErrors.ItemFailureWithZeroCodeDefaultsToPlacementFailed",
+        "mtc_task_cpp.TaskFsmSafety.RepeatedStepsInFaultProduceNoActions",
+        "mtc_task_cpp.TaskFsmSafety.GoalAfterTerminalRequiresReset",
+        "mtc_task_cpp.TaskFaultAudit.ActionFinishesButOrdinaryResetAndNewTasksStayLocked"
+      ]
+    },
+    {
+      "path": "container/test-results/mtc_task_cpp/test_results/mtc_task_cpp/test_task_validation.gtest.xml",
+      "cases": [
+        "mtc_task_cpp.TaskValidation.BasicModeAccepted",
+        "mtc_task_cpp.TaskValidation.SequenceModeMapsSlotsInOrder",
+        "mtc_task_cpp.TaskValidation.EmptyTaskIdRejected",
+        "mtc_task_cpp.TaskValidation.UnknownModeRejected",
+        "mtc_task_cpp.TaskValidation.EmptyColorsRejected",
+        "mtc_task_cpp.TaskValidation.BasicModeRequiresExactlyOneColor",
+        "mtc_task_cpp.TaskValidation.SequenceModeRequiresExactlyThreeColors",
+        "mtc_task_cpp.TaskValidation.ColorZeroUnknownIsIllegal",
+        "mtc_task_cpp.TaskValidation.ColorOutOfRangeIsIllegal",
+        "mtc_task_cpp.TaskValidation.DuplicateColorsRejected",
+        "mtc_task_cpp.TaskValidation.ZeroTimeoutRejected",
+        "mtc_task_cpp.TaskValidation.NegativeStabilityRejected",
+        "mtc_task_cpp.TaskValidation.ExplicitSlotMustMatchDerivedSlot",
+        "mtc_task_cpp.TaskValidation.ExplicitSlotMustBeAllowed",
+        "mtc_task_cpp.TaskValidation.ExplicitSlotMatchingDerivedIsAccepted",
+        "mtc_task_cpp.TaskValidation.SlotNameValidation",
+        "mtc_task_cpp.TaskValidation.ExpectedSlotForIndex",
+        "mtc_task_cpp.TaskValidation.TaskRequestHelpers",
+        "mtc_task_cpp.TaskValidation.ModeNameOfUnknownMode",
+        "mtc_task_cpp.TaskValidationAudit.NonFiniteStabilityRejected",
+        "mtc_task_cpp.StabilityGate.ZeroStabilityRejected",
+        "mtc_task_cpp.StabilityGate.NegativeStabilityRejected",
+        "mtc_task_cpp.StabilityGate.NaNStabilityRejected",
+        "mtc_task_cpp.StabilityGate.InfiniteStabilityRejected",
+        "mtc_task_cpp.StabilityGate.PositiveStabilityAccepted",
+        "mtc_task_cpp.StabilityGate.DefaultStabilityRemainsThreeSeconds"
+      ]
+    }
+  ],
+  "python_cases": 269,
+  "python_mock_e2e": 15,
+  "ros_wiring_cases": 6,
+  "ros_wiring_identities": [
+    {
+      "classname": "tests.test_ros_wiring",
+      "name": "test_task_node_keeps_ros_clock_and_fsm_clock_independent[ros-clock]"
+    },
+    {
+      "classname": "tests.test_ros_wiring",
+      "name": "test_task_node_keeps_ros_clock_and_fsm_clock_independent[injected-clock]"
+    },
+    {
+      "classname": "tests.test_ros_wiring",
+      "name": "test_pickplace_entrypoint_maps_existing_ros_parameter[default]"
+    },
+    {
+      "classname": "tests.test_ros_wiring",
+      "name": "test_pickplace_entrypoint_maps_existing_ros_parameter[ros-override]"
+    },
+    {
+      "classname": "tests.test_ros_wiring",
+      "name": "test_default_unlock_client_reaches_tool_manager_without_release_claim[interlock]"
+    },
+    {
+      "classname": "tests.test_ros_wiring",
+      "name": "test_default_unlock_client_reaches_tool_manager_without_release_claim[mock-accepted]"
+    }
+  ],
+  "source_bundle_sha256": "e0acfdf78d9f2535a905ee57ac4417135b104f21ea603b08e280c6457c9819ca"
+}

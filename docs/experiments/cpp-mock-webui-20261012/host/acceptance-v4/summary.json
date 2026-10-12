@@ -1,0 +1,102 @@
+[
+  {
+    "case": "basic",
+    "profile": "success",
+    "started_at": "2026-10-12T00:12:21.749902+00:00",
+    "invalid_ros_goal_rejected": true,
+    "duplicate_launch_rejected": true,
+    "goal_id": "b0a61fa6-4526-48a1-a371-e0e0c26be62e",
+    "concurrent_ros_goal_rejected": true,
+    "status": "SUCCEEDED",
+    "error_code": 0,
+    "completed_count": 1,
+    "feedback_events": 17,
+    "child_goal_ids": [
+      "b219344c0e6ad43768afb9eeb05d3047"
+    ],
+    "child_statuses": {
+      "b219344c0e6ad43768afb9eeb05d3047": [
+        2,
+        4
+      ]
+    },
+    "ok": true,
+    "stack_exit_code": 0,
+    "cleanup": {
+      "started_at": "2026-10-12T00:12:21.837600+00:00",
+      "namespace": "/cpp_accept_basic",
+      "domain_id": 161,
+      "profile": "success",
+      "result_delay_ms": 350,
+      "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+      "processes": [
+        {
+          "label": "pick_place",
+          "pid": 2682,
+          "argv": [
+            "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+            "--ros-args",
+            "-r",
+            "__ns:=/cpp_accept_basic",
+            "-r",
+            "/mtc/task/execute:=/cpp_accept_basic/task/execute",
+            "-r",
+            "/mtc/manipulation/pick_place:=/cpp_accept_basic/manipulation/pick_place",
+            "-p",
+            "mock.result_delay_ms:=350",
+            "-p",
+            "mock.plan_available:=true",
+            "-p",
+            "mock.stop_evidence_available:=true",
+            "-p",
+            "mock.status_unknown:=false"
+          ],
+          "executable": "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+        },
+        {
+          "label": "task",
+          "pid": 2683,
+          "argv": [
+            "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+            "--ros-args",
+            "-r",
+            "__ns:=/cpp_accept_basic",
+            "-r",
+            "/mtc/task/execute:=/cpp_accept_basic/task/execute",
+            "-r",
+            "/mtc/manipulation/pick_place:=/cpp_accept_basic/manipulation/pick_place"
+          ],
+          "executable": "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+        },
+        {
+          "label": "web",
+          "pid": 2720,
+          "argv": [
+            "/usr/bin/python3",
+            "-m",
+            "webui.server",
+            "--cpp-mock",
+            "--cpp-namespace",
+            "/cpp_accept_basic",
+            "--ros-domain-id",
+            "161",
+            "--port",
+            "8767",
+            "--output-dir",
+            "/integration-evidence/acceptance-v4/basic/stack/web-session"
+          ],
+          "executable": "/usr/bin/python3.12"
+        }
+      ],
+      "returncodes": {
+        "pick_place": 0,
+        "task": 0,
+        "web": 0
+      },
+      "ended_at": "2026-10-12T00:12:34.630288+00:00",
+      "cleanup_ok": true,
+      "exit_code": 0
+    },
+    "ended_at": "2026-10-12T00:12:34.811322+00:00"
+  }
+]

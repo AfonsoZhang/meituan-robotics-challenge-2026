@@ -1,0 +1,1967 @@
+diff --git a/docs/migration/PHASE2B_TRAJECTORY_EXECUTION_REPORT.md b/docs/migration/PHASE2B_TRAJECTORY_EXECUTION_REPORT.md
+new file mode 100644
+index 0000000..ecd0506
+--- /dev/null
++++ b/docs/migration/PHASE2B_TRAJECTORY_EXECUTION_REPORT.md
+@@ -0,0 +1,303 @@
++# Phase 2B：FollowJointTrajectory 执行端验收报告
++
++日期：2026-10-12（Asia/Hong_Kong）。分支：`feature/phase2b-trajectory-execution`。
++开发基线：`main@a04ac6831dd3963e6b1ec4b9e27214eb564f9f24`；开始时工作树干净。
++实现提交：`b47b5fed8da403c3ae350c07902a9a0b998849e5`。
++本报告作为后续独立文档提交；报告提交SHA由`git log -1 --oneline`核对。
++最终交付要求工作树干净、不合并main、不push；最后Git状态检查另行确认。
++
++本轮结果只属于离线软件和GenericSystem。未连接控制柜、真实AUBO、RPC/RTDE/SDK，
++未触发实体工具IO，未修改驱动工作空间或其他成员Planner分支。
++
++## 1. 结论与验收边界
++
++新增 [mtc_trajectory_execution_cpp](../../src/mtc_trajectory_execution_cpp/README.md)。
++独立FjtMotionPort完成整条轨迹转换、异步ROS Action、关联取消、起点核验、反馈
++停稳窗口、超时与FAULT锁定。三个验收级别均有本轮实际执行证据：
++
++| 项目 | 状态 | 实际范围 |
++|---|---|---|
++| Level 1转换/校验 | PASS：30项 | 纯C++逻辑，消息类型转换；无ROS节点或驱动 |
++| Level 2真实ROS Action | PASS：36项 | 本地Fake FJT Server、Client、状态Topic及查询服务；4线程Executor |
++| Level 3 GenericSystem | PASS：3场景 | 完整三点执行、起点不一致零Goal拒绝、UUID关联Cancel及停稳 |
++| 完整工作空间build | PASS：14/14包 | 本轮全量构建；最终新包修改另行增量构建成功 |
++| C++回归 | PASS：424项 | 原358项全部保留并重新执行，新增66项，22个GTest可执行文件 |
++| Python注册测试 | PASS：269项 | 本轮colcon执行并核对pytest XML，FAIL 0 / SKIP 0 |
++| Python显式离线E2E | PASS：15项 | 实际运行原脚本，自带MockPlanner；非C++/MoveIt闭环 |
++| UBSan | PASS：424项C++ | 六个C++包重新instrument和执行；最终新包增量后66项再次通过 |
++| manifest XML / diff / 导出消费者 | PASS | ament_xmllint、git diff --check；只find新包的消费者编译并以disabled模式运行 |
++| TSan | NOT RUN | 本轮未执行；保留历史运行时失败，不声称排除所有竞态 |
++| MoveIt Planner接入 | NOT RUN | 未使用或合并`feature/moveit-planner` |
++| 完整PickPlace / Task + MoveIt + FJT闭环 | BLOCKED | 尚需规划分支、异步停止桥接与接触能力方案；仅验证原FSM首个运动阶段注入 |
++| 真实硬件及工具IO | NOT RUN | 未授权，通路禁用 |
++
++424 + 269 + 15 = 708个独立测试场景；GenericSystem三场景另列。新包colcon汇总
++68包含66个GTest及2个CTest包装；UBSan汇总446包含424个GTest及22个包装，不能
++当作额外独立业务测试。新包FAIL 0 / SKIP 0，当前14包分别检查无error/failure/skip。
++全目录`colcon test-result --all`本轮NOT RUN；历史`audit_tsan*`及其他构建结果未删除，
++不把以前的失败或重复结果混入本轮包统计。
++
++## 2. 审计、架构选择和接口阻断
++
++实际审阅TimedTrajectory、MotionCommand、MotionPort、PickPlaceFsm、MotionAdapter、
++MotionExecutorCore、Phase 2A外壳，以及 [Phase 2A报告](PHASE2A_ROS2_ACTION_REPORT.md)
++和 [驱动部署手册](../setup/AUBO_ROS2_DRIVER_JAZZY.md)。
++
++MotionPort轨迹方法接收MotionCommand，返回optional；MotionAdapter轨迹方法只接收
++TimedTrajectory，返回同步MotionResult。当前MotionExecutorCore没有整条轨迹执行
++入口，不能直接把两者等同。本轮以独立异步MotionPort实现ROS Client，既有Core/
++MotionAdapter/Phase 2A保持原样，不经ExecuteJointMove拆分轨迹，也不新增ROSIDL。
++
++原PickPlace FSM经`accept_plan`/`make_command`保留规划轨迹并调用MotionPort，现有
++构造函数可注入本Port。真实注入测试证明首个MOVE_PRE_ALIGN将三点计划提交为一个
++FJT Goal并推进到ENGAGE，未伪造完整放置成功。
++
++**停止桥接阻断：** 原`h_cancel_pending`同步调用并缓存一次request_stop，未确认
++就FAULT(520)。FJT的Cancel/终态/停稳窗口均是异步事件，直接注入时必须保留这一
++保守行为。测试证明直接取消进入FAULT，后台后续停稳不能自动清除FSM故障。
++未来宿主须在FSM外关联取消、冻结派发、非阻塞观察停止证据后再推进取消事件，
++失败或超时force_fault；不允许阻塞FSM事件线程或修改原安全状态转换。本轮没有
++实现该宿主，也没有改Phase 2A的硬编码Mock默认构造路径。
++
++## 3. 新增文件与关键实现
++
++仅新增12个包文件和本报告，共13个文件；没有修改任何既有文件：
++
++| 文件（相对新包） | 关键作用 |
++|---|---|
++| `CMakeLists.txt`、`package.xml` | ament_cmake/C++17、ROS Action/控制查询依赖、共享库导出及2个注册GTest |
++| `include/mtc_trajectory_execution_cpp/trajectory_validator.hpp` | 显式Fake启用、六关节限位和观察窗口配置、转换/按名称采样契约 |
++| `include/mtc_trajectory_execution_cpp/fjt_motion_port.hpp` | MotionPort实现、额外command_id关联取消、非阻塞停止查询 |
++| `include/mtc_trajectory_execution_cpp/execution_state.hpp` | ID/UUID、调用计数、终态、观察窗口、外部在途Goal和FAULT快照 |
++| `src/trajectory_validator.cpp` | 完整点序列与所有字段重排；有限性/维度/限位/时间精度/timeout；spline整段保守边界 |
++| `src/fjt_motion_port.cpp` | 异步Goal/Feedback/Result、单owner、缓存去重、runtime GenericSystem门禁、关联Cancel和故障隔离 |
++| `src/fake_trajectory_probe.cpp` | 必须显式参数开启的Fake三场景验证，读取实际起点，不修改JointState |
++| `test/test_trajectory_validator.cpp` | 30项转换/数值/spline负面测试 |
++| `test/test_fjt_action.cpp` | 36项真实ROS测试；独立服务/状态替身、真实并发及原FSM注入 |
++| `test/verify_results.py` | 比较基线358身份、已编译注册集合与实际XML，拒绝漏跑、重复、FAIL、SKIP |
++| `README.md` | 中文API/安全边界、构建测试、Fake SOP及后续集成阻断 |
++
++默认enable_fake_execution=false。显式开启仍要求LOCALHOST、无静态peers、非虚拟
++ROS时钟，以及新鲜的硬件/控制器查询和JointState；plugin必须GenericSystem且Active。
++实例与图检查拒绝额外执行owner、同名服务/Server、外部Action Client或直接Topic
++命令发布者。Action Status中遗留的外部在途Goal阻止抢占，即使原Client已退出。
++
++库无trajectory sleep、无detach、无global cancel/Stop。外部Executor管理回调，内部
++mutex只保护短状态操作；服务和Action均异步，回调里的future.get仅取已就绪响应。
++Session对象和UUID隔离旧回调；超时和通信失效仍保留原执行权，只发送一次关联取消。
++FAULT没有自动恢复接口；未确认结束时析构也保留进程端点隔离，best-effort取消
++不能被当作已停稳或人工恢复。
++
++规划轨迹必须simulation_only=true，完整六关节且起止点齐全；接触/Cartesian请求
++拒绝。位置/速度/加速度分别按名称映射；使用Bernstein凸包对JTC linear/cubic/
++quintic整段及导数给出保守限位边界，不能仅看路点数值。该检查可能保守拒绝可行
++计划，不是碰撞规划，也不改变或二次重定时Planner输出。
++
++成功须匹配Goal终态、控制器SUCCESSFUL、关联Feedback、最终位置和终态后的实际
++新JointState静止窗口。窗口用新样本的steady接收跨度和ROS stamp跨度，不能由Timer
++空转累计；所有观测需新鲜且连续，速度及位置变化率均满足静止阈值。历史执行结果
++只作为记录重读；停止查询重新核对当前证据，失去更新不能复用历史stop_confirmed。
++
++## 4. 实际调试失败与自审修复
++
++- 初次异步实现编译FAIL：Jazzy的节点名称/Client图查询位于NodeGraphInterface，不能直接调用Node；Service回调需显式SharedFuture类型，泛型lambda不满足function_traits。按安装头文件修正后构建PASS。失败日志保留在`log/phase2b/build_2026-10-12_00-17-17/`。
++- 自审发现历史停稳查询可以永久复用旧结论，改为重新验证当前状态与观察窗口；`HistoricalSettlementRequiresFreshCurrentEvidence`证明更新停止后不能继续确认。
++- 自审发现Timer时间可超过最后新采样，改为用实际新观测跨度；`StationaryWindowCannotGrowWithoutNewSamples`证明停止更新不能假装满足观察窗口。
++- 自审补充spline整段边界和外部遗留Goal拒绝，避免路点超限盲区或抢占其他owner；新增插值超限和外部Client离开后的Action Status测试。
++- 最终Fake起点负例最初先触发spline速度拒绝，验证程序的PASS条件过宽，不能据此证明起点检查。将所有路点整体平移且要求明确的`trajectory start differs`错误；最新普通/UBSan测试及GenericSystem复跑均通过，零Goal断言保留。未使用初次宽判据输出作为最终起点验收。
++
++## 5. 本轮 GenericSystem 实证
++
++环境实测Ubuntu 24.04.4 LTS、ROS 2 Jazzy、GCC 13/C++17；rclcpp 28.1.22、
++control_msgs 5.10.0、controller_manager_msgs 4.48.1、JTC 4.42.1。
++只读驱动源码`src/aubo_ros2_driver`为`jazzy@53aab83735236f0c262ecb11e04ef2600241d9d9`。
++参考仓库原来已有` m aubo_description`（已归档Fake修复），本轮前后状态相同，
++没有覆盖该修复。使用已安装`install_no_symlink`，不重编译或写入参考目录。
++
++每次启动前实际展开S3 Xacro，验证唯一plugin=GenericSystem、六关节、生成模型已
++存在；专用domain218空图、LOCALHOST且清除DDS profile/static peers。日志写/tmp，
++PYTHONDONTWRITEBYTECODE=1。实际启动命令：
++
++```bash
++ros2 launch aubo_ros2_driver aubo_control.launch.py   aubo_type:=aubo_S3 use_fake_hardware:=true   initial_joint_controller:=joint_trajectory_controller launch_rviz:=false
++```
++
++运行时硬件查询显示auboHardwareInterface / GenericSystem / active(id=3)、200Hz、
++六个position接口claimed、position/velocity状态available。两controller Active；
++目标`/joint_trajectory_controller/follow_joint_trajectory`类型为FJT，唯一Server。
++JointState实际顺序为foreArm、shoulder、upperArm、wrist1/2/3，不等于控制器顺序；
++适配器正确映射。effort为NaN的未使用字段不构成力/负载证据；本通路只验证位置/
++速度。GenericSystem并非物理模型或真实编码器。
++
++probe从当时的JointState取得起点，三点时间0/1/2秒、positions/velocities/
++accelerations完整，目标输入关节顺序反转后由转换器重排；最后增加0.02rad。
++窄软件限位±0.5rad、速度0.2rad/s、加速度0.5rad/s²，不是实机安全标定值。
++最终真实输出摘要：
++
++```text
++success: goals_sent=1 cancels_sent=0 feedback_samples=40
++UUID=4a07c9a9ba8b18c2032a89415c585139
++success=1 arrived=1 stop_confirmed=1 timed_out=0 status_unknown=0 fault_locked=0
++final_positions=0.045,0.045,0.045,0.045,0.045,0.045
++
++mismatch: goals_sent=0 cancels_sent=0
++error=210: trajectory start differs from current named JointState; no jump permitted
++
++cancel initial stop_confirmed=0
++cancel: goals_sent=1 cancels_sent=1 feedback_samples=10
++UUID=b6d60890deba8b62fb6a3dcefb128e49
++success=0 arrived=0 stop_confirmed=1 timed_out=0 status_unknown=0 fault_locked=0
++final_positions=0.0499063,0.0499063,0.0499063,0.0499063,0.0499063,0.0499063
++```
++
++最后输出来自同一Fake启动的后续复跑；先前正常Goal终点0.02rad、取消后0.025rad，
++所以后续成功终点为0.045rad。没有覆盖起点或把状态强制回零。控制器日志同时记录
++Received/Accepted Goal、Goal reached success，以及Cancel active Goal；不只凭接口
++存在或客户端ACCEPTED作结论。
++
++输出保存在`/tmp/mtc_phase2b_generic_{success,mismatch,cancel}_final.txt`和硬件/
++控制器/Action查询文件。最终Launch日志：
++`/tmp/mtc_phase2b_generic_final_logs/2026-10-12-00-39-21-553531-asusNUC05-141447/`。
++本地/tmp与build/log不提交Git；报告保留关键摘要。
++
++**环境限制：** manager明确报告Enforcing command limits disabled，并跳过部分
++`{-2*pi}`/`{2*pi}`限位解析；无FIFO权限。适配器独立强制配置限位和spline边界，
++不能声称驱动限位或硬实时通过。Ctrl+C时pal_statistics报告context invalid的
++publisher线程错误，但两进程exit 0，controller和GenericSystem deactivate/shutdown，
++最终空图确认；该错误原样保留，未修只读驱动。
++
++启动前后842个受核验源码/配置文件集合及SHA256全部一致；没有修改、增加或删除
++这些参考文件，驱动Git状态也保持原样。本轮两次Fake启动均已正常结束。
++
++## 6. 可复现验证与日志
++
++完整构建实际执行`colcon --log-base log/phase2b build --parallel-workers 2`，输出
++`Summary: 14 packages finished`。随后最终新包改动按packages-up-to增量构建和测试。
++全量注册测试实际执行`colcon --log-base log/phase2b_full test --executor sequential`，
++输出14包完成；当前各包test-result独立查询通过。
++
++```bash
++source /opt/ros/jazzy/setup.bash
++cd /home/aaet/meituan_challenge_ws
++colcon build --packages-up-to mtc_trajectory_execution_cpp
++source install/setup.bash
++colcon test --packages-select mtc_trajectory_execution_cpp
++colcon test-result --test-result-base build/mtc_trajectory_execution_cpp --all --verbose
++colcon test --packages-select mtc_core_cpp mtc_task_cpp mtc_manipulation_cpp   mtc_motion_execution_cpp mtc_ros2_action_cpp mtc_trajectory_execution_cpp --executor sequential
++python3 src/mtc_trajectory_execution_cpp/test/verify_results.py --build-base build
++python3 tests/test_mock_end_to_end.py
++```
++
++最新普通新包日志`log/phase2b/build_2026-10-12_00-42-36/`和
++`log/phase2b/test_2026-10-12_00-42-44/`；全量注册测试日志
++`log/phase2b_full/test_2026-10-12_00-40-43/`；原358项定向回归在
++`log/phase2b_regression/test_2026-10-12_00-35-09/`。XML位于各包
++`build/<package>/test_results/`，pytest为`build/<package>/pytest.xml`。
++E2E输出`/tmp/mtc_phase2b_python_e2e.txt`，实际15/15；负面用例的预期错误日志不是
++回归失败。消费者位于`/tmp/mtc_phase2b_consumer`，只find新包后编译并disabled运行。
++
++UBSan实际使用独立目录，先在Jazzy新终端执行：
++
++```bash
++export CMAKE_BUILD_PARALLEL_LEVEL=2
++colcon --log-base log/phase2b_ubsan build   --build-base build/phase2b_ubsan --install-base install/phase2b_ubsan   --packages-up-to mtc_ros2_action_cpp mtc_trajectory_execution_cpp --parallel-workers 1   --cmake-args '-DCMAKE_CXX_FLAGS=-fsanitize=undefined -fno-sanitize-recover=all -fno-omit-frame-pointer'   '-DCMAKE_SHARED_LINKER_FLAGS=-fsanitize=undefined' '-DCMAKE_EXE_LINKER_FLAGS=-fsanitize=undefined'
++source install/phase2b_ubsan/setup.bash
++export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1
++colcon --log-base log/phase2b_ubsan test   --build-base build/phase2b_ubsan --install-base install/phase2b_ubsan   --packages-select mtc_core_cpp mtc_task_cpp mtc_manipulation_cpp   mtc_motion_execution_cpp mtc_ros2_action_cpp mtc_trajectory_execution_cpp --executor sequential
++colcon test-result --test-result-base build/phase2b_ubsan --all
++python3 src/mtc_trajectory_execution_cpp/test/verify_results.py --build-base build/phase2b_ubsan
++```
++
++全套7包build、6个C++包test实际通过；最后起点案例改动后增量build和新包66项再次
++通过，身份核验424项完整。最新UBSan日志`log/phase2b_ubsan/build_2026-10-12_00-44-29/`
++及`test_2026-10-12_00-44-42/`。ROS/DDS系统库未重新instrument；TSan未运行，不能
++以UBSan代替数据竞争检测。未修改ASLR或系统安全设置。
++
++## 7. 后续阻断与准入建议
++
++独立执行端通过三层软件/Fake验收，可供负责人开展后续受控Mock联合集成准备；
++不是完整比赛抓放或实机准入许可。
++
++1. 等Planner负责人合并并回归`feature/moveit-planner`，验证真实规划输出与本执行端的时间、顺序、限位和spline边界兼容；本轮没有读取/修改该分支工作文件或自动合并。
++2. 实现显式Port注入宿主和非阻塞取消证据桥接，保持既有FSM FAULT/负载锁定；Phase 2A当前默认Mock路径不替换。
++3. 接触/Cartesian能力尚不支持，不能让SEAT等requires_contact工序进入本通路，也不能擅自清除约束位；完整抓放需要独立的约束与验证方案。
++4. 实机停止/队列/编码器证据、设备身份认证、碰撞检查、TCP/负载、工具IO、人工恢复接口和安全急停均未验收；本包只支持GenericSystem。
++5. 端点隔离和单owner按受信任本机ROS图设计；DDS发现存在传播延迟，不能抵抗恶意伪造或替代实体安全系统。宿主正常退出必须先收齐终态与停止证据；强制退出不保证Cancel送达。
++6. TSan仍NOT RUN；需在支持的环境另做动态竞态验收。保守spline边界可能拒绝实际可行计划，需用负责人合入的规划轨迹补充兼容回归，不放宽安全检查来赶进度。
++
++未执行的完整FSM/MoveIt和实机项目保持BLOCKED/NOT RUN。没有发现需放宽Core或
++ROSIDL才能完成本次独立执行端的要求；停止桥接限制已用真实测试固定并明确交接。
++
++## 8. 新增测试身份（实际XML执行确认）
++
++### test_trajectory_validator（30项，全部PASS）
++
++- `TrajectoryValidator.CompleteTrajectoryPreserved`
++- `TrajectoryValidator.JointOrderMapsAllFields`
++- `TrajectoryValidator.EmptyTrajectoryRejected`
++- `TrajectoryValidator.SinglePointRejected`
++- `TrajectoryValidator.DuplicateJointRejected`
++- `TrajectoryValidator.MissingJointRejected`
++- `TrajectoryValidator.NonIncreasingTimeRejected`
++- `TrajectoryValidator.NanPositionRejected`
++- `TrajectoryValidator.InfVelocityRejected`
++- `TrajectoryValidator.InfAccelerationRejected`
++- `TrajectoryValidator.DimensionMismatchRejected`
++- `TrajectoryValidator.FirstPointNotZeroRejected`
++- `TrajectoryValidator.PositionLimitRejected`
++- `TrajectoryValidator.VelocityLimitRejected`
++- `TrajectoryValidator.AccelerationLimitRejected`
++- `TrajectoryValidator.TimeoutZeroRejected`
++- `TrajectoryValidator.InsufficientTimeoutRejected`
++- `TrajectoryValidator.RealCommandRejected`
++- `TrajectoryValidator.ContactRequestRejected`
++- `TrajectoryValidator.NanTimeRejected`
++- `TrajectoryValidator.NegativeStampRejected`
++- `TrajectoryValidator.NanStampRejected`
++- `TrajectoryValidator.NanosecondTimeCollisionRejected`
++- `TrajectoryValidator.MixedRepresentationsRejected`
++- `TrajectoryValidator.MissingLimitsRejectConfiguration`
++- `TrajectoryValidator.ZeroSettleRejected`
++- `TrajectoryValidator.JointSampleRequiresVelocityAndIdentity`
++- `TrajectoryValidator.SplinePositionOvershootRejected`
++- `TrajectoryValidator.SplineVelocityOvershootRejected`
++- `TrajectoryValidator.SplineAccelerationOvershootRejected`
++
++### test_fjt_action（36项，全部PASS）
++
++- `FjtAction.CompleteTrajectoryOneGoalAndFeedback`
++- `FjtAction.RepeatedTicksNeverResend`
++- `FjtAction.ConcurrentGoalsSingleOwner`
++- `FjtAction.StartMismatchDoesNotSend`
++- `FjtAction.CorrectCancelUsesExactUuid`
++- `FjtAction.CancelBeforeGoalResponsePreserved`
++- `FjtAction.DuplicateCancelOnlyOneBackendCall`
++- `FjtAction.StaleCancelDoesNotAffectNewOwner`
++- `FjtAction.CancelWithoutOwnerNeverGlobalStops`
++- `FjtAction.AckOnlyCannotConfirmStopAndTimeoutLocks`
++- `FjtAction.ExecutionTimeoutLocksAndNeverResends`
++- `FjtAction.ControllerAbortedRemainsFaultLocked`
++- `FjtAction.StaleJointFeedbackLocks`
++- `FjtAction.LostJointUpdatesCannotSettle`
++- `FjtAction.InsufficientStationaryIntervalDoesNotSucceed`
++- `FjtAction.WrongFinalPositionCannotSucceed`
++- `FjtAction.NoAssociatedFeedbackCannotSucceed`
++- `FjtAction.HardwareProofLostLocksAndCancelsOwnedGoal`
++- `FjtAction.WrongPluginRejectsBeforeSend`
++- `FjtAction.InactiveControllerRejectsBeforeSend`
++- `FjtAction.MissingVelocityEvidenceRejectsBeforeSend`
++- `FjtAction.ReplayedJointStampLocks`
++- `FjtAction.GoalRejectionMeansNeverExecuted`
++- `FjtAction.ChangedCommandIdContentCannotResend`
++- `FjtAction.SecondPortCannotOwnEndpoint`
++- `FjtAction.DefaultDisabledNeverSends`
++- `FjtAction.DestroyDuringExecutionOnlyCancelsOwnedGoal`
++- `FjtAction.HistoricalSettlementRequiresFreshCurrentEvidence`
++- `FjtAction.ConcurrentGoalReplacementAndLateCancel`
++- `FjtAction.OtherTrajectoryPublisherRejectsDispatch`
++- `FjtAction.ForeignActionClientRejectsDispatch`
++- `FjtAction.SingleTargetEntryExplicitlyRejected`
++- `FjtAction.StationaryWindowCannotGrowWithoutNewSamples`
++- `FjtAction.ForeignInFlightGoalCannotBePreemptedAfterClientLeaves`
++- `FjtAction.ExistingPickPlaceFsmDelegatesWholeTrajectoryThroughPort`
++- `FjtAction.DirectFsmCancelKeepsOriginalFaultWhenStopIsStillPending`
+diff --git a/src/mtc_trajectory_execution_cpp/CMakeLists.txt b/src/mtc_trajectory_execution_cpp/CMakeLists.txt
+new file mode 100644
+index 0000000..821560f
+--- /dev/null
++++ b/src/mtc_trajectory_execution_cpp/CMakeLists.txt
+@@ -0,0 +1,33 @@
++cmake_minimum_required(VERSION 3.16)
++project(mtc_trajectory_execution_cpp)
++set(CMAKE_CXX_STANDARD 17)
++set(CMAKE_CXX_STANDARD_REQUIRED ON)
++add_compile_options(-Wall -Wextra -Wpedantic)
++find_package(ament_cmake REQUIRED)
++foreach(dep action_msgs rclcpp rclcpp_action control_msgs trajectory_msgs sensor_msgs
++    controller_manager_msgs lifecycle_msgs mtc_core_cpp mtc_manipulation_cpp)
++  find_package(${dep} REQUIRED)
++endforeach()
++add_library(${PROJECT_NAME} SHARED src/trajectory_validator.cpp src/fjt_motion_port.cpp)
++target_include_directories(${PROJECT_NAME} PUBLIC
++  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)
++ament_target_dependencies(${PROJECT_NAME} PUBLIC action_msgs rclcpp rclcpp_action control_msgs
++  trajectory_msgs sensor_msgs controller_manager_msgs lifecycle_msgs
++  mtc_core_cpp mtc_manipulation_cpp)
++install(TARGETS ${PROJECT_NAME} EXPORT export_${PROJECT_NAME}
++  ARCHIVE DESTINATION lib LIBRARY DESTINATION lib RUNTIME DESTINATION bin)
++add_executable(fake_trajectory_probe src/fake_trajectory_probe.cpp)
++target_link_libraries(fake_trajectory_probe ${PROJECT_NAME})
++install(TARGETS fake_trajectory_probe DESTINATION lib/${PROJECT_NAME})
++install(DIRECTORY include/ DESTINATION include)
++if(BUILD_TESTING)
++  find_package(ament_cmake_gtest REQUIRED)
++  ament_add_gtest(test_trajectory_validator test/test_trajectory_validator.cpp)
++  target_link_libraries(test_trajectory_validator ${PROJECT_NAME})
++  ament_add_gtest(test_fjt_action test/test_fjt_action.cpp TIMEOUT 120)
++  target_link_libraries(test_fjt_action ${PROJECT_NAME})
++endif()
++ament_export_targets(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
++ament_export_dependencies(action_msgs rclcpp rclcpp_action control_msgs trajectory_msgs sensor_msgs
++  controller_manager_msgs lifecycle_msgs mtc_core_cpp mtc_manipulation_cpp)
++ament_package()
+diff --git a/src/mtc_trajectory_execution_cpp/README.md b/src/mtc_trajectory_execution_cpp/README.md
+new file mode 100644
+index 0000000..8e720a7
+--- /dev/null
++++ b/src/mtc_trajectory_execution_cpp/README.md
+@@ -0,0 +1,201 @@
++# Phase 2B：完整 FollowJointTrajectory 的 Fake Hardware 执行端
++
++本包提供 `mtc::trajectory::FjtMotionPort`，继承既有
++`mtc::manipulation::MotionPort`，以一条ROS Action Goal提交完整时间参数化轨迹。
++默认执行禁用；只支持明确核实的 `mock_components/GenericSystem`。不包含真实
++AUBO SDK、RPC/RTDE、工具IO或MoveIt Planner，不改变Phase 2A的三个Mock Server。
++
++2026-10-12本轮验证：30项转换/校验单元测试、36项真实本地ROS Action测试通过；
++原358项C++回归保留并执行，合计424项通过。GenericSystem多点执行、起点拒绝和
++关联取消实际运行记录见 [验收报告](../../docs/migration/PHASE2B_TRAJECTORY_EXECUTION_REPORT.md)。
++
++## API 与执行所有权
++
++| API | 行为 |
++|---|---|
++| `FjtMotionPort(node, config)` | 外部负责spin该Node；Config必须给齐六关节限位。执行默认禁用，显式开启仍需运行时Fake证据 |
++| `execute_trajectory(command)` | 首次校验并异步提交；在途返回`std::nullopt`，后续tick轮询同一command_id，不重发；有明确结论才返回MotionResult |
++| `execute_joint_move(command)` | 明确拒绝单点入口，不将完整轨迹拆分 |
++| `cancel_command(command_id, reason)` | 仅操作本实例持有的对应Goal handle/UUID；错ID或旧ID不发送任何取消 |
++| `request_stop(reason)` | 固定本实例当前ID，再调用关联取消；没有关联身份便拒绝，不调用全局Stop |
++| `snapshot()` | 加锁副本：ID/UUID、Goal和Cancel计数、Feedback、终态、观察窗口、外部在途Goal及FAULT |
++
++异步回调属于同一MutuallyExclusive CallbackGroup；Port内部mutex保护状态及命令
++所有权。回调不访问FSM，不等待完整轨迹，不使用detached thread。调用者继续保持
++FSM单线程事件所有权。Goal Response、Feedback、Result和Cancel响应均检查原Session
++及UUID；超时后仍保留原所有权，迟到受理也只取消原Goal。
++
++不同ID并发请求拒绝；同ID内容改变拒绝；已完成ID重读历史结果，不再派发。
++历史MotionResult是执行记录；新的Stop查询会重新检查当前反馈，不能永久复用历史
++停稳。超时、通信/反馈失效和控制器异常保持FAULT锁定，没有自动复位或人工解除API。
++进程内同一domain/Action只允许一个Port。未确认结束或FAULT时销毁，端点保持隔离；
++不能通过重建Port绕过锁定。
++
++析构仅对自有Goal做best-effort关联取消，不等待或声称停稳。未回来的Goal Response
++回调只会取消它自己的handle。正常宿主退出前应保持Executor运行，取得终态及停止
++证据，再移除Node；断联或强制退出可能无法完成取消，本包保留隔离并报告不确定性。
++重启进程不构成真实设备恢复证明。软件Stop不是安全急停。
++
++## 执行前门禁与轨迹范围
++
++运行时通过 `controller_manager_msgs` 查询硬件组件和控制器：
++
++- 唯一硬件组件必须匹配配置名称，plugin必须为`mock_components/GenericSystem`且Active，具备六关节position/velocity状态接口。
++- 目标JointTrajectoryController和joint_state_broadcaster必须Active；控制器按名称拥有全部六个position接口，无其他控制器占用这些关节。
++- FJT Server及控制查询服务必须唯一，目标FJT Client只有本实例，没有直接`joint_trajectory` Topic命令发布者，JointState发布者唯一。
++- Action Status中的外部在途Goal阻止派发，即使原Client已经退出；不会发送新Goal来抢占它。
++- JointState必须包含完整且唯一的六关节名称、有限位置/速度、有效持续递增的ROS时间戳。位置符合配置限位；按名称重排，拒绝缺字段、旧帧和回退。
++- 初次执行前须观察新鲜静止窗口；当前位置与首点按名称比较，默认偏差容差0.01rad，超差拒绝，绝不自动跳到起点。
++
++门禁是受信任、隔离的软件ROS图检查，不是抵抗恶意伪造服务的身份认证或实体安全
++系统。需要专用本机domain、已审查的Fake Launch及稳定的控制器配置；禁止在真实
++驱动或其他运动客户端所在图中使用。发现不符时拒绝执行或关联取消并锁定。
++
++输入必须有非空command_id、trajectory_id和`simulation_only=true`；后者不能独立
++授权发令。只支持完整六关节轨迹，至少两点，首点`t=0`，时间严格递增且在ROS
++纳秒转换后仍可区分。原frame_id及header stamp保留；stamp为0表示立即开始，非零
++stamp必须在当前ROS时间之后且不超过配置允许的启动延迟。零JointState stamp无效。
++
++每点positions、可选velocities/accelerations按名称映射到配置的控制器顺序。
++导数字段需各点一致；加速度不能单独存在。NaN/Inf、重复/缺失关节、维度不匹配、
++非法缩放、超限和不足的timeout均拒绝。默认最大轨迹60秒、最大10000点、最大
++timeout120000ms；timeout必须覆盖轨迹、启动延迟和停稳窗口。关节限位无默认实机
++授权；未配置便拒绝。缩放字段只做输入上限校验，不二次缩放或重定时已规划轨迹。
++
++为避免路点合法但JTC插值超限，转换器以Bernstein控制点凸包保守检查整段linear/
++cubic/quintic spline的位置、速度和加速度；可能拒绝实际可行但无法由该保守边界
++证明的轨迹。不提供碰撞检查、Cartesian控制或接触控制；`requires_contact`请求
++显式拒绝。这里不是完整PickPlace接触工序验收。
++
++Jazzy官方说明见 [JTC轨迹表示](https://control.ros.org/jazzy/doc/ros2_controllers/joint_trajectory_controller/doc/trajectory.html)
++及 [JTC接口和抢占](https://control.ros.org/jazzy/doc/ros2_controllers/joint_trajectory_controller/doc/userdoc.html)。
++
++## 成功与停止证据
++
++成功必须同时具有匹配UUID的终态SUCCEEDED、控制器SUCCESSFUL、有效关联Feedback、
++最终关节到位，以及终态后持续新鲜JointState的静止窗口。检查速度和相邻位置的
++变化率；观察窗口须由实际新样本覆盖，ROS stamp跨度与steady接收时间跨度均达到
++settle_duration，不能靠持续Timer/tick假装静止。默认窗口0.2秒，必须正值。
++
++Cancel ACK仅记录请求响应，不能确认停止；匹配Goal终态CANCELED加独立静止窗口
++才形成正常取消停止结论。ABORTED或其他异常保持锁定；超时会发一次关联取消，
++返回未知/超时结果并禁止重发。窗口失效、停止更新或状态不明确均不能生成成功。
++
++这些证据来自理想化GenericSystem和模拟控制器，未经过真实编码器、设备队列、
++制动、硬实时或实体安全系统验证，不能推广成实机安全证明。
++
++## 编译与测试
++
++在主工作空间根目录、仅加载Jazzy的新终端执行，不清空历史目录：
++
++```bash
++source /opt/ros/jazzy/setup.bash
++cd /home/aaet/meituan_challenge_ws
++colcon build --packages-up-to mtc_trajectory_execution_cpp
++source install/setup.bash
++colcon test --packages-select mtc_trajectory_execution_cpp
++colcon test-result --test-result-base build/mtc_trajectory_execution_cpp --all --verbose
++
++# 当前六个C++包都需有本轮结果，身份核验才完整
++colcon build --packages-up-to mtc_ros2_action_cpp mtc_trajectory_execution_cpp
++colcon test --packages-select mtc_core_cpp mtc_task_cpp mtc_manipulation_cpp \
++  mtc_motion_execution_cpp mtc_ros2_action_cpp mtc_trajectory_execution_cpp --executor sequential
++python3 src/mtc_trajectory_execution_cpp/test/verify_results.py --build-base build
++```
++
++新核验脚本比较Phase 2B基线358项、已编译且注册的测试身份与实际XML，拒绝未完成、
++遗漏、重复、FAIL和SKIP。历史Phase 2A脚本固定20个可执行文件，不用于当前22个集合。
++全目录test-result会包含保留的历史TSan失败，须与本轮各包结果分开报告。
++
++Level 1为纯转换测试；Level 2使用真正的rclcpp_action Client/Server、状态Topic和
++硬件/控制器查询服务替身，4线程Executor与真实两线程Goal竞争。另有原FSM首个
++运动阶段的注入测试，以及异步取消未确认时保留FAULT的契约测试。测试里的感知/
++工具夹具仅供软件测试，未接实体IO；不是安装后的公共API。
++
++## GenericSystem 单独复验 SOP
++
++三个终端全部使用以下环境；218是本轮示例domain，先确认空图。同一终端只加载
++这一套AUBO安装目录；不构建或修改参考工作空间：
++
++```bash
++source /opt/ros/jazzy/setup.bash
++source /home/aaet/aubo_driver_validation_ws/install_no_symlink/setup.bash
++source /home/aaet/meituan_challenge_ws/install/setup.bash
++export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
++export ROS_DOMAIN_ID=218
++export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
++unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY
++unset FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI
++export PYTHONDONTWRITEBYTECODE=1
++export ROS_LOG_DIR=/tmp/mtc_phase2b_generic_logs
++```
++
++终端1先检查空图与Fake Xacro。检查失败立即停止，不将参数改为实机模式：
++
++```bash
++ros2 node list --no-daemon --spin-time 2
++python3 - <<'PY'
++from pathlib import Path
++import subprocess, xml.etree.ElementTree as ET
++from ament_index_python.packages import get_package_share_directory
++share = Path(get_package_share_directory('aubo_description'))
++assert str(share).startswith('/home/aaet/aubo_driver_validation_ws/install_no_symlink/')
++assert (share / 'urdf/aubo_S3.urdf.xacro').is_file(), '禁止在只读目录生成模型'
++xml = subprocess.check_output([
++    'xacro', str(share / 'urdf/xacro/inc/aubo_ros2.xacro'),
++    'aubo_type:=aubo_S3', 'use_fake_hardware:=true'], text=True)
++assert [p.text.strip() for p in ET.fromstring(xml).findall('ros2_control/hardware/plugin')] == ['mock_components/GenericSystem']
++assert not subprocess.check_output(['ros2', 'node', 'list', '--no-daemon', '--spin-time', '2'], text=True).strip(), 'domain非空'
++print('PASS: GenericSystem且空domain')
++PY
++ros2 launch aubo_ros2_driver aubo_control.launch.py \
++  aubo_type:=aubo_S3 use_fake_hardware:=true \
++  initial_joint_controller:=joint_trajectory_controller launch_rviz:=false
++```
++
++终端1保持运行。启动日志必须显示GenericSystem加载和两个controller Active。
++此Launch的默认Fake参数为false，绝不裸启动。完整驱动背景见
++[部署手册](../../docs/setup/AUBO_ROS2_DRIVER_JAZZY.md)。
++
++终端2检查控制器、状态和Action，再运行显式软件测试轨迹：
++
++```bash
++ros2 control list_hardware_components -c /controller_manager -v
++ros2 control list_controllers -c /controller_manager
++ros2 action info /joint_trajectory_controller/follow_joint_trajectory -t
++ros2 topic echo /joint_states sensor_msgs/msg/JointState --once --timeout 5
++ros2 run mtc_trajectory_execution_cpp fake_trajectory_probe --verify-generic-system success
++ros2 run mtc_trajectory_execution_cpp fake_trajectory_probe --verify-generic-system mismatch
++ros2 run mtc_trajectory_execution_cpp fake_trajectory_probe --verify-generic-system cancel
++```
++
++probe必须有显式验证参数，否则退出且不执行。它从新鲜JointState读取起点，构造
++一条0/1/2秒的三点轨迹、非零终点和不同关节输入顺序；不覆盖控制器关节状态。
++使用窄软件测试范围±0.5rad、速度0.2rad/s、加速度0.5rad/s²，均不是实机标定值。
++起点不在该范围则拒绝，不自动回零。success预期一个Goal和独立到位/停稳；
++mismatch预期明确起点偏差错误、零Goal；cancel预期一个Goal、一次UUID关联Cancel，
++初始stop_confirmed=false，最终取得终态及停稳证据后才true。
++
++终端3可只读观察 `ros2 topic hz /joint_states`，确认持续更新，Ctrl+C退出监视。
++当前验证环境报告部分URDF限位表达式无法解析、manager未启用命令限位，以及
++没有FIFO权限。本包强制自己的配置限位和spline边界，不修改驱动来掩盖问题；
++这些环境限制必须记录，不能声称已完成实机限位或硬实时验收。
++
++等待probe终结，再在终端1 Ctrl+C，检查 `ros2 node list --no-daemon --spin-time 2`
++中本次节点已退出。不要全局kill其他成员进程；正常关闭不是安全急停。
++
++## 后续 FSM / Planner 集成边界
++
++通过既有PickPlaceFsm构造函数显式注入共享MotionPort即可使用轨迹执行入口。
++Phase 2A的AsyncMockMotion和三个默认Mock Server保持原样，本包不提供后端参数
++来自动替换它们。本轮测试只证明原FSM首个运动阶段能派发整条轨迹，不宣称完成
++完整抓放或Task → PickPlace → MoveIt → FJT闭环。
++
++**取消桥接仍是联合集成阻断项。** 原FSM对同步`request_stop()`只调用并缓存一次，
++若返回未确认立即FAULT(520)。直接注入本异步Port将保留这一行为；不能阻塞该FSM
++事件线程等待取消。后续宿主应先关联取消、在FSM外非阻塞等待Stop证据，冻结新的
++运动派发，确认后才交给FSM处理；逾期强制FAULT。该宿主尚未实现，本轮不改Core。
++
++常建烁维护的`feature/moveit-planner`未合并、未修改、未用于本轮验证。待负责人
++合入并回归后再验证完整规划轨迹、时基、接触能力、取消桥接及停止证据方案。
++没有接入真实硬件；TSan本轮NOT RUN，普通多线程或UBSan通过不等于排除所有竞态。
+diff --git a/src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/execution_state.hpp b/src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/execution_state.hpp
+new file mode 100644
+index 0000000..a35e3ad
+--- /dev/null
++++ b/src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/execution_state.hpp
+@@ -0,0 +1,16 @@
++// Copyright 2026 MTC contributors
++#pragma once
++#include <string>
++#include <mtc_core_cpp/results.hpp>
++namespace mtc::trajectory
++{
++struct ExecutionSnapshot
++{
++  std::string command_id, goal_uuid, detail;
++  bool ready = false, in_flight = false, fault_locked = false;
++  bool cancel_acknowledged = false, terminal_received = false;
++  size_t goals_sent = 0, cancel_requests = 0, feedback_samples = 0, stationary_samples = 0, foreign_active_goals = 0;
++  double stationary_observed_seconds = 0.0;
++  std::optional<mtc::core::MotionResult> result;
++};
++}  // namespace mtc::trajectory
+diff --git a/src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/fjt_motion_port.hpp b/src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/fjt_motion_port.hpp
+new file mode 100644
+index 0000000..81cfd92
+--- /dev/null
++++ b/src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/fjt_motion_port.hpp
+@@ -0,0 +1,32 @@
++// Copyright 2026 MTC contributors
++#pragma once
++#include <memory>
++#include <rclcpp/rclcpp.hpp>
++#include <mtc_manipulation_cpp/pick_place_types.hpp>
++#include "mtc_trajectory_execution_cpp/trajectory_validator.hpp"
++#include "mtc_trajectory_execution_cpp/execution_state.hpp"
++namespace mtc::trajectory
++{
++// The supplied node must be spun by its owner's executor. No FSM callback is invoked here.
++// Default disabled. Runtime GenericSystem, active controller and fresh state proofs required.
++class FjtMotionPort final : public mtc::manipulation::MotionPort
++{
++public:
++  FjtMotionPort(rclcpp::Node::SharedPtr node, Config config);
++  ~FjtMotionPort() override;
++  FjtMotionPort(const FjtMotionPort &) = delete;
++  FjtMotionPort & operator=(const FjtMotionPort &) = delete;
++  std::optional<mtc::core::MotionResult> execute_joint_move(
++    const mtc::core::MotionCommand & command) override;
++  std::optional<mtc::core::MotionResult> execute_trajectory(
++    const mtc::core::MotionCommand & command) override;
++  // Polling stop: direct FSM use conservatively faults if confirmation isn't ready yet.
++  mtc::core::StopResult request_stop(const std::string & reason) override;
++  // Additional scoped API; never upgrades mismatched/old IDs to global cancel.
++  mtc::core::StopResult cancel_command(const std::string & id, const std::string & reason);
++  ExecutionSnapshot snapshot() const;
++private:
++  struct Impl;
++  std::shared_ptr<Impl> impl_;
++};
++}  // namespace mtc::trajectory
+diff --git a/src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/trajectory_validator.hpp b/src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/trajectory_validator.hpp
+new file mode 100644
+index 0000000..dc5002f
+--- /dev/null
++++ b/src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/trajectory_validator.hpp
+@@ -0,0 +1,49 @@
++// Copyright 2026 MTC contributors
++#pragma once
++#include <map>
++#include <optional>
++#include <string>
++#include <vector>
++#include <sensor_msgs/msg/joint_state.hpp>
++#include <trajectory_msgs/msg/joint_trajectory.hpp>
++#include <mtc_core_cpp/motion_primitive.hpp>
++
++namespace mtc::trajectory
++{
++struct JointLimit {double minimum, maximum, velocity, acceleration;};
++struct Config
++{
++  // Never inferred from simulation_only or a backend name. Runtime proofs also required.
++  bool enable_fake_execution = false;
++  std::string controller_manager = "/controller_manager";
++  std::string controller = "joint_trajectory_controller";
++  std::string hardware_component = "auboHardwareInterface";
++  std::string joint_state_topic = "/joint_states";
++  std::vector<std::string> joints = {"shoulder_joint", "upperArm_joint", "foreArm_joint",
++    "wrist1_joint", "wrist2_joint", "wrist3_joint"};
++  std::map<std::string, JointLimit> limits;  // Mandatory; no implicit device limits.
++  double start_tolerance = 0.01, final_tolerance = 0.005;
++  double stationary_velocity = 0.005, settle_duration = 0.2;
++  double feedback_max_age = 0.3, proof_max_age = 0.7;
++  double max_duration = 60.0, max_start_delay = 0.2;
++  uint32_t max_timeout_ms = 120000;
++  size_t max_points = 10000;
++  void validate() const;
++  std::string action_name() const {return "/" + controller + "/follow_joint_trajectory";}
++};
++struct JointSample
++{
++  std::vector<double> positions, velocities;
++  int64_t stamp_ns = 0;
++};
++struct Validation
++{
++  std::optional<trajectory_msgs::msg::JointTrajectory> trajectory;
++  std::string error;
++};
++// Pure conversion; every vector is mapped by name to configured controller order.
++Validation convert(const mtc::core::MotionCommand & command, const Config & config);
++std::optional<JointSample> map_sample(
++  const sensor_msgs::msg::JointState & state, const Config & config);
++bool near(const std::vector<double> & a, const std::vector<double> & b, double tolerance);
++}  // namespace mtc::trajectory
+diff --git a/src/mtc_trajectory_execution_cpp/package.xml b/src/mtc_trajectory_execution_cpp/package.xml
+new file mode 100644
+index 0000000..438b90e
+--- /dev/null
++++ b/src/mtc_trajectory_execution_cpp/package.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0"?>
++<package format="3">
++  <name>mtc_trajectory_execution_cpp</name>
++  <version>0.1.0</version>
++  <description>仅 Fake Hardware 的异步完整 FollowJointTrajectory MotionPort。</description>
++  <maintainer email="maintainers@example.com">MTC contributors</maintainer>
++  <license>Apache-2.0</license>
++  <buildtool_depend>ament_cmake</buildtool_depend>
++  <depend>action_msgs</depend><depend>rclcpp</depend><depend>rclcpp_action</depend>
++  <depend>control_msgs</depend><depend>trajectory_msgs</depend><depend>sensor_msgs</depend>
++  <depend>controller_manager_msgs</depend><depend>lifecycle_msgs</depend>
++  <depend>mtc_core_cpp</depend><depend>mtc_manipulation_cpp</depend>
++  <test_depend>ament_cmake_gtest</test_depend>
++  <export><build_type>ament_cmake</build_type></export>
++</package>
+diff --git a/src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp b/src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp
+new file mode 100644
+index 0000000..37bdb64
+--- /dev/null
++++ b/src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp
+@@ -0,0 +1,68 @@
++// Manual Fake-only verification program. Not a robot bringup or production planner.
++#include <algorithm>
++#include <chrono>
++#include <iostream>
++#include <thread>
++#include <rclcpp/rclcpp.hpp>
++#include "mtc_trajectory_execution_cpp/fjt_motion_port.hpp"
++using namespace std::chrono_literals;
++int main(int argc,char ** argv)
++{
++  if (argc!=3 || std::string(argv[1])!="--verify-generic-system" ||
++    (std::string(argv[2])!="success" && std::string(argv[2])!="cancel" && std::string(argv[2])!="mismatch"))
++  {std::cerr<<"仅显式 Fake 验证：--verify-generic-system success|cancel|mismatch\n"; return 2;}
++  std::string mode=argv[2]; rclcpp::init(argc,argv);
++  int code=1;
++  try {
++    auto node=std::make_shared<rclcpp::Node>("mtc_fake_trajectory_probe");
++    mtc::trajectory::Config cfg; cfg.enable_fake_execution=true;
++    // Narrow software-test envelope, not calibrated device safety limits.
++    for (auto & n:cfg.joints) {cfg.limits[n]={-0.5,0.5,0.2,0.5};}
++    std::optional<mtc::trajectory::JointSample> current;
++    auto sub=node->create_subscription<sensor_msgs::msg::JointState>(cfg.joint_state_topic,rclcpp::SensorDataQoS(),
++      [&](sensor_msgs::msg::JointState::ConstSharedPtr s) {current=mtc::trajectory::map_sample(*s,cfg);});
++    mtc::trajectory::FjtMotionPort port(node,cfg);
++    rclcpp::executors::SingleThreadedExecutor executor; executor.add_node(node);
++    auto start=std::chrono::steady_clock::now();
++    while (rclcpp::ok() && std::chrono::steady_clock::now()-start<10s) {
++      executor.spin_some(); if (port.snapshot().ready && current) {break;} std::this_thread::sleep_for(5ms);
++    }
++    if (!port.snapshot().ready || !current) {throw std::runtime_error("BLOCKED: GenericSystem/active controller/fresh state/exclusive graph proof unavailable");}
++    mtc::core::MotionCommand c; c.command_id="generic_"+mode+"_"+std::to_string(node->now().nanoseconds());
++    c.simulation_only=true; c.timeout_ms=6000;
++    mtc::core::TimedTrajectory t; t.trajectory_id="explicit_fake_three_point_probe";
++    t.header_frame_id="base_link"; t.joint_names=cfg.joints; std::reverse(t.joint_names.begin(),t.joint_names.end());
++    for (int i=0;i<3;++i) {
++      mtc::core::TrajectoryPoint p; p.time_from_start_s=i;
++      p.positions_rad=current->positions; for (auto & x:p.positions_rad) {x+=0.01*i;}
++      if (mode=="mismatch") {p.positions_rad[0]+=0.1;}
++      std::reverse(p.positions_rad.begin(),p.positions_rad.end());
++      p.velocities_rad_s.assign(6,0); p.accelerations_rad_s2.assign(6,0); t.points.push_back(p);
++    }
++    c.trajectory=t;
++    auto r=port.execute_trajectory(c); start=std::chrono::steady_clock::now(); bool canceled=false;
++    while (!r && rclcpp::ok() && std::chrono::steady_clock::now()-start<8s) {
++      executor.spin_some();
++      if (mode=="cancel" && !canceled && std::chrono::steady_clock::now()-start>500ms) {
++        auto stop=port.cancel_command(c.command_id,"explicit Fake probe cancel");
++        std::cout<<"cancel initial stop_confirmed="<<stop.stop_confirmed<<"\n"; canceled=true;
++      }
++      r=port.execute_trajectory(c); std::this_thread::sleep_for(5ms);
++    }
++    auto s=port.snapshot();
++    if (!r) {throw std::runtime_error("NOT RUN: no final execution conclusion");}
++    std::cout<<"mode="<<mode<<" goals_sent="<<s.goals_sent<<" cancels_sent="<<s.cancel_requests
++      <<" feedback_samples="<<s.feedback_samples<<" UUID="<<s.goal_uuid<<"\n"
++      <<"success="<<r->success<<" arrived="<<r->arrived<<" stop_confirmed="<<r->stop_confirmed
++      <<" timed_out="<<r->timed_out<<" status_unknown="<<r->status_unknown<<" fault_locked="<<s.fault_locked
++      <<" error="<<r->error_code<<" message="<<r->message<<"\nfinal_positions=";
++    for(auto x:r->final_position_rad) {std::cout<<x<<",";} std::cout<<"\n";
++    bool pass=mode=="mismatch" ? (r->exec_state==mtc::core::ExecState::REJECTED && s.goals_sent==0 &&
++      r->message.find("trajectory start differs")!=std::string::npos) :
++      (r->stop_confirmed && !r->status_unknown && !s.fault_locked && s.goals_sent==1 &&
++      (mode=="success" ? r->ok() : (!r->success && r->exec_state==mtc::core::ExecState::STOPPED && s.cancel_requests==1)));
++    std::cout<<(pass ? "PASS" : "FAIL")<<": GenericSystem "<<mode<<"\n"; code=pass ? 0 : 1;
++    executor.remove_node(node);
++  } catch(const std::exception & e) {std::cerr<<e.what()<<"\n";}
++  rclcpp::shutdown(); return code;
++}
+diff --git a/src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp b/src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp
+new file mode 100644
+index 0000000..b5bafdd
+--- /dev/null
++++ b/src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp
+@@ -0,0 +1,456 @@
++// Copyright 2026 MTC contributors
++#include "mtc_trajectory_execution_cpp/fjt_motion_port.hpp"
++#include <algorithm>
++#include <chrono>
++#include <cmath>
++#include <cstdlib>
++#include <iomanip>
++#include <map>
++#include <mutex>
++#include <set>
++#include <sstream>
++#include <action_msgs/msg/goal_status_array.hpp>
++#include <control_msgs/action/follow_joint_trajectory.hpp>
++#include <controller_manager_msgs/srv/list_controllers.hpp>
++#include <controller_manager_msgs/srv/list_hardware_components.hpp>
++#include <lifecycle_msgs/msg/state.hpp>
++#include <rclcpp_action/rclcpp_action.hpp>
++
++namespace mtc::trajectory
++{
++using Fjt = control_msgs::action::FollowJointTrajectory;
++using Handle = rclcpp_action::ClientGoalHandle<Fjt>;
++using Hardware = controller_manager_msgs::srv::ListHardwareComponents;
++using Controllers = controller_manager_msgs::srv::ListControllers;
++using Steady = std::chrono::steady_clock;
++using Time = Steady::time_point;
++using mtc::core::MotionResult;
++using mtc::core::StopResult;
++using mtc::core::ExecState;
++using E = mtc::core::ErrorCodes;
++static double seconds(Time a, Time b) {return std::chrono::duration<double>(a-b).count();}
++static MotionResult rejected(const std::string & why)
++{
++  MotionResult r; r.exec_state=ExecState::REJECTED; r.error_code=E::EXECUTION_REJECTED;
++  r.message=why; return r;
++}
++static std::string uuid_text(const rclcpp_action::GoalUUID & u)
++{
++  std::ostringstream s; for (auto b:u) {s<<std::hex<<std::setw(2)<<std::setfill('0')<<int(b);} return s.str();
++}
++struct FjtMotionPort::Impl : std::enable_shared_from_this<Impl>
++{
++  struct Session
++  {
++    std::string id, uuid;
++    trajectory_msgs::msg::JointTrajectory trajectory;
++    uint32_t timeout_ms;
++    Time sent, terminal_at{}, stationary_since{}, last_stationary{};
++    size_t stationary_samples=0, feedback_samples=0;
++    int64_t stationary_stamp_ns=0;
++    bool terminal=false, cancel=false, cancel_sent=false, cancel_ack=false;
++    rclcpp_action::ResultCode code=rclcpp_action::ResultCode::UNKNOWN;
++    int controller_code=Fjt::Result::INVALID_GOAL;
++    std::string controller_message;
++    Handle::SharedPtr handle;
++    std::optional<MotionResult> result;
++  };
++  rclcpp::Node::SharedPtr node;
++  Config cfg;
++  rclcpp::CallbackGroup::SharedPtr group;
++  rclcpp_action::Client<Fjt>::SharedPtr client;
++  rclcpp::Client<Hardware>::SharedPtr hardware;
++  rclcpp::Client<Controllers>::SharedPtr controllers;
++  rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr subscription;
++  rclcpp::Subscription<action_msgs::msg::GoalStatusArray>::SharedPtr status_subscription;
++  std::vector<action_msgs::msg::GoalStatus> goal_statuses;
++  Time idle_since{}, idle_last{};
++  int64_t idle_stamp_ns=0;
++  size_t idle_samples=0;
++  rclcpp::TimerBase::SharedPtr timer;
++  mutable std::mutex mutex;
++  std::shared_ptr<Session> active;
++  std::map<std::string, MotionResult> completed;
++  std::optional<JointSample> sample;
++  Time sample_at{}, hw_at{}, controller_at{}, last_proof{};
++  std::optional<std::pair<int64_t,Time>> hw_pending, controllers_pending;
++  bool hw_ok=false, controller_ok=false, locked=false, closed=false;
++  std::string detail="waiting for runtime Fake Hardware and state proofs";
++  size_t goals_sent=0, cancels_sent=0;
++  std::string lease_key;
++  Impl(rclcpp::Node::SharedPtr n, Config c) : node(std::move(n)),cfg(std::move(c))
++  {cfg.validate(); if (!node) {throw std::invalid_argument("node is required");}}
++
++  // Trusted isolated graph check, not authentication against malicious nodes.
++  bool exclusive_graph() const
++  {
++    if (node->count_publishers(cfg.joint_state_topic)!=1 ||
++      node->count_publishers("/"+cfg.controller+"/joint_trajectory")!=0) {return false;}
++    size_t action_servers=0, action_clients=0, hw_servers=0, controller_servers=0;
++    for (const auto & n:node->get_node_graph_interface()->get_node_names_and_namespaces()) {
++      auto services=node->get_service_names_and_types_by_node(n.first,n.second);
++      action_servers+=services.count(cfg.action_name()+"/_action/send_goal");
++      hw_servers+=services.count(cfg.controller_manager+"/list_hardware_components");
++      controller_servers+=services.count(cfg.controller_manager+"/list_controllers");
++      auto clients=node->get_node_graph_interface()->get_client_names_and_types_by_node(n.first,n.second);
++      action_clients+=clients.count(cfg.action_name()+"/_action/send_goal");
++    }
++    return action_servers==1 && action_clients==1 && hw_servers==1 && controller_servers==1;
++  }
++  size_t foreign_goals() const
++  {
++    size_t count=0;
++    for (const auto & status:goal_statuses) {
++      if (status.status==action_msgs::msg::GoalStatus::STATUS_ACCEPTED ||
++        status.status==action_msgs::msg::GoalStatus::STATUS_EXECUTING ||
++        status.status==action_msgs::msg::GoalStatus::STATUS_CANCELING) {
++        if (!active || (active->handle && status.goal_info.goal_id.uuid!=active->handle->get_goal_id())) {++count;}
++        else if (!active->handle) {++count;}
++      }
++    }
++    // Before acceptance, allow one candidate only; response UUID later checks ownership.
++    if (active && !active->handle && !active->result && count==1) {return 0;}
++    return count;
++  }
++  bool idle_verified() const
++  {
++    return sample && idle_samples>=2 && seconds(idle_last,idle_since)>=cfg.settle_duration &&
++      (sample->stamp_ns-idle_stamp_ns)/1e9>=cfg.settle_duration;
++  }
++  bool healthy(Time now) const
++  {
++    if (!cfg.enable_fake_execution || !hw_ok || !controller_ok || !sample ||
++      seconds(now,hw_at)>cfg.proof_max_age || seconds(now,controller_at)>cfg.proof_max_age ||
++      seconds(now,sample_at)>cfg.feedback_max_age || !client->action_server_is_ready()) {return false;}
++    if (foreign_goals() || ((!active || active->result) && !idle_verified())) {return false;}
++    const double age=(node->now().nanoseconds()-sample->stamp_ns)/1e9;
++    return age>=-0.01 && age<=cfg.feedback_max_age && exclusive_graph();
++  }
++  void fault(const std::string & why, bool timeout=false)
++  {
++    locked=true; detail=why;
++    if (active && !active->result) {
++      MotionResult r; r.status_unknown=true; r.timed_out=timeout;
++      r.exec_state=timeout ? ExecState::TIMEOUT : ExecState::STOP_UNKNOWN;
++      r.error_code=timeout ? E::MOTION_TIMEOUT : E::MOTION_STATUS_UNKNOWN;
++      r.message=why; active->result=r;
++      active->cancel=true;  // preserve ownership for late acceptance/cancellation
++    }
++  }
++  void issue_cancel()
++  {
++    if (!active || !active->cancel || !active->handle || active->terminal || active->cancel_sent) {return;}
++    auto s=active; s->cancel_sent=true; ++cancels_sent;
++    std::weak_ptr<Impl> weak=shared_from_this();
++    try {
++      client->async_cancel_goal(s->handle,[weak,s](auto f) {
++        auto self=weak.lock(); if (!self) {return;}
++        std::lock_guard<std::mutex> lock(self->mutex);
++        if (self->active!=s || self->closed) {return;}
++        try {
++          auto response=f.get();
++          for (const auto & info:response->goals_canceling) {
++            if (info.goal_id.uuid==s->handle->get_goal_id()) {s->cancel_ack=true;}
++          }
++        } catch (const std::exception & e) {self->fault(std::string("cancel response exception: ")+e.what());}
++      });
++    } catch (const std::exception & e) {fault(std::string("cancel exception: ")+e.what());}
++  }
++  void refresh_proofs(Time now)
++  {
++    if (hw_pending && seconds(now,hw_pending->second)>cfg.proof_max_age) {
++      hardware->remove_pending_request(hw_pending->first); hw_pending.reset(); hw_ok=false;
++    }
++    if (controllers_pending && seconds(now,controllers_pending->second)>cfg.proof_max_age) {
++      controllers->remove_pending_request(controllers_pending->first); controllers_pending.reset(); controller_ok=false;
++    }
++    if (seconds(now,last_proof)<0.1) {return;} last_proof=now;
++    auto weak=weak_from_this();
++    if (!hw_pending && hardware->service_is_ready()) {
++      auto f=hardware->async_send_request(std::make_shared<Hardware::Request>(),[weak](rclcpp::Client<Hardware>::SharedFuture response) {
++        auto self=weak.lock(); if (!self) {return;}
++        std::lock_guard<std::mutex> lock(self->mutex); self->hw_pending.reset();
++        auto r=response.get(); self->hw_at=Steady::now(); self->hw_ok=false;
++        if (r->component.size()!=1) {return;}
++        const auto & h=r->component[0];
++        if (h.name!=self->cfg.hardware_component || h.plugin_name!="mock_components/GenericSystem" ||
++          h.state.id!=lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE) {return;}
++        std::set<std::string> available;
++        for (const auto & i:h.state_interfaces) {if (i.is_available) {available.insert(i.name);}}
++        for (const auto & j:self->cfg.joints) {
++          if (!available.count(j+"/position") || !available.count(j+"/velocity")) {return;}
++        }
++        self->hw_ok=true;
++      });
++      hw_pending=std::make_pair(f.request_id,now);
++    }
++    if (!controllers_pending && controllers->service_is_ready()) {
++      auto f=controllers->async_send_request(std::make_shared<Controllers::Request>(),[weak](rclcpp::Client<Controllers>::SharedFuture response) {
++        auto self=weak.lock(); if (!self) {return;}
++        std::lock_guard<std::mutex> lock(self->mutex); self->controllers_pending.reset();
++        auto r=response.get(); self->controller_at=Steady::now(); self->controller_ok=false;
++        std::set<std::string> expected;
++        for (const auto & j:self->cfg.joints) {expected.insert(j+"/position");}
++        size_t matches=0; bool broadcaster=false;
++        for (const auto & c:r->controller) {
++          if (c.name=="joint_state_broadcaster" && c.state=="active" &&
++            c.type=="joint_state_broadcaster/JointStateBroadcaster") {broadcaster=true;}
++          if (c.name==self->cfg.controller) {
++            if (c.state!="active" || c.type!="joint_trajectory_controller/JointTrajectoryController" ||
++              std::set<std::string>(c.claimed_interfaces.begin(),c.claimed_interfaces.end())!=expected) {return;}
++            ++matches;
++          } else {
++            for (const auto & i:c.claimed_interfaces) {
++              for (const auto & j:self->cfg.joints) {if (i.rfind(j+"/",0)==0) {return;}}
++            }
++          }
++        }
++        self->controller_ok=matches==1 && broadcaster;
++      });
++      controllers_pending=std::make_pair(f.request_id,now);
++    }
++  }
++  void on_sample(const sensor_msgs::msg::JointState & msg)
++  {
++    std::lock_guard<std::mutex> lock(mutex); if (closed) {return;}
++    auto mapped=map_sample(msg,cfg); auto now=Steady::now();
++    const auto ros_now=node->now().nanoseconds();
++    if (!mapped || mapped->stamp_ns>ros_now+10000000LL ||
++      ros_now-mapped->stamp_ns>static_cast<int64_t>(cfg.feedback_max_age*1e9) ||
++      (sample && mapped->stamp_ns<=sample->stamp_ns))
++    {
++      sample.reset(); idle_samples=0;
++      if (active) {active->stationary_samples=0; active->stationary_since={};}
++      if (active && !active->result) {fault("invalid, stale or non-increasing JointState timestamp"); issue_cancel();}
++      return;
++    }
++    const auto previous=sample; const auto previous_at=sample_at;
++    sample=mapped; sample_at=now;
++    bool idle=true;
++    for(double v:mapped->velocities) {idle=idle && std::abs(v)<=cfg.stationary_velocity;}
++    if (previous) {
++      const double dt=(mapped->stamp_ns-previous->stamp_ns)/1e9;
++      for(size_t j=0;j<cfg.joints.size();++j) {
++        idle=idle && dt>0 && std::abs(mapped->positions[j]-previous->positions[j])/dt<=cfg.stationary_velocity;
++      }
++    }
++    if (!idle || (previous && seconds(now,previous_at)>cfg.feedback_max_age)) {idle_samples=0;}
++    else {
++      if (!idle_samples) {idle_since=now; idle_stamp_ns=mapped->stamp_ns;}
++      ++idle_samples; idle_last=now;
++    }
++    if (!active || !active->terminal) {return;}
++    auto & s=*active;
++    bool stationary=now>=s.terminal_at;
++    for (double v:mapped->velocities) {stationary=stationary && std::abs(v)<=cfg.stationary_velocity;}
++    if (previous) {
++      const auto dt=(mapped->stamp_ns-previous->stamp_ns)/1e9;
++      for (size_t j=0;j<cfg.joints.size();++j) {
++        stationary=stationary && dt>0 && std::abs(mapped->positions[j]-previous->positions[j])/dt<=cfg.stationary_velocity;
++      }
++    }
++    const bool success=s.code==rclcpp_action::ResultCode::SUCCEEDED && s.controller_code==Fjt::Result::SUCCESSFUL;
++    if (success && !s.cancel) {stationary=stationary && near(mapped->positions,s.trajectory.points.back().positions,cfg.final_tolerance);}
++    if (!stationary || (previous && seconds(now,previous_at)>cfg.feedback_max_age)) {
++      s.stationary_samples=0; s.stationary_since={}; return;
++    }
++    if (!s.stationary_samples) {s.stationary_since=now; s.stationary_stamp_ns=mapped->stamp_ns;}
++    ++s.stationary_samples; s.last_stationary=now;
++  }
++  void tick()
++  {
++    std::lock_guard<std::mutex> lock(mutex); if (closed || !cfg.enable_fake_execution) {return;}
++    auto now=Steady::now();
++    try {
++      refresh_proofs(now);
++      if (!active || active->result) {issue_cancel(); return;}
++      if (!healthy(now)) {fault("runtime Fake/controller/state/graph proof lost"); issue_cancel(); return;}
++      auto & s=*active;
++      if (seconds(now,s.sent)>=s.timeout_ms/1000.0) {fault("execution or stationary confirmation deadline exceeded",true); issue_cancel(); return;}
++      issue_cancel();
++      if (!s.terminal || s.stationary_samples<2 || seconds(s.last_stationary,s.stationary_since)<cfg.settle_duration ||
++        (sample->stamp_ns-s.stationary_stamp_ns)/1e9<cfg.settle_duration ||
++        seconds(now,s.last_stationary)>cfg.feedback_max_age) {return;}
++      MotionResult r; r.stop_confirmed=true; r.final_position_rad=sample->positions;
++      if (s.code==rclcpp_action::ResultCode::SUCCEEDED && s.controller_code==Fjt::Result::SUCCESSFUL &&
++        !s.cancel && s.feedback_samples>0 && near(sample->positions,s.trajectory.points.back().positions,cfg.final_tolerance))
++      {r.success=true; r.arrived=true; r.exec_state=ExecState::SETTLED; r.message="FJT successful; fresh post-terminal stationary interval and final joints verified";}
++      else if (s.cancel && s.code==rclcpp_action::ResultCode::CANCELED)
++      {r.exec_state=ExecState::STOPPED; r.message="owned Goal terminal CANCELED; independent stationary interval verified";}
++      else {r.exec_state=ExecState::FAULT; r.error_code=E::HARDWARE_FAULT; r.message="controller terminal failure: "+s.controller_message; locked=true;}
++      s.result=r; completed[s.id]=r; detail=r.message;
++    } catch (const std::exception & e) {fault(std::string("runtime exception: ")+e.what()); issue_cancel();}
++  }
++  void init()
++  {
++    group=node->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
++    client=rclcpp_action::create_client<Fjt>(node,cfg.action_name(),group);
++    hardware=node->create_client<Hardware>(cfg.controller_manager+"/list_hardware_components",rclcpp::ServicesQoS(),group);
++    controllers=node->create_client<Controllers>(cfg.controller_manager+"/list_controllers",rclcpp::ServicesQoS(),group);
++    auto weak=weak_from_this(); rclcpp::SubscriptionOptions options; options.callback_group=group;
++    subscription=node->create_subscription<sensor_msgs::msg::JointState>(cfg.joint_state_topic,rclcpp::SensorDataQoS(),
++      [weak](sensor_msgs::msg::JointState::ConstSharedPtr msg) {if (auto self=weak.lock()) {self->on_sample(*msg);}},options);
++    status_subscription=node->create_subscription<action_msgs::msg::GoalStatusArray>(
++      cfg.action_name()+"/_action/status",rclcpp::QoS(rclcpp::KeepLast(1)).reliable().transient_local(),
++      [weak](action_msgs::msg::GoalStatusArray::ConstSharedPtr msg) {
++        if (auto self=weak.lock()) {std::lock_guard<std::mutex> lock(self->mutex);
++          self->goal_statuses=msg->status_list;}
++      },options);
++    timer=node->create_wall_timer(std::chrono::milliseconds(10),[weak]() {if (auto self=weak.lock()) {self->tick();}},group);
++  }
++  void send(const std::shared_ptr<Session> & s)
++  {
++    auto weak=weak_from_this(); auto cancel_client=client;
++    rclcpp_action::Client<Fjt>::SendGoalOptions options;
++    options.goal_response_callback=[weak,s,cancel_client](Handle::SharedPtr handle) {
++      auto self=weak.lock();
++      if (!self) {if (handle) {try {cancel_client->async_cancel_goal(handle);} catch (...) {}} return;}
++      std::lock_guard<std::mutex> lock(self->mutex);
++      if (self->closed || self->active!=s) {
++        if (handle) {try {cancel_client->async_cancel_goal(handle);} catch (...) {}} return;
++      }
++      if (!handle) {
++        if (!s->result) {s->result=rejected("FJT Goal rejected before execution"); self->completed[s->id]=*s->result;}
++        s->terminal=true; return;
++      }
++      s->handle=handle; s->uuid=uuid_text(handle->get_goal_id()); self->issue_cancel();
++    };
++    options.feedback_callback=[weak,s](Handle::SharedPtr handle, const std::shared_ptr<const Fjt::Feedback> f) {
++      auto self=weak.lock(); if (!self) {return;}
++      std::lock_guard<std::mutex> lock(self->mutex);
++      if (self->closed || self->active!=s || !s->handle || handle->get_goal_id()!=s->handle->get_goal_id() || s->terminal) {return;}
++      sensor_msgs::msg::JointState msg; msg.header=f->header; msg.name=f->joint_names;
++      msg.position=f->actual.positions; msg.velocity=f->actual.velocities;
++      auto sample=map_sample(msg,self->cfg);
++      const double age=sample ? (self->node->now().nanoseconds()-sample->stamp_ns)/1e9 : 1e9;
++      if (!sample || age< -0.01 || age>self->cfg.feedback_max_age) {
++        self->fault("invalid or stale associated FJT feedback"); self->issue_cancel(); return;
++      }
++      ++s->feedback_samples;
++    };
++    options.result_callback=[weak,s](const Handle::WrappedResult & result) {
++      auto self=weak.lock(); if (!self) {return;}
++      std::lock_guard<std::mutex> lock(self->mutex);
++      if (self->closed || self->active!=s || !s->handle || result.goal_id!=s->handle->get_goal_id() || s->terminal) {return;}
++      s->terminal=true; s->terminal_at=Steady::now(); s->code=result.code;
++      if (result.result) {s->controller_code=result.result->error_code; s->controller_message=result.result->error_string;}
++      s->stationary_samples=0; s->stationary_since={};
++    };
++    Fjt::Goal goal; goal.trajectory=s->trajectory;
++    client->async_send_goal(goal,options); ++goals_sent;
++  }
++};
++static std::mutex leases_mutex;
++static std::set<std::string> leases;
++FjtMotionPort::FjtMotionPort(rclcpp::Node::SharedPtr node, Config config)
++: impl_(std::make_shared<Impl>(std::move(node),std::move(config)))
++{
++  if (impl_->cfg.enable_fake_execution) {
++    const char * range=std::getenv("ROS_AUTOMATIC_DISCOVERY_RANGE");
++    const char * peers=std::getenv("ROS_STATIC_PEERS");
++    if (!range || std::string(range)!="LOCALHOST" || (peers && *peers) || impl_->node->get_clock()->get_clock_type()!=RCL_ROS_TIME ||
++      (impl_->node->has_parameter("use_sim_time") && impl_->node->get_parameter("use_sim_time").as_bool()))
++    {throw std::invalid_argument("Fake execution requires LOCALHOST, no static peers and wall-driven ROS time");}
++    impl_->lease_key=std::to_string(impl_->node->get_node_base_interface()->get_context()->get_domain_id())+impl_->cfg.action_name();
++    std::lock_guard<std::mutex> lock(leases_mutex);
++    if (!leases.insert(impl_->lease_key).second) {throw std::invalid_argument("endpoint already owned or quarantined");}
++  }
++  try {impl_->init();} catch (...) {
++    std::lock_guard<std::mutex> lock(leases_mutex); leases.erase(impl_->lease_key); throw;
++  }
++}
++FjtMotionPort::~FjtMotionPort()
++{
++  auto self=impl_; bool safe=false;
++  {
++    std::lock_guard<std::mutex> lock(self->mutex);
++    if (self->active && !self->active->terminal) {
++      self->active->cancel=true; self->issue_cancel();
++    }
++    safe=!self->locked && (!self->active || (self->active->result &&
++      (self->active->result->stop_confirmed || self->active->result->exec_state==ExecState::REJECTED)));
++    self->closed=true; self->timer->cancel();
++  }
++  if (safe) {std::lock_guard<std::mutex> lock(leases_mutex); leases.erase(self->lease_key);}
++}
++std::optional<MotionResult> FjtMotionPort::execute_joint_move(const mtc::core::MotionCommand &)
++{return rejected("single-point entry unsupported; submit one complete TimedTrajectory");}
++std::optional<MotionResult> FjtMotionPort::execute_trajectory(const mtc::core::MotionCommand & c)
++{
++  auto self=impl_; std::lock_guard<std::mutex> lock(self->mutex);
++  auto done=self->completed.find(c.command_id); if (done!=self->completed.end()) {return done->second;}
++  if (self->active && self->active->id==c.command_id) {
++    if (self->active->result) {return self->active->result;}
++    auto v=convert(c,self->cfg);
++    if (!v.trajectory || *v.trajectory!=self->active->trajectory || c.timeout_ms!=self->active->timeout_ms) {
++      return rejected("command identity reused with changed content");
++    }
++    return std::nullopt;
++  }
++  if (self->locked) {MotionResult r; r.error_code=E::MOTION_STATUS_UNKNOWN; r.exec_state=ExecState::FAULT;
++    r.status_unknown=true; r.message="fault locked; no automatic reset or resend"; return r;}
++  if (self->active && !self->active->result) {return rejected("another Goal owns execution");}
++  if (self->completed.size()>=10000) {return rejected("command ledger capacity reached");}
++  auto validation=convert(c,self->cfg); if (!validation.trajectory) {return rejected(validation.error);}
++  try {
++    if (!self->healthy(Steady::now())) {return rejected("Fake Hardware/controller/Action/fresh state/exclusive graph proof missing");}
++    auto & t=*validation.trajectory;
++    if (!near(self->sample->positions,t.points.front().positions,self->cfg.start_tolerance)) {
++      return rejected("trajectory start differs from current named JointState; no jump permitted");
++    }
++    for (auto v:self->sample->velocities) {if (std::abs(v)>self->cfg.stationary_velocity) {return rejected("current joints moving");}}
++    if (t.header.stamp.sec || t.header.stamp.nanosec) {
++      const auto delay=(rclcpp::Time(t.header.stamp).nanoseconds()-self->node->now().nanoseconds())/1e9;
++      if (delay<0 || delay>self->cfg.max_start_delay) {return rejected("scheduled stamp stale or beyond capability");}
++    }
++    auto session=std::make_shared<Impl::Session>(); session->id=c.command_id;
++    session->trajectory=t; session->timeout_ms=c.timeout_ms; session->sent=Steady::now();
++    self->active=session; self->send(session); return std::nullopt;
++  } catch (const std::exception & e) {
++    self->fault(std::string("send/graph exception: ")+e.what());
++    if (self->active) {return self->active->result;}
++    MotionResult r; r.status_unknown=true; r.error_code=E::MOTION_STATUS_UNKNOWN; r.exec_state=ExecState::FAULT; r.message=e.what(); return r;
++  }
++}
++StopResult FjtMotionPort::cancel_command(const std::string & id,const std::string & reason)
++{
++  auto self=impl_; std::lock_guard<std::mutex> lock(self->mutex);
++  StopResult r;
++  if (id.empty() || !self->active || self->active->id!=id) {
++    r.error_code=E::EXECUTION_REJECTED; r.message="no matching owned Goal; no cancel sent"; return r;
++  }
++  auto & s=*self->active;
++  if (s.result) {
++    bool fresh=false;
++    try {fresh=self->healthy(Steady::now()) && s.stationary_samples>=2 &&
++      seconds(s.last_stationary,s.stationary_since)>=self->cfg.settle_duration &&
++      self->sample && (self->sample->stamp_ns-s.stationary_stamp_ns)/1e9>=self->cfg.settle_duration &&
++      seconds(Steady::now(),s.last_stationary)<=self->cfg.feedback_max_age;} catch (...) {}
++    r.stop_confirmed=s.result->stop_confirmed && fresh;
++    r.request_delivered=s.cancel_ack;
++    r.message=r.stop_confirmed ? "owned Goal currently independently settled" : "historical result is not current stationary evidence";
++    if (!r.stop_confirmed) {r.error_code=E::CANCEL_NOT_CONFIRMED;} return r;
++  }
++  s.cancel=true; self->detail=reason; self->issue_cancel();
++  r.request_delivered=s.cancel_ack; r.message="associated cancel pending; ACK is not stationary evidence";
++  if (self->locked) {r.error_code=E::CANCEL_NOT_CONFIRMED;}
++  return r;
++}
++StopResult FjtMotionPort::request_stop(const std::string & reason)
++{
++  std::string id; {std::lock_guard<std::mutex> lock(impl_->mutex); if (impl_->active) {id=impl_->active->id;}}
++  return cancel_command(id,reason);  // Switching Goals cannot retarget the pinned identity.
++}
++ExecutionSnapshot FjtMotionPort::snapshot() const
++{
++  auto self=impl_; std::lock_guard<std::mutex> lock(self->mutex); ExecutionSnapshot s;
++  try {s.ready=!self->locked && self->healthy(Steady::now());} catch (...) {s.ready=false;}
++  s.foreign_active_goals=self->foreign_goals(); s.fault_locked=self->locked; s.goals_sent=self->goals_sent; s.cancel_requests=self->cancels_sent; s.detail=self->detail;
++  if (self->active) {auto & a=*self->active; s.command_id=a.id; s.goal_uuid=a.uuid;
++    s.in_flight=!a.terminal; s.cancel_acknowledged=a.cancel_ack; s.terminal_received=a.terminal;
++    s.feedback_samples=a.feedback_samples; s.stationary_samples=a.stationary_samples;
++    if (a.stationary_samples) {s.stationary_observed_seconds=seconds(a.last_stationary,a.stationary_since);}
++    s.result=a.result;}
++  return s;
++}
++}  // namespace mtc::trajectory
+diff --git a/src/mtc_trajectory_execution_cpp/src/trajectory_validator.cpp b/src/mtc_trajectory_execution_cpp/src/trajectory_validator.cpp
+new file mode 100644
+index 0000000..f324260
+--- /dev/null
++++ b/src/mtc_trajectory_execution_cpp/src/trajectory_validator.cpp
+@@ -0,0 +1,177 @@
++// Copyright 2026 MTC contributors
++#include "mtc_trajectory_execution_cpp/trajectory_validator.hpp"
++#include <algorithm>
++#include <cmath>
++#include <limits>
++#include <set>
++#include <stdexcept>
++
++namespace mtc::trajectory
++{
++void Config::validate() const
++{
++  const auto unique = std::set<std::string>(joints.begin(), joints.end());
++  if (joints.size() != 6 || unique.size() != 6 || unique.count("") || limits.size() != 6 ||
++    controller.empty() || controller.find('/') != std::string::npos ||
++    controller_manager.empty() || controller_manager.front() != '/' ||
++    hardware_component.empty() || joint_state_topic.empty() || joint_state_topic.front() != '/' ||
++    max_points < 2 || max_timeout_ms == 0)
++  {throw std::invalid_argument("six unique joints, absolute endpoints and explicit limits required");}
++  for (double v : {start_tolerance, final_tolerance, stationary_velocity, settle_duration,
++      feedback_max_age, proof_max_age, max_duration, max_start_delay})
++  {if (!std::isfinite(v) || v <= 0) {throw std::invalid_argument("invalid positive configuration");}}
++  if (max_duration > 120 || feedback_max_age > 1 || proof_max_age > 2) {
++    throw std::invalid_argument("observation or execution capability exceeded");
++  }
++  for (const auto & n : joints) {
++    auto it = limits.find(n);
++    if (it == limits.end()) {throw std::invalid_argument("missing joint limit");}
++    const auto & l = it->second;
++    if (!std::isfinite(l.minimum) || !std::isfinite(l.maximum) || l.minimum >= l.maximum ||
++      !std::isfinite(l.velocity) || l.velocity <= 0 ||
++      !std::isfinite(l.acceleration) || l.acceleration <= 0)
++    {throw std::invalid_argument("invalid joint limits");}
++  }
++}
++bool near(const std::vector<double> & a, const std::vector<double> & b, double tolerance)
++{
++  if (a.empty() || a.size() != b.size()) {return false;}
++  for (size_t i = 0; i < a.size(); ++i) {
++    if (!std::isfinite(a[i]) || !std::isfinite(b[i]) || std::abs(a[i] - b[i]) > tolerance) {
++      return false;
++    }
++  }
++  return true;
++}
++Validation convert(const mtc::core::MotionCommand & c, const Config & cfg)
++{
++  auto bad = [](const std::string & e) {return Validation{std::nullopt, e};};
++  try {cfg.validate();} catch (const std::exception & e) {return bad(e.what());}
++  if (!c.simulation_only || c.command_id.empty() || !c.trajectory || !c.target_rad.empty() ||
++    c.requires_contact || (c.intent && (!c.intent->is_usable() || c.intent->requires_contact)))
++  {return bad("only identified simulation-only complete joint trajectories; contact unsupported");}
++  if (!std::isfinite(c.velocity_scaling) || c.velocity_scaling <= 0 || c.velocity_scaling > 0.2 ||
++    !std::isfinite(c.acceleration_scaling) || c.acceleration_scaling <= 0 ||
++    c.acceleration_scaling > 0.2 || c.timeout_ms == 0 || c.timeout_ms > cfg.max_timeout_ms)
++  {return bad("invalid scaling or timeout capability");}
++  const auto & t = *c.trajectory;
++  if (!t.shape_is_valid() || t.trajectory_id.empty() || t.points.size() < 2 ||
++    t.points.size() > cfg.max_points || t.joint_names.size() != cfg.joints.size() ||
++    t.points.front().time_from_start_s != 0.0 || t.duration_s() > cfg.max_duration ||
++    t.duration_s() + cfg.settle_duration + cfg.max_start_delay >= c.timeout_ms / 1000.0 ||
++    t.stamp_s > std::numeric_limits<int32_t>::max())
++  {return bad("invalid trajectory shape, complete endpoints, duration, stamp or deadline");}
++  if (!c.joint_names.empty() && c.joint_names != t.joint_names) {
++    return bad("command joint names must agree with trajectory representation");
++  }
++  std::vector<size_t> indices;
++  for (const auto & name : cfg.joints) {
++    auto it = std::find(t.joint_names.begin(), t.joint_names.end(), name);
++    if (it == t.joint_names.end()) {return bad("missing or unexpected controller joint");}
++    indices.push_back(static_cast<size_t>(it - t.joint_names.begin()));
++  }
++  trajectory_msgs::msg::JointTrajectory out;
++  out.joint_names = cfg.joints;
++  out.header.frame_id = t.header_frame_id;
++  const auto stamp_ns = static_cast<int64_t>(std::llround(t.stamp_s * 1e9));
++  if (stamp_ns / 1000000000LL > std::numeric_limits<int32_t>::max()) {
++    return bad("ROS stamp overflow");
++  }
++  out.header.stamp.sec = static_cast<int32_t>(stamp_ns / 1000000000LL);
++  out.header.stamp.nanosec = static_cast<uint32_t>(stamp_ns % 1000000000LL);
++  int64_t last_ns = -1;
++  for (size_t p = 0; p < t.points.size(); ++p) {
++    const auto & in = t.points[p];
++    trajectory_msgs::msg::JointTrajectoryPoint point;
++    const auto ns = static_cast<int64_t>(std::llround(in.time_from_start_s * 1e9));
++    if (ns <= last_ns) {return bad("time ordering lost at ROS nanosecond precision");}
++    last_ns = ns;
++    point.time_from_start.sec = static_cast<int32_t>(ns / 1000000000LL);
++    point.time_from_start.nanosec = static_cast<uint32_t>(ns % 1000000000LL);
++    for (size_t j = 0; j < indices.size(); ++j) {
++      const auto i = indices[j];
++      const auto & l = cfg.limits.at(cfg.joints[j]);
++      const auto x = in.positions_rad[i];
++      if (x < l.minimum || x > l.maximum) {return bad("joint position limit exceeded");}
++      point.positions.push_back(x);
++      if (!in.velocities_rad_s.empty()) {
++        auto v = in.velocities_rad_s[i];
++        if (std::abs(v) > l.velocity) {return bad("velocity limit exceeded");}
++        point.velocities.push_back(v);
++      }
++      if (!in.accelerations_rad_s2.empty()) {
++        auto a = in.accelerations_rad_s2[i];
++        if (std::abs(a) > l.acceleration) {return bad("acceleration limit exceeded");}
++        point.accelerations.push_back(a);
++      }
++      if (p && std::abs(x - t.points[p-1].positions_rad[i]) /
++        (in.time_from_start_s - t.points[p-1].time_from_start_s) > l.velocity)
++      {return bad("segment average velocity exceeds configured limit");}
++    }
++    // Uniform derivative availability is necessary for predictable JTC interpolation.
++    if (p && (point.velocities.empty() != out.points.front().velocities.empty() ||
++      point.accelerations.empty() != out.points.front().accelerations.empty()))
++    {return bad("inconsistent derivative fields");}
++    if (!point.accelerations.empty() && point.velocities.empty()) {
++      return bad("acceleration without velocity unsupported");
++    }
++    // JTC spline interpolation can exceed waypoint limits. Bernstein control hulls
++    // give a conservative bound for the whole linear/cubic/quintic segment and derivatives.
++    if (p) {
++      const auto & prev=out.points.back();
++      const double dt=in.time_from_start_s-t.points[p-1].time_from_start_s;
++      for (size_t j=0;j<indices.size();++j) {
++        const auto & l=cfg.limits.at(cfg.joints[j]);
++        std::vector<double> b{prev.positions[j],point.positions[j]};
++        if (!point.accelerations.empty()) {
++          b={prev.positions[j],prev.positions[j]+prev.velocities[j]*dt/5,
++            prev.positions[j]+2*prev.velocities[j]*dt/5+prev.accelerations[j]*dt*dt/20,
++            point.positions[j]-2*point.velocities[j]*dt/5+point.accelerations[j]*dt*dt/20,
++            point.positions[j]-point.velocities[j]*dt/5,point.positions[j]};
++        } else if (!point.velocities.empty()) {
++          b={prev.positions[j],prev.positions[j]+prev.velocities[j]*dt/3,
++            point.positions[j]-point.velocities[j]*dt/3,point.positions[j]};
++        }
++        const double degree=b.size()-1;
++        for (double x:b) {if (!std::isfinite(x) || x<l.minimum || x>l.maximum) {
++            return bad("interpolated position cannot be bounded within limits");}}
++        std::vector<double> velocities;
++        for (size_t k=1;k<b.size();++k) {
++          double v=degree*(b[k]-b[k-1])/dt;
++          if (!std::isfinite(v) || std::abs(v)>l.velocity) {
++            return bad("interpolated velocity cannot be bounded within limits");}
++          velocities.push_back(v);
++        }
++        for (size_t k=1;k<velocities.size();++k) {
++          double a=(degree-1)*(velocities[k]-velocities[k-1])/dt;
++          if (!std::isfinite(a) || std::abs(a)>l.acceleration) {
++            return bad("interpolated acceleration cannot be bounded within limits");}
++        }
++      }
++    }
++    out.points.push_back(std::move(point));
++  }
++  return {out, ""};
++}
++std::optional<JointSample> map_sample(const sensor_msgs::msg::JointState & msg, const Config & c)
++{
++  if (msg.name.size() != c.joints.size() || msg.position.size() != msg.name.size() ||
++    msg.velocity.size() != msg.name.size() || msg.header.stamp.sec < 0 ||
++    msg.header.stamp.nanosec >= 1000000000u ||
++    std::set<std::string>(msg.name.begin(), msg.name.end()).size() != msg.name.size())
++  {return std::nullopt;}
++  JointSample out;
++  out.stamp_ns = static_cast<int64_t>(msg.header.stamp.sec) * 1000000000LL + msg.header.stamp.nanosec;
++  if (out.stamp_ns <= 0) {return std::nullopt;}
++  for (const auto & n : c.joints) {
++    auto it = std::find(msg.name.begin(), msg.name.end(), n);
++    if (it == msg.name.end()) {return std::nullopt;}
++    auto i = static_cast<size_t>(it - msg.name.begin());
++    if (!std::isfinite(msg.position[i]) || !std::isfinite(msg.velocity[i]) || std::abs(msg.velocity[i])>c.limits.at(n).velocity ||
++      msg.position[i] < c.limits.at(n).minimum || msg.position[i] > c.limits.at(n).maximum)
++    {return std::nullopt;}
++    out.positions.push_back(msg.position[i]); out.velocities.push_back(msg.velocity[i]);
++  }
++  return out;
++}
++}  // namespace mtc::trajectory
+diff --git a/src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp b/src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp
+new file mode 100644
+index 0000000..72a5e07
+--- /dev/null
++++ b/src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp
+@@ -0,0 +1,386 @@
++// Real ROS Action transport, entirely local software. No robot SDK or driver.
++#include <gtest/gtest.h>
++#include <algorithm>
++#include <atomic>
++#include <chrono>
++#include <cstdlib>
++#include <functional>
++#include <mutex>
++#include <thread>
++#include <unistd.h>
++#include <rclcpp_action/rclcpp_action.hpp>
++#include <control_msgs/action/follow_joint_trajectory.hpp>
++#include <controller_manager_msgs/srv/list_controllers.hpp>
++#include <controller_manager_msgs/srv/list_hardware_components.hpp>
++#include <lifecycle_msgs/msg/state.hpp>
++#include "mtc_trajectory_execution_cpp/fjt_motion_port.hpp"
++using namespace std::chrono_literals;
++using namespace mtc::trajectory;
++using Fjt=control_msgs::action::FollowJointTrajectory;
++using ServerHandle=rclcpp_action::ServerGoalHandle<Fjt>;
++using Hw=controller_manager_msgs::srv::ListHardwareComponents;
++using Cs=controller_manager_msgs::srv::ListControllers;
++class FakeController : public rclcpp::Node
++{
++public:
++  Config cfg;
++  std::atomic<size_t> goals{0}, cancels{0};
++  std::atomic<bool> reject{false}, aborted{false}, ack_only{false}, no_result{false};
++  std::atomic<bool> publish_state{true}, stale_state{false}, missing_velocity{false};
++  std::atomic<bool> moving{false}, wrong_final{false}, feedback_enabled{true}, active_controller{true};
++  std::atomic<bool> generic{true}, repeated_stamp{false};
++  FakeController(Config c):Node("fake_controller"),cfg(std::move(c))
++  {
++    hw=create_service<Hw>(cfg.controller_manager+"/list_hardware_components",
++      [this](std::shared_ptr<Hw::Request>,std::shared_ptr<Hw::Response> r) {
++        controller_manager_msgs::msg::HardwareComponentState h; h.name=cfg.hardware_component;
++        h.plugin_name=generic ? "mock_components/GenericSystem" : "aubo_driver/AuboHardwareInterface";
++        h.state.id=lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE;
++        for (auto & n:cfg.joints) {for (auto suffix:{"/position","/velocity"}) {
++          controller_manager_msgs::msg::HardwareInterface i; i.name=n+suffix; i.is_available=true; h.state_interfaces.push_back(i);
++        }} r->component.push_back(h);
++      });
++    cs=create_service<Cs>(cfg.controller_manager+"/list_controllers",
++      [this](std::shared_ptr<Cs::Request>,std::shared_ptr<Cs::Response> r) {
++        controller_manager_msgs::msg::ControllerState c; c.name=cfg.controller;
++        c.type="joint_trajectory_controller/JointTrajectoryController"; c.state=active_controller ? "active" : "inactive";
++        for (auto & j:cfg.joints) {c.claimed_interfaces.push_back(j+"/position");} r->controller.push_back(c);
++        c=controller_manager_msgs::msg::ControllerState(); c.name="joint_state_broadcaster"; c.state="active"; c.type="joint_state_broadcaster/JointStateBroadcaster"; r->controller.push_back(c);
++      });
++    pub=create_publisher<sensor_msgs::msg::JointState>(cfg.joint_state_topic,rclcpp::SensorDataQoS());
++    server=rclcpp_action::create_server<Fjt>(this,cfg.action_name(),
++      [this](const auto &,auto) {++goals; return reject ? rclcpp_action::GoalResponse::REJECT : rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;},
++      [this](auto h) {++cancels; std::lock_guard<std::mutex> lock(mutex); canceled_uuid=h->get_goal_id(); return rclcpp_action::CancelResponse::ACCEPT;},
++      [this](auto h) {std::lock_guard<std::mutex> lock(mutex); handle=h; received=h->get_goal()->trajectory; began=std::chrono::steady_clock::now();});
++    timer=create_wall_timer(10ms,[this]() {tick();});
++  }
++  trajectory_msgs::msg::JointTrajectory trajectory() {std::lock_guard<std::mutex> lock(mutex); return received;}
++  rclcpp_action::GoalUUID goal_id() {std::lock_guard<std::mutex> lock(mutex); return handle ? handle->get_goal_id() : rclcpp_action::GoalUUID{};}
++  rclcpp_action::GoalUUID cancel_id() {std::lock_guard<std::mutex> lock(mutex); return canceled_uuid;}
++private:
++  std::mutex mutex;
++  std::shared_ptr<ServerHandle> handle;
++  trajectory_msgs::msg::JointTrajectory received;
++  rclcpp_action::GoalUUID canceled_uuid{};
++  std::vector<double> position=std::vector<double>(6,0.0);
++  std::chrono::steady_clock::time_point began;
++  rclcpp::Time last_stamp{0,0,RCL_ROS_TIME};
++  rclcpp::Service<Hw>::SharedPtr hw;
++  rclcpp::Service<Cs>::SharedPtr cs;
++  rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr pub;
++  rclcpp_action::Server<Fjt>::SharedPtr server;
++  rclcpp::TimerBase::SharedPtr timer;
++  void tick()
++  {
++    std::lock_guard<std::mutex> lock(mutex);
++    auto stamp=now(); if (stale_state) {stamp=stamp-rclcpp::Duration::from_seconds(2);}
++    if (repeated_stamp && last_stamp.nanoseconds()) {stamp=last_stamp;} else {last_stamp=stamp;}
++    if (handle) {
++      auto f=std::make_shared<Fjt::Feedback>(); f->header.stamp=stamp; f->joint_names=cfg.joints;
++      f->actual.positions=position; f->actual.velocities.assign(6,moving ? 0.1 : 0.0);
++      if (feedback_enabled) {handle->publish_feedback(f);}
++      auto r=std::make_shared<Fjt::Result>();
++      if (handle->is_canceling() && !ack_only) {r->error_code=Fjt::Result::SUCCESSFUL; handle->canceled(r); handle.reset();}
++      else if (!no_result && !ack_only && std::chrono::steady_clock::now()-began>150ms) {
++        if (aborted) {r->error_code=Fjt::Result::PATH_TOLERANCE_VIOLATED; r->error_string="simulated controller abort"; handle->abort(r);}
++        else {
++          if (!wrong_final) {position=received.points.back().positions;}
++          r->error_code=Fjt::Result::SUCCESSFUL; handle->succeed(r);
++        } handle.reset();
++      }
++    }
++    if (publish_state) {
++      sensor_msgs::msg::JointState s; s.header.stamp=stamp; s.name=cfg.joints; s.position=position;
++      if (!missing_velocity) {s.velocity.assign(6,moving ? 0.1 : 0.0);} pub->publish(s);
++    }
++  }
++};
++class FjtAction : public ::testing::Test
++{
++protected:
++  Config cfg;
++  rclcpp::Node::SharedPtr node;
++  std::shared_ptr<FakeController> server;
++  std::unique_ptr<FjtMotionPort> port;
++  rclcpp::executors::MultiThreadedExecutor executor{rclcpp::ExecutorOptions(),4};
++  std::thread spin;
++  static void SetUpTestSuite()
++  {
++    setenv("RMW_IMPLEMENTATION","rmw_fastrtps_cpp",1);
++    setenv("ROS_DOMAIN_ID",std::to_string(50+getpid()%150).c_str(),1);
++    setenv("ROS_AUTOMATIC_DISCOVERY_RANGE","LOCALHOST",1);
++    setenv("ROS_LOG_DIR","/tmp/mtc_phase2b_tests",1);
++    for (auto key:{"ROS_STATIC_PEERS","ROS_LOCALHOST_ONLY","FASTDDS_DEFAULT_PROFILES_FILE","FASTRTPS_DEFAULT_PROFILES_FILE","CYCLONEDDS_URI"}) {unsetenv(key);}
++    rclcpp::init(0,nullptr);
++  }
++  static void TearDownTestSuite() {rclcpp::shutdown();}
++  void SetUp() override
++  {
++    auto name=std::string(::testing::UnitTest::GetInstance()->current_test_info()->name());
++    cfg.controller="jtc_"+name; cfg.controller_manager="/cm_"+name; cfg.joint_state_topic="/js_"+name;
++    cfg.enable_fake_execution=true; cfg.settle_duration=name=="StationaryWindowCannotGrowWithoutNewSamples" ? 0.15 : 0.05; cfg.max_start_delay=0.05;
++    for (const auto & n:cfg.joints) {cfg.limits[n]={-2,2,1,100};}
++    node=std::make_shared<rclcpp::Node>("fjt_client"); server=std::make_shared<FakeController>(cfg);
++    port=std::make_unique<FjtMotionPort>(node,cfg); executor.add_node(node); executor.add_node(server);
++    spin=std::thread([this]() {executor.spin();});
++    ASSERT_TRUE(wait([this]() {return port->snapshot().ready;})) << port->snapshot().detail;
++  }
++  void TearDown() override
++  {
++    port.reset(); executor.cancel(); if (spin.joinable()) {spin.join();}
++    executor.remove_node(node); executor.remove_node(server); server.reset(); node.reset();
++  }
++  static bool wait(const std::function<bool()> & f,std::chrono::milliseconds limit=3s)
++  {
++    auto end=std::chrono::steady_clock::now()+limit;
++    while (std::chrono::steady_clock::now()<end) {if (f()) {return true;} std::this_thread::sleep_for(5ms);} return f();
++  }
++  mtc::core::MotionCommand command(std::string id="cmd")
++  {
++    mtc::core::MotionCommand c; c.command_id=id; c.simulation_only=true; c.timeout_ms=1500;
++    mtc::core::TimedTrajectory t; t.trajectory_id="plan"; t.joint_names=cfg.joints; t.header_frame_id="base_link";
++    for (int i=0;i<3;++i) {mtc::core::TrajectoryPoint p; p.time_from_start_s=0.06*i;
++      p.positions_rad.assign(6,0.01*i); p.velocities_rad_s.assign(6,0); p.accelerations_rad_s2.assign(6,0); t.points.push_back(p);}
++    c.trajectory=t; return c;
++  }
++  void send(const mtc::core::MotionCommand & c)
++  {
++    auto r=port->execute_trajectory(c); ASSERT_FALSE(r) << (r ? r->message : "");
++    ASSERT_TRUE(wait([this]() {return !port->snapshot().goal_uuid.empty();}));
++  }
++  mtc::core::MotionResult result(const mtc::core::MotionCommand & c)
++  {
++    std::optional<mtc::core::MotionResult> r;
++    EXPECT_TRUE(wait([&]() {r=port->execute_trajectory(c); return bool(r);},3s)); return r.value_or(mtc::core::MotionResult{});
++  }
++};
++TEST_F(FjtAction, CompleteTrajectoryOneGoalAndFeedback) {
++  auto c=command(); send(c); auto r=result(c); EXPECT_TRUE(r.ok()) << r.message; EXPECT_TRUE(r.stop_confirmed);
++  auto t=server->trajectory(); EXPECT_EQ(t.points.size(),3u); EXPECT_EQ(t,c.trajectory ? *convert(c,cfg).trajectory : t);
++  EXPECT_EQ(server->goals,1u); EXPECT_GT(port->snapshot().feedback_samples,0u);
++}
++TEST_F(FjtAction, RepeatedTicksNeverResend) {
++  auto c=command(); send(c); for (int i=0;i<100;++i) {port->execute_trajectory(c);} EXPECT_TRUE(result(c).success);
++  for (int i=0;i<20;++i) {EXPECT_TRUE(port->execute_trajectory(c)->success);} EXPECT_EQ(server->goals,1u);
++}
++TEST_F(FjtAction, ConcurrentGoalsSingleOwner) {
++  server->no_result=true; auto a=command("a"),b=command("b"); std::optional<mtc::core::MotionResult> ra,rb;
++  std::thread t1([&](){ra=port->execute_trajectory(a);}),t2([&](){rb=port->execute_trajectory(b);}); t1.join(); t2.join();
++  EXPECT_NE(bool(ra),bool(rb)); EXPECT_TRUE(wait([&](){return server->goals==1;}));
++  port->request_stop("cleanup"); EXPECT_TRUE(wait([&](){return port->snapshot().result.has_value();})); EXPECT_EQ(server->goals,1u);
++}
++TEST_F(FjtAction, StartMismatchDoesNotSend) {
++  auto c=command(); for(auto & p:c.trajectory->points) {p.positions_rad[0]+=0.1;}
++  auto r=port->execute_trajectory(c); ASSERT_TRUE(r); EXPECT_EQ(r->exec_state,mtc::core::ExecState::REJECTED); EXPECT_EQ(server->goals,0u);
++  EXPECT_NE(r->message.find("trajectory start differs"),std::string::npos);
++}
++TEST_F(FjtAction, CorrectCancelUsesExactUuid) {
++  server->no_result=true; auto c=command(); send(c); auto uuid=server->goal_id();
++  auto stop=port->cancel_command(c.command_id,"test"); EXPECT_FALSE(stop.stop_confirmed);
++  auto r=result(c); EXPECT_FALSE(r.success); EXPECT_TRUE(r.stop_confirmed) << r.message;
++  EXPECT_EQ(server->cancel_id(),uuid); EXPECT_EQ(server->cancels,1u);
++}
++TEST_F(FjtAction, CancelBeforeGoalResponsePreserved) {
++  server->no_result=true; auto c=command(); ASSERT_FALSE(port->execute_trajectory(c));
++  EXPECT_FALSE(port->cancel_command(c.command_id,"immediate").stop_confirmed);
++  auto r=result(c); EXPECT_TRUE(r.stop_confirmed) << r.message; EXPECT_EQ(server->cancels,1u);
++}
++TEST_F(FjtAction, DuplicateCancelOnlyOneBackendCall) {
++  server->no_result=true; auto c=command(); send(c);
++  for (int i=0;i<50;++i) {port->cancel_command(c.command_id,"repeat");}
++  EXPECT_TRUE(result(c).stop_confirmed); EXPECT_EQ(server->cancels,1u);
++}
++TEST_F(FjtAction, StaleCancelDoesNotAffectNewOwner) {
++  auto a=command("old"); send(a); ASSERT_TRUE(result(a).success);
++  auto b=command("new"); for(auto & p:b.trajectory->points) {for(auto & x:p.positions_rad) {x+=0.02;}}
++  server->no_result=true; send(b); auto before=port->snapshot();
++  EXPECT_FALSE(port->cancel_command(a.command_id,"late").stop_confirmed);
++  EXPECT_EQ(server->cancels,0u); EXPECT_EQ(port->snapshot().command_id,b.command_id);
++  EXPECT_EQ(port->snapshot().goal_uuid,before.goal_uuid); EXPECT_FALSE(port->snapshot().fault_locked);
++  port->cancel_command(b.command_id,"cleanup"); EXPECT_TRUE(result(b).stop_confirmed);
++}
++TEST_F(FjtAction, CancelWithoutOwnerNeverGlobalStops) {
++  auto r=port->request_stop("no owner"); EXPECT_FALSE(r.stop_confirmed); EXPECT_FALSE(r.request_delivered); EXPECT_EQ(server->cancels,0u);
++}
++TEST_F(FjtAction, AckOnlyCannotConfirmStopAndTimeoutLocks) {
++  server->ack_only=true; auto c=command(); c.timeout_ms=400; send(c);
++  port->cancel_command(c.command_id,"test"); ASSERT_TRUE(wait([&](){return port->snapshot().cancel_acknowledged;}));
++  EXPECT_FALSE(port->request_stop("poll").stop_confirmed); auto r=result(c);
++  EXPECT_TRUE(r.timed_out); EXPECT_TRUE(r.status_unknown); EXPECT_FALSE(r.stop_confirmed);
++  auto next=port->execute_trajectory(command("next")); ASSERT_TRUE(next); EXPECT_TRUE(next->status_unknown); EXPECT_EQ(server->goals,1u);
++}
++TEST_F(FjtAction, ExecutionTimeoutLocksAndNeverResends) {
++  server->no_result=true; auto c=command(); c.timeout_ms=400; send(c); auto r=result(c);
++  EXPECT_TRUE(r.timed_out); EXPECT_TRUE(port->snapshot().fault_locked);
++  for(int i=0;i<10;++i) {port->execute_trajectory(c); port->execute_trajectory(command("new"));}
++  EXPECT_EQ(server->goals,1u); EXPECT_LE(server->cancels,1u);
++}
++TEST_F(FjtAction, ControllerAbortedRemainsFaultLocked) {
++  server->aborted=true; auto c=command(); send(c); auto r=result(c); EXPECT_FALSE(r.success);
++  EXPECT_TRUE(port->snapshot().fault_locked); EXPECT_NE(r.error_code,0);
++  port->execute_trajectory(command("new")); EXPECT_EQ(server->goals,1u);
++}
++TEST_F(FjtAction, StaleJointFeedbackLocks) {
++  server->no_result=true; auto c=command(); send(c); server->stale_state=true;
++  auto r=result(c); EXPECT_TRUE(r.status_unknown); EXPECT_FALSE(r.stop_confirmed); EXPECT_TRUE(port->snapshot().fault_locked);
++}
++TEST_F(FjtAction, LostJointUpdatesCannotSettle) {
++  server->no_result=true; auto c=command(); send(c); server->publish_state=false;
++  auto r=result(c); EXPECT_TRUE(r.status_unknown); EXPECT_FALSE(r.stop_confirmed);
++}
++TEST_F(FjtAction, InsufficientStationaryIntervalDoesNotSucceed) {
++  auto c=command(); send(c); server->moving=true; auto r=result(c);
++  EXPECT_FALSE(r.success); EXPECT_FALSE(r.stop_confirmed); EXPECT_TRUE(port->snapshot().fault_locked);
++}
++TEST_F(FjtAction, WrongFinalPositionCannotSucceed) {
++  server->wrong_final=true; auto c=command(); c.timeout_ms=500; send(c); auto r=result(c);
++  EXPECT_FALSE(r.arrived); EXPECT_FALSE(r.success); EXPECT_FALSE(r.stop_confirmed); EXPECT_TRUE(r.timed_out);
++}
++TEST_F(FjtAction, NoAssociatedFeedbackCannotSucceed) {
++  server->feedback_enabled=false; auto c=command(); send(c); auto r=result(c);
++  EXPECT_FALSE(r.success); EXPECT_TRUE(port->snapshot().fault_locked);
++}
++TEST_F(FjtAction, HardwareProofLostLocksAndCancelsOwnedGoal) {
++  server->no_result=true; auto c=command(); send(c); server->generic=false;
++  EXPECT_TRUE(result(c).status_unknown); EXPECT_TRUE(wait([&](){return server->cancels==1;}));
++}
++TEST_F(FjtAction, WrongPluginRejectsBeforeSend) {
++  server->generic=false; ASSERT_TRUE(wait([&](){return !port->snapshot().ready;}));
++  auto r=port->execute_trajectory(command()); ASSERT_TRUE(r); EXPECT_EQ(server->goals,0u);
++}
++TEST_F(FjtAction, InactiveControllerRejectsBeforeSend) {
++  server->active_controller=false; ASSERT_TRUE(wait([&](){return !port->snapshot().ready;}));
++  EXPECT_TRUE(port->execute_trajectory(command())); EXPECT_EQ(server->goals,0u);
++}
++TEST_F(FjtAction, MissingVelocityEvidenceRejectsBeforeSend) {
++  server->missing_velocity=true; ASSERT_TRUE(wait([&](){return !port->snapshot().ready;}));
++  EXPECT_TRUE(port->execute_trajectory(command())); EXPECT_EQ(server->goals,0u);
++}
++TEST_F(FjtAction, ReplayedJointStampLocks) {
++  server->no_result=true; auto c=command(); send(c); server->repeated_stamp=true;
++  EXPECT_TRUE(result(c).status_unknown); EXPECT_FALSE(port->snapshot().result->stop_confirmed);
++}
++TEST_F(FjtAction, GoalRejectionMeansNeverExecuted) {
++  server->reject=true; auto c=command(); ASSERT_FALSE(port->execute_trajectory(c)); auto r=result(c);
++  EXPECT_EQ(r.exec_state,mtc::core::ExecState::REJECTED); EXPECT_TRUE(r.retry_allowed_without_reobservation());
++  EXPECT_FALSE(port->snapshot().fault_locked); EXPECT_EQ(server->goals,1u);
++}
++TEST_F(FjtAction, ChangedCommandIdContentCannotResend) {
++  server->no_result=true; auto c=command(); send(c); auto changed=c; changed.trajectory->points.back().positions_rad[0]=0.03;
++  auto r=port->execute_trajectory(changed); ASSERT_TRUE(r); EXPECT_EQ(r->exec_state,mtc::core::ExecState::REJECTED); EXPECT_EQ(server->goals,1u);
++  port->request_stop("cleanup"); EXPECT_TRUE(result(c).stop_confirmed);
++}
++TEST_F(FjtAction, SecondPortCannotOwnEndpoint) {
++  EXPECT_THROW(FjtMotionPort(node,cfg),std::invalid_argument); EXPECT_EQ(server->goals,0u);
++}
++TEST_F(FjtAction, DefaultDisabledNeverSends) {
++  port.reset(); cfg.enable_fake_execution=false; port=std::make_unique<FjtMotionPort>(node,cfg);
++  EXPECT_TRUE(port->execute_trajectory(command())); EXPECT_EQ(server->goals,0u);
++}
++TEST_F(FjtAction, DestroyDuringExecutionOnlyCancelsOwnedGoal) {
++  server->no_result=true; auto c=command(); send(c); auto uuid=server->goal_id(); port.reset();
++  ASSERT_TRUE(wait([&](){return server->cancels==1;})); EXPECT_EQ(server->cancel_id(),uuid);
++  EXPECT_THROW(FjtMotionPort(node,cfg),std::invalid_argument); // destruction is not recovery
++}
++
++TEST_F(FjtAction, HistoricalSettlementRequiresFreshCurrentEvidence) {
++  auto c=command(); send(c); ASSERT_TRUE(result(c).stop_confirmed);
++  EXPECT_TRUE(port->request_stop("current").stop_confirmed);
++  server->publish_state=false; ASSERT_TRUE(wait([&](){return !port->snapshot().ready;}));
++  EXPECT_FALSE(port->request_stop("expired").stop_confirmed); EXPECT_EQ(server->cancels,0u);
++}
++TEST_F(FjtAction, ConcurrentGoalReplacementAndLateCancel) {
++  auto a=command("old"); send(a); ASSERT_TRUE(result(a).success);
++  auto b=command("new"); for(auto & p:b.trajectory->points) {for(auto & x:p.positions_rad) {x+=0.02;}}
++  server->no_result=true;
++  std::thread old([&](){for(int i=0;i<100;++i) {port->cancel_command(a.command_id,"late");}});
++  auto r=port->execute_trajectory(b); old.join(); ASSERT_FALSE(r);
++  ASSERT_TRUE(wait([&](){return port->snapshot().command_id==b.command_id && !port->snapshot().goal_uuid.empty();}));
++  EXPECT_EQ(server->cancels,0u); EXPECT_FALSE(port->snapshot().fault_locked);
++  port->cancel_command(b.command_id,"cleanup"); EXPECT_TRUE(result(b).stop_confirmed);
++}
++TEST_F(FjtAction, OtherTrajectoryPublisherRejectsDispatch) {
++  auto other=node->create_publisher<trajectory_msgs::msg::JointTrajectory>("/"+cfg.controller+"/joint_trajectory",10);
++  ASSERT_TRUE(wait([&](){return !port->snapshot().ready;}));
++  EXPECT_TRUE(port->execute_trajectory(command())); EXPECT_EQ(server->goals,0u);
++}
++TEST_F(FjtAction, ForeignActionClientRejectsDispatch) {
++  auto other=rclcpp_action::create_client<Fjt>(server,cfg.action_name());
++  ASSERT_TRUE(wait([&](){return !port->snapshot().ready;}));
++  EXPECT_TRUE(port->execute_trajectory(command())); EXPECT_EQ(server->goals,0u);
++}
++TEST_F(FjtAction, SingleTargetEntryExplicitlyRejected) {
++  auto r=port->execute_joint_move(command()); ASSERT_TRUE(r); EXPECT_EQ(r->exec_state,mtc::core::ExecState::REJECTED); EXPECT_EQ(server->goals,0u);
++}
++
++TEST_F(FjtAction, StationaryWindowCannotGrowWithoutNewSamples) {
++  auto c=command(); send(c);
++  ASSERT_TRUE(wait([&](){return port->snapshot().stationary_samples>=2;}));
++  server->publish_state=false; auto r=result(c);
++  EXPECT_FALSE(r.success); EXPECT_FALSE(r.stop_confirmed); EXPECT_TRUE(r.status_unknown);
++  EXPECT_LT(port->snapshot().stationary_observed_seconds,cfg.settle_duration);
++}
++
++TEST_F(FjtAction, ForeignInFlightGoalCannotBePreemptedAfterClientLeaves) {
++  server->no_result=true;
++  auto outsider=rclcpp_action::create_client<Fjt>(server,cfg.action_name());
++  ASSERT_TRUE(wait([&](){return outsider->action_server_is_ready();}));
++  Fjt::Goal goal; goal.trajectory=*convert(command("foreign"),cfg).trajectory;
++  auto response=outsider->async_send_goal(goal);
++  ASSERT_TRUE(wait([&](){return response.wait_for(0s)==std::future_status::ready;}));
++  ASSERT_TRUE(response.get()); outsider.reset();
++  ASSERT_TRUE(wait([&](){return port->snapshot().foreign_active_goals==1;}));
++  auto r=port->execute_trajectory(command("ours")); ASSERT_TRUE(r);
++  EXPECT_EQ(server->goals,1u); EXPECT_EQ(port->snapshot().goals_sent,0u); EXPECT_EQ(server->cancels,0u);
++}
++
++// Reuse unchanged test-only perception/tool fixtures; no public runtime dependency on them.
++#include "../../mtc_manipulation_cpp/test/fakes.hpp"
++#include <mtc_manipulation_cpp/pick_place_fsm.hpp>
++class ExplicitTrajectoryPlanner : public mtc::manipulation::PlannerPort
++{
++public:
++  mtc::core::MotionCommand prototype;
++  explicit ExplicitTrajectoryPlanner(mtc::core::MotionCommand c):prototype(std::move(c)) {}
++  std::optional<mtc::core::PlanResult> plan(const mtc::manipulation::PlanTarget & target) override
++  {
++    mtc::core::PlanResult result; result.ok=true;
++    for (const auto & primitive:target.primitives) {
++      auto c=prototype; c.primitive_name=primitive.name; c.intent=primitive;
++      result.commands.push_back(c);
++    } return result;
++  }
++};
++TEST_F(FjtAction, ExistingPickPlaceFsmDelegatesWholeTrajectoryThroughPort) {
++  auto clock=std::make_shared<mtc::core::ManualClock>();
++  auto perception=std::make_shared<mtc::manipulation::testing::FakePerception>(); perception->clock=clock;
++  auto planner=std::make_shared<ExplicitTrajectoryPlanner>(command());
++  auto tool=std::make_shared<mtc::manipulation::testing::FakeTool>();
++  auto injected=std::shared_ptr<mtc::manipulation::MotionPort>(port.get(),[](auto *) {});
++  mtc::manipulation::PickPlaceConfig config; config.state_timeouts=mtc::manipulation::default_state_timeouts();
++  mtc::manipulation::PickPlaceFsm fsm(perception,planner,injected,tool,clock,
++    mtc::manipulation::make_strategy(config.tool_type),config);
++  fsm.start("battery_1",1,"P1","fjt-injection",3.0);
++  ASSERT_TRUE(wait([&](){fsm.step(); clock->advance(0.001); return fsm.state()==mtc::manipulation::PickPlaceState::ENGAGE;}));
++  EXPECT_EQ(server->goals,1u); EXPECT_EQ(server->trajectory().points.size(),3u);
++  EXPECT_TRUE(port->snapshot().result->stop_confirmed);
++  EXPECT_FALSE(fsm.result().placement_verified); // First motion only, no fake full pick/place success.
++}
++TEST_F(FjtAction, DirectFsmCancelKeepsOriginalFaultWhenStopIsStillPending) {
++  server->no_result=true;
++  auto clock=std::make_shared<mtc::core::ManualClock>();
++  auto perception=std::make_shared<mtc::manipulation::testing::FakePerception>(); perception->clock=clock;
++  auto planner=std::make_shared<ExplicitTrajectoryPlanner>(command());
++  auto tool=std::make_shared<mtc::manipulation::testing::FakeTool>();
++  auto injected=std::shared_ptr<mtc::manipulation::MotionPort>(port.get(),[](auto *) {});
++  mtc::manipulation::PickPlaceConfig config; config.state_timeouts=mtc::manipulation::default_state_timeouts();
++  mtc::manipulation::PickPlaceFsm fsm(perception,planner,injected,tool,clock,
++    mtc::manipulation::make_strategy(config.tool_type),config);
++  fsm.start("battery_1",1,"P1","fjt-cancel-injection",3.0);
++  ASSERT_TRUE(wait([&](){fsm.step(); clock->advance(0.001); return port->snapshot().goals_sent==1;}));
++  fsm.request_cancel("test"); fsm.step();
++  EXPECT_EQ(fsm.state(),mtc::manipulation::PickPlaceState::FAULT);
++  EXPECT_EQ(fsm.result().error_code,mtc::core::ErrorCodes::CANCEL_NOT_CONFIRMED);
++  ASSERT_TRUE(wait([&](){return port->snapshot().result && port->snapshot().result->stop_confirmed;}));
++  fsm.step(); EXPECT_EQ(fsm.state(),mtc::manipulation::PickPlaceState::FAULT); EXPECT_EQ(server->cancels,1u);
++}
+diff --git a/src/mtc_trajectory_execution_cpp/test/test_trajectory_validator.cpp b/src/mtc_trajectory_execution_cpp/test/test_trajectory_validator.cpp
+new file mode 100644
+index 0000000..346f29d
+--- /dev/null
++++ b/src/mtc_trajectory_execution_cpp/test/test_trajectory_validator.cpp
+@@ -0,0 +1,86 @@
++#include <gtest/gtest.h>
++#include <limits>
++#include <algorithm>
++#include "mtc_trajectory_execution_cpp/trajectory_validator.hpp"
++using namespace mtc::trajectory;
++Config config()
++{
++  Config c; for (const auto & n : c.joints) {c.limits[n] = {-2, 2, 1, 10};} return c;
++}
++mtc::core::MotionCommand command()
++{
++  auto cfg = config(); mtc::core::MotionCommand c;
++  c.command_id = "command-1"; c.simulation_only = true;
++  mtc::core::TimedTrajectory t; t.trajectory_id = "plan-1"; t.joint_names = cfg.joints;
++  t.header_frame_id = "base_link";
++  for (int i = 0; i < 3; ++i) {
++    mtc::core::TrajectoryPoint p; p.time_from_start_s = i * 0.3;
++    p.positions_rad.assign(6, i * 0.01); p.velocities_rad_s.assign(6, 0);
++    p.accelerations_rad_s2.assign(6, 0); t.points.push_back(p);
++  }
++  c.trajectory = t; return c;
++}
++TEST(TrajectoryValidator, CompleteTrajectoryPreserved) {
++  auto c = command(); c.trajectory->stamp_s = 12.25;
++  auto r = convert(c, config()); ASSERT_TRUE(r.trajectory) << r.error;
++  EXPECT_EQ(r.trajectory->points.size(), 3u); EXPECT_EQ(r.trajectory->header.frame_id, "base_link");
++  EXPECT_EQ(r.trajectory->header.stamp.sec, 12); EXPECT_EQ(r.trajectory->header.stamp.nanosec, 250000000u);
++  EXPECT_EQ(r.trajectory->points.back().time_from_start.nanosec, 600000000u);
++  EXPECT_EQ(r.trajectory->points.back().positions, c.trajectory->points.back().positions_rad);
++}
++TEST(TrajectoryValidator, JointOrderMapsAllFields) {
++  auto c = command(); std::reverse(c.trajectory->joint_names.begin(), c.trajectory->joint_names.end());
++  for (auto & p : c.trajectory->points) {for (size_t j=0;j<6;++j) {
++    p.positions_rad[j]=j*0.01; p.velocities_rad_s[j]=j*0.02; p.accelerations_rad_s2[j]=j*0.03;
++  }}
++  auto r=convert(c,config()); ASSERT_TRUE(r.trajectory) << r.error;
++  EXPECT_DOUBLE_EQ(r.trajectory->points[0].positions[0],0.05);
++  EXPECT_DOUBLE_EQ(r.trajectory->points[0].velocities[0],0.1);
++  EXPECT_DOUBLE_EQ(r.trajectory->points[0].accelerations[0],0.15);
++}
++#define INVALID_TEST(Name, Mutation) TEST(TrajectoryValidator, Name) {auto c=command(); Mutation; EXPECT_FALSE(convert(c,config()).trajectory);}
++INVALID_TEST(EmptyTrajectoryRejected,c.trajectory->points.clear())
++INVALID_TEST(SinglePointRejected,c.trajectory->points.resize(1))
++INVALID_TEST(DuplicateJointRejected,c.trajectory->joint_names[1]=c.trajectory->joint_names[0])
++INVALID_TEST(MissingJointRejected,c.trajectory->joint_names[1]="unknown")
++INVALID_TEST(NonIncreasingTimeRejected,c.trajectory->points[1].time_from_start_s=0)
++INVALID_TEST(NanPositionRejected,c.trajectory->points[0].positions_rad[0]=std::numeric_limits<double>::quiet_NaN())
++INVALID_TEST(InfVelocityRejected,c.trajectory->points[0].velocities_rad_s[0]=std::numeric_limits<double>::infinity())
++INVALID_TEST(InfAccelerationRejected,c.trajectory->points[0].accelerations_rad_s2[0]=std::numeric_limits<double>::infinity())
++INVALID_TEST(DimensionMismatchRejected,c.trajectory->points[0].positions_rad.pop_back())
++INVALID_TEST(FirstPointNotZeroRejected,c.trajectory->points[0].time_from_start_s=0.01)
++INVALID_TEST(PositionLimitRejected,c.trajectory->points[0].positions_rad[0]=3)
++INVALID_TEST(VelocityLimitRejected,c.trajectory->points[0].velocities_rad_s[0]=2)
++INVALID_TEST(AccelerationLimitRejected,c.trajectory->points[0].accelerations_rad_s2[0]=11)
++INVALID_TEST(TimeoutZeroRejected,c.timeout_ms=0)
++INVALID_TEST(InsufficientTimeoutRejected,c.timeout_ms=400)
++INVALID_TEST(RealCommandRejected,c.simulation_only=false)
++INVALID_TEST(ContactRequestRejected,c.requires_contact=true)
++INVALID_TEST(NanTimeRejected,c.trajectory->points[1].time_from_start_s=std::numeric_limits<double>::quiet_NaN())
++INVALID_TEST(NegativeStampRejected,c.trajectory->stamp_s=-1)
++INVALID_TEST(NanStampRejected,c.trajectory->stamp_s=std::numeric_limits<double>::quiet_NaN())
++INVALID_TEST(NanosecondTimeCollisionRejected,c.trajectory->points[1].time_from_start_s=1e-12)
++INVALID_TEST(MixedRepresentationsRejected,c.target_rad.assign(6,0))
++TEST(TrajectoryValidator, MissingLimitsRejectConfiguration) {Config c; EXPECT_THROW(c.validate(),std::invalid_argument);}
++TEST(TrajectoryValidator, ZeroSettleRejected) {auto c=config(); c.settle_duration=0; EXPECT_THROW(c.validate(),std::invalid_argument);}
++TEST(TrajectoryValidator, JointSampleRequiresVelocityAndIdentity) {
++  sensor_msgs::msg::JointState s; auto c=config(); s.name=c.joints;
++  s.header.stamp.sec=1; s.position.assign(6,0); EXPECT_FALSE(map_sample(s,c));
++  s.velocity.assign(6,0); ASSERT_TRUE(map_sample(s,c));
++  s.name[1]=s.name[0]; EXPECT_FALSE(map_sample(s,c));
++}
++
++TEST(TrajectoryValidator, SplinePositionOvershootRejected) {
++  auto c=command(); for(auto & p:c.trajectory->points) {
++    p.positions_rad.assign(6,1.99); p.velocities_rad_s.assign(6,0.2);
++  } EXPECT_FALSE(convert(c,config()).trajectory);
++}
++TEST(TrajectoryValidator, SplineVelocityOvershootRejected) {
++  auto c=command(); c.trajectory->points[1].positions_rad.assign(6,0.1);
++  c.trajectory->points[2].positions_rad.assign(6,0.2);
++  EXPECT_FALSE(convert(c,config()).trajectory);
++}
++TEST(TrajectoryValidator, SplineAccelerationOvershootRejected) {
++  auto c=command(); auto cfg=config(); for(auto & kv:cfg.limits) {kv.second.acceleration=0.1;}
++  EXPECT_FALSE(convert(c,cfg).trajectory);
++}
+diff --git a/src/mtc_trajectory_execution_cpp/test/verify_results.py b/src/mtc_trajectory_execution_cpp/test/verify_results.py
+new file mode 100644
+index 0000000..ba7d42d
+--- /dev/null
++++ b/src/mtc_trajectory_execution_cpp/test/verify_results.py
+@@ -0,0 +1,67 @@
++#!/usr/bin/env python3
++"""核对 Phase 2B 前358项身份与所有已注册 GTest 的实际执行结果。"""
++import argparse
++from collections import Counter
++from pathlib import Path
++import re
++import subprocess
++import xml.etree.ElementTree as ET
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--build-base', type=Path, default=Path('build'))
++    args = parser.parse_args()
++    root = Path(__file__).resolve().parents[3]
++    build = args.build_base if args.build_base.is_absolute() else root / args.build_base
++    git = lambda *a: subprocess.check_output(['git', *a], cwd=root, text=True)
++    baseline = set()
++    pattern = re.compile(r'\bTEST(?:_F)?\s*\(\s*(\w+)\s*,\s*(\w+)\s*\)')
++    base = 'a04ac68'
++    for name in git('ls-tree', '-r', '--name-only', base, 'src').splitlines():
++        if re.fullmatch(r'src/mtc_\w+_cpp/test/test_\w+\.cpp', name):
++            baseline.update(f'{s}.{c}' for s, c in pattern.findall(git('show', f'{base}:{name}')))
++    assert len(baseline) == 358, len(baseline)
++    actual = Counter()
++    inventory = set()
++    by_package = Counter()
++    xmls = list(build.glob('mtc_*_cpp/test_results/**/*.gtest.xml'))
++    expected_executables = 0
++    for pkg in (root / 'src').glob('mtc_*_cpp'):
++        cmake = pkg / 'CMakeLists.txt'
++        if not cmake.exists():
++            continue
++        names = re.findall(r'ament_add_gtest\(\s*(test_\w+)', cmake.read_text())
++        expected_executables += len(names)
++        for name in names:
++            # Listing registers tests but never runs fixtures or enables a backend.
++            output = subprocess.check_output([str(build / pkg.name / name), '--gtest_list_tests'],
++                                             text=True, timeout=15)
++            suite = None
++            for line in output.splitlines():
++                if re.fullmatch(r'\w+\.', line):
++                    suite = line[:-1]
++                elif suite and re.fullmatch(r'  \w+', line):
++                    key = f'{suite}.{line.strip()}'
++                    assert key not in inventory, f'duplicate registration {key}'
++                    inventory.add(key)
++    for filename in xmls:
++        for case in ET.parse(filename).getroot().iter('testcase'):
++            key = f"{case.attrib['classname'].split('.')[-1]}.{case.attrib['name']}"
++            assert case.find('failure') is None and case.find('error') is None, key
++            assert case.find('skipped') is None and case.get('status') == 'run', key
++            assert case.get('result') == 'completed', key
++            actual[key] += 1
++            by_package[filename.relative_to(build).parts[0]] += 1
++    assert len(xmls) == expected_executables, (len(xmls), expected_executables)
++    assert baseline <= actual.keys(), sorted(baseline - actual.keys())
++    assert inventory == actual.keys(), (sorted(inventory - actual.keys()), sorted(actual.keys() - inventory))
++    assert all(v == 1 for v in actual.values()), actual
++    print(f'PASS: 原358项身份全部保留并执行；新增{len(inventory - baseline)}项')
++    print(f'PASS: {len(actual)}项独立GTest / {len(xmls)}个可执行文件；FAIL 0 / SKIP 0')
++    for package, count in sorted(by_package.items()):
++        print(f'  {package}: {count} PASS')
++
++
++if __name__ == '__main__':
++    main()

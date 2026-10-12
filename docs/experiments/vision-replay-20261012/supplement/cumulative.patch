@@ -1,0 +1,1236 @@
+diff --git a/src/mtc_vision_adapter/README.md b/src/mtc_vision_adapter/README.md
+index da10a88..27bcb57 100644
+--- a/src/mtc_vision_adapter/README.md
++++ b/src/mtc_vision_adapter/README.md
+@@ -1,32 +1,84 @@
+-See ../../vision_core/README.md for installation and pending Jazzy checks.
++# ROS2 battery detection offline adapter
++
+ Topic /mtc/perception/batteries; RELIABLE KEEP_LAST(5) VOLATILE.
+ UNKNOWN=0 RED=1 BLUE=2 YELLOW=3 GREEN=4.
+-Replay only; invalid poses JSON null -> ROS NaN; ring_pose_valid=false; no motion.
++Explicit replay/synthetic records remain publishable with their historical
++capture timestamps. Unmeasured JSON null poses become ROS NaN.
++The publisher always forces ring_pose_valid=false; no invented XYZ or
++quaternion makes offline data valid for motion.
+ 
+ Motion safety contract:
+-`motion_rejection(..., mode="live")` rejects by default. A caller must supply
+-`trusted_frames`, a trusted `target_frame`, and a callable
+-`tf_validator(source_frame, target_frame, capture_stamp)`. The validator must
+-return exactly `True` only after resolving a usable transform at the capture
+-stamp (not latest TF) into the trusted motion frame. Lookup failures, timeouts,
+-and missing/uncertain results reject. Frame names alone never establish trust.
+-This is an independent safety helper; it does not wire or validate the C++ FSM
+-ROS adapter. Synthetic/replay publication remains allowed and cannot be motion
+-input. The publisher forces `ring_pose_valid=false`.
+-
+-Jazzy validation: source `/opt/ros/jazzy/setup.bash`, build this package and
+-`mtc_interfaces`, then run `python3 -m pytest -q src/mtc_vision_adapter/test`
+-with the workspace overlay sourced. TF tests use a local buffer, without a
+-network listener or motion execution.
+-
+-Process validation: run python3 src/mtc_vision_adapter/test/ros_replay_validation.py
+-with the overlay sourced and an isolated local ROS domain. Artifacts default to
+-/tmp/mtc_vision_validation; override with MTC_VALIDATION_OUT.
+-MTC_REPLAY_FIXTURE can select a replay JSONL fixture without changing capture stamps.
+-
+-QoS validation checks the profile on the created publisher and discovered
+-endpoint compatibility. On this Jazzy RMW, discovery reports history UNKNOWN
+-and depth 0; those fields do not verify publisher queue configuration.
+-The process test waits for a matched subscriber before starting its timer.
+-Replay validation may reuse synthetic records with mode=replay solely to test
+-the replay path; this does not constitute a real camera recording.
++motion_rejection(..., mode="live") rejects by default. The caller must supply
++trusted_frames, a trusted target_frame and a callable
++tf_validator(source_frame, target_frame, capture_stamp). It must return
++exactly True after verifying usable TF at the capture stamp, not latest TF.
++Missing TF, timeout and uncertain results reject. A frame name alone does
++not establish trust. This helper does not wire or verify the C++ FSM.
++
++The replay node now stops its execution loop after the last publish and
++bounded RELIABLE acknowledgment, then destroys the node and calls
++rclpy.try_shutdown(). Normal completion and SIGINT both exit cleanly.
++For matched-subscriber acceptance, set wait_for_subscriber_s to a positive
++timeout (the default 0 preserves standalone offline publication).
++A subscriber discovery or acknowledgment timeout fails rather than claiming
++successful delivery. No subscriber means there is no delivery guarantee.
++
++The process tests directly launch the installed replay_publisher executable;
++they do not replace ROS publishers, timers or shutdown with mocks.
++For a standalone natural-exit validation, source the overlay, select a local
++ROS domain and run python3 src/mtc_vision_adapter/test/ros_replay_validation.py.
++Use --exit-mode sigint for an interruption test. MTC_REPLAY_FIXTURE selects
++a four-frame JSONL fixture; MTC_VALIDATION_OUT selects the evidence directory.
++
++## ROS2 Jazzy / Ubuntu 24.04 acceptance (2026-10-12)
++
++Synced V4.2 by fast-forward to e09d00ede40b0fafad6cd5428ae1824442e74d3c,
++retaining the prior SIGINT and trusted-TF safety fix e53c09f.
++Acceptance used the formal workspace /home/shrmeituan/meituan_vision_ws.
++Only local Ubuntu ROS2 processes ran, with localhost discovery and isolated
++ROS domains 191-194. No D435i, cross-host data link or robot was started.
++
++| Check | Actual result |
++| --- | --- |
++| colcon build: mtc_interfaces, mtc_vision_adapter | PASS: 2 packages finished |
++| Adapter pytest (including real installed processes) | PASS: 57 passed in 16.59s |
++| synthetic natural completion | PASS: 4/4 arrays, lengths 0/4/4/4, exit 0; no signal sent |
++| replay natural completion | PASS: 4/4 arrays, lengths 0/4/4/4, exit 0; no signal sent |
++| synthetic and replay SIGINT during replay | PASS: interrupt after 2 received arrays; both exit 0 |
++| Message fields and historical capture stamps | Exact fixture matches; null poses become NaN; ring_pose_valid=false |
++| QoS | Created RELIABLE KEEP_LAST(5) VOLATILE; discovered endpoints compatible |
++| Cleanup | No traceback, duplicate-shutdown error or remaining replay node |
++| Motion rejection helper and local TF buffer | PASS: invalid ring/poses, untrusted frames, missing or historical TF mismatch reject |
++| Live D435i / USB acceptance | NOT RUN |
++| Windows D435i to Ubuntu ROS2 cross-host link | NOT RUN |
++| C++ FSM consumption and downstream safety acceptance | NOT RUN / NOT VERIFIED |
++| True XYZ/Yaw, ring pose and grasp accuracy | NOT VERIFIED |
++
++The replay test changes only the mode/source metadata of the synthetic
++fixture; it is not evidence of a real camera recording. SIGINT tests are
++mid-replay interruption checks and do not claim delivery of all four frames.
++Natural-exit tests independently verify complete four-frame delivery.
++The RMW discovery graph reports history UNKNOWN and depth 0; queue settings
++are checked on the created publisher's profile, not inferred from discovery.
++RELIABLE final-sample acknowledgment does not certify C++ FSM acceptance.
++
++Reproduce from the workspace root after installing ROS2 Jazzy dependencies:
++
++```sh
++source /opt/ros/jazzy/setup.bash
++colcon build --packages-select mtc_interfaces mtc_vision_adapter
++source install/setup.bash
++MTC_VALIDATION_OUT=/tmp/mtc_v42_validation_20261012 \
++  python3 -m pytest -q src/mtc_vision_adapter/test
++```
++
++Host-local evidence (runtime data is excluded from Git):
++- /tmp/mtc_v42_colcon.log
++- /tmp/mtc_v42_pytest.log
++- /tmp/mtc_v42_validation_20261012/{synthetic,replay}-{natural,sigint}/ros_results.json
++- The same case directories contain ros_publisher.log, ros_received.json and ros_logs/.
++
++The adapter is an offline replay publisher, not a live D435i ROS node.
++The next stage may prepare live input integration, but cross-host transport,
++capture-clock alignment, real TF/calibration and actual downstream rejection
++must be verified before any motion use.
+diff --git a/src/mtc_vision_adapter/mtc_vision_adapter/publisher.py b/src/mtc_vision_adapter/mtc_vision_adapter/publisher.py
+index f61e1bb..51cbc6a 100644
+--- a/src/mtc_vision_adapter/mtc_vision_adapter/publisher.py
++++ b/src/mtc_vision_adapter/mtc_vision_adapter/publisher.py
+@@ -1,11 +1,13 @@
+ """Explicit offline replay publisher. No camera code, no timestamp rewriting."""
+ import json
++import time
+ from pathlib import Path
+ from .core import to_ros
+ 
+ def main():
+     import rclpy
+     from rclpy.node import Node
++    from rclpy.duration import Duration
+     from rclpy.executors import ExternalShutdownException
+     from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy, DurabilityPolicy
+     from mtc_interfaces.msg import BatteryDetectionArray, BatteryDetection
+@@ -15,6 +17,7 @@ def main():
+         node=Node('vision_offline_replay')
+         node.declare_parameter('input_jsonl','')
+         node.declare_parameter('period_s',1.0)
++        node.declare_parameter('wait_for_subscriber_s',0.0)
+         path=Path(node.get_parameter('input_jsonl').value)
+         records=[json.loads(line) for line in path.read_text(encoding='utf-8').splitlines() if line]
+         if not records or any(r.get('mode') not in ('replay','synthetic') for r in records):
+@@ -24,16 +27,34 @@ def main():
+         pub=node.create_publisher(BatteryDetectionArray,'/mtc/perception/batteries',qos)
+         node.get_logger().warning('OFFLINE REPLAY: original timestamps; invalid poses; never motion input')
+         index=0
++        complete=False
++        wait_s=float(node.get_parameter('wait_for_subscriber_s').value)
++        discovery_deadline=time.monotonic()+wait_s
++        q=pub.qos_profile
++        node.get_logger().info(f'created QoS: {q.reliability.name} {q.history.name}({q.depth}) {q.durability.name}')
+         def tick():
+-            nonlocal index
+-            if index>=len(records):
+-                timer.cancel(); node.get_logger().info('replay complete'); return
++            nonlocal index,complete
++            # Optional bounded discovery wait keeps the first offline frame
++            # until an acceptance subscriber has actually matched.
++            if index==0 and wait_s>0 and pub.get_subscription_count()==0:
++                if time.monotonic()>=discovery_deadline:
++                    raise TimeoutError('no matched replay subscriber')
++                return
+             record=records[index]
+             pub.publish(to_ros(record['message'],BatteryDetectionArray,BatteryDetection))
+             node.get_logger().info(f"frame={index} mode={record['mode']} source={record['timestamp_source']}")
+             index+=1
++            if index==len(records):
++                timer.cancel()
++                # Do not destroy a RELIABLE publisher with its final sample
++                # still awaiting acknowledgment. No motion consumer is assumed.
++                if not pub.wait_for_all_acked(Duration(seconds=2.0)):
++                    raise TimeoutError('final replay samples not acknowledged')
++                complete=True
++                node.get_logger().info('replay complete')
+         timer=node.create_timer(float(node.get_parameter('period_s').value),tick)
+-        rclpy.spin(node)
++        while rclpy.ok() and not complete:
++            rclpy.spin_once(node,timeout_sec=.1)
+     except (KeyboardInterrupt, ExternalShutdownException):
+         pass
+     finally:
+diff --git a/src/mtc_vision_adapter/test/ros_replay_validation.py b/src/mtc_vision_adapter/test/ros_replay_validation.py
+index da92ee2..f2e0f01 100644
+--- a/src/mtc_vision_adapter/test/ros_replay_validation.py
++++ b/src/mtc_vision_adapter/test/ros_replay_validation.py
+@@ -1,98 +1,156 @@
+-"""Explicit local ROS process validation; run with the installed overlay sourced."""
++"""Real installed ROS2 replay processes; no camera, listener or motion execution."""
++import argparse
+ import json
+ import math
+ import os
+ from pathlib import Path
+ import signal
+-import sys
+ import subprocess
+ import time
++
+ import rclpy
+ from rclpy.node import Node
+-from rclpy.qos import QoSProfile,ReliabilityPolicy,HistoryPolicy,DurabilityPolicy,LivelinessPolicy,qos_check_compatible
++from rclpy.qos import (
++    QoSProfile, ReliabilityPolicy, HistoryPolicy, DurabilityPolicy, LivelinessPolicy,
++    qos_check_compatible,
++)
+ from rosidl_runtime_py.convert import message_to_ordereddict
+ from mtc_interfaces.msg import BatteryDetectionArray
+ from mtc_vision_adapter.core import motion_rejection
+ 
+-w=Path(__file__).resolve().parents[3];out=Path(os.environ.get('MTC_VALIDATION_OUT','/tmp/mtc_vision_validation'))
+-out.mkdir(parents=True,exist_ok=True)
+-os.environ.setdefault('ROS_LOG_DIR',str(out/'ros_logs'))
+-fixture=Path(os.environ.get('MTC_REPLAY_FIXTURE',str(w/'src/mtc_vision_adapter/examples/synthetic.jsonl')))
+-records=[json.loads(l) for l in fixture.read_text().splitlines() if l]
+-qos=QoSProfile(depth=5,reliability=ReliabilityPolicy.RELIABLE,history=HistoryPolicy.KEEP_LAST,durability=DurabilityPolicy.VOLATILE,liveliness=LivelinessPolicy.AUTOMATIC)
+-rclpy.init();node=Node('vision_sigint_acceptance');received=[];checks=[];endpoints=[];rejections=[]
+-def equal(a,b):
+-    if b is None:return isinstance(a,float) and math.isnan(a)
+-    if isinstance(b,dict):return set(a)==set(b) and all(equal(a[k],v) for k,v in b.items())
+-    if isinstance(b,list):return len(a)==len(b) and all(equal(x,y) for x,y in zip(a,b))
+-    return a==b
+ 
+-def callback(msg):
+-    data=message_to_ordereddict(msg);i=len(received);received.append(data)
+-    checks.append(i<len(records) and equal(data,records[i]['message']))
+-    stamp=data['header']['stamp']
+-    capture=stamp['sec']+stamp['nanosec']*1e-9
+-    offline=motion_rejection(data,capture+.01,mode=records[i]['mode'])
+-    live=motion_rejection(data,capture+.01,mode='live')
+-    assert offline=='REPLAY_NOT_MOTION_INPUT'
+-    assert live==('RING_INVALID' if data['detections'] else 'EMPTY')
+-    rejections.append({'offline':offline,'live':live})
+-    print('native received frame',i,'array length',len(msg.detections),'match',checks[-1],flush=True)
++def equal(actual, expected):
++    if expected is None:
++        return isinstance(actual, float) and math.isnan(actual)
++    if isinstance(expected, dict):
++        return set(actual) == set(expected) and all(
++            equal(actual[key], value) for key, value in expected.items())
++    if isinstance(expected, list):
++        return len(actual) == len(expected) and all(
++            equal(a, b) for a, b in zip(actual, expected))
++    return actual == expected
+ 
+-sub=node.create_subscription(BatteryDetectionArray,'/mtc/perception/batteries',callback,qos)
+-executable=str(w/'install/mtc_vision_adapter/lib/mtc_vision_adapter/replay_publisher')
+-# Run the installed entry point and observe its created publisher QoS.
+-# RMW graph discovery may omit history/depth; do not infer them from defaults.
+-probe = '''
+-import json, runpy, sys, time
+-from rclpy.node import Node
+-original=Node.create_publisher
+-def observed(self,*args,**kwargs):
+-    pub=original(self,*args,**kwargs)
+-    if pub.topic_name!='/mtc/perception/batteries':return pub
+-    deadline=time.monotonic()+20
+-    while pub.get_subscription_count()<1 and time.monotonic()<deadline:
+-        time.sleep(.05)
+-    assert pub.get_subscription_count()>=1,'subscriber discovery timeout'
+-    q=pub.qos_profile
+-    print('CREATED_QOS='+json.dumps(dict(reliability=q.reliability.name,history=q.history.name,depth=q.depth,durability=q.durability.name)),flush=True)
+-    return pub
+-Node.create_publisher=observed
+-entry=sys.argv[1]
+-sys.argv=sys.argv[1:]
+-runpy.run_path(entry,run_name='__main__')
+-'''
+-log=open(out/'ros_publisher.log','w');proc=subprocess.Popen([sys.executable,'-c',probe,executable,'--ros-args','-p','input_jsonl:='+str(fixture),'-p','period_s:=2.0'],stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+-result={}
+-try:
+-    deadline=time.monotonic()+120
+-    while len(received)<4 and proc.poll() is None and time.monotonic()<deadline:rclpy.spin_once(node,timeout_sec=.2)
+-    assert len(received)==4 and all(checks),('receive failure',len(received),proc.poll())
+-    for ep in node.get_publishers_info_by_topic('/mtc/perception/batteries'):
+-        compat=qos_check_compatible(ep.qos_profile,qos)
+-        endpoints.append({'node':ep.node_name,'type':ep.topic_type,'reliability':ep.qos_profile.reliability.name,'durability':ep.qos_profile.durability.name,'history':ep.qos_profile.history.name,'depth':ep.qos_profile.depth,'compatibility':compat[0].name,'reason':compat[1]})
+-    print('discovered QoS:',json.dumps(endpoints),flush=True)
+-    assert endpoints and all(e['compatibility']=='OK' and e['reliability']=='RELIABLE' and e['durability']=='VOLATILE' for e in endpoints)
+-    actual=[json.loads(line.split('=',1)[1]) for line in (out/'ros_publisher.log').read_text().splitlines() if line.startswith('CREATED_QOS=')]
+-    assert actual==[dict(reliability='RELIABLE',history='KEEP_LAST',depth=5,durability='VOLATILE')],actual
+-    # Await completion log before sending SIGINT, not a speculative startup delay.
+-    deadline=time.monotonic()+30
+-    while 'replay complete' not in (out/'ros_publisher.log').read_text() and time.monotonic()<deadline:rclpy.spin_once(node,timeout_sec=.2)
+-    assert 'replay complete' in (out/'ros_publisher.log').read_text()
+-    os.killpg(proc.pid,signal.SIGINT);code=proc.wait(timeout=30)
+-    assert code==0,code
+-    deadline=time.monotonic()+12
+-    while any(name=='vision_offline_replay' for name,_ in node.get_node_names_and_namespaces()) and time.monotonic()<deadline:rclpy.spin_once(node,timeout_sec=.2)
+-    remaining=[name for name,_ in node.get_node_names_and_namespaces() if name=='vision_offline_replay']
+-    assert not remaining,remaining
+-    result={'received_frames':len(received),'array_lengths':[len(m['detections']) for m in received],'exact_fixture_matches':checks,'qos':endpoints,'publisher_created_qos':actual,'motion_rejections':rejections,'publisher_exit':code,'replay_nodes_remaining':remaining,'scope':'Local ROS replay and subscriber only; no C++ FSM or real hardware'}
+-    print(json.dumps(result,indent=2),flush=True)
+-finally:
+-    if proc.poll() is None:
+-        os.killpg(proc.pid,signal.SIGINT)
+-        try:proc.wait(timeout=30)
+-        except subprocess.TimeoutExpired:os.killpg(proc.pid,signal.SIGKILL);proc.wait()
+-    log.close();node.destroy_node();rclpy.try_shutdown()
+-    result['subscriber_cleanup_complete']=True
+-    (out/'ros_results.json').write_text(json.dumps(result,indent=2))
+-    (out/'ros_received.json').write_text(json.dumps(received,indent=2,allow_nan=True))
++
++def run_validation(fixture, out, exit_mode='natural'):
++    fixture, out = Path(fixture), Path(out)
++    out.mkdir(parents=True, exist_ok=True)
++    workspace = Path(__file__).resolve().parents[3]
++    executable = workspace/'install/mtc_vision_adapter/lib/mtc_vision_adapter/replay_publisher'
++    assert executable.is_file(), 'Build and source the workspace overlay first'
++    records = [json.loads(line) for line in fixture.read_text().splitlines() if line]
++    assert len(records) == 4
++    assert exit_mode in ('natural', 'sigint')
++    qos = QoSProfile(depth=5, reliability=ReliabilityPolicy.RELIABLE,
++                     history=HistoryPolicy.KEEP_LAST, durability=DurabilityPolicy.VOLATILE, liveliness=LivelinessPolicy.AUTOMATIC)
++    received, checks, rejections, endpoints = [], [], [], []
++    rclpy.init()
++    node = Node('vision_process_acceptance')
++    proc = None
++    result = {'exit_mode': exit_mode, 'passed': False,
++              'scope': 'Local Ubuntu ROS2 only; no D435i, cross-host or C++ FSM'}
++    log = open(out/'ros_publisher.log', 'w')
++
++    def callback(msg):
++        data = message_to_ordereddict(msg)
++        index = len(received)
++        received.append(data)
++        checks.append(index < len(records) and equal(data, records[index]['message']))
++        stamp = data['header']['stamp']
++        # Verify ring rejection at a fresh reference time; the transmitted
++        # historical capture timestamp is never changed.
++        capture = stamp['sec'] + stamp['nanosec']*1e-9 + .01
++        offline = motion_rejection(data, capture, mode=records[index]['mode'])
++        live = motion_rejection(data, capture, mode='live')
++        assert offline == 'REPLAY_NOT_MOTION_INPUT'
++        assert live == ('RING_INVALID' if data['detections'] else 'EMPTY')
++        rejections.append({'offline': offline, 'live': live})
++
++    node.create_subscription(BatteryDetectionArray, '/mtc/perception/batteries', callback, qos)
++    try:
++        env = dict(os.environ, ROS_LOG_DIR=str(out/'ros_logs'))
++        proc = subprocess.Popen(
++            [str(executable), '--ros-args', '-p', 'input_jsonl:='+str(fixture),
++             '-p', 'period_s:=0.5', '-p', 'wait_for_subscriber_s:=15.0'],
++            stdout=log, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL,
++            start_new_session=True, env=env)
++        expected = 4 if exit_mode == 'natural' else 2
++        signaled = False
++        deadline = time.monotonic()+35
++        while time.monotonic() < deadline:
++            rclpy.spin_once(node, timeout_sec=.05)
++            if not endpoints:
++                for ep in node.get_publishers_info_by_topic('/mtc/perception/batteries'):
++                    compatibility, reason = qos_check_compatible(ep.qos_profile, qos)
++                    endpoints.append(dict(
++                        node=ep.node_name, type=ep.topic_type,
++                        reliability=ep.qos_profile.reliability.name,
++                        durability=ep.qos_profile.durability.name,
++                        history=ep.qos_profile.history.name, depth=ep.qos_profile.depth,
++                        compatibility=compatibility.name, reason=reason))
++            if exit_mode == 'sigint' and len(received) >= expected and not signaled:
++                os.killpg(proc.pid, signal.SIGINT)
++                signaled = True
++            if proc.poll() is not None:
++                # DDS delivery and subscriber dispatch can finish after the
++                # publisher has acknowledged its final reliable sample.
++                drain_until = time.monotonic()+.5
++                while time.monotonic() < drain_until:
++                    rclpy.spin_once(node, timeout_sec=.05)
++                break
++        assert proc.poll() is not None, 'publisher did not exit automatically'
++        code = proc.wait(timeout=2)
++        assert code == 0, (code, (out/'ros_publisher.log').read_text())
++        assert len(received) == expected and all(checks), (len(received), checks)
++        assert endpoints and all(ep['compatibility'] == 'OK' and
++            ep['reliability'] == 'RELIABLE' and ep['durability'] == 'VOLATILE'
++            for ep in endpoints), endpoints
++        text = (out/'ros_publisher.log').read_text()
++        assert 'created QoS: RELIABLE KEEP_LAST(5) VOLATILE' in text
++        assert 'Traceback' not in text and 'already shutdown' not in text
++        if exit_mode == 'natural':
++            assert not signaled and 'replay complete' in text
++        else:
++            assert signaled and 'replay complete' not in text
++        deadline = time.monotonic()+10
++        while any(name == 'vision_offline_replay'
++                  for name, _ in node.get_node_names_and_namespaces()):
++            assert time.monotonic() < deadline, 'replay node remains in ROS graph'
++            rclpy.spin_once(node, timeout_sec=.1)
++        result.update(
++            passed=True, received_frames=len(received),
++            array_lengths=[len(msg['detections']) for msg in received],
++            exact_fixture_matches=checks, motion_rejections=rejections,
++            discovered_qos=endpoints,
++            created_qos='RELIABLE KEEP_LAST(5) VOLATILE',
++            publisher_exit=code, signal_sent=signaled,
++            replay_nodes_remaining=[])
++        return result
++    finally:
++        if proc is not None and proc.poll() is None:
++            os.killpg(proc.pid, signal.SIGINT)
++            try:
++                proc.wait(timeout=5)
++            except subprocess.TimeoutExpired:
++                os.killpg(proc.pid, signal.SIGKILL)
++                proc.wait()
++        log.close()
++        node.destroy_node()
++        rclpy.try_shutdown()
++        result['subscriber_cleanup_complete'] = True
++        (out/'ros_results.json').write_text(json.dumps(result, indent=2))
++        (out/'ros_received.json').write_text(json.dumps(received, indent=2, allow_nan=True))
++
++
++def main():
++    parser = argparse.ArgumentParser()
++    parser.add_argument('--exit-mode', choices=('natural', 'sigint'), default='natural')
++    args = parser.parse_args()
++    workspace = Path(__file__).resolve().parents[3]
++    fixture = os.environ.get('MTC_REPLAY_FIXTURE',
++                             str(workspace/'src/mtc_vision_adapter/examples/synthetic.jsonl'))
++    out = os.environ.get('MTC_VALIDATION_OUT', '/tmp/mtc_vision_validation')
++    print(json.dumps(run_validation(fixture, out, args.exit_mode), indent=2))
++
++
++if __name__ == '__main__':
++    main()
+diff --git a/src/mtc_vision_adapter/test/test_publisher_cleanup.py b/src/mtc_vision_adapter/test/test_publisher_cleanup.py
+index a5787a9..5c43dc3 100644
+--- a/src/mtc_vision_adapter/test/test_publisher_cleanup.py
++++ b/src/mtc_vision_adapter/test/test_publisher_cleanup.py
+@@ -10,9 +10,10 @@ class ExternalShutdownException(Exception):pass
+ @pytest.fixture
+ def fake_ros(monkeypatch,tmp_path):
+     path=tmp_path/'replay.jsonl';path.write_text(json.dumps({'mode':'synthetic'})+'\n')
+-    node=Mock();node.get_parameter.side_effect=lambda key:types.SimpleNamespace(value=str(path) if key=='input_jsonl' else 1.)
+-    ros=types.ModuleType('rclpy');ros.init=Mock();ros.spin=Mock();ros.try_shutdown=Mock()
++    node=Mock();node.get_parameter.side_effect=lambda key:types.SimpleNamespace(value=str(path) if key=='input_jsonl' else (0. if key=='wait_for_subscriber_s' else 1.))
++    ros=types.ModuleType('rclpy');ros.init=Mock();ros.spin_once=Mock();ros.ok=Mock(side_effect=[True,False]);ros.try_shutdown=Mock()
+     monkeypatch.setitem(sys.modules,'rclpy',ros)
++    monkeypatch.setitem(sys.modules,'rclpy.duration',types.SimpleNamespace(Duration=lambda **kw:kw))
+     monkeypatch.setitem(sys.modules,'rclpy.node',types.SimpleNamespace(Node=Mock(return_value=node)))
+     monkeypatch.setitem(sys.modules,'rclpy.executors',types.SimpleNamespace(ExternalShutdownException=ExternalShutdownException))
+     monkeypatch.setitem(sys.modules,'rclpy.qos',types.SimpleNamespace(QoSProfile=lambda **kw:kw,ReliabilityPolicy=types.SimpleNamespace(RELIABLE=1),HistoryPolicy=types.SimpleNamespace(KEEP_LAST=1),DurabilityPolicy=types.SimpleNamespace(VOLATILE=1)))
+@@ -22,7 +23,7 @@ def fake_ros(monkeypatch,tmp_path):
+ @pytest.mark.parametrize('error',[KeyboardInterrupt,ExternalShutdownException,None])
+ def test_signal_or_normal_spin_cleanup(fake_ros,error):
+     ros,node,_=fake_ros
+-    if error:ros.spin.side_effect=error()
++    if error:ros.spin_once.side_effect=error()
+     assert main() is None
+     node.destroy_node.assert_called_once();ros.try_shutdown.assert_called_once()
+ 
+diff --git a/src/mtc_vision_adapter/test/test_replay_process.py b/src/mtc_vision_adapter/test/test_replay_process.py
+new file mode 100644
+index 0000000..7bee37a
+--- /dev/null
++++ b/src/mtc_vision_adapter/test/test_replay_process.py
+@@ -0,0 +1,29 @@
++"""Acceptance tests launch the installed replay_publisher, without mocks."""
++import json
++import os
++from pathlib import Path
++import pytest
++from ros_replay_validation import run_validation
++
++
++@pytest.mark.parametrize('mode', ['synthetic', 'replay'])
++@pytest.mark.parametrize('exit_mode', ['natural', 'sigint'])
++def test_installed_replay_process(mode, exit_mode, tmp_path, monkeypatch):
++    # Different local domains avoid stale discovery between short-lived cases.
++    domain = 191 + (mode == 'replay') + 2*(exit_mode == 'sigint')
++    monkeypatch.setenv('ROS_DOMAIN_ID', str(domain))
++    monkeypatch.setenv('ROS_AUTOMATIC_DISCOVERY_RANGE', 'LOCALHOST')
++    monkeypatch.delenv('ROS_DISCOVERY_SERVER', raising=False)
++    monkeypatch.delenv('ROS_STATIC_PEERS', raising=False)
++    root = Path(__file__).resolve().parents[1]
++    records = [json.loads(line) for line in (root/'examples/synthetic.jsonl').read_text().splitlines()]
++    for record in records:
++        record['mode'] = mode
++        if mode == 'replay':
++            record['timestamp_source'] = 'recorded_fixture'
++    fixture = tmp_path/'replay.jsonl'
++    fixture.write_text('\n'.join(json.dumps(record) for record in records)+'\n')
++    out = Path(os.environ.get('MTC_VALIDATION_OUT', str(tmp_path/'results')))/(mode+'-'+exit_mode)
++    result = run_validation(fixture, out, exit_mode)
++    assert result['passed'] and result['publisher_exit'] == 0
++    assert result['received_frames'] == (4 if exit_mode == 'natural' else 2)
+diff --git a/vision_core/README.md b/vision_core/README.md
+index 15ada55..aeb1ba1 100644
+--- a/vision_core/README.md
++++ b/vision_core/README.md
+@@ -1,4 +1,4 @@
+-# Battery vision V4.0-B — source-only migration
++# Battery vision V4.2 — source sync and local ROS2 acceptance
+ 
+ Existing RGB/HSV four-color detection, common CAD/RGB-D body and ring candidates, pixel tracking, dual-rate UI, lossless recording/replay, GT/fixture evaluator and synthetic generator are preserved. This upload does not develop algorithms or run devices.
+ 
+@@ -23,22 +23,62 @@ No raw images, RGB-D recordings, personal environment photos, annotations, PLY,
+ 
+ Full CAD preview requires privately supplied assets/cad/电池道具.stp and assets/cad/舌规V1.STEP and the existing extraction workflow creating outputs/cad_analysis/geometry.json and cad_meshes.npz. Source hashes must match. Missing CAD resources block complete CAD preview, not RGB detection or JSON publisher replay. Do not commit the resulting data. Public tests use synthetic inputs; the absent private 22-frame evidence test is skipped, not reported passed. This subset is not the original local 215-test suite.
+ 
+-## ROS2 Jazzy / Ubuntu 24.04 — NOT RUN here
++## ROS2 Jazzy / Ubuntu 24.04 acceptance (2026-10-12)
++
++Synced V4.2 by fast-forward to e09d00ede40b0fafad6cd5428ae1824442e74d3c,
++retaining the prior SIGINT and trusted-TF safety fix e53c09f.
++Acceptance used the formal workspace /home/shrmeituan/meituan_vision_ws.
++Only local Ubuntu ROS2 processes ran, with localhost discovery and isolated
++ROS domains 191-194. No D435i, cross-host data link or robot was started.
++
++| Check | Actual result |
++| --- | --- |
++| colcon build: mtc_interfaces, mtc_vision_adapter | PASS: 2 packages finished |
++| Adapter pytest (including real installed processes) | PASS: 57 passed in 16.59s |
++| synthetic natural completion | PASS: 4/4 arrays, lengths 0/4/4/4, exit 0; no signal sent |
++| replay natural completion | PASS: 4/4 arrays, lengths 0/4/4/4, exit 0; no signal sent |
++| synthetic and replay SIGINT during replay | PASS: interrupt after 2 received arrays; both exit 0 |
++| Message fields and historical capture stamps | Exact fixture matches; null poses become NaN; ring_pose_valid=false |
++| QoS | Created RELIABLE KEEP_LAST(5) VOLATILE; discovered endpoints compatible |
++| Cleanup | No traceback, duplicate-shutdown error or remaining replay node |
++| Motion rejection helper and local TF buffer | PASS: invalid ring/poses, untrusted frames, missing or historical TF mismatch reject |
++| Live D435i / USB acceptance | NOT RUN |
++| Windows D435i to Ubuntu ROS2 cross-host link | NOT RUN |
++| C++ FSM consumption and downstream safety acceptance | NOT RUN / NOT VERIFIED |
++| True XYZ/Yaw, ring pose and grasp accuracy | NOT VERIFIED |
++
++The replay test changes only the mode/source metadata of the synthetic
++fixture; it is not evidence of a real camera recording. SIGINT tests are
++mid-replay interruption checks and do not claim delivery of all four frames.
++Natural-exit tests independently verify complete four-frame delivery.
++The RMW discovery graph reports history UNKNOWN and depth 0; queue settings
++are checked on the created publisher's profile, not inferred from discovery.
++RELIABLE final-sample acknowledgment does not certify C++ FSM acceptance.
++
++Reproduce from the workspace root after installing ROS2 Jazzy dependencies:
+ 
+ ```sh
+ source /opt/ros/jazzy/setup.bash
+-colcon build --packages-up-to mtc_vision_adapter
++colcon build --packages-select mtc_interfaces mtc_vision_adapter
+ source install/setup.bash
+-ros2 run mtc_vision_adapter replay_publisher --ros-args -p input_jsonl:="$(pwd)/src/mtc_vision_adapter/examples/synthetic.jsonl" -p period_s:=1.0
+-# Another sourced terminal:
+-ros2 topic echo /mtc/perception/batteries --qos-reliability reliable --qos-history keep_last --qos-depth 5
+-ros2 topic info /mtc/perception/batteries --verbose
++MTC_VALIDATION_OUT=/tmp/mtc_v42_validation_20261012 \
++  python3 -m pytest -q src/mtc_vision_adapter/test
+ ```
+ 
+-The existing adapter publishes explicit replay/synthetic records and preserves original timestamps; it is not a live camera ROS node. QoS RELIABLE + KEEP_LAST(5) + VOLATILE requires actual consumer testing. ROS2/colcon/USB/NaN-consumer tests have NOT RUN. Existing IDL, FSM and teammate code are unchanged.
++Host-local evidence (runtime data is excluded from Git):
++- /tmp/mtc_v42_colcon.log
++- /tmp/mtc_v42_pytest.log
++- /tmp/mtc_v42_validation_20261012/{synthetic,replay}-{natural,sigint}/ros_results.json
++- The same case directories contain ros_publisher.log, ros_received.json and ros_logs/.
++
++The adapter is an offline replay publisher, not a live D435i ROS node.
++The next stage may prepare live input integration, but cross-host transport,
++capture-clock alignment, real TF/calibration and actual downstream rejection
++must be verified before any motion use.
++
+ 
+ ## Gates and remaining work
+ 
+ body_pose_valid=false, ring_pose_valid=false. JSON null becomes ROS NaN for unmeasured poses. Consumers must reject invalid ring_pose, non-finite body_pose, stale/replay observations and uncalibrated frames; public IDL has no body_pose_valid field. Synthetic example timestamps/frames cannot be motion input.
+ 
+-Four-color/multi-target software support is synthetic tested; real four-color acceptance is NOT MEASURED. True XYZ/Yaw, aperture pose, table/tool/hand-eye calibration and actual Jazzy integration remain pending. CAD residuals are not positioning accuracy.
++Four-color/multi-target software support is synthetic tested; real four-color acceptance is NOT MEASURED. True XYZ/Yaw, aperture pose, table/tool/hand-eye calibration, live D435i integration and C++ FSM consumption remain pending. CAD residuals are not positioning accuracy.
+diff --git a/vision_core/config/fast_confirmation.yaml b/vision_core/config/fast_confirmation.yaml
+new file mode 100644
+index 0000000..58b5d0e
+--- /dev/null
++++ b/vision_core/config/fast_confirmation.yaml
+@@ -0,0 +1,6 @@
++# Engineering visual confirmation only, never validated grasp pose.
++# Reuse the existing CAD body-boundary support scales and fill gate.
++min_footprint_scale: 0.70
++max_footprint_scale: 1.25
++min_contour_fill: 0.80
++min_body_band_points: 50
+diff --git a/vision_core/perception/dual_rate_rgbd.py b/vision_core/perception/dual_rate_rgbd.py
+index 3a417d9..e5bd60f 100644
+--- a/vision_core/perception/dual_rate_rgbd.py
++++ b/vision_core/perception/dual_rate_rgbd.py
+@@ -4,6 +4,10 @@ from datetime import datetime
+ from threading import Condition, Event, Lock, Thread
+ from time import perf_counter, monotonic, time
+ import cv2
++import json,yaml
++from pathlib import Path
++from .vision_interface import finalize_interface
++from .rgbd_offline import body_geometry
+ import numpy as np
+ from .rgbd_geometry import validate_frame, deproject_pixels, frame_capture_time
+ from .unified_detector import UnifiedBatteryDetector
+@@ -82,6 +86,10 @@ class FastPerception:
+     """Color/outline/robust visible depth with the existing pixel tracker."""
+     def __init__(self):
+         self.detector=UnifiedBatteryDetector();self.classifier=ColorClassifier()
++        root=Path(__file__).resolve().parents[1]
++        self.confirmation=yaml.safe_load((root/'config/fast_confirmation.yaml').read_text(encoding='utf-8'))
++        geometry_file=root/'outputs/cad_analysis/geometry.json'
++        self.body_dimensions=json.loads(geometry_file.read_text(encoding='utf-8'))['battery']['body_dimensions_mm'] if geometry_file.exists() else None
+         self.tracker=Tracker(max_gap_s=1.,max_distance=80.,confirmation_hits=2,ambiguity_px=8.,allow_unknown=True)
+         self.last_timestamp=None;self.rate=RateMeter();self.previous_background=None;self.table_hint=None;self.motion_history=deque(maxlen=64)
+     def set_table_hint(self,plane,capture_timestamp,source_frame_id):
+@@ -93,7 +101,7 @@ class FastPerception:
+         hint=self.table_hint
+         if hint is None or motion.get('stable') is not True:return False
+         age=stamp-hint['capture_timestamp']
+-        return 0<=age<=max_age_s and all(stable for t,stable in self.motion_history if t>=hint['capture_timestamp'])
++        return 0<=age<=max_age_s and all(stable for t,stable in self.motion_history if t>hint['capture_timestamp'])
+ 
+     def _motion_proxy(self,frame,masks):
+         gray=cv2.resize(cv2.cvtColor(frame.color_bgr,cv2.COLOR_BGR2GRAY),(320,180))
+@@ -118,6 +126,24 @@ class FastPerception:
+                     median_flow_px=shift,rotation_deg=rotation,inlier_ratio=ratio,
+                     reference='VISUAL_BACKGROUND_PROXY_WITHOUT_TF; OBJECT_MOTION_NOT_COMPENSATED')
+ 
++    def confirmation_evidence(self,payload,hint_used):
++        reasons=[];evidence=dict(color=payload['color'],contour_fill=payload['contour_fill'],
++                                fresh_stable_table=hint_used,depth_valid_ratio=payload['depth_valid_ratio'])
++        if payload['color']['color_label']=='unknown':reasons.append('COLOR_UNCERTAIN')
++        if payload['contour_fill']<self.confirmation['min_contour_fill']:reasons.append('INCOMPLETE_CONTOUR_SUPPORT')
++        if not hint_used:reasons.append('NO_FRESH_STABLE_TABLE_EVIDENCE')
++        if self.body_dimensions is None:reasons.append('SHARED_CAD_DIMENSIONS_UNAVAILABLE')
++        if hint_used and self.body_dimensions is not None:
++            plane=self.table_hint['plane'];geometry=body_geometry(payload['points'],plane)
++            span=np.asarray(geometry.get('obb_footprint_m',[]));nominal=np.sort([self.body_dimensions[k]/1000 for k in ('long','width')])[::-1]
++            if len(span)!=2 or (span<nominal*self.confirmation['min_footprint_scale']).any() or (span>nominal*self.confirmation['max_footprint_scale']).any():reasons.append('INSUFFICIENT_NOMINAL_BODY_FOOTPRINT')
++            height=(np.asarray(plane['point_camera_m'])-payload['points'])@np.asarray(plane['normal_camera_xyz'])
++            band=(height>=.012)&(height<=self.body_dimensions['height']/1000+.005)
++            evidence.update(footprint_m=span.tolist(),nominal_footprint_m=nominal.tolist(),body_band_points=int(band.sum()))
++            if band.sum()<self.confirmation['min_body_band_points']:reasons.append('INSUFFICIENT_BODY_BAND')
++        return dict(eligible=not reasons,reasons=reasons,evidence=evidence,
++                    scope='VISUAL_OBJECT_HYPOTHESIS_ONLY; NOT_POSE_OR_IDENTITY_GROUND_TRUTH')
++
+     def process(self,frame,source_frame_id):
+         start=perf_counter();validate_sync(frame)
+         stamp=capture_time(frame)
+@@ -126,6 +152,8 @@ class FastPerception:
+         hsv=cv2.cvtColor(frame.color_bgr,cv2.COLOR_BGR2HSV)
+         raw=self.detector.detect_batteries(frame.color_bgr,hsv=hsv)
+         candidates=[];payloads=[];rejections=[]
++        diagnostics=[dict(color=d.color,bbox=list(cv2.boundingRect(d.contour)),state='RAW_CANDIDATE',
++                          reason='HSV_OUTLINE_PROPOSAL_ONLY',confidence=d.confidence) for d in raw]
+         for d in raw:
+             x,y,w,h=cv2.boundingRect(d.contour)
+             if not w or not h:continue
+@@ -164,7 +192,7 @@ class FastPerception:
+             payloads.append(dict(mask=d.mask,foreground=d.mask,points=points,
+                                  rgb=frame.color_bgr[uv[:,1],uv[:,0],::-1].copy(),
+                                  bbox=[x,y,w,h],contour=d.contour.reshape(-1,2).tolist(),
+-                                 depth_valid_ratio=ratio,color=color,xyz=xyz.tolist()))
++                                 depth_valid_ratio=ratio,color=color,xyz=xyz.tolist(),contour_fill=float(d.confidence)))
+         motion=self._motion_proxy(frame,[p['mask'] for p in payloads])
+         self.motion_history.append((stamp,motion.get('stable') is True))
+         hint_used=self._hint_usable(stamp,motion)
+@@ -181,6 +209,7 @@ class FastPerception:
+                 payload['xyz']=np.median(payload['points'],axis=0).tolist()
+                 filtered.append(candidate);kept.append(payload)
+             candidates,payloads=filtered,kept
++        for payload in payloads:payload['confirmation']=self.confirmation_evidence(payload,hint_used)
+         tracking=self.tracker.update(candidates,stamp)
+         objects=[];views=[];used=set()
+         for t in tracking['observed']:
+@@ -188,12 +217,15 @@ class FastPerception:
+                            for i,c in enumerate(candidates) if i not in used)
+             if not ordered:continue
+             i=ordered[0][1];used.add(i);p=payloads[i];xyz=p['xyz']
++            confirmed=p['confirmation']['eligible'] and t['tracking_status']=='confirmed'
++            state='CONFIRMED_OBJECT' if confirmed else 'AMBIGUOUS'
++            if t['tracking_status']!='confirmed':p['confirmation']['reasons'].append('ASSOCIATION_NOT_ESTABLISHED')
+             objects.append(dict(object_id=t['object_id'],color=t['color'],observed_color=candidates[i]['color'],
+                 color_label=candidates[i]['color'],color_confidence=p['color']['color_confidence'],
+-                confidence=t['confidence'],tracking_status=t['tracking_status'],tracking_reliability=t['tracking_status'].upper(),
++                confidence=t['confidence'],tracking_status=t['tracking_status'],tracking_reliability='CONFIRMED_VISUAL_OBJECT' if confirmed else 'ASSOCIATED_CANDIDATE',
+                 pixel_center=t['pixel_center'],bbox=p['bbox'],contour=p['contour'],surface_depth_z=xyz[2],
+                 visible_surface_center_xyz=xyz,camera_to_surface_distance=float(np.linalg.norm(xyz)),
+-                depth_valid_ratio=p['depth_valid_ratio'],point_count=len(p['points']),candidate_state='AMBIGUOUS',
++                depth_valid_ratio=p['depth_valid_ratio'],point_count=len(p['points']),candidate_state=state,confirmation=p['confirmation'],association_status=t['tracking_status'],
+                 model_estimated_body_center_xyz=None,body_center_camera_z=None,camera_to_body_center_distance=None,
+                 body_yaw_candidate=None,ring_center_candidate=None,ring_orientation_candidate=None,
+                 hook_insertion_yaw_candidates=None,insertion_direction_candidates=None,
+@@ -202,14 +234,20 @@ class FastPerception:
+                 body_pose_valid=False,ring_pose_valid=False,ring_observed=False,
+                 pose_quality={},fit_status='CAD_WORKER_PENDING',cad_fresh=False,cad_result_timestamp=None,
+                 ambiguity=['FAST_COLOR_DEPTH_CANDIDATE','NO_INDEPENDENT_3D_VALIDATION'],
+-                rejection_reason='FAST_ONLY; TABLE/CAD_NOT_CURRENTLY_VERIFIED',
++                rejection_reason=None if confirmed else ';'.join(p['confirmation']['reasons']),
+                 capture_timestamp=stamp,source_frame_id=source_frame_id))
+             views.append(p)
++        for d in diagnostics:
++            rejected=next((r for r in rejections if r['bbox']==d['bbox']),None)
++            observed=next((o for o in objects if o['bbox']==d['bbox']),None)
++            if rejected:d.update(state='REJECTED',reason=rejected['reason'])
++            elif observed:d.update(state=observed['candidate_state'],reason=observed['rejection_reason'],confirmation=observed['confirmation'])
++        for r in rejections:r['state']='REJECTED'
+         elapsed=(perf_counter()-start)*1000;end=time();self.rate.add()
+         result=dict(timestamp=stamp,capture_timestamp=stamp,capture_timestamp_source=frame_capture_time(frame)[1],result_timestamp=end,source_frame_id=source_frame_id,
+             result_age_ms=max(0,(end-stamp)*1000),processing_latency_ms=elapsed,timestamps=frame.timestamps,
+             coordinate_frame='camera_color_optical',camera_motion_proxy=motion,objects=objects,candidate_count=len(raw),
+-            accepted_object_count=0,diagnostic_object_count=len(objects),candidate_diagnostics=[],rejections=rejections,
++            accepted_object_count=sum(o['candidate_state']=='CONFIRMED_OBJECT' for o in objects),diagnostic_object_count=len(objects),candidate_diagnostics=diagnostics,rejections=rejections,
+             background_filter_report={'table_failure':'CACHED_DIAGNOSTIC_PLANE' if hint_used else 'NOT_RUN_FAST_PATH',
+                 'table_hint_used':hint_used,'table_hint_age_ms':(stamp-self.table_hint['capture_timestamp'])*1000 if hint_used else None,
+                 'table_hint_source_frame_id':self.table_hint['source_frame_id'] if hint_used else None},
+@@ -217,7 +255,7 @@ class FastPerception:
+             timing_ms=dict(detection=elapsed,total=elapsed,cad_fit=0.,tracking=0.),
+             detection_fps=self.rate.hz(),body_pose_valid=False,ring_pose_valid=False,
+             position_accuracy='NOT_MEASURED',yaw_accuracy='NOT_MEASURED')
+-        return result,views
++        return finalize_interface(result),views
+ 
+ def associate_cad(fast,cad,max_distance=80.,ambiguity=8.):
+     edges=[]
+@@ -251,7 +289,7 @@ class CADWorker:
+             frame,identity,fast=job
+             try:
+                 result,_=self.pipeline.process(frame,force_cad=True)
+-                message=dict(source_frame_id=identity,capture_timestamp=capture_time(frame),result_timestamp=time(),
++                message=dict(source_frame_id=identity,capture_timestamp=capture_time(frame),result_timestamp=time(),capture_timestamp_source=frame_capture_time(frame)[1],timestamps=frame.timestamps,
+                              matches=associate_cad(fast,result['objects']),processing_ms=result['timing_ms']['total'],
+                              table_plane=result.get('background_filter_report',{}).get('table_plane'))
+                 with self.lock:
+@@ -275,7 +313,14 @@ def cad_for_display(result,current_frame_id,history,now=None):
+     for item in result['objects']:
+         prior=history.get(item['object_id'])
+         if prior is None:continue
+-        old=prior['object'];same=prior['source_frame_id']==current_frame_id
++        old=prior['object'];same=(prior['source_frame_id']==current_frame_id and 0 <= now-prior['capture_timestamp'] <= 2.5)
++        if result.get('capture_timestamp') is not None:
++            same = same and result['capture_timestamp']==prior['capture_timestamp']
++        item.update(CAD_result_source_frame=prior['source_frame_id'],
++            CAD_capture_timestamp=prior['capture_timestamp'],CAD_result_timestamp=prior['result_timestamp'],
++            CAD_capture_timestamp_source=prior.get('capture_timestamp_source','UNAVAILABLE'),
++            CAD_result_age_ms=max(0,(now-prior['capture_timestamp'])*1000),
++            stale_status='CURRENT_FRAME' if same else 'STALE')
+         item['historical_cad']=dict(source_frame_id=prior['source_frame_id'],
+             capture_timestamp=prior['capture_timestamp'],result_timestamp=prior['result_timestamp'],
+             result_age_ms=max(0,(now-prior['capture_timestamp'])*1000),
+@@ -289,10 +334,17 @@ def cad_for_display(result,current_frame_id,history,now=None):
+                         'insertion_direction_candidates','hook_insertion_yaw_candidates','ring_axis_yaw_candidate',
+                         'body_center_camera_z','camera_to_body_center_distance','pose_quality','pose_hypotheses',
+                         'ring_feature_status','ring_feature_observability','ring_surface_support','ring_axis_direction',
+-                        'ambiguity','rejection_reason','candidate_state'):
++                        'ambiguity'):
+                 item[key]=old.get(key)
+             item['body_pose_valid']=False;item['ring_pose_valid']=False
+             item['fit_status']=old['fit_status'];item['cad_fresh']=True
+             item['cad_result_timestamp']=prior['capture_timestamp']
+-        else:item['fit_status']='CAD_STALE_DIAGNOSTIC_ONLY'
+-    return result
++        else:
++            item['fit_status']='CAD_STALE_DIAGNOSTIC_ONLY';item['cad_fresh']=False
++            for key in ('body_pose_candidate','ring_pose_candidate','model_estimated_body_center_xyz',
++                        'body_yaw_candidate','ring_center_candidate','ring_orientation_candidate',
++                        'insertion_direction_candidates','hook_insertion_yaw_candidates','ring_axis_yaw_candidate',
++                        'ring_axis_direction','body_center_camera_z','camera_to_body_center_distance'):
++                item[key]=None
++            item['body_pose_valid']=False;item['ring_pose_valid']=False
++    return finalize_interface(result)
+diff --git a/vision_core/perception/realtime_rgbd.py b/vision_core/perception/realtime_rgbd.py
+index 1f913e9..4b19299 100644
+--- a/vision_core/perception/realtime_rgbd.py
++++ b/vision_core/perception/realtime_rgbd.py
+@@ -1,10 +1,11 @@
+ """Current-frame RGB-D/CAD diagnostics; reuse detector, segmentation and tracker."""
+ from pathlib import Path
+-from time import perf_counter
++from time import perf_counter, time
+ from datetime import datetime
+ import sys,json,hashlib
+ from scipy.spatial import cKDTree
+ from dataclasses import replace
++from .vision_interface import finalize_interface
+ from .color_classifier import ColorClassifier
+ import numpy as np
+ import cv2,yaml
+@@ -245,7 +246,7 @@ class RGBDVisionPipeline:
+                 multistart_ms+=fit.get('timing_ms',{}).get('multistart_optimization',0.)
+                 ring_ms+=fit.get('timing_ms',{}).get('ring_candidate',0.)
+                 self.last_cad[key]=self.clock();self.last_cad_timestamp[key]=timestamp
+-                item.update(fit_status=fit['fit_status'],cad_result_timestamp=timestamp,
++                item.update(fit_status=fit['fit_status'],cad_result_timestamp=timestamp,CAD_result_timestamp=time(),
+                             cad_last_attempt_timestamp=timestamp,cad_fresh=True)
+                 pose=fit.get('pose',{});T=pose.get('body_pose');ring=pose.get('ring_pose')
+                 item['pose_quality'].update({k:v for k,v in fit.items() if k not in ('pose','visible_surface_center_m')})
+@@ -294,7 +295,14 @@ class RGBDVisionPipeline:
+                 cad_fit=cad_ms,multistart_optimization=multistart_ms,ring_candidate=ring_ms,tracking=tracking_ms,total=total),
+             body_pose_valid=False,ring_pose_valid=False,
+             position_accuracy='NOT_MEASURED',yaw_accuracy='NOT_MEASURED')
+-        return result,views
++        from .dual_rate_rgbd import frame_id
++        result['source_frame_id']=frame_id(frame,0)
++        result['result_timestamp']=time()
++        for item in objects:
++            if item['cad_fresh']:
++                item.update(CAD_result_source_frame=result['source_frame_id'],CAD_capture_timestamp=timestamp,
++                    CAD_capture_timestamp_source=timestamp_source,CAD_result_age_ms=max(0,(result['result_timestamp']-timestamp)*1000))
++        return finalize_interface(result),views
+ 
+ def render_vision(frame,result,views,geometry,*,sdk_project=None,display_fps=None):
+     from .vision_ui import VisionUI
+diff --git a/vision_core/perception/rgbd_offline.py b/vision_core/perception/rgbd_offline.py
+index e89ac9c..0e23687 100644
+--- a/vision_core/perception/rgbd_offline.py
++++ b/vision_core/perception/rgbd_offline.py
+@@ -100,14 +100,14 @@ def height_from_plane(depth_m, intr, plane, rays_xyz=None):
+     o = np.asarray(plane['point_camera_m'])
+     if rays_xyz is not None:
+         if rays_xyz.shape != (*depth_m.shape, 3): raise ValueError("Ray grid shape mismatch")
+-        xyz = rays_xyz*depth_m[..., None]
+-        return (o-xyz) @ n
++        # Signed plane distance without allocating a full XYZ temporary.
++        return float(o @ n)-depth_m*(rays_xyz @ n)
+     if any(abs(c)>1e-10 for c in intr.coeffs):
+         raise ValueError("Distorted intrinsics require ray grid")
+-    v, u = np.indices(depth_m.shape)
+-    x = (u-intr.ppx)*depth_m/intr.fx
+-    y = (v-intr.ppy)*depth_m/intr.fy
+-    return (o[0]-x)*n[0] + (o[1]-y)*n[1] + (o[2]-depth_m)*n[2]
++    # Separable pinhole rays: only 1-D coordinate arrays plus one depth-sized result.
++    u=(np.arange(depth_m.shape[1],dtype=np.float64)-intr.ppx)/intr.fx
++    v=(np.arange(depth_m.shape[0],dtype=np.float64)-intr.ppy)/intr.fy
++    return float(o @ n)-depth_m*(n[0]*u[None,:]+n[1]*v[:,None]+n[2])
+ 
+ 
+ def largest_component(mask, min_area):
+diff --git a/vision_core/perception/vision_interface.py b/vision_core/perception/vision_interface.py
+new file mode 100644
+index 0000000..cc5cc47
+--- /dev/null
++++ b/vision_core/perception/vision_interface.py
+@@ -0,0 +1,35 @@
++"""Explicit non-ROS diagnostic aliases; no pose inference or validity promotion."""
++import numpy as np
++
++def finalize_interface(result):
++    result['detection_result_timestamp']=result.get('result_timestamp')
++    result['clock_domains']={'capture':result.get('capture_timestamp_source','UNAVAILABLE'),
++        'completion':'SYSTEM_UNIX_SECONDS','sdk':'SEE_TIMESTAMPS_WITH_DOMAIN', 'ros':'NOT_MAPPED'}
++    for item in result['objects']:
++        state=item.get('candidate_state','AMBIGUOUS')
++        item['detection_status']=state if state in ('RAW_CANDIDATE','AMBIGUOUS','CONFIRMED_OBJECT','REJECTED') else 'AMBIGUOUS'
++        item['frame_id']=item.get('coordinate_frame',result.get('coordinate_frame','camera_color_optical'))
++        item['coordinate_frame_status']='OPTICAL_AXIS_CONVENTION; NO_TF_CALIBRATION'
++        item['unit_position']='m';item['unit_angle']='rad'
++        item['capture_timestamp']=result.get('capture_timestamp')
++        item['capture_timestamp_source']=result.get('capture_timestamp_source','UNAVAILABLE')
++        item['source_frame_id']=result.get('source_frame_id')
++        item['detection_result_timestamp']=result.get('detection_result_timestamp')
++        item['body_center_candidate_xyz']=item.get('model_estimated_body_center_xyz')
++        pose=item.get('body_pose_candidate')
++        item['body_orientation_candidate']=None
++        if pose is not None:
++            matrix=np.asarray(pose,dtype=float)
++            if matrix.shape==(4,4) and np.isfinite(matrix).all():
++                rotation=matrix[:3,:3]
++                if np.allclose(rotation.T@rotation,np.eye(3),atol=1e-6) and np.isclose(np.linalg.det(rotation),1):
++                    item['body_orientation_candidate']=rotation.tolist()
++        item['body_orientation_representation']='ROTATION_MATRIX' if item['body_orientation_candidate'] is not None else None
++        item['hook_insertion_direction_candidates']=item.get('insertion_direction_candidates')
++        item.setdefault('ring_axis_direction',None)
++        item['geometry_source']='CAD_PREDICTED' if item.get('ring_center_candidate') is not None else None
++        item.setdefault('stale_status','NO_CURRENT_CAD' if not item.get('cad_fresh') else 'CURRENT_FRAME')
++        item['body_pose_valid']=False;item['ring_pose_valid']=False
++    result['confirmed_objects']=[o for o in result['objects'] if o['detection_status']=='CONFIRMED_OBJECT']
++    result['body_pose_valid']=False;result['ring_pose_valid']=False
++    return result
+diff --git a/vision_core/perception/vision_ui.py b/vision_core/perception/vision_ui.py
+index 9eb8349..2e6c585 100644
+--- a/vision_core/perception/vision_ui.py
++++ b/vision_core/perception/vision_ui.py
+@@ -7,7 +7,7 @@ COLORS={'red':(55,55,245),'blue':(255,130,60),'yellow':(30,220,250),'green':(70,
+ def mm(value):return 'N/A' if value is None else f'{value*1000:.1f} mm'
+ def vec(values):return 'N/A' if values is None else ', '.join(f'{v*1000:.1f}' for v in values)+' mm'
+ def object_label(item):
+-    return f"{item['color_label'].upper()} | {item['object_id']} | Z {mm(item['surface_depth_z'])}"
++    return f"{item.get('candidate_state','DIAGNOSTIC')} {item['color_label'].upper()} | {item['object_id']} | Z {mm(item['surface_depth_z'])}"
+ def text(image,label,x,y,color=(220,230,235),scale=.46):
+     cv2.putText(image,str(label),(x,y),cv2.FONT_HERSHEY_SIMPLEX,scale,color,1,cv2.LINE_AA)
+ 
+@@ -47,7 +47,7 @@ class VisionUI:
+             else:cv2.line(rgb,a,b,color,1)
+         if self.show_candidates:
+             for candidate in result.get('candidate_diagnostics',[]):
+-                if candidate['state']=='ACCEPTED_OBJECT':continue
++                if candidate['state'] in ('ACCEPTED_OBJECT','CONFIRMED_OBJECT'):continue
+                 x,y,w,h=candidate['bbox']
+                 for xx in range(x,x+w,14):
+                     cv2.line(rgb,(xx,y),(min(xx+5,x+w),y),(100,100,100),1)
+@@ -69,7 +69,8 @@ class VisionUI:
+             # Compact per-instance tags avoid overlapping adjacent batteries.
+             # Full object_id is retained in the per-object table and selected panel.
+             yy=max(36,y-8);short_id=item['object_id'].rsplit('-',1)[-1]
+-            top_label=f"{'?' if ambiguous else ''}{item['color_label'].upper()} {item['surface_depth_z']*1000:.1f}mm"
++            tag='CONFIRMED ' if item.get('candidate_state')=='CONFIRMED_OBJECT' else ('? ' if ambiguous else 'DIAG ')
++            top_label=f"{tag}{item['color_label'].upper()} {item['surface_depth_z']*1000:.1f}mm"
+             id_label=f"ID ..{short_id} C{item['color_confidence']:.2f}"
+             label_width=max(cv2.getTextSize(t,0,.42,1)[0][0] for t in (top_label,id_label))+8
+             cv2.rectangle(rgb,(max(0,x),yy-34),(min(rgb.shape[1]-1,x+label_width),yy+4),(20,25,30),-1)
+diff --git a/vision_core/scripts/benchmark_vision_v41.py b/vision_core/scripts/benchmark_vision_v41.py
+new file mode 100644
+index 0000000..ce81938
+--- /dev/null
++++ b/vision_core/scripts/benchmark_vision_v41.py
+@@ -0,0 +1,51 @@
++"""Bounded V4.1 paired replay; never starts a camera."""
++import sys,json,hashlib,argparse
++from pathlib import Path
++from time import perf_counter
++import numpy as np
++ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
++from perception.realtime_rgbd import RGBDVisionPipeline
++from perception.dual_rate_rgbd import FastPerception
++from perception.vision_ui import VisionUI
++from real_data.rgbd_recording import load_rgbd_sample
++
++def main():
++ parser=argparse.ArgumentParser();parser.add_argument('--phase',choices=['before','after'],required=True);a=parser.parse_args()
++ out=ROOT/'outputs/live_rgbd_integration/v41';out.mkdir(exist_ok=True)
++ selection=out/'selection.json'
++ if not selection.exists():
++  base=ROOT/'outputs/live_rgbd_integration/v33_diagnostic'
++  audit=json.loads((base/'audit_frames.json').read_text());fit=[json.loads(x) for x in (base/'ring_axis_refined_frames.jsonl').read_text().splitlines()]
++  chosen={}
++  groups=[('table_failure',[r['sample'] for r in fit if r['fit']['fit_status']=='NO_TABLE_OR_RED_BODY'],3),
++          ('geometric_support',[r['sample'] for r in fit if r['fit']['fit_status']=='GEOMETRIC_SUPPORT_ONLY'],5),
++          ('weak',[r['sample'] for r in fit if r['fit']['fit_status']=='WEAK_XY_YAW_CONSTRAINT'],6),
++          ('blue_background_candidate',[r['sample'] for r in audit if 'blue' in r['offline_colors']],3),
++          ('yellow_background_candidate',[r['sample'] for r in audit if 'yellow' in r['offline_colors']],3)]
++  for reason,names,limit in groups:
++   for i in np.linspace(0,len(names)-1,min(limit,len(names)),dtype=int):chosen.setdefault(names[i],[]).append(reason)
++  for r in audit:
++   if len(chosen)>=20:break
++   chosen.setdefault(r['sample'],[]).append('fill_normal')
++  selection.write_text(json.dumps(chosen,indent=2),encoding='utf-8')
++ selected=json.loads(selection.read_text());p=RGBDVisionPipeline();fast=FastPerception();ui=VisionUI();rows=[]
++ target=out/(a.phase+'.json');assert not target.exists()
++ for name in sorted(selected):
++  f=load_rgbd_sample(ROOT/'outputs/live_rgbd_integration/dual_90dd28e6'/name)
++  start=perf_counter();fr,fv=fast.process(f,name);fast_ms=(perf_counter()-start)*1000
++  r,v=p.process(f,force_cad=True);start=perf_counter();ui.render(f,r,v,p.geometry);ui_ms=(perf_counter()-start)*1000
++  reds=[(o,x) for o,x in zip(r['objects'],v) if o['color_label']=='red'];o,x=max(reds,key=lambda z:z[1]['mask'].sum(),default=(None,None))
++  row=dict(sample=name,selection=selected[name],fast_ms=fast_ms,ui_ms=ui_ms,timing=r['timing_ms'],
++   fast_colors=[z['color_label'] for z in fr['objects']],colors=[z['color_label'] for z in r['objects']],
++   fit_status=o['fit_status'] if o else 'NO_RED',mask_pixels=int(x['mask'].sum()) if x else 0,
++   mask_hash=hashlib.sha256(x['mask'].tobytes()).hexdigest() if x else None,
++   body_xyz=o['model_estimated_body_center_xyz'] if o else None,body_yaw=o['body_yaw_candidate'] if o else None,
++   ring_center=o['ring_center_candidate'] if o else None,ambiguity=o['ambiguity'] if o else [],
++   pose_count=o['pose_quality'].get('reasonable_pose_count',0) if o else 0,
++   ring_surface=o.get('ring_surface_support',{}) if o else {},rejections=r['rejections'])
++  assert all(not z['body_pose_valid'] and not z['ring_pose_valid'] for z in r['objects'])
++  rows.append(row);print(a.phase,len(rows),'/',len(selected),name,row['fit_status'],flush=True)
++ def stats(xs):return dict(mean=float(np.mean(xs)),p95=float(np.percentile(xs,95)),throughput_hz=1000/float(np.mean(xs)))
++ summary=dict(frames=len(rows),timing={k:stats([r[k] if k in ('fast_ms','ui_ms') else r['timing'][k] for r in rows]) for k in ['fast_ms','ui_ms','segmentation','cad_fit','total']},actual_camera_started=False,position_accuracy='NOT_MEASURED',yaw_accuracy='NOT_MEASURED')
++ target.write_text(json.dumps(dict(rows=rows,summary=summary),indent=2),encoding='utf-8');print(json.dumps(summary,indent=2))
++if __name__=='__main__':main()
+diff --git a/vision_core/scripts/check_fast_v42.py b/vision_core/scripts/check_fast_v42.py
+new file mode 100644
+index 0000000..309bd5a
+--- /dev/null
++++ b/vision_core/scripts/check_fast_v42.py
+@@ -0,0 +1,30 @@
++"""Small candidate-state audit; frozen source RGB-D, no device."""
++import sys,json,copy,argparse
++from pathlib import Path
++from datetime import datetime,timedelta
++ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
++from perception.dual_rate_rgbd import FastPerception
++from real_data.rgbd_recording import load_rgbd_sample
++
++def main():
++ p=argparse.ArgumentParser();p.add_argument('--phase',required=True);args=p.parse_args()
++ out=ROOT/'outputs/live_rgbd_integration/v42';out.mkdir(exist_ok=True)
++ before=json.loads((ROOT/'outputs/live_rgbd_integration/v41/before.json').read_text())['rows']
++ chosen=[r['sample'] for r in before if any(c in ('blue','yellow') for c in r['fast_colors'])]
++ chosen+= [r['sample'] for r in before if r['fit_status']=='NO_TABLE_PLANE'][:2]
++ chosen+= [r['sample'] for r in before if r['fit_status']=='GEOMETRIC_SUPPORT_ONLY'][:2]
++ chosen=list(dict.fromkeys(chosen))[:10]
++ planes={r['sample']:r['after']['table_plane'] for r in map(json.loads,(ROOT/'outputs/live_rgbd_integration/v33_diagnostic/paired_frames.jsonl').read_text().splitlines())}
++ rows=[]
++ for name in chosen:
++  frame=load_rgbd_sample(ROOT/'outputs/live_rgbd_integration/dual_90dd28e6'/name);fast=FastPerception();r,_=fast.process(frame,'first')
++  stamp=r['capture_timestamp'];fast.set_table_hint(planes[name],stamp,'saved_same_pose_plane')
++  f=copy.copy(frame);f.timestamps=dict(frame.timestamps)
++  f.timestamps['host_utc']=(datetime.fromisoformat(f.timestamps['host_utc'])+timedelta(seconds=.1)).isoformat()
++  for k in ('color_sdk_ms','depth_sdk_ms'):f.timestamps[k]+=100
++  r,_=fast.process(f,'second')
++  rows.append(dict(sample=name,source='OFFLINE_REPEATED_STATIC_INPUT_WITH_SAVED_PLANE; NOT_TEMPORAL_ACCURACY',
++    plane_available=planes[name] is not None,objects=r['objects'],rejections=r['rejections']))
++ path=out/(args.phase+'.json');assert not path.exists();path.write_text(json.dumps(rows,indent=2),encoding='utf-8')
++ print(args.phase,'frames',len(rows),'objects',[(x['sample'],[(o['color_label'],o['candidate_state'],o['tracking_status']) for o in x['objects']]) for x in rows],flush=True)
++if __name__=='__main__':main()
+diff --git a/vision_core/scripts/dual_rate_runner.py b/vision_core/scripts/dual_rate_runner.py
+index 48727d0..fc2ce76 100644
+--- a/vision_core/scripts/dual_rate_runner.py
++++ b/vision_core/scripts/dual_rate_runner.py
+@@ -27,7 +27,8 @@ def merge_cad_history(history, messages):
+             if old and old['capture_timestamp'] >= message['capture_timestamp']:
+                 rejected+=1;continue
+             history[object_id]=dict(source_frame_id=message['source_frame_id'],
+-                capture_timestamp=message['capture_timestamp'],result_timestamp=message['result_timestamp'],object=obj)
++                capture_timestamp=message['capture_timestamp'],result_timestamp=message['result_timestamp'],capture_timestamp_source=message.get('capture_timestamp_source','UNAVAILABLE'),
++                timestamps=message.get('timestamps',{}),object=obj)
+             accepted.append(dict(object_id=object_id,source_frame_id=message['source_frame_id'],
+                 capture_timestamp=message['capture_timestamp'],result_timestamp=message['result_timestamp'],
+                 processing_ms=message['processing_ms'],fit_status=obj.get('fit_status'),
+diff --git a/vision_core/tests/test_fast_confirmation.py b/vision_core/tests/test_fast_confirmation.py
+new file mode 100644
+index 0000000..9d21590
+--- /dev/null
++++ b/vision_core/tests/test_fast_confirmation.py
+@@ -0,0 +1,33 @@
++"""Visual hypothesis confirmation is independent of track confirmation and pose validity."""
++import numpy as np
++import pytest
++from perception.dual_rate_rgbd import FastPerception
++
++@pytest.mark.parametrize('color',['red','blue','yellow','green'])
++def test_same_cad_confirmation_for_all_colors(color):
++ f=FastPerception();f.body_dimensions=dict(long=80,width=70,height=50);f.table_hint={'plane':dict(normal_camera_xyz=[0,0,1],point_camera_m=[0,0,.5])}
++ x,y=np.meshgrid(np.linspace(-.04,.04,20),np.linspace(-.035,.035,20))
++ points=np.column_stack([x.ravel(),y.ravel(),np.full(x.size,.45)])
++ p=dict(points=points,color=dict(color_label=color,color_confidence=.9),contour_fill=.95,depth_valid_ratio=1.)
++ assert f.confirmation_evidence(p,True)['eligible']
++ assert not f.confirmation_evidence(p,False)['eligible']
++ p['color']['color_label']='unknown'
++ assert 'COLOR_UNCERTAIN' in f.confirmation_evidence(p,True)['reasons']
++ p['color']['color_label']=color;p['contour_fill']=.4
++ assert 'INCOMPLETE_CONTOUR_SUPPORT' in f.confirmation_evidence(p,True)['reasons']
++
++
++def test_small_background_footprint_not_confirmed():
++ f=FastPerception();f.body_dimensions=dict(long=80,width=70,height=50);f.table_hint={'plane':dict(normal_camera_xyz=[0,0,1],point_camera_m=[0,0,.5])}
++ x,y=np.meshgrid(np.linspace(-.02,.02,20),np.linspace(-.012,.012,20))
++ p=dict(points=np.column_stack([x.ravel(),y.ravel(),np.full(x.size,.45)]),color=dict(color_label='blue'),contour_fill=.95,depth_valid_ratio=1.)
++ assert 'INSUFFICIENT_NOMINAL_BODY_FOOTPRINT' in f.confirmation_evidence(p,True)['reasons']
++
++
++def test_motion_interval_after_table_capture_only():
++ f=FastPerception();f.set_table_hint(dict(normal_camera_xyz=[0,0,1],point_camera_m=[0,0,.5]),1,'source')
++ f.motion_history.extend([(1,False),(1.1,True)])
++ assert f._hint_usable(1.1,dict(stable=True))
++ f.motion_history.append((1.2,False))
++ assert not f._hint_usable(1.3,dict(stable=True))
++ assert not f._hint_usable(4,dict(stable=True))
+diff --git a/vision_core/tests/test_rgbd_offline.py b/vision_core/tests/test_rgbd_offline.py
+new file mode 100644
+index 0000000..1fbdf86
+--- /dev/null
++++ b/vision_core/tests/test_rgbd_offline.py
+@@ -0,0 +1,125 @@
++import numpy as np
++import pytest
++from input.realsense_rgbd_source import RGBDFrame
++from perception.rgbd_geometry import CameraIntrinsics
++from perception.rgbd_offline import OfflineConfig, analyze_frame, fit_table, largest_component, grow_depth_object
++
++
++class Candidate:
++    def __init__(self, color, mask):
++        self.color = color
++        self.mask = mask
++        self.detection_valid = True
++        self.yaw_deg = 90.0
++
++
++def scene():
++    image = np.full((120, 160, 3), 90, np.uint8)
++    depth = np.full((120, 160), 1000, np.uint16)
++    red = np.zeros(depth.shape, bool)
++    red[35:85, 50:110] = True
++    image[red] = (0, 0, 220)
++    depth[red] = 920
++    depth[40:43, 55:58] = 0
++    depth[50, 60] = 1800  # outlier
++    yellow = np.zeros(depth.shape, bool)
++    yellow[5:25, 5:40] = True  # table-colored false candidate
++    intr = CameraIntrinsics(160, 120, 180, 180, 80, 60)
++    return RGBDFrame(image, depth, intr, .001, {}, {}), red, yellow
++
++
++def config():
++    return OfflineConfig(table_inner_px=5, table_outer_px=30, table_min_points=200,
++                         component_min_area_px=100, max_cloud_points=2000)
++
++
++def test_table_foreground_rejects_background_and_preserves_invalid_body():
++    frame, red, yellow = scene()
++    report, masks, points, _ = analyze_frame(frame, [Candidate('red', red),
++                                                     Candidate('yellow', yellow)], config())
++    assert report['table_plane'] is not None
++    assert report['table_plane']['inlier_ratio'] > .95
++    assert report['table_plane']['mean_residual_m'] < .001
++    assert report['candidate_counts_before'] == {'red': 1, 'yellow': 1}
++    assert report['candidate_counts_after'] == {'red': 1}
++    assert report['object_point_count'] > 100
++    assert np.median(points[:, 2]) == pytest.approx(.92, abs=.005)
++    assert np.max(points[:, 2]) < 1.0
++    assert masks['object'][red].sum() > 100
++    assert not report['body_pose_valid'] and not report['ring_pose_valid']
++    assert not report['body_geometry']['body_pose_valid']
++    assert report['body_geometry']['model_estimated_body_center_m'] is not None
++    assert report['body_geometry']['visible_surface_center_m'] != report['body_geometry']['model_estimated_body_center_m']
++    assert 0 <= report['body_geometry']['pca_obb_axis_difference_deg'] <= 90
++    assert report['position_accuracy'] == 'NOT_MEASURED'
++
++
++def test_no_table_or_empty_cloud_refuses_pose():
++    frame, red, _ = scene()
++    report, _, points, _ = analyze_frame(frame, [], config())
++    assert report['table_failure'] == 'NO_RED_EXCLUSION_MASK'
++    assert len(points) == 0 and not report['body_pose_valid']
++    frame.aligned_depth[:] = 0
++    report, _, points, _ = analyze_frame(frame, [Candidate('red', red)], config())
++    assert report['table_failure'] == 'INSUFFICIENT_BACKGROUND_DEPTH'
++    assert len(points) == 0
++
++
++def test_alignment_and_components():
++    frame, red, _ = scene()
++    frame.aligned_depth = frame.aligned_depth[:, :-1]
++    with pytest.raises(ValueError, match='sizes differ'):
++        analyze_frame(frame, [Candidate('red', red)], config())
++    mask, area = largest_component(np.zeros((10, 10), bool), 3)
++    assert area == 0 and not mask.any()
++
++
++def test_single_red_session_suppresses_second_candidate():
++    frame, red, _ = scene()
++    second = red.copy()
++    second[:, 80:] = False
++    report, _, _, _ = analyze_frame(frame, [Candidate('red', red), Candidate('red', second)], config())
++    assert report['candidate_counts_after'] == {'red': 1}
++    assert any(c['reason'] == 'SECOND_RED_CANDIDATE_IN_SINGLE_OBJECT_SESSION'
++               for c in report['candidates'])
++
++
++def test_depth_growth_rejoins_split_bands_without_inventing_hole_pixels():
++    seed = np.zeros((100, 120), bool)
++    seed[25:45, 35:85] = True
++    foreground = seed.copy()
++    foreground[55:75, 35:85] = True
++    foreground[25:75, 105:115] = True  # unrelated object beyond spatial gate
++    cfg = OfflineConfig(depth_bridge_px=21, grow_y_fraction=2.0,
++                        grow_x_fraction=.1, max_growth_ratio=2.5)
++    grown, info = grow_depth_object(seed, foreground, cfg)
++    assert info['accepted'] and grown[60, 50]
++    assert not grown[50, 50]  # absent depth remains absent
++    assert not grown[40, 110]
++
++
++def test_depth_growth_rejects_implausible_height_component():
++    seed = np.zeros((100, 120), bool)
++    seed[20:40, 30:70] = True
++    foreground = seed.copy()
++    foreground[50:70, 30:70] = True
++    heights = np.zeros(seed.shape)
++    heights[seed] = .05
++    heights[50:70, 30:70] = .115
++    grown, info = grow_depth_object(seed, foreground,
++        OfflineConfig(depth_bridge_px=11, grow_y_fraction=2.0), heights)
++    assert info['accepted'] and not grown[60, 50]
++
++
++def test_plane_height_separable_and_ray_projection_equivalence():
++    from perception.rgbd_offline import height_from_plane
++    from perception.rgbd_geometry import CameraIntrinsics
++    intr=CameraIntrinsics(50,40,90,95,23,18)
++    depth=np.random.default_rng(3).uniform(.2,.8,(40,50));depth[0,0]=0
++    v,u=np.indices(depth.shape)
++    rays=np.stack([(u-intr.ppx)/intr.fx,(v-intr.ppy)/intr.fy,np.ones(depth.shape)],axis=-1)
++    n=np.array([.08,-.12,.98954535]);o=np.array([.01,-.03,.5])
++    plane=dict(normal_camera_xyz=n.tolist(),point_camera_m=o.tolist())
++    expected=(o-rays*depth[...,None])@n
++    assert np.allclose(height_from_plane(depth,intr,plane),expected,atol=2e-15,rtol=0)
++    assert np.allclose(height_from_plane(depth,intr,plane,rays),expected,atol=2e-15,rtol=0)
+diff --git a/vision_core/tests/test_vision_interface.py b/vision_core/tests/test_vision_interface.py
+new file mode 100644
+index 0000000..25cbb54
+--- /dev/null
++++ b/vision_core/tests/test_vision_interface.py
+@@ -0,0 +1,51 @@
++import json
++import numpy as np
++from perception.vision_interface import finalize_interface
++from perception.dual_rate_rgbd import cad_for_display
++
++def result(item,stamp=1):
++    return dict(objects=[item],capture_timestamp=stamp,source_frame_id='frame',
++                result_timestamp=2,capture_timestamp_source='HOST_UTC')
++
++def test_null_pose_and_confirmed_output_are_distinct():
++    r=finalize_interface(result(dict(candidate_state='AMBIGUOUS',visible_surface_center_xyz=[0,0,.4])))
++    o=r['objects'][0]
++    assert o['body_center_candidate_xyz'] is None and o['body_orientation_candidate'] is None
++    assert not r['confirmed_objects'] and not o['body_pose_valid'] and not o['ring_pose_valid']
++    assert o['unit_position']=='m' and o['unit_angle']=='rad'
++    assert o['capture_timestamp']==1 and o['detection_result_timestamp']==2
++    json.dumps(r,allow_nan=False)
++
++def test_complete_rotation_and_bidirectional_cad_candidates():
++    t=np.eye(4);t[:3,3]=[.1,.2,.4]
++    r=finalize_interface(result(dict(candidate_state='CONFIRMED_OBJECT',body_pose_candidate=t.tolist(),
++        model_estimated_body_center_xyz=[.1,.2,.4],ring_center_candidate=[.1,.2,.435],
++        insertion_direction_candidates=[[1,0,0],[-1,0,0]])))
++    o=r['objects'][0]
++    assert o['body_orientation_candidate']==np.eye(3).tolist()
++    assert o['geometry_source']=='CAD_PREDICTED' and len(o['hook_insertion_direction_candidates'])==2
++    assert len(r['confirmed_objects'])==1 and not o['ring_pose_valid']
++    json.dumps(r,allow_nan=False)
++
++def test_invalid_rotation_is_not_fabricated():
++    r=finalize_interface(result(dict(body_pose_candidate=np.zeros((4,4)).tolist())))
++    assert r['objects'][0]['body_orientation_candidate'] is None
++
++def test_expired_same_frame_clears_current_candidate_and_keeps_history():
++    o=dict(object_id='A',body_pose_candidate=np.eye(4).tolist(),model_estimated_body_center_xyz=[0,0,.4],
++           ring_center_candidate=[0,0,.435],cad_fresh=True)
++    prior=dict(source_frame_id='frame',capture_timestamp=1,result_timestamp=2,
++               object=dict(fit_status='WEAK',model_estimated_body_center_xyz=[0,0,.4]))
++    r=cad_for_display(result(o),'frame',{'A':prior},now=5)
++    assert o['stale_status']=='STALE' and not o['cad_fresh']
++    assert o['body_center_candidate_xyz'] is None and o['ring_center_candidate'] is None
++    assert o['historical_cad']['body_xyz']==[0,0,.4]
++    assert o['CAD_result_source_frame']=='frame' and o['CAD_result_timestamp']==2
++    assert o['CAD_result_age_ms']==4000
++    json.dumps(r,allow_nan=False)
++
++def test_reused_frame_id_with_different_capture_is_stale():
++    o=dict(object_id='A');p=dict(source_frame_id='frame',capture_timestamp=1,result_timestamp=2,
++                              object=dict(fit_status='WEAK'))
++    cad_for_display(result(o,stamp=1.1),'frame',{'A':p},now=2)
++    assert o['stale_status']=='STALE'

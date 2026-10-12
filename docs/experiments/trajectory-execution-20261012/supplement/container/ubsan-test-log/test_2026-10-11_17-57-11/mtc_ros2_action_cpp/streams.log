@@ -1,0 +1,188 @@
+[0.083s] Invoking command in '/review-ubsan-build/mtc_ros2_action_cpp': CMAKE_PREFIX_PATH=/review-ubsan-install/mtc_ros2_action_cpp:/review-ubsan-install/mtc_manipulation_cpp:/review-ubsan-install/mtc_task_cpp:/review-ubsan-install/mtc_motion_execution_cpp:/review-ubsan-install/mtc_interfaces:/review-ubsan-install/mtc_core_cpp:/review-ubsan-install/mtc_trajectory_execution_cpp:/candidate-install/mtc_trajectory_execution_cpp:/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor LD_LIBRARY_PATH=/review-ubsan-install/mtc_ros2_action_cpp/lib:/review-ubsan-install/mtc_manipulation_cpp/lib:/review-ubsan-install/mtc_task_cpp/lib:/review-ubsan-install/mtc_motion_execution_cpp/lib:/review-ubsan-install/mtc_interfaces/lib:/review-ubsan-install/mtc_core_cpp/lib:/review-ubsan-install/mtc_trajectory_execution_cpp/lib:/candidate-install/mtc_trajectory_execution_cpp/lib:/candidate-install/mtc_ros2_action_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/candidate-install/mtc_core_cpp/lib:/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process
+[0.100s] UpdateCTestConfiguration  from :/review-ubsan-build/mtc_ros2_action_cpp/CTestConfiguration.ini
+[0.100s] Parse Config file:/review-ubsan-build/mtc_ros2_action_cpp/CTestConfiguration.ini
+[0.100s]    Site: d646587020c7
+[0.100s]    Build name: (empty)
+[0.100s]  Add coverage exclude regular expressions.
+[0.100s] Create new tag: 20261011-1757 - Experimental
+[0.100s] UpdateCTestConfiguration  from :/review-ubsan-build/mtc_ros2_action_cpp/CTestConfiguration.ini
+[0.101s] Parse Config file:/review-ubsan-build/mtc_ros2_action_cpp/CTestConfiguration.ini
+[0.101s] Test project /review-ubsan-build/mtc_ros2_action_cpp
+[0.101s] Constructing a list of tests
+[0.101s] Done constructing a list of tests
+[0.101s] Updating test list for fixtures
+[0.101s] Added 0 tests to meet fixture requirements
+[0.101s] Checking test dependency graph...
+[0.101s] Checking test dependency graph end
+[0.101s] test 1
+[0.101s]     Start 1: test_pick_place_action
+[0.101s] 
+[0.101s] 1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/review-ubsan-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_pick_place_action.txt" "--command" "/review-ubsan-build/mtc_ros2_action_cpp/test_pick_place_action" "--gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml"
+[0.101s] 1: Working Directory: /review-ubsan-build/mtc_ros2_action_cpp
+[0.101s] 1: Test timeout computed to be: 90
+[0.180s] 1: -- run_test.py: invoking following command in '/review-ubsan-build/mtc_ros2_action_cpp':
+[0.180s] 1:  - /review-ubsan-build/mtc_ros2_action_cpp/test_pick_place_action --gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml
+[0.394s] 1: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[0.394s] 1: [==========] Running 12 tests from 1 test suite.
+[0.394s] 1: [----------] Global test environment set-up.
+[0.394s] 1: [----------] 12 tests from PickAction
+[0.399s] 1: [ RUN      ] PickAction.LegalGoalSucceedsOnlyAfterPlacementFeedback
+[1.475s] 1: [       OK ] PickAction.LegalGoalSucceedsOnlyAfterPlacementFeedback (1075 ms)
+[1.475s] 1: [ RUN      ] PickAction.InvalidParametersRejectedBeforeExecution
+[2.536s] 1: [       OK ] PickAction.InvalidParametersRejectedBeforeExecution (1061 ms)
+[2.536s] 1: [ RUN      ] PickAction.ConcurrentSecondGoalRejected
+[3.584s] 1: [       OK ] PickAction.ConcurrentSecondGoalRejected (1047 ms)
+[3.584s] 1: [ RUN      ] PickAction.MatchingCancelRequiresIndependentStationaryEvidence
+[3.655s] 1: [       OK ] PickAction.MatchingCancelRequiresIndependentStationaryEvidence (70 ms)
+[3.655s] 1: [ RUN      ] PickAction.CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked
+[3.723s] 1: [       OK ] PickAction.CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked (68 ms)
+[3.724s] 1: [ RUN      ] PickAction.StaleGoalCancelCannotInterruptNewGoal
+[5.815s] 1: [       OK ] PickAction.StaleGoalCancelCannotInterruptNewGoal (2091 ms)
+[5.815s] 1: [ RUN      ] PickAction.MotionStatusUnknownNeverResendsOrAutoClearsFault
+[5.974s] 1: [       OK ] PickAction.MotionStatusUnknownNeverResendsOrAutoClearsFault (158 ms)
+[5.974s] 1: [ RUN      ] PickAction.MissingPlanNeverSucceeds
+[6.051s] 1: [       OK ] PickAction.MissingPlanNeverSucceeds (77 ms)
+[6.051s] 1: [ RUN      ] PickAction.ConcurrentRosRequestsHaveExactlyOneOwner
+[7.109s] 1: [       OK ] PickAction.ConcurrentRosRequestsHaveExactlyOneOwner (1057 ms)
+[7.109s] 1: [ RUN      ] PickAction.InFlightWatchdogFaultStillDrainsAssociatedStopWorker
+[7.170s] 1: [       OK ] PickAction.InFlightWatchdogFaultStillDrainsAssociatedStopWorker (60 ms)
+[7.170s] 1: [ RUN      ] PickAction.CancelWhileCarryingStopsButKeepsLoadAdmissionLocked
+[7.618s] 1: [       OK ] PickAction.CancelWhileCarryingStopsButKeepsLoadAdmissionLocked (448 ms)
+[7.618s] 1: [ RUN      ] PickAction.UnverifiedAttachmentLoadCannotBeClearedByNewGoal
+[7.799s] 1: [       OK ] PickAction.UnverifiedAttachmentLoadCannotBeClearedByNewGoal (180 ms)
+[7.799s] 1: [----------] 12 tests from PickAction (7399 ms total)
+[7.799s] 1: 
+[7.799s] 1: [----------] Global test environment tear-down
+[7.800s] 1: [==========] 12 tests from 1 test suite ran. (7406 ms total)
+[7.800s] 1: [  PASSED  ] 12 tests.
+[7.913s] 1: -- run_test.py: return code 0
+[7.913s] 1: -- run_test.py: inject classname prefix into gtest result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml'
+[7.913s] 1: -- run_test.py: verify result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml'
+[7.925s] 1/4 Test #1: test_pick_place_action ...........   Passed    7.82 sec
+[7.925s] test 2
+[7.925s]     Start 2: test_task_action
+[7.925s] 
+[7.925s] 2: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/review-ubsan-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_task_action.txt" "--command" "/review-ubsan-build/mtc_ros2_action_cpp/test_task_action" "--gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml"
+[7.925s] 2: Working Directory: /review-ubsan-build/mtc_ros2_action_cpp
+[7.925s] 2: Test timeout computed to be: 90
+[7.993s] 2: -- run_test.py: invoking following command in '/review-ubsan-build/mtc_ros2_action_cpp':
+[7.993s] 2:  - /review-ubsan-build/mtc_ros2_action_cpp/test_task_action --gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml
+[8.088s] 2: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[8.088s] 2: [==========] Running 12 tests from 1 test suite.
+[8.088s] 2: [----------] Global test environment set-up.
+[8.089s] 2: [----------] 12 tests from TaskAction
+[8.089s] 2: [ RUN      ] TaskAction.BasicTaskUsesRealChildActionAndRecordsT0
+[9.207s] 2: [       OK ] TaskAction.BasicTaskUsesRealChildActionAndRecordsT0 (1117 ms)
+[9.207s] 2: [ RUN      ] TaskAction.SequenceTaskRecordsAllSlotsInOrder
+[12.352s] 2: [       OK ] TaskAction.SequenceTaskRecordsAllSlotsInOrder (3145 ms)
+[12.353s] 2: [ RUN      ] TaskAction.InvalidColorsAndConcurrentTaskRejected
+[13.426s] 2: [       OK ] TaskAction.InvalidColorsAndConcurrentTaskRejected (1072 ms)
+[13.426s] 2: [ RUN      ] TaskAction.CancelAckWaitsForChildFinalStopResult
+[13.546s] 2: [       OK ] TaskAction.CancelAckWaitsForChildFinalStopResult (120 ms)
+[13.546s] 2: [ RUN      ] TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent
+[13.632s] 2: [       OK ] TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent (86 ms)
+[13.632s] 2: [ RUN      ] TaskAction.ChildStatusUnknownPropagatesOriginalError
+[13.806s] 2: [       OK ] TaskAction.ChildStatusUnknownPropagatesOriginalError (173 ms)
+[13.806s] 2: [ RUN      ] TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess
+[13.971s] 2: [       OK ] TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess (165 ms)
+[13.972s] 2: [ RUN      ] TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild
+[14.197s] 2: [       OK ] TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild (225 ms)
+[14.197s] 2: [ RUN      ] TaskAction.MissingChildNeverFabricatesTaskSuccess
+[14.349s] 2: [       OK ] TaskAction.MissingChildNeverFabricatesTaskSuccess (152 ms)
+[14.349s] 2: [ RUN      ] TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent
+[14.465s] 2: [       OK ] TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent (115 ms)
+[14.465s] 2: [ RUN      ] TaskAction.StaleParentCancelCannotReachNewChild
+[16.568s] 2: [       OK ] TaskAction.StaleParentCancelCannotReachNewChild (2103 ms)
+[16.568s] 2: [ RUN      ] TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded
+[16.635s] 2: [       OK ] TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded (66 ms)
+[16.635s] 2: [----------] 12 tests from TaskAction (8545 ms total)
+[16.635s] 2: 
+[16.636s] 2: [----------] Global test environment tear-down
+[16.636s] 2: [==========] 12 tests from 1 test suite ran. (8547 ms total)
+[16.636s] 2: [  PASSED  ] 12 tests.
+[16.748s] 2: -- run_test.py: return code 0
+[16.748s] 2: -- run_test.py: inject classname prefix into gtest result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml'
+[16.748s] 2: -- run_test.py: verify result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml'
+[16.760s] 2/4 Test #2: test_task_action .................   Passed    8.83 sec
+[16.760s] test 3
+[16.760s]     Start 3: test_motion_action
+[16.760s] 
+[16.760s] 3: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/review-ubsan-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_motion_action.txt" "--command" "/review-ubsan-build/mtc_ros2_action_cpp/test_motion_action" "--gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml"
+[16.760s] 3: Working Directory: /review-ubsan-build/mtc_ros2_action_cpp
+[16.760s] 3: Test timeout computed to be: 90
+[16.836s] 3: -- run_test.py: invoking following command in '/review-ubsan-build/mtc_ros2_action_cpp':
+[16.836s] 3:  - /review-ubsan-build/mtc_ros2_action_cpp/test_motion_action --gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml
+[16.924s] 3: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[16.924s] 3: [==========] Running 8 tests from 1 test suite.
+[16.924s] 3: [----------] Global test environment set-up.
+[16.924s] 3: [----------] 8 tests from MotionAction
+[16.924s] 3: [ RUN      ] MotionAction.LegalNonzeroGoalAndFeedbackUseExecutorResult
+[17.087s] 3: [       OK ] MotionAction.LegalNonzeroGoalAndFeedbackUseExecutorResult (162 ms)
+[17.087s] 3: [ RUN      ] MotionAction.IllegalGoalRejectedWithoutBackendCall
+[17.112s] 3: [       OK ] MotionAction.IllegalGoalRejectedWithoutBackendCall (24 ms)
+[17.112s] 3: [ RUN      ] MotionAction.ConcurrentGoalIsRejectedAndFirstCompletes
+[17.242s] 3: [       OK ] MotionAction.ConcurrentGoalIsRejectedAndFirstCompletes (129 ms)
+[17.242s] 3: [ RUN      ] MotionAction.MatchingCancelStopsExactlyOnce
+[17.291s] 3: [       OK ] MotionAction.MatchingCancelStopsExactlyOnce (49 ms)
+[17.291s] 3: [ RUN      ] MotionAction.UnconfirmedCancelAborts520AndLocks
+[17.340s] 3: [       OK ] MotionAction.UnconfirmedCancelAborts520AndLocks (49 ms)
+[17.340s] 3: [ RUN      ] MotionAction.StaleCancelCannotReachBackendOrInterruptNewOwner
+[17.579s] 3: [       OK ] MotionAction.StaleCancelCannotReachBackendOrInterruptNewOwner (238 ms)
+[17.579s] 3: [ RUN      ] MotionAction.ExecutorTimeoutKeepsOriginal220AndRejectsNewMotion
+[17.706s] 3: [       OK ] MotionAction.ExecutorTimeoutKeepsOriginal220AndRejectsNewMotion (127 ms)
+[17.707s] 3: [ RUN      ] MotionAction.RosDeadlineIndependentlyRequestsAssociatedStop
+[18.547s] 3: [       OK ] MotionAction.RosDeadlineIndependentlyRequestsAssociatedStop (840 ms)
+[18.547s] 3: [----------] 8 tests from MotionAction (1622 ms total)
+[18.547s] 3: 
+[18.548s] 3: [----------] Global test environment tear-down
+[18.548s] 3: [==========] 8 tests from 1 test suite ran. (1624 ms total)
+[18.548s] 3: [  PASSED  ] 8 tests.
+[18.659s] 3: -- run_test.py: return code 0
+[18.659s] 3: -- run_test.py: inject classname prefix into gtest result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml'
+[18.660s] 3: -- run_test.py: verify result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml'
+[18.671s] 3/4 Test #3: test_motion_action ...............   Passed    1.91 sec
+[18.671s] test 4
+[18.671s]     Start 4: test_action_contracts
+[18.671s] 
+[18.671s] 4: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/review-ubsan-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_action_contracts.txt" "--command" "/review-ubsan-build/mtc_ros2_action_cpp/test_action_contracts" "--gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml"
+[18.671s] 4: Working Directory: /review-ubsan-build/mtc_ros2_action_cpp
+[18.671s] 4: Test timeout computed to be: 60
+[18.739s] 4: -- run_test.py: invoking following command in '/review-ubsan-build/mtc_ros2_action_cpp':
+[18.739s] 4:  - /review-ubsan-build/mtc_ros2_action_cpp/test_action_contracts --gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml
+[18.827s] 4: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[18.827s] 4: [==========] Running 8 tests from 1 test suite.
+[18.827s] 4: [----------] Global test environment set-up.
+[18.827s] 4: [----------] 8 tests from ActionContracts
+[18.827s] 4: [ RUN      ] ActionContracts.TaskConversionPreservesColorOrderIdentityAndDeadline
+[18.828s] 4: [       OK ] ActionContracts.TaskConversionPreservesColorOrderIdentityAndDeadline (1 ms)
+[18.828s] 4: [ RUN      ] ActionContracts.RosFloatBoundaryDoesNotRelaxCoreUpperLimit
+[18.829s] 4: [       OK ] ActionContracts.RosFloatBoundaryDoesNotRelaxCoreUpperLimit (0 ms)
+[18.829s] 4: [ RUN      ] ActionContracts.MockPlannerPreservesSixDPoseFrameStampAndContactConstraints
+[18.830s] 4: [       OK ] ActionContracts.MockPlannerPreservesSixDPoseFrameStampAndContactConstraints (0 ms)
+[18.830s] 4: [ RUN      ] ActionContracts.MockLoadEvidenceRemainsHoldingUntilVerifiedRelease
+[18.830s] 4: [       OK ] ActionContracts.MockLoadEvidenceRemainsHoldingUntilVerifiedRelease (0 ms)
+[18.831s] 4: [ RUN      ] ActionContracts.MockFailedReleaseNeverReportsNoLoad
+[18.831s] 4: [       OK ] ActionContracts.MockFailedReleaseNeverReportsNoLoad (0 ms)
+[18.831s] 4: [ RUN      ] ActionContracts.TestLiftRequiresPriorSimulatedAttachmentEvidence
+[18.831s] 4: [       OK ] ActionContracts.TestLiftRequiresPriorSimulatedAttachmentEvidence (0 ms)
+[18.831s] 4: [ RUN      ] ActionContracts.TrajectoryBridgeRefusesAndNeverSplitsIntoJointMoves
+[18.831s] 4: [       OK ] ActionContracts.TrajectoryBridgeRefusesAndNeverSplitsIntoJointMoves (0 ms)
+[18.832s] 4: [ RUN      ] ActionContracts.UnsupportedTrajectoryAndCartesianCapabilitiesCannotBeEnabled
+[18.832s] 4: [       OK ] ActionContracts.UnsupportedTrajectoryAndCartesianCapabilitiesCannotBeEnabled (0 ms)
+[18.832s] 4: [----------] 8 tests from ActionContracts (4 ms total)
+[18.832s] 4: 
+[18.832s] 4: [----------] Global test environment tear-down
+[18.832s] 4: [==========] 8 tests from 1 test suite ran. (4 ms total)
+[18.832s] 4: [  PASSED  ] 8 tests.
+[18.840s] 4: -- run_test.py: return code 0
+[18.841s] 4: -- run_test.py: inject classname prefix into gtest result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml'
+[18.841s] 4: -- run_test.py: verify result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml'
+[18.853s] 4/4 Test #4: test_action_contracts ............   Passed    0.18 sec
+[18.854s] 
+[18.854s] 100% tests passed, 0 tests failed out of 4
+[18.854s] 
+[18.854s] Label Time Summary:
+[18.854s] gtest    =  18.75 sec*proc (4 tests)
+[18.854s] 
+[18.854s] Total Test time (real) =  18.75 sec
+[18.862s] Invoked command in '/review-ubsan-build/mtc_ros2_action_cpp' returned '0': CMAKE_PREFIX_PATH=/review-ubsan-install/mtc_ros2_action_cpp:/review-ubsan-install/mtc_manipulation_cpp:/review-ubsan-install/mtc_task_cpp:/review-ubsan-install/mtc_motion_execution_cpp:/review-ubsan-install/mtc_interfaces:/review-ubsan-install/mtc_core_cpp:/review-ubsan-install/mtc_trajectory_execution_cpp:/candidate-install/mtc_trajectory_execution_cpp:/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor LD_LIBRARY_PATH=/review-ubsan-install/mtc_ros2_action_cpp/lib:/review-ubsan-install/mtc_manipulation_cpp/lib:/review-ubsan-install/mtc_task_cpp/lib:/review-ubsan-install/mtc_motion_execution_cpp/lib:/review-ubsan-install/mtc_interfaces/lib:/review-ubsan-install/mtc_core_cpp/lib:/review-ubsan-install/mtc_trajectory_execution_cpp/lib:/candidate-install/mtc_trajectory_execution_cpp/lib:/candidate-install/mtc_ros2_action_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/candidate-install/mtc_core_cpp/lib:/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process

@@ -1,0 +1,804 @@
+{
+  "commit": "0e329f10e6f607c9c417a54ae60d290b8e2395b5",
+  "previous": "a04ac6831dd3963e6b1ec4b9e27214eb564f9f24",
+  "review_base": "a04ac6831dd3963e6b1ec4b9e27214eb564f9f24",
+  "parents": [
+    "a04ac6831dd3963e6b1ec4b9e27214eb564f9f24"
+  ],
+  "commit_metadata": "commit 0e329f10e6f607c9c417a54ae60d290b8e2395b5\nAuthor:     BHBAllen <1102554130@qq.com>\nAuthorDate: Mon Oct 12 00:50:15 2026 +0800\nCommit:     BHBAllen <1102554130@qq.com>\nCommitDate: Mon Oct 12 00:50:15 2026 +0800\n\n    feat(perception): add RGB-D battery vision and ROS2 adapter",
+  "incremental_commits": [
+    "0e329f10e6f607c9c417a54ae60d290b8e2395b5 a04ac6831dd3963e6b1ec4b9e27214eb564f9f24 feat(perception): add RGB-D battery vision and ROS2 adapter"
+  ],
+  "incremental_changed_files": [
+    "src/mtc_vision_adapter/README.md",
+    "src/mtc_vision_adapter/examples/synthetic.jsonl",
+    "src/mtc_vision_adapter/mtc_vision_adapter/__init__.py",
+    "src/mtc_vision_adapter/mtc_vision_adapter/core.py",
+    "src/mtc_vision_adapter/mtc_vision_adapter/publisher.py",
+    "src/mtc_vision_adapter/package.xml",
+    "src/mtc_vision_adapter/resource/mtc_vision_adapter",
+    "src/mtc_vision_adapter/setup.cfg",
+    "src/mtc_vision_adapter/setup.py",
+    "vision_core/.gitignore",
+    "vision_core/README.md",
+    "vision_core/cad_geometry/__init__.py",
+    "vision_core/cad_geometry/collision.py",
+    "vision_core/cad_geometry/extract.py",
+    "vision_core/cad_geometry/frames.py",
+    "vision_core/cad_geometry/step_backend.py",
+    "vision_core/config/__init__.py",
+    "vision_core/config/cad_measured_corrections.yaml",
+    "vision_core/config/competition.yaml",
+    "vision_core/config/hook_error_budget.yaml",
+    "vision_core/config/pose_observability.yaml",
+    "vision_core/config/real_quality.yaml",
+    "vision_core/config/realsense_color.yaml",
+    "vision_core/config/realtime_rgbd.yaml",
+    "vision_core/config/unified_detector.yaml",
+    "vision_core/evaluation/__init__.py",
+    "vision_core/evaluation/board_evaluator.py",
+    "vision_core/evaluation/error_budget.py",
+    "vision_core/evaluation/evaluator.py",
+    "vision_core/evaluation/failure_classifier.py",
+    "vision_core/evaluation/metrics.py",
+    "vision_core/evaluation/pixel_stability.py",
+    "vision_core/evaluation/pose_accuracy.py",
+    "vision_core/evaluation/pose_uncertainty.py",
+    "vision_core/evaluation/temporal_stability.py",
+    "vision_core/input/__init__.py",
+    "vision_core/input/realsense_rgbd_source.py",
+    "vision_core/input/realsense_source.py",
+    "vision_core/perception/__init__.py",
+    "vision_core/perception/battery_detector.py",
+    "vision_core/perception/battery_only.py",
+    "vision_core/perception/board_detector.py",
+    "vision_core/perception/board_rectifier.py",
+    "vision_core/perception/cad_body.py",
+    "vision_core/perception/center_estimation.py",
+    "vision_core/perception/color_classifier.py",
+    "vision_core/perception/dual_rate_rgbd.py",
+    "vision_core/perception/live_pipeline.py",
+    "vision_core/perception/observation.py",
+    "vision_core/perception/pose_estimator.py",
+    "vision_core/perception/realtime_rgbd.py",
+    "vision_core/perception/rgbd_geometry.py",
+    "vision_core/perception/rgbd_offline.py",
+    "vision_core/perception/target_detector.py",
+    "vision_core/perception/unified_detector.py",
+    "vision_core/perception/vision_ui.py",
+    "vision_core/pyproject.toml",
+    "vision_core/real_data/__init__.py",
+    "vision_core/real_data/annotation.py",
+    "vision_core/real_data/calibration.py",
+    "vision_core/real_data/continuous_rgbd.py",
+    "vision_core/real_data/dataset.py",
+    "vision_core/real_data/pose_experiment.py",
+    "vision_core/real_data/quality.py",
+    "vision_core/real_data/red_analysis.py",
+    "vision_core/real_data/red_annotation.py",
+    "vision_core/real_data/red_selection.py",
+    "vision_core/real_data/replay.py",
+    "vision_core/real_data/rgbd_recording.py",
+    "vision_core/scripts/__init__.py",
+    "vision_core/scripts/analyze_cad_rgbd.py",
+    "vision_core/scripts/analyze_rgbd_session.py",
+    "vision_core/scripts/annotate_real.py",
+    "vision_core/scripts/assign_real_split.py",
+    "vision_core/scripts/benchmark.py",
+    "vision_core/scripts/calibrate_fixture_from_points.py",
+    "vision_core/scripts/calibrate_real_hsv.py",
+    "vision_core/scripts/capture_pose_accuracy.py",
+    "vision_core/scripts/collect_real_data.py",
+    "vision_core/scripts/dual_rate_runner.py",
+    "vision_core/scripts/generate_scene.py",
+    "vision_core/scripts/label_fixture_reference.py",
+    "vision_core/scripts/live_realsense_handheld.py",
+    "vision_core/scripts/live_rgbd_preview.py",
+    "vision_core/scripts/prepare_pose_accuracy_test.py",
+    "vision_core/scripts/record_manual_gt.py",
+    "vision_core/scripts/replay_real.py",
+    "vision_core/scripts/replay_ros2_p0.py",
+    "vision_core/scripts/rgbd_offline_demo.py",
+    "vision_core/scripts/robustness_benchmark.py",
+    "vision_core/scripts/run_demo.py",
+    "vision_core/scripts/run_pose_accuracy_benchmark.py",
+    "vision_core/synthetic/__init__.py",
+    "vision_core/synthetic/augmentation.py",
+    "vision_core/synthetic/camera_projection.py",
+    "vision_core/synthetic/geometry.py",
+    "vision_core/synthetic/io.py",
+    "vision_core/synthetic/robustness_augmentation.py",
+    "vision_core/synthetic/scene_generator.py",
+    "vision_core/tests/conftest.py",
+    "vision_core/tests/test_battery_only.py",
+    "vision_core/tests/test_camera_pipeline.py",
+    "vision_core/tests/test_center_estimation.py",
+    "vision_core/tests/test_evaluator.py",
+    "vision_core/tests/test_generator.py",
+    "vision_core/tests/test_geometry.py",
+    "vision_core/tests/test_perception.py",
+    "vision_core/tests/test_real_workflow.py",
+    "vision_core/tests/test_rgbd_stage1.py",
+    "vision_core/tests/test_ros2_p0.py",
+    "vision_core/tests/test_unified_rgb.py"
+  ],
+  "cumulative_changed_files": [
+    "src/mtc_vision_adapter/README.md",
+    "src/mtc_vision_adapter/examples/synthetic.jsonl",
+    "src/mtc_vision_adapter/mtc_vision_adapter/__init__.py",
+    "src/mtc_vision_adapter/mtc_vision_adapter/core.py",
+    "src/mtc_vision_adapter/mtc_vision_adapter/publisher.py",
+    "src/mtc_vision_adapter/package.xml",
+    "src/mtc_vision_adapter/resource/mtc_vision_adapter",
+    "src/mtc_vision_adapter/setup.cfg",
+    "src/mtc_vision_adapter/setup.py",
+    "vision_core/.gitignore",
+    "vision_core/README.md",
+    "vision_core/cad_geometry/__init__.py",
+    "vision_core/cad_geometry/collision.py",
+    "vision_core/cad_geometry/extract.py",
+    "vision_core/cad_geometry/frames.py",
+    "vision_core/cad_geometry/step_backend.py",
+    "vision_core/config/__init__.py",
+    "vision_core/config/cad_measured_corrections.yaml",
+    "vision_core/config/competition.yaml",
+    "vision_core/config/hook_error_budget.yaml",
+    "vision_core/config/pose_observability.yaml",
+    "vision_core/config/real_quality.yaml",
+    "vision_core/config/realsense_color.yaml",
+    "vision_core/config/realtime_rgbd.yaml",
+    "vision_core/config/unified_detector.yaml",
+    "vision_core/evaluation/__init__.py",
+    "vision_core/evaluation/board_evaluator.py",
+    "vision_core/evaluation/error_budget.py",
+    "vision_core/evaluation/evaluator.py",
+    "vision_core/evaluation/failure_classifier.py",
+    "vision_core/evaluation/metrics.py",
+    "vision_core/evaluation/pixel_stability.py",
+    "vision_core/evaluation/pose_accuracy.py",
+    "vision_core/evaluation/pose_uncertainty.py",
+    "vision_core/evaluation/temporal_stability.py",
+    "vision_core/input/__init__.py",
+    "vision_core/input/realsense_rgbd_source.py",
+    "vision_core/input/realsense_source.py",
+    "vision_core/perception/__init__.py",
+    "vision_core/perception/battery_detector.py",
+    "vision_core/perception/battery_only.py",
+    "vision_core/perception/board_detector.py",
+    "vision_core/perception/board_rectifier.py",
+    "vision_core/perception/cad_body.py",
+    "vision_core/perception/center_estimation.py",
+    "vision_core/perception/color_classifier.py",
+    "vision_core/perception/dual_rate_rgbd.py",
+    "vision_core/perception/live_pipeline.py",
+    "vision_core/perception/observation.py",
+    "vision_core/perception/pose_estimator.py",
+    "vision_core/perception/realtime_rgbd.py",
+    "vision_core/perception/rgbd_geometry.py",
+    "vision_core/perception/rgbd_offline.py",
+    "vision_core/perception/target_detector.py",
+    "vision_core/perception/unified_detector.py",
+    "vision_core/perception/vision_ui.py",
+    "vision_core/pyproject.toml",
+    "vision_core/real_data/__init__.py",
+    "vision_core/real_data/annotation.py",
+    "vision_core/real_data/calibration.py",
+    "vision_core/real_data/continuous_rgbd.py",
+    "vision_core/real_data/dataset.py",
+    "vision_core/real_data/pose_experiment.py",
+    "vision_core/real_data/quality.py",
+    "vision_core/real_data/red_analysis.py",
+    "vision_core/real_data/red_annotation.py",
+    "vision_core/real_data/red_selection.py",
+    "vision_core/real_data/replay.py",
+    "vision_core/real_data/rgbd_recording.py",
+    "vision_core/scripts/__init__.py",
+    "vision_core/scripts/analyze_cad_rgbd.py",
+    "vision_core/scripts/analyze_rgbd_session.py",
+    "vision_core/scripts/annotate_real.py",
+    "vision_core/scripts/assign_real_split.py",
+    "vision_core/scripts/benchmark.py",
+    "vision_core/scripts/calibrate_fixture_from_points.py",
+    "vision_core/scripts/calibrate_real_hsv.py",
+    "vision_core/scripts/capture_pose_accuracy.py",
+    "vision_core/scripts/collect_real_data.py",
+    "vision_core/scripts/dual_rate_runner.py",
+    "vision_core/scripts/generate_scene.py",
+    "vision_core/scripts/label_fixture_reference.py",
+    "vision_core/scripts/live_realsense_handheld.py",
+    "vision_core/scripts/live_rgbd_preview.py",
+    "vision_core/scripts/prepare_pose_accuracy_test.py",
+    "vision_core/scripts/record_manual_gt.py",
+    "vision_core/scripts/replay_real.py",
+    "vision_core/scripts/replay_ros2_p0.py",
+    "vision_core/scripts/rgbd_offline_demo.py",
+    "vision_core/scripts/robustness_benchmark.py",
+    "vision_core/scripts/run_demo.py",
+    "vision_core/scripts/run_pose_accuracy_benchmark.py",
+    "vision_core/synthetic/__init__.py",
+    "vision_core/synthetic/augmentation.py",
+    "vision_core/synthetic/camera_projection.py",
+    "vision_core/synthetic/geometry.py",
+    "vision_core/synthetic/io.py",
+    "vision_core/synthetic/robustness_augmentation.py",
+    "vision_core/synthetic/scene_generator.py",
+    "vision_core/tests/conftest.py",
+    "vision_core/tests/test_battery_only.py",
+    "vision_core/tests/test_camera_pipeline.py",
+    "vision_core/tests/test_center_estimation.py",
+    "vision_core/tests/test_evaluator.py",
+    "vision_core/tests/test_generator.py",
+    "vision_core/tests/test_geometry.py",
+    "vision_core/tests/test_perception.py",
+    "vision_core/tests/test_real_workflow.py",
+    "vision_core/tests/test_rgbd_stage1.py",
+    "vision_core/tests/test_ros2_p0.py",
+    "vision_core/tests/test_unified_rgb.py"
+  ],
+  "changed_file_inventory": [
+    {
+      "path": "src/mtc_vision_adapter/README.md",
+      "sha256": "a39150e28aca4c804eca705dbdf0e460b8838aa98a0b83f8bd84f53682d82f5e",
+      "size_bytes": 264
+    },
+    {
+      "path": "src/mtc_vision_adapter/examples/synthetic.jsonl",
+      "sha256": "14eb81f46759d7621ec5233507fb55af531dcd328dc3bee30e1ff9199214b980",
+      "size_bytes": 8274
+    },
+    {
+      "path": "src/mtc_vision_adapter/mtc_vision_adapter/__init__.py",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "size_bytes": 1
+    },
+    {
+      "path": "src/mtc_vision_adapter/mtc_vision_adapter/core.py",
+      "sha256": "44ea8fcb0b16139adb1eb6f45fccbcd0065681a860e8323f83b51266fb6b43ed",
+      "size_bytes": 7098
+    },
+    {
+      "path": "src/mtc_vision_adapter/mtc_vision_adapter/publisher.py",
+      "sha256": "693806fca874655407ba431df190106ac4d9ff490a9293c4ed1e4ce03fc42a7d",
+      "size_bytes": 1723
+    },
+    {
+      "path": "src/mtc_vision_adapter/package.xml",
+      "sha256": "0691d6f5d62f67f12a4331bbf3e85dcdfe5016ef1e20e7a73e8dfd194672d6f7",
+      "size_bytes": 517
+    },
+    {
+      "path": "src/mtc_vision_adapter/resource/mtc_vision_adapter",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "size_bytes": 1
+    },
+    {
+      "path": "src/mtc_vision_adapter/setup.cfg",
+      "sha256": "14e0e0c0a733f5639b280443b7611b886476ec73e981419db17bc77073705383",
+      "size_bytes": 105
+    },
+    {
+      "path": "src/mtc_vision_adapter/setup.py",
+      "sha256": "f39ed95ff6f6286aa5d5585c7141a4ce7f65649a6f5b821ef300deb66470f348",
+      "size_bytes": 545
+    },
+    {
+      "path": "vision_core/.gitignore",
+      "sha256": "625d2abf1301f528ee1aa800914f7063a675723d8d5939637f75a24d152c911d",
+      "size_bytes": 93
+    },
+    {
+      "path": "vision_core/README.md",
+      "sha256": "b15856e4eea4d551583c19477ac9844662c856195a39baeb4bc3885d59eb27b0",
+      "size_bytes": 3331
+    },
+    {
+      "path": "vision_core/cad_geometry/__init__.py",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "size_bytes": 1
+    },
+    {
+      "path": "vision_core/cad_geometry/collision.py",
+      "sha256": "aa7bc87ba3fe873b0efef040bbdc5c122820ed2794ea6266f9dc26ff762d16cf",
+      "size_bytes": 3094
+    },
+    {
+      "path": "vision_core/cad_geometry/extract.py",
+      "sha256": "42f0abb5b50bddff242ae29dad018533c0ddd5bf6034e046168be0e48071b21a",
+      "size_bytes": 5833
+    },
+    {
+      "path": "vision_core/cad_geometry/frames.py",
+      "sha256": "bf66dc58d70c46d983a98f8d9647da09ba0c5056d97e5f2c6e4282a57afb86a1",
+      "size_bytes": 908
+    },
+    {
+      "path": "vision_core/cad_geometry/step_backend.py",
+      "sha256": "99420d26f44c0a8c1dfa2b7a58fea8809143154f577457b8825b5ae960ca1c32",
+      "size_bytes": 7200
+    },
+    {
+      "path": "vision_core/config/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "vision_core/config/cad_measured_corrections.yaml",
+      "sha256": "2bcb97df03094a886d7c7043af365a1d813e606a7dcc750d48c13627ab1d3f64",
+      "size_bytes": 320
+    },
+    {
+      "path": "vision_core/config/competition.yaml",
+      "sha256": "57d50a0891fe8e44e8a0864e9929abc934c00e49f876e982a2012532d726c111",
+      "size_bytes": 2634
+    },
+    {
+      "path": "vision_core/config/hook_error_budget.yaml",
+      "sha256": "0527d4b77a83f6d14aff3c670f17a7a8fd6a2c46d719cda45649684ad512e7a6",
+      "size_bytes": 739
+    },
+    {
+      "path": "vision_core/config/pose_observability.yaml",
+      "sha256": "5ca9b56bdb865f169e5679e0204ed88cb48e3c2684652434098491a1a5f650a0",
+      "size_bytes": 630
+    },
+    {
+      "path": "vision_core/config/real_quality.yaml",
+      "sha256": "4d8c89bcf52c38bf7e162da8f65fb760839da1656f3cc99b3d230c3342133db2",
+      "size_bytes": 341
+    },
+    {
+      "path": "vision_core/config/realsense_color.yaml",
+      "sha256": "36c931317b2395bafc5b4dce3e574ad32be3ec45ffd91a402d338396324250a3",
+      "size_bytes": 471
+    },
+    {
+      "path": "vision_core/config/realtime_rgbd.yaml",
+      "sha256": "a377cb29c7bb9b2973f0ae88949c19ffec2e0df6f1a8911ec7853b00cee4bd57",
+      "size_bytes": 796
+    },
+    {
+      "path": "vision_core/config/unified_detector.yaml",
+      "sha256": "80c9a3678cbb0b19b144f55a48d8873fdebfa50a47ed164e5b28775be87da5a4",
+      "size_bytes": 217
+    },
+    {
+      "path": "vision_core/evaluation/__init__.py",
+      "sha256": "47ed2968399ea5129353dbfd2d49e7b266c612aaa3c7625554cac5d9ca48045e",
+      "size_bytes": 69
+    },
+    {
+      "path": "vision_core/evaluation/board_evaluator.py",
+      "sha256": "ff0231769398960bf4fa0332c546cb802bd18a247860f57bc975eabeb736115d",
+      "size_bytes": 763
+    },
+    {
+      "path": "vision_core/evaluation/error_budget.py",
+      "sha256": "1be00409eb814f58bf6c98755623bd85e622e1f295660d2be93e7ad363905d20",
+      "size_bytes": 1665
+    },
+    {
+      "path": "vision_core/evaluation/evaluator.py",
+      "sha256": "7f7d4176c4dacf2a01bb1c0cd10a5be34dac5b56f62bc1d6d3398b49d7ae6143",
+      "size_bytes": 4263
+    },
+    {
+      "path": "vision_core/evaluation/failure_classifier.py",
+      "sha256": "7bd5ff5b5bcce45cf3249dc7505cdbcedfcafaa546fe970f57740fc899a06ce0",
+      "size_bytes": 923
+    },
+    {
+      "path": "vision_core/evaluation/metrics.py",
+      "sha256": "e24f1c9c49c2eb97319e1a190bed0f6e4c2ed57865665510cb3737549d4fccce",
+      "size_bytes": 333
+    },
+    {
+      "path": "vision_core/evaluation/pixel_stability.py",
+      "sha256": "181023c5000428cda3bae6e619482b4d2e4e281291e82dc98bb369eda25b0915",
+      "size_bytes": 3738
+    },
+    {
+      "path": "vision_core/evaluation/pose_accuracy.py",
+      "sha256": "f0f490432380d2b9a2eb525fea77b6acf69e6919327398bcd23a50dcbf85ccd0",
+      "size_bytes": 8922
+    },
+    {
+      "path": "vision_core/evaluation/pose_uncertainty.py",
+      "sha256": "a16a14792cff78a7410bed4163588626f9d79084a8862f9f343987ac9eefc08c",
+      "size_bytes": 7940
+    },
+    {
+      "path": "vision_core/evaluation/temporal_stability.py",
+      "sha256": "cc6b9df3c53a843f18fe6078f1241307cb60927ba6915711b359f366a033f6b4",
+      "size_bytes": 4911
+    },
+    {
+      "path": "vision_core/input/__init__.py",
+      "sha256": "85655e65d4d679d3104cdec2fb95f3d6bc80e858af550fd6adf19aaa01542979",
+      "size_bytes": 54
+    },
+    {
+      "path": "vision_core/input/realsense_rgbd_source.py",
+      "sha256": "3eae5a659740d4ff8148d73b602f8bb1c16634bafaba0930420c1deb5d8603b3",
+      "size_bytes": 9244
+    },
+    {
+      "path": "vision_core/input/realsense_source.py",
+      "sha256": "8cbd54615c8176cb6e5a4ae45ac57fee68beb959749d8fa8ad4aef34b6705575",
+      "size_bytes": 4770
+    },
+    {
+      "path": "vision_core/perception/__init__.py",
+      "sha256": "2483efa625086aadf327772d2789d853493812b4b37cced65c4e99bfa489e4e0",
+      "size_bytes": 38
+    },
+    {
+      "path": "vision_core/perception/battery_detector.py",
+      "sha256": "9211d4b4e83e0c0062fb045bb2076035251cfc346784a8afa587e806d989e9a1",
+      "size_bytes": 2007
+    },
+    {
+      "path": "vision_core/perception/battery_only.py",
+      "sha256": "fae34ef987143f939e2e4b16e744d2859748bcf2021acfdc78b95a63e46c6a97",
+      "size_bytes": 3371
+    },
+    {
+      "path": "vision_core/perception/board_detector.py",
+      "sha256": "787c8e9257a4f927d60f069f1d518dfb70398c793ca847348d0adea5bb88878c",
+      "size_bytes": 2699
+    },
+    {
+      "path": "vision_core/perception/board_rectifier.py",
+      "sha256": "dcb88ac434c20a8eef2ee00724eb9509f792fa04d805ef3172d7c0a6028322df",
+      "size_bytes": 802
+    },
+    {
+      "path": "vision_core/perception/cad_body.py",
+      "sha256": "56330a3324cd2f145fb8fdfc92c70e91074e56d94d4825d8cbe23c30c2097d9f",
+      "size_bytes": 18806
+    },
+    {
+      "path": "vision_core/perception/center_estimation.py",
+      "sha256": "4ff07e2981960f1b8a99d0d66e25f141df34eab725343551f47a8ba6d006557c",
+      "size_bytes": 4276
+    },
+    {
+      "path": "vision_core/perception/color_classifier.py",
+      "sha256": "2a72eea2acbdff996336b69a700fda28d762d8ca01b948a47711c883b3bd5d89",
+      "size_bytes": 1731
+    },
+    {
+      "path": "vision_core/perception/dual_rate_rgbd.py",
+      "sha256": "ce74ee950a572839189b2bf9fae63fba87f3c5567b612846b2aaa23726270331",
+      "size_bytes": 19367
+    },
+    {
+      "path": "vision_core/perception/live_pipeline.py",
+      "sha256": "69a0b86da78dbd970717110c87b7bcdcfb1d0f691f3e7ebe68d0810ff0c7adf9",
+      "size_bytes": 1908
+    },
+    {
+      "path": "vision_core/perception/observation.py",
+      "sha256": "727591d2a1eed0a27ddb810157d9743aa17e28cd5cea3514eb17511b52379b34",
+      "size_bytes": 5495
+    },
+    {
+      "path": "vision_core/perception/pose_estimator.py",
+      "sha256": "f9161807c26a66e2172ff82fe34479512bbb4d4a7e6daf2fa0f5e66bb80c6a4b",
+      "size_bytes": 793
+    },
+    {
+      "path": "vision_core/perception/realtime_rgbd.py",
+      "sha256": "35bfdb36f7a8fbb4a06b74f9b3237ac5db88d041f30f33b08b1c73c84be66979",
+      "size_bytes": 25186
+    },
+    {
+      "path": "vision_core/perception/rgbd_geometry.py",
+      "sha256": "24ce1433e9c07be5c2e232e99b73682ff8533cec56d813d3916ea8a0d0c29f06",
+      "size_bytes": 10476
+    },
+    {
+      "path": "vision_core/perception/rgbd_offline.py",
+      "sha256": "82796dd8c9a57da232fee4687a844b2bbc43a08107849823fbbfbbe14f5127bc",
+      "size_bytes": 20964
+    },
+    {
+      "path": "vision_core/perception/target_detector.py",
+      "sha256": "cdc10d68ad6e0994585ecf6baf1740cd8b677a8f0bc5753dcb5b7db4a07cd640",
+      "size_bytes": 1609
+    },
+    {
+      "path": "vision_core/perception/unified_detector.py",
+      "sha256": "d9ad0bf7b30ae9b389f36326836ac55dc9a736a88c66e37f4b98a6814cb0bb04",
+      "size_bytes": 5676
+    },
+    {
+      "path": "vision_core/perception/vision_ui.py",
+      "sha256": "e7ec363927692750e3bb4d2fe7a9eeefb1159c80602bdaa3a6e75cbf2bb48146",
+      "size_bytes": 14107
+    },
+    {
+      "path": "vision_core/pyproject.toml",
+      "sha256": "f964b641c118cda43bb39f33f4a98aeb138aa8bdce693b68a154d27554a1fbe0",
+      "size_bytes": 676
+    },
+    {
+      "path": "vision_core/real_data/__init__.py",
+      "sha256": "cfb8d6d17f8654e1312b8224ea9186fcf81d6abc135900682cb013dc8b33ef37",
+      "size_bytes": 66
+    },
+    {
+      "path": "vision_core/real_data/annotation.py",
+      "sha256": "6897c2a5999e4bff00ccbd82c0135de569d9dc46cc1810d73f091e8eb835bce9",
+      "size_bytes": 4068
+    },
+    {
+      "path": "vision_core/real_data/calibration.py",
+      "sha256": "fef1504b43861b3ca6d2d3ec2a7308f67bbd949877bb58d915975211b77b39ff",
+      "size_bytes": 8392
+    },
+    {
+      "path": "vision_core/real_data/continuous_rgbd.py",
+      "sha256": "e9f9304c92d834e88959a2a75934446057981128a7e55d999007c2f325afa133",
+      "size_bytes": 8652
+    },
+    {
+      "path": "vision_core/real_data/dataset.py",
+      "sha256": "146efd13707649d3149500d7647d675d76e84162630f15ad931fcffd1d191e32",
+      "size_bytes": 3739
+    },
+    {
+      "path": "vision_core/real_data/pose_experiment.py",
+      "sha256": "313aa941c457da5181ee87b1c3c37d40942b846b2819391595ccb62b05f257b6",
+      "size_bytes": 2777
+    },
+    {
+      "path": "vision_core/real_data/quality.py",
+      "sha256": "b16c133fab8f040fc5259887289f71223d11b6bdd09d1a487f99adef68216eed",
+      "size_bytes": 2612
+    },
+    {
+      "path": "vision_core/real_data/red_analysis.py",
+      "sha256": "9e203f8164f507ddeaf64352b1809c54896bcf37d9b4dc43faefecd287c60d90",
+      "size_bytes": 11645
+    },
+    {
+      "path": "vision_core/real_data/red_annotation.py",
+      "sha256": "dfa37ee59cda9c2210cb4664f36281124eec6ed65491c8c8e5b13d701c08d5f4",
+      "size_bytes": 5291
+    },
+    {
+      "path": "vision_core/real_data/red_selection.py",
+      "sha256": "abbae75d9de13195aac36f3e7ad0c060281b806b1873a2f1c493162a64c305d1",
+      "size_bytes": 6704
+    },
+    {
+      "path": "vision_core/real_data/replay.py",
+      "sha256": "d61e5aaf3f6329cf6fc02d93c220e561fb4cf55b56be4e293b0b9c7c576c038a",
+      "size_bytes": 10384
+    },
+    {
+      "path": "vision_core/real_data/rgbd_recording.py",
+      "sha256": "4c2d7658792c29f65c75b3e56ae08f845b2fc396f4eb3cecfc2e9acfabdd387e",
+      "size_bytes": 7335
+    },
+    {
+      "path": "vision_core/scripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "vision_core/scripts/analyze_cad_rgbd.py",
+      "sha256": "544609eb3d9957909770e7503c7f8fffa276a2012c372d3a4c4f8c4bd152502c",
+      "size_bytes": 8751
+    },
+    {
+      "path": "vision_core/scripts/analyze_rgbd_session.py",
+      "sha256": "d926ae8bf6f26db9610874c8f4f94c239665fb0bfcabf5b931d6e486a90b36a5",
+      "size_bytes": 14746
+    },
+    {
+      "path": "vision_core/scripts/annotate_real.py",
+      "sha256": "565c361551fd2673c3e3629b09940ce87e34a5596d317ce45bbc3cd1ce8d4d1f",
+      "size_bytes": 3490
+    },
+    {
+      "path": "vision_core/scripts/assign_real_split.py",
+      "sha256": "807dc94f2a1d8f011b01a043fdade4e5cdb10dd6fd17986585b6aa8b8346c92c",
+      "size_bytes": 562
+    },
+    {
+      "path": "vision_core/scripts/benchmark.py",
+      "sha256": "c393b726a1dbb104a1f3376d9f77e4702b980504250fc228546a6be5440da346",
+      "size_bytes": 2895
+    },
+    {
+      "path": "vision_core/scripts/calibrate_fixture_from_points.py",
+      "sha256": "fd340e22c41906e89ac5b62432077bf2d7a8a0f1d3514d96844cfad5c1cfc577",
+      "size_bytes": 3298
+    },
+    {
+      "path": "vision_core/scripts/calibrate_real_hsv.py",
+      "sha256": "fda5c24716bcab2f43bceabd2bd4aa73d084b3b6efd4264675c923c0c8410f44",
+      "size_bytes": 850
+    },
+    {
+      "path": "vision_core/scripts/capture_pose_accuracy.py",
+      "sha256": "d66afdbb22bfce1f57d90b508b5b1a1374aa3024c0f9d53abdeef3796a722858",
+      "size_bytes": 8166
+    },
+    {
+      "path": "vision_core/scripts/collect_real_data.py",
+      "sha256": "184ea05049c3f865990b13aa46ecbbebca15a3e214d7cc294ffadb3e40f4eb9c",
+      "size_bytes": 6400
+    },
+    {
+      "path": "vision_core/scripts/dual_rate_runner.py",
+      "sha256": "c89bac2c96878ccb8d7c987b481b1c04365c0214c438c9f0fd6f64fe36d0ce6f",
+      "size_bytes": 12073
+    },
+    {
+      "path": "vision_core/scripts/generate_scene.py",
+      "sha256": "32d2044c9e48a2b915d5185b33144a57697516a47655b44dd1074901ffee8b83",
+      "size_bytes": 1146
+    },
+    {
+      "path": "vision_core/scripts/label_fixture_reference.py",
+      "sha256": "58619eabce69f1a1a46f926c399322289cefb80918d0209e525f1636d64c1aec",
+      "size_bytes": 3665
+    },
+    {
+      "path": "vision_core/scripts/live_realsense_handheld.py",
+      "sha256": "f43082d5dbd757c13c379fe116fb0c7a987523f485b752a66618cd73a87abc34",
+      "size_bytes": 11956
+    },
+    {
+      "path": "vision_core/scripts/live_rgbd_preview.py",
+      "sha256": "0ea3a3ef51029a86f7a84b6b4571a2eaf244f3817f5095cf1c88a5e1e3439f78",
+      "size_bytes": 15347
+    },
+    {
+      "path": "vision_core/scripts/prepare_pose_accuracy_test.py",
+      "sha256": "ab8fbbb6ac38ff7dc002268e48ad9138e76b7f02d665c3700d79fc0fdbc5aaae",
+      "size_bytes": 2595
+    },
+    {
+      "path": "vision_core/scripts/record_manual_gt.py",
+      "sha256": "bf70e82259b0b72e6e2e53616cc60a6b63e435ce472383073c9a921f99db7efd",
+      "size_bytes": 1891
+    },
+    {
+      "path": "vision_core/scripts/replay_real.py",
+      "sha256": "20f7d5dd772dc200b297fa97e58936cec09e2e55f9124d0d0d90d9b20cb639a0",
+      "size_bytes": 940
+    },
+    {
+      "path": "vision_core/scripts/replay_ros2_p0.py",
+      "sha256": "b4cdcbe9d444e43d799ed0b623dfb13488d577109cf4e5253e07f6c09be8719f",
+      "size_bytes": 5034
+    },
+    {
+      "path": "vision_core/scripts/rgbd_offline_demo.py",
+      "sha256": "79c8ef311d46d554044ca515b0914f908a96f0c0ed44a6feff05c1361dcd254b",
+      "size_bytes": 5035
+    },
+    {
+      "path": "vision_core/scripts/robustness_benchmark.py",
+      "sha256": "492dbf8ff10e38a174fc8d14c8d26fbb6d1ba47860b616adefc635f85bf6e868",
+      "size_bytes": 8878
+    },
+    {
+      "path": "vision_core/scripts/run_demo.py",
+      "sha256": "73ce0dfde4b3e942e3e37b9b5c62f9eb3d0e434856ce8c6c8b6dd8fc30c8d20a",
+      "size_bytes": 3330
+    },
+    {
+      "path": "vision_core/scripts/run_pose_accuracy_benchmark.py",
+      "sha256": "be9dd8bee822f3e063e320e6124940f3c3da77dd125971ba36127801961e9d2f",
+      "size_bytes": 4479
+    },
+    {
+      "path": "vision_core/synthetic/__init__.py",
+      "sha256": "79adefe83faf86b66ab9e60db0a472624ac00605a474f2db45a4912add759bf8",
+      "size_bytes": 40
+    },
+    {
+      "path": "vision_core/synthetic/augmentation.py",
+      "sha256": "bd703880d7475ee6095c2eabcad09eb73b023b17d701a190e443c7cfb9190652",
+      "size_bytes": 1982
+    },
+    {
+      "path": "vision_core/synthetic/camera_projection.py",
+      "sha256": "3d4df4f12c8a0c6d5160cf7fc06d797a2fd26c27904f6e2d621b20fad7011134",
+      "size_bytes": 2079
+    },
+    {
+      "path": "vision_core/synthetic/geometry.py",
+      "sha256": "ca9796c08706079052a4afbda4da138554b9837a77aeae52a5ddd42d7d555a8d",
+      "size_bytes": 1148
+    },
+    {
+      "path": "vision_core/synthetic/io.py",
+      "sha256": "1e79b8301ab7c109812abbd03821403b108a32ddec57dc2c30b97d989121e583",
+      "size_bytes": 347
+    },
+    {
+      "path": "vision_core/synthetic/robustness_augmentation.py",
+      "sha256": "b77905bdb9430b80efb7194996151903aad0f2edf9ce686b889a46b4da93b09b",
+      "size_bytes": 5489
+    },
+    {
+      "path": "vision_core/synthetic/scene_generator.py",
+      "sha256": "90531e3bd310915f9ba6bb1c9270900ac0390b176ad1cba8221343a87d6285a4",
+      "size_bytes": 8915
+    },
+    {
+      "path": "vision_core/tests/conftest.py",
+      "sha256": "69a53b2cec0798614f29d4a59734838b11dffdac7ef2750c6c78166ca64c9492",
+      "size_bytes": 96
+    },
+    {
+      "path": "vision_core/tests/test_battery_only.py",
+      "sha256": "0ead0b58a20cb5a9c27332f599ee8f5b50c35e93bec80865751858993a1e7591",
+      "size_bytes": 1508
+    },
+    {
+      "path": "vision_core/tests/test_camera_pipeline.py",
+      "sha256": "75dff5ce0e2bd6b04de12fc8ee0af5df8994e7ea0bc967fc96556ee7a5b544cc",
+      "size_bytes": 2152
+    },
+    {
+      "path": "vision_core/tests/test_center_estimation.py",
+      "sha256": "67108c085e61917c411c2de2e518d1857f395fd8be2a604f767fdbdba1ee9b54",
+      "size_bytes": 2326
+    },
+    {
+      "path": "vision_core/tests/test_evaluator.py",
+      "sha256": "1bd7dd377f14438a460d9a1b9e7a0bd618a0ac4ae9ca4336ab30ad6e1a678fe1",
+      "size_bytes": 588
+    },
+    {
+      "path": "vision_core/tests/test_generator.py",
+      "sha256": "31467b3157f5c827cf87a0fde70797dc69078d071357cfe473f9ef91810c2372",
+      "size_bytes": 1013
+    },
+    {
+      "path": "vision_core/tests/test_geometry.py",
+      "sha256": "def4bffb503a71108855ecdc27d6a412a8661d7028baf8c410dc46aa534fd312",
+      "size_bytes": 338
+    },
+    {
+      "path": "vision_core/tests/test_perception.py",
+      "sha256": "f6f8d1819782abf01514d57a14c259bf4605609f479bf63df6a6aadc75e7c950",
+      "size_bytes": 453
+    },
+    {
+      "path": "vision_core/tests/test_real_workflow.py",
+      "sha256": "42dc564a0708ddca064f4be386436b9cf6d8ec42ae76601635e4b5d2020cb017",
+      "size_bytes": 8184
+    },
+    {
+      "path": "vision_core/tests/test_rgbd_stage1.py",
+      "sha256": "04868ec19ffd1c5171625d243c29699f4912812dc6d7d8e422cc75977ec111fe",
+      "size_bytes": 4720
+    },
+    {
+      "path": "vision_core/tests/test_ros2_p0.py",
+      "sha256": "96d48da1cd1ebaaf42151676a7ee57f11ad043fd4075bb66988d678601e7401f",
+      "size_bytes": 4815
+    },
+    {
+      "path": "vision_core/tests/test_unified_rgb.py",
+      "sha256": "6d41657a760660b2acf26622fe6b09f3716a7c920bfa911a43298efa45772b78",
+      "size_bytes": 4563
+    }
+  ],
+  "all_nonvision_sources_identical_to_main_acceptance": true,
+  "source_modified": false,
+  "formal_baseline_advanced": false,
+  "observed_refs": [
+    "refs/heads/feature/perception-adapter"
+  ],
+  "changes": "Adds 102 vision_core source/config/tests and 9 ROS adapter files, standalone editable Python layout and explicit offline replay publisher; no camera data or private CAD assets supplied.",
+  "integration_limit": "Existing IDL/FSM/Action unchanged; ROS publisher has no live sensor input, always invalid ring pose; no new perception subscription in C++ Task. Local motion_rejection helper is not invoked by production publisher or FSM consumer.",
+  "at": "2026-10-11T17:11:30.241781+00:00"
+}

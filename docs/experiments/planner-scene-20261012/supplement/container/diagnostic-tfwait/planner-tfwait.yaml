@@ -1,0 +1,107 @@
+/**:
+  ros__parameters:
+    backend:
+      planning_group: manipulator
+      end_effector_link: ee_link
+      planning_pipeline: ompl
+      planner_id: RRTConnectkConfigDefault
+      tf_timeout_s: 5.0
+      state_timeout_s: 5.0
+      ik_timeout_s: 0.2
+    planner:
+      velocity_scaling: 0.1
+      acceleration_scaling: 0.1
+      planning_time_s: 1.0
+      cartesian_step_m: 0.005
+      insertion_axis: 2
+      allow_uncalibrated_geometry: true
+      force_simulation_only: true
+    tcp:
+      xyz:
+      - 0.0
+      - 0.0
+      - 0.0
+      quat_xyzw:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+      status: PLACEHOLDER
+    slots:
+      names:
+      - T0
+      - P1
+      - P2
+      - P3
+      T0:
+        frame_id: base_link
+        xyz:
+        - 0.35
+        - -0.2
+        - 0.13
+        status: PLACEHOLDER
+      P1:
+        frame_id: base_link
+        xyz:
+        - 0.35
+        - -0.05
+        - 0.13
+        status: PLACEHOLDER
+      P2:
+        frame_id: base_link
+        xyz:
+        - 0.35
+        - 0.1
+        - 0.13
+        status: PLACEHOLDER
+      P3:
+        frame_id: base_link
+        xyz:
+        - 0.35
+        - 0.25
+        - 0.13
+        status: PLACEHOLDER
+    payload:
+      enabled: true
+      size_m:
+      - 0.06
+      - 0.06
+      - 0.1
+      hang_below_tcp_m: 0.07
+      status: PLACEHOLDER
+    scene:
+      boxes:
+        names:
+        - table
+        table:
+          frame_id: base_link
+          xyz:
+          - 0.3
+          - 0.0
+          - -0.03
+          size_m:
+          - 0.9
+          - 1.2
+          - 0.05
+    target:
+      mode: named_state_fk
+      named_state: home
+      max_linear_speed_m_s: 0.0
+      max_angular_speed_rad_s: 0.0
+    sequence:
+      tool_type: passive_hook_v1
+      slot: T0
+      start_named_state: home
+      object_id: battery_1
+      color: 1
+      ring:
+        frame_id: base_link
+        xyz:
+        - 0.4
+        - -0.05
+        - 0.13
+        quat_xyzw:
+        - 0.0
+        - 0.70710678
+        - 0.0
+        - 0.70710678

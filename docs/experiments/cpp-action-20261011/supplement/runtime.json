@@ -1,0 +1,31 @@
+{
+  "started_at": "2026-10-11T15:22:02.316112+00:00",
+  "container": "mtc-phase2a-review-c0f7017",
+  "image": "sha256:42d4a7b6fd48dd32719cbad655ddb256ef071d4732d118a5b818d433a3b740d6",
+  "snapshot_of": "mtc-repro-5c8f61d8af9f-c0f70172e4b0",
+  "argv": [
+    "/usr/bin/docker",
+    "run",
+    "-d",
+    "--name",
+    "mtc-phase2a-review-c0f7017",
+    "--network",
+    "none",
+    "--cpus",
+    "2",
+    "--memory",
+    "4g",
+    "--pids-limit",
+    "512",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--label",
+    "mtc.purpose=phase2a-integration-review",
+    "sha256:42d4a7b6fd48dd32719cbad655ddb256ef071d4732d118a5b818d433a3b740d6",
+    "sleep",
+    "infinity"
+  ],
+  "scope": "Independent copy of stopped automatic run; original filesystem/logs preserved; same source SHA and build with separate supplementary evidence/UBSan paths."
+}

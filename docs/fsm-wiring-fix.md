@@ -3,7 +3,7 @@
 **B01、B02、B04 已在独立分支修复并提交 PR，三项范围内复验通过；完整 ROS Mock 任务仍未通过。**
 补丁为 [PR #2](https://github.com/F1u0rite/meituan_challenge_ws/pull/2)，提交
 `1d3dccf23c53d299d457564daeb6438190ea2d77`，分支 `fix/ros-startup-wiring-b01-b02-b04`。
-已请求仓库负责人 `F1u0rite` 审阅，尚未合并；正式基线仍为 `1d940f7…`，
+原 17:25 提交时已请求仓库负责人 `F1u0rite` 审阅、尚未合并；该状态为历史快照。后续 23:35 上游已合并，见文末追踪；正式基线仍为 `1d940f7…`，
 [版本锁定文件](../robot/fsm-baseline.repos)未推进。
 
 用户在“是否应该由我进行修复”的建议后回复“按照你的建议执行”（USER-HW-20261011-05，用户会话）。
@@ -72,3 +72,7 @@ Goal/Feedback/Result、实际命令、补丁及 MIT 许可文本。审阅及后�
 生成式 AI 披露：使用 OpenAI Codex 编写三项补丁、ROS 回归和验收脚本，运行隔离复验、创建 PR 并整理来源索引。
 上游来源为 TEAMMATE-FSM-20261011 / TEAMMATE-SDK-20261011；FSM 根许可证 MIT，冻结补丁附原许可，
 没有归档第三方模型或 SDK 二进制，也没有连接实体硬件。
+
+## 后续合并追踪（23:35）
+
+监测在上游 `main` 发现合并提交 `c10f6ed59966401684851f917f9137b0a6cf12ae`，双父提交包含本补丁 `1d3dccf…` 与 C++ Action 交付 `c0f7017…`；两个 Python 文件、六项测试和复验说明均与原 PR 相同（TEAMMATE-MERGE-20261011）。合并后的六项 ROS 回归再次通过，但实际旧 Python 尽早/延迟/取消任务分别 ABORTED / 220、510、520，B03/B05/B06 不据合并关闭。新 C++ 独立四场景另行通过，独立 MoveIt 退出仍失败，见[本次验收](wiring-merge-acceptance.md)（ENV-WIRING-MERGE-20261011）。原 ENV-FSM-FIX-20261011 的 OPEN 快照、失败与冻结索引不改写；本项目未代为合并或推进锁定。

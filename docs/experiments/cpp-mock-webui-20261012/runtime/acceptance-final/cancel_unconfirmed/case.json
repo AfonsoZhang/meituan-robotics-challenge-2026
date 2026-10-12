@@ -1,0 +1,103 @@
+{
+  "case": "cancel_unconfirmed",
+  "profile": "cancel_unconfirmed",
+  "started_at": "2026-10-12T00:14:53.658318+00:00",
+  "goal_id": "6b4b445e-e083-43e4-8075-273e1b22abe3",
+  "cancel_ack": {
+    "request_delivered": true,
+    "message": "ROS 已确认接受取消"
+  },
+  "status": "ABORTED",
+  "error_code": 520,
+  "completed_count": 0,
+  "feedback_events": 5,
+  "child_goal_ids": [
+    "81fb0535346b09674eabceba720aaa8c"
+  ],
+  "child_statuses": {
+    "81fb0535346b09674eabceba720aaa8c": [
+      3,
+      6
+    ]
+  },
+  "cancel_not_treated_as_result": true,
+  "fault_blocks_next_goal": true,
+  "ok": true,
+  "stack_exit_code": 0,
+  "cleanup": {
+    "started_at": "2026-10-12T00:14:53.759964+00:00",
+    "namespace": "/cpp_accept_cancel_unconfirmed",
+    "domain_id": 161,
+    "profile": "cancel_unconfirmed",
+    "result_delay_ms": 350,
+    "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+    "processes": [
+      {
+        "label": "pick_place",
+        "pid": 5008,
+        "argv": [
+          "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+          "--ros-args",
+          "-r",
+          "__ns:=/cpp_accept_cancel_unconfirmed",
+          "-r",
+          "/mtc/task/execute:=/cpp_accept_cancel_unconfirmed/task/execute",
+          "-r",
+          "/mtc/manipulation/pick_place:=/cpp_accept_cancel_unconfirmed/manipulation/pick_place",
+          "-p",
+          "mock.result_delay_ms:=350",
+          "-p",
+          "mock.plan_available:=true",
+          "-p",
+          "mock.stop_evidence_available:=false",
+          "-p",
+          "mock.status_unknown:=false"
+        ],
+        "executable": "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+      },
+      {
+        "label": "task",
+        "pid": 5009,
+        "argv": [
+          "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+          "--ros-args",
+          "-r",
+          "__ns:=/cpp_accept_cancel_unconfirmed",
+          "-r",
+          "/mtc/task/execute:=/cpp_accept_cancel_unconfirmed/task/execute",
+          "-r",
+          "/mtc/manipulation/pick_place:=/cpp_accept_cancel_unconfirmed/manipulation/pick_place"
+        ],
+        "executable": "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+      },
+      {
+        "label": "web",
+        "pid": 5046,
+        "argv": [
+          "/usr/bin/python3",
+          "-m",
+          "mtc_webui.server",
+          "--cpp-mock",
+          "--cpp-namespace",
+          "/cpp_accept_cancel_unconfirmed",
+          "--ros-domain-id",
+          "161",
+          "--port",
+          "8767",
+          "--output-dir",
+          "/integration-evidence/acceptance-final/cancel_unconfirmed/stack/web-session"
+        ],
+        "executable": "/usr/bin/python3.12"
+      }
+    ],
+    "returncodes": {
+      "pick_place": 0,
+      "task": 0,
+      "web": 0
+    },
+    "ended_at": "2026-10-12T00:15:00.333681+00:00",
+    "cleanup_ok": true,
+    "exit_code": 0
+  },
+  "ended_at": "2026-10-12T00:15:00.527320+00:00"
+}

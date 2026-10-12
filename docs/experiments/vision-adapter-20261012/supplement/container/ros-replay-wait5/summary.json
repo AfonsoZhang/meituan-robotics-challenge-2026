@@ -1,0 +1,117 @@
+{
+  "started_at": "2026-10-11T17:15:32.435335+00:00",
+  "scope": "Actual installed replay publisher to isolated native Jazzy DDS subscriber; no task goal, camera or motion",
+  "example_sha256": "14eb81f46759d7621ec5233507fb55af531dcd328dc3bee30e1ff9199214b980",
+  "domain": "130",
+  "checks": [
+    {
+      "check": "four_records_received_in_order",
+      "passed": true,
+      "details": {
+        "expected": 4,
+        "actual": 4
+      }
+    },
+    {
+      "check": "unique_native_publisher_type_reliability_durability",
+      "passed": true,
+      "details": [
+        {
+          "node_name": "vision_offline_replay",
+          "namespace": "/",
+          "type": "mtc_interfaces/msg/BatteryDetectionArray",
+          "reliability": "RELIABLE",
+          "history": "UNKNOWN",
+          "depth": 0,
+          "durability": "VOLATILE"
+        }
+      ]
+    },
+    {
+      "check": "timestamp_frame_ids_colors_and_null_to_native_nan",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "all_four_color_enums",
+      "passed": true,
+      "details": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "check": "ring_invalid_and_existing_python_predicate_rejects_actual_candidates",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "replay_completes_without_loop_and_volatile_late_subscriber_has_no_history",
+      "passed": true,
+      "details": {
+        "late_messages": 0,
+        "publisher_remains_idle": true
+      }
+    }
+  ],
+  "negative_inputs": [],
+  "shutdown": [
+    {
+      "name": "valid-replay",
+      "pid": 265,
+      "escalated": false,
+      "already_exited": false,
+      "exit_code": 1
+    }
+  ],
+  "diagnostic": "One bounded rerun with period_s 1 to 5, domain 130; original timestamps/input unchanged; negative mode tests not repeated",
+  "consumer_scope": "Existing Python static candidate predicate only; no actual FSM topic subscription is delivered",
+  "argv": [
+    "ros2",
+    "run",
+    "mtc_vision_adapter",
+    "replay_publisher",
+    "--ros-args",
+    "-p",
+    "input_jsonl:=/candidate/src/mtc_vision_adapter/examples/synthetic.jsonl",
+    "-p",
+    "period_s:=5.0"
+  ],
+  "existing_python_predicate_counterexample": {
+    "ring_pose_valid_forced_true": true,
+    "body_x_is_nan": true,
+    "ring_x_is_nan": true,
+    "old_stamp_sec": 1700000000,
+    "predicate_accepts": true,
+    "scope": "Static predicate only: validates ring flag/confidence, not finite pose/age. Artificial counterexample never published or sent to a task."
+  },
+  "native_array_fields": {
+    "header": "std_msgs/Header",
+    "detections": "sequence<mtc_interfaces/BatteryDetection>"
+  },
+  "native_detection_fields": {
+    "object_id": "string",
+    "color": "uint8",
+    "body_pose": "geometry_msgs/PoseStamped",
+    "ring_pose": "geometry_msgs/PoseStamped",
+    "confidence": "float",
+    "ring_pose_valid": "boolean"
+  },
+  "ended_at": "2026-10-11T17:15:54.768901+00:00",
+  "exceptions": [],
+  "endpoints": [
+    {
+      "node_name": "vision_offline_replay",
+      "namespace": "/",
+      "type": "mtc_interfaces/msg/BatteryDetectionArray",
+      "reliability": "RELIABLE",
+      "history": "UNKNOWN",
+      "depth": 0,
+      "durability": "VOLATILE"
+    }
+  ],
+  "status": "PASS_MESSAGE_CONTRACT",
+  "received_count": 4
+}

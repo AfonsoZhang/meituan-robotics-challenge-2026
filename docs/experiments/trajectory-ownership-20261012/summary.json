@@ -1,0 +1,1922 @@
+{
+  "observation": "ENV-TRAJECTORY-OWNERSHIP-20261012",
+  "recorded_at": "2026-10-11T20:12:06.452873+00:00",
+  "commit": "681bb64bfb8cd482d1e78950cef4cfe395b21bff",
+  "verdict": "PARTIAL: ORIGINAL_FJT_SUITE_TIMEOUT_UNRESOLVED; UNCHANGED_61_CASE_RETRY_PASS; UBSAN_478_PASS; NATIVE_GENERIC_AND_MOVEIT_COEXISTENCE_BLOCKED; FULL_FSM_NOT_ACCEPTED",
+  "formal_baseline_advanced": false,
+  "local_merge_performed": false,
+  "automatic_status": "COMPLETED_WITH_FAILURES",
+  "automatic_summary_complete": true,
+  "build_packages": 15,
+  "cpp_original_xml_passed": 417,
+  "cpp_expected": 478,
+  "fjt_original_timeout_seconds": 120,
+  "ordinary_fjt_retry_cases": 61,
+  "ubsan_cases": 478,
+  "python_cases": 269,
+  "pure_python_mock_e2e": 15,
+  "ros_wiring_cases": 6,
+  "analysis": {
+    "recorded_at": "2026-10-11T20:11:47.471874+00:00",
+    "verdict": "PARTIAL: ORIGINAL_FJT_SUITE_TIMEOUT_UNRESOLVED; UNCHANGED_61_CASE_RETRY_PASS; UBSAN_478_PASS; NATIVE_GENERIC_AND_MOVEIT_COEXISTENCE_BLOCKED; FULL_FSM_NOT_ACCEPTED",
+    "source": {
+      "at": "2026-10-11T20:03:10.461376+00:00",
+      "commit": "681bb64bfb8cd482d1e78950cef4cfe395b21bff",
+      "previous": "45f497ce3444e255463faf41f7b736aa9ad07d7b",
+      "review_base": "45f497ce3444e255463faf41f7b736aa9ad07d7b",
+      "parents": [
+        "b8857de49ec5405812f87887b1407092af7335a5"
+      ],
+      "commit_metadata": "commit 681bb64bfb8cd482d1e78950cef4cfe395b21bff\nAuthor:     meituan_challenge team <team@example.invalid>\nAuthorDate: Mon Oct 12 03:46:16 2026 +0800\nCommit:     meituan_challenge team <team@example.invalid>\nCommitDate: Mon Oct 12 03:46:16 2026 +0800\n\n    docs(motion): record ownership audit and blocked native status gate",
+      "incremental_commits": [
+        "681bb64bfb8cd482d1e78950cef4cfe395b21bff b8857de49ec5405812f87887b1407092af7335a5 docs(motion): record ownership audit and blocked native status gate",
+        "b8857de49ec5405812f87887b1407092af7335a5 45f497ce3444e255463faf41f7b736aa9ad07d7b fix(motion): harden FJT pending-goal ownership and status evidence"
+      ],
+      "changed_files": [
+        "docs/migration/PHASE2B_OWNERSHIP_FINAL_REVIEW.md",
+        "src/mtc_trajectory_execution_cpp/README.md",
+        "src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/execution_state.hpp",
+        "src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp",
+        "src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp",
+        "src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp",
+        "src/mtc_trajectory_execution_cpp/test/verify_results.py"
+      ],
+      "changed_file_inventory": [
+        {
+          "path": "docs/migration/PHASE2B_OWNERSHIP_FINAL_REVIEW.md",
+          "size_bytes": 18628,
+          "sha256": "93b8af7e420645c0f26c6b0dc4db547a008ab862f1bbac4f6ed3c1b49ea34442"
+        },
+        {
+          "path": "src/mtc_trajectory_execution_cpp/README.md",
+          "size_bytes": 16705,
+          "sha256": "28b4f080bf3762c4c73d5d50b69102fecd21e15b986b10a0431365435cb76fc3"
+        },
+        {
+          "path": "src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/execution_state.hpp",
+          "size_bytes": 969,
+          "sha256": "984b44fa0a7939f48caf8658d77d3928d6ef765a3da92e40fe91a6cdc72f8ba0"
+        },
+        {
+          "path": "src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp",
+          "size_bytes": 6412,
+          "sha256": "5b9ac5960943eb59688c7ee833027bad64e0f2cf7bb4fdae52642577de04693f"
+        },
+        {
+          "path": "src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp",
+          "size_bytes": 30806,
+          "sha256": "225b611972c42fd62c314178928bef2de3a6358020daad857ed0068cca4518ca"
+        },
+        {
+          "path": "src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp",
+          "size_bytes": 45361,
+          "sha256": "c3e76300c3d08461c7e5eac490fcad3348c57926f5bab570117fdcc7c6749286"
+        },
+        {
+          "path": "src/mtc_trajectory_execution_cpp/test/verify_results.py",
+          "size_bytes": 4205,
+          "sha256": "323681436cf14f86e0ad84e2a84384da87a403c5b782ebc63e2a824cf2518c19"
+        }
+      ],
+      "fjt_registered_source": [
+        "CompleteTrajectoryOneGoalAndFeedback",
+        "RepeatedTicksNeverResend",
+        "ConcurrentGoalsSingleOwner",
+        "StartMismatchDoesNotSend",
+        "CorrectCancelUsesExactUuid",
+        "CancelBeforeGoalResponsePreserved",
+        "DuplicateCancelOnlyOneBackendCall",
+        "StaleCancelDoesNotAffectNewOwner",
+        "CancelWithoutOwnerNeverGlobalStops",
+        "AckOnlyCannotConfirmStopAndTimeoutLocks",
+        "ExecutionTimeoutLocksAndNeverResends",
+        "ControllerAbortedRemainsFaultLocked",
+        "StaleJointFeedbackLocks",
+        "LostJointUpdatesCannotSettle",
+        "InsufficientStationaryIntervalDoesNotSucceed",
+        "WrongFinalPositionCannotSucceed",
+        "NoAssociatedFeedbackCannotSucceed",
+        "HardwareProofLostLocksAndCancelsOwnedGoal",
+        "WrongPluginRejectsBeforeSend",
+        "InactiveControllerRejectsBeforeSend",
+        "MissingVelocityEvidenceRejectsBeforeSend",
+        "ReplayedJointStampLocks",
+        "GoalRejectionMeansNeverExecuted",
+        "ChangedCommandIdContentCannotResend",
+        "SecondPortCannotOwnEndpoint",
+        "DefaultDisabledNeverSends",
+        "DestroyDuringExecutionOnlyCancelsOwnedGoal",
+        "HistoricalSettlementRequiresFreshCurrentEvidence",
+        "ConcurrentGoalReplacementAndLateCancel",
+        "OtherTrajectoryPublisherRejectsDispatch",
+        "ForeignActionClientRejectsDispatch",
+        "SingleTargetEntryExplicitlyRejected",
+        "StationaryWindowCannotGrowWithoutNewSamples",
+        "ForeignInFlightGoalCannotBePreemptedAfterClientLeaves",
+        "ExistingPickPlaceFsmDelegatesWholeTrajectoryThroughPort",
+        "DirectFsmCancelKeepsOriginalFaultWhenStopIsStillPending",
+        "CompletedGoalSameIdSameContentReturnsCachedResult",
+        "CompletedGoalSameIdDifferentTrajectoryRejected",
+        "CompletedGoalSameIdDifferentTimeoutRejected",
+        "CompletedGoalSameIdDifferentSafetySemanticsRejected",
+        "CompletedGoalIdentityMismatchNeverSendsAgain",
+        "InFlightIdentityIncludesOriginalOrderAndIntentPose",
+        "CompletedIdentityPreservesEveryOriginalTrajectoryField",
+        "FaultedIdentityMismatchPreservesLockAndResult",
+        "MonotonicPlannerStampCannotBecomeRosScheduledStart",
+        "PastPlannerGenerationStampDoesNotDispatch",
+        "NoStatusBeforeDispatchFailsClosed",
+        "StatusBeforeGoalResponsePreservesOwnership",
+        "ForeignGoalBeforeOwnGoalRejected",
+        "GoalResponseBeforeStatusMatchesUuid",
+        "ForeignGoalDuringPendingResponseFailsClosed",
+        "CancelBeforeGoalResponseUsesOwnedUuidOnly",
+        "HistoricalTerminalStatusDoesNotBecomeActive",
+        "StatusEvidenceLossDoesNotAuthorizeDispatch",
+        "LateResultDoesNotReleaseFaultLock",
+        "NormalFakeTrajectoryStillExecutesOnce",
+        "LatchedEmptyStatusCannotAuthorizeDispatch",
+        "InvalidStatusDoesNotAuthorizeDispatch",
+        "PendingResponseTimeoutRetainsSessionAndLateHandle",
+        "RejectedResponseAfterUnknownStatusKeepsFaultLock",
+        "TerminalResultBeforeStatusDoesNotAuthorizeSuccessor"
+      ],
+      "new_tests": [
+        "CancelBeforeGoalResponseUsesOwnedUuidOnly",
+        "ForeignGoalBeforeOwnGoalRejected",
+        "ForeignGoalDuringPendingResponseFailsClosed",
+        "GoalResponseBeforeStatusMatchesUuid",
+        "HistoricalTerminalStatusDoesNotBecomeActive",
+        "InvalidStatusDoesNotAuthorizeDispatch",
+        "LatchedEmptyStatusCannotAuthorizeDispatch",
+        "LateResultDoesNotReleaseFaultLock",
+        "NoStatusBeforeDispatchFailsClosed",
+        "NormalFakeTrajectoryStillExecutesOnce",
+        "PendingResponseTimeoutRetainsSessionAndLateHandle",
+        "RejectedResponseAfterUnknownStatusKeepsFaultLock",
+        "StatusBeforeGoalResponsePreservesOwnership",
+        "StatusEvidenceLossDoesNotAuthorizeDispatch",
+        "TerminalResultBeforeStatusDoesNotAuthorizeSuccessor"
+      ],
+      "unchanged": [
+        "Core FSM",
+        "ROSIDL",
+        "Action servers",
+        "Planner",
+        "driver configuration"
+      ],
+      "changes": "Remove count==1 inferred ownership; require valid live Status with bounded local receive age (VOLATILE); retain pending UUIDs, exact handle comparison and fault lock; result-before-status successor gate; 15 controlled DDS status tests; probe diagnostics; verifier source/registration/XML comparison.",
+      "scope": "Controlled test status heartbeat/remap is fixture only; native GenericSystem supplies no initial live status. No strict cross-process lock/absolute freshness proof. Snapshot ABI changed: consumers require rebuilding. Default PickPlace remains MockPlanner/AsyncMockMotion, Task integration not covered.",
+      "source_modified": false,
+      "formal_baseline_advanced": false,
+      "local_merge_performed": false,
+      "observed_refs": [
+        "refs/heads/feature/phase2b-trajectory-execution",
+        "refs/pull/7/head"
+      ]
+    },
+    "automatic": {
+      "counts": {
+        "at": "2026-10-11T20:03:10.492042+00:00",
+        "original_files_verified": 317,
+        "original_index_sha256": "66febdf256552153bef70f9c6d30e5daa3116d4df3cc3527280021f5cedce539",
+        "source_bundle_sha256": "19f5746b7ba4c67d143ead32ddef95f229ae11a85c5bc532e67138e19c1f226d",
+        "summary_complete": true,
+        "summary_steps": 25,
+        "failed_steps": [
+          "dependencies",
+          "colcon-test",
+          "test-results",
+          "cpp-audit",
+          "actual-task-mock",
+          "driver-rosdep",
+          "driver-tests",
+          "driver-test-results",
+          "moveit-plan-execute"
+        ],
+        "build_packages": 15,
+        "cpp_xml_passed": 417,
+        "cpp_by_package": {
+          "mtc_core_cpp": 23,
+          "mtc_manipulation_cpp": 120,
+          "mtc_motion_execution_cpp": 88,
+          "mtc_moveit_planner": 29,
+          "mtc_ros2_action_cpp": 40,
+          "mtc_task_cpp": 87,
+          "mtc_trajectory_execution_cpp": 30
+        },
+        "cpp_xml": [
+          {
+            "path": "container/test-results/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml",
+            "package": "mtc_core_cpp",
+            "passed_cases": [
+              "CoreErrorCodes.ValuesMatchFrozenInterfaceNumbers",
+              "CoreErrorCodes.NameOfKnownAndUnknown",
+              "CoreToolState.EvidenceLevelIsOrdered",
+              "CoreToolState.NamesAreStable",
+              "CorePose.FullSixDofIsPreserved",
+              "CorePose.MissingFrameIdIsNotUsable",
+              "CorePose.UnnormalizedQuaternionIsNotUsable",
+              "CorePose.InvalidFlagBlocksUsability",
+              "CorePose.PoseEstimateRequiresBothFlagAndUsablePose",
+              "CoreResults.DetectionOkRequiresAllConditions",
+              "CoreResults.MotionResultRequiresBothSuccessAndArrived",
+              "CoreResults.StopResultSeparatesDeliveryFromConfirmation",
+              "CoreMotionCommand.ShapeValidation",
+              "CoreMotionPrimitive.EqualityIncludesContactFlag",
+              "CoreTimedTrajectory.ShapeValidationAndDuration",
+              "CoreTimedTrajectory.RejectsNonMonotonicTime",
+              "CoreTimedTrajectory.RejectsDimensionMismatch",
+              "CoreTimedTrajectory.RejectsEmptyOrDuplicateJointNames",
+              "CoreClock.ManualClockIsDeterministic",
+              "CoreExecState.StringMappingIsStable",
+              "CoreAudit.PoseRejectsNonFinitePositionStampAndQuaternion",
+              "CoreAudit.TrajectoryRejectsNonFiniteFieldsAndNegativeTimes"
+            ],
+            "root_attributes": {
+              "tests": "22",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.",
+              "timestamp": "2026-10-11T19:54:44.278",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml",
+            "package": "mtc_core_cpp",
+            "passed_cases": [
+              "ErrorCodesMsgParity.ConstantsMatchInterfacesMsg"
+            ],
+            "root_attributes": {
+              "tests": "1",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.",
+              "timestamp": "2026-10-11T19:54:44.349",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_audit.gtest.xml",
+            "package": "mtc_manipulation_cpp",
+            "passed_cases": [
+              "PlacementAudit.NewFramesMustCoverFullThreeSeconds",
+              "PlacementAudit.FrozenTimestampCannotSucceedForFiveSeconds",
+              "PlacementAudit.InvalidOrStaleFrameInterruptsWindow",
+              "PlacementAudit.PerceptionStopsUpdatingCannotAccumulateTime",
+              "PlacementAudit.FutureBackwardsAndNonFiniteStampsInterrupt",
+              "PlacementAudit.GapBetweenFreshFramesInterruptsContinuity",
+              "PlanningAudit.NonZeroPlannerTargetsAndFullPoseReachAdapter",
+              "PlanningAudit.MissingOutputDoesNotReachMockAdapter",
+              "PlanningAudit.WholeTimedTrajectoryIsNeverSplit",
+              "PlanningAudit.MalformedPlanCannotExecute",
+              "CommandIdAudit.LongAndRepeatedRequestsRemainUniqueAcrossInstances",
+              "WatchdogAudit.LoadedContextCannotRecoverAndFaultCannotRestart",
+              "WatchdogAudit.InvalidStabilityNeverStartsMotion",
+              "PlacementGate.ZeroStabilityRejectedBeforeFirstFrame",
+              "PlacementGate.PositiveWindowNeedsTwoDistinctObservations",
+              "PlacementGate.InvalidConfiguredStabilityNeverStartsMotion"
+            ],
+            "root_attributes": {
+              "tests": "16",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.006",
+              "timestamp": "2026-10-11T19:54:50.571",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v1.gtest.xml",
+            "package": "mtc_manipulation_cpp",
+            "passed_cases": [
+              "PickPlaceV1.HappyPathReachesSuccess",
+              "PickPlaceV1.StateSequenceMatchesDesignOrder",
+              "PickPlaceV1.MotionCommandSequenceUsesOnlyNonToolPrimitives",
+              "PickPlaceV1.NoElectromagneticActionAtAll",
+              "PickPlaceV1.ToolPrimitivesAreRecordedInOrder",
+              "PickPlaceV1.CommandIdsAreUnique",
+              "PickPlaceV1.StabilityWindowIsActuallyElapsed",
+              "PickPlaceV1.ProgressReachesOneAtSuccess",
+              "PickPlaceV1.PlannerReceivesBothPhasesExactlyOnce",
+              "PickPlaceV1.PlacementVerificationSkipsColorCheck",
+              "PickPlaceV1.RunWithZeroTickDoesNotSucceedWithoutTime",
+              "PickPlaceV1.StepUntilTerminalReachesFailedOnPerceptionFailure",
+              "PickPlaceV1.ReadyToRunStatesAreReachedWithoutMotionOnPerceptionFailure"
+            ],
+            "root_attributes": {
+              "tests": "13",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.003",
+              "timestamp": "2026-10-11T19:54:50.341",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v2.gtest.xml",
+            "package": "mtc_manipulation_cpp",
+            "passed_cases": [
+              "PickPlaceV2.HappyPathReachesSuccessAndUnlocksOnce",
+              "PickPlaceV2.DifferencesAreConfinedToEngageAndDisengage",
+              "PickPlaceV2.MotionPrimitivesDifferFromV1OnlyInAcquireAndEngage",
+              "PickPlaceV2.UnlockPulseUsesStrategyConfiguration",
+              "PickPlaceV2.StateSequenceMatchesV1Pipeline",
+              "PickPlaceV2Interlock.NoUnlockWhenSeatNotVerified",
+              "PickPlaceV2Interlock.NoUnlockWhenUnloadNotVerified",
+              "PickPlaceV2Interlock.StrategyRefusalBlocksUnlockIoEntirely",
+              "PickPlaceV2Interlock.RedundantInterlocksAreUnreachableButPresent",
+              "PickPlaceV2Interlock.UnlockHappensOnlyInsideDisengageAfterUnload",
+              "PickPlaceV2Interlock.UnlockFailureGoesToFaultAndDoesNotRetreat",
+              "PickPlaceV2Interlock.AcceptedPulseWithoutReleaseIsStillFailure",
+              "PickPlaceV2Interlock.DisengageReleaseUnknownGoesToFaultAndDoesNotRetreat",
+              "PickPlaceV2Interlock.UnlockNeverHappensBeforeConfirmedPlacement"
+            ],
+            "root_attributes": {
+              "tests": "14",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.004",
+              "timestamp": "2026-10-11T19:54:50.414",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_safety.gtest.xml",
+            "package": "mtc_manipulation_cpp",
+            "passed_cases": [
+              "PickPlaceSafety.PlacementVerifiedCannotBeWrittenOutsideVerifyPlaced",
+              "PickPlaceSafety.PlacementVerifiedOnlyTrueAfterSuccessfulVerifyPlaced",
+              "PickPlaceSafety.TargetNotFoundIsRecoverableThenFails",
+              "PickPlaceSafety.NonUniqueTargetIsRejected",
+              "PickPlaceSafety.StalePoseIsRejectedWithPoseStale",
+              "PickPlaceSafety.InvalidRingPoseBlocksMotion",
+              "PickPlaceSafety.UnknownColorIsRejectedEvenWhenExpected",
+              "PickPlaceSafety.ColorMismatchIsRejectedToPreventWrongPick",
+              "PickPlaceSafety.PlanningFailureIsRecoverable",
+              "PickPlaceSafety.TransportPlanningFailureGoesToFaultAfterAttachment",
+              "PickPlaceSafety.NonMotionStateTimeoutReportsMotionTimeout",
+              "PickPlaceSafety.MotionInFlightTimeoutGoesToFault230AndLocksResend",
+              "PickPlaceSafety.NoTimeoutBeforeDeadline",
+              "PickPlaceSafety.MotionStatusUnknownLocksAndDoesNotResend",
+              "PickPlaceSafety.MotionTimeoutLocksAndDoesNotResend",
+              "PickPlaceSafety.InFlightCommandIsReusedNeverResent",
+              "PickPlaceSafety.ProgressIsNotBlockedByInFlightPorts",
+              "PickPlaceSafety.EngageFailureGoesToEngageFailed300",
+              "PickPlaceSafety.InsufficientEngageEvidenceIsRejected",
+              "PickPlaceSafety.UnexpectedToolStateAfterEngageIsHardwareFault",
+              "PickPlaceSafety.AttachNotVerifiedBlocksLiftAndTransport",
+              "PickPlaceSafety.VisionFollowCanCompensateForWeakEvidence",
+              "PickPlaceSafety.TestLiftFailureIsReported",
+              "PickPlaceSafety.HoldingStateBlocksAutomaticRetry",
+              "PickPlaceSafety.UnknownHoldingStateIsConservative",
+              "PickPlaceSafety.SeatNotVerifiedBlocksUnload",
+              "PickPlaceSafety.PlacementNotAtTargetFailsAfterWindow",
+              "PickPlaceSafety.PlacementStaleSampleResetsStabilityTimer",
+              "PickPlaceSafety.PlacementNotSettledPreventsSuccess",
+              "PickPlaceSafety.PlacementFoundFalsePreventsSuccess",
+              "PickPlaceSafety.VerifyPlacementDisabledNeverClaimsSuccess",
+              "PickPlaceSafety.SuccessRequiresFullStabilityWindow",
+              "PickPlaceSafety.CancelWithConfirmedStopReachesCancelled",
+              "PickPlaceSafety.CancelWithoutStopConfirmationGoesToFault520",
+              "PickPlaceSafety.CancelNeverReachesCancelledWithoutConfirmation",
+              "PickPlaceSafety.RequestStopIsCalledAtMostOnce",
+              "PickPlaceSafety.CancelInTerminalStateIsIgnored",
+              "PickPlaceSafety.CancelDuringMotionStillRequiresConfirmation",
+              "PickPlaceSafety.RecoveryRetriesThenFails",
+              "PickPlaceSafety.RecoveryIsRefusedWhenMotionResendDisallowed",
+              "PickPlaceAudit.RepeatedFrameForFiveSecondsCannotSucceed",
+              "PickPlaceAudit.MissingPlanOutputNeverExecutesZeroTarget"
+            ],
+            "root_attributes": {
+              "tests": "42",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.006",
+              "timestamp": "2026-10-11T19:54:50.486",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_tables.gtest.xml",
+            "package": "mtc_manipulation_cpp",
+            "passed_cases": [
+              "PickPlaceTables.VerifyTablesReportsNoProblem",
+              "PickPlaceTables.EveryStateHasHandler",
+              "PickPlaceTables.StateNamesMatchPythonValues",
+              "PickPlaceTables.PipelineMatchesDesignOrder",
+              "PickPlaceTables.TerminalAndMotionInFlightSets",
+              "PickPlaceTables.DefaultTimeoutsCoverMotionStates",
+              "PickPlaceStart.IllegalTargetSlotFailsImmediatelyWithInvalidTask",
+              "PickPlaceStart.AllowedSlotsAreAccepted",
+              "PickPlaceStart.ToolTypeMismatchThrows",
+              "PickPlaceStart.RequiredConfigFieldsAreRecorded",
+              "PickPlaceStart.ConfigStabilityUsedWhenGoalOmitsIt",
+              "PickPlaceStart.PlacementVerifiedStartsFalseAndIsReadOnly",
+              "PickPlaceStart.MotionResendAllowedStartsTrue",
+              "PickPlaceFeedback.FeedbackCarriesSubstateAndProgress",
+              "PickPlaceFeedback.ProgressReachesOneOnlyAtSuccess",
+              "PickPlaceFeedback.StateHistoryRecordsEnteredStates",
+              "PickPlaceFeedback.EventCallbackReceivesStateEntered",
+              "PickPlaceFeedback.CallbackExceptionDoesNotBreakSequencing",
+              "PickPlaceTerminal.StepAtTerminalIsIdempotent",
+              "PickPlaceTerminal.ForceFaultOnTerminalKeepsOriginalState"
+            ],
+            "root_attributes": {
+              "tests": "20",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.",
+              "timestamp": "2026-10-11T19:54:50.208",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_tool_strategy.gtest.xml",
+            "package": "mtc_manipulation_cpp",
+            "passed_cases": [
+              "ToolStrategyV1.TypeAndPrimitives",
+              "ToolStrategyV1.SharedPrimitives",
+              "ToolStrategyV1.ContactPrimitivesAreMarkedAndSlow",
+              "ToolStrategyV1.PrimitivePreservesSixDofTargetPose",
+              "ToolStrategyV1.NoUnlockPulseAndNoIoChannels",
+              "ToolStrategyV2.TypeAndPrimitives",
+              "ToolStrategyV2.RequiresUnlockAndDeclaresIoChannel",
+              "ToolStrategyV2.UnlockRejectedWhenSeatNotVerified",
+              "ToolStrategyV2.UnlockRejectedWhenNotUnloaded",
+              "ToolStrategyV2.UnlockAllowedOnlyWhenBothConditionsHold",
+              "ToolStrategyV2.SeatedFalseUnloadedFalseStillRejectsSeatedFirst",
+              "ToolStrategyFactory.CreatesBothGenerations",
+              "ToolStrategyFactory.UnknownTypeThrows",
+              "ToolStrategyFactory.EmptyStringThrows",
+              "ToolStrategy.PrimitiveWithoutUsableRingPoseHasNoTargetPose"
+            ],
+            "root_attributes": {
+              "tests": "15",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.",
+              "timestamp": "2026-10-11T19:54:50.276",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_concurrency.gtest.xml",
+            "package": "mtc_motion_execution_cpp",
+            "passed_cases": [
+              "GoalCancelGate.StaleGoalCancelDoesNotCallBackend",
+              "GoalCancelGate.StaleGoalCancelPreservesCurrentOwner",
+              "GoalCancelGate.StaleGoalCancelDoesNotModifyExecutionState",
+              "GoalCancelGate.StaleGoalCancelCannotInterruptNewGoal",
+              "GoalCancelGate.MatchingGoalCancelStillWorks",
+              "GoalCancelGate.ConcurrentGoalReplacementAndLateCancel",
+              "GoalCancelGate.SupervisoryStopStillStopsCurrentGoal",
+              "GoalCancelGate.EmptyOrUnknownGoalIdHasNoSideEffect",
+              "GoalCancelGate.CompletedGoalCancelCannotStopLaterCompletedGoal",
+              "GoalCancelGate.CancelRacingBackendDispatchRemainsSticky",
+              "ExecutorConcurrency.SixteenThreadsHaveOneOwner",
+              "ExecutorConcurrency.GoalsAndStopRespondWhileExecutionWaits",
+              "ExecutorConcurrency.DuplicateStopsAndLateResultCannotUnlock",
+              "ExecutorConcurrency.ConfirmedStopRetainsOwnerUntilResultDrains",
+              "ExecutorConcurrency.InvalidEvidenceCannotConfirmStop",
+              "ExecutorConcurrency.OldGoalCancelCannotReplaceNewOwner"
+            ],
+            "root_attributes": {
+              "tests": "16",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.014",
+              "timestamp": "2026-10-11T19:54:47.427",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_core.gtest.xml",
+            "package": "mtc_motion_execution_cpp",
+            "passed_cases": [
+              "ExecutorCore.SuccessfulMoveGoesThroughSevenStepHandshake",
+              "ExecutorCore.CapabilitiesAreForwardedFromAdapter",
+              "ExecutorCore.ValidationFailureRejectsWithoutStartingMotion",
+              "ExecutorCore.ConcurrentGoalDuringMotionIsRejected",
+              "ExecutorCore.StatusUnknownLocksSubsequentRequests",
+              "ExecutorCore.ManualConfirmationClearsUnknownLock",
+              "ExecutorCore.BackendExceptionIsTreatedAsUnknownState",
+              "ExecutorCore.TimeoutMarksStateUnknown",
+              "ExecutorCore.BackendRejectionPropagatesRejectedStateAllowingResend",
+              "ExecutorCore.StopWithoutInFlightIsConfirmed",
+              "ExecutorCore.StopDeliveryIsNotConfirmationWhenBackendCannotConfirm",
+              "ExecutorCore.UnsupportedCancelNeverFabricatesStopConfirmed",
+              "ExecutorCore.StopAfterUnknownStateIsNeverConfirmed",
+              "ExecutorCore.SnapshotReflectsInternalState",
+              "ExecutorAudit.DeliveryWithoutEvidenceAndWithoutCommandNeverConfirms",
+              "ExecutorAudit.TimeoutWithoutUnknownFlagStillLocks",
+              "ExecutorAudit.CompletedCommandIdCannotExecuteTwice",
+              "ExecutorAudit.CancelBeforeBackendDispatchIsSticky"
+            ],
+            "root_attributes": {
+              "tests": "18",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.001",
+              "timestamp": "2026-10-11T19:54:47.348",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_in_flight_guard.gtest.xml",
+            "package": "mtc_motion_execution_cpp",
+            "passed_cases": [
+              "InFlightGuard.AcquireSucceedsWhenFree",
+              "InFlightGuard.SecondAcquireIsRejectedWithInFlightId",
+              "InFlightGuard.EmptyCommandIdRejected",
+              "InFlightGuard.ReleaseOnlyByOwner",
+              "InFlightGuard.ForceReleaseIsAvailableForManualRecovery",
+              "InFlightGuard.SequentialCommandsAreAllowed"
+            ],
+            "root_attributes": {
+              "tests": "6",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.",
+              "timestamp": "2026-10-11T19:54:47.143",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_mock_adapter.gtest.xml",
+            "package": "mtc_motion_execution_cpp",
+            "passed_cases": [
+              "MockClockGate.MockDefaultClockExecutionContract",
+              "MockClockGate.MockSharedManualClockSettlementSucceeds",
+              "MockClockGate.MockInsufficientStationaryIntervalRejected",
+              "MockClockGate.TinyPositiveSettleDurationCannotConfirmZeroInterval",
+              "MockClockGate.MockExecutorClockMismatchRejected",
+              "MockClockGate.ExplicitRealTimeOrInvalidMockClockIsRejected",
+              "MockClockGate.VirtualClockCannotAuthorizeExecutableBackend",
+              "MockClockGate.StaleFeedbackCannotConfirmStop",
+              "GoalCancelGate.AdapterScopedCancelCannotStopDifferentOwner",
+              "MockAudit.VirtualSettlementStartsAfterArrivalAndRejectsInvalidTravel",
+              "MockAdapter.CapabilitiesAreDeclaredExplicitly",
+              "MockAdapter.SuccessfulMoveSettlesAndConfirmsStop",
+              "MockAdapter.RejectedRequestAllowsImmediateResend",
+              "MockAdapter.SecondCommandWhileInFlightIsRejected",
+              "MockAdapter.TimeoutIsReportedAndBlocksAutoResend",
+              "MockAdapter.StatusUnknownLocksAndBlocksAutoResend",
+              "MockAdapter.FailAtStatusUnknownIsEquivalent",
+              "MockAdapter.StopWithoutInFlightIsConfirmedAndReported",
+              "MockAdapter.StopWithInFlightAndConfirmationSucceeds",
+              "MockAdapter.CancelWithoutConfirmationDoesNotClaimStopped",
+              "MockAdapter.StopConfirmationFlagIsExposedSeparately",
+              "MockAdapter.TrajectoryIsRejectedAndNotSplitIntoJointMoves",
+              "MockAdapter.TrajectoryAcceptedWhenCapabilityDeclared",
+              "MockAdapter.BaseClassDefaultTrajectoryRejectsWithoutSplitting",
+              "DisabledAdapter.AlwaysRejectsAndNeverClaimsCapability",
+              "AdapterFactory.UnknownBackendFallsBackToDisabled",
+              "AdapterFactory.MockBackendIsCaseInsensitive"
+            ],
+            "root_attributes": {
+              "tests": "27",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.001",
+              "timestamp": "2026-10-11T19:54:47.276",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_validation.gtest.xml",
+            "package": "mtc_motion_execution_cpp",
+            "passed_cases": [
+              "Validation.ValidCommandPasses",
+              "Validation.MissingJointGoalCapabilityRejected",
+              "Validation.DimensionMismatchRejected",
+              "Validation.EmptyJointNamesRejected",
+              "Validation.DuplicateJointNamesRejected",
+              "Validation.JointOrderMustMatchConfiguration",
+              "Validation.EmptyExpectedNamesSkipsOrderCheck",
+              "Validation.ZeroTimeoutRejected",
+              "Validation.VelocityScalingAboveLimitIsSafetyInterlock",
+              "Validation.ZeroOrNegativeVelocityScalingRejected",
+              "Validation.AccelerationScalingAboveLimitIsSafetyInterlock",
+              "Validation.JointLimitsAreEnforced",
+              "Validation.JointLimitDimensionMismatchRejected",
+              "ValidationTrajectory.UnsupportedBackendIsRejectedNotDowngraded",
+              "ValidationTrajectory.SupportedBackendAcceptsValidTrajectory",
+              "ValidationTrajectory.InvalidShapeRejected",
+              "ValidationTrajectory.JointOrderMustMatchConfiguration",
+              "ValidationTrajectory.JointLimitsEnforcedOnEveryPoint",
+              "ValidationAudit.NonFiniteTargetsRejectedWithoutLimits",
+              "ValidationAudit.ExecutableBackendRequiresLimitsAndRejectsFakePlan",
+              "ValidationAudit.TrajectoryRejectsExcessiveDynamicsAndInvalidLimits"
+            ],
+            "root_attributes": {
+              "tests": "21",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.",
+              "timestamp": "2026-10-11T19:54:47.207",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_moveit_planner/test_results/mtc_moveit_planner/test_fsm_accepts_planner_output.gtest.xml",
+            "package": "mtc_moveit_planner",
+            "passed_cases": [
+              "FsmAcceptsPlannerOutput.V1SingleBatteryToT0Synchronous",
+              "FsmAcceptsPlannerOutput.V2SingleBatteryToT0Synchronous",
+              "FsmAcceptsPlannerOutput.V1AsynchronousPlanningWithinPlanAcquireWatchdog",
+              "FsmAcceptsPlannerOutput.PlanningFailureStopsBeforeAnyMotion"
+            ],
+            "root_attributes": {
+              "tests": "4",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.356",
+              "timestamp": "2026-10-11T19:54:51.029",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_moveit_planner/test_results/mtc_moveit_planner/test_moveit_planner_port.gtest.xml",
+            "package": "mtc_moveit_planner",
+            "passed_cases": [
+              "MoveItPlannerPort.V1AcquireReturnsOneFullTrajectoryPerPrimitive",
+              "MoveItPlannerPort.AcquireGeometryStandoffEngageGapAndTestLift",
+              "MoveItPlannerPort.V2TopInsertIsPlanned",
+              "MoveItPlannerPort.TransportPhaseUsesSlotAndChainsStates",
+              "MoveItPlannerPort.AnyPrimitiveFailureFailsWholePlan",
+              "MoveItPlannerPort.ToolOwnedPrimitiveIsRefused",
+              "MoveItPlannerPort.UnknownSlotIsRefused",
+              "MoveItPlannerPort.UntransformableFrameIsRefusedWithoutCopyingXyz",
+              "MoveItPlannerPort.MissingRingPoseIsRefused",
+              "MoveItPlannerPort.NoRobotStateIsRefused",
+              "MoveItPlannerPort.TrajectoryLongerThanStateWatchdogIsRefused",
+              "MoveItPlannerPort.StartMismatchAndMissingJointAreRefused",
+              "MoveItPlannerPort.TighterControllerJointLimitsAreEnforced",
+              "MoveItPlannerPort.ScalingAboveExecutorCapIsRefused",
+              "MoveItPlannerPort.CalibrationGate",
+              "MoveItPlannerPort.AsyncReturnsNulloptUntilDoneAndNeverDuplicatesWork"
+            ],
+            "root_attributes": {
+              "tests": "16",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.07",
+              "timestamp": "2026-10-11T19:54:50.890",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_moveit_planner/test_results/mtc_moveit_planner/test_pose_math.gtest.xml",
+            "package": "mtc_moveit_planner",
+            "passed_cases": [
+              "PoseMath.RotateAboutZ",
+              "PoseMath.ComposeWithInverseIsIdentity",
+              "PoseMath.OffsetAlongLocalAxisFollowsOrientation",
+              "PoseMath.TcpCompensationRoundTrip",
+              "PoseMath.TranslateInFrameKeepsOrientation"
+            ],
+            "root_attributes": {
+              "tests": "5",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.",
+              "timestamp": "2026-10-11T19:54:50.716",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_moveit_planner/test_results/mtc_moveit_planner/test_trajectory_conversion.gtest.xml",
+            "package": "mtc_moveit_planner",
+            "passed_cases": [
+              "TrajectoryConversion.ReordersByNameNotIndex",
+              "TrajectoryConversion.RejectsMissingExtraOrDuplicateJoints",
+              "TrajectoryConversion.RejectsInvalidShapes",
+              "TrajectoryConversion.StretchTimeKeepsPathAndScalesDerivatives"
+            ],
+            "root_attributes": {
+              "tests": "4",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.",
+              "timestamp": "2026-10-11T19:54:50.817",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml",
+            "package": "mtc_ros2_action_cpp",
+            "passed_cases": [
+              "ActionContracts.TaskConversionPreservesColorOrderIdentityAndDeadline",
+              "ActionContracts.RosFloatBoundaryDoesNotRelaxCoreUpperLimit",
+              "ActionContracts.MockPlannerPreservesSixDPoseFrameStampAndContactConstraints",
+              "ActionContracts.MockLoadEvidenceRemainsHoldingUntilVerifiedRelease",
+              "ActionContracts.MockFailedReleaseNeverReportsNoLoad",
+              "ActionContracts.TestLiftRequiresPriorSimulatedAttachmentEvidence",
+              "ActionContracts.TrajectoryBridgeRefusesAndNeverSplitsIntoJointMoves",
+              "ActionContracts.UnsupportedTrajectoryAndCartesianCapabilitiesCannotBeEnabled"
+            ],
+            "root_attributes": {
+              "tests": "8",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.",
+              "timestamp": "2026-10-11T19:55:09.341",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml",
+            "package": "mtc_ros2_action_cpp",
+            "passed_cases": [
+              "MotionAction.LegalNonzeroGoalAndFeedbackUseExecutorResult",
+              "MotionAction.IllegalGoalRejectedWithoutBackendCall",
+              "MotionAction.ConcurrentGoalIsRejectedAndFirstCompletes",
+              "MotionAction.MatchingCancelStopsExactlyOnce",
+              "MotionAction.UnconfirmedCancelAborts520AndLocks",
+              "MotionAction.StaleCancelCannotReachBackendOrInterruptNewOwner",
+              "MotionAction.ExecutorTimeoutKeepsOriginal220AndRejectsNewMotion",
+              "MotionAction.RosDeadlineIndependentlyRequestsAssociatedStop"
+            ],
+            "root_attributes": {
+              "tests": "8",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "1.597",
+              "timestamp": "2026-10-11T19:55:07.556",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml",
+            "package": "mtc_ros2_action_cpp",
+            "passed_cases": [
+              "PickAction.LegalGoalSucceedsOnlyAfterPlacementFeedback",
+              "PickAction.InvalidParametersRejectedBeforeExecution",
+              "PickAction.ConcurrentSecondGoalRejected",
+              "PickAction.MatchingCancelRequiresIndependentStationaryEvidence",
+              "PickAction.CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked",
+              "PickAction.StaleGoalCancelCannotInterruptNewGoal",
+              "PickAction.MotionStatusUnknownNeverResendsOrAutoClearsFault",
+              "PickAction.MissingPlanNeverSucceeds",
+              "PickAction.ConcurrentRosRequestsHaveExactlyOneOwner",
+              "PickAction.InFlightWatchdogFaultStillDrainsAssociatedStopWorker",
+              "PickAction.CancelWhileCarryingStopsButKeepsLoadAdmissionLocked",
+              "PickAction.UnverifiedAttachmentLoadCannotBeClearedByNewGoal"
+            ],
+            "root_attributes": {
+              "tests": "12",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "7.278",
+              "timestamp": "2026-10-11T19:54:51.562",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml",
+            "package": "mtc_ros2_action_cpp",
+            "passed_cases": [
+              "TaskAction.BasicTaskUsesRealChildActionAndRecordsT0",
+              "TaskAction.SequenceTaskRecordsAllSlotsInOrder",
+              "TaskAction.InvalidColorsAndConcurrentTaskRejected",
+              "TaskAction.CancelAckWaitsForChildFinalStopResult",
+              "TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent",
+              "TaskAction.ChildStatusUnknownPropagatesOriginalError",
+              "TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess",
+              "TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild",
+              "TaskAction.MissingChildNeverFabricatesTaskSuccess",
+              "TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent",
+              "TaskAction.StaleParentCancelCannotReachNewChild",
+              "TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded"
+            ],
+            "root_attributes": {
+              "tests": "12",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "8.322",
+              "timestamp": "2026-10-11T19:54:59.041",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_core.gtest.xml",
+            "package": "mtc_task_cpp",
+            "passed_cases": [
+              "TaskFsmTables.VerifyTablesReportsNoProblem",
+              "TaskFsmTables.AllStatesHaveEntryActionAndTimeout",
+              "TaskFsmTables.EveryActiveStateRegistersConcurrentGoalRejection",
+              "TaskFsmBoot.InitToSelfCheckToWaitTask",
+              "TaskFsmBoot.SelfCheckFailureGoesToFaultWithStopAndLock",
+              "TaskFsmBoot.InitTimeoutGoesToFault",
+              "TaskFsmBoot.NoTimeoutBeforeDeadline",
+              "TaskFsmBasic.FullHappyPathReachesFinished",
+              "TaskFsmBasic.SuccessRequiresPlacementVerified",
+              "TaskFsmBasic.TargetFoundWithoutObjectIdIsRejected",
+              "TaskFsmBasic.ExpectedColorMismatchIsRejected",
+              "TaskFsmBasic.ItemResultIgnoredOutsideExecuteItem",
+              "TaskFsmSequence.ThreeItemsCompleteInSlotOrder",
+              "TaskFsmSequence.InvalidSequenceFailsWithoutGuessing",
+              "TaskFsmSequence.DuplicateSlotIsNotRecordedTwice",
+              "TaskFsmReset.ResetFromFinishedClearsTaskContext",
+              "TaskFsmReset.ResetAllowedFromTaskFailedAndCancelled",
+              "TaskFsmSnapshot.SnapshotCarriesTaskAndProgress",
+              "TaskFsmSnapshot.EveryStepPublishesState",
+              "TaskFsmSnapshot.TransitionLogRecordsPath",
+              "TaskFsmSnapshot.UnknownEventIsIgnoredNotFatal"
+            ],
+            "root_attributes": {
+              "tests": "21",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.001",
+              "timestamp": "2026-10-11T19:54:48.783",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_safety.gtest.xml",
+            "package": "mtc_task_cpp",
+            "passed_cases": [
+              "TaskFsmConcurrency.SecondGoalRejectedInEveryActiveState",
+              "TaskFsmConcurrency.MissingGoalPayloadRejected",
+              "TaskFsmConcurrency.UnparsableGoalRejected",
+              "TaskFsmConcurrency.EmptyTaskIdRejected",
+              "TaskFsmConcurrency.RejectionDoesNotQueueSecondGoal",
+              "TaskFsmTimeout.WaitTaskAndTerminalStatesHaveNoTimeout",
+              "TaskFsmTimeout.ValidateTaskTimeoutGoesToTaskFailedWithInvalidTask",
+              "TaskFsmTimeout.ScanSceneTimeoutGoesToRecoveryWithTargetNotFound",
+              "TaskFsmTimeout.ExecuteItemTimeoutGoesToFaultAndDoesNotAutoResend",
+              "TaskFsmTimeout.RecordResultTimeoutMapsToPlacementFailed",
+              "TaskFsmTimeout.RecoveryTimeoutGoesToTaskFailed",
+              "TaskFsmTimeout.CustomTimeoutsAreInjectible",
+              "TaskFsmTimeout.TimeoutTimerResetsOnEffectiveProgress",
+              "TaskFsmDeadline.DeadlineExceededGoesToFaultWithMotionTimeout",
+              "TaskFsmDeadline.NoDeadlineWithoutActiveTask",
+              "TaskFsmDeadline.ElapsedTaskTimeTracksInProgressTask",
+              "TaskFsmCancel.CancelFromScanSceneEntersCancelPendingWithChildCancel",
+              "TaskFsmCancel.ConfirmedStopLeadsToCancelled",
+              "TaskFsmCancel.UnconfirmedStopTimesOutToFault520",
+              "TaskFsmCancel.LateStopConfirmationAfterFaultDoesNotBecomeCancelled",
+              "TaskFsmCancel.CancelFromExecuteItemIsAllowed",
+              "TaskFsmCancel.CancelFromRecoveryIsAllowed",
+              "TaskFsmCancel.ItemUnsafeInCancelPendingGoesToFault",
+              "TaskFsmCancel.CancelInTerminalStateIsIgnored",
+              "TaskFsmRecovery.TargetNotFoundRetryReturnsToScanScene",
+              "TaskFsmRecovery.RetryBudgetExhaustionGoesToTaskFailed",
+              "TaskFsmRecovery.DenyRetryGoesToTaskFailed",
+              "TaskFsmRecovery.PlanningFailureIsRecoverable",
+              "TaskFsmRecovery.PoseStaleIsRecoverable",
+              "TaskFsmRecovery.ExecutionRejectedIsRecoverable",
+              "TaskFsmRecovery.RecoveryAttemptsResetAfterCompletedItem",
+              "TaskFsmUnsafeErrors.MotionStatusUnknownGoesToFaultWithRealCode",
+              "TaskFsmUnsafeErrors.NonRecoverableCodesAllGoToFault",
+              "TaskFsmUnsafeErrors.RecoverableWhitelistIsConservative",
+              "TaskFsmUnsafeErrors.FaultWithoutSpecificCodeDegradesToHardwareFault",
+              "TaskFsmUnsafeErrors.FaultKeepsSpecificCodeWhenPresent",
+              "TaskFsmUnsafeErrors.ItemFailureWithZeroCodeDefaultsToPlacementFailed",
+              "TaskFsmSafety.RepeatedStepsInFaultProduceNoActions",
+              "TaskFsmSafety.GoalAfterTerminalRequiresReset",
+              "TaskFaultAudit.ActionFinishesButOrdinaryResetAndNewTasksStayLocked"
+            ],
+            "root_attributes": {
+              "tests": "40",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.003",
+              "timestamp": "2026-10-11T19:54:48.854",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_task_cpp/test_results/mtc_task_cpp/test_task_validation.gtest.xml",
+            "package": "mtc_task_cpp",
+            "passed_cases": [
+              "TaskValidation.BasicModeAccepted",
+              "TaskValidation.SequenceModeMapsSlotsInOrder",
+              "TaskValidation.EmptyTaskIdRejected",
+              "TaskValidation.UnknownModeRejected",
+              "TaskValidation.EmptyColorsRejected",
+              "TaskValidation.BasicModeRequiresExactlyOneColor",
+              "TaskValidation.SequenceModeRequiresExactlyThreeColors",
+              "TaskValidation.ColorZeroUnknownIsIllegal",
+              "TaskValidation.ColorOutOfRangeIsIllegal",
+              "TaskValidation.DuplicateColorsRejected",
+              "TaskValidation.ZeroTimeoutRejected",
+              "TaskValidation.NegativeStabilityRejected",
+              "TaskValidation.ExplicitSlotMustMatchDerivedSlot",
+              "TaskValidation.ExplicitSlotMustBeAllowed",
+              "TaskValidation.ExplicitSlotMatchingDerivedIsAccepted",
+              "TaskValidation.SlotNameValidation",
+              "TaskValidation.ExpectedSlotForIndex",
+              "TaskValidation.TaskRequestHelpers",
+              "TaskValidation.ModeNameOfUnknownMode",
+              "TaskValidationAudit.NonFiniteStabilityRejected",
+              "StabilityGate.ZeroStabilityRejected",
+              "StabilityGate.NegativeStabilityRejected",
+              "StabilityGate.NaNStabilityRejected",
+              "StabilityGate.InfiniteStabilityRejected",
+              "StabilityGate.PositiveStabilityAccepted",
+              "StabilityGate.DefaultStabilityRemainsThreeSeconds"
+            ],
+            "root_attributes": {
+              "tests": "26",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.",
+              "timestamp": "2026-10-11T19:54:48.711",
+              "name": "AllTests"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_fjt_action.gtest.xml",
+            "package": "mtc_trajectory_execution_cpp",
+            "passed_cases": [],
+            "root_attributes": {
+              "name": "mtc_trajectory_execution_cpp",
+              "tests": "1",
+              "failures": "0",
+              "time": "0.000",
+              "errors": "1",
+              "skipped": "0"
+            }
+          },
+          {
+            "path": "container/test-results/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_trajectory_validator.gtest.xml",
+            "package": "mtc_trajectory_execution_cpp",
+            "passed_cases": [
+              "TrajectoryValidator.CompleteTrajectoryPreserved",
+              "TrajectoryValidator.JointOrderMapsAllFields",
+              "TrajectoryValidator.EmptyTrajectoryRejected",
+              "TrajectoryValidator.SinglePointRejected",
+              "TrajectoryValidator.DuplicateJointRejected",
+              "TrajectoryValidator.MissingJointRejected",
+              "TrajectoryValidator.NonIncreasingTimeRejected",
+              "TrajectoryValidator.NanPositionRejected",
+              "TrajectoryValidator.InfVelocityRejected",
+              "TrajectoryValidator.InfAccelerationRejected",
+              "TrajectoryValidator.DimensionMismatchRejected",
+              "TrajectoryValidator.FirstPointNotZeroRejected",
+              "TrajectoryValidator.PositionLimitRejected",
+              "TrajectoryValidator.VelocityLimitRejected",
+              "TrajectoryValidator.AccelerationLimitRejected",
+              "TrajectoryValidator.TimeoutZeroRejected",
+              "TrajectoryValidator.InsufficientTimeoutRejected",
+              "TrajectoryValidator.RealCommandRejected",
+              "TrajectoryValidator.ContactRequestRejected",
+              "TrajectoryValidator.NanTimeRejected",
+              "TrajectoryValidator.NegativeStampRejected",
+              "TrajectoryValidator.NanStampRejected",
+              "TrajectoryValidator.NanosecondTimeCollisionRejected",
+              "TrajectoryValidator.MixedRepresentationsRejected",
+              "TrajectoryValidator.MissingLimitsRejectConfiguration",
+              "TrajectoryValidator.ZeroSettleRejected",
+              "TrajectoryValidator.JointSampleRequiresVelocityAndIdentity",
+              "TrajectoryValidator.SplinePositionOvershootRejected",
+              "TrajectoryValidator.SplineVelocityOvershootRejected",
+              "TrajectoryValidator.SplineAccelerationOvershootRejected"
+            ],
+            "root_attributes": {
+              "tests": "30",
+              "failures": "0",
+              "disabled": "0",
+              "errors": "0",
+              "time": "0.001",
+              "timestamp": "2026-10-11T19:55:09.497",
+              "name": "AllTests"
+            }
+          }
+        ],
+        "errors": [
+          {
+            "path": "container/test-results/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_fjt_action.gtest.xml",
+            "case": {
+              "classname": "mtc_trajectory_execution_cpp",
+              "name": "test_fjt_action.gtest.missing_result",
+              "status": null,
+              "result": null,
+              "children": [
+                [
+                  "error",
+                  {
+                    "message": "The test did not generate a result file."
+                  },
+                  null
+                ]
+              ]
+            }
+          }
+        ],
+        "fjt_original_log_only_passes": 6,
+        "fjt_original_timeout_case": "FjtAction.DuplicateCancelOnlyOneBackendCall",
+        "fjt_suite_timeout_seconds": 120,
+        "fjt_expected": 61,
+        "cpp_expected": 478,
+        "no_fjt_case_xml": true,
+        "python_cases": 269,
+        "python_mock_e2e": 15,
+        "ros_wiring_cases": 6,
+        "colcon_aggregate": {
+          "total": 718,
+          "errors": 1,
+          "failures": 1,
+          "note": "Includes wrappers/lint/missing-result; not independent test counts"
+        },
+        "old_fixed_audit": "Outdated16vs22 *_cpp programs excluding4 Planner, macro parsing error, AND real FJT missing-result failure. Not merely audit mismatch."
+      },
+      "legacy_python_task": [
+        {
+          "case": "early-goal",
+          "delay_before_goal_sec": 0.0,
+          "cancel_requested": false,
+          "feedback": [
+            {
+              "current_index": 0,
+              "total_count": 1,
+              "state": "SCAN_SCENE",
+              "current_slot": "",
+              "current_object_id": "",
+              "substate": "SCAN_SCENE"
+            }
+          ],
+          "status": "FAIL",
+          "scope": "Delivered Python Mock launch, dry_run default",
+          "task_server_available": true,
+          "goal": {
+            "task_id": "acceptance-early-goal",
+            "mode": 1,
+            "ordered_colors": [
+              3
+            ],
+            "timeout_ms": 5000,
+            "placement_stability_sec": 3.0
+          },
+          "accepted": true,
+          "result_received": true,
+          "result": {
+            "status": 6,
+            "result": {
+              "success": false,
+              "completed_count": 0,
+              "completed_slots": [],
+              "error_code": 220,
+              "message": "task acceptance-early-goal exceeded timeout_ms=5000 (elapsed 5.013s)"
+            }
+          },
+          "pickplace_server_available": false,
+          "nodes": [
+            [
+              "motion_executor",
+              "/"
+            ],
+            [
+              "task_executor",
+              "/"
+            ],
+            [
+              "tool_manager",
+              "/"
+            ],
+            [
+              "safety_supervisor",
+              "/"
+            ],
+            [
+              "task_acceptance_probe",
+              "/"
+            ]
+          ],
+          "action_servers": [
+            {
+              "node": "motion_executor",
+              "namespace": "/",
+              "servers": [
+                [
+                  "/mtc/motion/execute_joint_move",
+                  [
+                    "mtc_interfaces/action/ExecuteJointMove"
+                  ]
+                ]
+              ]
+            },
+            {
+              "node": "task_executor",
+              "namespace": "/",
+              "servers": [
+                [
+                  "/mtc/task/execute",
+                  [
+                    "mtc_interfaces/action/ExecuteTask"
+                  ]
+                ]
+              ]
+            },
+            {
+              "node": "tool_manager",
+              "namespace": "/",
+              "servers": []
+            },
+            {
+              "node": "safety_supervisor",
+              "namespace": "/",
+              "servers": []
+            },
+            {
+              "node": "task_acceptance_probe",
+              "namespace": "/",
+              "servers": []
+            }
+          ],
+          "exception": "AssertionError('PickPlace server unavailable (B03/B05)')",
+          "shutdown_escalated": false,
+          "launch_exit_code": 0,
+          "child_failure": true
+        },
+        {
+          "case": "delayed-goal",
+          "delay_before_goal_sec": 7.0,
+          "cancel_requested": false,
+          "feedback": [
+            {
+              "current_index": 0,
+              "total_count": 0,
+              "state": "FAULT",
+              "current_slot": "",
+              "current_object_id": "",
+              "substate": "FAULT"
+            }
+          ],
+          "status": "FAIL",
+          "scope": "Delivered Python Mock launch, dry_run default",
+          "task_server_available": true,
+          "goal": {
+            "task_id": "acceptance-delayed-goal",
+            "mode": 1,
+            "ordered_colors": [
+              3
+            ],
+            "timeout_ms": 5000,
+            "placement_stability_sec": 3.0
+          },
+          "accepted": true,
+          "result_received": true,
+          "result": {
+            "status": 6,
+            "result": {
+              "success": false,
+              "completed_count": 0,
+              "completed_slots": [],
+              "error_code": 510,
+              "message": "state INIT timed out after 5.033s -> HARDWARE_FAULT"
+            }
+          },
+          "pickplace_server_available": false,
+          "nodes": [
+            [
+              "motion_executor",
+              "/"
+            ],
+            [
+              "task_executor",
+              "/"
+            ],
+            [
+              "tool_manager",
+              "/"
+            ],
+            [
+              "safety_supervisor",
+              "/"
+            ],
+            [
+              "task_acceptance_probe",
+              "/"
+            ]
+          ],
+          "action_servers": [
+            {
+              "node": "motion_executor",
+              "namespace": "/",
+              "servers": [
+                [
+                  "/mtc/motion/execute_joint_move",
+                  [
+                    "mtc_interfaces/action/ExecuteJointMove"
+                  ]
+                ]
+              ]
+            },
+            {
+              "node": "task_executor",
+              "namespace": "/",
+              "servers": [
+                [
+                  "/mtc/task/execute",
+                  [
+                    "mtc_interfaces/action/ExecuteTask"
+                  ]
+                ]
+              ]
+            },
+            {
+              "node": "tool_manager",
+              "namespace": "/",
+              "servers": []
+            },
+            {
+              "node": "safety_supervisor",
+              "namespace": "/",
+              "servers": []
+            },
+            {
+              "node": "task_acceptance_probe",
+              "namespace": "/",
+              "servers": []
+            }
+          ],
+          "exception": "AssertionError('PickPlace server unavailable (B03/B05)')",
+          "shutdown_escalated": false,
+          "launch_exit_code": 0,
+          "child_failure": true
+        },
+        {
+          "case": "cancel-goal",
+          "delay_before_goal_sec": 0.0,
+          "cancel_requested": true,
+          "feedback": [
+            {
+              "current_index": 0,
+              "total_count": 1,
+              "state": "SCAN_SCENE",
+              "current_slot": "",
+              "current_object_id": "",
+              "substate": "SCAN_SCENE"
+            },
+            {
+              "current_index": 0,
+              "total_count": 1,
+              "state": "CANCEL_PENDING",
+              "current_slot": "",
+              "current_object_id": "",
+              "substate": "CANCEL_PENDING"
+            }
+          ],
+          "status": "FAIL",
+          "scope": "Delivered Python Mock launch, dry_run default",
+          "task_server_available": true,
+          "goal": {
+            "task_id": "acceptance-cancel-goal",
+            "mode": 1,
+            "ordered_colors": [
+              3
+            ],
+            "timeout_ms": 5000,
+            "placement_stability_sec": 3.0
+          },
+          "accepted": true,
+          "cancel_response": {
+            "return_code": 0,
+            "goals_canceling": [
+              {
+                "goal_id": {
+                  "uuid": [
+                    75,
+                    122,
+                    150,
+                    97,
+                    13,
+                    64,
+                    66,
+                    71,
+                    136,
+                    113,
+                    180,
+                    31,
+                    177,
+                    236,
+                    12,
+                    101
+                  ]
+                },
+                "stamp": {
+                  "sec": 1791748661,
+                  "nanosec": 137716112
+                }
+              }
+            ]
+          },
+          "result_received": true,
+          "result": {
+            "status": 6,
+            "result": {
+              "success": false,
+              "completed_count": 0,
+              "completed_slots": [],
+              "error_code": 520,
+              "message": "cancel not confirmed before timeout (child never reported stopped)"
+            }
+          },
+          "pickplace_server_available": false,
+          "nodes": [
+            [
+              "motion_executor",
+              "/"
+            ],
+            [
+              "task_executor",
+              "/"
+            ],
+            [
+              "tool_manager",
+              "/"
+            ],
+            [
+              "safety_supervisor",
+              "/"
+            ],
+            [
+              "task_acceptance_probe",
+              "/"
+            ]
+          ],
+          "action_servers": [
+            {
+              "node": "motion_executor",
+              "namespace": "/",
+              "servers": [
+                [
+                  "/mtc/motion/execute_joint_move",
+                  [
+                    "mtc_interfaces/action/ExecuteJointMove"
+                  ]
+                ]
+              ]
+            },
+            {
+              "node": "task_executor",
+              "namespace": "/",
+              "servers": [
+                [
+                  "/mtc/task/execute",
+                  [
+                    "mtc_interfaces/action/ExecuteTask"
+                  ]
+                ]
+              ]
+            },
+            {
+              "node": "tool_manager",
+              "namespace": "/",
+              "servers": []
+            },
+            {
+              "node": "safety_supervisor",
+              "namespace": "/",
+              "servers": []
+            },
+            {
+              "node": "task_acceptance_probe",
+              "namespace": "/",
+              "servers": []
+            }
+          ],
+          "exception": "AssertionError('PickPlace server unavailable (B03/B05)')",
+          "shutdown_escalated": false,
+          "launch_exit_code": 0,
+          "child_failure": true
+        }
+      ],
+      "moveit": {
+        "scope": "Independent S3 MoveIt / GenericSystem; no FSM or physical robot",
+        "planning_execution": "PASS",
+        "clean_shutdown": "FAIL",
+        "plugins": [
+          "mock_components/GenericSystem"
+        ],
+        "controller_action_servers": [
+          {
+            "node": "joint_trajectory_controller",
+            "namespace": "/",
+            "types": [
+              "control_msgs/action/FollowJointTrajectory"
+            ]
+          }
+        ],
+        "initial_rad": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_rad": [
+          0.05,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "joint_names": [
+          "shoulder_joint",
+          "upperArm_joint",
+          "foreArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "accepted": true,
+        "execute": {
+          "status": 4,
+          "result": {
+            "error_code": {
+              "val": 1,
+              "message": "",
+              "source": ""
+            }
+          }
+        },
+        "actual_rad": [
+          0.04999592786524445,
+          -9.161319229751826e-05,
+          5.442249183543027e-05,
+          6.430223467759789e-05,
+          7.899697730317713e-05,
+          7.983471611514689e-05
+        ],
+        "max_error_rad": 9.161319229751826e-05,
+        "distinct_joint_stamps": 209,
+        "shutdown": [
+          {
+            "launch": "move-group",
+            "escalated": false,
+            "already_exited": false,
+            "exit_code": 0,
+            "child_failures": [
+              "process has died [pid 5304, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_0r625v56 --params-file /tmp/launch_params_7_gwcud2']."
+            ]
+          },
+          {
+            "launch": "control",
+            "escalated": false,
+            "already_exited": false,
+            "exit_code": 0,
+            "child_failures": []
+          }
+        ],
+        "json_note": "Any non-finite optional ROS fields are null; original representation retained in result.raw.txt"
+      },
+      "dependency_gaps": [
+        "ament_python rosdep key",
+        "driver docker.io",
+        "driver ros-jazzy-ros2-controllers-test-nodes"
+      ],
+      "driver_aggregate": {
+        "total": 1104,
+        "failures": 279,
+        "skipped": 259,
+        "scope": "Lint/wrappers, not functional or physical tests"
+      },
+      "new_delivered_verifier_on_original": "FAIL missing_result; preserves original XML, not substituted with retry"
+    },
+    "supplement": {
+      "ordinary_retry": {
+        "cases": 61,
+        "elapsed_seconds": 18.6291988119483,
+        "all_case_names": [
+          "FjtAction.CompleteTrajectoryOneGoalAndFeedback",
+          "FjtAction.RepeatedTicksNeverResend",
+          "FjtAction.ConcurrentGoalsSingleOwner",
+          "FjtAction.StartMismatchDoesNotSend",
+          "FjtAction.CorrectCancelUsesExactUuid",
+          "FjtAction.CancelBeforeGoalResponsePreserved",
+          "FjtAction.DuplicateCancelOnlyOneBackendCall",
+          "FjtAction.StaleCancelDoesNotAffectNewOwner",
+          "FjtAction.CancelWithoutOwnerNeverGlobalStops",
+          "FjtAction.AckOnlyCannotConfirmStopAndTimeoutLocks",
+          "FjtAction.ExecutionTimeoutLocksAndNeverResends",
+          "FjtAction.ControllerAbortedRemainsFaultLocked",
+          "FjtAction.StaleJointFeedbackLocks",
+          "FjtAction.LostJointUpdatesCannotSettle",
+          "FjtAction.InsufficientStationaryIntervalDoesNotSucceed",
+          "FjtAction.WrongFinalPositionCannotSucceed",
+          "FjtAction.NoAssociatedFeedbackCannotSucceed",
+          "FjtAction.HardwareProofLostLocksAndCancelsOwnedGoal",
+          "FjtAction.WrongPluginRejectsBeforeSend",
+          "FjtAction.InactiveControllerRejectsBeforeSend",
+          "FjtAction.MissingVelocityEvidenceRejectsBeforeSend",
+          "FjtAction.ReplayedJointStampLocks",
+          "FjtAction.GoalRejectionMeansNeverExecuted",
+          "FjtAction.ChangedCommandIdContentCannotResend",
+          "FjtAction.SecondPortCannotOwnEndpoint",
+          "FjtAction.DefaultDisabledNeverSends",
+          "FjtAction.DestroyDuringExecutionOnlyCancelsOwnedGoal",
+          "FjtAction.HistoricalSettlementRequiresFreshCurrentEvidence",
+          "FjtAction.ConcurrentGoalReplacementAndLateCancel",
+          "FjtAction.OtherTrajectoryPublisherRejectsDispatch",
+          "FjtAction.ForeignActionClientRejectsDispatch",
+          "FjtAction.SingleTargetEntryExplicitlyRejected",
+          "FjtAction.StationaryWindowCannotGrowWithoutNewSamples",
+          "FjtAction.ForeignInFlightGoalCannotBePreemptedAfterClientLeaves",
+          "FjtAction.ExistingPickPlaceFsmDelegatesWholeTrajectoryThroughPort",
+          "FjtAction.DirectFsmCancelKeepsOriginalFaultWhenStopIsStillPending",
+          "FjtAction.CompletedGoalSameIdSameContentReturnsCachedResult",
+          "FjtAction.CompletedGoalSameIdDifferentTrajectoryRejected",
+          "FjtAction.CompletedGoalSameIdDifferentTimeoutRejected",
+          "FjtAction.CompletedGoalSameIdDifferentSafetySemanticsRejected",
+          "FjtAction.CompletedGoalIdentityMismatchNeverSendsAgain",
+          "FjtAction.InFlightIdentityIncludesOriginalOrderAndIntentPose",
+          "FjtAction.CompletedIdentityPreservesEveryOriginalTrajectoryField",
+          "FjtAction.FaultedIdentityMismatchPreservesLockAndResult",
+          "FjtAction.MonotonicPlannerStampCannotBecomeRosScheduledStart",
+          "FjtAction.PastPlannerGenerationStampDoesNotDispatch",
+          "FjtAction.NoStatusBeforeDispatchFailsClosed",
+          "FjtAction.StatusBeforeGoalResponsePreservesOwnership",
+          "FjtAction.ForeignGoalBeforeOwnGoalRejected",
+          "FjtAction.GoalResponseBeforeStatusMatchesUuid",
+          "FjtAction.ForeignGoalDuringPendingResponseFailsClosed",
+          "FjtAction.CancelBeforeGoalResponseUsesOwnedUuidOnly",
+          "FjtAction.HistoricalTerminalStatusDoesNotBecomeActive",
+          "FjtAction.StatusEvidenceLossDoesNotAuthorizeDispatch",
+          "FjtAction.LateResultDoesNotReleaseFaultLock",
+          "FjtAction.NormalFakeTrajectoryStillExecutesOnce",
+          "FjtAction.LatchedEmptyStatusCannotAuthorizeDispatch",
+          "FjtAction.InvalidStatusDoesNotAuthorizeDispatch",
+          "FjtAction.PendingResponseTimeoutRetainsSessionAndLateHandle",
+          "FjtAction.RejectedResponseAfterUnknownStatusKeepsFaultLock",
+          "FjtAction.TerminalResultBeforeStatusDoesNotAuthorizeSuccessor"
+        ],
+        "new_cases": [
+          "CancelBeforeGoalResponseUsesOwnedUuidOnly",
+          "ForeignGoalBeforeOwnGoalRejected",
+          "ForeignGoalDuringPendingResponseFailsClosed",
+          "GoalResponseBeforeStatusMatchesUuid",
+          "HistoricalTerminalStatusDoesNotBecomeActive",
+          "InvalidStatusDoesNotAuthorizeDispatch",
+          "LatchedEmptyStatusCannotAuthorizeDispatch",
+          "LateResultDoesNotReleaseFaultLock",
+          "NoStatusBeforeDispatchFailsClosed",
+          "NormalFakeTrajectoryStillExecutesOnce",
+          "PendingResponseTimeoutRetainsSessionAndLateHandle",
+          "RejectedResponseAfterUnknownStatusKeepsFaultLock",
+          "StatusBeforeGoalResponsePreservesOwnership",
+          "StatusEvidenceLossDoesNotAuthorizeDispatch",
+          "TerminalResultBeforeStatusDoesNotAuthorizeSuccessor"
+        ],
+        "source_and_binary_unchanged": true,
+        "interpretation": "Retry passes; original 6 textual passes followed by DuplicateCancelOnlyOneBackendCall120s timeout remains FAIL. Combined417 original XML+61retry represents coverage, NOT a passing original478-run."
+      },
+      "ubsan": {
+        "cases": 478,
+        "executables": 26,
+        "compile_commands_instrumented": {
+          "mtc_core_cpp": 5,
+          "mtc_manipulation_cpp": 12,
+          "mtc_motion_execution_cpp": 12,
+          "mtc_moveit_planner": 14,
+          "mtc_ros2_action_cpp": 13,
+          "mtc_task_cpp": 8,
+          "mtc_trajectory_execution_cpp": 7
+        },
+        "source_registration_xml_verified": true,
+        "scope": "All seven C++ packages rebuilt; ROS/DDS/MoveIt system libraries not instrumented. TSan NOT RUN. Passing run does not rule out deadlock/race."
+      },
+      "native_gate": {
+        "started_at": "2026-10-11T20:10:02.909770+00:00",
+        "scope": "Default GenericSystem+MoveIt+FjtMotionPort ownership gate with native Status evidence; no FJT Goal, no complete FSM/physical robot",
+        "observer_action_clients": 0,
+        "status": "PASS_COEXISTENCE_BLOCKED",
+        "plugins": [
+          "mock_components/GenericSystem"
+        ],
+        "controller_only_graph": {
+          "clients": [],
+          "servers": [
+            {
+              "node": "joint_trajectory_controller",
+              "namespace": "/",
+              "types": [
+                "control_msgs/action/FollowJointTrajectory"
+              ]
+            }
+          ],
+          "direct_publishers": 0
+        },
+        "moveit_graph": {
+          "clients": [
+            {
+              "node": "moveit_simple_controller_manager",
+              "namespace": "/",
+              "types": [
+                "control_msgs/action/FollowJointTrajectory"
+              ]
+            }
+          ],
+          "servers": [
+            {
+              "node": "joint_trajectory_controller",
+              "namespace": "/",
+              "types": [
+                "control_msgs/action/FollowJointTrajectory"
+              ]
+            }
+          ],
+          "direct_publishers": 0
+        },
+        "allow_execution_parameter": "Parameter not set.\n",
+        "topology": {
+          "argv": [
+            "ros2",
+            "run",
+            "mtc_trajectory_execution_cpp",
+            "fake_trajectory_probe",
+            "--verify-generic-system",
+            "topology"
+          ],
+          "exit_code": 2,
+          "elapsed_seconds": 10.37106615502853,
+          "coexistence_graph": [
+            {
+              "clients": [
+                {
+                  "node": "moveit_simple_controller_manager",
+                  "namespace": "/",
+                  "types": [
+                    "control_msgs/action/FollowJointTrajectory"
+                  ]
+                },
+                {
+                  "node": "mtc_fake_trajectory_probe",
+                  "namespace": "/",
+                  "types": [
+                    "control_msgs/action/FollowJointTrajectory"
+                  ]
+                }
+              ],
+              "servers": [
+                {
+                  "node": "joint_trajectory_controller",
+                  "namespace": "/",
+                  "types": [
+                    "control_msgs/action/FollowJointTrajectory"
+                  ]
+                }
+              ],
+              "direct_publishers": 0
+            }
+          ]
+        },
+        "after_port_graph": {
+          "clients": [
+            {
+              "node": "moveit_simple_controller_manager",
+              "namespace": "/",
+              "types": [
+                "control_msgs/action/FollowJointTrajectory"
+              ]
+            }
+          ],
+          "servers": [
+            {
+              "node": "joint_trajectory_controller",
+              "namespace": "/",
+              "types": [
+                "control_msgs/action/FollowJointTrajectory"
+              ]
+            }
+          ],
+          "direct_publishers": 0
+        },
+        "fjt_goal_uuids": [],
+        "distinct_joint_stamps": 2627,
+        "all_joints_zero": true,
+        "status_messages": 0,
+        "shutdown": [
+          {
+            "launch": "move-group",
+            "already_exited": false,
+            "escalated": false,
+            "exit_code": 0,
+            "child_failures": [
+              "process has died [pid 6053, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params__3zv1a28 --params-file /tmp/launch_params_m69q_11_']."
+            ],
+            "statistics_context_errors": []
+          },
+          {
+            "launch": "control",
+            "already_exited": false,
+            "escalated": false,
+            "exit_code": 0,
+            "child_failures": [],
+            "statistics_context_errors": [
+              "[ros2_control_node-1] [ERROR] [1791749437.712131025] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+              "[ros2_control_node-1] [ERROR] [1791749437.712131255] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+            ]
+          }
+        ],
+        "empty_after": true,
+        "clean_shutdown": "FAIL",
+        "driver_files_unchanged": true,
+        "driver_files_count": 5656,
+        "ended_at": "2026-10-11T20:10:41.970052+00:00",
+        "native_success": {
+          "argv": [
+            "ros2",
+            "run",
+            "mtc_trajectory_execution_cpp",
+            "fake_trajectory_probe",
+            "--verify-generic-system",
+            "success"
+          ],
+          "exit_code": 1,
+          "elapsed_seconds": 10.430089375935495,
+          "coexistence_graph": []
+        },
+        "native_domain155": {
+          "started_at": "2026-10-11T20:08:39.408680+00:00",
+          "scope": "Default GenericSystem+MoveIt+FjtMotionPort ownership gate with native Status evidence; no FJT Goal, no complete FSM/physical robot",
+          "observer_action_clients": 0,
+          "status": "FAIL",
+          "plugins": [
+            "mock_components/GenericSystem"
+          ],
+          "controller_only_graph": {
+            "clients": [],
+            "servers": [
+              {
+                "node": "joint_trajectory_controller",
+                "namespace": "/",
+                "types": [
+                  "control_msgs/action/FollowJointTrajectory"
+                ]
+              }
+            ],
+            "direct_publishers": 0
+          },
+          "native_success": {
+            "argv": [
+              "ros2",
+              "run",
+              "mtc_trajectory_execution_cpp",
+              "fake_trajectory_probe",
+              "--verify-generic-system",
+              "success"
+            ],
+            "exit_code": 1,
+            "elapsed_seconds": 10.430089375935495,
+            "coexistence_graph": []
+          },
+          "exception": "AssertionError()",
+          "shutdown": [
+            {
+              "launch": "control",
+              "already_exited": false,
+              "escalated": false,
+              "exit_code": 0,
+              "child_failures": [],
+              "statistics_context_errors": [
+                "[ros2_control_node-1] [ERROR] [1791749351.961371043] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+                "[ros2_control_node-1] [ERROR] [1791749351.961371203] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+              ]
+            }
+          ],
+          "empty_after": true,
+          "clean_shutdown": "FAIL",
+          "driver_files_unchanged": true,
+          "driver_files_count": 5656,
+          "ended_at": "2026-10-11T20:09:16.051752+00:00"
+        },
+        "native_distinct_joint_stamps": 2338,
+        "combined_distinct_joint_stamps": 4965,
+        "derived_interpretation": "PASS_NATIVE_AND_COEXISTENCE_BLOCKED; first observer assertion FAIL retained separately",
+        "observer_error": "First observer expected2 instead of delivered success-preflight exception exit1; exited and cleaned before MoveIt. A separate topology-only run covers the unexecuted branch; native probe not repeated."
+      },
+      "native_status_qos": "One publisher RELIABLE/TRANSIENT_LOCAL; zero messages observed; new Port subscriber RELIABLE/VOLATILE from source",
+      "native_goal_count": 0,
+      "native_other_modes": "NOT_RUN prerequisite status contract missing; not prewarmed, heartbeat injected, gate weakened or old four-mode PASS reused",
+      "installed_identity_files": 4,
+      "new_package_rosdep": "PASS",
+      "invalid_arguments": "Two argument-negative invocations each exit2 before ROS initialization"
+    },
+    "not_completed": [
+      "Intermittent 120s DuplicateCancelOnlyOneBackendCall timeout root cause and bounded lifecycle behavior",
+      "Native GenericSystem initial live Status and ongoing trusted evidence contract / exclusive owner",
+      "Native mismatch/cancel/identity execution and complete Task/PickPlace/FJT chain",
+      "Default MoveIt second execution client; planning timebase vs FJT start time; async FSM cancel/stop host",
+      "Old Python220/510/520, MoveIt shutdown-11, driver dependencies/lint, SDK licensing/vendor checksums, TSan, NUC and real robot"
+    ],
+    "handoff": {
+      "Sun_Jiaming": "Original LastTest120s timeout, missing-result XML, unchanged61-case retry and478UBSan contradiction; diagnose test fixture versus FjtMotionPort lifecycle/locking with bounded repro. Own native Status/exclusive execution contract and asynchronous cancellation; do not infer cancellation complete from ACK.",
+      "integration": "Freeze evidence, preserve original failure, no source/kernel edits or merge. 08:00 C++ Mock/UI work remains deferred.",
+      "planning_coordination": "DefaultMoveIt second FJT client and generated-versus-scheduled stamp contract remain open; no Planner modifications or relaxed limits."
+    },
+    "source_modified": false,
+    "formal_baseline_advanced": false,
+    "local_merge_performed": false
+  },
+  "cleanup": {
+    "recorded_at": "2026-10-11T20:11:38.473101+00:00",
+    "original_runner_pid": 59420,
+    "original_runner_absent": true,
+    "supplement_before_stop": "only sleep infinity; no ROS processes or daemons",
+    "stop": {
+      "exit_code": 0,
+      "stdout": "mtc-trajectory-ownership-review-681bb64\n",
+      "stderr": ""
+    },
+    "containers": [
+      {
+        "container": "mtc-repro-5c8f61d8af9f-681bb64bfb8c",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-11T19:51:48.827587214Z",
+          "FinishedAt": "2026-10-11T19:58:42.589367717Z"
+        },
+        "network": "none",
+        "cpus": 2000000000,
+        "memory": 4294967296,
+        "mounts": [],
+        "devices": [],
+        "ports": {}
+      },
+      {
+        "container": "mtc-trajectory-ownership-review-681bb64",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-11T20:02:16.939089694Z",
+          "FinishedAt": "2026-10-11T20:11:37.958775125Z"
+        },
+        "network": "none",
+        "cpus": 2000000000,
+        "memory": 4294967296,
+        "mounts": [],
+        "devices": [],
+        "ports": {}
+      }
+    ],
+    "keeper_exit137_note": "docker stop terminates keeper; ROS child results checked separately."
+  },
+  "main_receipt": {
+    "thread": "01a12a25-b5c5-7b23-98b7-1cf673d68838",
+    "ack_at": "2026-10-11T19:58:51.968815+00:00",
+    "queued_at": "2026-10-11T19:58:43.667138+00:00",
+    "queue_to_ack_seconds": 8.301677,
+    "attempts": 1,
+    "marker": "MOVEIT_WAKE_ACK_51edd89fc24dc92bd4ed010bd545a66f",
+    "complete_at_freeze": false
+  },
+  "not_completed": [
+    "Intermittent 120s DuplicateCancelOnlyOneBackendCall timeout root cause and bounded lifecycle behavior",
+    "Native GenericSystem initial live Status and ongoing trusted evidence contract / exclusive owner",
+    "Native mismatch/cancel/identity execution and complete Task/PickPlace/FJT chain",
+    "Default MoveIt second execution client; planning timebase vs FJT start time; async FSM cancel/stop host",
+    "Old Python220/510/520, MoveIt shutdown-11, driver dependencies/lint, SDK licensing/vendor checksums, TSan, NUC and real robot"
+  ],
+  "handoff": {
+    "Sun_Jiaming": "Original LastTest120s timeout, missing-result XML, unchanged61-case retry and478UBSan contradiction; diagnose test fixture versus FjtMotionPort lifecycle/locking with bounded repro. Own native Status/exclusive execution contract and asynchronous cancellation; do not infer cancellation complete from ACK.",
+    "integration": "Freeze evidence, preserve original failure, no source/kernel edits or merge. 08:00 C++ Mock/UI work remains deferred.",
+    "planning_coordination": "DefaultMoveIt second FJT client and generated-versus-scheduled stamp contract remain open; no Planner modifications or relaxed limits."
+  }
+}

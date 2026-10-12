@@ -1,0 +1,137 @@
+[0.038s] Invoking command in '/candidate-build/mtc_trajectory_execution_cpp': CMAKE_PREFIX_PATH=/candidate-install/mtc_trajectory_execution_cpp:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_moveit_planner:/candidate-install/mtc_interfaces:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor LD_LIBRARY_PATH=/candidate-install/mtc_trajectory_execution_cpp/lib:/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_core_cpp/lib:/candidate-install/mtc_ros2_action_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_moveit_planner/lib:/candidate-install/mtc_interfaces/lib:/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process
+[0.050s] UpdateCTestConfiguration  from :/candidate-build/mtc_trajectory_execution_cpp/CTestConfiguration.ini
+[0.051s] Parse Config file:/candidate-build/mtc_trajectory_execution_cpp/CTestConfiguration.ini
+[0.051s]    Site: 09174ddae50c
+[0.051s]    Build name: (empty)
+[0.051s]  Add coverage exclude regular expressions.
+[0.051s] Create new tag: 20261011-1955 - Experimental
+[0.051s] UpdateCTestConfiguration  from :/candidate-build/mtc_trajectory_execution_cpp/CTestConfiguration.ini
+[0.051s] Parse Config file:/candidate-build/mtc_trajectory_execution_cpp/CTestConfiguration.ini
+[0.051s] Test project /candidate-build/mtc_trajectory_execution_cpp
+[0.051s] Constructing a list of tests
+[0.051s] Done constructing a list of tests
+[0.051s] Updating test list for fixtures
+[0.051s] Added 0 tests to meet fixture requirements
+[0.051s] Checking test dependency graph...
+[0.052s] Checking test dependency graph end
+[0.052s] test 1
+[0.052s]     Start 1: test_trajectory_validator
+[0.052s] 
+[0.052s] 1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_trajectory_validator.gtest.xml" "--package-name" "mtc_trajectory_execution_cpp" "--output-file" "/candidate-build/mtc_trajectory_execution_cpp/ament_cmake_gtest/test_trajectory_validator.txt" "--command" "/candidate-build/mtc_trajectory_execution_cpp/test_trajectory_validator" "--gtest_output=xml:/candidate-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_trajectory_validator.gtest.xml"
+[0.052s] 1: Working Directory: /candidate-build/mtc_trajectory_execution_cpp
+[0.052s] 1: Test timeout computed to be: 60
+[0.102s] 1: -- run_test.py: invoking following command in '/candidate-build/mtc_trajectory_execution_cpp':
+[0.102s] 1:  - /candidate-build/mtc_trajectory_execution_cpp/test_trajectory_validator --gtest_output=xml:/candidate-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_trajectory_validator.gtest.xml
+[0.135s] 1: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[0.135s] 1: [==========] Running 30 tests from 1 test suite.
+[0.136s] 1: [----------] Global test environment set-up.
+[0.136s] 1: [----------] 30 tests from TrajectoryValidator
+[0.136s] 1: [ RUN      ] TrajectoryValidator.CompleteTrajectoryPreserved
+[0.137s] 1: [       OK ] TrajectoryValidator.CompleteTrajectoryPreserved (0 ms)
+[0.137s] 1: [ RUN      ] TrajectoryValidator.JointOrderMapsAllFields
+[0.137s] 1: [       OK ] TrajectoryValidator.JointOrderMapsAllFields (0 ms)
+[0.137s] 1: [ RUN      ] TrajectoryValidator.EmptyTrajectoryRejected
+[0.137s] 1: [       OK ] TrajectoryValidator.EmptyTrajectoryRejected (0 ms)
+[0.137s] 1: [ RUN      ] TrajectoryValidator.SinglePointRejected
+[0.137s] 1: [       OK ] TrajectoryValidator.SinglePointRejected (0 ms)
+[0.137s] 1: [ RUN      ] TrajectoryValidator.DuplicateJointRejected
+[0.137s] 1: [       OK ] TrajectoryValidator.DuplicateJointRejected (0 ms)
+[0.137s] 1: [ RUN      ] TrajectoryValidator.MissingJointRejected
+[0.137s] 1: [       OK ] TrajectoryValidator.MissingJointRejected (0 ms)
+[0.137s] 1: [ RUN      ] TrajectoryValidator.NonIncreasingTimeRejected
+[0.137s] 1: [       OK ] TrajectoryValidator.NonIncreasingTimeRejected (0 ms)
+[0.137s] 1: [ RUN      ] TrajectoryValidator.NanPositionRejected
+[0.137s] 1: [       OK ] TrajectoryValidator.NanPositionRejected (0 ms)
+[0.137s] 1: [ RUN      ] TrajectoryValidator.InfVelocityRejected
+[0.137s] 1: [       OK ] TrajectoryValidator.InfVelocityRejected (0 ms)
+[0.137s] 1: [ RUN      ] TrajectoryValidator.InfAccelerationRejected
+[0.137s] 1: [       OK ] TrajectoryValidator.InfAccelerationRejected (0 ms)
+[0.137s] 1: [ RUN      ] TrajectoryValidator.DimensionMismatchRejected
+[0.137s] 1: [       OK ] TrajectoryValidator.DimensionMismatchRejected (0 ms)
+[0.137s] 1: [ RUN      ] TrajectoryValidator.FirstPointNotZeroRejected
+[0.137s] 1: [       OK ] TrajectoryValidator.FirstPointNotZeroRejected (0 ms)
+[0.137s] 1: [ RUN      ] TrajectoryValidator.PositionLimitRejected
+[0.137s] 1: [       OK ] TrajectoryValidator.PositionLimitRejected (0 ms)
+[0.137s] 1: [ RUN      ] TrajectoryValidator.VelocityLimitRejected
+[0.137s] 1: [       OK ] TrajectoryValidator.VelocityLimitRejected (0 ms)
+[0.137s] 1: [ RUN      ] TrajectoryValidator.AccelerationLimitRejected
+[0.137s] 1: [       OK ] TrajectoryValidator.AccelerationLimitRejected (0 ms)
+[0.137s] 1: [ RUN      ] TrajectoryValidator.TimeoutZeroRejected
+[0.138s] 1: [       OK ] TrajectoryValidator.TimeoutZeroRejected (0 ms)
+[0.138s] 1: [ RUN      ] TrajectoryValidator.InsufficientTimeoutRejected
+[0.138s] 1: [       OK ] TrajectoryValidator.InsufficientTimeoutRejected (0 ms)
+[0.138s] 1: [ RUN      ] TrajectoryValidator.RealCommandRejected
+[0.138s] 1: [       OK ] TrajectoryValidator.RealCommandRejected (0 ms)
+[0.138s] 1: [ RUN      ] TrajectoryValidator.ContactRequestRejected
+[0.138s] 1: [       OK ] TrajectoryValidator.ContactRequestRejected (0 ms)
+[0.138s] 1: [ RUN      ] TrajectoryValidator.NanTimeRejected
+[0.138s] 1: [       OK ] TrajectoryValidator.NanTimeRejected (0 ms)
+[0.138s] 1: [ RUN      ] TrajectoryValidator.NegativeStampRejected
+[0.138s] 1: [       OK ] TrajectoryValidator.NegativeStampRejected (0 ms)
+[0.138s] 1: [ RUN      ] TrajectoryValidator.NanStampRejected
+[0.138s] 1: [       OK ] TrajectoryValidator.NanStampRejected (0 ms)
+[0.138s] 1: [ RUN      ] TrajectoryValidator.NanosecondTimeCollisionRejected
+[0.138s] 1: [       OK ] TrajectoryValidator.NanosecondTimeCollisionRejected (0 ms)
+[0.138s] 1: [ RUN      ] TrajectoryValidator.MixedRepresentationsRejected
+[0.138s] 1: [       OK ] TrajectoryValidator.MixedRepresentationsRejected (0 ms)
+[0.138s] 1: [ RUN      ] TrajectoryValidator.MissingLimitsRejectConfiguration
+[0.138s] 1: [       OK ] TrajectoryValidator.MissingLimitsRejectConfiguration (0 ms)
+[0.138s] 1: [ RUN      ] TrajectoryValidator.ZeroSettleRejected
+[0.138s] 1: [       OK ] TrajectoryValidator.ZeroSettleRejected (0 ms)
+[0.138s] 1: [ RUN      ] TrajectoryValidator.JointSampleRequiresVelocityAndIdentity
+[0.138s] 1: [       OK ] TrajectoryValidator.JointSampleRequiresVelocityAndIdentity (0 ms)
+[0.138s] 1: [ RUN      ] TrajectoryValidator.SplinePositionOvershootRejected
+[0.138s] 1: [       OK ] TrajectoryValidator.SplinePositionOvershootRejected (0 ms)
+[0.138s] 1: [ RUN      ] TrajectoryValidator.SplineVelocityOvershootRejected
+[0.138s] 1: [       OK ] TrajectoryValidator.SplineVelocityOvershootRejected (0 ms)
+[0.138s] 1: [ RUN      ] TrajectoryValidator.SplineAccelerationOvershootRejected
+[0.138s] 1: [       OK ] TrajectoryValidator.SplineAccelerationOvershootRejected (0 ms)
+[0.138s] 1: [----------] 30 tests from TrajectoryValidator (1 ms total)
+[0.138s] 1: 
+[0.139s] 1: [----------] Global test environment tear-down
+[0.139s] 1: [==========] 30 tests from 1 test suite ran. (1 ms total)
+[0.139s] 1: [  PASSED  ] 30 tests.
+[0.141s] 1: -- run_test.py: return code 0
+[0.141s] 1: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_trajectory_validator.gtest.xml'
+[0.141s] 1: -- run_test.py: verify result file '/candidate-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_trajectory_validator.gtest.xml'
+[0.150s] 1/2 Test #1: test_trajectory_validator ........   Passed    0.10 sec
+[0.150s] test 2
+[0.150s]     Start 2: test_fjt_action
+[0.150s] 
+[0.150s] 2: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_fjt_action.gtest.xml" "--package-name" "mtc_trajectory_execution_cpp" "--output-file" "/candidate-build/mtc_trajectory_execution_cpp/ament_cmake_gtest/test_fjt_action.txt" "--command" "/candidate-build/mtc_trajectory_execution_cpp/test_fjt_action" "--gtest_output=xml:/candidate-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_fjt_action.gtest.xml"
+[0.151s] 2: Working Directory: /candidate-build/mtc_trajectory_execution_cpp
+[0.151s] 2: Test timeout computed to be: 120
+[0.200s] 2: -- run_test.py: invoking following command in '/candidate-build/mtc_trajectory_execution_cpp':
+[0.200s] 2:  - /candidate-build/mtc_trajectory_execution_cpp/test_fjt_action --gtest_output=xml:/candidate-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_fjt_action.gtest.xml
+[0.230s] 2: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[0.230s] 2: [==========] Running 61 tests from 1 test suite.
+[0.231s] 2: [----------] Global test environment set-up.
+[0.231s] 2: [----------] 61 tests from FjtAction
+[0.231s] 2: [ RUN      ] FjtAction.CompleteTrajectoryOneGoalAndFeedback
+[0.581s] 2: [       OK ] FjtAction.CompleteTrajectoryOneGoalAndFeedback (348 ms)
+[0.581s] 2: [ RUN      ] FjtAction.RepeatedTicksNeverResend
+[0.904s] 2: [       OK ] FjtAction.RepeatedTicksNeverResend (323 ms)
+[0.904s] 2: [ RUN      ] FjtAction.ConcurrentGoalsSingleOwner
+[1.073s] 2: [       OK ] FjtAction.ConcurrentGoalsSingleOwner (169 ms)
+[1.073s] 2: [ RUN      ] FjtAction.StartMismatchDoesNotSend
+[1.166s] 2: [       OK ] FjtAction.StartMismatchDoesNotSend (92 ms)
+[1.166s] 2: [ RUN      ] FjtAction.CorrectCancelUsesExactUuid
+[1.335s] 2: [       OK ] FjtAction.CorrectCancelUsesExactUuid (169 ms)
+[1.335s] 2: [ RUN      ] FjtAction.CancelBeforeGoalResponsePreserved
+[1.488s] 2: [       OK ] FjtAction.CancelBeforeGoalResponsePreserved (153 ms)
+[1.489s] 2: [ RUN      ] FjtAction.DuplicateCancelOnlyOneBackendCall
+[120.155s] 2/2 Test #2: test_fjt_action ..................***Timeout 120.00 sec
+[120.156s] 
+[120.156s] 50% tests passed, 1 tests failed out of 2
+[120.156s] 
+[120.156s] Label Time Summary:
+[120.156s] gtest    = 120.10 sec*proc (2 tests)
+[120.156s] 
+[120.156s] Total Test time (real) = 120.10 sec
+[120.156s] 
+[120.156s] The following tests FAILED:
+[120.156s] 	  2 - test_fjt_action (Timeout)
+[120.159s] Errors while running CTest
+[120.159s] Output from these tests are in: /candidate-build/mtc_trajectory_execution_cpp/Testing/Temporary/LastTest.log
+[120.159s] Use "--rerun-failed --output-on-failure" to re-run the failed cases verbosely.
+[120.161s] Invoked command in '/candidate-build/mtc_trajectory_execution_cpp' returned '8': CMAKE_PREFIX_PATH=/candidate-install/mtc_trajectory_execution_cpp:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_core_cpp:/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_moveit_planner:/candidate-install/mtc_interfaces:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor LD_LIBRARY_PATH=/candidate-install/mtc_trajectory_execution_cpp/lib:/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_core_cpp/lib:/candidate-install/mtc_ros2_action_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_moveit_planner/lib:/candidate-install/mtc_interfaces/lib:/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process

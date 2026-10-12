@@ -1,0 +1,84 @@
+1791737481.3508751 [INFO] [launch]: All log files can be found below /review-evidence/planning-sop/ros-logs/2026-10-11-16-51-21-348751-bad29c8ff80c-191
+1791737481.3510249 [INFO] [launch]: Default logging verbosity is set to INFO
+1791737481.7280192 [INFO] [ros2_control_node-1]: process started with pid [199]
+1791737481.7282867 [INFO] [robot_state_publisher-2]: process started with pid [200]
+1791737481.8801844 [robot_state_publisher-2] [INFO] [1791737481.879459979] [robot_state_publisher]: Robot initialized
+1791737481.9050763 [ros2_control_node-1] [INFO] [1791737481.904620299] [controller_manager]: Using Steady (Monotonic) clock for triggering controller manager cycles.
+1791737481.9266801 [ros2_control_node-1] [INFO] [1791737481.926297921] [controller_manager]: Subscribing to '/robot_description' topic for robot description.
+1791737481.9270256 [ros2_control_node-1] [INFO] [1791737481.926458204] [controller_manager]: update rate is 200 Hz
+1791737481.9270756 [ros2_control_node-1] [INFO] [1791737481.926466806] [controller_manager]: Overruns handling is : enabled
+1791737481.9271052 [ros2_control_node-1] [INFO] [1791737481.926472684] [controller_manager]: Spawning controller_manager RT thread with scheduler priority: 50
+1791737481.9271908 [ros2_control_node-1] [WARN] [1791737481.926656946] [controller_manager]: Could not enable FIFO RT scheduling policy: with error number <1>(Operation not permitted). See [https://control.ros.org/master/doc/ros2_control/controller_manager/doc/userdoc.html] for details on how to enable realtime scheduling.
+1791737481.9381797 [ros2_control_node-1] [INFO] [1791737481.937686662] [controller_manager]: Received robot description from topic.
+1791737481.9383593 [ros2_control_node-1] [INFO] [1791737481.937807300] [controller_manager]: Enforcing command limits is disabled. Command limits from URDF will be ignored.
+1791737481.9426157 [ros2_control_node-1] Error parsing the limits for the interface: position from the tags [min: '{-2*pi}' and max: '{2*pi}'] within ros2_control tag inside the URDF. Skipping it
+1791737481.9428656 [ros2_control_node-1] Error parsing the limits for the interface: position from the tags [min: '{-2*pi}' and max: '{2*pi}'] within ros2_control tag inside the URDF. Skipping it
+1791737481.9429262 [ros2_control_node-1] Error parsing the limits for the interface: position from the tags [min: '{-2*pi}' and max: '{2*pi}'] within ros2_control tag inside the URDF. Skipping it
+1791737481.9431455 [ros2_control_node-1] [INFO] [1791737481.942347609] [controller_manager]: Loading hardware 'auboHardwareInterface' 
+1791737481.9440334 [ros2_control_node-1] [INFO] [1791737481.943847139] [controller_manager]: Loaded hardware 'auboHardwareInterface' from plugin 'mock_components/GenericSystem'
+1791737481.9443445 [ros2_control_node-1] [INFO] [1791737481.943999057] [controller_manager]: Initialize hardware 'auboHardwareInterface' 
+1791737481.9542086 [ros2_control_node-1] [INFO] [1791737481.953868994] [controller_manager]: Successful initialization of hardware 'auboHardwareInterface'
+1791737481.9545143 [ros2_control_node-1] [INFO] [1791737481.954203050] [controller_manager]: Activating component 'auboHardwareInterface'.
+1791737481.9545608 [ros2_control_node-1] [INFO] [1791737481.954224698] [resource_manager]: 'configure' hardware 'auboHardwareInterface' 
+1791737481.9545906 [ros2_control_node-1] [INFO] [1791737481.954238044] [resource_manager]: Successful 'configure' of hardware 'auboHardwareInterface'
+1791737481.9546156 [ros2_control_node-1] [INFO] [1791737481.954244542] [resource_manager]: 'activate' hardware 'auboHardwareInterface' 
+1791737481.9546385 [ros2_control_node-1] [INFO] [1791737481.954253112] [resource_manager]: Successful 'activate' of hardware 'auboHardwareInterface'
+1791737481.9546614 [ros2_control_node-1] [INFO] [1791737481.954325132] [controller_manager]: Registering statistics for : auboHardwareInterface
+1791737481.9547188 [ros2_control_node-1] [INFO] [1791737481.954369047] [controller_manager]: Resource Manager has been successfully initialized. Starting Controller Manager services...
+1791737483.7349663 [INFO] [spawner-3]: process started with pid [249]
+1791737483.7351584 [INFO] [spawner-4]: process started with pid [250]
+1791737484.1303980 [spawner-4] [INFO] [1791737484.129742077] [spawner_joint_trajectory_controller]: waiting for service /controller_manager/list_controllers to become available...
+1791737485.6351142 [ros2_control_node-1] [INFO] [1791737485.634750563] [controller_manager]: Loading controller : 'joint_trajectory_controller' of type 'joint_trajectory_controller/JointTrajectoryController'
+1791737485.6353674 [ros2_control_node-1] [INFO] [1791737485.634832032] [controller_manager]: Loading controller 'joint_trajectory_controller'
+1791737485.6488469 [ros2_control_node-1] [INFO] [1791737485.648529921] [controller_manager]: Controller 'joint_trajectory_controller' node arguments: --ros-args --params-file /tmp/launch_params_mp77o_o1 --params-file /driver_ws/install_no_symlink/aubo_ros2_driver/share/aubo_ros2_driver/config/aubo_controllers.yaml 
+1791737485.6795149 [spawner-4] [INFO] [1791737485.679169004] [spawner_joint_trajectory_controller]: Loaded joint_trajectory_controller
+1791737485.6810279 [ros2_control_node-1] [INFO] [1791737485.680821078] [controller_manager]: Configuring controller: 'joint_trajectory_controller'
+1791737485.6814263 [ros2_control_node-1] [INFO] [1791737485.681150506] [joint_trajectory_controller]: No specific joint names are used for command interfaces. Using 'joints' parameter.
+1791737485.6814933 [ros2_control_node-1] [INFO] [1791737485.681248488] [joint_trajectory_controller]: Command interfaces are [position] and state interfaces are [position velocity].
+1791737485.6816092 [ros2_control_node-1] [INFO] [1791737485.681301733] [joint_trajectory_controller]: Using 'splines' interpolation method.
+1791737485.6990983 [ros2_control_node-1] [INFO] [1791737485.698774977] [joint_trajectory_controller]: Action status changes will be monitored at 20.00 Hz.
+1791737485.7104633 [ros2_control_node-1] [INFO] [1791737485.710055458] [joint_trajectory_controller]: Setting initial scaling factor to 1.000000
+1791737485.7106032 [ros2_control_node-1] [INFO] [1791737485.710119071] [joint_trajectory_controller]: No scaling interface set. This controller will not read speed scaling from the hardware.
+1791737485.7146478 [ros2_control_node-1] [INFO] [1791737485.714372127] [controller_manager]: Activating controllers: [ joint_trajectory_controller ]
+1791737485.7176981 [ros2_control_node-1] [INFO] [1791737485.717507770] [controller_manager]: Successfully switched controllers!
+1791737485.7242815 [spawner-4] [INFO] [1791737485.723964405] [spawner_joint_trajectory_controller]: Configured and activated joint_trajectory_controller
+1791737485.8497775 [spawner-3] [INFO] [1791737485.849395394] [spawner_joint_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+1791737485.9067681 [INFO] [spawner-4]: process has finished cleanly [pid 250]
+1791737488.6046486 [ros2_control_node-1] [INFO] [1791737488.604299836] [controller_manager]: Loading controller : 'joint_state_broadcaster' of type 'joint_state_broadcaster/JointStateBroadcaster'
+1791737488.6048703 [ros2_control_node-1] [INFO] [1791737488.604396537] [controller_manager]: Loading controller 'joint_state_broadcaster'
+1791737488.6088178 [ros2_control_node-1] [INFO] [1791737488.608465603] [controller_manager]: Controller 'joint_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_mp77o_o1 --params-file /driver_ws/install_no_symlink/aubo_ros2_driver/share/aubo_ros2_driver/config/aubo_controllers.yaml 
+1791737488.6242330 [spawner-3] [INFO] [1791737488.623871852] [spawner_joint_state_broadcaster]: Loaded joint_state_broadcaster
+1791737488.6257424 [ros2_control_node-1] [INFO] [1791737488.625463704] [controller_manager]: Configuring controller: 'joint_state_broadcaster'
+1791737488.6259732 [ros2_control_node-1] [INFO] [1791737488.625594054] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+1791737488.6356997 [ros2_control_node-1] [INFO] [1791737488.635380326] [controller_manager]: Activating controllers: [ joint_state_broadcaster ]
+1791737488.6375842 [ros2_control_node-1] [INFO] [1791737488.637409427] [controller_manager]: Successfully switched controllers!
+1791737488.6441200 [spawner-3] [INFO] [1791737488.643849068] [spawner_joint_state_broadcaster]: Configured and activated joint_state_broadcaster
+1791737488.8253567 [INFO] [spawner-3]: process has finished cleanly [pid 249]
+1791737491.5162733 [ros2_control_node-1] [INFO] [1791737491.515917829] [controller_manager]: Received robot description from topic.
+1791737491.5164886 [ros2_control_node-1] [WARN] [1791737491.516013731] [controller_manager]: ResourceManager has already loaded a urdf and is initialized. Ignoring attempt to reload a robot description.
+1791737510.4097111 [robot_state_publisher-2] [WARN] [1791737510.409244858] [robot_state_publisher]: Moved backwards in time, re-publishing joint transforms!
+1791737523.3903959 [ros2_control_node-1] [WARN] [1791737523.389976064] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 200 Hz. The loop took 6.227783 ms (missed cycles : 2).
+1791737535.6335719 [WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+1791737535.6351297 [INFO] [robot_state_publisher-2]: sending signal 'SIGINT' to process[robot_state_publisher-2]
+1791737535.6355305 [INFO] [ros2_control_node-1]: sending signal 'SIGINT' to process[ros2_control_node-1]
+1791737535.6357267 [robot_state_publisher-2] [INFO] [1791737535.633362571] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1791737535.6358445 [ros2_control_node-1] [INFO] [1791737535.633373165] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1791737535.6359181 [ros2_control_node-1] [INFO] [1791737535.633477870] [controller_manager]: Shutdown request received....
+1791737535.6359608 [ros2_control_node-1] [INFO] [1791737535.633606501] [controller_manager]: Shutting down all controllers in the controller manager.
+1791737535.6359937 [ros2_control_node-1] [INFO] [1791737535.633647633] [controller_manager]: Deactivating controller 'joint_state_broadcaster'
+1791737535.6360240 [ros2_control_node-1] [INFO] [1791737535.633699669] [controller_manager]: Shutting down controller 'joint_state_broadcaster'
+1791737535.6360533 [ros2_control_node-1] [INFO] [1791737535.633807515] [controller_manager]: Deactivating controller 'joint_trajectory_controller'
+1791737535.6360819 [ros2_control_node-1] [INFO] [1791737535.633836156] [controller_manager]: Shutting down controller 'joint_trajectory_controller'
+1791737535.6361113 [ros2_control_node-1] [INFO] [1791737535.633869683] [resource_manager]: 'deactivate' hardware 'auboHardwareInterface' 
+1791737535.6361403 [ros2_control_node-1] [INFO] [1791737535.633887661] [resource_manager]: Successful 'deactivate' of hardware 'auboHardwareInterface'
+1791737535.6361687 [ros2_control_node-1] [INFO] [1791737535.633891664] [resource_manager]: 'shutdown' hardware 'auboHardwareInterface' 
+1791737535.6361969 [ros2_control_node-1] [INFO] [1791737535.633895436] [resource_manager]: Successful 'shutdown' of hardware 'auboHardwareInterface'
+1791737535.6362913 [ros2_control_node-1] [INFO] [1791737535.633930669] [controller_manager]: Shutting down the controller manager.
+1791737535.6366441 [robot_state_publisher-2] [INFO] [1791737535.636511225] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1791737535.6404085 [ros2_control_node-1] [INFO] [1791737535.640065767] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1791737535.6407158 [ros2_control_node-1] [INFO] [1791737535.640302535] [controller_manager.pal_statistics]: Async messages lost 0
+1791737535.6407578 [ros2_control_node-1] [INFO] [1791737535.640318466] [controller_manager.pal_statistics]: publish_async_failures_ 0
+1791737535.6444716 [ros2_control_node-1] [INFO] [1791737535.644189365] [controller_manager.pal_statistics]: Async messages lost 0
+1791737535.6446462 [ros2_control_node-1] [INFO] [1791737535.644225551] [controller_manager.pal_statistics]: publish_async_failures_ 0
+1791737535.7625413 [INFO] [robot_state_publisher-2]: process has finished cleanly [pid 200]
+1791737535.8522348 [INFO] [ros2_control_node-1]: process has finished cleanly [pid 199]

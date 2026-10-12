@@ -1,0 +1,14 @@
+[INFO] [1791734494.725563570] [moveit_804695100.moveit.ros.rdf_loader]: Loaded robot model in 0.00502759 seconds
+[INFO] [1791734494.725756610] [moveit_804695100.moveit.core.robot_model]: Loading robot model 'aubo_robot'...
+[INFO] [1791734494.737495649] [moveit_804695100.moveit.kinematics.kdl_kinematics_plugin]: Joint weights for group 'manipulator': 1 1 1 1 1 1
+[INFO] [1791734495.528736309] [moveit_804695100.moveit.ros.move_group_interface]: Ready to take commands for planning group manipulator.
+[INFO] [1791734496.750793761] [mtc_plan_battery_sequence]: [ACQUIRE] ok=true code=0 planned 2 primitive(s) in frame 'world' for 'ee_link'; simulation_only=true (uncalibrated: TCP=PLACEHOLDER)
+[INFO] [1791734496.750874705] [mtc_plan_battery_sequence]:   top_insert    FREE_SPACE cartesian_preferred ok=true  plan=0.008s dur=13.18s pts=35 scale=3.93 v=0.020m/s w=0.007rad/s watchdog=30s explicit_start_state
+[INFO] [1791734496.750889559] [mtc_plan_battery_sequence]:   test_lift     CARTESIAN  cartesian           ok=true  plan=0.001s dur=1.88s pts=9 scale=2.52 v=0.010m/s w=0.000rad/s watchdog=15s simulated ENGAGE_INSERT 0.03 m along TCP axis 2 (ToolPort motion, not emitted)
+[INFO] [1791734496.782638554] [mtc_plan_battery_sequence]: [TRANSPORT] ok=true code=0 planned 5 primitive(s) in frame 'world' for 'ee_link'; simulation_only=true (uncalibrated: slot T0=PLACEHOLDER TCP=PLACEHOLDER)
+[INFO] [1791734496.782711352] [mtc_plan_battery_sequence]:   lift          CARTESIAN  cartesian           ok=true  plan=0.003s dur=3.28s pts=18 scale=1.99 v=0.029m/s w=0.000rad/s watchdog=30s explicit_start_state
+[INFO] [1791734496.782726725] [mtc_plan_battery_sequence]:   transport     FREE_SPACE cartesian_preferred ok=true  plan=0.005s dur=2.25s pts=24 scale=1.00 v=0.134m/s w=0.000rad/s watchdog=60s previous_primitive_end
+[INFO] [1791734496.782732772] [mtc_plan_battery_sequence]:   pre_seat      CARTESIAN  cartesian           ok=true  plan=0.003s dur=5.13s pts=23 scale=2.40 v=0.029m/s w=0.000rad/s watchdog=30s previous_primitive_end
+[INFO] [1791734496.782738310] [mtc_plan_battery_sequence]:   seat_contact  CARTESIAN  cartesian           ok=true  plan=0.002s dur=7.75s pts=12 scale=7.27 v=0.005m/s w=0.000rad/s watchdog=20s [contact intent only] previous_primitive_end
+[INFO] [1791734496.782744277] [mtc_plan_battery_sequence]:   retreat       CARTESIAN  cartesian           ok=true  plan=0.004s dur=5.86s pts=26 scale=2.44 v=0.029m/s w=0.000rad/s watchdog=30s simulated WITHDRAW 0.03 m along TCP axis 2 (ToolPort motion, not emitted)
+[INFO] [1791734496.784404249] [mtc_plan_battery_sequence]: SEQUENCE PLAN OK -> /review-evidence/diagnostic-tfwait/battery_sequence_magnetic_latch_v2_T0_20261011_160136.yaml

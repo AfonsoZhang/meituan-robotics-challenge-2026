@@ -1,0 +1,141 @@
+{
+  "observation": "ENV-VISION-SAFETY-20261012",
+  "upstream": "TEAMMATE-VISIONSAFETY-20261012",
+  "authorization": [
+    "USER-HW-20261011-08",
+    "USER-HW-20261011-09"
+  ],
+  "commit": "e53c09fba0ac6082d97d53676413d6e285140dc1",
+  "previous": "0e329f10e6f607c9c417a54ae60d290b8e2395b5",
+  "review_base": "0e329f10e6f607c9c417a54ae60d290b8e2395b5",
+  "parents": [
+    "0e329f10e6f607c9c417a54ae60d290b8e2395b5"
+  ],
+  "observed_refs": [
+    "refs/heads/feature/perception-adapter",
+    "refs/pull/5/head"
+  ],
+  "incremental_changed_files": [
+    "src/mtc_vision_adapter/README.md",
+    "src/mtc_vision_adapter/mtc_vision_adapter/core.py",
+    "src/mtc_vision_adapter/mtc_vision_adapter/publisher.py",
+    "src/mtc_vision_adapter/package.xml",
+    "src/mtc_vision_adapter/test/ros_replay_validation.py",
+    "src/mtc_vision_adapter/test/test_motion_safety.py",
+    "src/mtc_vision_adapter/test/test_motion_tf_buffer.py",
+    "src/mtc_vision_adapter/test/test_publisher_cleanup.py"
+  ],
+  "raw_automatic": "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/runs/sha-e53c09fba0ac6082d97d53676413d6e285140dc1",
+  "raw_supplement": "/home/afonso/meituan-robotics-challenge-2026/outputs/vision-safety-acceptance-20261012-e53c09f",
+  "original_index_sha256": "2ae5c656ce19865cd791037af51b6a35d41f16199b5b0a67b853feff3ae6bdf4",
+  "original_files_verified": 301,
+  "source_bundle_sha256": "560de028a56e74092d7c33da9307d13fd2f833d8ceb53b5d96467bdc3d7a68d5",
+  "source_bundle_frozen": false,
+  "formal_baseline_file": "robot/fsm-baseline.repos",
+  "formal_baseline_sha256": "a34a5c149e38b9aa8b1d9d379d4a98d5fab30ae5c0bb211f99d2c9e580a99869",
+  "formal_baseline_commit": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+  "project_head_before": "96b76245da4c9ffe856d26d156bbd72f7f956a84",
+  "environment": {
+    "image": "sha256:8c442d3be3d5c2671d149d320da09388350d261fa452e23bb848aa5978b8a5f1",
+    "ros_base_digest": "sha256:066420e07f60aa18262f2479981def87ebcfcec42eefb0c0c57c4a46098348ca",
+    "driver": "53aab83735236f0c262ecb11e04ef2600241d9d9",
+    "model": "47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1",
+    "fake_patch_source": "TEAMMATE-SDK-20261011",
+    "moveit": "2.12.4",
+    "moveit_msgs": "2.6.0",
+    "qualification": "New harness qualified on existing PR; MoveIt plan/execute PASS, shutdown FAIL; module failures retained",
+    "offline_schema_directory": "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/offline-schema",
+    "offline_schema": {
+      "repository": "https://github.com/ros-infrastructure/rep",
+      "commit": "11ca24a41f31480dfb9562ba99f2a5b93d3ebda5",
+      "files": [
+        {
+          "file": "package_common.xsd",
+          "url": "https://raw.githubusercontent.com/ros-infrastructure/rep/11ca24a41f31480dfb9562ba99f2a5b93d3ebda5/xsd/package_common.xsd",
+          "sha256": "941ea8645344f3c4b7b9d7e68799898309d65a18225fa9cbef4169d95d1a3211"
+        },
+        {
+          "file": "package_format1.xsd",
+          "url": "https://raw.githubusercontent.com/ros-infrastructure/rep/11ca24a41f31480dfb9562ba99f2a5b93d3ebda5/xsd/package_format1.xsd",
+          "sha256": "5409efaaea14cce5041d62b9e44cc538e90d55d6f1b181e65e123a54cbddf71b"
+        },
+        {
+          "file": "package_format2.xsd",
+          "url": "https://raw.githubusercontent.com/ros-infrastructure/rep/11ca24a41f31480dfb9562ba99f2a5b93d3ebda5/xsd/package_format2.xsd",
+          "sha256": "bb7afaf08f6174bf733f02ae4e1695d5d9a741d9cb7c847254fb97f3f43bb911"
+        },
+        {
+          "file": "package_format3.xsd",
+          "url": "https://raw.githubusercontent.com/ros-infrastructure/rep/11ca24a41f31480dfb9562ba99f2a5b93d3ebda5/xsd/package_format3.xsd",
+          "sha256": "f096a197ed6d7878984bb2501a55f7f1bd4895d254399fb7857e154bfb644f41"
+        }
+      ],
+      "note": "Official XSD cache for XML catalog; source and validation rules unchanged. download.ros.org HTTPS hostname verification failed; official pinned GitHub source used instead."
+    },
+    "harness_sha256": {
+      "watch_upstream.py": "90250864848c928db0b29eed0abcf9a06cc0b41e44d289321f3d43ccf68d5325",
+      "wake_main.py": "da433aeddd2a4144ffa0ae25a0705e74788ab0880480999d78ee54e821e50fab",
+      "reproduce_upstream.py": "06bb1b8d020fd268e302a363697ef8e2ebdc359f072ee087fdbdb0c3dfd2b393",
+      "probe_moveit.py": "b4426426c46704bee7d655d3977c0df4cce167af74a54a5bcfe3dc1ce716d626",
+      "probe_task_mock.py": "6b0fea0ff094fd56230a6fe2d57e2ce77330338dbc76d62e38be3c073866d09d"
+    },
+    "qualification_report": "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/runs/qualification-candidate-2/summary.json",
+    "wake_integration": "ENV-UPSTREAM-WAKE-20261011; supported local queue with persistent receipt gate",
+    "previous_harness": "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/harness",
+    "previous_ready_file": "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/environment-ready.json"
+  },
+  "supplement_runtime": {
+    "container": "mtc-vision-safety-review-e53c09f",
+    "image": "sha256:b650ac191592c71e87bc8431e2aafcbc23fe55648dcac6905cf1f875c0d5d838",
+    "argv": [
+      "docker",
+      "run",
+      "-d",
+      "--name",
+      "mtc-vision-safety-review-e53c09f",
+      "--network",
+      "none",
+      "--cpus",
+      "2",
+      "--memory",
+      "4g",
+      "--pids-limit",
+      "512",
+      "--cap-drop",
+      "ALL",
+      "--security-opt",
+      "no-new-privileges",
+      "--label",
+      "mtc.purpose=vision-safety-acceptance",
+      "--label",
+      "mtc.event=sha-e53c09fba0ac6082d97d53676413d6e285140dc1",
+      "sha256:b650ac191592c71e87bc8431e2aafcbc23fe55648dcac6905cf1f875c0d5d838",
+      "sleep",
+      "infinity"
+    ],
+    "source_container": "mtc-repro-5c8f61d8af9f-e53c09fba0ac",
+    "commit": "e53c09fba0ac6082d97d53676413d6e285140dc1",
+    "ready_at": "2026-10-11T18:54:41.294089+00:00"
+  },
+  "ros_domains": {
+    "original_modules": 98,
+    "original_moveit": 99,
+    "new_unit_tf_buffer": 147,
+    "default_replay": 148,
+    "instrumented_synthetic": 149,
+    "instrumented_relabelled_replay": 150
+  },
+  "harness_sha256": {
+    "probe_replay_default.py": "1b9190c87d6754d0f3b349cea5a9455aac597891f2fcff8ed762dc7306542452",
+    "identity.sh": "eb5d9e664853aaaff662c523a55bd6f7a6d501433dc4f8b54c02f76e17d9d23c",
+    "adapter-tests.sh": "d2987ec2a30f3de74529aa8af15247967e656b1239836aa7cd606bb89690cd0f",
+    "replay-default.sh": "2fe6e2e7aa0c42c2b2dd19d062e57003d06a518d67f77bfd26d68378da02c3d4",
+    "replay-synthetic.sh": "f22c2c6f77b7eae69853157be5e842ef8fb025a8d27904282053b52b3e8ab5ab",
+    "replay-labelled.sh": "841750d675933e5fd29594afbb150f66efe0c992b3ac58c7a8b5b38c26393647",
+    "install-offline.sh": "76dd0f63701314674a1dbc0b038a011a22f84a1af3d8b8a04652163b0ac7972f",
+    "public-tests.sh": "d591c4210ff8a53eccc019df7ea24ed04ef77f2f456fdfda95a2f927a8631019",
+    "analyze_event.py": "3a35f4295f23c74b8062771294c03539b455861de5520ec77339d3a38826967f"
+  },
+  "source_modified": false,
+  "licences": "Upstream root MIT; adapter and Action package.xml Apache-2.0 declarations retained, no relicensing. Cached wheel license metadata retained. Driver/model/SDK licence/vendor checksum and private visual assets unresolved."
+}

@@ -1,0 +1,33 @@
+{
+  "container": "mtc-vision-safety-review-e53c09f",
+  "image": "sha256:b650ac191592c71e87bc8431e2aafcbc23fe55648dcac6905cf1f875c0d5d838",
+  "argv": [
+    "docker",
+    "run",
+    "-d",
+    "--name",
+    "mtc-vision-safety-review-e53c09f",
+    "--network",
+    "none",
+    "--cpus",
+    "2",
+    "--memory",
+    "4g",
+    "--pids-limit",
+    "512",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--label",
+    "mtc.purpose=vision-safety-acceptance",
+    "--label",
+    "mtc.event=sha-e53c09fba0ac6082d97d53676413d6e285140dc1",
+    "sha256:b650ac191592c71e87bc8431e2aafcbc23fe55648dcac6905cf1f875c0d5d838",
+    "sleep",
+    "infinity"
+  ],
+  "source_container": "mtc-repro-5c8f61d8af9f-e53c09fba0ac",
+  "commit": "e53c09fba0ac6082d97d53676413d6e285140dc1",
+  "ready_at": "2026-10-11T18:54:41.294089+00:00"
+}

@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.16)
+project(mtc_plan_fjt_export_consumer LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
+find_package(mtc_moveit_planner REQUIRED)
+find_package(mtc_trajectory_execution_cpp REQUIRED)
+add_executable(consumer main.cpp)
+target_link_libraries(consumer PRIVATE mtc_moveit_planner::mtc_moveit_planner_core mtc_trajectory_execution_cpp::mtc_trajectory_execution_cpp)

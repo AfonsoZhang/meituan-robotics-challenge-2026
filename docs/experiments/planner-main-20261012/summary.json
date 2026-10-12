@@ -1,0 +1,414 @@
+{
+  "observation": "ENV-PLANNER-MAIN-20261012",
+  "recorded_at": "2026-10-11T17:39:41.334727+00:00",
+  "commit": "f7eaa2c0d2887aeada4fd635112c63c237962ff7",
+  "verdict": "PARTIAL_PASS_IDENTICAL_MAIN_MERGE_DEFAULT_MOVEIT_EXECUTION_FAIL_WAIT5_PASS_SHUTDOWN_FAIL",
+  "formal_baseline_advanced": false,
+  "local_merge_performed": false,
+  "source_tree_equal_to_prior": true,
+  "automatic_status": "COMPLETED_WITH_FAILURES",
+  "automatic_summary_complete": true,
+  "build_packages": 14,
+  "cpp_cases": 387,
+  "cpp_executables": 24,
+  "cpp_by_package": {
+    "mtc_core_cpp": 23,
+    "mtc_manipulation_cpp": 120,
+    "mtc_motion_execution_cpp": 88,
+    "mtc_moveit_planner": 29,
+    "mtc_ros2_action_cpp": 40,
+    "mtc_task_cpp": 87
+  },
+  "python_cases": 269,
+  "pure_python_mock_e2e": 15,
+  "ros_wiring_cases": 6,
+  "analysis": {
+    "recorded_at": "2026-10-11T17:38:41.029740+00:00",
+    "verdict": "PARTIAL_PASS_IDENTICAL_MAIN_MERGE_DEFAULT_MOVEIT_EXECUTION_FAIL_WAIT5_PASS_SHUTDOWN_FAIL",
+    "source": {
+      "entire_tree_identical_to_prior_acceptance": true,
+      "reference": "ENV-PLANNER-MERGE-20261012",
+      "tree": "60a32b660177f50307c18ca3ae00432fcac0f282",
+      "new_source_or_entrypoints": false,
+      "current_automatic_results_independent_of_history": true
+    },
+    "automatic": {
+      "summary_steps": 25,
+      "original_files_verified": 305,
+      "build_packages": 14,
+      "cpp": 387,
+      "cpp_executables": 24,
+      "python": 269,
+      "e2e": 15,
+      "ros": 6,
+      "old_cpp_audit": "Count-only mismatch: expected 16 versus 20 *_cpp executables; planner excluded",
+      "legacy_task": [
+        {
+          "case": "early-goal",
+          "status": "FAIL",
+          "accepted": true,
+          "result": {
+            "status": 6,
+            "result": {
+              "success": false,
+              "completed_count": 0,
+              "completed_slots": [],
+              "error_code": 220,
+              "message": "task acceptance-early-goal exceeded timeout_ms=5000 (elapsed 5.018s)"
+            }
+          },
+          "child_failure": true,
+          "shutdown_escalated": false
+        },
+        {
+          "case": "delayed-goal",
+          "status": "FAIL",
+          "accepted": true,
+          "result": {
+            "status": 6,
+            "result": {
+              "success": false,
+              "completed_count": 0,
+              "completed_slots": [],
+              "error_code": 510,
+              "message": "state INIT timed out after 5.001s -> HARDWARE_FAULT"
+            }
+          },
+          "child_failure": true,
+          "shutdown_escalated": false
+        },
+        {
+          "case": "cancel-goal",
+          "status": "FAIL",
+          "accepted": true,
+          "result": {
+            "status": 6,
+            "result": {
+              "success": false,
+              "completed_count": 0,
+              "completed_slots": [],
+              "error_code": 520,
+              "message": "cancel not confirmed before timeout (child never reported stopped)"
+            }
+          },
+          "child_failure": true,
+          "shutdown_escalated": false
+        }
+      ],
+      "moveit": {
+        "scope": "Independent S3 MoveIt / GenericSystem; no FSM or physical robot",
+        "planning_execution": "FAIL",
+        "clean_shutdown": "FAIL",
+        "plugins": [
+          "mock_components/GenericSystem"
+        ],
+        "controller_action_servers": [
+          {
+            "node": "joint_trajectory_controller",
+            "namespace": "/",
+            "types": [
+              "control_msgs/action/FollowJointTrajectory"
+            ]
+          }
+        ],
+        "initial_rad": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_rad": [
+          0.05,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "joint_names": [
+          "shoulder_joint",
+          "upperArm_joint",
+          "foreArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "accepted": true,
+        "execute": {
+          "status": 6,
+          "result": {
+            "error_code": {
+              "val": -4,
+              "message": "",
+              "source": ""
+            }
+          }
+        },
+        "exception": "AssertionError()",
+        "shutdown": [
+          {
+            "launch": "move-group",
+            "escalated": false,
+            "already_exited": false,
+            "exit_code": 0,
+            "child_failures": [
+              "process has died [pid 4953, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_o2pr8r90 --params-file /tmp/launch_params_kif_s6_2']."
+            ]
+          },
+          {
+            "launch": "control",
+            "escalated": false,
+            "already_exited": false,
+            "exit_code": 0,
+            "child_failures": []
+          }
+        ],
+        "json_note": "Any non-finite optional ROS fields are null; original representation retained in result.raw.txt"
+      },
+      "moveit_log_review": {
+        "controller_added": {
+          "line": "[move_group-1] [INFO] [1791739883.608352786] [move_group.moveit.moveit.plugins.simple_controller_manager]: Added FollowJointTrajectory controller for joint_trajectory_controller",
+          "time": 1791739883.608353
+        },
+        "internal_client_not_connected": {
+          "line": "[move_group-1] [ERROR] [1791739883.949993718] [moveit.simple_controller_manager.follow_joint_trajectory_controller_handle]: Action client not connected to action server: joint_trajectory_controller/follow_joint_trajectory",
+          "time": 1791739883.9499936
+        },
+        "controller_added_to_failure_seconds": 0.3416407108306885,
+        "execute_received": {
+          "line": "[move_group-1] [INFO] [1791739883.946456771] [move_group.moveit.moveit.ros.move_group.clear_octomap_service]: Execution request received",
+          "time": 1791739883.9464567
+        },
+        "control_child_exit": 0,
+        "move_group_child_exit": -11,
+        "control_received_goal": false
+      },
+      "no_final_joint_error_measurement": "Original probe exits on execute ABORTED/-4 before final position check; cannot claim target reached",
+      "dependency_gaps": [
+        "ament_python rosdep key",
+        "driver docker.io",
+        "driver ros-jazzy-ros2-controllers-test-nodes"
+      ],
+      "driver_test_aggregate": {
+        "total": 1104,
+        "failures": 279,
+        "skipped": 259,
+        "scope": "Includes lint and wrappers, not physical function tests"
+      }
+    },
+    "supplement": {
+      "installed_identity_and_two_module_rosdep": "PASS",
+      "delivered_action_audit": "358 / 20 PASS; excludes planner; 29 / 4 independently audited",
+      "moveit_diagnostic": {
+        "scope": "Independent S3 MoveIt / GenericSystem; no FSM or physical robot",
+        "planning_execution": "PASS",
+        "clean_shutdown": "FAIL",
+        "plugins": [
+          "mock_components/GenericSystem"
+        ],
+        "diagnostic_settle": {
+          "requested_seconds": 5.0,
+          "elapsed_seconds": 5.003422848996706,
+          "scope": "One bounded discovery-settle diagnostic after unchanged 20 spins; not an internal MoveIt readiness proof or production fix"
+        },
+        "controller_action_servers": [
+          {
+            "node": "joint_trajectory_controller",
+            "namespace": "/",
+            "types": [
+              "control_msgs/action/FollowJointTrajectory"
+            ]
+          }
+        ],
+        "initial_rad": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_rad": [
+          0.05,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "joint_names": [
+          "shoulder_joint",
+          "upperArm_joint",
+          "foreArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "accepted": true,
+        "execute": {
+          "status": 4,
+          "result": {
+            "error_code": {
+              "val": 1,
+              "message": "",
+              "source": ""
+            }
+          }
+        },
+        "actual_rad": [
+          0.05007438843883574,
+          -3.359507587738335e-05,
+          -4.596057985909283e-05,
+          9.608217515050764e-08,
+          -2.503380174748599e-05,
+          -8.87972763273865e-05
+        ],
+        "max_error_rad": 8.87972763273865e-05,
+        "distinct_joint_stamps": 1210,
+        "shutdown": [
+          {
+            "launch": "move-group",
+            "escalated": false,
+            "already_exited": false,
+            "exit_code": 0,
+            "child_failures": [
+              "process has died [pid 279, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_f3_ue_sz --params-file /tmp/launch_params_1qi9g9kr']."
+            ]
+          },
+          {
+            "launch": "control",
+            "escalated": false,
+            "already_exited": false,
+            "exit_code": 0,
+            "child_failures": []
+          }
+        ],
+        "json_note": "Any non-finite optional ROS fields are null; original representation retained in result.raw.txt"
+      },
+      "moveit_log_review": {
+        "controller_added": {
+          "line": "[move_group-1] [INFO] [1791740207.878157222] [move_group.moveit.moveit.plugins.simple_controller_manager]: Added FollowJointTrajectory controller for joint_trajectory_controller",
+          "time": 1791740207.8781571
+        },
+        "internal_client_not_connected": null,
+        "controller_added_to_failure_seconds": null,
+        "execute_received": {
+          "line": "[move_group-1] [INFO] [1791740213.085950849] [move_group.moveit.moveit.ros.move_group.clear_octomap_service]: Execution request received",
+          "time": 1791740213.0859509
+        },
+        "control_child_exit": 0,
+        "move_group_child_exit": -11,
+        "control_received_goal": true
+      },
+      "changes": "Only local copied probe uses isolated domain 131 and an extra monotonic 5-second discovery settle; no driver/planner/config/tolerance/deadline modifications",
+      "repeat_count": 1,
+      "causal_limit": "One fresh run supports a discovery-readiness hypothesis, not a proven race root cause, reliable fixed wait or production repair",
+      "startup_contract_limit": "External active controller, graph discovery and MoveIt action availability do not prove internal MoveIt FJT ActionClient connected",
+      "cleanup_guard": "Detected remaining domain 131 CLI daemon after launch exit; stopped that daemon, then rechecked only keeper and stopped supplement. First assertion and process snapshot retained."
+    },
+    "history_not_rerun": {
+      "ENV-PLANNER-MERGE-20261012": "Same exact Git tree/environment: standalone C++ four scenarios 40 checks; default planning fixed pose passed; V1 42.0717s >24s, V2 TF_UNAVAILABLE. These are prior outcomes, not current reruns.",
+      "ENV-CPP-ACTION-20261011": "UBSan and external CMake consumer unchanged; historical evidence only",
+      "ENV-HANDOFF-20261012": "Short CLI graph observation failures still open",
+      "separate_branch_results": "Scene 30e3c6e and perception 0e329f1 not in this main tree, cannot attribute their tests/features to f7eaa2c."
+    },
+    "not_completed": [
+      "Production MoveIt internal controller readiness and clean shutdown",
+      "Default planner sequence TF/V1 watchdog failures; no new planner code in this merge",
+      "Full FSM/Action/Planner/FJT wiring, unique execution ownership, full trajectory and tool transitions",
+      "Legacy Python B03/B05/B06 and cancel stop confirmation; Safety repeated shutdown",
+      "Scene/payload/vision branch integration, calibrated TCP/TF/tools, live perception, collision validity",
+      "SDK licence/vendor checksum, symbolic controller limits, driver dependency/lint, TSan, NUC/physical robot"
+    ],
+    "handoff": {
+      "Sun_Jiaming": "FSM/Action/Cancel kernel, actual trajectory/stop integration and old B03/B05/B06/520; record locally, no repair or external message",
+      "Chang_Jianshuo": "Planner default TF/state budget and calibrated scene/input contracts",
+      "integration": "Replace availability-only acceptance assumptions with verifiable readiness contract; track observed default failure and bounded diagnosis separately, retain -11 and cleanup evidence"
+    },
+    "source_modified": false,
+    "formal_baseline_advanced": false,
+    "local_merge_performed": false
+  },
+  "cleanup": {
+    "recorded_at": "2026-10-11T17:37:57.682992+00:00",
+    "original_runner_pid": 24525,
+    "original_runner_absent": true,
+    "supplement_before_stop": "only sleep infinity; no ROS processes or daemons",
+    "stop": {
+      "exit_code": 0,
+      "stdout": "mtc-planner-main-review-f7eaa2c\n",
+      "stderr": ""
+    },
+    "containers": [
+      {
+        "container": "mtc-repro-5c8f61d8af9f-f7eaa2c0d288",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-11T17:26:35.258954086Z",
+          "FinishedAt": "2026-10-11T17:31:39.824413435Z"
+        },
+        "network": "none",
+        "cpus": 2000000000,
+        "memory": 4294967296,
+        "mounts": [],
+        "devices": [],
+        "ports": {}
+      },
+      {
+        "container": "mtc-planner-main-review-f7eaa2c",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-11T17:36:06.427944976Z",
+          "FinishedAt": "2026-10-11T17:37:57.391481894Z"
+        },
+        "network": "none",
+        "cpus": 2000000000,
+        "memory": 4294967296,
+        "mounts": [],
+        "devices": [],
+        "ports": {}
+      }
+    ],
+    "keeper_exit137_note": "docker stop terminates keeper; ROS child results checked separately."
+  },
+  "main_receipt": {
+    "thread": "01a12a25-b5c5-7b23-98b7-1cf673d68838",
+    "ack_at": "2026-10-11T17:31:47.262738+00:00",
+    "queued_at": "2026-10-11T17:31:41.332564+00:00",
+    "queue_to_ack_seconds": 5.930174,
+    "attempts": 1,
+    "marker": "MOVEIT_WAKE_ACK_d10b4fb52905c2a55e3124ad9f7c4034",
+    "complete_at_freeze": false
+  },
+  "not_completed": [
+    "Production MoveIt internal controller readiness and clean shutdown",
+    "Default planner sequence TF/V1 watchdog failures; no new planner code in this merge",
+    "Full FSM/Action/Planner/FJT wiring, unique execution ownership, full trajectory and tool transitions",
+    "Legacy Python B03/B05/B06 and cancel stop confirmation; Safety repeated shutdown",
+    "Scene/payload/vision branch integration, calibrated TCP/TF/tools, live perception, collision validity",
+    "SDK licence/vendor checksum, symbolic controller limits, driver dependency/lint, TSan, NUC/physical robot"
+  ],
+  "handoff": {
+    "Sun_Jiaming": "FSM/Action/Cancel kernel, actual trajectory/stop integration and old B03/B05/B06/520; record locally, no repair or external message",
+    "Chang_Jianshuo": "Planner default TF/state budget and calibrated scene/input contracts",
+    "integration": "Replace availability-only acceptance assumptions with verifiable readiness contract; track observed default failure and bounded diagnosis separately, retain -11 and cleanup evidence"
+  }
+}

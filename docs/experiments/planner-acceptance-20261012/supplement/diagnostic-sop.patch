@@ -1,0 +1,25 @@
+--- upstream/run_planning_evidence.sh
++++ local/diagnostic-tfwait-sop.sh
+@@ -1,3 +1,4 @@
++# Diagnostic copy; only source path and params_file overlay changed by OpenAI Codex.
+ #!/usr/bin/env bash
+ # 一键采集规划证据（Mock / Fake Hardware，只规划不执行）：
+ #   1) 空 ROS 域检查 + 静态 Xacro 核验（只允许 mock_components/GenericSystem）
+@@ -10,7 +11,7 @@
+ # 用法：bash run_planning_evidence.sh [输出目录]
+ set -uo pipefail
+ set -m   # 每个后台 launch 自成进程组：PGID == $!，退出时只结束自己的进程组
+-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
++SCRIPT_DIR=/candidate/src/mtc_moveit_planner/scripts
+ # shellcheck source=env.sh
+ source "$SCRIPT_DIR/env.sh"
+ OUT="${1:-$MTC_WS/docs/planning/evidence/$(date +%Y%m%d_%H%M%S)}"
+@@ -123,7 +124,7 @@
+ # ---- 4. 规划工具 ------------------------------------------------------------
+ run_tool() {
+   local name="$1"; shift
+-  ros2 launch mtc_moveit_planner plan_tool.launch.py output_dir:="$OUT" "$@" > "$OUT/$name.log" 2>&1
++  ros2 launch mtc_moveit_planner plan_tool.launch.py output_dir:="$OUT" params_file:=/review-evidence/diagnostic-tfwait/planner-tfwait.yaml "$@" > "$OUT/$name.log" 2>&1
+   # ros2 launch 的返回码不反映节点结果，以工具自身的结论行为准。
+   if grep -qE "PLAN OK|SEQUENCE PLAN OK" "$OUT/$name.log"; then
+     note "PASS $name"

@@ -1,0 +1,6 @@
+### Result
+{"case":"conflict_removed_with_external_diagnostic","mode":"cpp_mock","session_id":"6d476aea-f1fa-4da5-80ae-d7124b046f88","owned_task":null,"external_task":{"task_id":"delayed_cancel_001","state":"FAULT","substate":"FAULT","completed_count":0,"total_count":1,"last_error_code":520,"detail":"C++ Task 只读状态"},"historyCount":0,"graphValid":true,"servers":[{"node":"/cpp_browser/mtc_mock_pick_place","action":"/cpp_browser/manipulation/pick_place","types":["mtc_interfaces/action/PickPlace"]},{"node":"/cpp_browser/mtc_mock_task","action":"/cpp_browser/task/execute","types":["mtc_interfaces/action/ExecuteTask"]}],"submitEnabled":false,"hardware":"硬件未接入"}
+### Ran Playwright code
+```js
+await (async (page) => { const s=await page.evaluate(async()=>await (await fetch('/api/snapshot')).json()); return {case:'conflict_removed_with_external_diagnostic',mode:s.mode,session_id:s.session_id,owned_task:s.task,external_task:s.external_task,historyCount:s.history.length,graphValid:s.connection.graph.valid,servers:s.connection.graph.servers,submitEnabled:!(await page.locator('#submit').isDisabled()),hardware:await page.locator('#sample-quality').textContent()}; })(page);
+```

@@ -1,0 +1,33 @@
+{
+  "commit": "c0f70172e4b0271046d5f52813e0730d40ae772a",
+  "evidence_type": "static source inspection; live graph captured separately in standalone probe",
+  "new_package": "mtc_ros2_action_cpp",
+  "executables": [
+    "mock_task_server",
+    "mock_pick_place_server",
+    "mock_motion_server"
+  ],
+  "new_actions": [
+    "/mtc/task/execute",
+    "/mtc/manipulation/pick_place",
+    "/mtc/motion/execute_joint_move"
+  ],
+  "task_to_pick_place": "Real ROS ActionClient to /mtc/manipulation/pick_place",
+  "pick_place_to_motion": "Local AsyncMockMotion / MotionExecutorCore; does not call Motion ROS Action",
+  "motion_server": "Separate MockMotionAdapter instance; not a shared physical execution backend",
+  "no_core_or_rosidl_diff": true,
+  "no_real_moveit_or_follow_joint_trajectory_path": true,
+  "state_publishers_in_new_cpp_sources": 0,
+  "webui_contract_gap": "Existing real UI expects TaskState, RobotState, ToolState and trusted publishers; this Action-only Mock package does not supply them. No claim of real UI or hardware integration.",
+  "licenses_observed": {
+    "repository_LICENSE": "MIT",
+    "new_package_xml": "Apache-2.0",
+    "conclusion": "Difference retained for maintainer clarification; no reassignment of license."
+  },
+  "not_delivered": [
+    "MoveIt PlannerPort adapter",
+    "FollowJointTrajectory execution and shared motion authority",
+    "Independent public PickPlace stop evidence",
+    "Physical state/TF/perception/tool integration"
+  ]
+}

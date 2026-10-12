@@ -1,0 +1,68 @@
+Processing /review-deps/pip-25.0.1-py3-none-any.whl
+Installing collected packages: pip
+Successfully installed pip-25.0.1
+Looking in links: /review-deps
+Requirement already satisfied: numpy==1.26.4 in /usr/lib/python3/dist-packages (from -r /review-tools/requirements-review.txt (line 1)) (1.26.4)
+Processing /review-deps/scipy-1.11.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r /review-tools/requirements-review.txt (line 2))
+Processing /review-deps/opencv_python-4.8.1.78-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r /review-tools/requirements-review.txt (line 3))
+Processing /review-deps/PyYAML-6.0.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r /review-tools/requirements-review.txt (line 4))
+Processing /review-deps/matplotlib-3.8.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r /review-tools/requirements-review.txt (line 5))
+Processing /review-deps/pytest-8.3.5-py3-none-any.whl (from -r /review-tools/requirements-review.txt (line 6))
+Requirement already satisfied: pip==25.0.1 in /review-venv/lib/python3.12/site-packages (from -r /review-tools/requirements-review.txt (line 7)) (25.0.1)
+Processing /review-deps/wheel-0.45.1-py3-none-any.whl (from -r /review-tools/requirements-review.txt (line 8))
+Processing /review-deps/contourpy-1.3.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (from matplotlib==3.8.4->-r /review-tools/requirements-review.txt (line 5))
+Processing /review-deps/cycler-0.12.1-py3-none-any.whl (from matplotlib==3.8.4->-r /review-tools/requirements-review.txt (line 5))
+Processing /review-deps/fonttools-4.66.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from matplotlib==3.8.4->-r /review-tools/requirements-review.txt (line 5))
+Processing /review-deps/kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from matplotlib==3.8.4->-r /review-tools/requirements-review.txt (line 5))
+Requirement already satisfied: packaging>=20.0 in /usr/lib/python3/dist-packages (from matplotlib==3.8.4->-r /review-tools/requirements-review.txt (line 5)) (24.0)
+Processing /review-deps/pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (from matplotlib==3.8.4->-r /review-tools/requirements-review.txt (line 5))
+Requirement already satisfied: pyparsing>=2.3.1 in /usr/lib/python3/dist-packages (from matplotlib==3.8.4->-r /review-tools/requirements-review.txt (line 5)) (3.1.1)
+Requirement already satisfied: python-dateutil>=2.7 in /usr/lib/python3/dist-packages (from matplotlib==3.8.4->-r /review-tools/requirements-review.txt (line 5)) (2.8.2)
+Requirement already satisfied: iniconfig in /usr/lib/python3/dist-packages (from pytest==8.3.5->-r /review-tools/requirements-review.txt (line 6)) (1.1.1)
+Processing /review-deps/pluggy-1.6.0-py3-none-any.whl (from pytest==8.3.5->-r /review-tools/requirements-review.txt (line 6))
+Installing collected packages: wheel, scipy, PyYAML, pluggy, pillow, opencv-python, kiwisolver, fonttools, cycler, contourpy, pytest, matplotlib
+  Attempting uninstall: PyYAML
+    Found existing installation: PyYAML 6.0.1
+    Not uninstalling pyyaml at /usr/lib/python3/dist-packages, outside environment /review-venv
+    Can't uninstall 'PyYAML'. No files were found to uninstall.
+  Attempting uninstall: pluggy
+    Found existing installation: pluggy 1.4.0
+    Not uninstalling pluggy at /usr/lib/python3/dist-packages, outside environment /review-venv
+    Can't uninstall 'pluggy'. No files were found to uninstall.
+  Attempting uninstall: pytest
+    Found existing installation: pytest 7.4.4
+    Not uninstalling pytest at /usr/lib/python3/dist-packages, outside environment /review-venv
+    Can't uninstall 'pytest'. No files were found to uninstall.
+Successfully installed PyYAML-6.0.2 contourpy-1.3.3 cycler-0.12.1 fonttools-4.66.1 kiwisolver-1.5.1 matplotlib-3.8.4 opencv-python-4.8.1.78 pillow-12.3.0 pluggy-1.6.0 pytest-8.3.5 scipy-1.11.4 wheel-0.45.1
+Obtaining file:///candidate/vision_core
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Obtaining file:///candidate/src/mtc_vision_adapter
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Building wheels for collected packages: mtc-vision-core
+  Building editable for mtc-vision-core (pyproject.toml): started
+  Building editable for mtc-vision-core (pyproject.toml): finished with status 'done'
+  Created wheel for mtc-vision-core: filename=mtc_vision_core-0.4.0-0.editable-py3-none-any.whl size=2896 sha256=eb4aa932dfdf26f3188d11662bd43141e9100b98d9c3a0fb4a1d6edba41ce04f
+  Stored in directory: /tmp/pip-ephem-wheel-cache-trnw3iem/wheels/ef/0d/42/b2b27d7321368f359bbb0833e3cc7c1312ef8c7916b03c6544
+Successfully built mtc-vision-core
+Installing collected packages: mtc-vision-adapter, mtc-vision-core
+  Attempting uninstall: mtc-vision-adapter
+    Found existing installation: mtc-vision-adapter 0.1.0
+    Not uninstalling mtc-vision-adapter at /candidate-install/mtc_vision_adapter/lib/python3.12/site-packages, outside environment /review-venv
+    Can't uninstall 'mtc-vision-adapter'. No files were found to uninstall.
+  DEPRECATION: Legacy editable install of mtc-vision-adapter==0.1.0 from file:///candidate/src/mtc_vision_adapter (setup.py develop) is deprecated. pip 25.1 will enforce this behaviour change. A possible replacement is to add a pyproject.toml or enable --use-pep517, and use setuptools >= 64. If the resulting installation is not behaving as expected, try using --config-settings editable_mode=compat. Please consult the setuptools documentation for more information. Discussion can be found at https://github.com/pypa/pip/issues/11457
+  Running setup.py develop for mtc-vision-adapter
+Successfully installed mtc-vision-adapter-0.1.0 mtc-vision-core-0.4.0
+No broken requirements found.
+{
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "opencv": "4.8.1",
+  "numpy": "1.26.4",
+  "scipy": "1.11.4",
+  "yaml": "6.0.2",
+  "matplotlib": "3.8.4",
+  "pytest": "8.3.5"
+}

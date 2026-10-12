@@ -1,0 +1,53 @@
+[INFO] [1791737622.236716891] [controller_manager]: Using Steady (Monotonic) clock for triggering controller manager cycles.
+[INFO] [1791737622.244868538] [controller_manager]: Subscribing to '/robot_description' topic for robot description.
+[INFO] [1791737622.244984049] [controller_manager]: update rate is 200 Hz
+[INFO] [1791737622.244991345] [controller_manager]: Overruns handling is : enabled
+[INFO] [1791737622.244995699] [controller_manager]: Spawning controller_manager RT thread with scheduler priority: 50
+[WARN] [1791737622.245172683] [controller_manager]: Could not enable FIFO RT scheduling policy: with error number <1>(Operation not permitted). See [https://control.ros.org/master/doc/ros2_control/controller_manager/doc/userdoc.html] for details on how to enable realtime scheduling.
+[INFO] [1791737622.567722287] [controller_manager]: Received robot description from topic.
+[INFO] [1791737622.567889442] [controller_manager]: Enforcing command limits is disabled. Command limits from URDF will be ignored.
+[INFO] [1791737622.572425225] [controller_manager]: Loading hardware 'auboHardwareInterface' 
+[INFO] [1791737622.572953594] [controller_manager]: Loaded hardware 'auboHardwareInterface' from plugin 'mock_components/GenericSystem'
+[INFO] [1791737622.573016569] [controller_manager]: Initialize hardware 'auboHardwareInterface' 
+[INFO] [1791737622.579897922] [controller_manager]: Successful initialization of hardware 'auboHardwareInterface'
+[INFO] [1791737622.580198874] [controller_manager]: Activating component 'auboHardwareInterface'.
+[INFO] [1791737622.580214637] [resource_manager]: 'configure' hardware 'auboHardwareInterface' 
+[INFO] [1791737622.580229010] [resource_manager]: Successful 'configure' of hardware 'auboHardwareInterface'
+[INFO] [1791737622.580235956] [resource_manager]: 'activate' hardware 'auboHardwareInterface' 
+[INFO] [1791737622.580246045] [resource_manager]: Successful 'activate' of hardware 'auboHardwareInterface'
+[INFO] [1791737622.580349395] [controller_manager]: Registering statistics for : auboHardwareInterface
+[INFO] [1791737622.580457258] [controller_manager]: Resource Manager has been successfully initialized. Starting Controller Manager services...
+[INFO] [1791737626.016031453] [controller_manager]: Loading controller : 'joint_state_broadcaster' of type 'joint_state_broadcaster/JointStateBroadcaster'
+[INFO] [1791737626.016119535] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[INFO] [1791737626.021467322] [controller_manager]: Controller 'joint_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_e382p4_8 --params-file /driver_ws/install_no_symlink/aubo_ros2_driver/share/aubo_ros2_driver/config/aubo_controllers.yaml 
+[INFO] [1791737626.044651384] [controller_manager]: Configuring controller: 'joint_state_broadcaster'
+[INFO] [1791737626.044912175] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[INFO] [1791737626.062866855] [controller_manager]: Activating controllers: [ joint_state_broadcaster ]
+[INFO] [1791737626.066029858] [controller_manager]: Successfully switched controllers!
+[INFO] [1791737628.964528879] [controller_manager]: Loading controller : 'joint_trajectory_controller' of type 'joint_trajectory_controller/JointTrajectoryController'
+[INFO] [1791737628.964618917] [controller_manager]: Loading controller 'joint_trajectory_controller'
+[INFO] [1791737628.967328583] [controller_manager]: Controller 'joint_trajectory_controller' node arguments: --ros-args --params-file /tmp/launch_params_e382p4_8 --params-file /driver_ws/install_no_symlink/aubo_ros2_driver/share/aubo_ros2_driver/config/aubo_controllers.yaml 
+[INFO] [1791737628.998879846] [controller_manager]: Configuring controller: 'joint_trajectory_controller'
+[INFO] [1791737628.999141569] [joint_trajectory_controller]: No specific joint names are used for command interfaces. Using 'joints' parameter.
+[INFO] [1791737628.999196832] [joint_trajectory_controller]: Command interfaces are [position] and state interfaces are [position velocity].
+[INFO] [1791737628.999229533] [joint_trajectory_controller]: Using 'splines' interpolation method.
+[INFO] [1791737629.002122559] [joint_trajectory_controller]: Action status changes will be monitored at 20.00 Hz.
+[INFO] [1791737629.011069127] [joint_trajectory_controller]: Setting initial scaling factor to 1.000000
+[INFO] [1791737629.011141307] [joint_trajectory_controller]: No scaling interface set. This controller will not read speed scaling from the hardware.
+[INFO] [1791737629.017666941] [controller_manager]: Activating controllers: [ joint_trajectory_controller ]
+[INFO] [1791737629.021005818] [controller_manager]: Successfully switched controllers!
+[INFO] [1791737631.924922057] [controller_manager]: Received robot description from topic.
+[WARN] [1791737631.925035715] [controller_manager]: ResourceManager has already loaded a urdf and is initialized. Ignoring attempt to reload a robot description.
+[WARN] [1791737660.931248982] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 200 Hz. The loop took 16.294179 ms (missed cycles : 4).
+[INFO] [1791737677.625059990] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1791737677.625304640] [controller_manager]: Shutdown request received....
+[INFO] [1791737677.625428376] [controller_manager]: Shutting down all controllers in the controller manager.
+[INFO] [1791737677.625480046] [controller_manager]: Deactivating controller 'joint_trajectory_controller'
+[INFO] [1791737677.625569524] [controller_manager]: Shutting down controller 'joint_trajectory_controller'
+[INFO] [1791737677.625798501] [controller_manager]: Deactivating controller 'joint_state_broadcaster'
+[INFO] [1791737677.625853033] [controller_manager]: Shutting down controller 'joint_state_broadcaster'
+[INFO] [1791737677.625897962] [resource_manager]: 'deactivate' hardware 'auboHardwareInterface' 
+[INFO] [1791737677.625925107] [resource_manager]: Successful 'deactivate' of hardware 'auboHardwareInterface'
+[INFO] [1791737677.625930408] [resource_manager]: 'shutdown' hardware 'auboHardwareInterface' 
+[INFO] [1791737677.625934639] [resource_manager]: Successful 'shutdown' of hardware 'auboHardwareInterface'
+[INFO] [1791737677.625989040] [controller_manager]: Shutting down the controller manager.

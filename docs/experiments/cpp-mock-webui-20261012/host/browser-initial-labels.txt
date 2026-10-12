@@ -1,0 +1,6 @@
+### Result
+{"url":"http://127.0.0.1:8769/","environment":"C++ Mock · ROS 2","hardwareBadge":"状态有效","hardware":"未知 · 缺失","hint":"向 ExecuteTask 提交真实任务。请核对颜色口令和现场设备。","submitEnabled":true}
+### Ran Playwright code
+```js
+await (async (page) => { return await page.evaluate(() => ({url:location.href, environment:document.querySelector('#environment-tag').textContent, hardwareBadge:document.querySelector('#sample-quality').textContent, hardware:document.querySelector('#robot-ready').textContent, hint:document.querySelector('#operation-hint').textContent, submitEnabled:!document.querySelector('#submit').disabled})); })(page);
+```

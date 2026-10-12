@@ -1,0 +1,76 @@
+{
+  "supervisor_pid": 7556,
+  "started_at": "2026-10-12T00:19:14.795728+00:00",
+  "namespace": "/cpp_browser",
+  "domain_id": 161,
+  "profile": "success",
+  "result_delay_ms": 700,
+  "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+  "processes": [
+    {
+      "label": "pick_place",
+      "pid": 7627,
+      "argv": [
+        "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+        "--ros-args",
+        "-r",
+        "__ns:=/cpp_browser",
+        "-r",
+        "/mtc/task/execute:=/cpp_browser/task/execute",
+        "-r",
+        "/mtc/manipulation/pick_place:=/cpp_browser/manipulation/pick_place",
+        "-p",
+        "mock.result_delay_ms:=700",
+        "-p",
+        "mock.plan_available:=true",
+        "-p",
+        "mock.stop_evidence_available:=true",
+        "-p",
+        "mock.status_unknown:=false"
+      ],
+      "executable": "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+    },
+    {
+      "label": "task",
+      "pid": 7628,
+      "argv": [
+        "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+        "--ros-args",
+        "-r",
+        "__ns:=/cpp_browser",
+        "-r",
+        "/mtc/task/execute:=/cpp_browser/task/execute",
+        "-r",
+        "/mtc/manipulation/pick_place:=/cpp_browser/manipulation/pick_place"
+      ],
+      "executable": "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+    },
+    {
+      "label": "web",
+      "pid": 7665,
+      "argv": [
+        "/usr/bin/python3",
+        "-m",
+        "mtc_webui.server",
+        "--cpp-mock",
+        "--cpp-namespace",
+        "/cpp_browser",
+        "--ros-domain-id",
+        "161",
+        "--port",
+        "8767",
+        "--output-dir",
+        "/integration-evidence/browser-restart/web-session"
+      ],
+      "executable": "/usr/bin/python3.12"
+    }
+  ],
+  "returncodes": {
+    "pick_place": 0,
+    "task": 0,
+    "web": 0
+  },
+  "ended_at": "2026-10-12T00:20:24.343589+00:00",
+  "cleanup_ok": true,
+  "exit_code": 0
+}

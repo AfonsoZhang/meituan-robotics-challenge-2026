@@ -1,0 +1,222 @@
+{
+  "at": "2026-10-11T16:37:20.305161+00:00",
+  "scope": "Unmodified merged-overlay default MoveGroup/Fake planning SOP only; no planner trajectory executed",
+  "configuration_change": false,
+  "raw_urdf_command_interface_limits": {
+    "shoulder_joint": {
+      "min": "{-2*pi}",
+      "max": "{2*pi}"
+    },
+    "upperArm_joint": {
+      "min": "{-2*pi}",
+      "max": "{2*pi}"
+    },
+    "foreArm_joint": {
+      "min": "-2.41",
+      "max": "2.41"
+    },
+    "wrist1_joint": {
+      "min": "-2.66",
+      "max": "2.66"
+    },
+    "wrist2_joint": {
+      "min": "{-2*pi}",
+      "max": "{2*pi}"
+    },
+    "wrist3_joint": {
+      "min": "-2.23",
+      "max": "2.23"
+    }
+  },
+  "planner_numeric_bounds_from_source": {
+    "shoulder_joint": {
+      "min": -6.283185307179586,
+      "max": 6.283185307179586
+    },
+    "upperArm_joint": {
+      "min": -6.283185307179586,
+      "max": 6.283185307179586
+    },
+    "foreArm_joint": {
+      "min": -2.41,
+      "max": 2.41
+    },
+    "wrist1_joint": {
+      "min": -2.66,
+      "max": 2.66
+    },
+    "wrist2_joint": {
+      "min": -6.283185307179586,
+      "max": 6.283185307179586
+    },
+    "wrist3_joint": {
+      "min": -2.23,
+      "max": 2.23
+    }
+  },
+  "runtime_limit_enforcement": "NOT VERIFIED; expanded command-interface limits may retain expressions, recorded verbatim",
+  "runs": {
+    "planning-sop": {
+      "fixed_pose": {
+        "point_count": 89,
+        "duration_s": 8.758936911,
+        "time_monotonic": true,
+        "finite_positions_velocities_accelerations": true,
+        "planner_declared_position_bounds": "PASS",
+        "joint_order": [
+          "shoulder_joint",
+          "upperArm_joint",
+          "foreArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "extremes_rad": {
+          "shoulder_joint": [
+            0,
+            2.44406497
+          ],
+          "upperArm_joint": [
+            0,
+            0.03037905582
+          ],
+          "foreArm_joint": [
+            -1.248519058,
+            0
+          ],
+          "wrist1_joint": [
+            0,
+            0.3417308942
+          ],
+          "wrist2_joint": [
+            -1.613501361,
+            0
+          ],
+          "wrist3_joint": [
+            -0.6959993805,
+            0
+          ]
+        },
+        "planning_time_s": 0.06750487,
+        "final_position_error_m": 7.183451863e-05,
+        "final_orientation_error_rad": 0.0006958217731,
+        "yaml": "fixed_pose_plan_20261011_163629.yaml",
+        "child_exit": 0
+      },
+      "sequences": {
+        "passive_hook_v1": {
+          "yaml": "battery_sequence_passive_hook_v1_T0_20261011_163632.yaml",
+          "ok": false,
+          "phases": [
+            {
+              "phase": "ACQUIRE",
+              "ok": false,
+              "error_code": 200,
+              "message": "[EXCEEDS_STATE_WATCHDOG] side_insert: trajectory lasts 42.0717 s, more than 80% of the MOVE_PRE_ALIGN watchdog (30 s)",
+              "simulation_only": true,
+              "uncalibrated_inputs": [],
+              "primitives": [
+                {
+                  "primitive_name": "side_insert",
+                  "ok": false,
+                  "reason": "EXCEEDS_STATE_WATCHDOG",
+                  "message": "trajectory lasts 42.0717 s, more than 80% of the MOVE_PRE_ALIGN watchdog (30 s)",
+                  "mode": "FREE_SPACE",
+                  "method": "ompl",
+                  "goal_kind": "RING_STANDOFF",
+                  "start_assumption": "explicit_start_state",
+                  "contact_intent_only": false,
+                  "ee_goal": {
+                    "frame_id": "world",
+                    "position_m": [
+                      0.37,
+                      -0.05,
+                      0.2
+                    ],
+                    "orientation_xyzw": [
+                      0,
+                      0.7071067812,
+                      0,
+                      0.7071067812
+                    ]
+                  },
+                  "planning_time_s": 0.096561933,
+                  "cartesian_fraction": 0,
+                  "time_scale_applied": 3.527389647,
+                  "max_ee_linear_speed_m_s": 0.01631215883,
+                  "max_ee_angular_speed_rad_s": 0.09803921569,
+                  "duration_s": 42.07169595,
+                  "point_count": 121,
+                  "timeout_ms": 0,
+                  "state_watchdog_s": 30
+                }
+              ]
+            }
+          ],
+          "command_count": 0,
+          "trajectories": [],
+          "boundaries": [],
+          "child_exit": 1
+        },
+        "magnetic_latch_v2": {
+          "yaml": "battery_sequence_magnetic_latch_v2_T0_20261011_163635.yaml",
+          "ok": false,
+          "phases": [
+            {
+              "phase": "ACQUIRE",
+              "ok": false,
+              "error_code": 200,
+              "message": "[TF_UNAVAILABLE] top_insert: cannot transform ring pose from 'base_link' to 'world'",
+              "simulation_only": true,
+              "uncalibrated_inputs": [],
+              "primitives": [
+                {
+                  "primitive_name": "top_insert",
+                  "ok": false,
+                  "reason": "TF_UNAVAILABLE",
+                  "message": "cannot transform ring pose from 'base_link' to 'world'",
+                  "mode": "FREE_SPACE",
+                  "method": "",
+                  "goal_kind": "RING_STANDOFF",
+                  "start_assumption": "explicit_start_state",
+                  "contact_intent_only": false,
+                  "ee_goal": {
+                    "frame_id": "",
+                    "position_m": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "orientation_xyzw": [
+                      0,
+                      0,
+                      0,
+                      1
+                    ]
+                  },
+                  "planning_time_s": 0,
+                  "cartesian_fraction": 0,
+                  "time_scale_applied": 1,
+                  "max_ee_linear_speed_m_s": 0,
+                  "max_ee_angular_speed_rad_s": 0,
+                  "duration_s": 0,
+                  "point_count": 0,
+                  "timeout_ms": 0,
+                  "state_watchdog_s": 0
+                }
+              ]
+            }
+          ],
+          "command_count": 0,
+          "trajectories": [],
+          "boundaries": [],
+          "child_exit": 1
+        }
+      },
+      "move_group_exit": -11,
+      "control_exit": 0,
+      "script_exit": 0,
+      "summary_reports_no_remaining_nodes": true
+    }
+  }
+}

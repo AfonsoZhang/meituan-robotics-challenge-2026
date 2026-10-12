@@ -1,0 +1,404 @@
+{
+  "commit": "30e3c6e64516c47afe9ada25d02df7ed4669825c",
+  "previous": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+  "review_base": "4a1a81652fca39efe2916a19ad49187d29789697",
+  "parents": [
+    "63d24e339f0b835731683169faefdea751e9b24a"
+  ],
+  "commit_metadata": "commit 30e3c6e64516c47afe9ada25d02df7ed4669825c\nAuthor:     changjianshuo <changjianshuo00@gmail.com>\nAuthorDate: Sun Oct 11 11:40:35 2026 -0500\nCommit:     changjianshuo <changjianshuo00@gmail.com>\nCommitDate: Sun Oct 11 11:40:35 2026 -0500\n\n    docs(planning): 第二轮运行证据（场景/载荷/起点一致性/V1）\n    \n    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>",
+  "incremental_commits": [
+    "30e3c6e64516c47afe9ada25d02df7ed4669825c 63d24e339f0b835731683169faefdea751e9b24a docs(planning): 第二轮运行证据（场景/载荷/起点一致性/V1）",
+    "63d24e339f0b835731683169faefdea751e9b24a 082810b7f99ae9f7afe55f46abbc4f4609923729 feat(planning): 确定性关节插值替代随机 OMPL 作为 V1 预对准首选",
+    "082810b7f99ae9f7afe55f46abbc4f4609923729 4a1a81652fca39efe2916a19ad49187d29789697 feat(planning): 规划场景、电池载荷、起点一致性与 V1 种子 IK"
+  ],
+  "incremental_changed_files": [
+    "docs/planning/PLANNING_HANDOFF.md",
+    "docs/planning/README.md",
+    "docs/planning/evidence/20261011_113932/SUMMARY.txt",
+    "docs/planning/evidence/20261011_113932/aubo_S3_fake_expanded.urdf",
+    "docs/planning/evidence/20261011_113932/aubo_robot.srdf",
+    "docs/planning/evidence/20261011_113932/battery_sequence_magnetic_latch_v2_T0_20261011_114013.yaml",
+    "docs/planning/evidence/20261011_113932/battery_sequence_passive_hook_v1_T0_20261011_114012.yaml",
+    "docs/planning/evidence/20261011_113932/collision_probe.log",
+    "docs/planning/evidence/20261011_113932/collision_probe/fixed_pose_plan_20261011_114011.yaml",
+    "docs/planning/evidence/20261011_113932/control_launch.log",
+    "docs/planning/evidence/20261011_113932/fixed_pose_plan_20261011_114009.yaml",
+    "docs/planning/evidence/20261011_113932/frames_2026-10-11_11.40.08.gv",
+    "docs/planning/evidence/20261011_113932/frames_2026-10-11_11.40.08.pdf",
+    "docs/planning/evidence/20261011_113932/move_group_launch.log",
+    "docs/planning/evidence/20261011_113932/plan_battery_sequence_v1.log",
+    "docs/planning/evidence/20261011_113932/plan_battery_sequence_v2.log",
+    "docs/planning/evidence/20261011_113932/plan_fixed_pose.log",
+    "docs/planning/evidence/20261011_113932/ros_graph.txt",
+    "docs/planning/evidence/20261011_113932/tf2_echo_base_link_to_ee_link.txt",
+    "docs/planning/evidence/20261011_113932/tf2_echo_world_to_base_link.txt",
+    "docs/planning/evidence/20261011_113932/tf2_echo_world_to_ee_link.txt",
+    "docs/planning/evidence/20261011_113932/view_frames.log",
+    "src/mtc_moveit_planner/CMakeLists.txt",
+    "src/mtc_moveit_planner/README.md",
+    "src/mtc_moveit_planner/config/collision_probe_override.yaml",
+    "src/mtc_moveit_planner/config/planner.yaml",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/move_group_backend.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/moveit_planner_port.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/planner_config.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/planning_backend.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/start_consistency.hpp",
+    "src/mtc_moveit_planner/launch/plan_tool.launch.py",
+    "src/mtc_moveit_planner/package.xml",
+    "src/mtc_moveit_planner/scripts/env.sh",
+    "src/mtc_moveit_planner/scripts/run_planning_evidence.sh",
+    "src/mtc_moveit_planner/src/move_group_backend.cpp",
+    "src/mtc_moveit_planner/src/moveit_planner_port.cpp",
+    "src/mtc_moveit_planner/src/plan_battery_sequence_main.cpp",
+    "src/mtc_moveit_planner/src/plan_fixed_pose_main.cpp",
+    "src/mtc_moveit_planner/src/plan_report_io.cpp",
+    "src/mtc_moveit_planner/src/planner_config.cpp",
+    "src/mtc_moveit_planner/src/ros_params.cpp",
+    "src/mtc_moveit_planner/src/start_consistency.cpp",
+    "src/mtc_moveit_planner/test/test_moveit_planner_port.cpp",
+    "src/mtc_moveit_planner/test/test_start_consistency.cpp"
+  ],
+  "cumulative_changed_files": [
+    "README.md",
+    "README_FSM.md",
+    "docs/migration/PHASE2A_ROS2_ACTION_REPORT.md",
+    "docs/migration/ROS_WIRING_FIX_20261011.md",
+    "docs/planning/PLANNING_HANDOFF.md",
+    "docs/planning/README.md",
+    "docs/planning/evidence/20261011_075828/SUMMARY.txt",
+    "docs/planning/evidence/20261011_075828/aubo_S3_fake_expanded.urdf",
+    "docs/planning/evidence/20261011_075828/aubo_robot.srdf",
+    "docs/planning/evidence/20261011_075828/battery_sequence_magnetic_latch_v2_T0_20261011_075908.yaml",
+    "docs/planning/evidence/20261011_075828/battery_sequence_passive_hook_v1_T0_20261011_075907.yaml",
+    "docs/planning/evidence/20261011_075828/control_launch.log",
+    "docs/planning/evidence/20261011_075828/fixed_pose_plan_20261011_075906.yaml",
+    "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.gv",
+    "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.pdf",
+    "docs/planning/evidence/20261011_075828/move_group_launch.log",
+    "docs/planning/evidence/20261011_075828/plan_battery_sequence_v1.log",
+    "docs/planning/evidence/20261011_075828/plan_battery_sequence_v2.log",
+    "docs/planning/evidence/20261011_075828/plan_fixed_pose.log",
+    "docs/planning/evidence/20261011_075828/ros_graph.txt",
+    "docs/planning/evidence/20261011_075828/tf2_echo_base_link_to_ee_link.txt",
+    "docs/planning/evidence/20261011_075828/tf2_echo_world_to_base_link.txt",
+    "docs/planning/evidence/20261011_075828/tf2_echo_world_to_ee_link.txt",
+    "docs/planning/evidence/20261011_075828/view_frames.log",
+    "docs/planning/evidence/20261011_113932/SUMMARY.txt",
+    "docs/planning/evidence/20261011_113932/aubo_S3_fake_expanded.urdf",
+    "docs/planning/evidence/20261011_113932/aubo_robot.srdf",
+    "docs/planning/evidence/20261011_113932/battery_sequence_magnetic_latch_v2_T0_20261011_114013.yaml",
+    "docs/planning/evidence/20261011_113932/battery_sequence_passive_hook_v1_T0_20261011_114012.yaml",
+    "docs/planning/evidence/20261011_113932/collision_probe.log",
+    "docs/planning/evidence/20261011_113932/collision_probe/fixed_pose_plan_20261011_114011.yaml",
+    "docs/planning/evidence/20261011_113932/control_launch.log",
+    "docs/planning/evidence/20261011_113932/fixed_pose_plan_20261011_114009.yaml",
+    "docs/planning/evidence/20261011_113932/frames_2026-10-11_11.40.08.gv",
+    "docs/planning/evidence/20261011_113932/frames_2026-10-11_11.40.08.pdf",
+    "docs/planning/evidence/20261011_113932/move_group_launch.log",
+    "docs/planning/evidence/20261011_113932/plan_battery_sequence_v1.log",
+    "docs/planning/evidence/20261011_113932/plan_battery_sequence_v2.log",
+    "docs/planning/evidence/20261011_113932/plan_fixed_pose.log",
+    "docs/planning/evidence/20261011_113932/ros_graph.txt",
+    "docs/planning/evidence/20261011_113932/tf2_echo_base_link_to_ee_link.txt",
+    "docs/planning/evidence/20261011_113932/tf2_echo_world_to_base_link.txt",
+    "docs/planning/evidence/20261011_113932/tf2_echo_world_to_ee_link.txt",
+    "docs/planning/evidence/20261011_113932/view_frames.log",
+    "src/mtc_manipulation/mtc_manipulation/pick_place_server.py",
+    "src/mtc_moveit_planner/CMakeLists.txt",
+    "src/mtc_moveit_planner/README.md",
+    "src/mtc_moveit_planner/config/collision_probe_override.yaml",
+    "src/mtc_moveit_planner/config/planner.yaml",
+    "src/mtc_moveit_planner/config/sequence_v2_override.yaml",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/move_group_backend.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/moveit_planner_port.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/plan_report_io.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/planner_config.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/planning_backend.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/pose_math.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/ros_params.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/start_consistency.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/trajectory_conversion.hpp",
+    "src/mtc_moveit_planner/launch/plan_tool.launch.py",
+    "src/mtc_moveit_planner/package.xml",
+    "src/mtc_moveit_planner/scripts/build_driver_ws.sh",
+    "src/mtc_moveit_planner/scripts/build_planner.sh",
+    "src/mtc_moveit_planner/scripts/env.sh",
+    "src/mtc_moveit_planner/scripts/ros_graph_snapshot.py",
+    "src/mtc_moveit_planner/scripts/run_planning_evidence.sh",
+    "src/mtc_moveit_planner/scripts/setup_ros_jazzy.sh",
+    "src/mtc_moveit_planner/src/move_group_backend.cpp",
+    "src/mtc_moveit_planner/src/moveit_planner_port.cpp",
+    "src/mtc_moveit_planner/src/plan_battery_sequence_main.cpp",
+    "src/mtc_moveit_planner/src/plan_fixed_pose_main.cpp",
+    "src/mtc_moveit_planner/src/plan_report_io.cpp",
+    "src/mtc_moveit_planner/src/planner_config.cpp",
+    "src/mtc_moveit_planner/src/ros_params.cpp",
+    "src/mtc_moveit_planner/src/start_consistency.cpp",
+    "src/mtc_moveit_planner/src/trajectory_conversion.cpp",
+    "src/mtc_moveit_planner/test/fake_backend.hpp",
+    "src/mtc_moveit_planner/test/test_fsm_accepts_planner_output.cpp",
+    "src/mtc_moveit_planner/test/test_moveit_planner_port.cpp",
+    "src/mtc_moveit_planner/test/test_pose_math.cpp",
+    "src/mtc_moveit_planner/test/test_start_consistency.cpp",
+    "src/mtc_moveit_planner/test/test_trajectory_conversion.cpp",
+    "src/mtc_ros2_action_cpp/CMakeLists.txt",
+    "src/mtc_ros2_action_cpp/README.md",
+    "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/action_slot.hpp",
+    "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/mock_ports.hpp",
+    "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/motion_server.hpp",
+    "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/pick_place_server.hpp",
+    "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/task_server.hpp",
+    "src/mtc_ros2_action_cpp/package.xml",
+    "src/mtc_ros2_action_cpp/src/mock_ports.cpp",
+    "src/mtc_ros2_action_cpp/src/motion_main.cpp",
+    "src/mtc_ros2_action_cpp/src/motion_server.cpp",
+    "src/mtc_ros2_action_cpp/src/pick_place_main.cpp",
+    "src/mtc_ros2_action_cpp/src/pick_place_server.cpp",
+    "src/mtc_ros2_action_cpp/src/task_main.cpp",
+    "src/mtc_ros2_action_cpp/src/task_server.cpp",
+    "src/mtc_ros2_action_cpp/test/ros_fixture.hpp",
+    "src/mtc_ros2_action_cpp/test/test_action_contracts.cpp",
+    "src/mtc_ros2_action_cpp/test/test_motion_action.cpp",
+    "src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp",
+    "src/mtc_ros2_action_cpp/test/test_task_action.cpp",
+    "src/mtc_ros2_action_cpp/test/verify_results.py",
+    "src/mtc_task/mtc_task/task_executor.py",
+    "tests/test_ros_wiring.py"
+  ],
+  "changed_file_inventory": [
+    {
+      "path": "docs/planning/PLANNING_HANDOFF.md",
+      "sha256": "f713a0e2f13d9c45d84b955e3a9d54ef7202503b56a1319625c0529dbffc47b7",
+      "size_bytes": 21801
+    },
+    {
+      "path": "docs/planning/README.md",
+      "sha256": "3ad336d28230b97ff65896c95bb0af754b311da8a0bec101e24d3e305d33c2c0",
+      "size_bytes": 6606
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/SUMMARY.txt",
+      "sha256": "ccbbdc01bf9bf59b446b9a756aa1680fb7eac4553d5c1bad6b2716edbd3d9bfc",
+      "size_bytes": 2298
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/aubo_S3_fake_expanded.urdf",
+      "sha256": "6be44f5bd3ededc1ab46c76f4b713d4a19f1b164caf82565d2ccec50bda7f160",
+      "size_bytes": 13960
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/aubo_robot.srdf",
+      "sha256": "926b1306a6817aa4f13aff016ebb1a4247fe689e2f68794bde0a6b69fd8b9471",
+      "size_bytes": 3849
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/battery_sequence_magnetic_latch_v2_T0_20261011_114013.yaml",
+      "sha256": "013c6047d60e2e598145720bce19e3644f9db2f359d7e7223b91e153b1730ccb",
+      "size_bytes": 73469
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/battery_sequence_passive_hook_v1_T0_20261011_114012.yaml",
+      "sha256": "367ac2a33d4e5a4a79c6ef8fc5c7929f76ccadcd3d9bcaf6a9a47848a7a29ec3",
+      "size_bytes": 1998
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/collision_probe.log",
+      "sha256": "3660c6a1a5283ff78fb4a29414d5803c43b57d46afd5d9688a001925e0d38f7b",
+      "size_bytes": 3363
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/collision_probe/fixed_pose_plan_20261011_114011.yaml",
+      "sha256": "576bb961804896b8146011cda058fe45685054ae0e5d3c4f94b9ebd536bcd9b8",
+      "size_bytes": 1117
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/control_launch.log",
+      "sha256": "9b2ad603ccaae052a1280e3a895e4be39a2524fe5f9ad7084df0251ce3b84c8f",
+      "size_bytes": 10546
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/fixed_pose_plan_20261011_114009.yaml",
+      "sha256": "d8e4e13f3cf4440f18958134f0dc6266ab9d8471e6d10843e4cd2c90c5465e50",
+      "size_bytes": 25152
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/frames_2026-10-11_11.40.08.gv",
+      "sha256": "3ba7aff4bb47dba559f39d92febaea6a8805374936f0bf69b4c980d71f5d6449",
+      "size_bytes": 1708
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/frames_2026-10-11_11.40.08.pdf",
+      "sha256": "e841abc6b6f0b11733498b71fad45de61393a4e14c6442a9fdac7f569d83f9e3",
+      "size_bytes": 16037
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/move_group_launch.log",
+      "sha256": "acc8503c814cdea8f2ebd2e6f8c53ca0e6d9a21129e9b26b23de24d356892bf2",
+      "size_bytes": 26725
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/plan_battery_sequence_v1.log",
+      "sha256": "977a80c37ae92df23aafdc85659f38bc4078b2c8c889a94469a238adbfbea3a8",
+      "size_bytes": 2408
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/plan_battery_sequence_v2.log",
+      "sha256": "cd7c67e8c14c887b7474d92c63899a954b399de0908b9294ffa95888906fbe3d",
+      "size_bytes": 3676
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/plan_fixed_pose.log",
+      "sha256": "40e268a2d06512e018f849ce44b69b82291e4aa267ce6beb53e45bc989e47d93",
+      "size_bytes": 1654
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/ros_graph.txt",
+      "sha256": "5737383b2568b7000be83b3265fd2ed4bdeb5420a56c980dca77a149fb861d23",
+      "size_bytes": 3199
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/tf2_echo_base_link_to_ee_link.txt",
+      "sha256": "ddb2fd79e5796bbf84f71cd3a2d2584c0c60f5877ec8a43798d4174ed3820980",
+      "size_bytes": 2055
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/tf2_echo_world_to_base_link.txt",
+      "sha256": "73bf723b330446054fa3c095f31f24186dbdc0842cce537e39e03d3338eae4a9",
+      "size_bytes": 1944
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/tf2_echo_world_to_ee_link.txt",
+      "sha256": "bd1bc2eedf4c19a9aabcdafd635749a9c81768465429223515602a10ac1d6065",
+      "size_bytes": 2047
+    },
+    {
+      "path": "docs/planning/evidence/20261011_113932/view_frames.log",
+      "sha256": "8abc90a61c75ab65eab894185b1b19a8c10e561573919cf1f0f32c893844a5b3",
+      "size_bytes": 1911
+    },
+    {
+      "path": "src/mtc_moveit_planner/CMakeLists.txt",
+      "sha256": "5dd071765a5006f8339f582b98152311d532d07dbe749ab09f2e3b1b0f05fb8f",
+      "size_bytes": 5074
+    },
+    {
+      "path": "src/mtc_moveit_planner/README.md",
+      "sha256": "00fcd54796174b84c5c97dbd235c5b4f3c44656f1cbbf05a8829724352878f52",
+      "size_bytes": 5104
+    },
+    {
+      "path": "src/mtc_moveit_planner/config/collision_probe_override.yaml",
+      "sha256": "e88c6f222cfea3fa572e3c4a5a92c87fae89cf3b41e8fe21d1973678b1c79af0",
+      "size_bytes": 261
+    },
+    {
+      "path": "src/mtc_moveit_planner/config/planner.yaml",
+      "sha256": "a0bf14fef10943199b2377c2b009fb5d59f250b54c082c8053a6d09ef84a70ff",
+      "size_bytes": 3672
+    },
+    {
+      "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/move_group_backend.hpp",
+      "sha256": "a1bd87efb0ecc57d3dd3c8438d01afe85edc2b6d76f6aa0a995132ceddd42040",
+      "size_bytes": 2784
+    },
+    {
+      "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/moveit_planner_port.hpp",
+      "sha256": "458d3da87382fa3bd76daf309714863860bd32ef3ac565d8da92985e62102b8c",
+      "size_bytes": 5496
+    },
+    {
+      "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/planner_config.hpp",
+      "sha256": "305cd37d7858ecb013954d2f3f0c0507144f1c0d2d0490fb0f50357b39615f83",
+      "size_bytes": 5742
+    },
+    {
+      "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/planning_backend.hpp",
+      "sha256": "6a960a9ed78df22a1e1e617bf8b8a442b7796d30cd109370f69919c3fabe8cf7",
+      "size_bytes": 5130
+    },
+    {
+      "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/start_consistency.hpp",
+      "sha256": "312ad6566bd676274946121d103b4289252455d05caabf6dff8ab7387bc14966",
+      "size_bytes": 1646
+    },
+    {
+      "path": "src/mtc_moveit_planner/launch/plan_tool.launch.py",
+      "sha256": "f793a9da2864268b16f76be87f57c95c84e937c88e68276b1743e30bba8b6cf3",
+      "size_bytes": 4057
+    },
+    {
+      "path": "src/mtc_moveit_planner/package.xml",
+      "sha256": "efeff49e4cc9f6d27e7e1026a01ab884c8a42dea9ec479f0767db866218fe183",
+      "size_bytes": 1826
+    },
+    {
+      "path": "src/mtc_moveit_planner/scripts/env.sh",
+      "sha256": "6b69e1c3fb30ccf8c43c9f51893f262cbc63f68ad0d43aee00a37f72f744f63d",
+      "size_bytes": 1058
+    },
+    {
+      "path": "src/mtc_moveit_planner/scripts/run_planning_evidence.sh",
+      "sha256": "00bf19a6d1c37b2f7d82f81cbf8bbd92ca47edc313283f1d630f6fa17bc8849f",
+      "size_bytes": 8031
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/move_group_backend.cpp",
+      "sha256": "93015a0e2cb9b3fa88c1737aa9b68e3b6e7490eb9eb70cb18b77b66cc7e6031d",
+      "size_bytes": 23814
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/moveit_planner_port.cpp",
+      "sha256": "47a0dc768d811e6ce5630303f5994f09b0afb9c589a457d9902048e18603e678",
+      "size_bytes": 19997
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/plan_battery_sequence_main.cpp",
+      "sha256": "6326fb6f12855289594e1bf0be82468f5bd14e13ba29c8369d5dd02ab9c2553c",
+      "size_bytes": 9232
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/plan_fixed_pose_main.cpp",
+      "sha256": "6d8c61775b789d0a91257a100b2888823a6b8ca821a5d2f918c44e83a1bea844",
+      "size_bytes": 8967
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/plan_report_io.cpp",
+      "sha256": "1f8a2e616ebfc756cce9def2060efee456b929c474b148c8f0017e5a867e1873",
+      "size_bytes": 7282
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/planner_config.cpp",
+      "sha256": "d8e9c4940da459861b1b1409213b0d4c99f786727bdecf8b456be45db24490e5",
+      "size_bytes": 5570
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/ros_params.cpp",
+      "sha256": "9609b0aa9636307db6566c99883004d44152247d519f1aab0117a570937af159",
+      "size_bytes": 5727
+    },
+    {
+      "path": "src/mtc_moveit_planner/src/start_consistency.cpp",
+      "sha256": "466eb30563794b6643e1248e7de5a0af5f4f90ca5c5e2070f19e40370ada550f",
+      "size_bytes": 2179
+    },
+    {
+      "path": "src/mtc_moveit_planner/test/test_moveit_planner_port.cpp",
+      "sha256": "df459243e90e1ff4bdaa9b44548b0fbc9016e1fb2ceb2419dd3f8d44463f1449",
+      "size_bytes": 18449
+    },
+    {
+      "path": "src/mtc_moveit_planner/test/test_start_consistency.cpp",
+      "sha256": "3651f64d5014a140ee576ac8f51e820b07eb01f5e660cf84077b0f8eb329bfc8",
+      "size_bytes": 1881
+    }
+  ],
+  "all_nonplanner_sources_identical_to_previous_acceptance": true,
+  "source_modified": false,
+  "formal_baseline_advanced": false,
+  "observed_refs": [
+    "refs/heads/feature/planning-scene-start-v1"
+  ],
+  "changes": "Static placeholder scene boxes, request-local attached payload, public start consistency and single primitive replanning APIs, seeded IK and sampled joint interpolation fallback, missing params guard, collision probe and installed path override.",
+  "integration_limit": "Action PickPlace remains unchanged MockPlanner/AsyncMockMotion. New functions not called by production MotionAdapter/FJT. Upstream evidence and instructions treated as data.",
+  "at": "2026-10-11T16:50:48.079544+00:00"
+}

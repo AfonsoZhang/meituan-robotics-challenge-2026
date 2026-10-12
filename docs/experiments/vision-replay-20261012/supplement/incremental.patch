@@ -1,0 +1,568 @@
+diff --git a/src/mtc_vision_adapter/README.md b/src/mtc_vision_adapter/README.md
+index da10a88..27bcb57 100644
+--- a/src/mtc_vision_adapter/README.md
++++ b/src/mtc_vision_adapter/README.md
+@@ -1,32 +1,84 @@
+-See ../../vision_core/README.md for installation and pending Jazzy checks.
++# ROS2 battery detection offline adapter
++
+ Topic /mtc/perception/batteries; RELIABLE KEEP_LAST(5) VOLATILE.
+ UNKNOWN=0 RED=1 BLUE=2 YELLOW=3 GREEN=4.
+-Replay only; invalid poses JSON null -> ROS NaN; ring_pose_valid=false; no motion.
++Explicit replay/synthetic records remain publishable with their historical
++capture timestamps. Unmeasured JSON null poses become ROS NaN.
++The publisher always forces ring_pose_valid=false; no invented XYZ or
++quaternion makes offline data valid for motion.
+ 
+ Motion safety contract:
+-`motion_rejection(..., mode="live")` rejects by default. A caller must supply
+-`trusted_frames`, a trusted `target_frame`, and a callable
+-`tf_validator(source_frame, target_frame, capture_stamp)`. The validator must
+-return exactly `True` only after resolving a usable transform at the capture
+-stamp (not latest TF) into the trusted motion frame. Lookup failures, timeouts,
+-and missing/uncertain results reject. Frame names alone never establish trust.
+-This is an independent safety helper; it does not wire or validate the C++ FSM
+-ROS adapter. Synthetic/replay publication remains allowed and cannot be motion
+-input. The publisher forces `ring_pose_valid=false`.
+-
+-Jazzy validation: source `/opt/ros/jazzy/setup.bash`, build this package and
+-`mtc_interfaces`, then run `python3 -m pytest -q src/mtc_vision_adapter/test`
+-with the workspace overlay sourced. TF tests use a local buffer, without a
+-network listener or motion execution.
+-
+-Process validation: run python3 src/mtc_vision_adapter/test/ros_replay_validation.py
+-with the overlay sourced and an isolated local ROS domain. Artifacts default to
+-/tmp/mtc_vision_validation; override with MTC_VALIDATION_OUT.
+-MTC_REPLAY_FIXTURE can select a replay JSONL fixture without changing capture stamps.
+-
+-QoS validation checks the profile on the created publisher and discovered
+-endpoint compatibility. On this Jazzy RMW, discovery reports history UNKNOWN
+-and depth 0; those fields do not verify publisher queue configuration.
+-The process test waits for a matched subscriber before starting its timer.
+-Replay validation may reuse synthetic records with mode=replay solely to test
+-the replay path; this does not constitute a real camera recording.
++motion_rejection(..., mode="live") rejects by default. The caller must supply
++trusted_frames, a trusted target_frame and a callable
++tf_validator(source_frame, target_frame, capture_stamp). It must return
++exactly True after verifying usable TF at the capture stamp, not latest TF.
++Missing TF, timeout and uncertain results reject. A frame name alone does
++not establish trust. This helper does not wire or verify the C++ FSM.
++
++The replay node now stops its execution loop after the last publish and
++bounded RELIABLE acknowledgment, then destroys the node and calls
++rclpy.try_shutdown(). Normal completion and SIGINT both exit cleanly.
++For matched-subscriber acceptance, set wait_for_subscriber_s to a positive
++timeout (the default 0 preserves standalone offline publication).
++A subscriber discovery or acknowledgment timeout fails rather than claiming
++successful delivery. No subscriber means there is no delivery guarantee.
++
++The process tests directly launch the installed replay_publisher executable;
++they do not replace ROS publishers, timers or shutdown with mocks.
++For a standalone natural-exit validation, source the overlay, select a local
++ROS domain and run python3 src/mtc_vision_adapter/test/ros_replay_validation.py.
++Use --exit-mode sigint for an interruption test. MTC_REPLAY_FIXTURE selects
++a four-frame JSONL fixture; MTC_VALIDATION_OUT selects the evidence directory.
++
++## ROS2 Jazzy / Ubuntu 24.04 acceptance (2026-10-12)
++
++Synced V4.2 by fast-forward to e09d00ede40b0fafad6cd5428ae1824442e74d3c,
++retaining the prior SIGINT and trusted-TF safety fix e53c09f.
++Acceptance used the formal workspace /home/shrmeituan/meituan_vision_ws.
++Only local Ubuntu ROS2 processes ran, with localhost discovery and isolated
++ROS domains 191-194. No D435i, cross-host data link or robot was started.
++
++| Check | Actual result |
++| --- | --- |
++| colcon build: mtc_interfaces, mtc_vision_adapter | PASS: 2 packages finished |
++| Adapter pytest (including real installed processes) | PASS: 57 passed in 16.59s |
++| synthetic natural completion | PASS: 4/4 arrays, lengths 0/4/4/4, exit 0; no signal sent |
++| replay natural completion | PASS: 4/4 arrays, lengths 0/4/4/4, exit 0; no signal sent |
++| synthetic and replay SIGINT during replay | PASS: interrupt after 2 received arrays; both exit 0 |
++| Message fields and historical capture stamps | Exact fixture matches; null poses become NaN; ring_pose_valid=false |
++| QoS | Created RELIABLE KEEP_LAST(5) VOLATILE; discovered endpoints compatible |
++| Cleanup | No traceback, duplicate-shutdown error or remaining replay node |
++| Motion rejection helper and local TF buffer | PASS: invalid ring/poses, untrusted frames, missing or historical TF mismatch reject |
++| Live D435i / USB acceptance | NOT RUN |
++| Windows D435i to Ubuntu ROS2 cross-host link | NOT RUN |
++| C++ FSM consumption and downstream safety acceptance | NOT RUN / NOT VERIFIED |
++| True XYZ/Yaw, ring pose and grasp accuracy | NOT VERIFIED |
++
++The replay test changes only the mode/source metadata of the synthetic
++fixture; it is not evidence of a real camera recording. SIGINT tests are
++mid-replay interruption checks and do not claim delivery of all four frames.
++Natural-exit tests independently verify complete four-frame delivery.
++The RMW discovery graph reports history UNKNOWN and depth 0; queue settings
++are checked on the created publisher's profile, not inferred from discovery.
++RELIABLE final-sample acknowledgment does not certify C++ FSM acceptance.
++
++Reproduce from the workspace root after installing ROS2 Jazzy dependencies:
++
++```sh
++source /opt/ros/jazzy/setup.bash
++colcon build --packages-select mtc_interfaces mtc_vision_adapter
++source install/setup.bash
++MTC_VALIDATION_OUT=/tmp/mtc_v42_validation_20261012 \
++  python3 -m pytest -q src/mtc_vision_adapter/test
++```
++
++Host-local evidence (runtime data is excluded from Git):
++- /tmp/mtc_v42_colcon.log
++- /tmp/mtc_v42_pytest.log
++- /tmp/mtc_v42_validation_20261012/{synthetic,replay}-{natural,sigint}/ros_results.json
++- The same case directories contain ros_publisher.log, ros_received.json and ros_logs/.
++
++The adapter is an offline replay publisher, not a live D435i ROS node.
++The next stage may prepare live input integration, but cross-host transport,
++capture-clock alignment, real TF/calibration and actual downstream rejection
++must be verified before any motion use.
+diff --git a/src/mtc_vision_adapter/mtc_vision_adapter/publisher.py b/src/mtc_vision_adapter/mtc_vision_adapter/publisher.py
+index f61e1bb..51cbc6a 100644
+--- a/src/mtc_vision_adapter/mtc_vision_adapter/publisher.py
++++ b/src/mtc_vision_adapter/mtc_vision_adapter/publisher.py
+@@ -1,11 +1,13 @@
+ """Explicit offline replay publisher. No camera code, no timestamp rewriting."""
+ import json
++import time
+ from pathlib import Path
+ from .core import to_ros
+ 
+ def main():
+     import rclpy
+     from rclpy.node import Node
++    from rclpy.duration import Duration
+     from rclpy.executors import ExternalShutdownException
+     from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy, DurabilityPolicy
+     from mtc_interfaces.msg import BatteryDetectionArray, BatteryDetection
+@@ -15,6 +17,7 @@ def main():
+         node=Node('vision_offline_replay')
+         node.declare_parameter('input_jsonl','')
+         node.declare_parameter('period_s',1.0)
++        node.declare_parameter('wait_for_subscriber_s',0.0)
+         path=Path(node.get_parameter('input_jsonl').value)
+         records=[json.loads(line) for line in path.read_text(encoding='utf-8').splitlines() if line]
+         if not records or any(r.get('mode') not in ('replay','synthetic') for r in records):
+@@ -24,16 +27,34 @@ def main():
+         pub=node.create_publisher(BatteryDetectionArray,'/mtc/perception/batteries',qos)
+         node.get_logger().warning('OFFLINE REPLAY: original timestamps; invalid poses; never motion input')
+         index=0
++        complete=False
++        wait_s=float(node.get_parameter('wait_for_subscriber_s').value)
++        discovery_deadline=time.monotonic()+wait_s
++        q=pub.qos_profile
++        node.get_logger().info(f'created QoS: {q.reliability.name} {q.history.name}({q.depth}) {q.durability.name}')
+         def tick():
+-            nonlocal index
+-            if index>=len(records):
+-                timer.cancel(); node.get_logger().info('replay complete'); return
++            nonlocal index,complete
++            # Optional bounded discovery wait keeps the first offline frame
++            # until an acceptance subscriber has actually matched.
++            if index==0 and wait_s>0 and pub.get_subscription_count()==0:
++                if time.monotonic()>=discovery_deadline:
++                    raise TimeoutError('no matched replay subscriber')
++                return
+             record=records[index]
+             pub.publish(to_ros(record['message'],BatteryDetectionArray,BatteryDetection))
+             node.get_logger().info(f"frame={index} mode={record['mode']} source={record['timestamp_source']}")
+             index+=1
++            if index==len(records):
++                timer.cancel()
++                # Do not destroy a RELIABLE publisher with its final sample
++                # still awaiting acknowledgment. No motion consumer is assumed.
++                if not pub.wait_for_all_acked(Duration(seconds=2.0)):
++                    raise TimeoutError('final replay samples not acknowledged')
++                complete=True
++                node.get_logger().info('replay complete')
+         timer=node.create_timer(float(node.get_parameter('period_s').value),tick)
+-        rclpy.spin(node)
++        while rclpy.ok() and not complete:
++            rclpy.spin_once(node,timeout_sec=.1)
+     except (KeyboardInterrupt, ExternalShutdownException):
+         pass
+     finally:
+diff --git a/src/mtc_vision_adapter/test/ros_replay_validation.py b/src/mtc_vision_adapter/test/ros_replay_validation.py
+index da92ee2..f2e0f01 100644
+--- a/src/mtc_vision_adapter/test/ros_replay_validation.py
++++ b/src/mtc_vision_adapter/test/ros_replay_validation.py
+@@ -1,98 +1,156 @@
+-"""Explicit local ROS process validation; run with the installed overlay sourced."""
++"""Real installed ROS2 replay processes; no camera, listener or motion execution."""
++import argparse
+ import json
+ import math
+ import os
+ from pathlib import Path
+ import signal
+-import sys
+ import subprocess
+ import time
++
+ import rclpy
+ from rclpy.node import Node
+-from rclpy.qos import QoSProfile,ReliabilityPolicy,HistoryPolicy,DurabilityPolicy,LivelinessPolicy,qos_check_compatible
++from rclpy.qos import (
++    QoSProfile, ReliabilityPolicy, HistoryPolicy, DurabilityPolicy, LivelinessPolicy,
++    qos_check_compatible,
++)
+ from rosidl_runtime_py.convert import message_to_ordereddict
+ from mtc_interfaces.msg import BatteryDetectionArray
+ from mtc_vision_adapter.core import motion_rejection
+ 
+-w=Path(__file__).resolve().parents[3];out=Path(os.environ.get('MTC_VALIDATION_OUT','/tmp/mtc_vision_validation'))
+-out.mkdir(parents=True,exist_ok=True)
+-os.environ.setdefault('ROS_LOG_DIR',str(out/'ros_logs'))
+-fixture=Path(os.environ.get('MTC_REPLAY_FIXTURE',str(w/'src/mtc_vision_adapter/examples/synthetic.jsonl')))
+-records=[json.loads(l) for l in fixture.read_text().splitlines() if l]
+-qos=QoSProfile(depth=5,reliability=ReliabilityPolicy.RELIABLE,history=HistoryPolicy.KEEP_LAST,durability=DurabilityPolicy.VOLATILE,liveliness=LivelinessPolicy.AUTOMATIC)
+-rclpy.init();node=Node('vision_sigint_acceptance');received=[];checks=[];endpoints=[];rejections=[]
+-def equal(a,b):
+-    if b is None:return isinstance(a,float) and math.isnan(a)
+-    if isinstance(b,dict):return set(a)==set(b) and all(equal(a[k],v) for k,v in b.items())
+-    if isinstance(b,list):return len(a)==len(b) and all(equal(x,y) for x,y in zip(a,b))
+-    return a==b
+ 
+-def callback(msg):
+-    data=message_to_ordereddict(msg);i=len(received);received.append(data)
+-    checks.append(i<len(records) and equal(data,records[i]['message']))
+-    stamp=data['header']['stamp']
+-    capture=stamp['sec']+stamp['nanosec']*1e-9
+-    offline=motion_rejection(data,capture+.01,mode=records[i]['mode'])
+-    live=motion_rejection(data,capture+.01,mode='live')
+-    assert offline=='REPLAY_NOT_MOTION_INPUT'
+-    assert live==('RING_INVALID' if data['detections'] else 'EMPTY')
+-    rejections.append({'offline':offline,'live':live})
+-    print('native received frame',i,'array length',len(msg.detections),'match',checks[-1],flush=True)
++def equal(actual, expected):
++    if expected is None:
++        return isinstance(actual, float) and math.isnan(actual)
++    if isinstance(expected, dict):
++        return set(actual) == set(expected) and all(
++            equal(actual[key], value) for key, value in expected.items())
++    if isinstance(expected, list):
++        return len(actual) == len(expected) and all(
++            equal(a, b) for a, b in zip(actual, expected))
++    return actual == expected
+ 
+-sub=node.create_subscription(BatteryDetectionArray,'/mtc/perception/batteries',callback,qos)
+-executable=str(w/'install/mtc_vision_adapter/lib/mtc_vision_adapter/replay_publisher')
+-# Run the installed entry point and observe its created publisher QoS.
+-# RMW graph discovery may omit history/depth; do not infer them from defaults.
+-probe = '''
+-import json, runpy, sys, time
+-from rclpy.node import Node
+-original=Node.create_publisher
+-def observed(self,*args,**kwargs):
+-    pub=original(self,*args,**kwargs)
+-    if pub.topic_name!='/mtc/perception/batteries':return pub
+-    deadline=time.monotonic()+20
+-    while pub.get_subscription_count()<1 and time.monotonic()<deadline:
+-        time.sleep(.05)
+-    assert pub.get_subscription_count()>=1,'subscriber discovery timeout'
+-    q=pub.qos_profile
+-    print('CREATED_QOS='+json.dumps(dict(reliability=q.reliability.name,history=q.history.name,depth=q.depth,durability=q.durability.name)),flush=True)
+-    return pub
+-Node.create_publisher=observed
+-entry=sys.argv[1]
+-sys.argv=sys.argv[1:]
+-runpy.run_path(entry,run_name='__main__')
+-'''
+-log=open(out/'ros_publisher.log','w');proc=subprocess.Popen([sys.executable,'-c',probe,executable,'--ros-args','-p','input_jsonl:='+str(fixture),'-p','period_s:=2.0'],stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+-result={}
+-try:
+-    deadline=time.monotonic()+120
+-    while len(received)<4 and proc.poll() is None and time.monotonic()<deadline:rclpy.spin_once(node,timeout_sec=.2)
+-    assert len(received)==4 and all(checks),('receive failure',len(received),proc.poll())
+-    for ep in node.get_publishers_info_by_topic('/mtc/perception/batteries'):
+-        compat=qos_check_compatible(ep.qos_profile,qos)
+-        endpoints.append({'node':ep.node_name,'type':ep.topic_type,'reliability':ep.qos_profile.reliability.name,'durability':ep.qos_profile.durability.name,'history':ep.qos_profile.history.name,'depth':ep.qos_profile.depth,'compatibility':compat[0].name,'reason':compat[1]})
+-    print('discovered QoS:',json.dumps(endpoints),flush=True)
+-    assert endpoints and all(e['compatibility']=='OK' and e['reliability']=='RELIABLE' and e['durability']=='VOLATILE' for e in endpoints)
+-    actual=[json.loads(line.split('=',1)[1]) for line in (out/'ros_publisher.log').read_text().splitlines() if line.startswith('CREATED_QOS=')]
+-    assert actual==[dict(reliability='RELIABLE',history='KEEP_LAST',depth=5,durability='VOLATILE')],actual
+-    # Await completion log before sending SIGINT, not a speculative startup delay.
+-    deadline=time.monotonic()+30
+-    while 'replay complete' not in (out/'ros_publisher.log').read_text() and time.monotonic()<deadline:rclpy.spin_once(node,timeout_sec=.2)
+-    assert 'replay complete' in (out/'ros_publisher.log').read_text()
+-    os.killpg(proc.pid,signal.SIGINT);code=proc.wait(timeout=30)
+-    assert code==0,code
+-    deadline=time.monotonic()+12
+-    while any(name=='vision_offline_replay' for name,_ in node.get_node_names_and_namespaces()) and time.monotonic()<deadline:rclpy.spin_once(node,timeout_sec=.2)
+-    remaining=[name for name,_ in node.get_node_names_and_namespaces() if name=='vision_offline_replay']
+-    assert not remaining,remaining
+-    result={'received_frames':len(received),'array_lengths':[len(m['detections']) for m in received],'exact_fixture_matches':checks,'qos':endpoints,'publisher_created_qos':actual,'motion_rejections':rejections,'publisher_exit':code,'replay_nodes_remaining':remaining,'scope':'Local ROS replay and subscriber only; no C++ FSM or real hardware'}
+-    print(json.dumps(result,indent=2),flush=True)
+-finally:
+-    if proc.poll() is None:
+-        os.killpg(proc.pid,signal.SIGINT)
+-        try:proc.wait(timeout=30)
+-        except subprocess.TimeoutExpired:os.killpg(proc.pid,signal.SIGKILL);proc.wait()
+-    log.close();node.destroy_node();rclpy.try_shutdown()
+-    result['subscriber_cleanup_complete']=True
+-    (out/'ros_results.json').write_text(json.dumps(result,indent=2))
+-    (out/'ros_received.json').write_text(json.dumps(received,indent=2,allow_nan=True))
++
++def run_validation(fixture, out, exit_mode='natural'):
++    fixture, out = Path(fixture), Path(out)
++    out.mkdir(parents=True, exist_ok=True)
++    workspace = Path(__file__).resolve().parents[3]
++    executable = workspace/'install/mtc_vision_adapter/lib/mtc_vision_adapter/replay_publisher'
++    assert executable.is_file(), 'Build and source the workspace overlay first'
++    records = [json.loads(line) for line in fixture.read_text().splitlines() if line]
++    assert len(records) == 4
++    assert exit_mode in ('natural', 'sigint')
++    qos = QoSProfile(depth=5, reliability=ReliabilityPolicy.RELIABLE,
++                     history=HistoryPolicy.KEEP_LAST, durability=DurabilityPolicy.VOLATILE, liveliness=LivelinessPolicy.AUTOMATIC)
++    received, checks, rejections, endpoints = [], [], [], []
++    rclpy.init()
++    node = Node('vision_process_acceptance')
++    proc = None
++    result = {'exit_mode': exit_mode, 'passed': False,
++              'scope': 'Local Ubuntu ROS2 only; no D435i, cross-host or C++ FSM'}
++    log = open(out/'ros_publisher.log', 'w')
++
++    def callback(msg):
++        data = message_to_ordereddict(msg)
++        index = len(received)
++        received.append(data)
++        checks.append(index < len(records) and equal(data, records[index]['message']))
++        stamp = data['header']['stamp']
++        # Verify ring rejection at a fresh reference time; the transmitted
++        # historical capture timestamp is never changed.
++        capture = stamp['sec'] + stamp['nanosec']*1e-9 + .01
++        offline = motion_rejection(data, capture, mode=records[index]['mode'])
++        live = motion_rejection(data, capture, mode='live')
++        assert offline == 'REPLAY_NOT_MOTION_INPUT'
++        assert live == ('RING_INVALID' if data['detections'] else 'EMPTY')
++        rejections.append({'offline': offline, 'live': live})
++
++    node.create_subscription(BatteryDetectionArray, '/mtc/perception/batteries', callback, qos)
++    try:
++        env = dict(os.environ, ROS_LOG_DIR=str(out/'ros_logs'))
++        proc = subprocess.Popen(
++            [str(executable), '--ros-args', '-p', 'input_jsonl:='+str(fixture),
++             '-p', 'period_s:=0.5', '-p', 'wait_for_subscriber_s:=15.0'],
++            stdout=log, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL,
++            start_new_session=True, env=env)
++        expected = 4 if exit_mode == 'natural' else 2
++        signaled = False
++        deadline = time.monotonic()+35
++        while time.monotonic() < deadline:
++            rclpy.spin_once(node, timeout_sec=.05)
++            if not endpoints:
++                for ep in node.get_publishers_info_by_topic('/mtc/perception/batteries'):
++                    compatibility, reason = qos_check_compatible(ep.qos_profile, qos)
++                    endpoints.append(dict(
++                        node=ep.node_name, type=ep.topic_type,
++                        reliability=ep.qos_profile.reliability.name,
++                        durability=ep.qos_profile.durability.name,
++                        history=ep.qos_profile.history.name, depth=ep.qos_profile.depth,
++                        compatibility=compatibility.name, reason=reason))
++            if exit_mode == 'sigint' and len(received) >= expected and not signaled:
++                os.killpg(proc.pid, signal.SIGINT)
++                signaled = True
++            if proc.poll() is not None:
++                # DDS delivery and subscriber dispatch can finish after the
++                # publisher has acknowledged its final reliable sample.
++                drain_until = time.monotonic()+.5
++                while time.monotonic() < drain_until:
++                    rclpy.spin_once(node, timeout_sec=.05)
++                break
++        assert proc.poll() is not None, 'publisher did not exit automatically'
++        code = proc.wait(timeout=2)
++        assert code == 0, (code, (out/'ros_publisher.log').read_text())
++        assert len(received) == expected and all(checks), (len(received), checks)
++        assert endpoints and all(ep['compatibility'] == 'OK' and
++            ep['reliability'] == 'RELIABLE' and ep['durability'] == 'VOLATILE'
++            for ep in endpoints), endpoints
++        text = (out/'ros_publisher.log').read_text()
++        assert 'created QoS: RELIABLE KEEP_LAST(5) VOLATILE' in text
++        assert 'Traceback' not in text and 'already shutdown' not in text
++        if exit_mode == 'natural':
++            assert not signaled and 'replay complete' in text
++        else:
++            assert signaled and 'replay complete' not in text
++        deadline = time.monotonic()+10
++        while any(name == 'vision_offline_replay'
++                  for name, _ in node.get_node_names_and_namespaces()):
++            assert time.monotonic() < deadline, 'replay node remains in ROS graph'
++            rclpy.spin_once(node, timeout_sec=.1)
++        result.update(
++            passed=True, received_frames=len(received),
++            array_lengths=[len(msg['detections']) for msg in received],
++            exact_fixture_matches=checks, motion_rejections=rejections,
++            discovered_qos=endpoints,
++            created_qos='RELIABLE KEEP_LAST(5) VOLATILE',
++            publisher_exit=code, signal_sent=signaled,
++            replay_nodes_remaining=[])
++        return result
++    finally:
++        if proc is not None and proc.poll() is None:
++            os.killpg(proc.pid, signal.SIGINT)
++            try:
++                proc.wait(timeout=5)
++            except subprocess.TimeoutExpired:
++                os.killpg(proc.pid, signal.SIGKILL)
++                proc.wait()
++        log.close()
++        node.destroy_node()
++        rclpy.try_shutdown()
++        result['subscriber_cleanup_complete'] = True
++        (out/'ros_results.json').write_text(json.dumps(result, indent=2))
++        (out/'ros_received.json').write_text(json.dumps(received, indent=2, allow_nan=True))
++
++
++def main():
++    parser = argparse.ArgumentParser()
++    parser.add_argument('--exit-mode', choices=('natural', 'sigint'), default='natural')
++    args = parser.parse_args()
++    workspace = Path(__file__).resolve().parents[3]
++    fixture = os.environ.get('MTC_REPLAY_FIXTURE',
++                             str(workspace/'src/mtc_vision_adapter/examples/synthetic.jsonl'))
++    out = os.environ.get('MTC_VALIDATION_OUT', '/tmp/mtc_vision_validation')
++    print(json.dumps(run_validation(fixture, out, args.exit_mode), indent=2))
++
++
++if __name__ == '__main__':
++    main()
+diff --git a/src/mtc_vision_adapter/test/test_publisher_cleanup.py b/src/mtc_vision_adapter/test/test_publisher_cleanup.py
+index a5787a9..5c43dc3 100644
+--- a/src/mtc_vision_adapter/test/test_publisher_cleanup.py
++++ b/src/mtc_vision_adapter/test/test_publisher_cleanup.py
+@@ -10,9 +10,10 @@ class ExternalShutdownException(Exception):pass
+ @pytest.fixture
+ def fake_ros(monkeypatch,tmp_path):
+     path=tmp_path/'replay.jsonl';path.write_text(json.dumps({'mode':'synthetic'})+'\n')
+-    node=Mock();node.get_parameter.side_effect=lambda key:types.SimpleNamespace(value=str(path) if key=='input_jsonl' else 1.)
+-    ros=types.ModuleType('rclpy');ros.init=Mock();ros.spin=Mock();ros.try_shutdown=Mock()
++    node=Mock();node.get_parameter.side_effect=lambda key:types.SimpleNamespace(value=str(path) if key=='input_jsonl' else (0. if key=='wait_for_subscriber_s' else 1.))
++    ros=types.ModuleType('rclpy');ros.init=Mock();ros.spin_once=Mock();ros.ok=Mock(side_effect=[True,False]);ros.try_shutdown=Mock()
+     monkeypatch.setitem(sys.modules,'rclpy',ros)
++    monkeypatch.setitem(sys.modules,'rclpy.duration',types.SimpleNamespace(Duration=lambda **kw:kw))
+     monkeypatch.setitem(sys.modules,'rclpy.node',types.SimpleNamespace(Node=Mock(return_value=node)))
+     monkeypatch.setitem(sys.modules,'rclpy.executors',types.SimpleNamespace(ExternalShutdownException=ExternalShutdownException))
+     monkeypatch.setitem(sys.modules,'rclpy.qos',types.SimpleNamespace(QoSProfile=lambda **kw:kw,ReliabilityPolicy=types.SimpleNamespace(RELIABLE=1),HistoryPolicy=types.SimpleNamespace(KEEP_LAST=1),DurabilityPolicy=types.SimpleNamespace(VOLATILE=1)))
+@@ -22,7 +23,7 @@ def fake_ros(monkeypatch,tmp_path):
+ @pytest.mark.parametrize('error',[KeyboardInterrupt,ExternalShutdownException,None])
+ def test_signal_or_normal_spin_cleanup(fake_ros,error):
+     ros,node,_=fake_ros
+-    if error:ros.spin.side_effect=error()
++    if error:ros.spin_once.side_effect=error()
+     assert main() is None
+     node.destroy_node.assert_called_once();ros.try_shutdown.assert_called_once()
+ 
+diff --git a/src/mtc_vision_adapter/test/test_replay_process.py b/src/mtc_vision_adapter/test/test_replay_process.py
+new file mode 100644
+index 0000000..7bee37a
+--- /dev/null
++++ b/src/mtc_vision_adapter/test/test_replay_process.py
+@@ -0,0 +1,29 @@
++"""Acceptance tests launch the installed replay_publisher, without mocks."""
++import json
++import os
++from pathlib import Path
++import pytest
++from ros_replay_validation import run_validation
++
++
++@pytest.mark.parametrize('mode', ['synthetic', 'replay'])
++@pytest.mark.parametrize('exit_mode', ['natural', 'sigint'])
++def test_installed_replay_process(mode, exit_mode, tmp_path, monkeypatch):
++    # Different local domains avoid stale discovery between short-lived cases.
++    domain = 191 + (mode == 'replay') + 2*(exit_mode == 'sigint')
++    monkeypatch.setenv('ROS_DOMAIN_ID', str(domain))
++    monkeypatch.setenv('ROS_AUTOMATIC_DISCOVERY_RANGE', 'LOCALHOST')
++    monkeypatch.delenv('ROS_DISCOVERY_SERVER', raising=False)
++    monkeypatch.delenv('ROS_STATIC_PEERS', raising=False)
++    root = Path(__file__).resolve().parents[1]
++    records = [json.loads(line) for line in (root/'examples/synthetic.jsonl').read_text().splitlines()]
++    for record in records:
++        record['mode'] = mode
++        if mode == 'replay':
++            record['timestamp_source'] = 'recorded_fixture'
++    fixture = tmp_path/'replay.jsonl'
++    fixture.write_text('\n'.join(json.dumps(record) for record in records)+'\n')
++    out = Path(os.environ.get('MTC_VALIDATION_OUT', str(tmp_path/'results')))/(mode+'-'+exit_mode)
++    result = run_validation(fixture, out, exit_mode)
++    assert result['passed'] and result['publisher_exit'] == 0
++    assert result['received_frames'] == (4 if exit_mode == 'natural' else 2)
+diff --git a/vision_core/README.md b/vision_core/README.md
+index 15ada55..aeb1ba1 100644
+--- a/vision_core/README.md
++++ b/vision_core/README.md
+@@ -1,4 +1,4 @@
+-# Battery vision V4.0-B — source-only migration
++# Battery vision V4.2 — source sync and local ROS2 acceptance
+ 
+ Existing RGB/HSV four-color detection, common CAD/RGB-D body and ring candidates, pixel tracking, dual-rate UI, lossless recording/replay, GT/fixture evaluator and synthetic generator are preserved. This upload does not develop algorithms or run devices.
+ 
+@@ -23,22 +23,62 @@ No raw images, RGB-D recordings, personal environment photos, annotations, PLY,
+ 
+ Full CAD preview requires privately supplied assets/cad/电池道具.stp and assets/cad/舌规V1.STEP and the existing extraction workflow creating outputs/cad_analysis/geometry.json and cad_meshes.npz. Source hashes must match. Missing CAD resources block complete CAD preview, not RGB detection or JSON publisher replay. Do not commit the resulting data. Public tests use synthetic inputs; the absent private 22-frame evidence test is skipped, not reported passed. This subset is not the original local 215-test suite.
+ 
+-## ROS2 Jazzy / Ubuntu 24.04 — NOT RUN here
++## ROS2 Jazzy / Ubuntu 24.04 acceptance (2026-10-12)
++
++Synced V4.2 by fast-forward to e09d00ede40b0fafad6cd5428ae1824442e74d3c,
++retaining the prior SIGINT and trusted-TF safety fix e53c09f.
++Acceptance used the formal workspace /home/shrmeituan/meituan_vision_ws.
++Only local Ubuntu ROS2 processes ran, with localhost discovery and isolated
++ROS domains 191-194. No D435i, cross-host data link or robot was started.
++
++| Check | Actual result |
++| --- | --- |
++| colcon build: mtc_interfaces, mtc_vision_adapter | PASS: 2 packages finished |
++| Adapter pytest (including real installed processes) | PASS: 57 passed in 16.59s |
++| synthetic natural completion | PASS: 4/4 arrays, lengths 0/4/4/4, exit 0; no signal sent |
++| replay natural completion | PASS: 4/4 arrays, lengths 0/4/4/4, exit 0; no signal sent |
++| synthetic and replay SIGINT during replay | PASS: interrupt after 2 received arrays; both exit 0 |
++| Message fields and historical capture stamps | Exact fixture matches; null poses become NaN; ring_pose_valid=false |
++| QoS | Created RELIABLE KEEP_LAST(5) VOLATILE; discovered endpoints compatible |
++| Cleanup | No traceback, duplicate-shutdown error or remaining replay node |
++| Motion rejection helper and local TF buffer | PASS: invalid ring/poses, untrusted frames, missing or historical TF mismatch reject |
++| Live D435i / USB acceptance | NOT RUN |
++| Windows D435i to Ubuntu ROS2 cross-host link | NOT RUN |
++| C++ FSM consumption and downstream safety acceptance | NOT RUN / NOT VERIFIED |
++| True XYZ/Yaw, ring pose and grasp accuracy | NOT VERIFIED |
++
++The replay test changes only the mode/source metadata of the synthetic
++fixture; it is not evidence of a real camera recording. SIGINT tests are
++mid-replay interruption checks and do not claim delivery of all four frames.
++Natural-exit tests independently verify complete four-frame delivery.
++The RMW discovery graph reports history UNKNOWN and depth 0; queue settings
++are checked on the created publisher's profile, not inferred from discovery.
++RELIABLE final-sample acknowledgment does not certify C++ FSM acceptance.
++
++Reproduce from the workspace root after installing ROS2 Jazzy dependencies:
+ 
+ ```sh
+ source /opt/ros/jazzy/setup.bash
+-colcon build --packages-up-to mtc_vision_adapter
++colcon build --packages-select mtc_interfaces mtc_vision_adapter
+ source install/setup.bash
+-ros2 run mtc_vision_adapter replay_publisher --ros-args -p input_jsonl:="$(pwd)/src/mtc_vision_adapter/examples/synthetic.jsonl" -p period_s:=1.0
+-# Another sourced terminal:
+-ros2 topic echo /mtc/perception/batteries --qos-reliability reliable --qos-history keep_last --qos-depth 5
+-ros2 topic info /mtc/perception/batteries --verbose
++MTC_VALIDATION_OUT=/tmp/mtc_v42_validation_20261012 \
++  python3 -m pytest -q src/mtc_vision_adapter/test
+ ```
+ 
+-The existing adapter publishes explicit replay/synthetic records and preserves original timestamps; it is not a live camera ROS node. QoS RELIABLE + KEEP_LAST(5) + VOLATILE requires actual consumer testing. ROS2/colcon/USB/NaN-consumer tests have NOT RUN. Existing IDL, FSM and teammate code are unchanged.
++Host-local evidence (runtime data is excluded from Git):
++- /tmp/mtc_v42_colcon.log
++- /tmp/mtc_v42_pytest.log
++- /tmp/mtc_v42_validation_20261012/{synthetic,replay}-{natural,sigint}/ros_results.json
++- The same case directories contain ros_publisher.log, ros_received.json and ros_logs/.
++
++The adapter is an offline replay publisher, not a live D435i ROS node.
++The next stage may prepare live input integration, but cross-host transport,
++capture-clock alignment, real TF/calibration and actual downstream rejection
++must be verified before any motion use.
++
+ 
+ ## Gates and remaining work
+ 
+ body_pose_valid=false, ring_pose_valid=false. JSON null becomes ROS NaN for unmeasured poses. Consumers must reject invalid ring_pose, non-finite body_pose, stale/replay observations and uncalibrated frames; public IDL has no body_pose_valid field. Synthetic example timestamps/frames cannot be motion input.
+ 
+-Four-color/multi-target software support is synthetic tested; real four-color acceptance is NOT MEASURED. True XYZ/Yaw, aperture pose, table/tool/hand-eye calibration and actual Jazzy integration remain pending. CAD residuals are not positioning accuracy.
++Four-color/multi-target software support is synthetic tested; real four-color acceptance is NOT MEASURED. True XYZ/Yaw, aperture pose, table/tool/hand-eye calibration, live D435i integration and C++ FSM consumption remain pending. CAD residuals are not positioning accuracy.

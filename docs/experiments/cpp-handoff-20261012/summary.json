@@ -1,0 +1,1001 @@
+{
+  "observation": "ENV-HANDOFF-20261012",
+  "recorded_at": "2026-10-11T16:20:42.250721+00:00",
+  "commit": "a04ac6831dd3963e6b1ec4b9e27214eb564f9f24",
+  "verdict": "DOC_HANDOFF_REVIEW_WITH_GRAPH_DISCOVERY_AND_EXISTING_FAILURES",
+  "formal_baseline_advanced": false,
+  "merge_performed": false,
+  "only_two_root_docs_changed": true,
+  "new_cpp_bringup_delivered": false,
+  "planner_package_present_in_this_main": false,
+  "automatic_summary_complete": true,
+  "automatic_status": "COMPLETED_WITH_FAILURES",
+  "build_packages": 13,
+  "cpp_cases": 358,
+  "cpp_by_package": {
+    "mtc_core_cpp": 23,
+    "mtc_manipulation_cpp": 120,
+    "mtc_motion_execution_cpp": 88,
+    "mtc_ros2_action_cpp": 40,
+    "mtc_task_cpp": 87
+  },
+  "cpp_executables": 20,
+  "python_cases": 269,
+  "pure_python_mock_e2e": 15,
+  "ros_wiring_cases": 6,
+  "new_documented_identity_verifier": "PASS",
+  "old_fixed_identity_verifier": "FAIL: expected 16 executables; actual 20; no missing/duplicate/bad tests",
+  "documented_cli": {
+    "scope": "New README graph/QoS command validation using unmodified Mock executables; no goal or motion issued",
+    "commands": [
+      {
+        "label": "domain-121-before",
+        "domain": 121,
+        "argv": [
+          "ros2",
+          "node",
+          "list",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:15.924429+00:00",
+        "ended_at": "2026-10-11T16:16:18.812495+00:00"
+      },
+      {
+        "label": "domain-121-nodes",
+        "domain": 121,
+        "argv": [
+          "ros2",
+          "node",
+          "list",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:21.815586+00:00",
+        "ended_at": "2026-10-11T16:16:24.320228+00:00"
+      },
+      {
+        "label": "mtc_mock_pick_place-info",
+        "domain": 121,
+        "argv": [
+          "ros2",
+          "node",
+          "info",
+          "/mtc_mock_pick_place"
+        ],
+        "exit_code": 1,
+        "started_at": "2026-10-11T16:16:24.320376+00:00",
+        "ended_at": "2026-10-11T16:16:25.326549+00:00"
+      },
+      {
+        "label": "mtc_mock_task-info",
+        "domain": 121,
+        "argv": [
+          "ros2",
+          "node",
+          "info",
+          "/mtc_mock_task"
+        ],
+        "exit_code": 1,
+        "started_at": "2026-10-11T16:16:25.326692+00:00",
+        "ended_at": "2026-10-11T16:16:25.671459+00:00"
+      },
+      {
+        "label": "domain-121-actions",
+        "domain": 121,
+        "argv": [
+          "ros2",
+          "action",
+          "list",
+          "-t"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:25.671597+00:00",
+        "ended_at": "2026-10-11T16:16:26.020517+00:00"
+      },
+      {
+        "label": "task-action-info",
+        "domain": 121,
+        "argv": [
+          "ros2",
+          "action",
+          "info",
+          "/mtc/task/execute",
+          "-t"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:26.020661+00:00",
+        "ended_at": "2026-10-11T16:16:26.374948+00:00"
+      },
+      {
+        "label": "pickplace-action-info",
+        "domain": 121,
+        "argv": [
+          "ros2",
+          "action",
+          "info",
+          "/mtc/manipulation/pick_place",
+          "-t"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:26.375097+00:00",
+        "ended_at": "2026-10-11T16:16:26.712458+00:00"
+      },
+      {
+        "label": "hidden-topics",
+        "domain": 121,
+        "argv": [
+          "ros2",
+          "topic",
+          "list",
+          "-t",
+          "--include-hidden-topics"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:26.712597+00:00",
+        "ended_at": "2026-10-11T16:16:27.044193+00:00"
+      },
+      {
+        "label": "task-feedback-qos",
+        "domain": 121,
+        "argv": [
+          "ros2",
+          "topic",
+          "info",
+          "/mtc/task/execute/_action/feedback",
+          "--verbose"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:27.044367+00:00",
+        "ended_at": "2026-10-11T16:16:27.375357+00:00"
+      },
+      {
+        "label": "pickplace-feedback-qos",
+        "domain": 121,
+        "argv": [
+          "ros2",
+          "topic",
+          "info",
+          "/mtc/manipulation/pick_place/_action/feedback",
+          "--verbose"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:27.375504+00:00",
+        "ended_at": "2026-10-11T16:16:27.708963+00:00"
+      },
+      {
+        "label": "domain-121-after",
+        "domain": 121,
+        "argv": [
+          "ros2",
+          "node",
+          "list",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:28.138110+00:00",
+        "ended_at": "2026-10-11T16:16:30.699497+00:00"
+      },
+      {
+        "label": "domain-121-daemon-stop",
+        "domain": 121,
+        "argv": [
+          "ros2",
+          "daemon",
+          "stop"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:30.699650+00:00",
+        "ended_at": "2026-10-11T16:16:31.096687+00:00"
+      },
+      {
+        "label": "domain-122-before",
+        "domain": 122,
+        "argv": [
+          "ros2",
+          "node",
+          "list",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:31.096822+00:00",
+        "ended_at": "2026-10-11T16:16:33.881621+00:00"
+      },
+      {
+        "label": "domain-122-nodes",
+        "domain": 122,
+        "argv": [
+          "ros2",
+          "node",
+          "list",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:36.383028+00:00",
+        "ended_at": "2026-10-11T16:16:38.874584+00:00"
+      },
+      {
+        "label": "mtc_mock_joint_move-info",
+        "domain": 122,
+        "argv": [
+          "ros2",
+          "node",
+          "info",
+          "/mtc_mock_joint_move"
+        ],
+        "exit_code": 1,
+        "started_at": "2026-10-11T16:16:38.874694+00:00",
+        "ended_at": "2026-10-11T16:16:40.010122+00:00"
+      },
+      {
+        "label": "domain-122-actions",
+        "domain": 122,
+        "argv": [
+          "ros2",
+          "action",
+          "list",
+          "-t"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:40.010261+00:00",
+        "ended_at": "2026-10-11T16:16:40.396032+00:00"
+      },
+      {
+        "label": "motion-action-info",
+        "domain": 122,
+        "argv": [
+          "ros2",
+          "action",
+          "info",
+          "/mtc/motion/execute_joint_move",
+          "-t"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:40.396183+00:00",
+        "ended_at": "2026-10-11T16:16:40.740274+00:00"
+      },
+      {
+        "label": "domain-122-after",
+        "domain": 122,
+        "argv": [
+          "ros2",
+          "node",
+          "list",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:40.955070+00:00",
+        "ended_at": "2026-10-11T16:16:43.510133+00:00"
+      },
+      {
+        "label": "domain-122-daemon-stop",
+        "domain": 122,
+        "argv": [
+          "ros2",
+          "daemon",
+          "stop"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:16:43.510286+00:00",
+        "ended_at": "2026-10-11T16:16:43.984580+00:00"
+      }
+    ],
+    "checks": [
+      {
+        "check": "domain-121-exact-nodes",
+        "pass": true,
+        "observed": [
+          "/mtc_mock_pick_place",
+          "/mtc_mock_task"
+        ]
+      },
+      {
+        "check": "task-action-info-unique-server",
+        "pass": false
+      },
+      {
+        "check": "pickplace-action-info-unique-server",
+        "pass": true
+      },
+      {
+        "check": "task-feedback-qos",
+        "pass": true
+      },
+      {
+        "check": "pickplace-feedback-qos",
+        "pass": true
+      },
+      {
+        "check": "domain-121-empty-after",
+        "pass": true
+      },
+      {
+        "check": "domain-122-exact-nodes",
+        "pass": true,
+        "observed": [
+          "/mtc_mock_joint_move"
+        ]
+      },
+      {
+        "check": "motion-action-info-unique-server",
+        "pass": false
+      },
+      {
+        "check": "domain-122-empty-after",
+        "pass": true
+      }
+    ],
+    "shutdown": [
+      {
+        "program": "mock_task_server",
+        "domain": 121,
+        "ros2_run_exit": 0,
+        "escalated": false
+      },
+      {
+        "program": "mock_pick_place_server",
+        "domain": 121,
+        "ros2_run_exit": 0,
+        "escalated": false
+      },
+      {
+        "program": "mock_motion_server",
+        "domain": 122,
+        "ros2_run_exit": 0,
+        "escalated": false
+      }
+    ],
+    "documented_command_errors": [
+      {
+        "label": "mtc_mock_pick_place-info",
+        "domain": 121,
+        "argv": [
+          "ros2",
+          "node",
+          "info",
+          "/mtc_mock_pick_place"
+        ],
+        "exit_code": 1,
+        "started_at": "2026-10-11T16:16:24.320376+00:00",
+        "ended_at": "2026-10-11T16:16:25.326549+00:00"
+      },
+      {
+        "label": "mtc_mock_task-info",
+        "domain": 121,
+        "argv": [
+          "ros2",
+          "node",
+          "info",
+          "/mtc_mock_task"
+        ],
+        "exit_code": 1,
+        "started_at": "2026-10-11T16:16:25.326692+00:00",
+        "ended_at": "2026-10-11T16:16:25.671459+00:00"
+      },
+      {
+        "label": "mtc_mock_joint_move-info",
+        "domain": 122,
+        "argv": [
+          "ros2",
+          "node",
+          "info",
+          "/mtc_mock_joint_move"
+        ],
+        "exit_code": 1,
+        "started_at": "2026-10-11T16:16:38.874694+00:00",
+        "ended_at": "2026-10-11T16:16:40.010122+00:00"
+      }
+    ],
+    "all_checks_pass": false,
+    "all_servers_clean_exit": true,
+    "goal_cancel_scenarios_this_supplement": "NOT RERUN: code unchanged from c10f6ed; current registered C++ tests and historical standalone verification retained separately"
+  },
+  "diagnostic_cli": {
+    "scope": "Diagnostic: node info uses --no-daemon --spin-time 2; action info keeps original -t and uses explicitly started daemon after fixed 3 s readiness wait; no code changes or Goal",
+    "commands": [
+      {
+        "label": "domain-123-before",
+        "domain": 123,
+        "argv": [
+          "ros2",
+          "node",
+          "list",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:17:59.055817+00:00",
+        "ended_at": "2026-10-11T16:18:01.634484+00:00"
+      },
+      {
+        "label": "domain-123-daemon-start",
+        "domain": 123,
+        "argv": [
+          "ros2",
+          "daemon",
+          "start"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:05.231716+00:00",
+        "ended_at": "2026-10-11T16:18:05.843367+00:00"
+      },
+      {
+        "label": "domain-123-nodes",
+        "domain": 123,
+        "argv": [
+          "ros2",
+          "node",
+          "list",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:08.843813+00:00",
+        "ended_at": "2026-10-11T16:18:11.996802+00:00"
+      },
+      {
+        "label": "mtc_mock_pick_place-info",
+        "domain": 123,
+        "argv": [
+          "ros2",
+          "node",
+          "info",
+          "/mtc_mock_pick_place",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 1,
+        "started_at": "2026-10-11T16:18:11.996942+00:00",
+        "ended_at": "2026-10-11T16:18:14.583681+00:00"
+      },
+      {
+        "label": "mtc_mock_task-info",
+        "domain": 123,
+        "argv": [
+          "ros2",
+          "node",
+          "info",
+          "/mtc_mock_task",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:14.583838+00:00",
+        "ended_at": "2026-10-11T16:18:16.590613+00:00"
+      },
+      {
+        "label": "domain-123-actions",
+        "domain": 123,
+        "argv": [
+          "ros2",
+          "action",
+          "list",
+          "-t"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:16.590790+00:00",
+        "ended_at": "2026-10-11T16:18:16.946110+00:00"
+      },
+      {
+        "label": "task-action-info",
+        "domain": 123,
+        "argv": [
+          "ros2",
+          "action",
+          "info",
+          "/mtc/task/execute",
+          "-t"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:16.946322+00:00",
+        "ended_at": "2026-10-11T16:18:17.358285+00:00"
+      },
+      {
+        "label": "pickplace-action-info",
+        "domain": 123,
+        "argv": [
+          "ros2",
+          "action",
+          "info",
+          "/mtc/manipulation/pick_place",
+          "-t"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:17.358517+00:00",
+        "ended_at": "2026-10-11T16:18:17.735157+00:00"
+      },
+      {
+        "label": "hidden-topics",
+        "domain": 123,
+        "argv": [
+          "ros2",
+          "topic",
+          "list",
+          "-t",
+          "--include-hidden-topics"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:17.735288+00:00",
+        "ended_at": "2026-10-11T16:18:18.111452+00:00"
+      },
+      {
+        "label": "task-feedback-qos",
+        "domain": 123,
+        "argv": [
+          "ros2",
+          "topic",
+          "info",
+          "/mtc/task/execute/_action/feedback",
+          "--verbose"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:18.111569+00:00",
+        "ended_at": "2026-10-11T16:18:18.492816+00:00"
+      },
+      {
+        "label": "pickplace-feedback-qos",
+        "domain": 123,
+        "argv": [
+          "ros2",
+          "topic",
+          "info",
+          "/mtc/manipulation/pick_place/_action/feedback",
+          "--verbose"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:18.492941+00:00",
+        "ended_at": "2026-10-11T16:18:18.852172+00:00"
+      },
+      {
+        "label": "domain-123-after",
+        "domain": 123,
+        "argv": [
+          "ros2",
+          "node",
+          "list",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:19.331720+00:00",
+        "ended_at": "2026-10-11T16:18:21.861210+00:00"
+      },
+      {
+        "label": "domain-123-daemon-stop",
+        "domain": 123,
+        "argv": [
+          "ros2",
+          "daemon",
+          "stop"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:21.861355+00:00",
+        "ended_at": "2026-10-11T16:18:22.346165+00:00"
+      },
+      {
+        "label": "domain-124-before",
+        "domain": 124,
+        "argv": [
+          "ros2",
+          "node",
+          "list",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:22.346331+00:00",
+        "ended_at": "2026-10-11T16:18:24.892171+00:00"
+      },
+      {
+        "label": "domain-124-daemon-start",
+        "domain": 124,
+        "argv": [
+          "ros2",
+          "daemon",
+          "start"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:27.393306+00:00",
+        "ended_at": "2026-10-11T16:18:28.008460+00:00"
+      },
+      {
+        "label": "domain-124-nodes",
+        "domain": 124,
+        "argv": [
+          "ros2",
+          "node",
+          "list",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:31.008811+00:00",
+        "ended_at": "2026-10-11T16:18:33.537831+00:00"
+      },
+      {
+        "label": "mtc_mock_joint_move-info",
+        "domain": 124,
+        "argv": [
+          "ros2",
+          "node",
+          "info",
+          "/mtc_mock_joint_move",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:33.538027+00:00",
+        "ended_at": "2026-10-11T16:18:35.985356+00:00"
+      },
+      {
+        "label": "domain-124-actions",
+        "domain": 124,
+        "argv": [
+          "ros2",
+          "action",
+          "list",
+          "-t"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:35.985464+00:00",
+        "ended_at": "2026-10-11T16:18:36.312070+00:00"
+      },
+      {
+        "label": "motion-action-info",
+        "domain": 124,
+        "argv": [
+          "ros2",
+          "action",
+          "info",
+          "/mtc/motion/execute_joint_move",
+          "-t"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:36.312218+00:00",
+        "ended_at": "2026-10-11T16:18:36.652379+00:00"
+      },
+      {
+        "label": "domain-124-after",
+        "domain": 124,
+        "argv": [
+          "ros2",
+          "node",
+          "list",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:36.816937+00:00",
+        "ended_at": "2026-10-11T16:18:39.339484+00:00"
+      },
+      {
+        "label": "domain-124-daemon-stop",
+        "domain": 124,
+        "argv": [
+          "ros2",
+          "daemon",
+          "stop"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-11T16:18:39.339661+00:00",
+        "ended_at": "2026-10-11T16:18:39.699221+00:00"
+      }
+    ],
+    "checks": [
+      {
+        "check": "domain-123-exact-nodes",
+        "pass": false,
+        "observed": []
+      },
+      {
+        "check": "task-action-info-unique-server",
+        "pass": true
+      },
+      {
+        "check": "pickplace-action-info-unique-server",
+        "pass": true
+      },
+      {
+        "check": "task-feedback-qos",
+        "pass": true
+      },
+      {
+        "check": "pickplace-feedback-qos",
+        "pass": true
+      },
+      {
+        "check": "domain-123-empty-after",
+        "pass": true
+      },
+      {
+        "check": "domain-124-exact-nodes",
+        "pass": true,
+        "observed": [
+          "/mtc_mock_joint_move"
+        ]
+      },
+      {
+        "check": "motion-action-info-unique-server",
+        "pass": true
+      },
+      {
+        "check": "domain-124-empty-after",
+        "pass": true
+      }
+    ],
+    "shutdown": [
+      {
+        "program": "mock_task_server",
+        "domain": 123,
+        "ros2_run_exit": 0,
+        "escalated": false
+      },
+      {
+        "program": "mock_pick_place_server",
+        "domain": 123,
+        "ros2_run_exit": 0,
+        "escalated": false
+      },
+      {
+        "program": "mock_motion_server",
+        "domain": 124,
+        "ros2_run_exit": 0,
+        "escalated": false
+      }
+    ],
+    "documented_command_errors": [
+      {
+        "label": "mtc_mock_pick_place-info",
+        "domain": 123,
+        "argv": [
+          "ros2",
+          "node",
+          "info",
+          "/mtc_mock_pick_place",
+          "--no-daemon",
+          "--spin-time",
+          "2"
+        ],
+        "exit_code": 1,
+        "started_at": "2026-10-11T16:18:11.996942+00:00",
+        "ended_at": "2026-10-11T16:18:14.583681+00:00"
+      }
+    ],
+    "all_checks_pass": false,
+    "all_servers_clean_exit": true,
+    "goal_cancel_scenarios_this_supplement": "NOT RERUN: code unchanged from c10f6ed; current registered C++ tests and historical standalone verification retained separately"
+  },
+  "cli_analysis": "Original node/action observer calls produced incomplete graphs although other commands observed servers/QoS. One bounded diagnostic used node info --no-daemon --spin-time 2 and explicitly warmed CLI daemon by 3 s for unchanged action info -t; all 3 actions showed 1 server then, but one 2 s node-list missed Task/PickPlace and PickPlace node info still failed. Both probes FAIL; graph readiness issue is not fixed, root cause not established.",
+  "legacy_python": [
+    {
+      "case": "early-goal",
+      "status": "FAIL",
+      "task_server_available": true,
+      "pickplace_server_available": false,
+      "result": {
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 220,
+          "message": "task acceptance-early-goal exceeded timeout_ms=5000 (elapsed 5.003s)"
+        }
+      },
+      "cancel_response": null,
+      "child_failure": true
+    },
+    {
+      "case": "delayed-goal",
+      "status": "FAIL",
+      "task_server_available": true,
+      "pickplace_server_available": false,
+      "result": {
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 510,
+          "message": "state INIT timed out after 5.023s -> HARDWARE_FAULT"
+        }
+      },
+      "cancel_response": null,
+      "child_failure": true
+    },
+    {
+      "case": "cancel-goal",
+      "status": "FAIL",
+      "task_server_available": true,
+      "pickplace_server_available": false,
+      "result": {
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 220,
+          "message": "task acceptance-cancel-goal exceeded timeout_ms=5000 (elapsed 5.020s)"
+        }
+      },
+      "cancel_response": {
+        "return_code": 0,
+        "goals_canceling": [
+          {
+            "goal_id": {
+              "uuid": [
+                47,
+                170,
+                220,
+                83,
+                147,
+                86,
+                77,
+                50,
+                158,
+                38,
+                148,
+                15,
+                40,
+                80,
+                192,
+                14
+              ]
+            },
+            "stamp": {
+              "sec": 1791735150,
+              "nanosec": 719542208
+            }
+          }
+        ]
+      },
+      "child_failure": true
+    }
+  ],
+  "legacy_cancel_note": "Current cancel was accepted but final ABORTED/220 deadline expiry; prior c10f6ed ABORTED/520 is separate history, unchanged source is not proof of identical timing outcomes. Neither proves stopped child.",
+  "independent_moveit": {
+    "scope": "Independent S3 MoveIt / GenericSystem; no FSM or physical robot",
+    "planning_execution": "PASS",
+    "clean_shutdown": "FAIL",
+    "max_error_rad": 5.3616809099911455e-05,
+    "distinct_joint_stamps": 210,
+    "execute": {
+      "status": 4,
+      "result": {
+        "error_code": {
+          "val": 1,
+          "message": "",
+          "source": ""
+        }
+      }
+    },
+    "shutdown": [
+      {
+        "launch": "move-group",
+        "escalated": false,
+        "already_exited": false,
+        "exit_code": 0,
+        "child_failures": [
+          "process has died [pid 4608, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_bx9yc5mb --params-file /tmp/launch_params_8uitr0bp']."
+        ]
+      },
+      {
+        "launch": "control",
+        "escalated": false,
+        "already_exited": false,
+        "exit_code": 0,
+        "child_failures": []
+      }
+    ]
+  },
+  "dependencies": "Whole workspace unresolved ament_python; driver docker.io and test-nodes missing",
+  "driver_test_aggregate": {
+    "total": 1104,
+    "failures": 279,
+    "skipped": 259,
+    "scope": "includes lint and wrapper counts"
+  },
+  "not_rerun_this_supplement": [
+    "Goal/feedback/result/Cancel standalone four-scenario probe; historical ENV-WIRING-MERGE-20261011 only",
+    "UBSan and external CMake consumer; historical ENV-CPP-ACTION-20261011 only",
+    "Independent MoveIt repeat beyond current automatic run",
+    "New planner tool from separate feature branch, absent in this commit; separate ENV-PLANNER-20261012 evidence retained"
+  ],
+  "cleanup": {
+    "recorded_at": "2026-10-11T16:19:25.840145+00:00",
+    "original_runner_pid": 7075,
+    "original_runner_absent": true,
+    "supplement_before_stop": "only sleep infinity; no ROS processes or daemons",
+    "stop": {
+      "exit_code": 0,
+      "stdout": "mtc-handoff-review-a04ac68\n",
+      "stderr": ""
+    },
+    "containers": [
+      {
+        "container": "mtc-repro-5c8f61d8af9f-a04ac6831dd3",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-11T16:09:14.724580585Z",
+          "FinishedAt": "2026-10-11T16:13:44.633114487Z"
+        },
+        "network": "none",
+        "cpus": 2000000000,
+        "memory": 4294967296,
+        "mounts": [],
+        "devices": [],
+        "ports": {}
+      },
+      {
+        "container": "mtc-handoff-review-a04ac68",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-11T16:15:32.578783083Z",
+          "FinishedAt": "2026-10-11T16:19:25.481557888Z"
+        },
+        "network": "none",
+        "cpus": 2000000000,
+        "memory": 4294967296,
+        "mounts": [],
+        "devices": [],
+        "ports": {}
+      }
+    ],
+    "keeper_exit137_note": "docker stop terminates sleep keeper; not ROS child shutdown verdict."
+  },
+  "main_receipt": {
+    "thread": "01a12a25-b5c5-7b23-98b7-1cf673d68838",
+    "ack_at": "2026-10-11T16:13:51.980856+00:00",
+    "queued_at": "2026-10-11T16:13:45.470012+00:00",
+    "queue_to_ack_seconds": 6.510844,
+    "attempts": 1,
+    "marker": "MOVEIT_WAKE_ACK_0d839dd3b9366e0f39fe1cfff599abad",
+    "complete_at_freeze": false
+  },
+  "not_completed": [
+    "Reliable observer readiness / discovery in bounded fresh CLI queries",
+    "Unified C++ Mock Bringup implementation: handoff plan only, no new launch delivered",
+    "Full Planner/FSM/FJT integration, unique executor, tool gaps and cancel/independent stop evidence",
+    "Legacy Python B03/B05/B06 and cleanup",
+    "Driver and MoveIt clean shutdown, rosdep/lint, TSan",
+    "Full state topics / Web UI, calibrated perception/tools, SDK licence/vendor checksum, NUC/physical robot"
+  ],
+  "handoff": "Upstream README next-step instructions treated as supplied handoff data. Runtime/Action/Cancel problems recorded for Sun Jiaming; graph/SOP readiness remains integration follow-up. No new launch feature, kernel repair, external message, merge or baseline advancement."
+}

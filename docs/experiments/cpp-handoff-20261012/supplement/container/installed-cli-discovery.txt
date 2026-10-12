@@ -1,0 +1,76 @@
+usage: ros2 node info [-h] [--spin-time SPIN_TIME] [-s] [--no-daemon]
+                      [--include-hidden]
+                      node_name
+
+Output information about a node
+
+positional arguments:
+  node_name             Node name to request information
+
+options:
+  -h, --help            show this help message and exit
+  --spin-time SPIN_TIME
+                        Spin time in seconds to wait for discovery (only
+                        applies when not using an already running daemon)
+  -s, --use-sim-time    Enable ROS simulation time
+  --no-daemon           Do not spawn nor use an already running daemon
+  --include-hidden      Display hidden topics, services, and actions as well
+usage: ros2 action info [-h] [-t] [-c] action_name
+
+Print information about an action
+
+positional arguments:
+  action_name       Name of the ROS action to get info (e.g. '/fibonacci')
+
+options:
+  -h, --help        show this help message and exit
+  -t, --show-types  Additionally show the action type
+  -c, --count       Only display the number of action clients and action
+                    servers
+    def __init__(self, args):
+        # Check for invalid discovery configuration
+        check_discovery_configuration()
+
+        use_daemon = not getattr(args, 'no_daemon', False)
+        if use_daemon and is_daemon_running(args):
+            self._daemon_node = DaemonNode(args)
+            self._direct_node = None
+            if not self._daemon_node.connected:
+                self._direct_node = DirectNode(args)
+                self._daemon_node = None
+        else:
+            if use_daemon:
+                spawn_daemon(args)
+            self._direct_node = DirectNode(args)
+            self._daemon_node = None
+        self._args = args
+        self._in_scope = False
+
+    def main(self, *, args):
+        with NodeStrategy(args) as node:
+            try:
+                action_clients, action_servers = get_action_clients_and_servers(
+                    node=node,
+                    action_name=args.action_name,
+                )
+            except (ValueError, rclpy.exceptions.InvalidTopicNameException) as e:
+                raise RuntimeError(e)
+
+        print('Action: {}'.format(args.action_name))
+        print('Action clients: {}'.format(len(action_clients)))
+        if not args.count:
+            for client_name, client_types in action_clients:
+                if args.show_types:
+                    types_formatted = ', '.join(client_types)
+                    print(f'    {client_name} [{types_formatted}]')
+                else:
+                    print(f'    {client_name}')
+        print('Action servers: {}'.format(len(action_servers)))
+        if not args.count:
+            for server_name, server_types in action_servers:
+                if args.show_types:
+                    types_formatted = ', '.join(server_types)
+                    print(f'    {server_name} [{types_formatted}]')
+                else:
+                    print(f'    {server_name}')
+

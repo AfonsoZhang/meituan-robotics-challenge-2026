@@ -1,0 +1,390 @@
+[0.000000] (-) TimerEvent: {}
+[0.000105] (mtc_core_cpp) JobQueued: {'identifier': 'mtc_core_cpp', 'dependencies': OrderedDict()}
+[0.000139] (mtc_interfaces) JobQueued: {'identifier': 'mtc_interfaces', 'dependencies': OrderedDict()}
+[0.000159] (mtc_aubo_bridge) JobQueued: {'identifier': 'mtc_aubo_bridge', 'dependencies': OrderedDict({'mtc_interfaces': '/candidate-install/mtc_interfaces'})}
+[0.000180] (mtc_manipulation) JobQueued: {'identifier': 'mtc_manipulation', 'dependencies': OrderedDict({'mtc_interfaces': '/candidate-install/mtc_interfaces'})}
+[0.000197] (mtc_motion_execution) JobQueued: {'identifier': 'mtc_motion_execution', 'dependencies': OrderedDict({'mtc_interfaces': '/candidate-install/mtc_interfaces'})}
+[0.000212] (mtc_motion_execution_cpp) JobQueued: {'identifier': 'mtc_motion_execution_cpp', 'dependencies': OrderedDict({'mtc_core_cpp': '/candidate-install/mtc_core_cpp'})}
+[0.000226] (mtc_safety) JobQueued: {'identifier': 'mtc_safety', 'dependencies': OrderedDict({'mtc_interfaces': '/candidate-install/mtc_interfaces'})}
+[0.000240] (mtc_task) JobQueued: {'identifier': 'mtc_task', 'dependencies': OrderedDict({'mtc_interfaces': '/candidate-install/mtc_interfaces'})}
+[0.000254] (mtc_task_cpp) JobQueued: {'identifier': 'mtc_task_cpp', 'dependencies': OrderedDict({'mtc_core_cpp': '/candidate-install/mtc_core_cpp'})}
+[0.000267] (mtc_tool) JobQueued: {'identifier': 'mtc_tool', 'dependencies': OrderedDict({'mtc_interfaces': '/candidate-install/mtc_interfaces'})}
+[0.000280] (mtc_bringup) JobQueued: {'identifier': 'mtc_bringup', 'dependencies': OrderedDict({'mtc_interfaces': '/candidate-install/mtc_interfaces', 'mtc_aubo_bridge': '/candidate-install/mtc_aubo_bridge', 'mtc_manipulation': '/candidate-install/mtc_manipulation', 'mtc_motion_execution': '/candidate-install/mtc_motion_execution', 'mtc_safety': '/candidate-install/mtc_safety', 'mtc_task': '/candidate-install/mtc_task', 'mtc_tool': '/candidate-install/mtc_tool'})}
+[0.000309] (mtc_manipulation_cpp) JobQueued: {'identifier': 'mtc_manipulation_cpp', 'dependencies': OrderedDict({'mtc_core_cpp': '/candidate-install/mtc_core_cpp', 'mtc_motion_execution_cpp': '/candidate-install/mtc_motion_execution_cpp'})}
+[0.000789] (mtc_core_cpp) JobStarted: {'identifier': 'mtc_core_cpp'}
+[0.020994] (mtc_core_cpp) JobProgress: {'identifier': 'mtc_core_cpp', 'progress': 'cmake'}
+[0.023226] (mtc_core_cpp) Command: {'cmd': ['/usr/bin/cmake', '/candidate/src/mtc_core_cpp', '-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17', '-DCMAKE_INSTALL_PREFIX=/candidate-install/mtc_core_cpp'], 'cwd': '/candidate-build/mtc_core_cpp', 'env': OrderedDict({'CMAKE_BUILD_PARALLEL_LEVEL': '2', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/sdformat_vendor/share/gz', 'HOSTNAME': '2a7562c1a08a', 'SHLVL': '0', 'LD_LIBRARY_PATH': '/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/root', 'OLDPWD': '/', 'ROS_PYTHON_VERSION': '3', 'MAKEFLAGS': '-j2', 'COLCON_PREFIX_PATH': '/driver_work/install', 'ROS_DISTRO': 'jazzy', 'PYTHONDONTWRITEBYTECODE': '1', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'PATH': '/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'RMW_IMPLEMENTATION': 'rmw_fastrtps_cpp', 'XML_CATALOG_FILES': '/acceptance-tools/offline-schema/catalog.xml', 'ROS_DOMAIN_ID': '98', 'AMENT_PREFIX_PATH': '/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'LOCALHOST', 'PWD': '/candidate-build/mtc_core_cpp', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/driver_work/install/aubo_ros2_driver/lib/python3.12/site-packages:/driver_work/install/aubo_msgs/lib/python3.12/site-packages:/driver_work/install/aubo_dashboard_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[0.099406] (-) TimerEvent: {}
+[0.199617] (-) TimerEvent: {}
+[0.267099] (mtc_core_cpp) StdoutLine: {'line': b'-- The C compiler identification is GNU 13.3.0\n'}
+[0.299708] (-) TimerEvent: {}
+[0.393265] (mtc_core_cpp) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 13.3.0\n'}
+[0.399812] (-) TimerEvent: {}
+[0.423699] (mtc_core_cpp) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.500080] (-) TimerEvent: {}
+[0.560045] (mtc_core_cpp) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.566271] (mtc_core_cpp) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.566837] (mtc_core_cpp) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.567465] (mtc_core_cpp) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.580441] (mtc_core_cpp) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.600183] (-) TimerEvent: {}
+[0.700475] (-) TimerEvent: {}
+[0.716202] (mtc_core_cpp) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.724081] (mtc_core_cpp) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.724767] (mtc_core_cpp) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.724833] (mtc_core_cpp) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.739870] (mtc_core_cpp) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[0.800584] (-) TimerEvent: {}
+[0.896177] (mtc_core_cpp) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[0.900757] (-) TimerEvent: {}
+[1.001087] (-) TimerEvent: {}
+[1.063373] (mtc_core_cpp) StdoutLine: {'line': b'-- Found ament_cmake_gtest: 2.5.6 (/opt/ros/jazzy/share/ament_cmake_gtest/cmake)\n'}
+[1.070848] (mtc_core_cpp) StdoutLine: {'line': b"-- Found gtest sources under '/opt/ros/jazzy/src/gtest_vendor': C++ tests using 'Google Test' will be built\n"}
+[1.076051] (mtc_core_cpp) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[1.101250] (-) TimerEvent: {}
+[1.201572] (-) TimerEvent: {}
+[1.215818] (mtc_core_cpp) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[1.216652] (mtc_core_cpp) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.301736] (-) TimerEvent: {}
+[1.355912] (mtc_core_cpp) StdoutLine: {'line': b'-- Configuring done (1.3s)\n'}
+[1.388867] (mtc_core_cpp) StdoutLine: {'line': b'-- Generating done (0.0s)\n'}
+[1.396417] (mtc_core_cpp) StdoutLine: {'line': b'-- Build files have been written to: /candidate-build/mtc_core_cpp\n'}
+[1.401904] (-) TimerEvent: {}
+[1.406232] (mtc_core_cpp) CommandEnded: {'returncode': 0}
+[1.407262] (mtc_core_cpp) JobProgress: {'identifier': 'mtc_core_cpp', 'progress': 'build'}
+[1.407996] (mtc_core_cpp) Command: {'cmd': ['/usr/bin/cmake', '--build', '/candidate-build/mtc_core_cpp'], 'cwd': '/candidate-build/mtc_core_cpp', 'env': OrderedDict({'CMAKE_BUILD_PARALLEL_LEVEL': '2', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/sdformat_vendor/share/gz', 'HOSTNAME': '2a7562c1a08a', 'SHLVL': '0', 'LD_LIBRARY_PATH': '/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/root', 'OLDPWD': '/', 'ROS_PYTHON_VERSION': '3', 'MAKEFLAGS': '-j2', 'COLCON_PREFIX_PATH': '/driver_work/install', 'ROS_DISTRO': 'jazzy', 'PYTHONDONTWRITEBYTECODE': '1', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'PATH': '/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'RMW_IMPLEMENTATION': 'rmw_fastrtps_cpp', 'XML_CATALOG_FILES': '/acceptance-tools/offline-schema/catalog.xml', 'ROS_DOMAIN_ID': '98', 'AMENT_PREFIX_PATH': '/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'LOCALHOST', 'PWD': '/candidate-build/mtc_core_cpp', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/driver_work/install/aubo_ros2_driver/lib/python3.12/site-packages:/driver_work/install/aubo_msgs/lib/python3.12/site-packages:/driver_work/install/aubo_dashboard_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[1.502105] (-) TimerEvent: {}
+[1.538293] (mtc_core_cpp) StdoutLine: {'line': b'[ 20%] Building CXX object CMakeFiles/mtc_core_cpp.dir/src/error_codes.cpp.o\n'}
+[1.538505] (mtc_core_cpp) StdoutLine: {'line': b'[ 20%] Building CXX object gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o\n'}
+[1.602405] (-) TimerEvent: {}
+[1.702730] (-) TimerEvent: {}
+[1.803033] (-) TimerEvent: {}
+[1.903374] (-) TimerEvent: {}
+[2.003685] (-) TimerEvent: {}
+[2.103951] (-) TimerEvent: {}
+[2.192307] (mtc_core_cpp) StdoutLine: {'line': b'[ 30%] Linking CXX shared library libmtc_core_cpp.so\n'}
+[2.204111] (-) TimerEvent: {}
+[2.304370] (-) TimerEvent: {}
+[2.307654] (mtc_core_cpp) StdoutLine: {'line': b'[ 30%] Built target mtc_core_cpp\n'}
+[2.346459] (mtc_core_cpp) StdoutLine: {'line': b'[ 40%] Building CXX object gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o\n'}
+[2.404560] (-) TimerEvent: {}
+[2.504809] (-) TimerEvent: {}
+[2.605052] (-) TimerEvent: {}
+[2.705450] (-) TimerEvent: {}
+[2.805808] (-) TimerEvent: {}
+[2.906150] (-) TimerEvent: {}
+[3.006510] (-) TimerEvent: {}
+[3.106919] (-) TimerEvent: {}
+[3.207138] (-) TimerEvent: {}
+[3.307397] (-) TimerEvent: {}
+[3.310478] (mtc_core_cpp) StdoutLine: {'line': b'[ 50%] Linking CXX static library libgtest_main.a\n'}
+[3.372899] (mtc_core_cpp) StdoutLine: {'line': b'[ 50%] Built target gtest_main\n'}
+[3.407580] (-) TimerEvent: {}
+[3.507878] (-) TimerEvent: {}
+[3.608261] (-) TimerEvent: {}
+[3.708600] (-) TimerEvent: {}
+[3.808930] (-) TimerEvent: {}
+[3.909280] (-) TimerEvent: {}
+[4.009584] (-) TimerEvent: {}
+[4.109849] (-) TimerEvent: {}
+[4.210107] (-) TimerEvent: {}
+[4.310388] (-) TimerEvent: {}
+[4.410648] (-) TimerEvent: {}
+[4.510899] (-) TimerEvent: {}
+[4.611205] (-) TimerEvent: {}
+[4.711483] (-) TimerEvent: {}
+[4.811738] (-) TimerEvent: {}
+[4.912088] (-) TimerEvent: {}
+[5.012355] (-) TimerEvent: {}
+[5.112619] (-) TimerEvent: {}
+[5.212893] (-) TimerEvent: {}
+[5.313248] (-) TimerEvent: {}
+[5.413622] (-) TimerEvent: {}
+[5.513903] (-) TimerEvent: {}
+[5.614273] (-) TimerEvent: {}
+[5.714721] (-) TimerEvent: {}
+[5.815091] (-) TimerEvent: {}
+[5.915440] (-) TimerEvent: {}
+[5.938426] (mtc_core_cpp) StdoutLine: {'line': b'[ 60%] Linking CXX static library libgtest.a\n'}
+[6.015683] (-) TimerEvent: {}
+[6.038567] (mtc_core_cpp) StdoutLine: {'line': b'[ 60%] Built target gtest\n'}
+[6.071524] (mtc_core_cpp) StdoutLine: {'line': b'[ 80%] Building CXX object CMakeFiles/test_error_codes_msg_parity.dir/test/test_error_codes_msg_parity.cpp.o\n'}
+[6.071814] (mtc_core_cpp) StdoutLine: {'line': b'[ 80%] Building CXX object CMakeFiles/test_core_types.dir/test/test_core_types.cpp.o\n'}
+[6.115772] (-) TimerEvent: {}
+[6.216060] (-) TimerEvent: {}
+[6.316412] (-) TimerEvent: {}
+[6.416840] (-) TimerEvent: {}
+[6.517353] (-) TimerEvent: {}
+[6.617679] (-) TimerEvent: {}
+[6.717952] (-) TimerEvent: {}
+[6.818274] (-) TimerEvent: {}
+[6.918621] (-) TimerEvent: {}
+[7.018928] (-) TimerEvent: {}
+[7.119220] (-) TimerEvent: {}
+[7.211879] (mtc_core_cpp) StdoutLine: {'line': b'[ 90%] Linking CXX executable test_error_codes_msg_parity\n'}
+[7.219369] (-) TimerEvent: {}
+[7.319620] (-) TimerEvent: {}
+[7.397029] (mtc_core_cpp) StdoutLine: {'line': b'[ 90%] Built target test_error_codes_msg_parity\n'}
+[7.419782] (-) TimerEvent: {}
+[7.520061] (-) TimerEvent: {}
+[7.620327] (-) TimerEvent: {}
+[7.720631] (-) TimerEvent: {}
+[7.722367] (mtc_core_cpp) StdoutLine: {'line': b'[100%] Linking CXX executable test_core_types\n'}
+[7.820801] (-) TimerEvent: {}
+[7.921172] (-) TimerEvent: {}
+[7.937996] (mtc_core_cpp) StdoutLine: {'line': b'[100%] Built target test_core_types\n'}
+[7.965793] (mtc_core_cpp) CommandEnded: {'returncode': 0}
+[7.967586] (mtc_core_cpp) JobProgress: {'identifier': 'mtc_core_cpp', 'progress': 'install'}
+[7.995132] (mtc_core_cpp) Command: {'cmd': ['/usr/bin/cmake', '--install', '/candidate-build/mtc_core_cpp'], 'cwd': '/candidate-build/mtc_core_cpp', 'env': OrderedDict({'CMAKE_BUILD_PARALLEL_LEVEL': '2', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/sdformat_vendor/share/gz', 'HOSTNAME': '2a7562c1a08a', 'SHLVL': '0', 'LD_LIBRARY_PATH': '/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/root', 'OLDPWD': '/', 'ROS_PYTHON_VERSION': '3', 'MAKEFLAGS': '-j2', 'COLCON_PREFIX_PATH': '/driver_work/install', 'ROS_DISTRO': 'jazzy', 'PYTHONDONTWRITEBYTECODE': '1', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'PATH': '/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'RMW_IMPLEMENTATION': 'rmw_fastrtps_cpp', 'XML_CATALOG_FILES': '/acceptance-tools/offline-schema/catalog.xml', 'ROS_DOMAIN_ID': '98', 'AMENT_PREFIX_PATH': '/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'LOCALHOST', 'PWD': '/candidate-build/mtc_core_cpp', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/driver_work/install/aubo_ros2_driver/lib/python3.12/site-packages:/driver_work/install/aubo_msgs/lib/python3.12/site-packages:/driver_work/install/aubo_dashboard_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[8.020567] (mtc_core_cpp) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[8.021247] (-) TimerEvent: {}
+[8.022527] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/lib/libmtc_core_cpp.so\n'}
+[8.023247] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/include\n'}
+[8.024070] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/include/mtc_core_cpp\n'}
+[8.024832] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/include/mtc_core_cpp/error_codes.hpp\n'}
+[8.025312] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/include/mtc_core_cpp/timed_trajectory.hpp\n'}
+[8.025783] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/include/mtc_core_cpp/tool_state.hpp\n'}
+[8.026042] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/include/mtc_core_cpp/results.hpp\n'}
+[8.026337] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/include/mtc_core_cpp/clock.hpp\n'}
+[8.026704] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/include/mtc_core_cpp/motion_primitive.hpp\n'}
+[8.027012] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/include/mtc_core_cpp/pose.hpp\n'}
+[8.027398] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/include/mtc_core_cpp/exec_state.hpp\n'}
+[8.029645] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/environment/library_path.sh\n'}
+[8.030137] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/environment/library_path.dsv\n'}
+[8.032160] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/ament_index/resource_index/package_run_dependencies/mtc_core_cpp\n'}
+[8.033030] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/ament_index/resource_index/parent_prefix_path/mtc_core_cpp\n'}
+[8.033584] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/environment/ament_prefix_path.sh\n'}
+[8.034134] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/environment/ament_prefix_path.dsv\n'}
+[8.035267] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/environment/path.sh\n'}
+[8.035862] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/environment/path.dsv\n'}
+[8.036318] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/local_setup.bash\n'}
+[8.036778] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/local_setup.sh\n'}
+[8.037247] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/local_setup.zsh\n'}
+[8.037689] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/local_setup.dsv\n'}
+[8.038051] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/package.dsv\n'}
+[8.039719] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/ament_index/resource_index/packages/mtc_core_cpp\n'}
+[8.041308] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/cmake/export_mtc_core_cppExport.cmake\n'}
+[8.041814] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/cmake/export_mtc_core_cppExport-noconfig.cmake\n'}
+[8.042524] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[8.043213] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[8.043671] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[8.044239] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/cmake/mtc_core_cppConfig.cmake\n'}
+[8.044705] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/cmake/mtc_core_cppConfig-version.cmake\n'}
+[8.045317] (mtc_core_cpp) StdoutLine: {'line': b'-- Installing: /candidate-install/mtc_core_cpp/share/mtc_core_cpp/package.xml\n'}
+[8.053387] (mtc_core_cpp) CommandEnded: {'returncode': 0}
+[8.115518] (mtc_core_cpp) JobEnded: {'identifier': 'mtc_core_cpp', 'rc': 0}
+[8.116805] (mtc_interfaces) JobStarted: {'identifier': 'mtc_interfaces'}
+[8.121549] (-) TimerEvent: {}
+[8.129449] (mtc_interfaces) JobProgress: {'identifier': 'mtc_interfaces', 'progress': 'cmake'}
+[8.132697] (mtc_interfaces) Command: {'cmd': ['/usr/bin/cmake', '/candidate/src/mtc_interfaces', '-DBUILD_TESTING=ON', '-DCMAKE_CXX_STANDARD=17', '-DCMAKE_INSTALL_PREFIX=/candidate-install/mtc_interfaces'], 'cwd': '/candidate-build/mtc_interfaces', 'env': OrderedDict({'CMAKE_BUILD_PARALLEL_LEVEL': '2', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/sdformat_vendor/share/gz', 'HOSTNAME': '2a7562c1a08a', 'SHLVL': '0', 'LD_LIBRARY_PATH': '/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/root', 'OLDPWD': '/', 'ROS_PYTHON_VERSION': '3', 'MAKEFLAGS': '-j2', 'COLCON_PREFIX_PATH': '/driver_work/install', 'ROS_DISTRO': 'jazzy', 'PYTHONDONTWRITEBYTECODE': '1', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'PATH': '/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'RMW_IMPLEMENTATION': 'rmw_fastrtps_cpp', 'XML_CATALOG_FILES': '/acceptance-tools/offline-schema/catalog.xml', 'ROS_DOMAIN_ID': '98', 'AMENT_PREFIX_PATH': '/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'LOCALHOST', 'PWD': '/candidate-build/mtc_interfaces', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/driver_work/install/aubo_ros2_driver/lib/python3.12/site-packages:/driver_work/install/aubo_msgs/lib/python3.12/site-packages:/driver_work/install/aubo_dashboard_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[8.221732] (-) TimerEvent: {}
+[8.230377] (mtc_interfaces) StdoutLine: {'line': b'-- The C compiler identification is GNU 13.3.0\n'}
+[8.316748] (mtc_interfaces) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 13.3.0\n'}
+[8.321835] (-) TimerEvent: {}
+[8.346614] (mtc_interfaces) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[8.422002] (-) TimerEvent: {}
+[8.494719] (mtc_interfaces) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[8.502275] (mtc_interfaces) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[8.502703] (mtc_interfaces) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[8.502974] (mtc_interfaces) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[8.516543] (mtc_interfaces) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[8.522196] (-) TimerEvent: {}
+[8.622496] (-) TimerEvent: {}
+[8.685344] (mtc_interfaces) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[8.697842] (mtc_interfaces) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[8.698383] (mtc_interfaces) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[8.698593] (mtc_interfaces) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[8.706032] (mtc_interfaces) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[8.722669] (-) TimerEvent: {}
+[8.822919] (-) TimerEvent: {}
+[8.857753] (mtc_interfaces) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[8.923063] (-) TimerEvent: {}
+[9.012898] (mtc_interfaces) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.6.1 (/opt/ros/jazzy/share/rosidl_default_generators/cmake)\n'}
+[9.023275] (-) TimerEvent: {}
+[9.030461] (mtc_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[9.123428] (-) TimerEvent: {}
+[9.149384] (mtc_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[9.223606] (-) TimerEvent: {}
+[9.258493] (mtc_interfaces) StdoutLine: {'line': b'-- Found rosidl_adapter: 4.6.9 (/opt/ros/jazzy/share/rosidl_adapter/cmake)\n'}
+[9.271024] (mtc_interfaces) StdoutLine: {'line': b'-- Found std_msgs: 5.3.8 (/opt/ros/jazzy/share/std_msgs/cmake)\n'}
+[9.323827] (-) TimerEvent: {}
+[9.401461] (mtc_interfaces) StdoutLine: {'line': b'-- Found geometry_msgs: 5.3.8 (/opt/ros/jazzy/share/geometry_msgs/cmake)\n'}
+[9.423964] (-) TimerEvent: {}
+[9.524199] (-) TimerEvent: {}
+[9.624429] (-) TimerEvent: {}
+[9.724694] (-) TimerEvent: {}
+[9.824930] (-) TimerEvent: {}
+[9.925283] (-) TimerEvent: {}
+[10.025667] (-) TimerEvent: {}
+[10.125954] (-) TimerEvent: {}
+[10.226210] (-) TimerEvent: {}
+[10.273780] (mtc_interfaces) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.12.1 (/opt/ros/jazzy/share/ament_cmake_ros/cmake)\n'}
+[10.326383] (-) TimerEvent: {}
+[10.426629] (-) TimerEvent: {}
+[10.526877] (-) TimerEvent: {}
+[10.627116] (-) TimerEvent: {}
+[10.727371] (-) TimerEvent: {}
+[10.827656] (-) TimerEvent: {}
+[10.854265] (mtc_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[10.927791] (-) TimerEvent: {}
+[11.028019] (-) TimerEvent: {}
+[11.128285] (-) TimerEvent: {}
+[11.228553] (-) TimerEvent: {}
+[11.328811] (-) TimerEvent: {}
+[11.429039] (-) TimerEvent: {}
+[11.514591] (mtc_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[11.521698] (mtc_interfaces) StdoutLine: {'line': b'-- Found python_cmake_module: 0.11.1 (/opt/ros/jazzy/share/python_cmake_module/cmake)\n'}
+[11.529311] (-) TimerEvent: {}
+[11.629711] (-) TimerEvent: {}
+[11.663660] (mtc_interfaces) StdoutLine: {'line': b'-- Found PythonExtra: /usr/bin/python3  \n'}
+[11.729852] (-) TimerEvent: {}
+[11.830161] (-) TimerEvent: {}
+[11.930525] (-) TimerEvent: {}
+[12.030779] (-) TimerEvent: {}
+[12.131007] (-) TimerEvent: {}
+[12.233230] (-) TimerEvent: {}
+[12.300361] (mtc_interfaces) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter Development NumPy Development.Module Development.Embed \n'}
+[12.333370] (-) TimerEvent: {}
+[12.433642] (-) TimerEvent: {}
+[12.455828] (mtc_interfaces) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[12.463766] (mtc_interfaces) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.17.5 (/opt/ros/jazzy/share/ament_lint_auto/cmake)\n'}
+[12.533789] (-) TimerEvent: {}
+[12.538816] (mtc_interfaces) StdoutLine: {'line': b"-- Added test 'copyright' to check source files copyright and LICENSE\n"}
+[12.546332] (mtc_interfaces) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[12.551065] (mtc_interfaces) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[12.557554] (mtc_interfaces) StdoutLine: {'line': b'-- Configuring done (4.4s)\n'}
+[12.634047] (-) TimerEvent: {}
+[12.700875] (mtc_interfaces) StdoutLine: {'line': b'-- Generating done (0.1s)\n'}
+[12.721767] (mtc_interfaces) StdoutLine: {'line': b'-- Build files have been written to: /candidate-build/mtc_interfaces\n'}
+[12.734191] (-) TimerEvent: {}
+[12.735997] (mtc_interfaces) CommandEnded: {'returncode': 0}
+[12.736832] (mtc_interfaces) JobProgress: {'identifier': 'mtc_interfaces', 'progress': 'build'}
+[12.737611] (mtc_interfaces) Command: {'cmd': ['/usr/bin/cmake', '--build', '/candidate-build/mtc_interfaces'], 'cwd': '/candidate-build/mtc_interfaces', 'env': OrderedDict({'CMAKE_BUILD_PARALLEL_LEVEL': '2', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/sdformat_vendor/share/gz', 'HOSTNAME': '2a7562c1a08a', 'SHLVL': '0', 'LD_LIBRARY_PATH': '/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/root', 'OLDPWD': '/', 'ROS_PYTHON_VERSION': '3', 'MAKEFLAGS': '-j2', 'COLCON_PREFIX_PATH': '/driver_work/install', 'ROS_DISTRO': 'jazzy', 'PYTHONDONTWRITEBYTECODE': '1', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'PATH': '/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'RMW_IMPLEMENTATION': 'rmw_fastrtps_cpp', 'XML_CATALOG_FILES': '/acceptance-tools/offline-schema/catalog.xml', 'ROS_DOMAIN_ID': '98', 'AMENT_PREFIX_PATH': '/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'LOCALHOST', 'PWD': '/candidate-build/mtc_interfaces', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/driver_work/install/aubo_ros2_driver/lib/python3.12/site-packages:/driver_work/install/aubo_msgs/lib/python3.12/site-packages:/driver_work/install/aubo_dashboard_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[12.834388] (-) TimerEvent: {}
+[12.835343] (mtc_interfaces) StdoutLine: {'line': b'[  1%] Generating Rust code for ROS interfaces\n'}
+[12.835537] (mtc_interfaces) StdoutLine: {'line': b'[  1%] Generating type hashes for ROS interfaces\n'}
+[12.934517] (-) TimerEvent: {}
+[13.035738] (-) TimerEvent: {}
+[13.136062] (-) TimerEvent: {}
+[13.236335] (-) TimerEvent: {}
+[13.336585] (-) TimerEvent: {}
+[13.436823] (-) TimerEvent: {}
+[13.537089] (-) TimerEvent: {}
+[13.637407] (-) TimerEvent: {}
+[13.737792] (-) TimerEvent: {}
+[13.838152] (-) TimerEvent: {}
+[13.851667] (mtc_interfaces) StdoutLine: {'line': b'[  1%] Built target mtc_interfaces__rs\n'}
+[13.877731] (mtc_interfaces) StdoutLine: {'line': b'[  1%] Built target mtc_interfaces__rosidl_generator_type_description\n'}
+[13.898744] (mtc_interfaces) StdoutLine: {'line': b'[  2%] Generating C code for ROS interfaces\n'}
+[13.902893] (mtc_interfaces) StdoutLine: {'line': b'[  2%] Built target ament_cmake_python_copy_mtc_interfaces\n'}
+[13.938305] (-) TimerEvent: {}
+[13.946651] (mtc_interfaces) StdoutLine: {'line': b'[  2%] Generating C++ code for ROS interfaces\n'}
+[14.038472] (-) TimerEvent: {}
+[14.138810] (-) TimerEvent: {}
+[14.239069] (-) TimerEvent: {}
+[14.339338] (-) TimerEvent: {}
+[14.439645] (-) TimerEvent: {}
+[14.539949] (-) TimerEvent: {}
+[14.640182] (-) TimerEvent: {}
+[14.740499] (-) TimerEvent: {}
+[14.840798] (-) TimerEvent: {}
+[14.941026] (-) TimerEvent: {}
+[15.041247] (-) TimerEvent: {}
+[15.141502] (-) TimerEvent: {}
+[15.241722] (-) TimerEvent: {}
+[15.342057] (-) TimerEvent: {}
+[15.442379] (-) TimerEvent: {}
+[15.542631] (-) TimerEvent: {}
+[15.642876] (-) TimerEvent: {}
+[15.743126] (-) TimerEvent: {}
+[15.843330] (-) TimerEvent: {}
+[15.943588] (-) TimerEvent: {}
+[16.043861] (-) TimerEvent: {}
+[16.144111] (-) TimerEvent: {}
+[16.244326] (-) TimerEvent: {}
+[16.344617] (-) TimerEvent: {}
+[16.448114] (-) TimerEvent: {}
+[16.548421] (-) TimerEvent: {}
+[16.648666] (-) TimerEvent: {}
+[16.653290] (mtc_interfaces) StdoutLine: {'line': b'[  2%] Built target mtc_interfaces__cpp\n'}
+[16.748811] (-) TimerEvent: {}
+[16.849024] (-) TimerEvent: {}
+[16.923757] (mtc_interfaces) StdoutLine: {'line': b'running egg_info\n'}
+[16.924501] (mtc_interfaces) StdoutLine: {'line': b'creating mtc_interfaces.egg-info\n'}
+[16.940863] (mtc_interfaces) StdoutLine: {'line': b'writing mtc_interfaces.egg-info/PKG-INFO\n'}
+[16.941429] (mtc_interfaces) StdoutLine: {'line': b'writing dependency_links to mtc_interfaces.egg-info/dependency_links.txt\n'}
+[16.941830] (mtc_interfaces) StdoutLine: {'line': b'writing top-level names to mtc_interfaces.egg-info/top_level.txt\n'}
+[16.942206] (mtc_interfaces) StdoutLine: {'line': b"writing manifest file 'mtc_interfaces.egg-info/SOURCES.txt'\n"}
+[16.949282] (-) TimerEvent: {}
+[16.979540] (mtc_interfaces) StdoutLine: {'line': b"reading manifest file 'mtc_interfaces.egg-info/SOURCES.txt'\n"}
+[16.980034] (mtc_interfaces) StdoutLine: {'line': b"writing manifest file 'mtc_interfaces.egg-info/SOURCES.txt'\n"}
+[17.011328] (mtc_interfaces) StdoutLine: {'line': b'[  2%] Built target ament_cmake_python_build_mtc_interfaces_egg\n'}
+[17.049431] (-) TimerEvent: {}
+[17.074648] (mtc_interfaces) StdoutLine: {'line': b'[  3%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/battery_detection__description.c.o\n'}
+[17.074824] (mtc_interfaces) StdoutLine: {'line': b'[  3%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/battery_detection__functions.c.o\n'}
+[17.149588] (-) TimerEvent: {}
+[17.168462] (mtc_interfaces) StdoutLine: {'line': b'[  4%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/battery_detection__type_support.c.o\n'}
+[17.174596] (mtc_interfaces) StdoutLine: {'line': b'[  4%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/battery_detection_array__description.c.o\n'}
+[17.219785] (mtc_interfaces) StdoutLine: {'line': b'[  5%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/battery_detection_array__functions.c.o\n'}
+[17.237058] (mtc_interfaces) StdoutLine: {'line': b'[  6%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/battery_detection_array__type_support.c.o\n'}
+[17.249737] (-) TimerEvent: {}
+[17.281632] (mtc_interfaces) StdoutLine: {'line': b'[  7%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/tool_state__description.c.o\n'}
+[17.281854] (mtc_interfaces) StdoutLine: {'line': b'[  7%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/tool_state__functions.c.o\n'}
+[17.338908] (mtc_interfaces) StdoutLine: {'line': b'[  8%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/tool_state__type_support.c.o\n'}
+[17.343478] (mtc_interfaces) StdoutLine: {'line': b'[  8%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/task_state__description.c.o\n'}
+[17.349925] (-) TimerEvent: {}
+[17.386503] (mtc_interfaces) StdoutLine: {'line': b'[  9%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/task_state__functions.c.o\n'}
+[17.399636] (mtc_interfaces) StdoutLine: {'line': b'[ 10%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/task_state__type_support.c.o\n'}
+[17.449013] (mtc_interfaces) StdoutLine: {'line': b'[ 11%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/robot_state__description.c.o\n'}
+[17.450014] (-) TimerEvent: {}
+[17.450948] (mtc_interfaces) StdoutLine: {'line': b'[ 11%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/robot_state__functions.c.o\n'}
+[17.509011] (mtc_interfaces) StdoutLine: {'line': b'[ 12%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/robot_state__type_support.c.o\n'}
+[17.515694] (mtc_interfaces) StdoutLine: {'line': b'[ 13%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/error_codes__description.c.o\n'}
+[17.550252] (-) TimerEvent: {}
+[17.559894] (mtc_interfaces) StdoutLine: {'line': b'[ 13%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/error_codes__functions.c.o\n'}
+[17.571196] (mtc_interfaces) StdoutLine: {'line': b'[ 14%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/msg/detail/error_codes__type_support.c.o\n'}
+[17.617476] (mtc_interfaces) StdoutLine: {'line': b'[ 15%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/srv/detail/get_motion_capabilities__description.c.o\n'}
+[17.620356] (mtc_interfaces) StdoutLine: {'line': b'[ 15%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/srv/detail/get_motion_capabilities__functions.c.o\n'}
+[17.650407] (-) TimerEvent: {}
+[17.690986] (mtc_interfaces) StdoutLine: {'line': b'[ 16%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/srv/detail/get_motion_capabilities__type_support.c.o\n'}
+[17.709370] (mtc_interfaces) StdoutLine: {'line': b'[ 17%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/srv/detail/trigger_unlock__description.c.o\n'}
+[17.749991] (mtc_interfaces) StdoutLine: {'line': b'[ 17%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/srv/detail/trigger_unlock__functions.c.o\n'}
+[17.750505] (-) TimerEvent: {}
+[17.779674] (mtc_interfaces) StdoutLine: {'line': b'[ 18%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/srv/detail/trigger_unlock__type_support.c.o\n'}
+[17.839665] (mtc_interfaces) StdoutLine: {'line': b'[ 19%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/srv/detail/request_stop__description.c.o\n'}
+[17.843208] (mtc_interfaces) StdoutLine: {'line': b'[ 20%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/srv/detail/request_stop__functions.c.o\n'}
+[17.850709] (-) TimerEvent: {}
+[17.916941] (mtc_interfaces) StdoutLine: {'line': b'[ 20%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/srv/detail/request_stop__type_support.c.o\n'}
+[17.951027] (-) TimerEvent: {}
+[17.967640] (mtc_interfaces) StdoutLine: {'line': b'[ 21%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/action/detail/execute_task__description.c.o\n'}
+[18.024673] (mtc_interfaces) StdoutLine: {'line': b'[ 22%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/action/detail/execute_task__functions.c.o\n'}
+[18.051296] (-) TimerEvent: {}
+[18.145859] (mtc_interfaces) StdoutLine: {'line': b'[ 22%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/action/detail/execute_task__type_support.c.o\n'}
+[18.151433] (-) TimerEvent: {}
+[18.211282] (mtc_interfaces) StdoutLine: {'line': b'[ 23%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/action/detail/pick_place__description.c.o\n'}
+[18.247271] (mtc_interfaces) StdoutLine: {'line': b'[ 24%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/action/detail/pick_place__functions.c.o\n'}
+[18.251535] (-) TimerEvent: {}
+[18.312909] (mtc_interfaces) StdoutLine: {'line': b'[ 24%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/action/detail/pick_place__type_support.c.o\n'}
+[18.351694] (-) TimerEvent: {}
+[18.377246] (mtc_interfaces) StdoutLine: {'line': b'[ 25%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/action/detail/execute_joint_move__description.c.o\n'}
+[18.417838] (mtc_interfaces) StdoutLine: {'line': b'[ 26%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/action/detail/execute_joint_move__functions.c.o\n'}
+[18.451853] (-) TimerEvent: {}
+[18.477298] (mtc_interfaces) StdoutLine: {'line': b'[ 26%] Building C object CMakeFiles/mtc_interfaces__rosidl_generator_c.dir/rosidl_generator_c/mtc_interfaces/action/detail/execute_joint_move__type_support.c.o\n'}
+[18.552008] (-) TimerEvent: {}
+[18.587785] (mtc_interfaces) StdoutLine: {'line': b'[ 27%] Linking C shared library libmtc_interfaces__rosidl_generator_c.so\n'}
+[18.652158] (-) TimerEvent: {}
+[18.670164] (mtc_interfaces) StdoutLine: {'line': b'[ 27%] Built target mtc_interfaces__rosidl_generator_c\n'}
+[18.689336] (mtc_interfaces) StdoutLine: {'line': b'[ 29%] Generating C introspection for ROS interfaces\n'}
+[18.689601] (mtc_interfaces) StdoutLine: {'line': b'[ 29%] Generating C type support for eProsima Fast-RTPS\n'}
+[18.752332] (-) TimerEvent: {}
+[18.852630] (-) TimerEvent: {}
+[18.952871] (-) TimerEvent: {}
+[19.053110] (-) TimerEvent: {}
+[19.153380] (-) TimerEvent: {}
+[19.253615] (-) TimerEvent: {}
+[19.353895] (-) TimerEvent: {}
+[19.454202] (-) TimerEvent: {}
+[19.554542] (-) TimerEvent: {}
+[19.654865] (-) TimerEvent: {}
+[19.755060] (-) TimerEvent: {}
+[19.855317] (-) TimerEvent: {}

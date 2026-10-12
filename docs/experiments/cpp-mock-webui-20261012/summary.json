@@ -1,0 +1,225 @@
+{
+  "observation": "ENV-CPP-MOCK-WEBUI-20261012",
+  "status": "PARTIAL_C1_CANCEL_COMPLETION_UNRESOLVED",
+  "code_commit": "7da43228d602a6b23571bfc599d69529ef7bea23",
+  "cpp_action_cases_passed": 40,
+  "ui_offline_cases_passed": 39,
+  "real_http_cpp_chain_cases": [
+    {
+      "case": "basic",
+      "profile": "success",
+      "started_at": "2026-10-12T00:14:06.068225+00:00",
+      "invalid_ros_goal_rejected": true,
+      "duplicate_launch_rejected": true,
+      "goal_id": "439b9dfd-7aaa-44e6-9c28-1db45cbe5d32",
+      "concurrent_ros_goal_rejected": true,
+      "status": "SUCCEEDED",
+      "error_code": 0,
+      "completed_count": 1,
+      "feedback_events": 16,
+      "child_goal_ids": [
+        "d1ed2a0cd4681efdd2798404be6b5596"
+      ],
+      "child_statuses": {
+        "d1ed2a0cd4681efdd2798404be6b5596": [
+          2,
+          4
+        ]
+      },
+      "ok": true,
+      "stack_exit_code": 0,
+      "ended_at": "2026-10-12T00:14:19.192888+00:00"
+    },
+    {
+      "case": "sequence",
+      "profile": "success",
+      "started_at": "2026-10-12T00:14:19.194365+00:00",
+      "goal_id": "67b1736d-0fa5-4635-b75c-b8abac5d27d6",
+      "status": "SUCCEEDED",
+      "error_code": 0,
+      "completed_count": 3,
+      "feedback_events": 50,
+      "child_goal_ids": [
+        "8056ab6552cb16f6160c1ecbb270e8ad",
+        "9b0464facd78130c29186c6eac8ba69a",
+        "d409bdeed8db3fcfb5158d73e1339b32"
+      ],
+      "child_statuses": {
+        "9b0464facd78130c29186c6eac8ba69a": [
+          2,
+          4
+        ],
+        "d409bdeed8db3fcfb5158d73e1339b32": [
+          2,
+          4
+        ],
+        "8056ab6552cb16f6160c1ecbb270e8ad": [
+          2,
+          4
+        ]
+      },
+      "ok": true,
+      "stack_exit_code": 0,
+      "ended_at": "2026-10-12T00:14:38.158147+00:00"
+    },
+    {
+      "case": "cancel",
+      "profile": "success",
+      "started_at": "2026-10-12T00:14:38.159320+00:00",
+      "goal_id": "b7f0a715-bdba-42ff-ba12-b511dd35c2fc",
+      "cancel_ack": {
+        "request_delivered": true,
+        "message": "ROS 已确认接受取消"
+      },
+      "status": "CANCELED",
+      "error_code": 0,
+      "completed_count": 0,
+      "feedback_events": 5,
+      "child_goal_ids": [
+        "0ae98b52085b62447fb3ac40dbcf9fb9"
+      ],
+      "child_statuses": {
+        "0ae98b52085b62447fb3ac40dbcf9fb9": [
+          2,
+          3,
+          5
+        ]
+      },
+      "cancel_not_treated_as_result": true,
+      "ok": true,
+      "stack_exit_code": 0,
+      "ended_at": "2026-10-12T00:14:44.589381+00:00"
+    },
+    {
+      "case": "planning_failure",
+      "profile": "planning_failure",
+      "started_at": "2026-10-12T00:14:44.591296+00:00",
+      "goal_id": "2e41456b-4b62-410f-bcf0-e7943e2d9f90",
+      "status": "ABORTED",
+      "error_code": 200,
+      "completed_count": 0,
+      "feedback_events": 14,
+      "child_goal_ids": [
+        "2174e3ac2854e05b9bd71b92a2580e92",
+        "e6ba4d488ad67a1821c7a6d2e42a3352"
+      ],
+      "child_statuses": {
+        "2174e3ac2854e05b9bd71b92a2580e92": [
+          2,
+          6
+        ],
+        "e6ba4d488ad67a1821c7a6d2e42a3352": [
+          2,
+          6
+        ]
+      },
+      "ok": true,
+      "stack_exit_code": 0,
+      "ended_at": "2026-10-12T00:14:53.656223+00:00"
+    },
+    {
+      "case": "cancel_unconfirmed",
+      "profile": "cancel_unconfirmed",
+      "started_at": "2026-10-12T00:14:53.658318+00:00",
+      "goal_id": "6b4b445e-e083-43e4-8075-273e1b22abe3",
+      "cancel_ack": {
+        "request_delivered": true,
+        "message": "ROS 已确认接受取消"
+      },
+      "status": "ABORTED",
+      "error_code": 520,
+      "completed_count": 0,
+      "feedback_events": 5,
+      "child_goal_ids": [
+        "81fb0535346b09674eabceba720aaa8c"
+      ],
+      "child_statuses": {
+        "81fb0535346b09674eabceba720aaa8c": [
+          3,
+          6
+        ]
+      },
+      "cancel_not_treated_as_result": true,
+      "fault_blocks_next_goal": true,
+      "ok": true,
+      "stack_exit_code": 0,
+      "ended_at": "2026-10-12T00:15:00.527320+00:00"
+    },
+    {
+      "case": "status_unknown",
+      "profile": "status_unknown",
+      "started_at": "2026-10-12T00:15:00.529623+00:00",
+      "goal_id": "3c223bb1-e4b3-47c3-b66c-9450bbe45a0c",
+      "status": "ABORTED",
+      "error_code": 230,
+      "completed_count": 0,
+      "feedback_events": 3,
+      "child_goal_ids": [
+        "6c09b612dc082ec6d2e758200aa36253"
+      ],
+      "child_statuses": {
+        "6c09b612dc082ec6d2e758200aa36253": [
+          2,
+          6
+        ]
+      },
+      "fault_blocks_next_goal": true,
+      "ok": true,
+      "stack_exit_code": 0,
+      "ended_at": "2026-10-12T00:15:09.714677+00:00"
+    }
+  ],
+  "case_cleanup": {
+    "basic": true,
+    "sequence": true,
+    "cancel": true,
+    "planning_failure": true,
+    "cancel_unconfirmed": true,
+    "status_unknown": true
+  },
+  "browser": {
+    "success": true,
+    "actual_feedback_and_result": true,
+    "duplicate_server_denied": true,
+    "same_namespace_restart_without_replay": true,
+    "delayed_cancel_completed": false,
+    "delayed_cancel_actual_status": "ABORTED",
+    "delayed_cancel_actual_error": 520,
+    "mobile_no_horizontal_overflow": true,
+    "stopped_ui_blocks_submission": true
+  },
+  "C1": {
+    "owner": "孙嘉明",
+    "profile": "success (no stop-evidence fault injection)",
+    "browser_parent": "07750616e1bd41eaba003cdfff9ba0bc",
+    "browser_child": "b82da195d639f268b9f47da27b2dec08",
+    "cli_parent": "3587bc1fe5b64da7a99405eded248d69",
+    "cli_child": "c861a09931ce7ecf74f2261aca0a6f74",
+    "cancel_ack": true,
+    "parent_and_child_terminal_status": 6,
+    "error_code": 520,
+    "candidate_cause": "Static evidence-freshness analysis only; exact failing kernel predicate not instrumented/proved."
+  },
+  "watcher": {
+    "status": "EXPIRED",
+    "ended_at": "2026-10-12T00:00:00.267972+00:00",
+    "completed_signed_events_verified": 14,
+    "pending": []
+  },
+  "cleanup": {
+    "all_cpp_web_processes_exit_zero": true,
+    "namespace_graphs_empty": true,
+    "qa_relay_stopped": true,
+    "container_stopped": true,
+    "container_pid1_exit_code": 137,
+    "container_exit_note": "docker stop terminates remaining sleep infinity PID1 after all ROS/UI processes exited and graphs emptied; no OOM."
+  },
+  "not_accepted": [
+    "C1 delayed cancellation completion",
+    "fault recovery kernel",
+    "complete vision/tool/Motion/FJT/MoveIt FSM chain",
+    "NUC deployment",
+    "physical robot"
+  ],
+  "prior_failure_bytes_preserved": "host/prior-integrity.json; 22 index digests, 20 flat member sets, 2 legacy run schemas index-only, 14 signed report digests"
+}

@@ -1,0 +1,176 @@
+{
+  "started_at": "2026-10-11T11:20:04.689491+00:00",
+  "upstream": {
+    "commit": "1d3dccf23c53d299d457564daeb6438190ea2d77",
+    "previous": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+    "refs": [
+      "refs/heads/fix/ros-startup-wiring-b01-b02-b04"
+    ],
+    "reason": "Qualification of new reproduction harness against known candidate, not a new delivery"
+  },
+  "environment": {
+    "image": "sha256:8c442d3be3d5c2671d149d320da09388350d261fa452e23bb848aa5978b8a5f1",
+    "ros_base_digest": "sha256:066420e07f60aa18262f2479981def87ebcfcec42eefb0c0c57c4a46098348ca",
+    "driver": "53aab83735236f0c262ecb11e04ef2600241d9d9",
+    "model": "47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1",
+    "fake_patch_source": "TEAMMATE-SDK-20261011",
+    "moveit": "2.12.4",
+    "moveit_msgs": "2.6.0",
+    "qualification": "Existing PR candidate; NOT a newly detected upstream delivery"
+  },
+  "container": "mtc-repro-1d3dccf23c53-1791717604",
+  "steps": [
+    {
+      "name": "create",
+      "argv": [
+        "/usr/bin/docker",
+        "run",
+        "-d",
+        "--name",
+        "mtc-repro-1d3dccf23c53-1791717604",
+        "--network",
+        "none",
+        "--cpus",
+        "2",
+        "--memory",
+        "4g",
+        "--pids-limit",
+        "512",
+        "--cap-drop",
+        "ALL",
+        "--security-opt",
+        "no-new-privileges",
+        "--label",
+        "mtc.purpose=upstream-reproduction",
+        "sha256:8c442d3be3d5c2671d149d320da09388350d261fa452e23bb848aa5978b8a5f1",
+        "sleep",
+        "infinity"
+      ],
+      "started_at": "2026-10-11T11:20:04.689553+00:00",
+      "ended_at": "2026-10-11T11:20:05.205853+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "isolation",
+      "argv": [
+        "/usr/bin/docker",
+        "inspect",
+        "mtc-repro-1d3dccf23c53-1791717604"
+      ],
+      "started_at": "2026-10-11T11:20:05.206361+00:00",
+      "ended_at": "2026-10-11T11:20:05.270845+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "directories",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-1d3dccf23c53-1791717604",
+        "bash",
+        "-c",
+        "mkdir -p /candidate /candidate-evidence /acceptance-tools"
+      ],
+      "started_at": "2026-10-11T11:20:05.271288+00:00",
+      "ended_at": "2026-10-11T11:20:05.385929+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "source-bundle",
+      "argv": [
+        "git",
+        "--git-dir=/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/upstream.git",
+        "bundle",
+        "create",
+        "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/runs/qualification-candidate/source.bundle",
+        "--all"
+      ],
+      "started_at": "2026-10-11T11:20:05.386312+00:00",
+      "ended_at": "2026-10-11T11:20:05.418944+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "source-copy",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "-i",
+        "mtc-repro-1d3dccf23c53-1791717604",
+        "sh",
+        "-c",
+        "cat > /candidate-source.bundle"
+      ],
+      "started_at": "2026-10-11T11:20:05.421026+00:00",
+      "ended_at": "2026-10-11T11:20:05.544402+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "source-checkout",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-1d3dccf23c53-1791717604",
+        "bash",
+        "-c",
+        "git -C /candidate init && git -C /candidate fetch /candidate-source.bundle \"+refs/*:refs/remotes/upstream/*\" && git -C /candidate checkout --detach 1d3dccf23c53d299d457564daeb6438190ea2d77 && git -C /candidate rev-parse HEAD"
+      ],
+      "started_at": "2026-10-11T11:20:05.544857+00:00",
+      "ended_at": "2026-10-11T11:20:05.810921+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "probes",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "-i",
+        "mtc-repro-1d3dccf23c53-1791717604",
+        "tar",
+        "-xf",
+        "-",
+        "-C",
+        "/acceptance-tools"
+      ],
+      "started_at": "2026-10-11T11:20:05.812144+00:00",
+      "ended_at": "2026-10-11T11:20:05.927169+00:00",
+      "exit_code": 2
+    },
+    {
+      "name": "stop",
+      "argv": [
+        "/usr/bin/docker",
+        "stop",
+        "-t",
+        "12",
+        "mtc-repro-1d3dccf23c53-1791717604"
+      ],
+      "started_at": "2026-10-11T11:20:05.928036+00:00",
+      "ended_at": "2026-10-11T11:20:18.145311+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "collect",
+      "argv": [
+        "/usr/bin/docker",
+        "cp",
+        "mtc-repro-1d3dccf23c53-1791717604:/candidate-evidence",
+        "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/runs/qualification-candidate/container"
+      ],
+      "started_at": "2026-10-11T11:20:18.145790+00:00",
+      "ended_at": "2026-10-11T11:20:18.210302+00:00",
+      "exit_code": 0
+    }
+  ],
+  "scope": "Isolated Jazzy / GenericSystem only; no physical devices",
+  "not_verified": [
+    "NUC and physical robot",
+    "SDK licence/vendor checksum",
+    "New C++ FSM end-to-end launch unless provided as an upstream test",
+    "Perception/tool physical evidence",
+    "TSan race analysis"
+  ],
+  "source_bundle_sha256": "0474724512cde28a0e00235248e8870238c2a2c932f2b6012cfbf9bd02822078",
+  "status": "INFRASTRUCTURE_OR_HARNESS_ERROR",
+  "error": "RuntimeError('Probe import failed')",
+  "ended_at": "2026-10-11T11:20:18.210822+00:00"
+}

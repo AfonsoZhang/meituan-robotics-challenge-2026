@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-11T16:15:32.970805+00:00",
+  "container": "mtc-handoff-review-a04ac68",
+  "snapshot_of": "mtc-repro-5c8f61d8af9f-a04ac6831dd3",
+  "image": "sha256:66571a8a7d3ef9232c6fc745c2a3af6e452dda025f59f7c54ba9755ef097fc69",
+  "argv": [
+    "docker",
+    "run",
+    "-d",
+    "--name",
+    "mtc-handoff-review-a04ac68",
+    "--network",
+    "none",
+    "--cpus",
+    "2",
+    "--memory",
+    "4g",
+    "--pids-limit",
+    "512",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--label",
+    "mtc.purpose=handoff-acceptance",
+    "sha256:66571a8a7d3ef9232c6fc745c2a3af6e452dda025f59f7c54ba9755ef097fc69",
+    "sleep",
+    "infinity"
+  ]
+}

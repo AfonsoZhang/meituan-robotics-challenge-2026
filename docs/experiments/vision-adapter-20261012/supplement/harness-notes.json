@@ -1,0 +1,16 @@
+{
+  "notes": [
+    {
+      "step": "inventory",
+      "failure": "verify_results.py positional /candidate-build rejected, exit 2",
+      "evidence": "logs/inventory.log and logs/inventory.sh",
+      "correction": "identity invokes declared --build-base option; no upstream edit"
+    },
+    {
+      "step": "offline preparation",
+      "failure": "Host wheel metadata reader initially asserted exactly one .dist-info/METADATA; setuptools contains vendor metadata. install-offline script was consequently absent; run_step file read raised FileNotFoundError before running anything in container.",
+      "evidence_scope": "Derived transcription of tool stderr; wheels and upstream source unchanged",
+      "correction": "Restrict metadata selection to root dist-info, generate missing host script; no dependency installation occurred in failed attempt"
+    }
+  ]
+}

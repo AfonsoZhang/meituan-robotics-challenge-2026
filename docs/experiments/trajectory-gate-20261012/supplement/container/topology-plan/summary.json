@@ -1,0 +1,181 @@
+{
+  "started_at": "2026-10-11T18:41:14.551452+00:00",
+  "scope": "Default GenericSystem+MoveIt+FjtMotionPort ownership gate and original fixed-pose planning; no FJT Goal, no complete FSM/physical robot",
+  "observer_action_clients": 0,
+  "status": "PASS_BLOCKED_TOPOLOGY_AND_PLAN_ONLY",
+  "plugins": [
+    "mock_components/GenericSystem"
+  ],
+  "controller_only_graph": {
+    "clients": [],
+    "servers": [
+      {
+        "node": "joint_trajectory_controller",
+        "namespace": "/",
+        "types": [
+          "control_msgs/action/FollowJointTrajectory"
+        ]
+      }
+    ],
+    "direct_publishers": 0
+  },
+  "moveit_graph": {
+    "clients": [
+      {
+        "node": "moveit_simple_controller_manager",
+        "namespace": "/",
+        "types": [
+          "control_msgs/action/FollowJointTrajectory"
+        ]
+      }
+    ],
+    "servers": [
+      {
+        "node": "joint_trajectory_controller",
+        "namespace": "/",
+        "types": [
+          "control_msgs/action/FollowJointTrajectory"
+        ]
+      }
+    ],
+    "direct_publishers": 0
+  },
+  "allow_execution_parameter": "Parameter not set.\n",
+  "topology": {
+    "argv": [
+      "ros2",
+      "run",
+      "mtc_trajectory_execution_cpp",
+      "fake_trajectory_probe",
+      "--verify-generic-system",
+      "topology"
+    ],
+    "exit_code": 2,
+    "elapsed_seconds": 10.362573886988685,
+    "coexistence_graph": [
+      {
+        "clients": [
+          {
+            "node": "mtc_fake_trajectory_probe",
+            "namespace": "/",
+            "types": [
+              "control_msgs/action/FollowJointTrajectory"
+            ]
+          },
+          {
+            "node": "moveit_simple_controller_manager",
+            "namespace": "/",
+            "types": [
+              "control_msgs/action/FollowJointTrajectory"
+            ]
+          }
+        ],
+        "servers": [
+          {
+            "node": "joint_trajectory_controller",
+            "namespace": "/",
+            "types": [
+              "control_msgs/action/FollowJointTrajectory"
+            ]
+          }
+        ],
+        "direct_publishers": 0
+      }
+    ]
+  },
+  "after_port_graph": {
+    "clients": [
+      {
+        "node": "moveit_simple_controller_manager",
+        "namespace": "/",
+        "types": [
+          "control_msgs/action/FollowJointTrajectory"
+        ]
+      }
+    ],
+    "servers": [
+      {
+        "node": "joint_trajectory_controller",
+        "namespace": "/",
+        "types": [
+          "control_msgs/action/FollowJointTrajectory"
+        ]
+      }
+    ],
+    "direct_publishers": 0
+  },
+  "fixed_pose": {
+    "argv": [
+      "ros2",
+      "launch",
+      "mtc_moveit_planner",
+      "plan_tool.launch.py",
+      "program:=plan_fixed_pose",
+      "aubo_type:=aubo_S3",
+      "output_dir:=/review-evidence/topology-plan/planning"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 3.973395716981031,
+    "coexistence_graph": [],
+    "yaml": "/review-evidence/topology-plan/planning/fixed_pose_plan_20261011_184148.yaml",
+    "result": {
+      "ok": true,
+      "reason": "",
+      "message": "ok",
+      "planning_time_s": 0.056141219,
+      "time_scale_applied": 1,
+      "max_ee_linear_speed_m_s": 0.1102786069,
+      "max_ee_angular_speed_rad_s": 0.4060149648,
+      "final_position_error_m": 9.025142103e-05,
+      "final_orientation_error_rad": 0.0007898203108,
+      "end_state": {
+        "joint_names": [
+          "shoulder_joint",
+          "upperArm_joint",
+          "foreArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "positions_rad": [
+          6.283046528,
+          -0.0332587428,
+          1.236164408,
+          -0.366972583,
+          -4.713242681,
+          -0.0007285003457
+        ]
+      }
+    },
+    "trajectory_present": true
+  },
+  "fjt_goal_uuids": [],
+  "distinct_joint_stamps": 3915,
+  "all_joints_zero": true,
+  "shutdown": [
+    {
+      "launch": "move-group",
+      "already_exited": false,
+      "escalated": false,
+      "exit_code": 0,
+      "child_failures": [
+        "process has died [pid 5798, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_163mockp --params-file /tmp/launch_params_vg_sbvto']."
+      ],
+      "statistics_context_errors": []
+    },
+    {
+      "launch": "control",
+      "already_exited": false,
+      "escalated": false,
+      "exit_code": 0,
+      "child_failures": [],
+      "statistics_context_errors": [
+        "[ros2_control_node-1] [ERROR] [1791744111.139708579] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+        "[ros2_control_node-1] [ERROR] [1791744111.139708680] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+      ]
+    }
+  ],
+  "empty_after": true,
+  "clean_shutdown": "FAIL",
+  "ended_at": "2026-10-11T18:41:54.175272+00:00"
+}

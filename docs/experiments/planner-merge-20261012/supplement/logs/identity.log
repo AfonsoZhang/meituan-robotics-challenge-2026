@@ -1,0 +1,54 @@
+PASS: 原有318项身份全部保留并执行；本轮新增40项
+PASS: 358项独立GTest / 20个可执行文件，FAIL 0 / SKIP 0
+  mtc_core_cpp: 23 PASS
+  mtc_manipulation_cpp: 120 PASS
+  mtc_motion_execution_cpp: 88 PASS
+  mtc_ros2_action_cpp: 40 PASS
+  mtc_task_cpp: 87 PASS
+All system dependencies have been satisfied
+{
+  "mtc_ros2_action_cpp": {
+    "prefix": "/candidate-install/mtc_ros2_action_cpp",
+    "files": [
+      {
+        "path": "package.xml",
+        "sha256": "5eeb3414e43dce8ef7475c561bcb5acf6b4232332c68aeb240878288e68d48a2",
+        "installed_equals_source": true
+      }
+    ],
+    "executables": [
+      "mock_motion_server",
+      "mock_pick_place_server",
+      "mock_task_server"
+    ]
+  },
+  "mtc_moveit_planner": {
+    "prefix": "/candidate-install/mtc_moveit_planner",
+    "files": [
+      {
+        "path": "package.xml",
+        "sha256": "38521ee52a07cebd056c735e6dcfb6a1e54aac2fdd1d4ee132bcb165fa1acf54",
+        "installed_equals_source": true
+      },
+      {
+        "path": "config/planner.yaml",
+        "sha256": "2c7f73054560177c512a83771285c80dc85ada2d0ff3d5b65dc85eda67ef19c8",
+        "installed_equals_source": true
+      },
+      {
+        "path": "config/sequence_v2_override.yaml",
+        "sha256": "4e8fe7c910779add4cf62455890393aacce1f7e8f6a83ae7ed151fe4748607ad",
+        "installed_equals_source": true
+      },
+      {
+        "path": "launch/plan_tool.launch.py",
+        "sha256": "65d5a1b9aa972135eb50a360382c3c391a861e3275f36e585a0fb46d0b8a0e66",
+        "installed_equals_source": true
+      }
+    ],
+    "executables": [
+      "plan_battery_sequence",
+      "plan_fixed_pose"
+    ]
+  }
+}

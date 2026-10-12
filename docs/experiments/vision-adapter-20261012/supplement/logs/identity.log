@@ -1,0 +1,37 @@
+PASS: 原有318项身份全部保留并执行；本轮新增40项
+PASS: 358项独立GTest / 20个可执行文件，FAIL 0 / SKIP 0
+  mtc_core_cpp: 23 PASS
+  mtc_manipulation_cpp: 120 PASS
+  mtc_motion_execution_cpp: 88 PASS
+  mtc_ros2_action_cpp: 40 PASS
+  mtc_task_cpp: 87 PASS
+{
+  "mtc_ros2_action_cpp": {
+    "prefix": "/candidate-install/mtc_ros2_action_cpp",
+    "files": [
+      {
+        "path": "package.xml",
+        "sha256": "5eeb3414e43dce8ef7475c561bcb5acf6b4232332c68aeb240878288e68d48a2",
+        "installed_equals_source": true
+      }
+    ],
+    "executables": [
+      "mock_motion_server",
+      "mock_pick_place_server",
+      "mock_task_server"
+    ]
+  },
+  "mtc_vision_adapter": {
+    "prefix": "/candidate-install/mtc_vision_adapter",
+    "files": [
+      {
+        "path": "package.xml",
+        "sha256": "0691d6f5d62f67f12a4331bbf3e85dcdfe5016ef1e20e7a73e8dfd194672d6f7",
+        "installed_equals_source": true
+      }
+    ],
+    "executables": [
+      "replay_publisher"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "observation": "ENV-UPSTREAM-WAKE-20261011",
+  "user_decision": "USER-HW-20261011-09",
+  "previous_monitor": "ENV-UPSTREAM-WATCH-20261011",
+  "formal_baseline": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+  "fixture_parent": "1d3dccf23c53d299d457564daeb6438190ea2d77",
+  "fixture_sha": "8a4f99632354642786e856788466a03984844075",
+  "fixture_patch": "e2e/watch/events/sha-8a4f99632354642786e856788466a03984844075.patch",
+  "upstream_delivery": false,
+  "codex_cli_version": "codex-cli 0.162.1",
+  "target_thread": "01a12a25-b5c5-7b23-98b7-1cf673d68838",
+  "remote": "unix:///home/afonso/.codex/app-server-control/app-server-control.sock",
+  "runtime_harness": {
+    "probe_moveit.py": "b4426426c46704bee7d655d3977c0df4cce167af74a54a5bcfe3dc1ce716d626",
+    "wake_main.py": "da433aeddd2a4144ffa0ae25a0705e74788ab0880480999d78ee54e821e50fab",
+    "reproduce_upstream.py": "06bb1b8d020fd268e302a363697ef8e2ebdc359f072ee087fdbdb0c3dfd2b393",
+    "probe_task_mock.py": "6b0fea0ff094fd56230a6fe2d57e2ce77330338dbc76d62e38be3c073866d09d",
+    "watch_upstream.py": "90250864848c928db0b29eed0abcf9a06cc0b41e44d289321f3d43ccf68d5325"
+  },
+  "image": "sha256:8c442d3be3d5c2671d149d320da09388350d261fa452e23bb848aa5978b8a5f1",
+  "production_config": "production/config.json",
+  "controlled_timeout_seconds": 12,
+  "production_timeout_seconds": 5400,
+  "production_termination_grace_seconds": 180,
+  "transport_attempt_limit": 3,
+  "transport_retry_seconds": [
+    30,
+    120
+  ],
+  "scope": "Same fixed monitor/wake/runner code as production. Local synthetic documentation commit, actual isolated container with controlled timeout, real queue and actual main-thread ACK. No new ROS/MoveIt functional claim.",
+  "provenance_note": "E2E summary preserves the pre-existing environment-ready snapshot and its older harness hashes. The actual executing harness-v1 hashes are recorded separately here and equal production harness-wake-v1 and current robot source hashes. No old snapshot was rewritten."
+}

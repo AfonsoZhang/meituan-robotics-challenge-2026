@@ -1,0 +1,139 @@
+[0.067s] Invoking command in '/candidate-build/mtc_core_cpp': CMAKE_PREFIX_PATH=/candidate-install/mtc_core_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor LD_LIBRARY_PATH=/candidate-install/mtc_core_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process
+[0.079s] UpdateCTestConfiguration  from :/candidate-build/mtc_core_cpp/CTestConfiguration.ini
+[0.079s] Parse Config file:/candidate-build/mtc_core_cpp/CTestConfiguration.ini
+[0.079s]    Site: e647041f3c01
+[0.080s]    Build name: (empty)
+[0.080s]  Add coverage exclude regular expressions.
+[0.080s] Create new tag: 20261011-1121 - Experimental
+[0.080s] UpdateCTestConfiguration  from :/candidate-build/mtc_core_cpp/CTestConfiguration.ini
+[0.080s] Parse Config file:/candidate-build/mtc_core_cpp/CTestConfiguration.ini
+[0.080s] Test project /candidate-build/mtc_core_cpp
+[0.080s] Constructing a list of tests
+[0.080s] Done constructing a list of tests
+[0.080s] Updating test list for fixtures
+[0.081s] Added 0 tests to meet fixture requirements
+[0.081s] Checking test dependency graph...
+[0.081s] Checking test dependency graph end
+[0.081s] test 1
+[0.081s]     Start 1: test_core_types
+[0.081s] 
+[0.081s] 1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml" "--package-name" "mtc_core_cpp" "--output-file" "/candidate-build/mtc_core_cpp/ament_cmake_gtest/test_core_types.txt" "--command" "/candidate-build/mtc_core_cpp/test_core_types" "--gtest_output=xml:/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml"
+[0.081s] 1: Working Directory: /candidate-build/mtc_core_cpp
+[0.081s] 1: Test timeout computed to be: 60
+[0.151s] 1: -- run_test.py: invoking following command in '/candidate-build/mtc_core_cpp':
+[0.151s] 1:  - /candidate-build/mtc_core_cpp/test_core_types --gtest_output=xml:/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml
+[0.157s] 1: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[0.157s] 1: [==========] Running 22 tests from 10 test suites.
+[0.157s] 1: [----------] Global test environment set-up.
+[0.157s] 1: [----------] 2 tests from CoreErrorCodes
+[0.157s] 1: [ RUN      ] CoreErrorCodes.ValuesMatchFrozenInterfaceNumbers
+[0.157s] 1: [       OK ] CoreErrorCodes.ValuesMatchFrozenInterfaceNumbers (0 ms)
+[0.157s] 1: [ RUN      ] CoreErrorCodes.NameOfKnownAndUnknown
+[0.157s] 1: [       OK ] CoreErrorCodes.NameOfKnownAndUnknown (0 ms)
+[0.157s] 1: [----------] 2 tests from CoreErrorCodes (0 ms total)
+[0.157s] 1: 
+[0.157s] 1: [----------] 2 tests from CoreToolState
+[0.157s] 1: [ RUN      ] CoreToolState.EvidenceLevelIsOrdered
+[0.157s] 1: [       OK ] CoreToolState.EvidenceLevelIsOrdered (0 ms)
+[0.157s] 1: [ RUN      ] CoreToolState.NamesAreStable
+[0.158s] 1: [       OK ] CoreToolState.NamesAreStable (0 ms)
+[0.158s] 1: [----------] 2 tests from CoreToolState (0 ms total)
+[0.158s] 1: 
+[0.158s] 1: [----------] 5 tests from CorePose
+[0.158s] 1: [ RUN      ] CorePose.FullSixDofIsPreserved
+[0.158s] 1: [       OK ] CorePose.FullSixDofIsPreserved (0 ms)
+[0.158s] 1: [ RUN      ] CorePose.MissingFrameIdIsNotUsable
+[0.158s] 1: [       OK ] CorePose.MissingFrameIdIsNotUsable (0 ms)
+[0.158s] 1: [ RUN      ] CorePose.UnnormalizedQuaternionIsNotUsable
+[0.158s] 1: [       OK ] CorePose.UnnormalizedQuaternionIsNotUsable (0 ms)
+[0.158s] 1: [ RUN      ] CorePose.InvalidFlagBlocksUsability
+[0.158s] 1: [       OK ] CorePose.InvalidFlagBlocksUsability (0 ms)
+[0.158s] 1: [ RUN      ] CorePose.PoseEstimateRequiresBothFlagAndUsablePose
+[0.158s] 1: [       OK ] CorePose.PoseEstimateRequiresBothFlagAndUsablePose (0 ms)
+[0.158s] 1: [----------] 5 tests from CorePose (0 ms total)
+[0.158s] 1: 
+[0.158s] 1: [----------] 3 tests from CoreResults
+[0.158s] 1: [ RUN      ] CoreResults.DetectionOkRequiresAllConditions
+[0.158s] 1: [       OK ] CoreResults.DetectionOkRequiresAllConditions (0 ms)
+[0.158s] 1: [ RUN      ] CoreResults.MotionResultRequiresBothSuccessAndArrived
+[0.158s] 1: [       OK ] CoreResults.MotionResultRequiresBothSuccessAndArrived (0 ms)
+[0.158s] 1: [ RUN      ] CoreResults.StopResultSeparatesDeliveryFromConfirmation
+[0.158s] 1: [       OK ] CoreResults.StopResultSeparatesDeliveryFromConfirmation (0 ms)
+[0.158s] 1: [----------] 3 tests from CoreResults (0 ms total)
+[0.158s] 1: 
+[0.158s] 1: [----------] 1 test from CoreMotionCommand
+[0.159s] 1: [ RUN      ] CoreMotionCommand.ShapeValidation
+[0.159s] 1: [       OK ] CoreMotionCommand.ShapeValidation (0 ms)
+[0.159s] 1: [----------] 1 test from CoreMotionCommand (0 ms total)
+[0.159s] 1: 
+[0.159s] 1: [----------] 1 test from CoreMotionPrimitive
+[0.159s] 1: [ RUN      ] CoreMotionPrimitive.EqualityIncludesContactFlag
+[0.159s] 1: [       OK ] CoreMotionPrimitive.EqualityIncludesContactFlag (0 ms)
+[0.159s] 1: [----------] 1 test from CoreMotionPrimitive (0 ms total)
+[0.159s] 1: 
+[0.159s] 1: [----------] 4 tests from CoreTimedTrajectory
+[0.159s] 1: [ RUN      ] CoreTimedTrajectory.ShapeValidationAndDuration
+[0.159s] 1: [       OK ] CoreTimedTrajectory.ShapeValidationAndDuration (0 ms)
+[0.159s] 1: [ RUN      ] CoreTimedTrajectory.RejectsNonMonotonicTime
+[0.159s] 1: [       OK ] CoreTimedTrajectory.RejectsNonMonotonicTime (0 ms)
+[0.159s] 1: [ RUN      ] CoreTimedTrajectory.RejectsDimensionMismatch
+[0.159s] 1: [       OK ] CoreTimedTrajectory.RejectsDimensionMismatch (0 ms)
+[0.159s] 1: [ RUN      ] CoreTimedTrajectory.RejectsEmptyOrDuplicateJointNames
+[0.159s] 1: [       OK ] CoreTimedTrajectory.RejectsEmptyOrDuplicateJointNames (0 ms)
+[0.159s] 1: [----------] 4 tests from CoreTimedTrajectory (0 ms total)
+[0.159s] 1: 
+[0.159s] 1: [----------] 1 test from CoreClock
+[0.159s] 1: [ RUN      ] CoreClock.ManualClockIsDeterministic
+[0.159s] 1: [       OK ] CoreClock.ManualClockIsDeterministic (0 ms)
+[0.159s] 1: [----------] 1 test from CoreClock (0 ms total)
+[0.159s] 1: 
+[0.160s] 1: [----------] 1 test from CoreExecState
+[0.160s] 1: [ RUN      ] CoreExecState.StringMappingIsStable
+[0.160s] 1: [       OK ] CoreExecState.StringMappingIsStable (0 ms)
+[0.160s] 1: [----------] 1 test from CoreExecState (0 ms total)
+[0.160s] 1: 
+[0.160s] 1: [----------] 2 tests from CoreAudit
+[0.160s] 1: [ RUN      ] CoreAudit.PoseRejectsNonFinitePositionStampAndQuaternion
+[0.160s] 1: [       OK ] CoreAudit.PoseRejectsNonFinitePositionStampAndQuaternion (0 ms)
+[0.160s] 1: [ RUN      ] CoreAudit.TrajectoryRejectsNonFiniteFieldsAndNegativeTimes
+[0.160s] 1: [       OK ] CoreAudit.TrajectoryRejectsNonFiniteFieldsAndNegativeTimes (0 ms)
+[0.160s] 1: [----------] 2 tests from CoreAudit (0 ms total)
+[0.160s] 1: 
+[0.160s] 1: [----------] Global test environment tear-down
+[0.160s] 1: [==========] 22 tests from 10 test suites ran. (0 ms total)
+[0.160s] 1: [  PASSED  ] 22 tests.
+[0.160s] 1: -- run_test.py: return code 0
+[0.160s] 1: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml'
+[0.160s] 1: -- run_test.py: verify result file '/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml'
+[0.168s] 1/2 Test #1: test_core_types ..................   Passed    0.09 sec
+[0.168s] test 2
+[0.168s]     Start 2: test_error_codes_msg_parity
+[0.168s] 
+[0.168s] 2: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml" "--package-name" "mtc_core_cpp" "--output-file" "/candidate-build/mtc_core_cpp/ament_cmake_gtest/test_error_codes_msg_parity.txt" "--command" "/candidate-build/mtc_core_cpp/test_error_codes_msg_parity" "--gtest_output=xml:/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml"
+[0.168s] 2: Working Directory: /candidate-build/mtc_core_cpp
+[0.168s] 2: Test timeout computed to be: 60
+[0.234s] 2: -- run_test.py: invoking following command in '/candidate-build/mtc_core_cpp':
+[0.234s] 2:  - /candidate-build/mtc_core_cpp/test_error_codes_msg_parity --gtest_output=xml:/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml
+[0.239s] 2: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[0.239s] 2: [==========] Running 1 test from 1 test suite.
+[0.240s] 2: [----------] Global test environment set-up.
+[0.240s] 2: [----------] 1 test from ErrorCodesMsgParity
+[0.240s] 2: [ RUN      ] ErrorCodesMsgParity.ConstantsMatchInterfacesMsg
+[0.240s] 2: [       OK ] ErrorCodesMsgParity.ConstantsMatchInterfacesMsg (0 ms)
+[0.240s] 2: [----------] 1 test from ErrorCodesMsgParity (0 ms total)
+[0.240s] 2: 
+[0.240s] 2: [----------] Global test environment tear-down
+[0.240s] 2: [==========] 1 test from 1 test suite ran. (0 ms total)
+[0.240s] 2: [  PASSED  ] 1 test.
+[0.240s] 2: -- run_test.py: return code 0
+[0.240s] 2: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml'
+[0.241s] 2: -- run_test.py: verify result file '/candidate-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml'
+[0.254s] 2/2 Test #2: test_error_codes_msg_parity ......   Passed    0.09 sec
+[0.254s] 
+[0.254s] 100% tests passed, 0 tests failed out of 2
+[0.254s] 
+[0.254s] Label Time Summary:
+[0.255s] gtest    =   0.17 sec*proc (2 tests)
+[0.255s] 
+[0.255s] Total Test time (real) =   0.17 sec
+[0.263s] Invoked command in '/candidate-build/mtc_core_cpp' returned '0': CMAKE_PREFIX_PATH=/candidate-install/mtc_core_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor LD_LIBRARY_PATH=/candidate-install/mtc_core_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process

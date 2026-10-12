@@ -1,0 +1,24 @@
+1791731858.0579002 [INFO] [launch]: All log files can be found below /candidate-evidence/task-mock/cancel-goal/ros-logs/2026-10-11-15-17-38-055884-82614144c6bb-4004
+1791731858.0580809 [INFO] [launch]: Default logging verbosity is set to INFO
+1791731858.1223991 [INFO] [launch.user]: ==============================================================================
+!! 警告：Mock 模式，未连接真实 AUBO S3。
+!! 本次启动不会建立任何真实控制通路：不连接控制柜、不发送真实运动指令、
+!! 不触发电磁铁、不启动 Gazebo；软件停止请求也不等价于实体急停。
+!! Mock 通过 != 实机抓放成功。
+==============================================================================
+1791731858.1225777 [INFO] [launch.user]: 组合参数：backend=mock tool_type=passive_hook_v1 placement_stability_sec=3.0 config_dir=(包内 share)
+1791731858.1272109 [INFO] [launch.user]: Mock 组合启动完成。再次提醒：未连接真实 AUBO S3；任何实机操作都必须获得单独的现场授权。
+1791731858.1392841 [INFO] [motion_executor-1]: process started with pid [4016]
+1791731858.1395981 [INFO] [task_executor-2]: process started with pid [4017]
+1791731858.1397262 [INFO] [pick_place_server-3]: process started with pid [4018]
+1791731858.1398356 [INFO] [tool_manager-4]: process started with pid [4019]
+1791731858.1399615 [INFO] [safety_supervisor-5]: process started with pid [4020]
+1791731859.2759066 [ERROR] [task_executor-2]: process has died [pid 4017, exit code 1, cmd '/candidate-install/mtc_task/lib/mtc_task/task_executor --ros-args -r __node:=task_executor'].
+1791731859.2761426 [ERROR] [pick_place_server-3]: process has died [pid 4018, exit code 1, cmd '/candidate-install/mtc_manipulation/lib/mtc_manipulation/pick_place_server --ros-args -r __node:=pick_place_server --params-file /tmp/launch_params__g2529js'].
+1791731872.6189029 [WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+1791731872.6200976 [INFO] [safety_supervisor-5]: sending signal 'SIGINT' to process[safety_supervisor-5]
+1791731872.6203966 [INFO] [tool_manager-4]: sending signal 'SIGINT' to process[tool_manager-4]
+1791731872.6207006 [INFO] [motion_executor-1]: sending signal 'SIGINT' to process[motion_executor-1]
+1791731872.7952430 [INFO] [tool_manager-4]: process has finished cleanly [pid 4019]
+1791731872.7964342 [ERROR] [safety_supervisor-5]: process has died [pid 4020, exit code 1, cmd '/candidate-install/mtc_safety/lib/mtc_safety/safety_supervisor --ros-args -r __node:=safety_supervisor'].
+1791731872.8028059 [INFO] [motion_executor-1]: process has finished cleanly [pid 4016]

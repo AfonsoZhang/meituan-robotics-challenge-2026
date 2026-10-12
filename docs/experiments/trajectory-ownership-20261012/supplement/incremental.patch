@@ -1,0 +1,913 @@
+diff --git a/docs/migration/PHASE2B_OWNERSHIP_FINAL_REVIEW.md b/docs/migration/PHASE2B_OWNERSHIP_FINAL_REVIEW.md
+new file mode 100644
+index 0000000..853c0be
+--- /dev/null
++++ b/docs/migration/PHASE2B_OWNERSHIP_FINAL_REVIEW.md
+@@ -0,0 +1,284 @@
++# Phase 2B Ownership Final Review / PR #7 Merge Gate
++
++日期：2026-10-12。仅软件 Fake Action、LOCALHOST DDS 和 GenericSystem 只读预检。
++没有真实机器人连接、SDK/RPC/RTDE、实体运动或工具 IO。未开展 Phase 2C。
++
++## 结论与 Git 身份
++
++**PASS：针对性所有权修复及 478 项回归。BLOCKED：原生 GenericSystem 执行验收。
++当前不建议直接合并远端 PR #7。**
++
++- 分支：`feature/phase2b-trajectory-execution`。
++- 开始时本地与远端功能分支均为 `45f497ce3444e255463faf41f7b736aa9ad07d7b`，工作树干净。
++- 已执行 fetch；新增的是其他成员远端分支提交，未覆盖、合并或修改这些分支。
++- GitHub API 确认 [PR #7](https://github.com/F1u0rite/meituan_challenge_ws/pull/7)
++  为 open、未合并，head 为上述 45f497c。
++- 代码验收提交：`b8857de49ec5405812f87887b1407092af7335a5`，提交信息为
++  `fix(motion): harden FJT pending-goal ownership and status evidence`。
++- 本报告和包 README 随后独立提交；文档提交 SHA 用
++  `git log -1 --format=%H -- docs/migration/PHASE2B_OWNERSHIP_FINAL_REVIEW.md`
++  查询，最终交付 SHA 和工作树状态见任务回复。
++- 不 push、不创建 PR、不合并 PR/main，不修改其他成员模块。
++
++## 实际复现与修复前后对比
++
++读取原实现，发现 pending Handle 为空且活动数为 1 时，把未关联数直接改为 0；
++默认空 goal_statuses 则让从未收到 Status 的实例看起来没有外部 Goal。
++
++先扩展测试专用 Fake Server，再运行旧生产实现。服务、Goal、Feedback、Result、Cancel
++仍是真实 rclcpp_action；Status 使用真实 DDS 的受控测试发布/转发流。没有访问 Port
++私有状态，没有直接构造成功 MotionResult 来代替 Action。
++
++```bash
++source /opt/ros/jazzy/setup.bash
++colcon --log-base log/ownership_repro build --packages-up-to mtc_trajectory_execution_cpp
++source install/setup.bash
++build/mtc_trajectory_execution_cpp/test_fjt_action \
++  --gtest_filter='FjtAction.NoStatusBeforeDispatchFailsClosed:FjtAction.StatusBeforeGoalResponsePreservesOwnership' \
++  --gtest_output=xml:/tmp/mtc_ownership_before.xml
++```
++
++修改前实际运行 2 项，**0 PASS / 2 FAIL**：
++
++| 用例 | 旧实现实际输出 | 修复后 |
++|---|---|---|
++| NoStatusBeforeDispatchFailsClosed | ready=true；goals_sent=1；Server goals=1 | ready=false，REJECTED，Goal 0 |
++| StatusBeforeGoalResponsePreservesOwnership | Handle 尚未到，Status 有一个 UUID，却 unassociated count=0、ready=true | Unknown，未关联数 1，ready=false；原 Session 保留 |
++
++原始输出 `/tmp/mtc_ownership_before.log`、XML 均保留；修复后同样两项实际通过，
++记录在 `/tmp/mtc_ownership_after.log`。初次测试夹具编译有回调类型错误，已修正后重新
++编译运行；当时旧二进制显示的“0 tests”没有被计入验收。
++
++第二项通过 Fake Server 在真实 send_goal 回调中暂缓 Response，按该请求真实 UUID
++发布受控 Status，制造客户端可见的顺序。它是人为构造的 ROS 消息时序复现，不能
++声称原生 Jazzy Server 自然按此顺序发送，也没有复现真实机器人误停。
++外部 Goal 的旧实现潜在错误归属由相同分支静态分析支持；修复后的真实外部 Client
++竞态测试已执行，但没有把“旧实现取消了外部 Goal”写成已发生的运行事实。
++
++## Jazzy Action 行为与证据边界
++
++官方 [Server 源码](https://github.com/ros2/rclcpp/blob/jazzy/rclcpp_action/src/server.cpp)
++显示 Status 在 Goal 状态变化时发布，非周期心跳；native 发送 Response 后再发布
++接受/执行状态，但独立 DDS 通道及回调调度不保证客户端处理顺序。运行时 JTC
++Status Publisher 为 RELIABLE / TRANSIENT_LOCAL，Deadline 与 Lifespan 为 Infinite。
++
++官方 [Client 源码](https://github.com/ros2/rclcpp/blob/jazzy/rclcpp_action/include/rclcpp_action/client.hpp)
++在发送请求时生成 UUID，收到接受 Response 才向应用提供携带该原请求 UUID 的 Handle。
++本适配器不侵入其内部或重写 Client，以 Handle 精确关联原始 Session。
++
++GoalStatusArray 没有消息发布时刻；goal_info.stamp 是 Goal 接受时间，不能当作 Status
++心跳时间。空数组只是一份“没有列出 Goal”的观测；transient-local 保留的数组也不
++证明此刻没有活动 Goal。没有消息则是 Unknown，不能解释成空数组。
++
++本轮内部 Status 订阅改为 RELIABLE / VOLATILE，避免用历史缓存初始化当前证据。
++还检查是否收到、消息合法性及本地接收年龄不超过现有 proof_max_age（默认 0.7s）。
++这会拒绝静默、过期或无效数据；**接收年龄不是发布时刻证明**，不能识别所有延迟、
++重放或不诚实发布者，也不自动建立绝对互斥。
++
++ROS 图发现异步，按 node/endpoint 查询的 client 名称可能合并同 Node 的多个对象。
++本轮真实外部 Client 测试在同一公开 Node 上建立第二个 client，保留所有现有图门禁，
++证明仅靠拓扑不能构成对象计数或严格的跨进程独占锁。没有原子“查询空闲并占有”的
++标准 Action 操作；检查后仍可能发生不可观测的新请求。
++
++因此本包只在受信任、隔离、确认 GenericSystem 的软件环境使用上述有限证据，
++不能推广为实机执行权或安全停机证明。观察到证据不足或冲突时 Fail-Closed；严格
++独占需要后续明确的单执行管理者/证据契约，本轮没有实现或放宽这一前置条件。
++
++## 所有权模型与十种时序
++
++新增诊断枚举 `GoalOwnership`，同时保留 status_received、status_fresh、状态消息数
++与 unknown_active_goals。status_fresh 指有限的本地接收可用性。
++兼容字段 foreign_active_goals 保守统计所有尚未关联的活动 UUID，包括 Unknown；
++不能把这个计数当作“每个 UUID 都已确定为 Foreign”。
++
++| 分类 | 条件与含义 |
++|---|---|
++| UNKNOWN | 无 Status、无效/过期，或 Response 未到，或 Result/Active Status 互相矛盾 |
++| OWN_GOAL | 匹配本请求 Handle 的 UUID；不是按活动 Goal 数量推断 |
++| FOREIGN_GOAL | 无 pending 归属歧义时，活动 UUID 与本实例已知 Handle 不匹配 |
++| NO_ACTIVE_GOAL | 可用 Status 不含活动 Goal，且无待确认 Session 或终态矛盾；仍不是全局锁 |
++
++| 时序 | 修复后的行为 |
++|---|---|
++| 1. send_goal 前 | 必须满足 Fake/Active Controller/Action/新鲜 JointState/起点/限位/图及 Status 门禁，否则零 Goal |
++| 2. 已发送，Response 未到 | 保留不可变命令和 Session，ready=false，不派发后继 Goal；不能猜测 Own |
++| 3. Status 先到 | 保存所有观察到的活动 UUID，Unknown；有界等 Response，不删除 Session、不取消未知 UUID |
++| 4. Response 先到 | Handle 的原请求 UUID 建立 Own 关联；后续 Status 按精确 UUID 分类 |
++| 5. 外部 Goal 已存在 | 活动外部 UUID 阻止首条 Goal，不抢占、不 Cancel 外部 Goal |
++| 6. pending 期间出现外部 Goal | 即使后续 Status 不再显示它，观测 UUID 记录仍保留；Handle 到达后不匹配即 FAULT，只 Cancel 自己 |
++| 7. Response 拒绝 | 无矛盾观测则维持“从未执行”的拒绝结果；曾观察到未关联活动 UUID 则保守锁定，不全局取消 |
++| 8. Response 延迟/丢失 | timeout 或证据丢失进入 FAULT，保留 Session；迟到 Handle 只关联原请求并执行其保留取消 |
++| 9. Cancel 早于 Handle | 保存 cancel=true，Backend Cancel 0；Handle 到达后只发一次该 UUID 的 Cancel，ACK 不等于停稳 |
++| 10. Result 终结、Status 有历史 | 已终结记录不当作活动；若仍是旧 Active Status，则 Unknown、禁止后继，等有效终态观测 |
++
++tick 将环境证据、Status 证据、待响应和已关联执行分开。pending 的“等待”不代表
++健康授权：不能报告 success/stop_confirmed，不能放行新 Goal。timeout 明确有界，
++事件线程不等待完整运动或阻塞等待 Response。
++
++异常/FAULT 结果不被迟到 Result 覆写。active、命令 ID、取消意图及 UUID 关联保留；
++原有生命周期 quarantine 仍防止销毁/重建 Port 绕过锁定。没有人工复位伪造、global
++cancel、Stop ACK 推导停稳或自动重发。软件 Stop 不是安全急停。
++
++## 修改文件与保持不变的逻辑
++
++| 文件 | 修改 |
++|---|---|
++| [fjt_motion_port.cpp](../../src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp) | 移除 count==1 归属推断；Status 初始化/校验/接收年龄；pending UUID 记录与精确核对；终态 Status 门禁 |
++| [execution_state.hpp](../../src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/execution_state.hpp) | 所有权及 Status 诊断字段 |
++| [test_fjt_action.cpp](../../src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp) | 受控真实 DDS Status、Response 门控、15 项异步测试 |
++| [verify_results.py](../../src/mtc_trajectory_execution_cpp/test/verify_results.py) | 固定原463项，源码声明/二进制注册/XML三方核验 |
++| [fake_trajectory_probe.cpp](../../src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp) | 打印 Status 与 Unknown 证据，保持原发令保护 |
++| [包 README](../../src/mtc_trajectory_execution_cpp/README.md) | 本轮结果、Status 契约及 GenericSystem BLOCKED |
++| 本报告 | 时序、结果与合并门禁 |
++
++未修改 FSM、MotionAdapter、MoveIt Planner、Phase 2A Action、ROSIDL、Launch、配置或
++驱动工作空间。command_id 全字段身份、一次完整轨迹、按名称映射、spline 边界、
++起点拒绝、Goal-scoped Cancel、独立停稳证据、FAULT/Timeout 锁与外部 Client 检查保留。
++
++ExecutionSnapshot 新字段改变该包 C++ 结构布局：既有二进制消费者须重新编译；
++本仓库测试及 probe 已重建，没有宣称旧二进制 ABI 兼容。Core/ROSIDL API 没有变更。
++
++## 新增测试与实际回归
++
++15 项均在真实 `test_fjt_action` 中、MultiThreadedExecutor（4线程）运行，服务响应
++门控有 2 秒上界，spin 线程由夹具拥有并 join，无 detached thread，无 Port 私有状态注入。
++Status 是测试专用真实 DDS 流：原生 Status 转发及显式软件心跳，支持暂停、延迟和
++矛盾输入；它不被当作原生 JTC 已有心跳，也没有替 GenericSystem 注入任何证据。
++
++1. NoStatusBeforeDispatchFailsClosed
++2. ForeignGoalBeforeOwnGoalRejected
++3. StatusBeforeGoalResponsePreservesOwnership
++4. GoalResponseBeforeStatusMatchesUuid
++5. ForeignGoalDuringPendingResponseFailsClosed
++6. CancelBeforeGoalResponseUsesOwnedUuidOnly
++7. HistoricalTerminalStatusDoesNotBecomeActive
++8. StatusEvidenceLossDoesNotAuthorizeDispatch
++9. LateResultDoesNotReleaseFaultLock
++10. NormalFakeTrajectoryStillExecutesOnce
++11. LatchedEmptyStatusCannotAuthorizeDispatch
++12. InvalidStatusDoesNotAuthorizeDispatch
++13. PendingResponseTimeoutRetainsSessionAndLateHandle
++14. RejectedResponseAfterUnknownStatusKeepsFaultLock
++15. TerminalResultBeforeStatusDoesNotAuthorizeSuccessor
++
++第五项实际创建第二个 Client 并让外部 Goal 保持活动；pending 时禁止认领，随后还
++隐藏该 Status，证明 UUID 记录不会丢失。原请求 Handle 迟到后只取消原 UUID，
++本 Port goals_sent 仍为1；Server goals=2是Own请求加Foreign请求，不是重发。
++其他拒绝场景检查零 Goal/Cancel；正常场景完整三点一次提交；早取消初始停稳=false。
++
++第九项在 Status 丢失、取消被拒后收到真实迟到 SUCCEEDED Result，FAULT/原错误和
++stop_confirmed=false 保持。第十五项真实 Result 先到、旧 Active Status 暂缓更新时
++后继 Goal 被拒，只有终态 Status 放行后才允许下一条。
++
++| 包 | 独立 GTest PASS |
++|---|---:|
++| mtc_core_cpp | 23 |
++| mtc_task_cpp | 87 |
++| mtc_manipulation_cpp | 120 |
++| mtc_motion_execution_cpp | 88 |
++| mtc_ros2_action_cpp | 40 |
++| mtc_moveit_planner | 29 |
++| mtc_trajectory_execution_cpp | 91（30 校验 + 61 Action） |
++| 合计 | 478，原463项 + 新15项 |
++
++**普通/UBSan 各478 PASS，FAIL 0 / ERROR 0 / SKIP 0；26 个实际可执行文件。**
++没有把重复执行、CTest 包装器、源码存在或旧报告数字当作独立测试 PASS。
++本轮 Python/E2E **NOT RUN**，沿用旧报告只作历史证据，不计入本轮结果。
++
++## 构建、核验与 Sanitizer
++
++Jazzy 下先 packages-up-to mtc_trajectory_execution_cpp（4个依赖包）构建通过，
++再联合 Planner/Phase 2A（8个依赖包）构建通过。现有目录未清空。
++
++```bash
++source /opt/ros/jazzy/setup.bash
++colcon --log-base log/ownership_gate build --packages-up-to \
++  mtc_trajectory_execution_cpp mtc_moveit_planner mtc_ros2_action_cpp --parallel-workers 2
++source install/setup.bash
++colcon --log-base log/ownership_gate test --packages-select \
++  mtc_core_cpp mtc_task_cpp mtc_manipulation_cpp mtc_motion_execution_cpp \
++  mtc_ros2_action_cpp mtc_moveit_planner mtc_trajectory_execution_cpp --executor sequential
++python3 src/mtc_trajectory_execution_cpp/test/verify_results.py --build-base build
++colcon test-result --all --verbose
++```
++
++当前七包 scoped 结果均 PASS；全目录汇总为 **4977 tests / 14 errors / 14 failures**，
++失败全部在旧 audit_tsan/final_gate_tsan 的 Core/Motion CTest 目录。未删除任何日志。
++当前结果另保留 `/tmp/mtc_ownership_current_scoped_results.log` 与身份 XML。
++
++独立 UBSan 目录 build/ownership_ubsan、install/ownership_ubsan、log/ownership_ubsan：
++
++```bash
++source /opt/ros/jazzy/setup.bash
++export CMAKE_BUILD_PARALLEL_LEVEL=2
++colcon --log-base log/ownership_ubsan build \
++  --build-base build/ownership_ubsan --install-base install/ownership_ubsan \
++  --packages-up-to mtc_trajectory_execution_cpp mtc_moveit_planner mtc_ros2_action_cpp \
++  --parallel-workers 1 --cmake-args \
++  '-DCMAKE_CXX_FLAGS=-fsanitize=undefined -fno-sanitize-recover=all -fno-omit-frame-pointer' \
++  '-DCMAKE_SHARED_LINKER_FLAGS=-fsanitize=undefined' '-DCMAKE_EXE_LINKER_FLAGS=-fsanitize=undefined'
++source install/ownership_ubsan/setup.bash
++export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1
++colcon --log-base log/ownership_ubsan test \
++  --build-base build/ownership_ubsan --install-base install/ownership_ubsan \
++  --packages-select mtc_core_cpp mtc_task_cpp mtc_manipulation_cpp mtc_motion_execution_cpp \
++  mtc_ros2_action_cpp mtc_moveit_planner mtc_trajectory_execution_cpp --executor sequential
++python3 src/mtc_trajectory_execution_cpp/test/verify_results.py --build-base build/ownership_ubsan
++```
++
++UBSan 8包构建/7包测试实际 PASS；系统 ROS/DDS/MoveIt 未全部重新插桩。
++TSan **NOT RUN**；历史 unexpected memory mapping 记录保留，不将旧尝试算作本轮。
++未调整 ASLR 或其他系统安全设置。UBSan 与多线程测试不等于证明不存在所有数据竞争。
++
++## GenericSystem 实际结果与未执行项
++
++只读 Xacro 展开证明唯一插件 mock_components/GenericSystem，目标 S3 Xacro 已存在，
++避免 Launch 的兼容逻辑写入驱动目录。隔离 domain=220、LOCALHOST、无static peers，
++启动前 domain 空；日志写 /tmp，PYTHONDONTWRITEBYTECODE=1。
++实际服务查询：auboHardwareInterface Active、GenericSystem、200Hz；JTC和broadcaster
++Active；Status Publisher 1、RELIABLE/TRANSIENT_LOCAL。没有启动真实模式。
++
++运行 success 探针预检 10 秒，实际输出：
++
++```text
++FJT servers=1 clients=1 direct_trajectory_publishers=0 foreign_active_goals=0
++status_received=0 status_fresh=0 unknown_active_goals=0 ready=0
++BLOCKED: GenericSystem/active controller/fresh state/exclusive graph proof unavailable
++```
++
++这是 Status 初始化不足造成的 **BLOCKED，Goal 0**，不是轨迹执行 PASS。
++没有预热 Goal、发布空数组、制造心跳或放宽默认门禁来继续运动。
++
++| 用户验收项 | GenericSystem 本轮结果 | Fake Action 对应验证 |
++|---|---|---|
++| A 正常三点 | BLOCKED：实际预检拒绝，未执行轨迹 | PASS：真实三点单 Goal/结果/到位/静止窗口 |
++| B 起点不一致 | NOT RUN：A 的先决证据不足 | PASS：原始起点拒绝用例，零 Goal |
++| C UUID Cancel | NOT RUN：没有已授权的 Own Goal | PASS：早取消及准确 UUID，ACK 不直接停稳 |
++| D command_id 内容重用 | NOT RUN：没有首次完成轨迹 | PASS：原完整身份回归全部保留通过 |
++| E 外部 Goal / 乱序 | NOT RUN：未对原生JTC人为制造活动Goal | PASS：本轮受控真实DDS/Client/Server用例 |
++| F MoveIt 共存 | BLOCKED：实际启动并检查，客户端2，零Goal | PASS：原外部 Client 门禁回归未放宽 |
++
++F 的实际输出还显示 /moveit_simple_controller_manager 和本 Port 两个 Client，
++server=1、direct publishers=0、Status 未初始化。两项独立门禁均不满足，不能把
++拒绝掩饰成可联合执行。未修改 MoveIt 配置或发送规划/执行请求。
++
++终止本轮拥有的进程后 domain 空。GenericSystem control 正常 exit 0；move_group
++SIGINT 后仍需 Launch 升级 SIGTERM（exit -15），正常退出子检查 FAIL，未扩大修复范围。
++驱动源/安装842个文件 SHA256运行前后完全一致；其预存 dirty 子模块未恢复或修改。
++没有清理其他成员 ROS 节点。
++
++## 剩余局限与合并意见
++
++- **BLOCKED：原生 Status 契约。** 原生 JTC 没有初始实时空状态，也没有周期心跳。
++  仅靠标准 Action 不提供严格原子执行权证明；需要明确独占执行管理和可信的实时证据
++  契约，再重新验收原生 GenericSystem。不能通过模拟证据、预热运动或参数放宽解决。
++- **BLOCKED：MoveIt第二执行客户端、Planner/FJT时基、异步FSM取消宿主。** 维持上一轮
++  限制，不在本轮修改 Planner、FSM、MoveIt执行配置或实现 Phase 2C。
++- 本轮只证明有界异步等待、准确关联、失败锁定和受控软件时序；未知 DDS 客户端、
++  发现延迟、同 Node 客户端数量、恶意/延迟 Status 都不构成强身份或全局互斥保证。
++- Snapshot结构变化要求消费者重建；TSan、Python/E2E本轮未运行；真实硬件未授权。
++
++**当前不建议直接合并 PR #7。** 远端 PR 尚未包含本轮修复；即使负责人后续同步了
++本地提交，也不能以“GenericSystem执行验收通过”合并，必须先决定并验收缺失的证据
++契约及上述集成门禁。修复本身可供独立代码审查，不能把审查通过等同于可运行完整链路。
++本轮停止在代码、Fake验证和清楚记录的阻断，不自动 push/merge 或进入下一阶段。
+diff --git a/src/mtc_trajectory_execution_cpp/README.md b/src/mtc_trajectory_execution_cpp/README.md
+index 133928a..bc7a1a8 100644
+--- a/src/mtc_trajectory_execution_cpp/README.md
++++ b/src/mtc_trajectory_execution_cpp/README.md
+@@ -5,12 +5,13 @@
+ 默认执行禁用；只支持明确核实的 `mock_components/GenericSystem`。不包含真实
+ AUBO SDK、RPC/RTDE、工具IO或MoveIt Planner，不改变Phase 2A的三个Mock Server。
+ 
+-2026-10-12 Final Audit：30项转换/校验、46项真实本地ROS Action测试通过；
+-保留原424项身份，加上本轮10项及合入main的29项Planner测试，共463项GTest通过。
+-完整15包构建、269项Python、15项离线E2E和463项UBSan通过；TSan NOT RUN。
+-GenericSystem四项验证通过，但默认move_group与FjtMotionPort共存时因第二FJT客户端
+-被门禁拒绝，联合执行 **BLOCKED**。详见
+-[最终集成门禁报告](../../docs/migration/PHASE2B_FINAL_INTEGRATION_GATE.md)；
++2026-10-12 Ownership Final Review：本轮新增15项真实ROS异步测试，原463项身份
++全部保留；478项GTest及478项UBSan通过，TSan NOT RUN。FJT包为30项校验 +
++61项ROS Action测试。当前原生GenericSystem控制器未提供初始实时Status证据，
++执行预检 **BLOCKED、零Goal**；不能沿用上一轮的四项执行PASS作为本轮结果。
++MoveIt共存仍因第二个FJT客户端及Status证据不足保持BLOCKED。详见
++[所有权最终复核报告](../../docs/migration/PHASE2B_OWNERSHIP_FINAL_REVIEW.md)。
++[上一轮集成门禁报告](../../docs/migration/PHASE2B_FINAL_INTEGRATION_GATE.md)和
+ [首次验收报告](../../docs/migration/PHASE2B_TRAJECTORY_EXECUTION_REPORT.md)仅为历史证据。
+ 
+ ## API 与执行所有权
+@@ -47,7 +48,10 @@ FSM单线程事件所有权。Goal Response、Feedback、Result和Cancel响应
+ - 唯一硬件组件必须匹配配置名称，plugin必须为`mock_components/GenericSystem`且Active，具备六关节position/velocity状态接口。
+ - 目标JointTrajectoryController和joint_state_broadcaster必须Active；控制器按名称拥有全部六个position接口，无其他控制器占用这些关节。
+ - FJT Server及控制查询服务必须唯一，目标FJT Client只有本实例，没有直接`joint_trajectory` Topic命令发布者，JointState发布者唯一。
+-- Action Status中的外部在途Goal阻止派发，即使原Client已经退出；不会发送新Goal来抢占它。
++- Action Status未收到、非法或本地接收时间超过proof_max_age时拒绝派发；内部Status订阅使用volatile，不把transient-local缓存当成当前证据。标准Status是事件驱动，无发布时刻字段；本地接收年龄不是绝对新鲜度或跨进程锁。
++- Status中的外部在途Goal阻止派发，即使原Client已经退出；不会发送新Goal抢占它。待Goal Response期间的UUID全部视为Unknown，保留Session及观测记录，取得原请求Handle后才比对归属；不按count==1猜测Own。
++- Status有效但归属尚未确定时，Session有界等待Response，ready=false，不再发Goal，也不取消未知UUID。证据丢失或超时则FAULT保留；迟到Handle仅取消原Goal，迟到Result不清锁。
++- Result终结但Status仍Active时不允许后继Goal。历史终态不当作在途。Snapshot新增ownership/status_received/status_fresh/unknown_active_goals/status_messages；foreign_active_goals兼容字段保守包含尚未关联的Unknown。该结构布局变化，下游C++消费者需要重新编译。
+ - JointState必须包含完整且唯一的六关节名称、有限位置/速度、有效持续递增的ROS时间戳。位置符合配置限位；按名称重排，拒绝缺字段、旧帧和回退。
+ - 初次执行前须观察新鲜静止窗口；当前位置与首点按名称比较，默认偏差容差0.01rad，超差拒绝，绝不自动跳到起点。
+ 
+@@ -107,9 +111,9 @@ colcon test --packages-select mtc_core_cpp mtc_task_cpp mtc_manipulation_cpp \
+ python3 src/mtc_trajectory_execution_cpp/test/verify_results.py --build-base build
+ ```
+ 
+-核验脚本比较原358项Core/Action和66项Phase 2B身份，包含合入的Planner，
+-比对已编译注册的测试与实际XML，拒绝未完成、
+-遗漏、重复、FAIL和SKIP。历史Phase 2A脚本固定20个可执行文件，不用于当前22个集合。
++核验脚本固定45f497c的原463项身份，包含Planner；核对当前源码声明、
++二进制注册清单和实际XML，拒绝未注册、未完成、
++遗漏、重复、FAIL和SKIP。历史Phase 2A脚本固定20个可执行文件，不用于当前26个集合。
+ 全目录test-result会包含保留的历史TSan失败，须与本轮各包结果分开报告。
+ 
+ Level 1为纯转换测试；Level 2使用真正的rclcpp_action Client/Server、状态Topic和
+@@ -119,6 +123,12 @@ Level 1为纯转换测试；Level 2使用真正的rclcpp_action Client/Server、
+ 
+ ## GenericSystem 单独复验 SOP
+ 
++**本轮执行验收BLOCKED。** 以下启动步骤仍是只读Fake预检，不能将GenericSystem
++插件确认当成Status/执行权确认。当前原生JTC启动后不发初始空Status且非周期心跳，
++修复后的Port会拒绝执行；不得预热发Goal、注入空Status或放宽门禁。
++先以`topology`查看status_received/status_fresh/客户端数量。只有后续经审核的证据
++契约具备后才能重新验收下列运动模式，本轮没有实现该Phase 2C环境。
++
+ 三个终端全部使用以下环境；218是本轮示例domain，先确认空图。同一终端只加载
+ 这一套AUBO安装目录；不构建或修改参考工作空间：
+ 
+diff --git a/src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/execution_state.hpp b/src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/execution_state.hpp
+index a35e3ad..2ba189b 100644
+--- a/src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/execution_state.hpp
++++ b/src/mtc_trajectory_execution_cpp/include/mtc_trajectory_execution_cpp/execution_state.hpp
+@@ -4,9 +4,15 @@
+ #include <mtc_core_cpp/results.hpp>
+ namespace mtc::trajectory
+ {
++enum class GoalOwnership {NO_ACTIVE_GOAL, OWN_GOAL, FOREIGN_GOAL, UNKNOWN};
+ struct ExecutionSnapshot
+ {
+   std::string command_id, goal_uuid, detail;
++  GoalOwnership ownership = GoalOwnership::UNKNOWN;
++  // Fresh means locally received within proof_max_age, not publisher-time proof.
++  bool status_received = false, status_fresh = false;
++  size_t status_messages = 0, unknown_active_goals = 0;
++  // Legacy count: all active UUIDs not yet associated, including Unknown.
+   bool ready = false, in_flight = false, fault_locked = false;
+   bool cancel_acknowledged = false, terminal_received = false;
+   size_t goals_sent = 0, cancel_requests = 0, feedback_samples = 0, stationary_samples = 0, foreign_active_goals = 0;
+diff --git a/src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp b/src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp
+index ec50ed3..fe7a1bf 100644
+--- a/src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp
++++ b/src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp
+@@ -38,7 +38,8 @@ int main(int argc,char ** argv)
+     auto proof=port.snapshot();
+     std::cout<<"FJT servers="<<servers<<" clients="<<clients<<" direct_trajectory_publishers="
+       <<node->count_publishers("/"+cfg.controller+"/joint_trajectory")
+-      <<" foreign_active_goals="<<proof.foreign_active_goals<<" ready="<<proof.ready<<"\n";
++      <<" foreign_active_goals="<<proof.foreign_active_goals<<" status_received="<<proof.status_received
++      <<" status_fresh="<<proof.status_fresh<<" unknown_active_goals="<<proof.unknown_active_goals<<" ready="<<proof.ready<<"\n";
+     if(mode=="topology") {
+       std::cout<<(proof.ready ? "PASS" : "BLOCKED")<<": Fake execution ownership gate; no Goal sent\n";
+       executor.remove_node(node); rclcpp::shutdown(); return proof.ready ? 0 : 2;
+diff --git a/src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp b/src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp
+index a6c04f5..3bbdca1 100644
+--- a/src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp
++++ b/src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp
+@@ -65,6 +65,7 @@ struct FjtMotionPort::Impl : std::enable_shared_from_this<Impl>
+   {
+     const mtc::core::MotionCommand identity;
+     explicit Session(const mtc::core::MotionCommand & c) : identity(c),id(c.command_id) {}
++    std::set<rclcpp_action::GoalUUID> pending_status_ids;
+     std::string id, uuid;
+     trajectory_msgs::msg::JointTrajectory trajectory;
+     uint32_t timeout_ms;
+@@ -87,6 +88,9 @@ struct FjtMotionPort::Impl : std::enable_shared_from_this<Impl>
+   rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr subscription;
+   rclcpp::Subscription<action_msgs::msg::GoalStatusArray>::SharedPtr status_subscription;
+   std::vector<action_msgs::msg::GoalStatus> goal_statuses;
++  bool status_received=false, status_valid=false;
++  size_t status_messages=0;
++  Time status_at{};
+   Time idle_since{}, idle_last{};
+   int64_t idle_stamp_ns=0;
+   size_t idle_samples=0;
+@@ -136,24 +140,77 @@ struct FjtMotionPort::Impl : std::enable_shared_from_this<Impl>
+         else if (!active->handle) {++count;}
+       }
+     }
+-    // Before acceptance, allow one candidate only; response UUID later checks ownership.
+-    if (active && !active->handle && !active->result && count==1) {return 0;}
+     return count;
+   }
++  bool status_usable(Time now) const
++  {
++    // Status has no publication timestamp. This bounds local reception age only;
++    // it is never a cross-process execution lock or proof against replay.
++    return status_received && status_valid && seconds(now,status_at)<=cfg.proof_max_age;
++  }
++  GoalOwnership ownership(Time now) const
++  {
++    if (!status_usable(now)) {return GoalOwnership::UNKNOWN;}
++    if (active && !active->handle && !active->terminal) {return GoalOwnership::UNKNOWN;}
++    if (foreign_goals()) {return GoalOwnership::FOREIGN_GOAL;}
++    if (active && active->handle) {
++      if (!active->terminal) {return GoalOwnership::OWN_GOAL;}
++      for (const auto & s:goal_statuses) {
++        if (s.status==action_msgs::msg::GoalStatus::STATUS_ACCEPTED ||
++          s.status==action_msgs::msg::GoalStatus::STATUS_EXECUTING ||
++          s.status==action_msgs::msg::GoalStatus::STATUS_CANCELING) {return GoalOwnership::UNKNOWN;}
++      }
++    }
++    return GoalOwnership::NO_ACTIVE_GOAL;
++  }
++  void on_status(const action_msgs::msg::GoalStatusArray & msg)
++  {
++    std::lock_guard<std::mutex> lock(mutex); if (closed) {return;}
++    status_received=true; ++status_messages; status_at=Steady::now(); status_valid=true;
++    std::set<rclcpp_action::GoalUUID> seen;
++    for (const auto & s:msg.status_list) {
++      const auto & id=s.goal_info.goal_id.uuid;
++      if (!seen.insert(id).second || std::all_of(id.begin(),id.end(),[](auto b) {return b==0;}) ||
++        s.status<action_msgs::msg::GoalStatus::STATUS_ACCEPTED ||
++        s.status>action_msgs::msg::GoalStatus::STATUS_ABORTED ||
++        s.goal_info.stamp.sec<0 || s.goal_info.stamp.nanosec>=1000000000u ||
++        (s.goal_info.stamp.sec==0 && s.goal_info.stamp.nanosec==0)) {status_valid=false;}
++      if (active && !active->handle && !active->terminal &&
++        (s.status==action_msgs::msg::GoalStatus::STATUS_ACCEPTED ||
++        s.status==action_msgs::msg::GoalStatus::STATUS_EXECUTING ||
++        s.status==action_msgs::msg::GoalStatus::STATUS_CANCELING)) {active->pending_status_ids.insert(id);}
++    }
++    goal_statuses=msg.status_list;
++  }
+   bool idle_verified() const
+   {
+     return sample && idle_samples>=2 && seconds(idle_last,idle_since)>=cfg.settle_duration &&
+       (sample->stamp_ns-idle_stamp_ns)/1e9>=cfg.settle_duration;
+   }
+-  bool healthy(Time now) const
++  bool environment_healthy(Time now) const
+   {
+     if (!cfg.enable_fake_execution || !hw_ok || !controller_ok || !sample ||
+       seconds(now,hw_at)>cfg.proof_max_age || seconds(now,controller_at)>cfg.proof_max_age ||
+       seconds(now,sample_at)>cfg.feedback_max_age || !client->action_server_is_ready()) {return false;}
+-    if (foreign_goals() || ((!active || active->result) && !idle_verified())) {return false;}
+     const double age=(node->now().nanoseconds()-sample->stamp_ns)/1e9;
+     return age>=-0.01 && age<=cfg.feedback_max_age && exclusive_graph();
+   }
++  bool healthy(Time now) const
++  {
++    if (!environment_healthy(now) || !status_usable(now) || foreign_goals() ||
++      (active && !active->handle && !active->terminal)) {return false;}
++    if ((!active || active->result) && !idle_verified()) {return false;}
++    // A result may arrive before its terminal Status; do not dispatch a successor
++    // while the live Status still calls that owned UUID active.
++    if (active && active->result) {
++      for (const auto & s:goal_statuses) {
++        if (s.status==action_msgs::msg::GoalStatus::STATUS_ACCEPTED ||
++          s.status==action_msgs::msg::GoalStatus::STATUS_EXECUTING ||
++          s.status==action_msgs::msg::GoalStatus::STATUS_CANCELING) {return false;}
++      }
++    }
++    return true;
++  }
+   void fault(const std::string & why, bool timeout=false)
+   {
+     locked=true; detail=why;
+@@ -292,9 +349,16 @@ struct FjtMotionPort::Impl : std::enable_shared_from_this<Impl>
+     try {
+       refresh_proofs(now);
+       if (!active || active->result) {issue_cancel(); return;}
+-      if (!healthy(now)) {fault("runtime Fake/controller/state/graph proof lost"); issue_cancel(); return;}
+       auto & s=*active;
+       if (seconds(now,s.sent)>=s.timeout_ms/1000.0) {fault("execution or stationary confirmation deadline exceeded",true); issue_cancel(); return;}
++      if (!environment_healthy(now) || !status_usable(now)) {
++        fault("runtime Fake/controller/state/graph or live Status evidence lost"); issue_cancel(); return;
++      }
++      // Sending is irrevocable. Unknown UUIDs cannot be guessed Own, but retain
++      // the pending Session until its bounded response/timeout. No next Goal or
++      // cancel without a matching handle. Remember every UUID across updates.
++      if (!s.handle && !s.terminal) {return;}
++      if (foreign_goals()) {fault("unassociated active Goal UUID; execution ownership lost"); issue_cancel(); return;}
+       issue_cancel();
+       if (!s.terminal || s.stationary_samples<2 || seconds(s.last_stationary,s.stationary_since)<cfg.settle_duration ||
+         (sample->stamp_ns-s.stationary_stamp_ns)/1e9<cfg.settle_duration ||
+@@ -318,11 +382,13 @@ struct FjtMotionPort::Impl : std::enable_shared_from_this<Impl>
+     auto weak=weak_from_this(); rclcpp::SubscriptionOptions options; options.callback_group=group;
+     subscription=node->create_subscription<sensor_msgs::msg::JointState>(cfg.joint_state_topic,rclcpp::SensorDataQoS(),
+       [weak](sensor_msgs::msg::JointState::ConstSharedPtr msg) {if (auto self=weak.lock()) {self->on_sample(*msg);}},options);
++    // Event-driven transient-local history is not current no-goal evidence.
++    // Require live publications. An idle native server may remain BLOCKED;
++    // this Port never synthesizes an initial empty Status or a heartbeat.
+     status_subscription=node->create_subscription<action_msgs::msg::GoalStatusArray>(
+-      cfg.action_name()+"/_action/status",rclcpp::QoS(rclcpp::KeepLast(1)).reliable().transient_local(),
++      cfg.action_name()+"/_action/status",rclcpp::QoS(rclcpp::KeepLast(1)).reliable().durability_volatile(),
+       [weak](action_msgs::msg::GoalStatusArray::ConstSharedPtr msg) {
+-        if (auto self=weak.lock()) {std::lock_guard<std::mutex> lock(self->mutex);
+-          self->goal_statuses=msg->status_list;}
++        if (auto self=weak.lock()) {self->on_status(*msg);}
+       },options);
+     timer=node->create_wall_timer(std::chrono::milliseconds(10),[weak]() {if (auto self=weak.lock()) {self->tick();}},group);
+   }
+@@ -338,10 +404,15 @@ struct FjtMotionPort::Impl : std::enable_shared_from_this<Impl>
+         if (handle) {try {cancel_client->async_cancel_goal(handle);} catch (...) {}} return;
+       }
+       if (!handle) {
++        if (!s->pending_status_ids.empty()) {self->fault("Goal rejected after unknown active UUID observed");}
+         if (!s->result) {s->result=rejected("FJT Goal rejected before execution"); self->completed.emplace(s->id,Completed{s->identity,*s->result});}
+         s->terminal=true; return;
+       }
+-      s->handle=handle; s->uuid=uuid_text(handle->get_goal_id()); self->issue_cancel();
++      s->handle=handle; s->uuid=uuid_text(handle->get_goal_id());
++      for (const auto & id:s->pending_status_ids) {
++        if (id!=handle->get_goal_id()) {self->fault("foreign UUID observed during pending Goal response"); break;}
++      }
++      self->issue_cancel();
+     };
+     options.feedback_callback=[weak,s](Handle::SharedPtr handle, const std::shared_ptr<const Fjt::Feedback> f) {
+       auto self=weak.lock(); if (!self) {return;}
+@@ -473,6 +544,9 @@ ExecutionSnapshot FjtMotionPort::snapshot() const
+ {
+   auto self=impl_; std::lock_guard<std::mutex> lock(self->mutex); ExecutionSnapshot s;
+   try {s.ready=!self->locked && self->healthy(Steady::now());} catch (...) {s.ready=false;}
++  s.status_received=self->status_received; s.status_fresh=self->status_usable(Steady::now());
++  s.status_messages=self->status_messages; s.ownership=self->ownership(Steady::now());
++  if (self->active && !self->active->handle && !self->active->terminal) {s.unknown_active_goals=self->foreign_goals();}
+   s.foreign_active_goals=self->foreign_goals(); s.fault_locked=self->locked; s.goals_sent=self->goals_sent; s.cancel_requests=self->cancels_sent; s.detail=self->detail;
+   if (self->active) {auto & a=*self->active; s.command_id=a.id; s.goal_uuid=a.uuid;
+     s.in_flight=!a.terminal; s.cancel_acknowledged=a.cancel_ack; s.terminal_received=a.terminal;
+diff --git a/src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp b/src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp
+index e12d016..e757407 100644
+--- a/src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp
++++ b/src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp
+@@ -3,6 +3,8 @@
+ #include <algorithm>
+ #include <atomic>
+ #include <chrono>
++#include <condition_variable>
++#include <action_msgs/msg/goal_status_array.hpp>
+ #include <cstdlib>
+ #include <functional>
+ #include <mutex>
+@@ -24,11 +26,20 @@ class FakeController : public rclcpp::Node
+ {
+ public:
+   Config cfg;
+-  std::atomic<size_t> goals{0}, cancels{0};
++  std::atomic<size_t> goals{0}, cancels{0}, last_state_count{0};
+   std::atomic<bool> reject{false}, aborted{false}, ack_only{false}, no_result{false};
+   std::atomic<bool> publish_state{true}, stale_state{false}, missing_velocity{false};
+   std::atomic<bool> moving{false}, wrong_final{false}, feedback_enabled{true}, active_controller{true};
+   std::atomic<bool> generic{true}, repeated_stamp{false};
++  std::atomic<bool> publish_status{true}, hold_response{false}, pending_status{false};
++  std::atomic<bool> hide_active_status{false}, invalid_status{false}, reject_cancel{false}, hold_terminal_status{false};
++  std::atomic<size_t> status_publications{0}, pending_requests{0};
++  void release_response() {pending_status=false; {std::lock_guard<std::mutex> lock(gate_mutex); released=true;} gate.notify_all();}
++  void release_terminal_status() {std::lock_guard<std::mutex> lock(mutex); hold_terminal_status=false; status_cache=latest_status;}
++  size_t active_statuses() {std::lock_guard<std::mutex> lock(mutex); return std::count_if(status_cache.status_list.begin(),status_cache.status_list.end(),[](const auto & s) {return s.status>=1 && s.status<=3;});}
++  void publish_latched_empty() {status_pub->publish(action_msgs::msg::GoalStatusArray{});}
++  size_t terminal_statuses() {std::lock_guard<std::mutex> lock(mutex); return std::count_if(status_cache.status_list.begin(),status_cache.status_list.end(),[](const auto & s) {return s.status>=4;});}
++  rclcpp_action::GoalUUID request_id() {std::lock_guard<std::mutex> lock(mutex); return pending_uuid;}
+   FakeController(Config c):Node("fake_controller"),cfg(std::move(c))
+   {
+     hw=create_service<Hw>(cfg.controller_manager+"/list_hardware_components",
+@@ -48,16 +59,42 @@ public:
+         c=controller_manager_msgs::msg::ControllerState(); c.name="joint_state_broadcaster"; c.state="active"; c.type="joint_state_broadcaster/JointStateBroadcaster"; r->controller.push_back(c);
+       });
+     pub=create_publisher<sensor_msgs::msg::JointState>(cfg.joint_state_topic,rclcpp::SensorDataQoS());
++    status_pub=create_publisher<action_msgs::msg::GoalStatusArray>(cfg.action_name()+"/test_status_evidence",
++      rclcpp::QoS(1).reliable().transient_local());
++    native_status=create_subscription<action_msgs::msg::GoalStatusArray>(cfg.action_name()+"/_action/status",
++      rclcpp::QoS(1).reliable().transient_local(),[this](action_msgs::msg::GoalStatusArray::ConstSharedPtr msg) {
++        std::lock_guard<std::mutex> lock(mutex); latest_status=*msg;
++        if(!hold_terminal_status || std::none_of(msg->status_list.begin(),msg->status_list.end(),
++          [](const auto & s) {return s.status>=4;})) {status_cache=*msg;}
++      });
++    action_group=create_callback_group(rclcpp::CallbackGroupType::Reentrant);
+     server=rclcpp_action::create_server<Fjt>(this,cfg.action_name(),
+-      [this](const auto &,auto) {++goals; return reject ? rclcpp_action::GoalResponse::REJECT : rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;},
+-      [this](auto h) {++cancels; std::lock_guard<std::mutex> lock(mutex); canceled_uuid=h->get_goal_id(); return rclcpp_action::CancelResponse::ACCEPT;},
+-      [this](auto h) {std::lock_guard<std::mutex> lock(mutex); handle=h; received=h->get_goal()->trajectory; began=std::chrono::steady_clock::now();});
++      [this](const auto & uuid,auto goal) {
++        ++goals;
++        if(hold_response && goal->trajectory.header.frame_id!="foreign") {
++          {std::lock_guard<std::mutex> lock(mutex); pending_uuid=uuid;}
++          ++pending_requests;
++          std::unique_lock<std::mutex> lock(gate_mutex);
++          gate.wait_for(lock,2s,[this]() {return released;});
++        }
++        return reject ? rclcpp_action::GoalResponse::REJECT : rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
++      },
++      [this](auto h) {++cancels; std::lock_guard<std::mutex> lock(mutex); canceled_uuid=h->get_goal_id(); return reject_cancel ? rclcpp_action::CancelResponse::REJECT : rclcpp_action::CancelResponse::ACCEPT;},
++      [this](auto h) {std::lock_guard<std::mutex> lock(mutex); handle=h; received=h->get_goal()->trajectory; began=std::chrono::steady_clock::now();},rcl_action_server_get_default_options(),action_group);
+     timer=create_wall_timer(10ms,[this]() {tick();});
+   }
+   trajectory_msgs::msg::JointTrajectory trajectory() {std::lock_guard<std::mutex> lock(mutex); return received;}
+   rclcpp_action::GoalUUID goal_id() {std::lock_guard<std::mutex> lock(mutex); return handle ? handle->get_goal_id() : rclcpp_action::GoalUUID{};}
+   rclcpp_action::GoalUUID cancel_id() {std::lock_guard<std::mutex> lock(mutex); return canceled_uuid;}
+ private:
++  std::mutex gate_mutex;
++  std::condition_variable gate;
++  bool released=false;
++  rclcpp_action::GoalUUID pending_uuid{};
++  rclcpp::CallbackGroup::SharedPtr action_group;
++  rclcpp::Publisher<action_msgs::msg::GoalStatusArray>::SharedPtr status_pub;
++  rclcpp::Subscription<action_msgs::msg::GoalStatusArray>::SharedPtr native_status;
++  action_msgs::msg::GoalStatusArray status_cache,latest_status;
+   std::mutex mutex;
+   std::shared_ptr<ServerHandle> handle;
+   trajectory_msgs::msg::JointTrajectory received;
+@@ -89,9 +126,28 @@ private:
+         } handle.reset();
+       }
+     }
++    if(publish_status) {
++      auto evidence=status_cache;
++      if(pending_status && pending_requests) {
++        action_msgs::msg::GoalStatus status; status.goal_info.goal_id.uuid=pending_uuid;
++        status.goal_info.stamp=now(); status.status=action_msgs::msg::GoalStatus::STATUS_ACCEPTED;
++        if(std::none_of(evidence.status_list.begin(),evidence.status_list.end(),[&](const auto & x) {
++          return x.goal_info.goal_id.uuid==pending_uuid;
++        })) {evidence.status_list.push_back(status);}
++      }
++      if(hide_active_status) {
++        evidence.status_list.erase(std::remove_if(evidence.status_list.begin(),evidence.status_list.end(),
++          [](const auto & s) {return s.status>=1 && s.status<=3;}),evidence.status_list.end());
++      }
++      if(invalid_status) {
++        action_msgs::msg::GoalStatus bad; bad.status=action_msgs::msg::GoalStatus::STATUS_EXECUTING;
++        bad.goal_info.stamp=now(); evidence.status_list.push_back(bad); // Invalid zero UUID.
++      }
++      status_pub->publish(evidence); ++status_publications;
++    }
+     if (publish_state) {
+       sensor_msgs::msg::JointState s; s.header.stamp=stamp; s.name=cfg.joints; s.position=position;
+-      if (!missing_velocity) {s.velocity.assign(6,moving ? 0.1 : 0.0);} pub->publish(s);
++      if (!missing_velocity) {s.velocity.assign(6,moving ? 0.1 : 0.0);} pub->publish(s); ++last_state_count;
+     }
+   }
+ };
+@@ -120,14 +176,25 @@ protected:
+     cfg.controller="jtc_"+name; cfg.controller_manager="/cm_"+name; cfg.joint_state_topic="/js_"+name;
+     cfg.enable_fake_execution=true; cfg.settle_duration=name=="StationaryWindowCannotGrowWithoutNewSamples" ? 0.15 : 0.05; cfg.max_start_delay=0.05;
+     for (const auto & n:cfg.joints) {cfg.limits[n]={-2,2,1,100};}
+-    node=std::make_shared<rclcpp::Node>("fjt_client"); server=std::make_shared<FakeController>(cfg);
++    // Test-only server relay provides explicit live Status evidence. Native Action
++    // Goal/Feedback/Result/Cancel are unchanged; no Port private state is accessed.
++    rclcpp::NodeOptions options;
++    options.arguments({"--ros-args","-r",cfg.action_name()+"/_action/status:="+cfg.action_name()+"/test_status_evidence"});
++    node=std::make_shared<rclcpp::Node>("fjt_client",options); server=std::make_shared<FakeController>(cfg);
++    if(name=="NoStatusBeforeDispatchFailsClosed" || name=="LatchedEmptyStatusCannotAuthorizeDispatch") {
++      server->publish_status=false;
++      if(name=="LatchedEmptyStatusCannotAuthorizeDispatch") {server->publish_latched_empty();}
++    }
+     port=std::make_unique<FjtMotionPort>(node,cfg); executor.add_node(node); executor.add_node(server);
+     spin=std::thread([this]() {executor.spin();});
++    if(name=="NoStatusBeforeDispatchFailsClosed" || name=="LatchedEmptyStatusCannotAuthorizeDispatch") {
++      ASSERT_TRUE(wait([this]() {return server->last_state_count>=25;})); return;
++    }
+     ASSERT_TRUE(wait([this]() {return port->snapshot().ready;})) << port->snapshot().detail;
+   }
+   void TearDown() override
+   {
+-    port.reset(); executor.cancel(); if (spin.joinable()) {spin.join();}
++    server->release_response(); port.reset(); executor.cancel(); if (spin.joinable()) {spin.join();}
+     executor.remove_node(node); executor.remove_node(server); server.reset(); node.reset();
+   }
+   static bool wait(const std::function<bool()> & f,std::chrono::milliseconds limit=3s)
+@@ -486,3 +553,153 @@ TEST_F(FjtAction, PastPlannerGenerationStampDoesNotDispatch) {
+   EXPECT_NE(r->message.find("scheduled stamp stale"),std::string::npos);
+   EXPECT_EQ(server->goals,0u); EXPECT_EQ(server->cancels,0u); EXPECT_FALSE(port->snapshot().fault_locked);
+ }
++
++TEST_F(FjtAction, NoStatusBeforeDispatchFailsClosed) {
++  EXPECT_FALSE(port->snapshot().ready);
++  auto r=port->execute_trajectory(command()); EXPECT_TRUE(r);
++  EXPECT_EQ(port->snapshot().goals_sent,0u); EXPECT_EQ(server->goals,0u);
++}
++TEST_F(FjtAction, StatusBeforeGoalResponsePreservesOwnership) {
++  server->hold_response=true; server->pending_status=true; server->no_result=true;
++  auto c=command(); ASSERT_FALSE(port->execute_trajectory(c));
++  ASSERT_TRUE(wait([&]() {return server->pending_requests==1 && server->status_publications>=30;}));
++  EXPECT_TRUE(port->snapshot().goal_uuid.empty());
++  EXPECT_EQ(port->snapshot().ownership,GoalOwnership::UNKNOWN);
++  EXPECT_EQ(port->snapshot().unknown_active_goals,1u);
++  EXPECT_EQ(port->snapshot().foreign_active_goals,1u); // Unassociated, never guessed Own.
++  EXPECT_FALSE(port->snapshot().ready); EXPECT_EQ(server->cancels,0u);
++  server->release_response(); ASSERT_TRUE(wait([&]() {return !port->snapshot().goal_uuid.empty();}));
++  EXPECT_EQ(server->goal_id(),server->request_id());
++  port->cancel_command(c.command_id,"cleanup"); EXPECT_TRUE(result(c).stop_confirmed);
++}
++
++TEST_F(FjtAction, ForeignGoalBeforeOwnGoalRejected) {
++  server->no_result=true;
++  auto outsider=rclcpp_action::create_client<Fjt>(server,cfg.action_name());
++  ASSERT_TRUE(wait([&]() {return outsider->action_server_is_ready();}));
++  Fjt::Goal goal; goal.trajectory=*convert(command("foreign"),cfg).trajectory; goal.trajectory.header.frame_id="foreign";
++  auto response=outsider->async_send_goal(goal);
++  ASSERT_TRUE(wait([&]() {return response.wait_for(0s)==std::future_status::ready;})); ASSERT_TRUE(response.get());
++  outsider.reset(); ASSERT_TRUE(wait([&]() {return port->snapshot().ownership==GoalOwnership::FOREIGN_GOAL;}));
++  auto r=port->execute_trajectory(command()); ASSERT_TRUE(r); EXPECT_EQ(r->exec_state,mtc::core::ExecState::REJECTED);
++  EXPECT_EQ(server->goals,1u); EXPECT_EQ(port->snapshot().goals_sent,0u); EXPECT_EQ(server->cancels,0u);
++}
++TEST_F(FjtAction, GoalResponseBeforeStatusMatchesUuid) {
++  server->hide_active_status=true; server->no_result=true;
++  auto c=command(); send(c); auto uuid=server->goal_id();
++  EXPECT_FALSE(port->snapshot().goal_uuid.empty()); EXPECT_EQ(port->snapshot().ownership,GoalOwnership::OWN_GOAL);
++  server->hide_active_status=false;
++  ASSERT_TRUE(wait([&]() {return port->snapshot().status_messages>=20;}));
++  EXPECT_EQ(port->snapshot().foreign_active_goals,0u); EXPECT_EQ(port->snapshot().unknown_active_goals,0u);
++  EXPECT_FALSE(port->snapshot().fault_locked);
++  port->cancel_command(c.command_id,"cleanup"); EXPECT_TRUE(result(c).stop_confirmed);
++  EXPECT_EQ(server->cancel_id(),uuid); EXPECT_EQ(server->goals,1u);
++}
++TEST_F(FjtAction, ForeignGoalDuringPendingResponseFailsClosed) {
++  server->hold_response=true; server->no_result=true;
++  auto c=command(); ASSERT_FALSE(port->execute_trajectory(c));
++  ASSERT_TRUE(wait([&]() {return server->pending_requests==1;})); auto own=server->request_id();
++  // DDS client names are per node/endpoint, not a count of objects. This genuine
++  // second client shares the public Node, demonstrating the topology limitation
++  // without weakening any Port gate or touching private state.
++  auto outsider=rclcpp_action::create_client<Fjt>(node,cfg.action_name());
++  Fjt::Goal goal; goal.trajectory=*convert(command("foreign"),cfg).trajectory; goal.trajectory.header.frame_id="foreign";
++  auto response=outsider->async_send_goal(goal);
++  ASSERT_TRUE(wait([&]() {return response.wait_for(0s)==std::future_status::ready;})); ASSERT_TRUE(response.get());
++  ASSERT_TRUE(wait([&]() {return port->snapshot().unknown_active_goals==1;}));
++  EXPECT_EQ(port->snapshot().ownership,GoalOwnership::UNKNOWN); EXPECT_FALSE(port->snapshot().ready);
++  EXPECT_TRUE(port->snapshot().goal_uuid.empty()); EXPECT_EQ(server->cancels,0u);
++  auto blocked=port->execute_trajectory(command("next")); ASSERT_TRUE(blocked);
++  EXPECT_EQ(port->snapshot().goals_sent,1u);
++  // Drop that client and hide active Status before acceptance: the observed
++  // foreign UUID must remain remembered even if it disappears from later arrays.
++  outsider.reset(); server->hide_active_status=true;
++  ASSERT_TRUE(wait([&]() {return port->snapshot().foreign_active_goals==0;}));
++  server->release_response();
++  ASSERT_TRUE(wait([&]() {return port->snapshot().fault_locked && server->cancels==1;}));
++  EXPECT_EQ(server->cancel_id(),own); EXPECT_EQ(server->goals,2u); EXPECT_EQ(port->snapshot().goals_sent,1u);
++  ASSERT_TRUE(wait([&]() {return port->snapshot().terminal_received;}));
++  EXPECT_TRUE(port->snapshot().fault_locked); EXPECT_FALSE(port->snapshot().result->stop_confirmed);
++}
++TEST_F(FjtAction, CancelBeforeGoalResponseUsesOwnedUuidOnly) {
++  server->hold_response=true; server->pending_status=true; server->no_result=true;
++  auto c=command(); ASSERT_FALSE(port->execute_trajectory(c));
++  ASSERT_TRUE(wait([&]() {return server->pending_requests==1 && port->snapshot().unknown_active_goals==1;}));
++  auto own=server->request_id(); auto stop=port->cancel_command(c.command_id,"pending cancel");
++  EXPECT_FALSE(stop.request_delivered); EXPECT_FALSE(stop.stop_confirmed); EXPECT_EQ(server->cancels,0u);
++  EXPECT_FALSE(port->cancel_command("stale-id","wrong owner").request_delivered);
++  server->release_response(); auto r=result(c); EXPECT_TRUE(r.stop_confirmed); EXPECT_FALSE(r.success);
++  EXPECT_EQ(server->cancel_id(),own); EXPECT_EQ(server->cancels,1u); EXPECT_EQ(server->goals,1u);
++}
++TEST_F(FjtAction, HistoricalTerminalStatusDoesNotBecomeActive) {
++  auto c=command(); send(c); ASSERT_TRUE(result(c).success);
++  ASSERT_TRUE(wait([&]() {return server->terminal_statuses()>0 && port->snapshot().ownership==GoalOwnership::NO_ACTIVE_GOAL;}));
++  EXPECT_TRUE(port->snapshot().status_received); EXPECT_TRUE(port->snapshot().status_fresh);
++  EXPECT_EQ(port->snapshot().foreign_active_goals,0u); EXPECT_EQ(server->cancels,0u);
++  auto next=command("next"); for(auto & p:next.trajectory->points) {for(auto & x:p.positions_rad) {x+=0.02;}}
++  send(next); EXPECT_TRUE(result(next).success); EXPECT_EQ(server->goals,2u);
++}
++TEST_F(FjtAction, StatusEvidenceLossDoesNotAuthorizeDispatch) {
++  ASSERT_TRUE(port->snapshot().status_received); server->publish_status=false;
++  ASSERT_TRUE(wait([&]() {return !port->snapshot().status_fresh;}));
++  EXPECT_EQ(port->snapshot().ownership,GoalOwnership::UNKNOWN); EXPECT_FALSE(port->snapshot().ready);
++  auto r=port->execute_trajectory(command()); ASSERT_TRUE(r); EXPECT_EQ(server->goals,0u); EXPECT_EQ(server->cancels,0u);
++}
++TEST_F(FjtAction, LateResultDoesNotReleaseFaultLock) {
++  server->no_result=true; server->reject_cancel=true; auto c=command(); send(c); auto own=server->goal_id();
++  server->publish_status=false; ASSERT_TRUE(wait([&]() {return port->snapshot().fault_locked;}));
++  auto original=port->snapshot().result; ASSERT_TRUE(original); EXPECT_TRUE(original->status_unknown);
++  ASSERT_TRUE(wait([&]() {return server->cancels==1;})); EXPECT_EQ(server->cancel_id(),own);
++  server->no_result=false; ASSERT_TRUE(wait([&]() {return port->snapshot().terminal_received;}));
++  EXPECT_TRUE(port->snapshot().fault_locked); EXPECT_EQ(port->snapshot().result->message,original->message);
++  EXPECT_FALSE(port->snapshot().result->success); EXPECT_FALSE(port->snapshot().result->stop_confirmed);
++  auto r=port->execute_trajectory(command("next")); ASSERT_TRUE(r); EXPECT_TRUE(r->status_unknown); EXPECT_EQ(server->goals,1u);
++}
++TEST_F(FjtAction, NormalFakeTrajectoryStillExecutesOnce) {
++  auto c=command(); send(c); auto r=result(c); EXPECT_TRUE(r.success); EXPECT_TRUE(r.stop_confirmed);
++  EXPECT_EQ(server->trajectory().points.size(),3u); EXPECT_EQ(server->goals,1u); EXPECT_EQ(server->cancels,0u);
++  EXPECT_GT(port->snapshot().status_messages,0u); EXPECT_FALSE(port->snapshot().fault_locked);
++}
++TEST_F(FjtAction, LatchedEmptyStatusCannotAuthorizeDispatch) {
++  EXPECT_FALSE(port->snapshot().status_received); EXPECT_FALSE(port->snapshot().ready);
++  auto r=port->execute_trajectory(command()); ASSERT_TRUE(r); EXPECT_EQ(server->goals,0u); EXPECT_EQ(server->cancels,0u);
++}
++TEST_F(FjtAction, InvalidStatusDoesNotAuthorizeDispatch) {
++  server->invalid_status=true; ASSERT_TRUE(wait([&]() {return !port->snapshot().status_fresh;}));
++  EXPECT_TRUE(port->snapshot().status_received); EXPECT_EQ(port->snapshot().ownership,GoalOwnership::UNKNOWN);
++  auto r=port->execute_trajectory(command()); ASSERT_TRUE(r); EXPECT_EQ(server->goals,0u); EXPECT_EQ(server->cancels,0u);
++}
++TEST_F(FjtAction, PendingResponseTimeoutRetainsSessionAndLateHandle) {
++  server->hold_response=true; server->pending_status=true; server->no_result=true;
++  auto c=command(); c.timeout_ms=400; ASSERT_FALSE(port->execute_trajectory(c));
++  ASSERT_TRUE(wait([&]() {return port->snapshot().fault_locked;})); auto own=server->request_id(); auto before=port->snapshot();
++  ASSERT_TRUE(before.result); EXPECT_TRUE(before.result->timed_out); EXPECT_EQ(before.command_id,c.command_id);
++  EXPECT_TRUE(before.goal_uuid.empty()); EXPECT_EQ(server->cancels,0u);
++  auto r=port->execute_trajectory(command("next")); ASSERT_TRUE(r); EXPECT_TRUE(r->status_unknown);
++  server->release_response(); ASSERT_TRUE(wait([&]() {return server->cancels==1 && port->snapshot().terminal_received;}));
++  EXPECT_EQ(server->cancel_id(),own); EXPECT_TRUE(port->snapshot().fault_locked);
++  EXPECT_TRUE(port->snapshot().result->timed_out); EXPECT_FALSE(port->snapshot().result->stop_confirmed);
++  EXPECT_EQ(port->snapshot().goals_sent,1u); EXPECT_EQ(server->goals,1u);
++}
++TEST_F(FjtAction, RejectedResponseAfterUnknownStatusKeepsFaultLock) {
++  server->hold_response=true; server->pending_status=true; server->reject=true;
++  auto c=command(); ASSERT_FALSE(port->execute_trajectory(c));
++  ASSERT_TRUE(wait([&]() {return port->snapshot().unknown_active_goals==1;}));
++  server->release_response(); ASSERT_TRUE(wait([&]() {return port->snapshot().terminal_received;}));
++  EXPECT_TRUE(port->snapshot().fault_locked); EXPECT_TRUE(port->snapshot().goal_uuid.empty());
++  EXPECT_TRUE(port->snapshot().result->status_unknown); EXPECT_EQ(server->goals,1u); EXPECT_EQ(server->cancels,0u);
++}
++
++TEST_F(FjtAction, TerminalResultBeforeStatusDoesNotAuthorizeSuccessor) {
++  server->no_result=true; auto c=command(); send(c);
++  ASSERT_TRUE(wait([&]() {return server->active_statuses()==1;}));
++  server->hold_terminal_status=true; server->no_result=false;
++  ASSERT_TRUE(result(c).success); // Real terminal Result and separate JointState settle.
++  EXPECT_EQ(port->snapshot().ownership,GoalOwnership::UNKNOWN); EXPECT_FALSE(port->snapshot().ready);
++  auto next=command("next"); for(auto & p:next.trajectory->points) {for(auto & x:p.positions_rad) {x+=0.02;}}
++  auto r=port->execute_trajectory(next); ASSERT_TRUE(r); EXPECT_EQ(r->exec_state,mtc::core::ExecState::REJECTED);
++  EXPECT_EQ(server->goals,1u); EXPECT_EQ(server->cancels,0u);
++  server->release_terminal_status(); ASSERT_TRUE(wait([&]() {return port->snapshot().ready;}));
++  EXPECT_EQ(port->snapshot().ownership,GoalOwnership::NO_ACTIVE_GOAL);
++  send(next); EXPECT_TRUE(result(next).success); EXPECT_EQ(server->goals,2u);
++}
+diff --git a/src/mtc_trajectory_execution_cpp/test/verify_results.py b/src/mtc_trajectory_execution_cpp/test/verify_results.py
+index 130da73..6c84ea5 100644
+--- a/src/mtc_trajectory_execution_cpp/test/verify_results.py
++++ b/src/mtc_trajectory_execution_cpp/test/verify_results.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""核对 Phase 2B 原424项身份与全部 C++（含 Planner）GTest 实际执行结果。"""
++"""核对 Ownership Audit 基线463项身份与全部 C++（含 Planner）GTest 实际执行结果。"""
+ import argparse
+ from collections import Counter
+ from pathlib import Path
+@@ -17,27 +17,32 @@ def main():
+     git = lambda *a: subprocess.check_output(['git', *a], cwd=root, text=True)
+     baseline = set()
+     pattern = re.compile(r'\bTEST(?:_F)?\s*\(\s*(\w+)\s*,\s*(\w+)\s*\)')
+-    base = 'a04ac68'
++    base = '45f497c'
+     for name in git('ls-tree', '-r', '--name-only', base, 'src').splitlines():
+-        if re.fullmatch(r'src/mtc_\w+_cpp/test/test_\w+\.cpp', name):
+-            baseline.update(f'{s}.{c}' for s, c in pattern.findall(git('show', f'{base}:{name}')))
+-    assert len(baseline) == 358, len(baseline)
+-    for name in git('ls-tree', '-r', '--name-only', 'b47b5fe', 'src/mtc_trajectory_execution_cpp/test').splitlines():
+-        if name.endswith('.cpp'):
+-            source = git('show', f'b47b5fe:{name}')
+-            baseline.update(f'{s}.{c}' for s, c in pattern.findall(source) if c != 'Name')
+-            baseline.update('TrajectoryValidator.' + c for c in re.findall(r'^INVALID_TEST\((\w+),', source, re.M))
+-    assert len(baseline) == 424, len(baseline)
++        if re.fullmatch(r'src/(?:mtc_\w+_cpp|mtc_moveit_planner)/test/test_\w+\.cpp', name):
++            source = git('show', f'{base}:{name}')
++            baseline.update(f'{s}.{c}' for s, c in pattern.findall(source)
++                            if (s, c) != ('TrajectoryValidator', 'Name'))
++            baseline.update('TrajectoryValidator.' + c for c in
++                            re.findall(r'^INVALID_TEST\((\w+),', source, re.M))
++    assert len(baseline) == 463, len(baseline)
+     actual = Counter()
+     inventory = set()
+     by_package = Counter()
+     packages = list((root / 'src').glob('mtc_*_cpp')) + [root / 'src/mtc_moveit_planner']
+     xmls = [p for pkg in packages for p in (build / pkg.name / 'test_results').rglob('*.gtest.xml')]
+     expected_executables = 0
++    declared = set()
+     for pkg in packages:
+         cmake = pkg / 'CMakeLists.txt'
+         if not cmake.exists():
+             continue
++        for source_file in (pkg / 'test').glob('test_*.cpp'):
++            source = source_file.read_text()
++            declared.update(f'{s}.{c}' for s, c in pattern.findall(source)
++                            if (s, c) != ('TrajectoryValidator', 'Name'))
++            declared.update('TrajectoryValidator.' + c for c in
++                            re.findall(r'^INVALID_TEST\((\w+),', source, re.M))
+         names = re.findall(r'ament_add_gtest\(\s*(test_\w+)', cmake.read_text())
+         expected_executables += len(names)
+         for name in names:
+@@ -60,11 +65,12 @@ def main():
+             assert case.get('result') == 'completed', key
+             actual[key] += 1
+             by_package[filename.relative_to(build).parts[0]] += 1
++    assert inventory == declared, (sorted(declared - inventory), sorted(inventory - declared))
+     assert len(xmls) == expected_executables, (len(xmls), expected_executables)
+     assert baseline <= actual.keys(), sorted(baseline - actual.keys())
+     assert inventory == actual.keys(), (sorted(inventory - actual.keys()), sorted(actual.keys() - inventory))
+     assert all(v == 1 for v in actual.values()), actual
+-    print(f'PASS: 原358项 Core/Action + 原66项 Phase 2B 身份全部保留并执行；新增及合入{len(inventory - baseline)}项')
++    print(f'PASS: 原463项身份全部保留并执行；本轮新增{len(inventory - baseline)}项')
+     print(f'PASS: {len(actual)}项独立GTest / {len(xmls)}个可执行文件；FAIL 0 / SKIP 0')
+     for package, count in sorted(by_package.items()):
+         print(f'  {package}: {count} PASS')

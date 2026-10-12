@@ -1,0 +1,119 @@
+CASE_COMPLETED mismatch 0
+{
+  "scope": "Delivered standalone FjtMotionPort/GenericSystem only; no MoveIt, complete FSM or physical device",
+  "started_at": "2026-10-11T18:39:57.502636+00:00",
+  "cases": [
+    {
+      "mode": "mismatch",
+      "argv": [
+        "ros2",
+        "run",
+        "mtc_trajectory_execution_cpp",
+        "fake_trajectory_probe",
+        "--verify-generic-system",
+        "mismatch"
+      ],
+      "start_monotonic": 917617.528741732,
+      "probe_finished_monotonic": 917619.294186967,
+      "observation_end_monotonic": 917619.899122776,
+      "exit_code": 0,
+      "before": {
+        "received_monotonic": 917617.528689767,
+        "stamp_ns": 1791744012241464535,
+        "names": [
+          "foreArm_joint",
+          "shoulder_joint",
+          "upperArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "positions": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "velocities": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "after": {
+        "received_monotonic": 917619.898770941,
+        "stamp_ns": 1791744014611471606,
+        "names": [
+          "foreArm_joint",
+          "shoulder_joint",
+          "upperArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "positions": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "velocities": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "sample_index_range": [
+        317,
+        791
+      ],
+      "status_index_range": [
+        0,
+        0
+      ],
+      "new_goal_uuids": [],
+      "log": "mismatch.log"
+    }
+  ],
+  "status": "PASS_DELIVERED_SINGLE_CASE",
+  "plugins": [
+    "mock_components/GenericSystem"
+  ],
+  "source": "45f497ce3444e255463faf41f7b736aa9ad07d7b",
+  "launch": {
+    "argv": [
+      "ros2",
+      "launch",
+      "aubo_ros2_driver",
+      "aubo_control.launch.py",
+      "aubo_type:=aubo_S3",
+      "use_fake_hardware:=true",
+      "initial_joint_controller:=joint_trajectory_controller",
+      "launch_rviz:=false"
+    ],
+    "pid": 4956
+  },
+  "observer_has_action_client": false,
+  "probe_binary": "/candidate-install/mtc_trajectory_execution_cpp/lib/mtc_trajectory_execution_cpp/fake_trajectory_probe",
+  "shutdown": {
+    "already_exited": false,
+    "escalated": false,
+    "exit_code": 0,
+    "child_failures": [],
+    "pal_statistics_context_errors": []
+  },
+  "empty_after": true,
+  "ended_at": "2026-10-11T18:40:17.691603+00:00",
+  "samples": 791,
+  "status_messages": 0
+}

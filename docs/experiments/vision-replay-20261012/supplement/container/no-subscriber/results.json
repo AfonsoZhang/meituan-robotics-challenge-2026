@@ -1,0 +1,64 @@
+[
+  {
+    "case": "default-natural",
+    "argv": [
+      "/candidate-install/mtc_vision_adapter/lib/mtc_vision_adapter/replay_publisher",
+      "--ros-args",
+      "-p",
+      "input_jsonl:=/candidate/src/mtc_vision_adapter/examples/synthetic.jsonl"
+    ],
+    "pid": 221,
+    "started_at": "2026-10-11T19:37:54.613482+00:00",
+    "ended_at": "2026-10-11T19:37:59.135953+00:00",
+    "elapsed_seconds": 4.522464736015536,
+    "exit_code": 0,
+    "signals": [],
+    "published_log_count": 4,
+    "remaining_nodes": [],
+    "checks": {
+      "exit_expected": true,
+      "no_cleanup_signals": true,
+      "node_gone": true,
+      "no_duplicate_shutdown": true,
+      "created_qos": true,
+      "four_publishes": true,
+      "natural_completion": true,
+      "no_traceback": true
+    },
+    "passed": true,
+    "scope": "No subscription created, no frame delivery claimed; graph observer only."
+  },
+  {
+    "case": "bounded-discovery-timeout",
+    "argv": [
+      "/candidate-install/mtc_vision_adapter/lib/mtc_vision_adapter/replay_publisher",
+      "--ros-args",
+      "-p",
+      "input_jsonl:=/candidate/src/mtc_vision_adapter/examples/synthetic.jsonl",
+      "-p",
+      "wait_for_subscriber_s:=2.0",
+      "-p",
+      "period_s:=0.25"
+    ],
+    "pid": 235,
+    "started_at": "2026-10-11T19:37:59.136321+00:00",
+    "ended_at": "2026-10-11T19:38:01.551208+00:00",
+    "elapsed_seconds": 2.414908446953632,
+    "exit_code": 1,
+    "signals": [],
+    "published_log_count": 0,
+    "remaining_nodes": [],
+    "checks": {
+      "exit_expected": true,
+      "no_cleanup_signals": true,
+      "node_gone": true,
+      "no_duplicate_shutdown": true,
+      "created_qos": true,
+      "zero_publishes": true,
+      "explicit_discovery_timeout": true,
+      "no_false_completion": true
+    },
+    "passed": true,
+    "scope": "No subscription created, no frame delivery claimed; graph observer only."
+  }
+]

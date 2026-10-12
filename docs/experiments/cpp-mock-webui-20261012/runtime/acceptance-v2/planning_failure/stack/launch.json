@@ -1,0 +1,67 @@
+{
+  "started_at": "2026-10-12T00:10:50.921840+00:00",
+  "namespace": "/cpp_accept_planning_failure",
+  "domain_id": 161,
+  "profile": "planning_failure",
+  "result_delay_ms": 350,
+  "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+  "processes": [
+    {
+      "label": "pick_place",
+      "pid": 1549,
+      "argv": [
+        "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+        "--ros-args",
+        "-r",
+        "__ns:=/cpp_accept_planning_failure",
+        "-r",
+        "/mtc/task/execute:=/cpp_accept_planning_failure/task/execute",
+        "-r",
+        "/mtc/manipulation/pick_place:=/cpp_accept_planning_failure/manipulation/pick_place",
+        "-p",
+        "mock.result_delay_ms:=350",
+        "-p",
+        "mock.plan_available:=false",
+        "-p",
+        "mock.stop_evidence_available:=true",
+        "-p",
+        "mock.status_unknown:=false"
+      ],
+      "executable": "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+    },
+    {
+      "label": "task",
+      "pid": 1550,
+      "argv": [
+        "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+        "--ros-args",
+        "-r",
+        "__ns:=/cpp_accept_planning_failure",
+        "-r",
+        "/mtc/task/execute:=/cpp_accept_planning_failure/task/execute",
+        "-r",
+        "/mtc/manipulation/pick_place:=/cpp_accept_planning_failure/manipulation/pick_place"
+      ],
+      "executable": "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+    },
+    {
+      "label": "web",
+      "pid": 1587,
+      "argv": [
+        "/usr/bin/python3",
+        "-m",
+        "webui.server",
+        "--cpp-mock",
+        "--cpp-namespace",
+        "/cpp_accept_planning_failure",
+        "--ros-domain-id",
+        "161",
+        "--port",
+        "8767",
+        "--output-dir",
+        "/integration-evidence/acceptance-v2/planning_failure/stack/web-session"
+      ],
+      "executable": "/usr/bin/python3.12"
+    }
+  ]
+}

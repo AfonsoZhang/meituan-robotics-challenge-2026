@@ -1,0 +1,302 @@
+{
+  "observation": "ENV-WIRING-MERGE-20261011",
+  "recorded_at": "2026-10-11T15:48:41.703004+00:00",
+  "commit": "c10f6ed59966401684851f917f9137b0a6cf12ae",
+  "verdict": "SCOPED_MERGE_AND_CPP_MOCK_PASS_WITH_OPEN_FAILURES",
+  "upstream_pr2_merged_in_observed_main": true,
+  "local_agent_performed_merge": false,
+  "formal_baseline_advanced": false,
+  "automatic_summary_complete": true,
+  "automatic_status": "COMPLETED_WITH_FAILURES",
+  "build_packages": 13,
+  "cpp_cases": 358,
+  "cpp_executables": 20,
+  "python_cases": 269,
+  "pure_python_mock_e2e": 15,
+  "ros_wiring_cases": 6,
+  "cpp_delivered_identity_verifier": "PASS",
+  "old_fixed_cpp_audit": "FAIL_16_EXECUTABLE_EXPECTATION_ACTUAL_20",
+  "installed_python_matches_source": true,
+  "standalone": [
+    {
+      "case": "task-basic-sequence-after-idle",
+      "status": "PASS",
+      "checks": 15,
+      "shutdown": [
+        {
+          "executable": "mock_task_server",
+          "exit_code": 0,
+          "escalated": false
+        },
+        {
+          "executable": "mock_pick_place_server",
+          "exit_code": 0,
+          "escalated": false
+        }
+      ],
+      "nodes_after_shutdown": [
+        [
+          "cpp_action_acceptance",
+          "/"
+        ]
+      ]
+    },
+    {
+      "case": "task-associated-cancel",
+      "status": "PASS",
+      "checks": 8,
+      "shutdown": [
+        {
+          "executable": "mock_task_server",
+          "exit_code": 0,
+          "escalated": false
+        },
+        {
+          "executable": "mock_pick_place_server",
+          "exit_code": 0,
+          "escalated": false
+        }
+      ],
+      "nodes_after_shutdown": [
+        [
+          "cpp_action_acceptance",
+          "/"
+        ]
+      ]
+    },
+    {
+      "case": "task-missing-child-fault",
+      "status": "PASS",
+      "checks": 5,
+      "shutdown": [
+        {
+          "executable": "mock_task_server",
+          "exit_code": 0,
+          "escalated": false
+        }
+      ],
+      "nodes_after_shutdown": [
+        [
+          "cpp_action_acceptance",
+          "/"
+        ]
+      ]
+    },
+    {
+      "case": "motion-single-point-cancel",
+      "status": "PASS",
+      "checks": 12,
+      "shutdown": [
+        {
+          "executable": "mock_motion_server",
+          "exit_code": 0,
+          "escalated": false
+        }
+      ],
+      "nodes_after_shutdown": [
+        [
+          "cpp_action_acceptance",
+          "/"
+        ]
+      ]
+    }
+  ],
+  "ubsan_and_consumer_this_event": "NOT RERUN: C++/build/IDL unchanged; historical pass only ENV-CPP-ACTION-20261011",
+  "legacy_python": [
+    {
+      "case": "early-goal",
+      "status": "FAIL",
+      "task_server_available": true,
+      "pickplace_server_available": false,
+      "result": {
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 220,
+          "message": "task acceptance-early-goal exceeded timeout_ms=5000 (elapsed 5.026s)"
+        }
+      },
+      "cancel_response": null,
+      "child_failure": true
+    },
+    {
+      "case": "delayed-goal",
+      "status": "FAIL",
+      "task_server_available": true,
+      "pickplace_server_available": false,
+      "result": {
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 510,
+          "message": "state INIT timed out after 5.008s -> HARDWARE_FAULT"
+        }
+      },
+      "cancel_response": null,
+      "child_failure": true
+    },
+    {
+      "case": "cancel-goal",
+      "status": "FAIL",
+      "task_server_available": true,
+      "pickplace_server_available": false,
+      "result": {
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 520,
+          "message": "cancel not confirmed before timeout (child never reported stopped)"
+        }
+      },
+      "cancel_response": {
+        "return_code": 0,
+        "goals_canceling": [
+          {
+            "goal_id": {
+              "uuid": [
+                141,
+                188,
+                53,
+                63,
+                34,
+                250,
+                68,
+                38,
+                172,
+                105,
+                103,
+                80,
+                107,
+                177,
+                128,
+                54
+              ]
+            },
+            "stamp": {
+              "sec": 1791733195,
+              "nanosec": 723951598
+            }
+          }
+        ]
+      },
+      "child_failure": true
+    }
+  ],
+  "independent_moveit": {
+    "automatic": {
+      "scope": "Independent S3 MoveIt / GenericSystem; no FSM or physical robot",
+      "planning_execution": "PASS",
+      "clean_shutdown": "FAIL",
+      "max_error_rad": 9.758972660638392e-05,
+      "distinct_joint_stamps": 210,
+      "execute": {
+        "status": 4,
+        "result": {
+          "error_code": {
+            "val": 1,
+            "message": "",
+            "source": ""
+          }
+        }
+      },
+      "shutdown": [
+        {
+          "launch": "move-group",
+          "escalated": false,
+          "already_exited": false,
+          "exit_code": 0,
+          "child_failures": [
+            "process has died [pid 4607, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_4m3x5brr --params-file /tmp/launch_params_s1c0_f2t']."
+          ]
+        },
+        {
+          "launch": "control",
+          "escalated": false,
+          "already_exited": false,
+          "exit_code": 0,
+          "child_failures": [
+            "process has died [pid 4485, exit code -11, cmd '/opt/ros/jazzy/lib/controller_manager/ros2_control_node --ros-args --params-file /tmp/launch_params_r_en43ns --params-file /driver_work/install/aubo_ros2_driver/share/aubo_ros2_driver/config/aubo_controllers.yaml']."
+          ]
+        }
+      ]
+    },
+    "supplement_repeat": {
+      "scope": "Independent S3 MoveIt / GenericSystem; no FSM or physical robot",
+      "planning_execution": "PASS",
+      "clean_shutdown": "FAIL",
+      "max_error_rad": 9.342823652550579e-05,
+      "distinct_joint_stamps": 208,
+      "execute": {
+        "status": 4,
+        "result": {
+          "error_code": {
+            "val": 1,
+            "message": "",
+            "source": ""
+          }
+        }
+      },
+      "shutdown": [
+        {
+          "launch": "move-group",
+          "escalated": false,
+          "already_exited": false,
+          "exit_code": 0,
+          "child_failures": [
+            "process has died [pid 435, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_d5qy0tnb --params-file /tmp/launch_params_25y5lqim']."
+          ]
+        },
+        {
+          "launch": "control",
+          "escalated": false,
+          "already_exited": false,
+          "exit_code": 0,
+          "child_failures": []
+        }
+      ]
+    },
+    "analysis": "Planning/execution passed both times. move_group exited -11 twice. ros2_control_node exited -11 only automatic run and exited 0 in repeat; unresolved, root cause not established. No new FSM loaded in either."
+  },
+  "dependencies": "Whole workspace rosdep ament_python key unresolved; driver test-nodes and docker.io missing",
+  "driver_test_aggregate": {
+    "total": 1104,
+    "failures": 279,
+    "skipped": 259,
+    "scope": "includes wrapper records/lint, not independent function count"
+  },
+  "cleanup": {
+    "at": "2026-10-11T15:45:50.953763+00:00",
+    "original_running": false,
+    "supplement_running": false,
+    "original_runner_absent": true,
+    "keeper_exit": 137,
+    "OOMKilled": false,
+    "scope": "Six standalone C++ server processes exited normally; repeated MoveIt children terminated (move_group -11 retained); domain 99 ROS daemon explicitly stopped; only keeper remained before container stop. Original container never restarted."
+  },
+  "main_receipt": {
+    "ack_at": "2026-10-11T15:41:17.698618+00:00",
+    "thread": "01a12a25-b5c5-7b23-98b7-1cf673d68838",
+    "ack_marker": "MOVEIT_WAKE_ACK_12b18c00b7d84e96e4835f8d22aef486",
+    "queued_at": "2026-10-11T15:41:09.530155+00:00",
+    "attempts": 1,
+    "queue_to_ack_seconds": 8.168463,
+    "complete_at_freeze": false,
+    "scope": "Completion deliberately follows provenance registration and cleanup; final receipt remains in outputs."
+  },
+  "not_completed": [
+    "Complete C++ unified Bringup",
+    "FSM to MoveIt Planner to full FJT/Fake trajectory",
+    "Shared physical execution authority and independent stop evidence",
+    "Task/Robot/Tool state publishing and complete Web UI integration",
+    "Old Python B03/B05/B06 and shutdown",
+    "MoveIt/controller clean shutdown and driver dependency/lint",
+    "TSan, NUC/hardware/perception/tool evidence, SDK license/vendor checksum"
+  ],
+  "handoff": "Maintainer merge message recorded as upstream data; FSM/Action/Cancel remain Sun Jiaming responsibility. No new instructions executed, no kernel fixes, external messages or baseline changes."
+}

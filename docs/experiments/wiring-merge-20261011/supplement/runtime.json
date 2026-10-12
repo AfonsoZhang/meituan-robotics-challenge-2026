@@ -1,0 +1,31 @@
+{
+  "at": "2026-10-11T15:43:58.770025+00:00",
+  "container": "mtc-wiring-review-c10f6ed",
+  "snapshot_of": "mtc-repro-5c8f61d8af9f-c10f6ed59966",
+  "image": "sha256:d970cd0169e4eaccb55f6b0e95ee2ea6b4a11aac6439f07566b2c78734ea5e43",
+  "argv": [
+    "docker",
+    "run",
+    "-d",
+    "--name",
+    "mtc-wiring-review-c10f6ed",
+    "--network",
+    "none",
+    "--cpus",
+    "2",
+    "--memory",
+    "4g",
+    "--pids-limit",
+    "512",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--label",
+    "mtc.purpose=wiring-merge-review",
+    "sha256:d970cd0169e4eaccb55f6b0e95ee2ea6b4a11aac6439f07566b2c78734ea5e43",
+    "sleep",
+    "infinity"
+  ],
+  "scope": "Separate snapshot of stopped automatic c10f6ed run; original evidence unchanged; no concurrent reproduction"
+}

@@ -1,0 +1,117 @@
+{
+  "observation": "ENV-HANDOFF-20261012",
+  "upstream": "TEAMMATE-HANDOFF-20261011",
+  "authorization": [
+    "USER-HW-20261011-08",
+    "USER-HW-20261011-09"
+  ],
+  "commit": "a04ac6831dd3963e6b1ec4b9e27214eb564f9f24",
+  "previous": "c10f6ed59966401684851f917f9137b0a6cf12ae",
+  "parents": [
+    "c10f6ed59966401684851f917f9137b0a6cf12ae"
+  ],
+  "observed_refs": [
+    "refs/heads/main"
+  ],
+  "changed_files": [
+    "README.md",
+    "README_FSM.md"
+  ],
+  "raw_automatic": "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/runs/sha-a04ac6831dd3963e6b1ec4b9e27214eb564f9f24",
+  "raw_supplement": "/home/afonso/meituan-robotics-challenge-2026/outputs/handoff-acceptance-20261012-a04ac68",
+  "original_index_sha256": "90d9ff27367b0fe1ff133367e4bf32f31c20100ead28c773a5d0babb863944f8",
+  "original_index_files_verified": 291,
+  "source_bundle_sha256": "e0acfdf78d9f2535a905ee57ac4417135b104f21ea603b08e280c6457c9819ca",
+  "source_bundle_frozen": false,
+  "formal_baseline_file": "robot/fsm-baseline.repos",
+  "formal_baseline_sha256": "a34a5c149e38b9aa8b1d9d379d4a98d5fab30ae5c0bb211f99d2c9e580a99869",
+  "formal_baseline_commit": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+  "environment": {
+    "image": "sha256:8c442d3be3d5c2671d149d320da09388350d261fa452e23bb848aa5978b8a5f1",
+    "ros_base_digest": "sha256:066420e07f60aa18262f2479981def87ebcfcec42eefb0c0c57c4a46098348ca",
+    "driver": "53aab83735236f0c262ecb11e04ef2600241d9d9",
+    "model": "47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1",
+    "fake_patch_source": "TEAMMATE-SDK-20261011",
+    "moveit": "2.12.4",
+    "moveit_msgs": "2.6.0",
+    "qualification": "New harness qualified on existing PR; MoveIt plan/execute PASS, shutdown FAIL; module failures retained",
+    "offline_schema_directory": "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/offline-schema",
+    "offline_schema": {
+      "repository": "https://github.com/ros-infrastructure/rep",
+      "commit": "11ca24a41f31480dfb9562ba99f2a5b93d3ebda5",
+      "files": [
+        {
+          "file": "package_common.xsd",
+          "url": "https://raw.githubusercontent.com/ros-infrastructure/rep/11ca24a41f31480dfb9562ba99f2a5b93d3ebda5/xsd/package_common.xsd",
+          "sha256": "941ea8645344f3c4b7b9d7e68799898309d65a18225fa9cbef4169d95d1a3211"
+        },
+        {
+          "file": "package_format1.xsd",
+          "url": "https://raw.githubusercontent.com/ros-infrastructure/rep/11ca24a41f31480dfb9562ba99f2a5b93d3ebda5/xsd/package_format1.xsd",
+          "sha256": "5409efaaea14cce5041d62b9e44cc538e90d55d6f1b181e65e123a54cbddf71b"
+        },
+        {
+          "file": "package_format2.xsd",
+          "url": "https://raw.githubusercontent.com/ros-infrastructure/rep/11ca24a41f31480dfb9562ba99f2a5b93d3ebda5/xsd/package_format2.xsd",
+          "sha256": "bb7afaf08f6174bf733f02ae4e1695d5d9a741d9cb7c847254fb97f3f43bb911"
+        },
+        {
+          "file": "package_format3.xsd",
+          "url": "https://raw.githubusercontent.com/ros-infrastructure/rep/11ca24a41f31480dfb9562ba99f2a5b93d3ebda5/xsd/package_format3.xsd",
+          "sha256": "f096a197ed6d7878984bb2501a55f7f1bd4895d254399fb7857e154bfb644f41"
+        }
+      ],
+      "note": "Official XSD cache for XML catalog; source and validation rules unchanged. download.ros.org HTTPS hostname verification failed; official pinned GitHub source used instead."
+    },
+    "harness_sha256": {
+      "watch_upstream.py": "90250864848c928db0b29eed0abcf9a06cc0b41e44d289321f3d43ccf68d5325",
+      "wake_main.py": "da433aeddd2a4144ffa0ae25a0705e74788ab0880480999d78ee54e821e50fab",
+      "reproduce_upstream.py": "06bb1b8d020fd268e302a363697ef8e2ebdc359f072ee087fdbdb0c3dfd2b393",
+      "probe_moveit.py": "b4426426c46704bee7d655d3977c0df4cce167af74a54a5bcfe3dc1ce716d626",
+      "probe_task_mock.py": "6b0fea0ff094fd56230a6fe2d57e2ce77330338dbc76d62e38be3c073866d09d"
+    },
+    "qualification_report": "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/runs/qualification-candidate-2/summary.json",
+    "wake_integration": "ENV-UPSTREAM-WAKE-20261011; supported local queue with persistent receipt gate",
+    "previous_harness": "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/harness",
+    "previous_ready_file": "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/environment-ready.json"
+  },
+  "supplement": {
+    "at": "2026-10-11T16:15:32.970805+00:00",
+    "container": "mtc-handoff-review-a04ac68",
+    "snapshot_of": "mtc-repro-5c8f61d8af9f-a04ac6831dd3",
+    "image": "sha256:66571a8a7d3ef9232c6fc745c2a3af6e452dda025f59f7c54ba9755ef097fc69",
+    "argv": [
+      "docker",
+      "run",
+      "-d",
+      "--name",
+      "mtc-handoff-review-a04ac68",
+      "--network",
+      "none",
+      "--cpus",
+      "2",
+      "--memory",
+      "4g",
+      "--pids-limit",
+      "512",
+      "--cap-drop",
+      "ALL",
+      "--security-opt",
+      "no-new-privileges",
+      "--label",
+      "mtc.purpose=handoff-acceptance",
+      "sha256:66571a8a7d3ef9232c6fc745c2a3af6e452dda025f59f7c54ba9755ef097fc69",
+      "sleep",
+      "infinity"
+    ]
+  },
+  "supplement_ros_domains": [
+    121,
+    122,
+    123,
+    124
+  ],
+  "overlay": "/candidate-install/setup.bash (new document install/phase2a_mock adapted to fixed runner installation path)",
+  "source_modifications": "None; runtime source/tests/config/docs tree byte-identical to c10f6ed; only two root Markdown files differ.",
+  "licences": "Root MIT; unchanged C++ Action package.xml Apache-2.0 discrepancy remains open. No SDK/images/binaries frozen."
+}

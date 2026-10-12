@@ -1,0 +1,33 @@
+{
+  "container": "mtc-vision-replay-review-dc76a0b",
+  "image": "sha256:7d82ca0b8bdf6fcc2eaccfb46b35bf35ad94490290d1e1c50195f7a82c522462",
+  "argv": [
+    "docker",
+    "run",
+    "-d",
+    "--name",
+    "mtc-vision-replay-review-dc76a0b",
+    "--network",
+    "none",
+    "--cpus",
+    "2",
+    "--memory",
+    "4g",
+    "--pids-limit",
+    "512",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--label",
+    "mtc.purpose=vision-replay-acceptance",
+    "--label",
+    "mtc.event=sha-dc76a0bf0a43f9110f3d24cfa38a2b3478f48dcd",
+    "sha256:7d82ca0b8bdf6fcc2eaccfb46b35bf35ad94490290d1e1c50195f7a82c522462",
+    "sleep",
+    "infinity"
+  ],
+  "source_container": "mtc-repro-5c8f61d8af9f-dc76a0bf0a43",
+  "commit": "dc76a0bf0a43f9110f3d24cfa38a2b3478f48dcd",
+  "ready_at": "2026-10-11T19:36:57.528889+00:00"
+}

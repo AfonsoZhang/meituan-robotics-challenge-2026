@@ -1,0 +1,153 @@
+{
+  "started_at": "2026-10-11T18:15:29.896979+00:00",
+  "status": "PASS_READ_ONLY_FAKE_TF",
+  "scope": "Read-only isolated GenericSystem TF at zero joints; no camera, tool, calibration or complete FSM",
+  "action_clients_created": 0,
+  "goals_sent": 0,
+  "tf_publishers_created": 0,
+  "source_modified": false,
+  "model_commit": "47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1",
+  "model_receipts": [
+    {
+      "path": "urdf/aubo_S3.urdf",
+      "size_bytes": 8895,
+      "sha256": "2ad1d85b3ab53b82f1944a373e3e41b36ca2535e0edf5b70c9c32641679e1924",
+      "receipt_matches": true
+    },
+    {
+      "path": "urdf/xacro/inc/aubo_ros2_macro.xacro",
+      "size_bytes": 3538,
+      "sha256": "8bbf8f5e127650dd79760f3b2d3025d734fae4b6cfaaee3a923e923022e7a3b7",
+      "receipt_matches": true
+    },
+    {
+      "path": "meshes/aubo_S3/visual/link6.DAE",
+      "size_bytes": 401011,
+      "sha256": "c54dfeda3c8ab4e44039d35ab220b118c8e175792b522f5faaf3959fc8aff92c",
+      "receipt_matches": true
+    },
+    {
+      "path": "meshes/aubo_S3/collision/link6.STL",
+      "size_bytes": 14484,
+      "sha256": "cbe69bf761e7d25110633f6c7fdf62481de52a2847a4960a9fc5c49288ba3eea",
+      "receipt_matches": true
+    }
+  ],
+  "launch": {
+    "argv": [
+      "ros2",
+      "launch",
+      "aubo_ros2_driver",
+      "aubo_control.launch.py",
+      "aubo_type:=aubo_S3",
+      "use_fake_hardware:=true",
+      "initial_joint_controller:=joint_trajectory_controller",
+      "launch_rviz:=false"
+    ],
+    "pid": 171
+  },
+  "robot_description_sha256": "f36ba2a4944c16f86a58cb448ef06a7911c4c0d70a49b38da516e7943610618e",
+  "transforms": [
+    {
+      "parent": "world",
+      "child": "base_link",
+      "query_stamp_ns": 1791742548271182873,
+      "returned_stamp_ns": 1791742548271182873,
+      "translation_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "max_position_component_error_m": 0.0,
+      "max_rotation_matrix_component_error": 0.0
+    },
+    {
+      "parent": "wrist3_Link",
+      "child": "ee_link",
+      "query_stamp_ns": 1791742548271182873,
+      "returned_stamp_ns": 1791742548271182873,
+      "translation_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_xyzw": [
+        0.0,
+        0.0,
+        0.7071067811865475,
+        0.7071067811865476
+      ],
+      "max_position_component_error_m": 0.0,
+      "max_rotation_matrix_component_error": 1.6081226496766364e-16
+    },
+    {
+      "parent": "base_link",
+      "child": "ee_link",
+      "query_stamp_ns": 1791742548271182873,
+      "returned_stamp_ns": 1791742548271182873,
+      "translation_m": [
+        -8.688660222541301e-17,
+        -0.2562,
+        0.8071999999999999
+      ],
+      "rotation_xyzw": [
+        0.5000000000000004,
+        -0.49999999999999944,
+        0.5000000000000006,
+        0.49999999999999956
+      ],
+      "max_position_component_error_m": 1.1102230246251565e-16,
+      "max_rotation_matrix_component_error": 1.464691043679141e-16
+    },
+    {
+      "parent": "world",
+      "child": "ee_link",
+      "query_stamp_ns": 1791742548271182873,
+      "returned_stamp_ns": 1791742548271182873,
+      "translation_m": [
+        -8.688660222541301e-17,
+        -0.2562,
+        0.8071999999999999
+      ],
+      "rotation_xyzw": [
+        0.5000000000000004,
+        -0.49999999999999944,
+        0.5000000000000006,
+        0.49999999999999956
+      ],
+      "max_position_component_error_m": 1.1102230246251565e-16,
+      "max_rotation_matrix_component_error": 1.464691043679141e-16
+    }
+  ],
+  "proposed_frames_unavailable": [
+    "camera_link",
+    "camera_color_optical_frame",
+    "hook_tcp_v1",
+    "table_frame",
+    "T0_frame",
+    "P1_frame",
+    "P2_frame",
+    "P3_frame"
+  ],
+  "distinct_joint_stamps": 903,
+  "joint_zero_verified": true,
+  "historical_lookup_scope": "One shared past stamp in a static zero-joint Fake run; not moving-camera synchronization or physical calibration.",
+  "shutdown": {
+    "already_exited": false,
+    "escalated": false,
+    "exit_code": 0,
+    "child_failures": [],
+    "statistics_context_errors": [
+      "[ros2_control_node-1] [ERROR] [1791742549.014310666] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+      "[ros2_control_node-1] [ERROR] [1791742549.014310666] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+    ]
+  },
+  "empty_after": true,
+  "ended_at": "2026-10-11T18:15:52.164110+00:00"
+}

@@ -1,0 +1,477 @@
+{
+  "started_at": "2026-10-11T16:25:16.987631+00:00",
+  "upstream": {
+    "observed_at": "2026-10-11T16:25:16.927653+00:00",
+    "commit": "4a1a81652fca39efe2916a19ad49187d29789697",
+    "previous": "fcdd8eae897cbc37c539d4bad57b712f08124938",
+    "refs": [
+      "refs/heads/feature/moveit-planner",
+      "refs/pull/3/head"
+    ],
+    "paths": [
+      "README.md",
+      "README_FSM.md",
+      "docs/migration/PHASE2A_ROS2_ACTION_REPORT.md",
+      "docs/migration/ROS_WIRING_FIX_20261011.md",
+      "src/mtc_manipulation/mtc_manipulation/pick_place_server.py",
+      "src/mtc_ros2_action_cpp/CMakeLists.txt",
+      "src/mtc_ros2_action_cpp/README.md",
+      "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/action_slot.hpp",
+      "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/mock_ports.hpp",
+      "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/motion_server.hpp",
+      "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/pick_place_server.hpp",
+      "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/task_server.hpp",
+      "src/mtc_ros2_action_cpp/package.xml",
+      "src/mtc_ros2_action_cpp/src/mock_ports.cpp",
+      "src/mtc_ros2_action_cpp/src/motion_main.cpp",
+      "src/mtc_ros2_action_cpp/src/motion_server.cpp",
+      "src/mtc_ros2_action_cpp/src/pick_place_main.cpp",
+      "src/mtc_ros2_action_cpp/src/pick_place_server.cpp",
+      "src/mtc_ros2_action_cpp/src/task_main.cpp",
+      "src/mtc_ros2_action_cpp/src/task_server.cpp",
+      "src/mtc_ros2_action_cpp/test/ros_fixture.hpp",
+      "src/mtc_ros2_action_cpp/test/test_action_contracts.cpp",
+      "src/mtc_ros2_action_cpp/test/test_motion_action.cpp",
+      "src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp",
+      "src/mtc_ros2_action_cpp/test/test_task_action.cpp",
+      "src/mtc_ros2_action_cpp/test/verify_results.py",
+      "src/mtc_task/mtc_task/task_executor.py",
+      "tests/test_ros_wiring.py"
+    ],
+    "relevant": true,
+    "commit_info": "commit 4a1a81652fca39efe2916a19ad49187d29789697\nMerge: fcdd8ea a04ac68\nAuthor:     changjianshuo <changjianshuo00@gmail.com>\nAuthorDate: Sun Oct 11 11:22:48 2026 -0500\nCommit:     changjianshuo <changjianshuo00@gmail.com>\nCommitDate: Sun Oct 11 11:22:48 2026 -0500\n\n    merge: sync main (Phase 2A Mock Action servers) into feature/moveit-planner\n    \n    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n"
+  },
+  "environment": {
+    "image": "sha256:8c442d3be3d5c2671d149d320da09388350d261fa452e23bb848aa5978b8a5f1",
+    "ros_base_digest": "sha256:066420e07f60aa18262f2479981def87ebcfcec42eefb0c0c57c4a46098348ca",
+    "driver": "53aab83735236f0c262ecb11e04ef2600241d9d9",
+    "model": "47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1",
+    "fake_patch_source": "TEAMMATE-SDK-20261011",
+    "moveit": "2.12.4",
+    "moveit_msgs": "2.6.0",
+    "qualification": "New harness qualified on existing PR; MoveIt plan/execute PASS, shutdown FAIL; module failures retained",
+    "offline_schema_directory": "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/offline-schema",
+    "offline_schema": {
+      "repository": "https://github.com/ros-infrastructure/rep",
+      "commit": "11ca24a41f31480dfb9562ba99f2a5b93d3ebda5",
+      "files": [
+        {
+          "file": "package_common.xsd",
+          "url": "https://raw.githubusercontent.com/ros-infrastructure/rep/11ca24a41f31480dfb9562ba99f2a5b93d3ebda5/xsd/package_common.xsd",
+          "sha256": "941ea8645344f3c4b7b9d7e68799898309d65a18225fa9cbef4169d95d1a3211"
+        },
+        {
+          "file": "package_format1.xsd",
+          "url": "https://raw.githubusercontent.com/ros-infrastructure/rep/11ca24a41f31480dfb9562ba99f2a5b93d3ebda5/xsd/package_format1.xsd",
+          "sha256": "5409efaaea14cce5041d62b9e44cc538e90d55d6f1b181e65e123a54cbddf71b"
+        },
+        {
+          "file": "package_format2.xsd",
+          "url": "https://raw.githubusercontent.com/ros-infrastructure/rep/11ca24a41f31480dfb9562ba99f2a5b93d3ebda5/xsd/package_format2.xsd",
+          "sha256": "bb7afaf08f6174bf733f02ae4e1695d5d9a741d9cb7c847254fb97f3f43bb911"
+        },
+        {
+          "file": "package_format3.xsd",
+          "url": "https://raw.githubusercontent.com/ros-infrastructure/rep/11ca24a41f31480dfb9562ba99f2a5b93d3ebda5/xsd/package_format3.xsd",
+          "sha256": "f096a197ed6d7878984bb2501a55f7f1bd4895d254399fb7857e154bfb644f41"
+        }
+      ],
+      "note": "Official XSD cache for XML catalog; source and validation rules unchanged. download.ros.org HTTPS hostname verification failed; official pinned GitHub source used instead."
+    },
+    "harness_sha256": {
+      "watch_upstream.py": "90250864848c928db0b29eed0abcf9a06cc0b41e44d289321f3d43ccf68d5325",
+      "wake_main.py": "da433aeddd2a4144ffa0ae25a0705e74788ab0880480999d78ee54e821e50fab",
+      "reproduce_upstream.py": "06bb1b8d020fd268e302a363697ef8e2ebdc359f072ee087fdbdb0c3dfd2b393",
+      "probe_moveit.py": "b4426426c46704bee7d655d3977c0df4cce167af74a54a5bcfe3dc1ce716d626",
+      "probe_task_mock.py": "6b0fea0ff094fd56230a6fe2d57e2ce77330338dbc76d62e38be3c073866d09d"
+    },
+    "qualification_report": "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/runs/qualification-candidate-2/summary.json",
+    "wake_integration": "ENV-UPSTREAM-WAKE-20261011; supported local queue with persistent receipt gate",
+    "previous_harness": "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/harness",
+    "previous_ready_file": "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/environment-ready.json"
+  },
+  "container": "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+  "steps": [
+    {
+      "name": "create",
+      "argv": [
+        "/usr/bin/docker",
+        "run",
+        "-d",
+        "--name",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "--network",
+        "none",
+        "--cpus",
+        "2",
+        "--memory",
+        "4g",
+        "--pids-limit",
+        "512",
+        "--cap-drop",
+        "ALL",
+        "--security-opt",
+        "no-new-privileges",
+        "--label",
+        "mtc.purpose=upstream-reproduction",
+        "--label",
+        "mtc.event=sha-4a1a81652fca39efe2916a19ad49187d29789697",
+        "--label",
+        "mtc.watch-root=5c8f61d8af9f",
+        "sha256:8c442d3be3d5c2671d149d320da09388350d261fa452e23bb848aa5978b8a5f1",
+        "sleep",
+        "infinity"
+      ],
+      "started_at": "2026-10-11T16:25:16.988688+00:00",
+      "ended_at": "2026-10-11T16:25:17.354454+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "isolation",
+      "argv": [
+        "/usr/bin/docker",
+        "inspect",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca"
+      ],
+      "started_at": "2026-10-11T16:25:17.355078+00:00",
+      "ended_at": "2026-10-11T16:25:17.419616+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "directories",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "mkdir -p /candidate /candidate-evidence /acceptance-tools"
+      ],
+      "started_at": "2026-10-11T16:25:17.420132+00:00",
+      "ended_at": "2026-10-11T16:25:17.584994+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "source-bundle",
+      "argv": [
+        "git",
+        "--git-dir=/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/upstream.git",
+        "bundle",
+        "create",
+        "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/runs/sha-4a1a81652fca39efe2916a19ad49187d29789697/source.bundle",
+        "--all"
+      ],
+      "started_at": "2026-10-11T16:25:17.585587+00:00",
+      "ended_at": "2026-10-11T16:25:17.700526+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "source-copy",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "-i",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "sh",
+        "-c",
+        "cat > /candidate-source.bundle"
+      ],
+      "started_at": "2026-10-11T16:25:17.702400+00:00",
+      "ended_at": "2026-10-11T16:25:17.853844+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "source-checkout",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "git -C /candidate init && git -C /candidate fetch /candidate-source.bundle \"+refs/*:refs/remotes/upstream/*\" && git -C /candidate checkout --detach 4a1a81652fca39efe2916a19ad49187d29789697 && git -C /candidate rev-parse HEAD"
+      ],
+      "started_at": "2026-10-11T16:25:17.854731+00:00",
+      "ended_at": "2026-10-11T16:25:18.220878+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "probes",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "-i",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "tar",
+        "--no-same-owner",
+        "-xf",
+        "-",
+        "-C",
+        "/acceptance-tools"
+      ],
+      "started_at": "2026-10-11T16:25:18.225723+00:00",
+      "ended_at": "2026-10-11T16:25:18.390627+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "environment",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; export ROS_DOMAIN_ID=98 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp PYTHONDONTWRITEBYTECODE=1 XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; env | sort | grep -E \"^(ROS|RMW|AMENT|COLCON|CMAKE_PREFIX_PATH|PYTHONPATH)=\"; dpkg-query -W; git -C /driver_ws/src/aubo_ros2_driver rev-parse HEAD; git -C /driver_ws/src/aubo_ros2_driver/aubo_description rev-parse HEAD"
+      ],
+      "started_at": "2026-10-11T16:25:18.391283+00:00",
+      "ended_at": "2026-10-11T16:25:19.145236+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "dependencies",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; export ROS_DOMAIN_ID=98 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp PYTHONDONTWRITEBYTECODE=1 XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; cd /candidate; rosdep check --from-paths src --ignore-src"
+      ],
+      "started_at": "2026-10-11T16:25:19.145826+00:00",
+      "ended_at": "2026-10-11T16:25:20.615677+00:00",
+      "exit_code": 2
+    },
+    {
+      "name": "source-inventory",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "find /candidate -type f '(' -name '*.launch.py' -o -name 'package.xml' -o -iname '*moveit*' ')' -print"
+      ],
+      "started_at": "2026-10-11T16:25:20.616409+00:00",
+      "ended_at": "2026-10-11T16:25:20.781324+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "build",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; export ROS_DOMAIN_ID=98 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp PYTHONDONTWRITEBYTECODE=1 XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; set -e; cd /candidate; export CMAKE_BUILD_PARALLEL_LEVEL=2 MAKEFLAGS=-j2; colcon --log-base /candidate-evidence/build-log build --build-base /candidate-build --install-base /candidate-install --executor sequential --cmake-args -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17"
+      ],
+      "started_at": "2026-10-11T16:25:20.781980+00:00",
+      "ended_at": "2026-10-11T16:28:09.905064+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "colcon-test",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; export ROS_DOMAIN_ID=98 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp PYTHONDONTWRITEBYTECODE=1 XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; source /candidate-install/setup.bash; cd /candidate; colcon --log-base /candidate-evidence/test-log test --build-base /candidate-build --install-base /candidate-install --executor sequential --return-code-on-test-failure"
+      ],
+      "started_at": "2026-10-11T16:28:09.906080+00:00",
+      "ended_at": "2026-10-11T16:28:38.358252+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "test-results",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; export ROS_DOMAIN_ID=98 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp PYTHONDONTWRITEBYTECODE=1 XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; source /candidate-install/setup.bash; cd /candidate; colcon test-result --test-result-base /candidate-build --all"
+      ],
+      "started_at": "2026-10-11T16:28:38.358868+00:00",
+      "ended_at": "2026-10-11T16:28:39.878503+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "test-xml",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "python3 - <<'PY'\nfrom pathlib import Path\nimport shutil\nfor p in Path(\"/candidate-build\").rglob(\"*.xml\"):\n if \"test_results\" in p.parts or p.name == \"pytest.xml\":\n  q=Path(\"/candidate-evidence/test-results\")/p.relative_to(\"/candidate-build\")\n  q.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(p,q)\nPY"
+      ],
+      "started_at": "2026-10-11T16:28:39.879949+00:00",
+      "ended_at": "2026-10-11T16:28:40.095121+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "cpp-audit",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; export ROS_DOMAIN_ID=98 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp PYTHONDONTWRITEBYTECODE=1 XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; source /candidate-install/setup.bash; cd /candidate; if test -f tests/verify_cpp_audit_results.py; then timeout 120 python3 tests/verify_cpp_audit_results.py --build-base /candidate-build; else echo \"NOT RUN: entrypoint absent\"; exit 3; fi"
+      ],
+      "started_at": "2026-10-11T16:28:40.095763+00:00",
+      "ended_at": "2026-10-11T16:28:41.063702+00:00",
+      "exit_code": 1
+    },
+    {
+      "name": "python-mock-e2e",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; export ROS_DOMAIN_ID=98 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp PYTHONDONTWRITEBYTECODE=1 XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; source /candidate-install/setup.bash; cd /candidate; if test -f tests/test_mock_end_to_end.py; then timeout 120 python3 tests/test_mock_end_to_end.py ; else echo \"NOT RUN: entrypoint absent\"; exit 3; fi"
+      ],
+      "started_at": "2026-10-11T16:28:41.064543+00:00",
+      "ended_at": "2026-10-11T16:28:42.132809+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "ros-wiring-regression",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; export ROS_DOMAIN_ID=98 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp PYTHONDONTWRITEBYTECODE=1 XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; source /candidate-install/setup.bash; cd /candidate; if test -f tests/test_ros_wiring.py; then timeout 90 python3 -m pytest -q tests/test_ros_wiring.py --junitxml=/candidate-evidence/ros-wiring.xml; else echo \"NOT RUN: optional PR regression file absent\"; fi"
+      ],
+      "started_at": "2026-10-11T16:28:42.133532+00:00",
+      "ended_at": "2026-10-11T16:28:44.104817+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "actual-task-mock",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; export ROS_DOMAIN_ID=98 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp PYTHONDONTWRITEBYTECODE=1 XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; source /candidate-install/setup.bash; cd /candidate; timeout --signal=TERM --kill-after=10 210 python3 /acceptance-tools/probe_task_mock.py /candidate-evidence/task-mock"
+      ],
+      "started_at": "2026-10-11T16:28:44.105544+00:00",
+      "ended_at": "2026-10-11T16:29:15.699595+00:00",
+      "exit_code": 1
+    },
+    {
+      "name": "driver-rosdep",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; export ROS_DOMAIN_ID=98 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp PYTHONDONTWRITEBYTECODE=1 XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; rosdep check --from-paths /driver_ws/src/aubo_ros2_driver/aubo_description /driver_ws/src/aubo_ros2_driver/aubo_ros2_driver /driver_ws/src/aubo_ros2_driver/aubo_msgs /driver_ws/src/aubo_ros2_driver/aubo_dashboard_msgs /driver_ws/src/aubo_ros2_driver/aubo_moveit_config --ignore-src"
+      ],
+      "started_at": "2026-10-11T16:29:15.700334+00:00",
+      "ended_at": "2026-10-11T16:29:17.771855+00:00",
+      "exit_code": 1
+    },
+    {
+      "name": "driver-tests",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; export ROS_DOMAIN_ID=98 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp PYTHONDONTWRITEBYTECODE=1 XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; cd /driver_ws; timeout --signal=TERM --kill-after=10 160 colcon --log-base /candidate-evidence/driver-test-log test --build-base /driver_work/build --install-base /driver_work/install --executor sequential --packages-select aubo_description aubo_dashboard_msgs aubo_msgs aubo_ros2_driver aubo_moveit_config --return-code-on-test-failure"
+      ],
+      "started_at": "2026-10-11T16:29:17.773270+00:00",
+      "ended_at": "2026-10-11T16:29:41.381961+00:00",
+      "exit_code": 1
+    },
+    {
+      "name": "driver-test-results",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; export ROS_DOMAIN_ID=98 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp PYTHONDONTWRITEBYTECODE=1 XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; colcon test-result --test-result-base /driver_work/build --all"
+      ],
+      "started_at": "2026-10-11T16:29:41.382589+00:00",
+      "ended_at": "2026-10-11T16:29:42.349651+00:00",
+      "exit_code": 1
+    },
+    {
+      "name": "driver-test-xml",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "python3 - <<'PY'\nfrom pathlib import Path\nimport shutil\nfor p in Path(\"/driver_work/build\").rglob(\"*.xml\"):\n if \"test_results\" in p.parts:\n  q=Path(\"/candidate-evidence/driver-test-results\")/p.relative_to(\"/driver_work/build\")\n  q.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(p,q)\nPY"
+      ],
+      "started_at": "2026-10-11T16:29:42.350422+00:00",
+      "ended_at": "2026-10-11T16:29:42.615473+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "moveit-plan-execute",
+      "argv": [
+        "/usr/bin/docker",
+        "exec",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "bash",
+        "-c",
+        "source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; export ROS_DOMAIN_ID=98 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp PYTHONDONTWRITEBYTECODE=1 XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; timeout --signal=TERM --kill-after=10 180 python3 /acceptance-tools/probe_moveit.py /candidate-evidence/moveit"
+      ],
+      "started_at": "2026-10-11T16:29:42.616700+00:00",
+      "ended_at": "2026-10-11T16:30:06.377023+00:00",
+      "exit_code": 1
+    },
+    {
+      "name": "stop",
+      "argv": [
+        "/usr/bin/docker",
+        "stop",
+        "-t",
+        "12",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca"
+      ],
+      "started_at": "2026-10-11T16:30:06.377792+00:00",
+      "ended_at": "2026-10-11T16:30:19.004540+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "collect",
+      "argv": [
+        "/usr/bin/docker",
+        "cp",
+        "mtc-repro-5c8f61d8af9f-4a1a81652fca:/candidate-evidence",
+        "/home/afonso/meituan-robotics-challenge-2026/outputs/moveit-watch-20261011/runs/sha-4a1a81652fca39efe2916a19ad49187d29789697/container"
+      ],
+      "started_at": "2026-10-11T16:30:19.005464+00:00",
+      "ended_at": "2026-10-11T16:30:19.421711+00:00",
+      "exit_code": 0
+    }
+  ],
+  "scope": "Isolated Jazzy / GenericSystem only; no physical devices",
+  "not_verified": [
+    "NUC and physical robot",
+    "SDK licence/vendor checksum",
+    "New C++ FSM end-to-end launch unless provided as an upstream test",
+    "Perception/tool physical evidence",
+    "TSan race analysis"
+  ],
+  "source_bundle_sha256": "442854731084f67a04aab9acda2541d10d70df2f4621ca7c903feaa020e8c305",
+  "driver_test_coverage": "SEE_DRIVER_TEST_RESULTS_LOG",
+  "status": "COMPLETED_WITH_FAILURES",
+  "ended_at": "2026-10-11T16:30:19.422782+00:00"
+}

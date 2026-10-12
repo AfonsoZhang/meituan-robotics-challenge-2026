@@ -1,0 +1,33 @@
+{
+  "container": "mtc-planner-scene-review-30e3c6e",
+  "image": "sha256:4b6701f4a7b9a99409f6e9d66b527bdd3f99deaf0f2ab4ed39fded5409736799",
+  "argv": [
+    "docker",
+    "run",
+    "-d",
+    "--name",
+    "mtc-planner-scene-review-30e3c6e",
+    "--network",
+    "none",
+    "--cpus",
+    "2",
+    "--memory",
+    "4g",
+    "--pids-limit",
+    "512",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--label",
+    "mtc.purpose=planner-scene-acceptance",
+    "--label",
+    "mtc.event=sha-30e3c6e64516c47afe9ada25d02df7ed4669825c",
+    "sha256:4b6701f4a7b9a99409f6e9d66b527bdd3f99deaf0f2ab4ed39fded5409736799",
+    "sleep",
+    "infinity"
+  ],
+  "source_container": "mtc-repro-5c8f61d8af9f-30e3c6e64516",
+  "commit": "30e3c6e64516c47afe9ada25d02df7ed4669825c",
+  "ready_at": "2026-10-11T16:50:34.406759+00:00"
+}

@@ -1,0 +1,33 @@
+{
+  "container": "mtc-calibration-review-06ab689",
+  "image": "sha256:056dbeff183face1260d63794f7327ed244babe79d8ff59bcea3fcbe0fbbea5a",
+  "argv": [
+    "docker",
+    "run",
+    "-d",
+    "--name",
+    "mtc-calibration-review-06ab689",
+    "--network",
+    "none",
+    "--cpus",
+    "2",
+    "--memory",
+    "4g",
+    "--pids-limit",
+    "512",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--label",
+    "mtc.purpose=calibration-acceptance",
+    "--label",
+    "mtc.event=sha-06ab689f25e87dcebf9fd04fdd581ec4755206f6",
+    "sha256:056dbeff183face1260d63794f7327ed244babe79d8ff59bcea3fcbe0fbbea5a",
+    "sleep",
+    "infinity"
+  ],
+  "source_container": "mtc-repro-5c8f61d8af9f-06ab689f25e8",
+  "commit": "06ab689f25e87dcebf9fd04fdd581ec4755206f6",
+  "ready_at": "2026-10-11T18:12:58.525333+00:00"
+}

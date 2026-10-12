@@ -1,0 +1,143 @@
+{
+  "task_id": "http_cancel_unconfirmed_3fc9a981",
+  "goal_id": "c3bfcabd-6eb6-4b7c-86e7-4b678c982612",
+  "mode": "cpp_mock",
+  "owned": true,
+  "goal": {
+    "task_id": "http_cancel_unconfirmed_3fc9a981",
+    "mode": 1,
+    "ordered_colors": [
+      1
+    ],
+    "timeout_ms": 30000,
+    "placement_stability_sec": 3
+  },
+  "status": "ABORTED",
+  "state": "FAULT",
+  "substate": "FAULT",
+  "detail": "取消后未确认停稳（request_delivered=true）：Mock scenario withholds independent stop evidence",
+  "completed_count": 0,
+  "total_count": 1,
+  "completed_slots": [],
+  "current_index": 0,
+  "current_slot": "T0",
+  "current_object_id": "mock_battery_color_1",
+  "last_error_code": 520,
+  "created_at": "2026-10-12T00:11:06.162+00:00",
+  "finished_at": "2026-10-12T00:11:06.267+00:00",
+  "elapsed_ms": 105,
+  "result": {
+    "success": false,
+    "completed_count": 0,
+    "completed_slots": [],
+    "error_code": 520,
+    "message": "取消后未确认停稳（request_delivered=true）：Mock scenario withholds independent stop evidence"
+  },
+  "cancel_ack": {
+    "request_delivered": true,
+    "message": "ROS 已确认接受取消"
+  },
+  "events": [
+    {
+      "seq": 3,
+      "at": "2026-10-12T00:11:06.162+00:00",
+      "kind": "GOAL_REQUESTED",
+      "message": "等待 ROS Goal 受理回执",
+      "level": "info",
+      "mode": "cpp_mock",
+      "task_id": "http_cancel_unconfirmed_3fc9a981",
+      "goal_id": "c3bfcabd-6eb6-4b7c-86e7-4b678c982612"
+    },
+    {
+      "seq": 4,
+      "at": "2026-10-12T00:11:06.178+00:00",
+      "kind": "GOAL_ACCEPTED",
+      "message": "ROS Action 服务端已受理",
+      "level": "info",
+      "mode": "cpp_mock",
+      "task_id": "http_cancel_unconfirmed_3fc9a981",
+      "goal_id": "c3bfcabd-6eb6-4b7c-86e7-4b678c982612"
+    },
+    {
+      "seq": 7,
+      "at": "2026-10-12T00:11:06.186+00:00",
+      "kind": "FEEDBACK",
+      "message": "EXECUTE_ITEM / EXECUTE_ITEM",
+      "level": "info",
+      "mode": "cpp_mock",
+      "task_id": "http_cancel_unconfirmed_3fc9a981",
+      "goal_id": "c3bfcabd-6eb6-4b7c-86e7-4b678c982612"
+    },
+    {
+      "seq": 10,
+      "at": "2026-10-12T00:11:06.196+00:00",
+      "kind": "FEEDBACK",
+      "message": "EXECUTE_ITEM / PLAN_ACQUIRE",
+      "level": "info",
+      "mode": "cpp_mock",
+      "task_id": "http_cancel_unconfirmed_3fc9a981",
+      "goal_id": "c3bfcabd-6eb6-4b7c-86e7-4b678c982612"
+    },
+    {
+      "seq": 11,
+      "at": "2026-10-12T00:11:06.206+00:00",
+      "kind": "FEEDBACK",
+      "message": "EXECUTE_ITEM / MOVE_PRE_ALIGN",
+      "level": "info",
+      "mode": "cpp_mock",
+      "task_id": "http_cancel_unconfirmed_3fc9a981",
+      "goal_id": "c3bfcabd-6eb6-4b7c-86e7-4b678c982612"
+    },
+    {
+      "seq": 12,
+      "at": "2026-10-12T00:11:06.229+00:00",
+      "kind": "CANCEL_REQUESTED",
+      "message": "取消已排队，等待 ROS Cancel 回执",
+      "level": "info",
+      "mode": "cpp_mock",
+      "task_id": "http_cancel_unconfirmed_3fc9a981",
+      "goal_id": "c3bfcabd-6eb6-4b7c-86e7-4b678c982612"
+    },
+    {
+      "seq": 13,
+      "at": "2026-10-12T00:11:06.236+00:00",
+      "kind": "CANCEL_REPLY",
+      "message": "ROS 已确认接受取消；完成以 C++ Action 最终结果为准",
+      "level": "info",
+      "mode": "cpp_mock",
+      "task_id": "http_cancel_unconfirmed_3fc9a981",
+      "goal_id": "c3bfcabd-6eb6-4b7c-86e7-4b678c982612"
+    },
+    {
+      "seq": 15,
+      "at": "2026-10-12T00:11:06.247+00:00",
+      "kind": "FEEDBACK",
+      "message": "CANCEL_PENDING / MOVE_PRE_ALIGN",
+      "level": "info",
+      "mode": "cpp_mock",
+      "task_id": "http_cancel_unconfirmed_3fc9a981",
+      "goal_id": "c3bfcabd-6eb6-4b7c-86e7-4b678c982612"
+    },
+    {
+      "seq": 18,
+      "at": "2026-10-12T00:11:06.266+00:00",
+      "kind": "FEEDBACK",
+      "message": "FAULT / FAULT",
+      "level": "info",
+      "mode": "cpp_mock",
+      "task_id": "http_cancel_unconfirmed_3fc9a981",
+      "goal_id": "c3bfcabd-6eb6-4b7c-86e7-4b678c982612"
+    },
+    {
+      "seq": 20,
+      "at": "2026-10-12T00:11:06.267+00:00",
+      "kind": "RESULT",
+      "message": "取消后未确认停稳（request_delivered=true）：Mock scenario withholds independent stop evidence",
+      "level": "error",
+      "mode": "cpp_mock",
+      "task_id": "http_cancel_unconfirmed_3fc9a981",
+      "goal_id": "c3bfcabd-6eb6-4b7c-86e7-4b678c982612"
+    }
+  ],
+  "recordings": []
+}

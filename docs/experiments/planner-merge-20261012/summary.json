@@ -1,0 +1,706 @@
+{
+  "observation": "ENV-PLANNER-MERGE-20261012",
+  "recorded_at": "2026-10-11T16:38:43.641374+00:00",
+  "commit": "4a1a81652fca39efe2916a19ad49187d29789697",
+  "verdict": "MERGED_MODULES_PARTIAL_PASS_WITH_PLANNING_WATCHDOG_TF_AND_SHUTDOWN_FAILURES",
+  "formal_baseline_advanced": false,
+  "local_merge_performed": false,
+  "upstream_change": "Merge main a04ac68 into planner fcdd8ea, exact union; both module trees unchanged, no production wiring.",
+  "automatic_summary_complete": true,
+  "automatic_status": "COMPLETED_WITH_FAILURES",
+  "build_packages": 14,
+  "cpp_cases": 387,
+  "cpp_executables": 24,
+  "cpp_by_package": {
+    "mtc_core_cpp": 23,
+    "mtc_manipulation_cpp": 120,
+    "mtc_motion_execution_cpp": 88,
+    "mtc_moveit_planner": 29,
+    "mtc_ros2_action_cpp": 40,
+    "mtc_task_cpp": 87
+  },
+  "python_cases": 269,
+  "pure_python_mock_e2e": 15,
+  "ros_wiring_cases": 6,
+  "new_action_identity_verifier": "PASS 358 / 20, excludes planner by glob",
+  "all_cpp_identity_review": "PASS 387 unique executed source identities, includes planner 29 / 4",
+  "old_fixed_identity_verifier": "FAIL: expects 16, sees 20 *_cpp executables. No missing/unexpected/duplicate/bad case. Planner package excluded by that glob.",
+  "two_module_rosdep_and_installed_identity": "PASS; full workspace/driver dependency failures preserved",
+  "standalone_cpp_actions": {
+    "scenarios": 4,
+    "checks": 40,
+    "status": "PASS",
+    "process_invocations_exit_zero": 6,
+    "cases": [
+      {
+        "case": "task-basic-sequence-after-idle",
+        "scope": "Standalone C++ Mock processes and ROS Action only",
+        "domain": 110,
+        "status": "PASS",
+        "checks": [
+          {
+            "name": "/mtc/task/execute server available",
+            "passed": true
+          },
+          {
+            "name": "/mtc/task/execute unique delivered server",
+            "passed": true
+          },
+          {
+            "name": "/mtc/manipulation/pick_place server available",
+            "passed": true
+          },
+          {
+            "name": "/mtc/manipulation/pick_place unique delivered server",
+            "passed": true
+          },
+          {
+            "name": "invalid task rejected: bad-color",
+            "passed": true
+          },
+          {
+            "name": "invalid task rejected: bad-sequence",
+            "passed": true
+          },
+          {
+            "name": "invalid task rejected: bad-stability",
+            "passed": true
+          },
+          {
+            "name": "basic accepted after idle",
+            "passed": true
+          },
+          {
+            "name": "concurrent task rejected",
+            "passed": true
+          },
+          {
+            "name": "basic real child result and T0",
+            "passed": true
+          },
+          {
+            "name": "task and child feedback populated",
+            "passed": true
+          },
+          {
+            "name": "completed business ID rejected",
+            "passed": true
+          },
+          {
+            "name": "sequence accepted after normal finish",
+            "passed": true
+          },
+          {
+            "name": "ordered sequence completed",
+            "passed": true
+          },
+          {
+            "name": "ordered colors preserved in actual feedback",
+            "passed": true
+          }
+        ],
+        "shutdown": [
+          {
+            "executable": "mock_task_server",
+            "exit_code": 0,
+            "escalated": false
+          },
+          {
+            "executable": "mock_pick_place_server",
+            "exit_code": 0,
+            "escalated": false
+          }
+        ],
+        "nodes_after_shutdown": [
+          [
+            "cpp_action_acceptance",
+            "/"
+          ]
+        ]
+      },
+      {
+        "case": "task-associated-cancel",
+        "scope": "Standalone C++ Mock processes and ROS Action only",
+        "domain": 111,
+        "status": "PASS",
+        "checks": [
+          {
+            "name": "/mtc/task/execute server available",
+            "passed": true
+          },
+          {
+            "name": "/mtc/task/execute unique delivered server",
+            "passed": true
+          },
+          {
+            "name": "/mtc/manipulation/pick_place server available",
+            "passed": true
+          },
+          {
+            "name": "/mtc/manipulation/pick_place unique delivered server",
+            "passed": true
+          },
+          {
+            "name": "cancel scenario accepted",
+            "passed": true
+          },
+          {
+            "name": "child motion state observed repeatedly",
+            "passed": true
+          },
+          {
+            "name": "associated Cancel accepted",
+            "passed": true
+          },
+          {
+            "name": "trusted child final cancel propagated",
+            "passed": true
+          }
+        ],
+        "shutdown": [
+          {
+            "executable": "mock_task_server",
+            "exit_code": 0,
+            "escalated": false
+          },
+          {
+            "executable": "mock_pick_place_server",
+            "exit_code": 0,
+            "escalated": false
+          }
+        ],
+        "nodes_after_shutdown": [
+          [
+            "cpp_action_acceptance",
+            "/"
+          ]
+        ]
+      },
+      {
+        "case": "task-missing-child-fault",
+        "scope": "Standalone C++ Mock processes and ROS Action only",
+        "domain": 112,
+        "status": "PASS",
+        "checks": [
+          {
+            "name": "/mtc/task/execute server available",
+            "passed": true
+          },
+          {
+            "name": "/mtc/task/execute unique delivered server",
+            "passed": true
+          },
+          {
+            "name": "missing-child request accepted",
+            "passed": true
+          },
+          {
+            "name": "missing child cannot fabricate success",
+            "passed": true
+          },
+          {
+            "name": "fault admission lock retained",
+            "passed": true
+          }
+        ],
+        "shutdown": [
+          {
+            "executable": "mock_task_server",
+            "exit_code": 0,
+            "escalated": false
+          }
+        ],
+        "nodes_after_shutdown": [
+          [
+            "cpp_action_acceptance",
+            "/"
+          ]
+        ]
+      },
+      {
+        "case": "motion-single-point-cancel",
+        "scope": "Standalone C++ Mock processes and ROS Action only",
+        "domain": 113,
+        "status": "PASS",
+        "checks": [
+          {
+            "name": "/mtc/motion/execute_joint_move server available",
+            "passed": true
+          },
+          {
+            "name": "/mtc/motion/execute_joint_move unique delivered server",
+            "passed": true
+          },
+          {
+            "name": "motion scaling over limit rejected",
+            "passed": true
+          },
+          {
+            "name": "0.2 float32 boundary accepted",
+            "passed": true
+          },
+          {
+            "name": "motion concurrent goal rejected",
+            "passed": true
+          },
+          {
+            "name": "nonzero single point result exact",
+            "passed": true
+          },
+          {
+            "name": "finite backend feedback present",
+            "passed": true
+          },
+          {
+            "name": "motion completed ID rejected",
+            "passed": true
+          },
+          {
+            "name": "new motion accepted",
+            "passed": true
+          },
+          {
+            "name": "motion dispatched before cancellation",
+            "passed": true
+          },
+          {
+            "name": "associated Cancel accepted",
+            "passed": true
+          },
+          {
+            "name": "motion cancel has terminal stop confirmation",
+            "passed": true
+          }
+        ],
+        "shutdown": [
+          {
+            "executable": "mock_motion_server",
+            "exit_code": 0,
+            "escalated": false
+          }
+        ],
+        "nodes_after_shutdown": [
+          [
+            "cpp_action_acceptance",
+            "/"
+          ]
+        ]
+      }
+    ],
+    "stop_scope": "Trusted Mock Action contract only; PickPlace public result has no independent stop_confirmed field. No actual planner, FJT, tool or physical stop."
+  },
+  "planner_runs": {
+    "planning-sop": {
+      "fixed_pose": {
+        "point_count": 89,
+        "duration_s": 8.758936911,
+        "time_monotonic": true,
+        "finite_positions_velocities_accelerations": true,
+        "planner_declared_position_bounds": "PASS",
+        "joint_order": [
+          "shoulder_joint",
+          "upperArm_joint",
+          "foreArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "extremes_rad": {
+          "shoulder_joint": [
+            0,
+            2.44406497
+          ],
+          "upperArm_joint": [
+            0,
+            0.03037905582
+          ],
+          "foreArm_joint": [
+            -1.248519058,
+            0
+          ],
+          "wrist1_joint": [
+            0,
+            0.3417308942
+          ],
+          "wrist2_joint": [
+            -1.613501361,
+            0
+          ],
+          "wrist3_joint": [
+            -0.6959993805,
+            0
+          ]
+        },
+        "planning_time_s": 0.06750487,
+        "final_position_error_m": 7.183451863e-05,
+        "final_orientation_error_rad": 0.0006958217731,
+        "yaml": "fixed_pose_plan_20261011_163629.yaml",
+        "child_exit": 0
+      },
+      "sequences": {
+        "passive_hook_v1": {
+          "yaml": "battery_sequence_passive_hook_v1_T0_20261011_163632.yaml",
+          "ok": false,
+          "phases": [
+            {
+              "phase": "ACQUIRE",
+              "ok": false,
+              "error_code": 200,
+              "message": "[EXCEEDS_STATE_WATCHDOG] side_insert: trajectory lasts 42.0717 s, more than 80% of the MOVE_PRE_ALIGN watchdog (30 s)",
+              "simulation_only": true,
+              "uncalibrated_inputs": [],
+              "primitives": [
+                {
+                  "primitive_name": "side_insert",
+                  "ok": false,
+                  "reason": "EXCEEDS_STATE_WATCHDOG",
+                  "message": "trajectory lasts 42.0717 s, more than 80% of the MOVE_PRE_ALIGN watchdog (30 s)",
+                  "mode": "FREE_SPACE",
+                  "method": "ompl",
+                  "goal_kind": "RING_STANDOFF",
+                  "start_assumption": "explicit_start_state",
+                  "contact_intent_only": false,
+                  "ee_goal": {
+                    "frame_id": "world",
+                    "position_m": [
+                      0.37,
+                      -0.05,
+                      0.2
+                    ],
+                    "orientation_xyzw": [
+                      0,
+                      0.7071067812,
+                      0,
+                      0.7071067812
+                    ]
+                  },
+                  "planning_time_s": 0.096561933,
+                  "cartesian_fraction": 0,
+                  "time_scale_applied": 3.527389647,
+                  "max_ee_linear_speed_m_s": 0.01631215883,
+                  "max_ee_angular_speed_rad_s": 0.09803921569,
+                  "duration_s": 42.07169595,
+                  "point_count": 121,
+                  "timeout_ms": 0,
+                  "state_watchdog_s": 30
+                }
+              ]
+            }
+          ],
+          "command_count": 0,
+          "trajectories": [],
+          "boundaries": [],
+          "child_exit": 1
+        },
+        "magnetic_latch_v2": {
+          "yaml": "battery_sequence_magnetic_latch_v2_T0_20261011_163635.yaml",
+          "ok": false,
+          "phases": [
+            {
+              "phase": "ACQUIRE",
+              "ok": false,
+              "error_code": 200,
+              "message": "[TF_UNAVAILABLE] top_insert: cannot transform ring pose from 'base_link' to 'world'",
+              "simulation_only": true,
+              "uncalibrated_inputs": [],
+              "primitives": [
+                {
+                  "primitive_name": "top_insert",
+                  "ok": false,
+                  "reason": "TF_UNAVAILABLE",
+                  "message": "cannot transform ring pose from 'base_link' to 'world'",
+                  "mode": "FREE_SPACE",
+                  "method": "",
+                  "goal_kind": "RING_STANDOFF",
+                  "start_assumption": "explicit_start_state",
+                  "contact_intent_only": false,
+                  "ee_goal": {
+                    "frame_id": "",
+                    "position_m": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "orientation_xyzw": [
+                      0,
+                      0,
+                      0,
+                      1
+                    ]
+                  },
+                  "planning_time_s": 0,
+                  "cartesian_fraction": 0,
+                  "time_scale_applied": 1,
+                  "max_ee_linear_speed_m_s": 0,
+                  "max_ee_angular_speed_rad_s": 0,
+                  "duration_s": 0,
+                  "point_count": 0,
+                  "timeout_ms": 0,
+                  "state_watchdog_s": 0
+                }
+              ]
+            }
+          ],
+          "command_count": 0,
+          "trajectories": [],
+          "boundaries": [],
+          "child_exit": 1
+        }
+      },
+      "move_group_exit": -11,
+      "control_exit": 0,
+      "script_exit": 0,
+      "summary_reports_no_remaining_nodes": true
+    }
+  },
+  "planner_configuration_changed": false,
+  "planner_analysis": "Default V1 reached planning this time but side_insert 42.0717 s exceeded 24 s budget; V2 still TF_UNAVAILABLE. Same planner/source/config as previous fcdd8ea default where both were TF_UNAVAILABLE. This is variable observed failure stage, not a fix or performance improvement. No TF-wait diagnostic repeated; previous 5 s / V2 7-command result remains historical ENV-PLANNER-20261012.",
+  "raw_urdf_command_interface_limits": {
+    "shoulder_joint": {
+      "min": "{-2*pi}",
+      "max": "{2*pi}"
+    },
+    "upperArm_joint": {
+      "min": "{-2*pi}",
+      "max": "{2*pi}"
+    },
+    "foreArm_joint": {
+      "min": "-2.41",
+      "max": "2.41"
+    },
+    "wrist1_joint": {
+      "min": "-2.66",
+      "max": "2.66"
+    },
+    "wrist2_joint": {
+      "min": "{-2*pi}",
+      "max": "{2*pi}"
+    },
+    "wrist3_joint": {
+      "min": "-2.23",
+      "max": "2.23"
+    }
+  },
+  "runtime_limit_enforcement": "NOT VERIFIED; expanded command-interface limits may retain expressions, recorded verbatim",
+  "legacy_python": [
+    {
+      "case": "early-goal",
+      "status": "FAIL",
+      "task_server_available": true,
+      "pickplace_server_available": false,
+      "result": {
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 220,
+          "message": "task acceptance-early-goal exceeded timeout_ms=5000 (elapsed 5.035s)"
+        }
+      },
+      "cancel_response": null,
+      "child_failure": true
+    },
+    {
+      "case": "delayed-goal",
+      "status": "FAIL",
+      "task_server_available": true,
+      "pickplace_server_available": false,
+      "result": {
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 510,
+          "message": "state INIT timed out after 5.046s -> HARDWARE_FAULT"
+        }
+      },
+      "cancel_response": null,
+      "child_failure": true
+    },
+    {
+      "case": "cancel-goal",
+      "status": "FAIL",
+      "task_server_available": true,
+      "pickplace_server_available": false,
+      "result": {
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 220,
+          "message": "task acceptance-cancel-goal exceeded timeout_ms=5000 (elapsed 5.015s)"
+        }
+      },
+      "cancel_response": {
+        "return_code": 0,
+        "goals_canceling": [
+          {
+            "goal_id": {
+              "uuid": [
+                170,
+                136,
+                244,
+                99,
+                10,
+                190,
+                77,
+                166,
+                178,
+                166,
+                233,
+                153,
+                88,
+                199,
+                16,
+                111
+              ]
+            },
+            "stamp": {
+              "sec": 1791736149,
+              "nanosec": 161695920
+            }
+          }
+        ]
+      },
+      "child_failure": true
+    }
+  ],
+  "independent_moveit": {
+    "scope": "Independent S3 MoveIt / GenericSystem; no FSM or physical robot",
+    "planning_execution": "PASS",
+    "clean_shutdown": "FAIL",
+    "max_error_rad": 8.607770199887454e-05,
+    "distinct_joint_stamps": 209,
+    "execute": {
+      "status": 4,
+      "result": {
+        "error_code": {
+          "val": 1,
+          "message": "",
+          "source": ""
+        }
+      }
+    },
+    "shutdown": [
+      {
+        "launch": "move-group",
+        "escalated": false,
+        "already_exited": false,
+        "exit_code": 0,
+        "child_failures": [
+          "process has died [pid 4954, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_n0zdg592 --params-file /tmp/launch_params_3_l7tv2x']."
+        ]
+      },
+      {
+        "launch": "control",
+        "escalated": false,
+        "already_exited": false,
+        "exit_code": 0,
+        "child_failures": []
+      }
+    ]
+  },
+  "dependencies": "Unresolved ament_python definition; missing driver docker.io and ros-jazzy-ros2-controllers-test-nodes.",
+  "driver_test_aggregate": {
+    "total": 1104,
+    "failures": 279,
+    "skipped": 259,
+    "scope": "Includes lint and wrapper counts, not function tests."
+  },
+  "cleanup": {
+    "recorded_at": "2026-10-11T16:37:18.257380+00:00",
+    "original_runner_pid": 12886,
+    "original_runner_absent": true,
+    "supplement_before_stop": "only sleep infinity; no ROS processes or daemons",
+    "stop": {
+      "exit_code": 0,
+      "stdout": "mtc-planner-merge-review-4a1a816\n",
+      "stderr": ""
+    },
+    "containers": [
+      {
+        "container": "mtc-repro-5c8f61d8af9f-4a1a81652fca",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-11T16:25:17.173371706Z",
+          "FinishedAt": "2026-10-11T16:30:18.528546968Z"
+        },
+        "network": "none",
+        "cpus": 2000000000,
+        "memory": 4294967296,
+        "mounts": [],
+        "devices": [],
+        "ports": {}
+      },
+      {
+        "container": "mtc-planner-merge-review-4a1a816",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-11T16:34:46.593410734Z",
+          "FinishedAt": "2026-10-11T16:37:17.905162231Z"
+        },
+        "network": "none",
+        "cpus": 2000000000,
+        "memory": 4294967296,
+        "mounts": [],
+        "devices": [],
+        "ports": {}
+      }
+    ],
+    "keeper_exit137_note": "docker stop terminates keeper; ROS child results checked separately."
+  },
+  "main_receipt": {
+    "thread": "01a12a25-b5c5-7b23-98b7-1cf673d68838",
+    "ack_at": "2026-10-11T16:30:26.174855+00:00",
+    "queued_at": "2026-10-11T16:30:20.480797+00:00",
+    "queue_to_ack_seconds": 5.694058,
+    "attempts": 1,
+    "marker": "MOVEIT_WAKE_ACK_7e65587e43f277680a9efc6466d1f1ed",
+    "complete_at_freeze": false
+  },
+  "not_rerun_this_supplement": [
+    "UBSan / external CMake consumer: ENV-CPP-ACTION-20261011 history only",
+    "Graph CLI wait diagnostic: ENV-HANDOFF-20261012 history only; successful bounded Action client wait does not close CLI gap",
+    "Planner TF wait 5 s diagnostic and V2 seven trajectories: ENV-PLANNER-20261012 history only",
+    "Independent MoveIt Plan/Execute beyond current automatic run"
+  ],
+  "not_completed": [
+    "Default sequence readiness and V1 motion budget",
+    "Full C++ Action/FSM/MoveIt/FJT wiring and unified Bringup",
+    "Real PLAN_ACQUIRE deadline, unique execution ownership, full trajectory dispatch, tool-motion gaps and actual start state",
+    "Independent physical stop/cancel evidence, complete state topics and Web UI",
+    "Legacy Python B03/B05/B06 and Safety shutdown",
+    "MoveIt clean shutdown, driver limit enforcement, dependencies/lint",
+    "Calibrated TCP/vision/tools, environment and attached object collision scene, TSan, SDK licence/vendor checksum, NUC/physical robot"
+  ],
+  "handoff": {
+    "Sun_Jiaming": [
+      "FSM/Action/Cancel kernel, real async deadline, unique execution and full trajectory/tool integration; local issue handoff only"
+    ],
+    "Chang_Jianshuo": [
+      "Default TF readiness, V1 planning profile and state budget coordination, calibrated scene/input gates"
+    ],
+    "integration": [
+      "Observer readiness, driver/MoveIt cleanup, dependency declarations, symbolic URDF limits and evidence tracking"
+    ]
+  }
+}

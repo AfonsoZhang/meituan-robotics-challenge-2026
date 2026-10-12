@@ -1,0 +1,920 @@
+[0.000000] (-) TimerEvent: {}
+[0.002749] (-) JobUnselected: {'identifier': 'mtc_aubo_bridge'}
+[0.002864] (-) JobUnselected: {'identifier': 'mtc_bringup'}
+[0.002990] (-) JobUnselected: {'identifier': 'mtc_core_cpp'}
+[0.003061] (-) JobUnselected: {'identifier': 'mtc_interfaces'}
+[0.003130] (-) JobUnselected: {'identifier': 'mtc_manipulation'}
+[0.003197] (-) JobUnselected: {'identifier': 'mtc_manipulation_cpp'}
+[0.003263] (-) JobUnselected: {'identifier': 'mtc_motion_execution'}
+[0.003288] (-) JobUnselected: {'identifier': 'mtc_motion_execution_cpp'}
+[0.004085] (-) JobUnselected: {'identifier': 'mtc_moveit_planner'}
+[0.004171] (-) JobUnselected: {'identifier': 'mtc_safety'}
+[0.004243] (-) JobUnselected: {'identifier': 'mtc_task'}
+[0.004314] (-) JobUnselected: {'identifier': 'mtc_task_cpp'}
+[0.004383] (-) JobUnselected: {'identifier': 'mtc_tool'}
+[0.004458] (mtc_ros2_action_cpp) JobQueued: {'identifier': 'mtc_ros2_action_cpp', 'dependencies': OrderedDict({'mtc_core_cpp': '/integration-install/mtc_core_cpp', 'mtc_interfaces': '/integration-install/mtc_interfaces', 'mtc_motion_execution_cpp': '/integration-install/mtc_motion_execution_cpp', 'mtc_task_cpp': '/integration-install/mtc_task_cpp', 'mtc_manipulation_cpp': '/integration-install/mtc_manipulation_cpp'})}
+[0.004558] (mtc_cpp_mock_bringup) JobQueued: {'identifier': 'mtc_cpp_mock_bringup', 'dependencies': OrderedDict({'mtc_core_cpp': '/integration-install/mtc_core_cpp', 'mtc_interfaces': '/integration-install/mtc_interfaces', 'mtc_motion_execution_cpp': '/integration-install/mtc_motion_execution_cpp', 'mtc_task_cpp': '/integration-install/mtc_task_cpp', 'mtc_manipulation_cpp': '/integration-install/mtc_manipulation_cpp', 'mtc_ros2_action_cpp': '/integration-install/mtc_ros2_action_cpp'})}
+[0.004673] (mtc_ros2_action_cpp) JobStarted: {'identifier': 'mtc_ros2_action_cpp'}
+[0.065347] (mtc_ros2_action_cpp) JobProgress: {'identifier': 'mtc_ros2_action_cpp', 'progress': 'cmake'}
+[0.071789] (mtc_ros2_action_cpp) Command: {'cmd': ['/usr/bin/cmake', '/candidate/src/mtc_ros2_action_cpp', '-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DBUILD_TESTING=ON', '-DCMAKE_INSTALL_PREFIX=/integration-install/mtc_ros2_action_cpp'], 'cwd': '/integration-build/mtc_ros2_action_cpp', 'env': OrderedDict({'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/sdformat_vendor/share/gz', 'HOSTNAME': '992b0cf3c198', 'SHLVL': '0', 'LD_LIBRARY_PATH': '/candidate-install/mtc_ros2_action_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_moveit_planner/lib:/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/candidate-install/mtc_core_cpp/lib:/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/root', 'OLDPWD': '/', 'ROS_PYTHON_VERSION': '3', 'ROS_LOG_DIR': '/integration-evidence/roslogs', 'COLCON_PREFIX_PATH': '/candidate-install:/driver_work/install', 'ROS_DISTRO': 'jazzy', 'PYTHONDONTWRITEBYTECODE': '1', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'PATH': '/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'RMW_IMPLEMENTATION': 'rmw_fastrtps_cpp', 'ROS_DOMAIN_ID': '161', 'AMENT_PREFIX_PATH': '/candidate-install/mtc_bringup:/candidate-install/mtc_tool:/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_task:/candidate-install/mtc_safety:/candidate-install/mtc_moveit_planner:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_motion_execution:/candidate-install/mtc_manipulation:/candidate-install/mtc_aubo_bridge:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'LOCALHOST', 'PWD': '/integration-build/mtc_ros2_action_cpp', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/candidate-install/mtc_bringup/lib/python3.12/site-packages:/candidate-install/mtc_tool/lib/python3.12/site-packages:/candidate-install/mtc_task/lib/python3.12/site-packages:/candidate-install/mtc_safety/lib/python3.12/site-packages:/candidate-install/mtc_motion_execution/lib/python3.12/site-packages:/candidate-install/mtc_manipulation/lib/python3.12/site-packages:/candidate-install/mtc_aubo_bridge/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:/driver_work/install/aubo_ros2_driver/lib/python3.12/site-packages:/driver_work/install/aubo_msgs/lib/python3.12/site-packages:/driver_work/install/aubo_dashboard_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_moveit_planner:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/candidate-install/mtc_bringup:/candidate-install/mtc_tool:/candidate-install/mtc_task:/candidate-install/mtc_safety:/candidate-install/mtc_motion_execution:/candidate-install/mtc_manipulation:/candidate-install/mtc_aubo_bridge:/opt/ros/jazzy'}), 'shell': False}
+[0.100810] (-) TimerEvent: {}
+[0.201126] (-) TimerEvent: {}
+[0.261736] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- The C compiler identification is GNU 13.3.0\n'}
+[0.301293] (-) TimerEvent: {}
+[0.357847] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 13.3.0\n'}
+[0.390813] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.401473] (-) TimerEvent: {}
+[0.501793] (-) TimerEvent: {}
+[0.555074] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.561764] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.562199] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.563001] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.579262] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.601933] (-) TimerEvent: {}
+[0.702247] (-) TimerEvent: {}
+[0.724238] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.731395] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.731679] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.732037] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.743503] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[0.802397] (-) TimerEvent: {}
+[0.902637] (-) TimerEvent: {}
+[0.913278] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[1.002845] (-) TimerEvent: {}
+[1.103154] (-) TimerEvent: {}
+[1.203455] (-) TimerEvent: {}
+[1.212333] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found rclcpp: 28.1.22 (/opt/ros/jazzy/share/rclcpp/cmake)\n'}
+[1.303648] (-) TimerEvent: {}
+[1.333520] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)\n'}
+[1.366723] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)\n'}
+[1.403821] (-) TimerEvent: {}
+[1.415059] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.454102] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.504087] (-) TimerEvent: {}
+[1.604270] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)\n'}
+[1.604519] (-) TimerEvent: {}
+[1.614230] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 8.4.4 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)\n'}
+[1.704693] (-) TimerEvent: {}
+[1.779095] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  \n'}
+[1.801842] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") \n'}
+[1.804785] (-) TimerEvent: {}
+[1.828271] (mtc_ros2_action_cpp) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[1.905005] (-) TimerEvent: {}
+[1.941019] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found rclcpp_action: 28.1.22 (/opt/ros/jazzy/share/rclcpp_action/cmake)\n'}
+[2.005151] (-) TimerEvent: {}
+[2.006970] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found std_msgs: 5.3.8 (/opt/ros/jazzy/share/std_msgs/cmake)\n'}
+[2.023373] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found mtc_interfaces: 0.1.0 (/candidate-install/mtc_interfaces/share/mtc_interfaces/cmake)\n'}
+[2.087695] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found mtc_core_cpp: 0.1.0 (/candidate-install/mtc_core_cpp/share/mtc_core_cpp/cmake)\n'}
+[2.093336] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found mtc_task_cpp: 0.1.0 (/candidate-install/mtc_task_cpp/share/mtc_task_cpp/cmake)\n'}
+[2.099119] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found mtc_manipulation_cpp: 0.1.0 (/candidate-install/mtc_manipulation_cpp/share/mtc_manipulation_cpp/cmake)\n'}
+[2.105259] (-) TimerEvent: {}
+[2.205577] (-) TimerEvent: {}
+[2.250198] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[2.260298] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Found ament_cmake_gtest: 2.5.6 (/opt/ros/jazzy/share/ament_cmake_gtest/cmake)\n'}
+[2.268592] (mtc_ros2_action_cpp) StdoutLine: {'line': b"-- Found gtest sources under '/opt/ros/jazzy/src/gtest_vendor': C++ tests using 'Google Test' will be built\n"}
+[2.305797] (-) TimerEvent: {}
+[2.375018] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Configuring done (2.2s)\n'}
+[2.406024] (-) TimerEvent: {}
+[2.454031] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Generating done (0.1s)\n'}
+[2.471685] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Build files have been written to: /integration-build/mtc_ros2_action_cpp\n'}
+[2.489621] (mtc_ros2_action_cpp) CommandEnded: {'returncode': 0}
+[2.490254] (mtc_ros2_action_cpp) JobProgress: {'identifier': 'mtc_ros2_action_cpp', 'progress': 'build'}
+[2.490866] (mtc_ros2_action_cpp) Command: {'cmd': ['/usr/bin/cmake', '--build', '/integration-build/mtc_ros2_action_cpp', '--', '-j16', '-l16'], 'cwd': '/integration-build/mtc_ros2_action_cpp', 'env': OrderedDict({'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/sdformat_vendor/share/gz', 'HOSTNAME': '992b0cf3c198', 'SHLVL': '0', 'LD_LIBRARY_PATH': '/candidate-install/mtc_ros2_action_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_moveit_planner/lib:/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/candidate-install/mtc_core_cpp/lib:/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/root', 'OLDPWD': '/', 'ROS_PYTHON_VERSION': '3', 'ROS_LOG_DIR': '/integration-evidence/roslogs', 'COLCON_PREFIX_PATH': '/candidate-install:/driver_work/install', 'ROS_DISTRO': 'jazzy', 'PYTHONDONTWRITEBYTECODE': '1', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'PATH': '/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'RMW_IMPLEMENTATION': 'rmw_fastrtps_cpp', 'ROS_DOMAIN_ID': '161', 'AMENT_PREFIX_PATH': '/candidate-install/mtc_bringup:/candidate-install/mtc_tool:/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_task:/candidate-install/mtc_safety:/candidate-install/mtc_moveit_planner:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_motion_execution:/candidate-install/mtc_manipulation:/candidate-install/mtc_aubo_bridge:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'LOCALHOST', 'PWD': '/integration-build/mtc_ros2_action_cpp', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/candidate-install/mtc_bringup/lib/python3.12/site-packages:/candidate-install/mtc_tool/lib/python3.12/site-packages:/candidate-install/mtc_task/lib/python3.12/site-packages:/candidate-install/mtc_safety/lib/python3.12/site-packages:/candidate-install/mtc_motion_execution/lib/python3.12/site-packages:/candidate-install/mtc_manipulation/lib/python3.12/site-packages:/candidate-install/mtc_aubo_bridge/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:/driver_work/install/aubo_ros2_driver/lib/python3.12/site-packages:/driver_work/install/aubo_msgs/lib/python3.12/site-packages:/driver_work/install/aubo_dashboard_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_moveit_planner:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/candidate-install/mtc_bringup:/candidate-install/mtc_tool:/candidate-install/mtc_task:/candidate-install/mtc_safety:/candidate-install/mtc_motion_execution:/candidate-install/mtc_manipulation:/candidate-install/mtc_aubo_bridge:/opt/ros/jazzy'}), 'shell': False}
+[2.506214] (-) TimerEvent: {}
+[2.602758] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[  8%] Building CXX object CMakeFiles/mtc_ros2_action_cpp.dir/src/pick_place_server.cpp.o\n'}
+[2.602978] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[  8%] Building CXX object gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o\n'}
+[2.603046] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 13%] Building CXX object CMakeFiles/mtc_ros2_action_cpp.dir/src/motion_server.cpp.o\n'}
+[2.603133] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 17%] Building CXX object gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o\n'}
+[2.603357] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 21%] Building CXX object CMakeFiles/mtc_ros2_action_cpp.dir/src/mock_ports.cpp.o\n'}
+[2.603777] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 26%] Building CXX object CMakeFiles/mtc_ros2_action_cpp.dir/src/task_server.cpp.o\n'}
+[2.606329] (-) TimerEvent: {}
+[2.706632] (-) TimerEvent: {}
+[2.806988] (-) TimerEvent: {}
+[2.907242] (-) TimerEvent: {}
+[3.007503] (-) TimerEvent: {}
+[3.107783] (-) TimerEvent: {}
+[3.208049] (-) TimerEvent: {}
+[3.308353] (-) TimerEvent: {}
+[3.408648] (-) TimerEvent: {}
+[3.508917] (-) TimerEvent: {}
+[3.609164] (-) TimerEvent: {}
+[3.709412] (-) TimerEvent: {}
+[3.809657] (-) TimerEvent: {}
+[3.909910] (-) TimerEvent: {}
+[4.010157] (-) TimerEvent: {}
+[4.110424] (-) TimerEvent: {}
+[4.210688] (-) TimerEvent: {}
+[4.310943] (-) TimerEvent: {}
+[4.411232] (-) TimerEvent: {}
+[4.511531] (-) TimerEvent: {}
+[4.611815] (-) TimerEvent: {}
+[4.712091] (-) TimerEvent: {}
+[4.812501] (-) TimerEvent: {}
+[4.912918] (-) TimerEvent: {}
+[5.013191] (-) TimerEvent: {}
+[5.113475] (-) TimerEvent: {}
+[5.213759] (-) TimerEvent: {}
+[5.314086] (-) TimerEvent: {}
+[5.414339] (-) TimerEvent: {}
+[5.514602] (-) TimerEvent: {}
+[5.614872] (-) TimerEvent: {}
+[5.715157] (-) TimerEvent: {}
+[5.815442] (-) TimerEvent: {}
+[5.915675] (-) TimerEvent: {}
+[5.916866] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 30%] Linking CXX static library libgtest_main.a\n'}
+[6.015854] (-) TimerEvent: {}
+[6.116212] (-) TimerEvent: {}
+[6.122216] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 30%] Built target gtest_main\n'}
+[6.216378] (-) TimerEvent: {}
+[6.316673] (-) TimerEvent: {}
+[6.416936] (-) TimerEvent: {}
+[6.517195] (-) TimerEvent: {}
+[6.617480] (-) TimerEvent: {}
+[6.717729] (-) TimerEvent: {}
+[6.818017] (-) TimerEvent: {}
+[6.918291] (-) TimerEvent: {}
+[7.018589] (-) TimerEvent: {}
+[7.118865] (-) TimerEvent: {}
+[7.219170] (-) TimerEvent: {}
+[7.319455] (-) TimerEvent: {}
+[7.419727] (-) TimerEvent: {}
+[7.520023] (-) TimerEvent: {}
+[7.620276] (-) TimerEvent: {}
+[7.720544] (-) TimerEvent: {}
+[7.820841] (-) TimerEvent: {}
+[7.921127] (-) TimerEvent: {}
+[8.021414] (-) TimerEvent: {}
+[8.121686] (-) TimerEvent: {}
+[8.221958] (-) TimerEvent: {}
+[8.322206] (-) TimerEvent: {}
+[8.422474] (-) TimerEvent: {}
+[8.522813] (-) TimerEvent: {}
+[8.623076] (-) TimerEvent: {}
+[8.723344] (-) TimerEvent: {}
+[8.823620] (-) TimerEvent: {}
+[8.923963] (-) TimerEvent: {}
+[9.024234] (-) TimerEvent: {}
+[9.124517] (-) TimerEvent: {}
+[9.224782] (-) TimerEvent: {}
+[9.325076] (-) TimerEvent: {}
+[9.425349] (-) TimerEvent: {}
+[9.525606] (-) TimerEvent: {}
+[9.625880] (-) TimerEvent: {}
+[9.726148] (-) TimerEvent: {}
+[9.826423] (-) TimerEvent: {}
+[9.926695] (-) TimerEvent: {}
+[10.026970] (-) TimerEvent: {}
+[10.127248] (-) TimerEvent: {}
+[10.227512] (-) TimerEvent: {}
+[10.327827] (-) TimerEvent: {}
+[10.428097] (-) TimerEvent: {}
+[10.528402] (-) TimerEvent: {}
+[10.628694] (-) TimerEvent: {}
+[10.728981] (-) TimerEvent: {}
+[10.829259] (-) TimerEvent: {}
+[10.929498] (-) TimerEvent: {}
+[11.029813] (-) TimerEvent: {}
+[11.130121] (-) TimerEvent: {}
+[11.230402] (-) TimerEvent: {}
+[11.330738] (-) TimerEvent: {}
+[11.431048] (-) TimerEvent: {}
+[11.531328] (-) TimerEvent: {}
+[11.631637] (-) TimerEvent: {}
+[11.731959] (-) TimerEvent: {}
+[11.832327] (-) TimerEvent: {}
+[11.932578] (-) TimerEvent: {}
+[12.032896] (-) TimerEvent: {}
+[12.133181] (-) TimerEvent: {}
+[12.233451] (-) TimerEvent: {}
+[12.333733] (-) TimerEvent: {}
+[12.433976] (-) TimerEvent: {}
+[12.534251] (-) TimerEvent: {}
+[12.634571] (-) TimerEvent: {}
+[12.734853] (-) TimerEvent: {}
+[12.835149] (-) TimerEvent: {}
+[12.935439] (-) TimerEvent: {}
+[13.035713] (-) TimerEvent: {}
+[13.138827] (-) TimerEvent: {}
+[13.239132] (-) TimerEvent: {}
+[13.339419] (-) TimerEvent: {}
+[13.439724] (-) TimerEvent: {}
+[13.539982] (-) TimerEvent: {}
+[13.640252] (-) TimerEvent: {}
+[13.740528] (-) TimerEvent: {}
+[13.840783] (-) TimerEvent: {}
+[13.941093] (-) TimerEvent: {}
+[14.041373] (-) TimerEvent: {}
+[14.141667] (-) TimerEvent: {}
+[14.241913] (-) TimerEvent: {}
+[14.342194] (-) TimerEvent: {}
+[14.442497] (-) TimerEvent: {}
+[14.542751] (-) TimerEvent: {}
+[14.643013] (-) TimerEvent: {}
+[14.743303] (-) TimerEvent: {}
+[14.843566] (-) TimerEvent: {}
+[14.943824] (-) TimerEvent: {}
+[15.044182] (-) TimerEvent: {}
+[15.144440] (-) TimerEvent: {}
+[15.244730] (-) TimerEvent: {}
+[15.345024] (-) TimerEvent: {}
+[15.445267] (-) TimerEvent: {}
+[15.545542] (-) TimerEvent: {}
+[15.645822] (-) TimerEvent: {}
+[15.746096] (-) TimerEvent: {}
+[15.846341] (-) TimerEvent: {}
+[15.946585] (-) TimerEvent: {}
+[16.046862] (-) TimerEvent: {}
+[16.147112] (-) TimerEvent: {}
+[16.247368] (-) TimerEvent: {}
+[16.347702] (-) TimerEvent: {}
+[16.447961] (-) TimerEvent: {}
+[16.548202] (-) TimerEvent: {}
+[16.648465] (-) TimerEvent: {}
+[16.748716] (-) TimerEvent: {}
+[16.848963] (-) TimerEvent: {}
+[16.949194] (-) TimerEvent: {}
+[17.049464] (-) TimerEvent: {}
+[17.149741] (-) TimerEvent: {}
+[17.249998] (-) TimerEvent: {}
+[17.350299] (-) TimerEvent: {}
+[17.450596] (-) TimerEvent: {}
+[17.550860] (-) TimerEvent: {}
+[17.651156] (-) TimerEvent: {}
+[17.751517] (-) TimerEvent: {}
+[17.851852] (-) TimerEvent: {}
+[17.952149] (-) TimerEvent: {}
+[18.052510] (-) TimerEvent: {}
+[18.152805] (-) TimerEvent: {}
+[18.301746] (-) TimerEvent: {}
+[18.402007] (-) TimerEvent: {}
+[18.502333] (-) TimerEvent: {}
+[18.602680] (-) TimerEvent: {}
+[18.703109] (-) TimerEvent: {}
+[18.803558] (-) TimerEvent: {}
+[18.904095] (-) TimerEvent: {}
+[19.004983] (-) TimerEvent: {}
+[19.106179] (-) TimerEvent: {}
+[19.206470] (-) TimerEvent: {}
+[19.306720] (-) TimerEvent: {}
+[19.406972] (-) TimerEvent: {}
+[19.507230] (-) TimerEvent: {}
+[19.607505] (-) TimerEvent: {}
+[19.707756] (-) TimerEvent: {}
+[19.807965] (-) TimerEvent: {}
+[19.908222] (-) TimerEvent: {}
+[20.008475] (-) TimerEvent: {}
+[20.108780] (-) TimerEvent: {}
+[20.209100] (-) TimerEvent: {}
+[20.309388] (-) TimerEvent: {}
+[20.409631] (-) TimerEvent: {}
+[20.509932] (-) TimerEvent: {}
+[20.610257] (-) TimerEvent: {}
+[20.710561] (-) TimerEvent: {}
+[20.810879] (-) TimerEvent: {}
+[20.911260] (-) TimerEvent: {}
+[21.011620] (-) TimerEvent: {}
+[21.111962] (-) TimerEvent: {}
+[21.212262] (-) TimerEvent: {}
+[21.312704] (-) TimerEvent: {}
+[21.413139] (-) TimerEvent: {}
+[21.513397] (-) TimerEvent: {}
+[21.613629] (-) TimerEvent: {}
+[21.713897] (-) TimerEvent: {}
+[21.814151] (-) TimerEvent: {}
+[21.914425] (-) TimerEvent: {}
+[22.014723] (-) TimerEvent: {}
+[22.114981] (-) TimerEvent: {}
+[22.215225] (-) TimerEvent: {}
+[22.315477] (-) TimerEvent: {}
+[22.415720] (-) TimerEvent: {}
+[22.515975] (-) TimerEvent: {}
+[22.616268] (-) TimerEvent: {}
+[22.716571] (-) TimerEvent: {}
+[22.816882] (-) TimerEvent: {}
+[22.917142] (-) TimerEvent: {}
+[23.017396] (-) TimerEvent: {}
+[23.117653] (-) TimerEvent: {}
+[23.218037] (-) TimerEvent: {}
+[23.318440] (-) TimerEvent: {}
+[23.418837] (-) TimerEvent: {}
+[23.519148] (-) TimerEvent: {}
+[23.619379] (-) TimerEvent: {}
+[23.719655] (-) TimerEvent: {}
+[23.819962] (-) TimerEvent: {}
+[23.920220] (-) TimerEvent: {}
+[24.020570] (-) TimerEvent: {}
+[24.120799] (-) TimerEvent: {}
+[24.221113] (-) TimerEvent: {}
+[24.321362] (-) TimerEvent: {}
+[24.421676] (-) TimerEvent: {}
+[24.521942] (-) TimerEvent: {}
+[24.622189] (-) TimerEvent: {}
+[24.722498] (-) TimerEvent: {}
+[24.822755] (-) TimerEvent: {}
+[24.923000] (-) TimerEvent: {}
+[25.023243] (-) TimerEvent: {}
+[25.123485] (-) TimerEvent: {}
+[25.223762] (-) TimerEvent: {}
+[25.324120] (-) TimerEvent: {}
+[25.424434] (-) TimerEvent: {}
+[25.524809] (-) TimerEvent: {}
+[25.625250] (-) TimerEvent: {}
+[25.725600] (-) TimerEvent: {}
+[25.825941] (-) TimerEvent: {}
+[25.926375] (-) TimerEvent: {}
+[26.026688] (-) TimerEvent: {}
+[26.126957] (-) TimerEvent: {}
+[26.227192] (-) TimerEvent: {}
+[26.327439] (-) TimerEvent: {}
+[26.427694] (-) TimerEvent: {}
+[26.527941] (-) TimerEvent: {}
+[26.628199] (-) TimerEvent: {}
+[26.728482] (-) TimerEvent: {}
+[26.828753] (-) TimerEvent: {}
+[26.929110] (-) TimerEvent: {}
+[27.029462] (-) TimerEvent: {}
+[27.129786] (-) TimerEvent: {}
+[27.230064] (-) TimerEvent: {}
+[27.330371] (-) TimerEvent: {}
+[27.430645] (-) TimerEvent: {}
+[27.466470] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 34%] Linking CXX static library libgtest.a\n'}
+[27.530811] (-) TimerEvent: {}
+[27.631066] (-) TimerEvent: {}
+[27.718868] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 34%] Built target gtest\n'}
+[27.731224] (-) TimerEvent: {}
+[27.831470] (-) TimerEvent: {}
+[27.931783] (-) TimerEvent: {}
+[28.032087] (-) TimerEvent: {}
+[28.132352] (-) TimerEvent: {}
+[28.232609] (-) TimerEvent: {}
+[28.332966] (-) TimerEvent: {}
+[28.433283] (-) TimerEvent: {}
+[28.533535] (-) TimerEvent: {}
+[28.633775] (-) TimerEvent: {}
+[28.734015] (-) TimerEvent: {}
+[28.834280] (-) TimerEvent: {}
+[28.934611] (-) TimerEvent: {}
+[29.035034] (-) TimerEvent: {}
+[29.135365] (-) TimerEvent: {}
+[29.235682] (-) TimerEvent: {}
+[29.336090] (-) TimerEvent: {}
+[29.436530] (-) TimerEvent: {}
+[29.536981] (-) TimerEvent: {}
+[29.637404] (-) TimerEvent: {}
+[29.737783] (-) TimerEvent: {}
+[29.838081] (-) TimerEvent: {}
+[29.938374] (-) TimerEvent: {}
+[30.038715] (-) TimerEvent: {}
+[30.139048] (-) TimerEvent: {}
+[30.239357] (-) TimerEvent: {}
+[30.339630] (-) TimerEvent: {}
+[30.439887] (-) TimerEvent: {}
+[30.540151] (-) TimerEvent: {}
+[30.640430] (-) TimerEvent: {}
+[30.740685] (-) TimerEvent: {}
+[30.773282] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 39%] Linking CXX shared library libmtc_ros2_action_cpp.so\n'}
+[30.840906] (-) TimerEvent: {}
+[30.941152] (-) TimerEvent: {}
+[31.041495] (-) TimerEvent: {}
+[31.141839] (-) TimerEvent: {}
+[31.242182] (-) TimerEvent: {}
+[31.342465] (-) TimerEvent: {}
+[31.372769] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 39%] Built target mtc_ros2_action_cpp\n'}
+[31.423309] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 43%] Building CXX object CMakeFiles/test_action_contracts.dir/test/test_action_contracts.cpp.o\n'}
+[31.423551] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 47%] Building CXX object CMakeFiles/test_task_action.dir/test/test_task_action.cpp.o\n'}
+[31.424144] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 52%] Building CXX object CMakeFiles/mock_task_server.dir/src/task_main.cpp.o\n'}
+[31.424694] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 60%] Building CXX object CMakeFiles/test_pick_place_action.dir/test/test_pick_place_action.cpp.o\n'}
+[31.424811] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 60%] Building CXX object CMakeFiles/mock_pick_place_server.dir/src/pick_place_main.cpp.o\n'}
+[31.426088] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 65%] Building CXX object CMakeFiles/mock_motion_server.dir/src/motion_main.cpp.o\n'}
+[31.426748] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 69%] Building CXX object CMakeFiles/test_motion_action.dir/test/test_motion_action.cpp.o\n'}
+[31.442687] (-) TimerEvent: {}
+[31.543016] (-) TimerEvent: {}
+[31.704918] (-) TimerEvent: {}
+[31.805189] (-) TimerEvent: {}
+[31.905451] (-) TimerEvent: {}
+[32.005733] (-) TimerEvent: {}
+[32.105961] (-) TimerEvent: {}
+[32.206205] (-) TimerEvent: {}
+[32.306427] (-) TimerEvent: {}
+[32.406663] (-) TimerEvent: {}
+[32.506899] (-) TimerEvent: {}
+[32.607141] (-) TimerEvent: {}
+[32.707520] (-) TimerEvent: {}
+[32.807865] (-) TimerEvent: {}
+[32.908138] (-) TimerEvent: {}
+[33.008472] (-) TimerEvent: {}
+[33.108774] (-) TimerEvent: {}
+[33.209040] (-) TimerEvent: {}
+[33.309297] (-) TimerEvent: {}
+[33.409558] (-) TimerEvent: {}
+[33.509809] (-) TimerEvent: {}
+[33.610093] (-) TimerEvent: {}
+[33.710372] (-) TimerEvent: {}
+[33.810661] (-) TimerEvent: {}
+[33.910981] (-) TimerEvent: {}
+[34.011283] (-) TimerEvent: {}
+[34.111585] (-) TimerEvent: {}
+[34.211877] (-) TimerEvent: {}
+[34.312163] (-) TimerEvent: {}
+[34.412453] (-) TimerEvent: {}
+[34.512753] (-) TimerEvent: {}
+[34.613089] (-) TimerEvent: {}
+[34.713371] (-) TimerEvent: {}
+[34.813668] (-) TimerEvent: {}
+[34.913934] (-) TimerEvent: {}
+[35.014225] (-) TimerEvent: {}
+[35.114534] (-) TimerEvent: {}
+[35.214826] (-) TimerEvent: {}
+[35.315094] (-) TimerEvent: {}
+[35.415349] (-) TimerEvent: {}
+[35.515643] (-) TimerEvent: {}
+[35.615964] (-) TimerEvent: {}
+[35.716396] (-) TimerEvent: {}
+[35.816662] (-) TimerEvent: {}
+[35.916936] (-) TimerEvent: {}
+[36.017228] (-) TimerEvent: {}
+[36.117505] (-) TimerEvent: {}
+[36.217771] (-) TimerEvent: {}
+[36.318048] (-) TimerEvent: {}
+[36.418271] (-) TimerEvent: {}
+[36.518528] (-) TimerEvent: {}
+[36.618811] (-) TimerEvent: {}
+[36.719063] (-) TimerEvent: {}
+[36.819315] (-) TimerEvent: {}
+[36.919541] (-) TimerEvent: {}
+[37.019859] (-) TimerEvent: {}
+[37.120132] (-) TimerEvent: {}
+[37.220412] (-) TimerEvent: {}
+[37.320688] (-) TimerEvent: {}
+[37.420970] (-) TimerEvent: {}
+[37.521237] (-) TimerEvent: {}
+[37.621548] (-) TimerEvent: {}
+[37.721872] (-) TimerEvent: {}
+[37.822176] (-) TimerEvent: {}
+[37.922463] (-) TimerEvent: {}
+[38.022737] (-) TimerEvent: {}
+[38.123023] (-) TimerEvent: {}
+[38.223320] (-) TimerEvent: {}
+[38.323596] (-) TimerEvent: {}
+[38.423876] (-) TimerEvent: {}
+[38.524148] (-) TimerEvent: {}
+[38.624432] (-) TimerEvent: {}
+[38.724717] (-) TimerEvent: {}
+[38.824984] (-) TimerEvent: {}
+[38.925388] (-) TimerEvent: {}
+[39.025714] (-) TimerEvent: {}
+[39.126017] (-) TimerEvent: {}
+[39.226315] (-) TimerEvent: {}
+[39.326584] (-) TimerEvent: {}
+[39.426945] (-) TimerEvent: {}
+[39.527252] (-) TimerEvent: {}
+[39.627539] (-) TimerEvent: {}
+[39.727820] (-) TimerEvent: {}
+[39.828083] (-) TimerEvent: {}
+[39.928480] (-) TimerEvent: {}
+[40.028800] (-) TimerEvent: {}
+[40.129119] (-) TimerEvent: {}
+[40.229354] (-) TimerEvent: {}
+[40.329620] (-) TimerEvent: {}
+[40.429897] (-) TimerEvent: {}
+[40.530149] (-) TimerEvent: {}
+[40.630416] (-) TimerEvent: {}
+[40.730724] (-) TimerEvent: {}
+[40.831005] (-) TimerEvent: {}
+[40.931272] (-) TimerEvent: {}
+[41.031523] (-) TimerEvent: {}
+[41.131799] (-) TimerEvent: {}
+[41.232078] (-) TimerEvent: {}
+[41.332356] (-) TimerEvent: {}
+[41.432669] (-) TimerEvent: {}
+[41.532973] (-) TimerEvent: {}
+[41.633249] (-) TimerEvent: {}
+[41.733533] (-) TimerEvent: {}
+[41.835070] (-) TimerEvent: {}
+[41.935395] (-) TimerEvent: {}
+[42.035700] (-) TimerEvent: {}
+[42.135983] (-) TimerEvent: {}
+[42.236254] (-) TimerEvent: {}
+[42.336524] (-) TimerEvent: {}
+[42.436808] (-) TimerEvent: {}
+[42.601809] (-) TimerEvent: {}
+[42.702111] (-) TimerEvent: {}
+[42.802413] (-) TimerEvent: {}
+[42.902672] (-) TimerEvent: {}
+[43.002962] (-) TimerEvent: {}
+[43.103255] (-) TimerEvent: {}
+[43.203660] (-) TimerEvent: {}
+[43.304102] (-) TimerEvent: {}
+[43.404374] (-) TimerEvent: {}
+[43.504655] (-) TimerEvent: {}
+[43.604963] (-) TimerEvent: {}
+[43.705243] (-) TimerEvent: {}
+[43.805623] (-) TimerEvent: {}
+[43.906105] (-) TimerEvent: {}
+[44.006494] (-) TimerEvent: {}
+[44.106776] (-) TimerEvent: {}
+[44.207086] (-) TimerEvent: {}
+[44.307422] (-) TimerEvent: {}
+[44.407738] (-) TimerEvent: {}
+[44.508024] (-) TimerEvent: {}
+[44.608344] (-) TimerEvent: {}
+[44.708637] (-) TimerEvent: {}
+[44.808918] (-) TimerEvent: {}
+[44.909153] (-) TimerEvent: {}
+[45.009403] (-) TimerEvent: {}
+[45.109671] (-) TimerEvent: {}
+[45.209987] (-) TimerEvent: {}
+[45.310286] (-) TimerEvent: {}
+[45.410571] (-) TimerEvent: {}
+[45.510848] (-) TimerEvent: {}
+[45.611116] (-) TimerEvent: {}
+[45.711402] (-) TimerEvent: {}
+[45.811699] (-) TimerEvent: {}
+[45.911993] (-) TimerEvent: {}
+[46.012287] (-) TimerEvent: {}
+[46.112569] (-) TimerEvent: {}
+[46.212889] (-) TimerEvent: {}
+[46.313160] (-) TimerEvent: {}
+[46.413482] (-) TimerEvent: {}
+[46.513769] (-) TimerEvent: {}
+[46.614066] (-) TimerEvent: {}
+[46.714333] (-) TimerEvent: {}
+[46.814606] (-) TimerEvent: {}
+[46.914863] (-) TimerEvent: {}
+[47.015121] (-) TimerEvent: {}
+[47.115686] (-) TimerEvent: {}
+[47.215958] (-) TimerEvent: {}
+[47.316248] (-) TimerEvent: {}
+[47.416648] (-) TimerEvent: {}
+[47.517003] (-) TimerEvent: {}
+[47.617315] (-) TimerEvent: {}
+[47.717624] (-) TimerEvent: {}
+[47.817897] (-) TimerEvent: {}
+[47.918205] (-) TimerEvent: {}
+[48.018505] (-) TimerEvent: {}
+[48.118784] (-) TimerEvent: {}
+[48.219096] (-) TimerEvent: {}
+[48.319372] (-) TimerEvent: {}
+[48.419651] (-) TimerEvent: {}
+[48.519947] (-) TimerEvent: {}
+[48.620231] (-) TimerEvent: {}
+[48.720514] (-) TimerEvent: {}
+[48.820812] (-) TimerEvent: {}
+[48.921168] (-) TimerEvent: {}
+[49.021455] (-) TimerEvent: {}
+[49.121800] (-) TimerEvent: {}
+[49.222130] (-) TimerEvent: {}
+[49.322428] (-) TimerEvent: {}
+[49.422716] (-) TimerEvent: {}
+[49.522982] (-) TimerEvent: {}
+[49.623239] (-) TimerEvent: {}
+[49.723521] (-) TimerEvent: {}
+[49.823955] (-) TimerEvent: {}
+[49.924379] (-) TimerEvent: {}
+[50.024740] (-) TimerEvent: {}
+[50.124994] (-) TimerEvent: {}
+[50.225506] (-) TimerEvent: {}
+[50.325919] (-) TimerEvent: {}
+[50.426275] (-) TimerEvent: {}
+[50.526611] (-) TimerEvent: {}
+[50.626993] (-) TimerEvent: {}
+[50.727367] (-) TimerEvent: {}
+[50.827711] (-) TimerEvent: {}
+[50.928037] (-) TimerEvent: {}
+[51.028343] (-) TimerEvent: {}
+[51.128644] (-) TimerEvent: {}
+[51.228988] (-) TimerEvent: {}
+[51.329271] (-) TimerEvent: {}
+[51.429554] (-) TimerEvent: {}
+[51.529835] (-) TimerEvent: {}
+[51.630121] (-) TimerEvent: {}
+[51.730450] (-) TimerEvent: {}
+[51.830760] (-) TimerEvent: {}
+[51.931039] (-) TimerEvent: {}
+[52.031310] (-) TimerEvent: {}
+[52.131599] (-) TimerEvent: {}
+[52.231928] (-) TimerEvent: {}
+[52.332239] (-) TimerEvent: {}
+[52.421820] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 73%] Linking CXX executable mock_pick_place_server\n'}
+[52.432437] (-) TimerEvent: {}
+[52.532707] (-) TimerEvent: {}
+[52.617347] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 78%] Linking CXX executable mock_task_server\n'}
+[52.632947] (-) TimerEvent: {}
+[52.733221] (-) TimerEvent: {}
+[52.833482] (-) TimerEvent: {}
+[52.903689] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 82%] Linking CXX executable mock_motion_server\n'}
+[52.933689] (-) TimerEvent: {}
+[53.033963] (-) TimerEvent: {}
+[53.134247] (-) TimerEvent: {}
+[53.234514] (-) TimerEvent: {}
+[53.334784] (-) TimerEvent: {}
+[53.435050] (-) TimerEvent: {}
+[53.535329] (-) TimerEvent: {}
+[53.624095] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 82%] Built target mock_task_server\n'}
+[53.624325] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 82%] Built target mock_pick_place_server\n'}
+[53.635487] (-) TimerEvent: {}
+[53.735770] (-) TimerEvent: {}
+[53.739613] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 82%] Built target mock_motion_server\n'}
+[53.835926] (-) TimerEvent: {}
+[53.936198] (-) TimerEvent: {}
+[54.036531] (-) TimerEvent: {}
+[54.136809] (-) TimerEvent: {}
+[54.237132] (-) TimerEvent: {}
+[54.337465] (-) TimerEvent: {}
+[54.437743] (-) TimerEvent: {}
+[54.538024] (-) TimerEvent: {}
+[54.638296] (-) TimerEvent: {}
+[54.738588] (-) TimerEvent: {}
+[54.838881] (-) TimerEvent: {}
+[54.939195] (-) TimerEvent: {}
+[55.039480] (-) TimerEvent: {}
+[55.139741] (-) TimerEvent: {}
+[55.240001] (-) TimerEvent: {}
+[55.340268] (-) TimerEvent: {}
+[55.440532] (-) TimerEvent: {}
+[55.540789] (-) TimerEvent: {}
+[55.641080] (-) TimerEvent: {}
+[55.741318] (-) TimerEvent: {}
+[55.841587] (-) TimerEvent: {}
+[55.941844] (-) TimerEvent: {}
+[56.042183] (-) TimerEvent: {}
+[56.142431] (-) TimerEvent: {}
+[56.242700] (-) TimerEvent: {}
+[56.343113] (-) TimerEvent: {}
+[56.443387] (-) TimerEvent: {}
+[56.543689] (-) TimerEvent: {}
+[56.643968] (-) TimerEvent: {}
+[56.744213] (-) TimerEvent: {}
+[56.844470] (-) TimerEvent: {}
+[56.944711] (-) TimerEvent: {}
+[57.044976] (-) TimerEvent: {}
+[57.145251] (-) TimerEvent: {}
+[57.245512] (-) TimerEvent: {}
+[57.345845] (-) TimerEvent: {}
+[57.446149] (-) TimerEvent: {}
+[57.546419] (-) TimerEvent: {}
+[57.646749] (-) TimerEvent: {}
+[57.747117] (-) TimerEvent: {}
+[57.847388] (-) TimerEvent: {}
+[57.947728] (-) TimerEvent: {}
+[58.048035] (-) TimerEvent: {}
+[58.148491] (-) TimerEvent: {}
+[58.248780] (-) TimerEvent: {}
+[58.401667] (-) TimerEvent: {}
+[58.502035] (-) TimerEvent: {}
+[58.602507] (-) TimerEvent: {}
+[58.702947] (-) TimerEvent: {}
+[58.803308] (-) TimerEvent: {}
+[58.903607] (-) TimerEvent: {}
+[59.003929] (-) TimerEvent: {}
+[59.104426] (-) TimerEvent: {}
+[59.204754] (-) TimerEvent: {}
+[59.305073] (-) TimerEvent: {}
+[59.405331] (-) TimerEvent: {}
+[59.505556] (-) TimerEvent: {}
+[59.605825] (-) TimerEvent: {}
+[59.706130] (-) TimerEvent: {}
+[59.806425] (-) TimerEvent: {}
+[59.906845] (-) TimerEvent: {}
+[60.007171] (-) TimerEvent: {}
+[60.107511] (-) TimerEvent: {}
+[60.128512] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 86%] Linking CXX executable test_action_contracts\n'}
+[60.207659] (-) TimerEvent: {}
+[60.307915] (-) TimerEvent: {}
+[60.408577] (-) TimerEvent: {}
+[60.508939] (-) TimerEvent: {}
+[60.609169] (-) TimerEvent: {}
+[60.709397] (-) TimerEvent: {}
+[60.809632] (-) TimerEvent: {}
+[60.821774] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 86%] Built target test_action_contracts\n'}
+[60.909767] (-) TimerEvent: {}
+[61.010017] (-) TimerEvent: {}
+[61.110277] (-) TimerEvent: {}
+[61.210618] (-) TimerEvent: {}
+[61.311032] (-) TimerEvent: {}
+[61.411379] (-) TimerEvent: {}
+[61.511633] (-) TimerEvent: {}
+[61.611880] (-) TimerEvent: {}
+[61.712128] (-) TimerEvent: {}
+[61.812434] (-) TimerEvent: {}
+[61.912722] (-) TimerEvent: {}
+[62.013006] (-) TimerEvent: {}
+[62.113239] (-) TimerEvent: {}
+[62.213484] (-) TimerEvent: {}
+[62.313722] (-) TimerEvent: {}
+[62.413975] (-) TimerEvent: {}
+[62.514329] (-) TimerEvent: {}
+[62.614667] (-) TimerEvent: {}
+[62.715052] (-) TimerEvent: {}
+[62.815399] (-) TimerEvent: {}
+[62.915636] (-) TimerEvent: {}
+[63.015880] (-) TimerEvent: {}
+[63.116121] (-) TimerEvent: {}
+[63.216389] (-) TimerEvent: {}
+[63.316678] (-) TimerEvent: {}
+[63.416962] (-) TimerEvent: {}
+[63.517199] (-) TimerEvent: {}
+[63.617560] (-) TimerEvent: {}
+[63.717886] (-) TimerEvent: {}
+[63.818130] (-) TimerEvent: {}
+[63.918388] (-) TimerEvent: {}
+[64.013319] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 91%] Linking CXX executable test_motion_action\n'}
+[64.018539] (-) TimerEvent: {}
+[64.118923] (-) TimerEvent: {}
+[64.219244] (-) TimerEvent: {}
+[64.319436] (-) TimerEvent: {}
+[64.419698] (-) TimerEvent: {}
+[64.519986] (-) TimerEvent: {}
+[64.620279] (-) TimerEvent: {}
+[64.630239] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 91%] Built target test_motion_action\n'}
+[64.720395] (-) TimerEvent: {}
+[64.820618] (-) TimerEvent: {}
+[64.920955] (-) TimerEvent: {}
+[65.021347] (-) TimerEvent: {}
+[65.121660] (-) TimerEvent: {}
+[65.221976] (-) TimerEvent: {}
+[65.322388] (-) TimerEvent: {}
+[65.349585] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 95%] Linking CXX executable test_pick_place_action\n'}
+[65.422699] (-) TimerEvent: {}
+[65.523029] (-) TimerEvent: {}
+[65.623234] (-) TimerEvent: {}
+[65.723504] (-) TimerEvent: {}
+[65.724999] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[ 95%] Built target test_pick_place_action\n'}
+[65.823633] (-) TimerEvent: {}
+[65.923864] (-) TimerEvent: {}
+[66.024101] (-) TimerEvent: {}
+[66.124379] (-) TimerEvent: {}
+[66.224656] (-) TimerEvent: {}
+[66.324968] (-) TimerEvent: {}
+[66.425222] (-) TimerEvent: {}
+[66.525512] (-) TimerEvent: {}
+[66.625901] (-) TimerEvent: {}
+[66.726270] (-) TimerEvent: {}
+[66.826665] (-) TimerEvent: {}
+[66.927013] (-) TimerEvent: {}
+[67.027283] (-) TimerEvent: {}
+[67.127546] (-) TimerEvent: {}
+[67.227872] (-) TimerEvent: {}
+[67.328201] (-) TimerEvent: {}
+[67.428418] (-) TimerEvent: {}
+[67.528666] (-) TimerEvent: {}
+[67.628944] (-) TimerEvent: {}
+[67.729148] (-) TimerEvent: {}
+[67.829415] (-) TimerEvent: {}
+[67.929692] (-) TimerEvent: {}
+[68.030044] (-) TimerEvent: {}
+[68.130450] (-) TimerEvent: {}
+[68.147607] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[100%] Linking CXX executable test_task_action\n'}
+[68.230660] (-) TimerEvent: {}
+[68.331213] (-) TimerEvent: {}
+[68.431683] (-) TimerEvent: {}
+[68.517335] (mtc_ros2_action_cpp) StdoutLine: {'line': b'[100%] Built target test_task_action\n'}
+[68.531851] (-) TimerEvent: {}
+[68.639461] (-) TimerEvent: {}
+[68.651690] (mtc_ros2_action_cpp) CommandEnded: {'returncode': 0}
+[68.739763] (-) TimerEvent: {}
+[68.761585] (mtc_ros2_action_cpp) JobProgress: {'identifier': 'mtc_ros2_action_cpp', 'progress': 'install'}
+[68.807402] (mtc_ros2_action_cpp) Command: {'cmd': ['/usr/bin/cmake', '--install', '/integration-build/mtc_ros2_action_cpp'], 'cwd': '/integration-build/mtc_ros2_action_cpp', 'env': OrderedDict({'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/sdformat_vendor/share/gz', 'HOSTNAME': '992b0cf3c198', 'SHLVL': '0', 'LD_LIBRARY_PATH': '/candidate-install/mtc_ros2_action_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_moveit_planner/lib:/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/candidate-install/mtc_core_cpp/lib:/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/root', 'OLDPWD': '/', 'ROS_PYTHON_VERSION': '3', 'ROS_LOG_DIR': '/integration-evidence/roslogs', 'COLCON_PREFIX_PATH': '/candidate-install:/driver_work/install', 'ROS_DISTRO': 'jazzy', 'PYTHONDONTWRITEBYTECODE': '1', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'PATH': '/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'RMW_IMPLEMENTATION': 'rmw_fastrtps_cpp', 'ROS_DOMAIN_ID': '161', 'AMENT_PREFIX_PATH': '/candidate-install/mtc_bringup:/candidate-install/mtc_tool:/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_task:/candidate-install/mtc_safety:/candidate-install/mtc_moveit_planner:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_motion_execution:/candidate-install/mtc_manipulation:/candidate-install/mtc_aubo_bridge:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'LOCALHOST', 'PWD': '/integration-build/mtc_ros2_action_cpp', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/candidate-install/mtc_bringup/lib/python3.12/site-packages:/candidate-install/mtc_tool/lib/python3.12/site-packages:/candidate-install/mtc_task/lib/python3.12/site-packages:/candidate-install/mtc_safety/lib/python3.12/site-packages:/candidate-install/mtc_motion_execution/lib/python3.12/site-packages:/candidate-install/mtc_manipulation/lib/python3.12/site-packages:/candidate-install/mtc_aubo_bridge/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:/driver_work/install/aubo_ros2_driver/lib/python3.12/site-packages:/driver_work/install/aubo_msgs/lib/python3.12/site-packages:/driver_work/install/aubo_dashboard_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_moveit_planner:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/candidate-install/mtc_bringup:/candidate-install/mtc_tool:/candidate-install/mtc_task:/candidate-install/mtc_safety:/candidate-install/mtc_motion_execution:/candidate-install/mtc_manipulation:/candidate-install/mtc_aubo_bridge:/opt/ros/jazzy'}), 'shell': False}
+[68.831897] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Install configuration: "RelWithDebInfo"\n'}
+[68.832896] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/lib/libmtc_ros2_action_cpp.so\n'}
+[68.839892] (-) TimerEvent: {}
+[68.869322] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/integration-install/mtc_ros2_action_cpp/lib/libmtc_ros2_action_cpp.so" to ""\n'}
+[68.870036] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server\n'}
+[68.872723] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server" to ""\n'}
+[68.872952] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server\n'}
+[68.875583] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server" to ""\n'}
+[68.876023] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_motion_server\n'}
+[68.878071] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/integration-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_motion_server" to ""\n'}
+[68.878464] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/include\n'}
+[68.878785] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp\n'}
+[68.879325] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/pick_place_server.hpp\n'}
+[68.879582] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/motion_server.hpp\n'}
+[68.879836] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/task_server.hpp\n'}
+[68.880146] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/action_slot.hpp\n'}
+[68.880380] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/mock_ports.hpp\n'}
+[68.880647] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/integration_observation.hpp\n'}
+[68.882247] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/environment/library_path.sh\n'}
+[68.882526] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/environment/library_path.dsv\n'}
+[68.884582] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/ament_index/resource_index/package_run_dependencies/mtc_ros2_action_cpp\n'}
+[68.885662] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/ament_index/resource_index/parent_prefix_path/mtc_ros2_action_cpp\n'}
+[68.886287] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/environment/ament_prefix_path.sh\n'}
+[68.886684] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/environment/ament_prefix_path.dsv\n'}
+[68.887292] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/environment/path.sh\n'}
+[68.887589] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/environment/path.dsv\n'}
+[68.888078] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/local_setup.bash\n'}
+[68.888612] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/local_setup.sh\n'}
+[68.889174] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/local_setup.zsh\n'}
+[68.889582] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/local_setup.dsv\n'}
+[68.890131] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/package.dsv\n'}
+[68.891740] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/ament_index/resource_index/packages/mtc_ros2_action_cpp\n'}
+[68.892617] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/cmake/export_mtc_ros2_action_cppExport.cmake\n'}
+[68.893306] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/cmake/export_mtc_ros2_action_cppExport-relwithdebinfo.cmake\n'}
+[68.893915] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[68.894539] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[68.895034] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/cmake/mtc_ros2_action_cppConfig.cmake\n'}
+[68.895569] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/cmake/mtc_ros2_action_cppConfig-version.cmake\n'}
+[68.896160] (mtc_ros2_action_cpp) StdoutLine: {'line': b'-- Installing: /integration-install/mtc_ros2_action_cpp/share/mtc_ros2_action_cpp/package.xml\n'}
+[68.905113] (mtc_ros2_action_cpp) CommandEnded: {'returncode': 0}
+[68.946134] (-) TimerEvent: {}
+[69.055267] (-) TimerEvent: {}
+[69.224538] (-) TimerEvent: {}
+[69.281499] (mtc_ros2_action_cpp) JobEnded: {'identifier': 'mtc_ros2_action_cpp', 'rc': 0}
+[69.285362] (mtc_cpp_mock_bringup) JobStarted: {'identifier': 'mtc_cpp_mock_bringup'}
+[69.324646] (-) TimerEvent: {}
+[69.424901] (-) TimerEvent: {}
+[69.525099] (-) TimerEvent: {}
+[69.625324] (-) TimerEvent: {}
+[69.725587] (-) TimerEvent: {}
+[69.825790] (-) TimerEvent: {}
+[69.925971] (-) TimerEvent: {}
+[70.026185] (-) TimerEvent: {}
+[70.126410] (-) TimerEvent: {}
+[70.221834] (mtc_cpp_mock_bringup) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../../integration-build/mtc_cpp_mock_bringup', 'build', '--build-base', '/integration-build/mtc_cpp_mock_bringup/build', 'install', '--record', '/integration-build/mtc_cpp_mock_bringup/install.log', '--install-scripts', '$base/lib/mtc_cpp_mock_bringup', '--single-version-externally-managed', 'install_data'], 'cwd': '/candidate/src/mtc_cpp_mock_bringup', 'env': OrderedDict({'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/sdformat_vendor/share/gz', 'HOSTNAME': '992b0cf3c198', 'SHLVL': '0', 'LD_LIBRARY_PATH': '/integration-install/mtc_ros2_action_cpp/lib:/candidate-install/mtc_ros2_action_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_moveit_planner/lib:/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/candidate-install/mtc_core_cpp/lib:/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/root', 'OLDPWD': '/', 'ROS_PYTHON_VERSION': '3', 'ROS_LOG_DIR': '/integration-evidence/roslogs', 'COLCON_PREFIX_PATH': '/candidate-install:/driver_work/install', 'ROS_DISTRO': 'jazzy', 'PYTHONDONTWRITEBYTECODE': '1', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'PATH': '/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'RMW_IMPLEMENTATION': 'rmw_fastrtps_cpp', 'ROS_DOMAIN_ID': '161', 'AMENT_PREFIX_PATH': '/integration-install/mtc_ros2_action_cpp:/candidate-install/mtc_bringup:/candidate-install/mtc_tool:/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_task:/candidate-install/mtc_safety:/candidate-install/mtc_moveit_planner:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_motion_execution:/candidate-install/mtc_manipulation:/candidate-install/mtc_aubo_bridge:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'LOCALHOST', 'PWD': '/integration-build/mtc_cpp_mock_bringup', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/integration-build/mtc_cpp_mock_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages:/candidate-install/mtc_bringup/lib/python3.12/site-packages:/candidate-install/mtc_tool/lib/python3.12/site-packages:/candidate-install/mtc_task/lib/python3.12/site-packages:/candidate-install/mtc_safety/lib/python3.12/site-packages:/candidate-install/mtc_motion_execution/lib/python3.12/site-packages:/candidate-install/mtc_manipulation/lib/python3.12/site-packages:/candidate-install/mtc_aubo_bridge/lib/python3.12/site-packages:/candidate-install/mtc_interfaces/lib/python3.12/site-packages:/driver_work/install/aubo_ros2_driver/lib/python3.12/site-packages:/driver_work/install/aubo_msgs/lib/python3.12/site-packages:/driver_work/install/aubo_dashboard_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/integration-install/mtc_ros2_action_cpp:/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_moveit_planner:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor'}), 'shell': False}
+[70.226529] (-) TimerEvent: {}
+[70.326781] (-) TimerEvent: {}
+[70.396750] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'running egg_info\n'}
+[70.397411] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'creating ../../../integration-build/mtc_cpp_mock_bringup/mtc_cpp_mock_bringup.egg-info\n'}
+[70.408272] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'writing ../../../integration-build/mtc_cpp_mock_bringup/mtc_cpp_mock_bringup.egg-info/PKG-INFO\n'}
+[70.408661] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'writing dependency_links to ../../../integration-build/mtc_cpp_mock_bringup/mtc_cpp_mock_bringup.egg-info/dependency_links.txt\n'}
+[70.409059] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'writing entry points to ../../../integration-build/mtc_cpp_mock_bringup/mtc_cpp_mock_bringup.egg-info/entry_points.txt\n'}
+[70.409275] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'writing top-level names to ../../../integration-build/mtc_cpp_mock_bringup/mtc_cpp_mock_bringup.egg-info/top_level.txt\n'}
+[70.409341] (mtc_cpp_mock_bringup) StdoutLine: {'line': b"writing manifest file '../../../integration-build/mtc_cpp_mock_bringup/mtc_cpp_mock_bringup.egg-info/SOURCES.txt'\n"}
+[70.426955] (-) TimerEvent: {}
+[70.429695] (mtc_cpp_mock_bringup) StdoutLine: {'line': b"reading manifest file '../../../integration-build/mtc_cpp_mock_bringup/mtc_cpp_mock_bringup.egg-info/SOURCES.txt'\n"}
+[70.430424] (mtc_cpp_mock_bringup) StdoutLine: {'line': b"writing manifest file '../../../integration-build/mtc_cpp_mock_bringup/mtc_cpp_mock_bringup.egg-info/SOURCES.txt'\n"}
+[70.430721] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'running build\n'}
+[70.430842] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'running build_py\n'}
+[70.431182] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'creating /integration-build/mtc_cpp_mock_bringup/build\n'}
+[70.431833] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'creating /integration-build/mtc_cpp_mock_bringup/build/lib\n'}
+[70.432271] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'creating /integration-build/mtc_cpp_mock_bringup/build/lib/webui\n'}
+[70.432744] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/mock_backend.py -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui\n'}
+[70.433501] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/__init__.py -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui\n'}
+[70.434017] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/server.py -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui\n'}
+[70.434448] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/ros_integration_check.py -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui\n'}
+[70.434903] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/ros_backend.py -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui\n'}
+[70.435383] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/config.py -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui\n'}
+[70.435830] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/test_ros_backend.py -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui\n'}
+[70.436374] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/test_mock_backend.py -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui\n'}
+[70.436808] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/ros_transport.py -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui\n'}
+[70.437604] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/cpp_mock.py -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui\n'}
+[70.438175] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'creating /integration-build/mtc_cpp_mock_bringup/build/lib/mtc_cpp_mock_bringup\n'}
+[70.438703] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying mtc_cpp_mock_bringup/graph.py -> /integration-build/mtc_cpp_mock_bringup/build/lib/mtc_cpp_mock_bringup\n'}
+[70.439134] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying mtc_cpp_mock_bringup/__init__.py -> /integration-build/mtc_cpp_mock_bringup/build/lib/mtc_cpp_mock_bringup\n'}
+[70.439288] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying mtc_cpp_mock_bringup/check.py -> /integration-build/mtc_cpp_mock_bringup/build/lib/mtc_cpp_mock_bringup\n'}
+[70.439681] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying mtc_cpp_mock_bringup/bringup.py -> /integration-build/mtc_cpp_mock_bringup/build/lib/mtc_cpp_mock_bringup\n'}
+[70.440172] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'creating /integration-build/mtc_cpp_mock_bringup/build/lib/webui/static\n'}
+[70.440621] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/static/favicon.svg -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui/static\n'}
+[70.441061] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/static/styles.css -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui/static\n'}
+[70.441529] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/static/index.html -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui/static\n'}
+[70.441966] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/static/app.js -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui/static\n'}
+[70.442481] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/provenance.json -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui\n'}
+[70.442905] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying webui/connection.example.json -> /integration-build/mtc_cpp_mock_bringup/build/lib/webui\n'}
+[70.443542] (mtc_cpp_mock_bringup) StderrLine: {'line': b'warning: build_py: byte-compiling is disabled, skipping.\n'}
+[70.444100] (mtc_cpp_mock_bringup) StderrLine: {'line': b'\n'}
+[70.444174] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'running install\n'}
+[70.447989] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'running install_lib\n'}
+[70.459183] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'creating /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui\n'}
+[70.459914] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/mock_backend.py -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui\n'}
+[70.460106] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/__init__.py -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui\n'}
+[70.460282] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/server.py -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui\n'}
+[70.460486] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/ros_integration_check.py -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui\n'}
+[70.460703] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/ros_backend.py -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui\n'}
+[70.460962] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'creating /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui/static\n'}
+[70.461629] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/static/favicon.svg -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui/static\n'}
+[70.461803] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/static/styles.css -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui/static\n'}
+[70.462055] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/static/index.html -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui/static\n'}
+[70.462292] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/static/app.js -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui/static\n'}
+[70.462525] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/config.py -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui\n'}
+[70.462754] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/test_ros_backend.py -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui\n'}
+[70.463094] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/test_mock_backend.py -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui\n'}
+[70.463232] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/connection.example.json -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui\n'}
+[70.463591] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/ros_transport.py -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui\n'}
+[70.463737] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/cpp_mock.py -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui\n'}
+[70.463816] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/webui/provenance.json -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/webui\n'}
+[70.463874] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'creating /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/mtc_cpp_mock_bringup\n'}
+[70.464179] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/mtc_cpp_mock_bringup/graph.py -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/mtc_cpp_mock_bringup\n'}
+[70.464362] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/mtc_cpp_mock_bringup/__init__.py -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/mtc_cpp_mock_bringup\n'}
+[70.464606] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/mtc_cpp_mock_bringup/check.py -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/mtc_cpp_mock_bringup\n'}
+[70.465054] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying /integration-build/mtc_cpp_mock_bringup/build/lib/mtc_cpp_mock_bringup/bringup.py -> /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/mtc_cpp_mock_bringup\n'}
+[70.465333] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'running install_data\n'}
+[70.465755] (mtc_cpp_mock_bringup) StderrLine: {'line': b'warning: install_lib: byte-compiling is disabled, skipping.\n'}
+[70.465933] (mtc_cpp_mock_bringup) StderrLine: {'line': b'\n'}
+[70.466091] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'creating /integration-install/mtc_cpp_mock_bringup/share/ament_index\n'}
+[70.466357] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'creating /integration-install/mtc_cpp_mock_bringup/share/ament_index/resource_index\n'}
+[70.466533] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'creating /integration-install/mtc_cpp_mock_bringup/share/ament_index/resource_index/packages\n'}
+[70.466772] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying resource/mtc_cpp_mock_bringup -> /integration-install/mtc_cpp_mock_bringup/share/ament_index/resource_index/packages\n'}
+[70.466836] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying package.xml -> /integration-install/mtc_cpp_mock_bringup/share/mtc_cpp_mock_bringup\n'}
+[70.467027] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying README.md -> /integration-install/mtc_cpp_mock_bringup/share/mtc_cpp_mock_bringup\n'}
+[70.467462] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'copying provenance.json -> /integration-install/mtc_cpp_mock_bringup/share/mtc_cpp_mock_bringup\n'}
+[70.467857] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'running install_egg_info\n'}
+[70.480031] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'Copying ../../../integration-build/mtc_cpp_mock_bringup/mtc_cpp_mock_bringup.egg-info to /integration-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages/mtc_cpp_mock_bringup-0.1.0-py3.12.egg-info\n'}
+[70.481204] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'running install_scripts\n'}
+[70.527133] (-) TimerEvent: {}
+[70.571419] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'Installing mock_check script to /integration-install/mtc_cpp_mock_bringup/lib/mtc_cpp_mock_bringup\n'}
+[70.572041] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'Installing mock_stack script to /integration-install/mtc_cpp_mock_bringup/lib/mtc_cpp_mock_bringup\n'}
+[70.572339] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'Installing mock_task script to /integration-install/mtc_cpp_mock_bringup/lib/mtc_cpp_mock_bringup\n'}
+[70.572685] (mtc_cpp_mock_bringup) StdoutLine: {'line': b'Installing web_console script to /integration-install/mtc_cpp_mock_bringup/lib/mtc_cpp_mock_bringup\n'}
+[70.572979] (mtc_cpp_mock_bringup) StdoutLine: {'line': b"writing list of installed files to '/integration-build/mtc_cpp_mock_bringup/install.log'\n"}
+[70.603950] (mtc_cpp_mock_bringup) CommandEnded: {'returncode': 0}
+[70.619354] (mtc_cpp_mock_bringup) JobEnded: {'identifier': 'mtc_cpp_mock_bringup', 'rc': 0}
+[70.619691] (-) EventReactorShutdown: {}

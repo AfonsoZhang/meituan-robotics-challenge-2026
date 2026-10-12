@@ -1,0 +1,3175 @@
+diff --git a/README.md b/README.md
+index e102711..ea060a9 100644
+--- a/README.md
++++ b/README.md
+@@ -2,13 +2,15 @@
+ 
+ **美团第四届低空经济与具身智能挑战赛｜AUBO S3 机械臂 ROS 2 工程**
+ 
+-**FSM Core v0.1 已完成第一阶段离线安全验收，并合并到 `main`。** 合并提交为
++**Phase 1 C++ FSM Core v0.1 已完成第一阶段离线安全验收，并合并到 `main`。** 合并提交为
+ `c2be85724111f6fb4dfcc62a2c974f7be1233cba`，本地 Git tag `fsm-core-v0.1.0`
+ 指向该提交，作为团队的 FSM Core 开发基线。
+ 
+ **独立 ROS 2 Jazzy 驱动与 MoveIt 2 Mock 验证已完成；完整 FSM + MoveIt 2 集成仍在进行。**
+-第二阶段的新 C++ ROS 2 Action 外壳、MoveIt 2 C++ Planner Adapter、FollowJointTrajectory
+-与 Mock Hardware 抓放闭环尚未完成。独立 Mock 成功不代表 FSM 已接入，也不代表
++**Phase 2A C++ ROS 2 Action 已完成离线 Mock 验证，并合入 `main`（交接基线 `c0f7017`）。**
++Action 外壳复用现有 FSM；
++MoveIt 2 C++ Planner Adapter、FollowJointTrajectory 与 ros2_control Mock Hardware
++抓放闭环尚未完成。独立 Mock 成功不代表已完成这些集成，也不代表
+ AUBO S3 实机抓放验收通过。
+ 
+ 开发环境：Ubuntu 24.04、ROS 2 Jazzy、C++17。当前只允许 Mock / Fake / 离线开发；
+@@ -17,9 +19,12 @@ AUBO S3 实机抓放验收通过。
+ ## 1. 从这里开始
+ 
+ - [FSM 开发者使用指南](README_FSM.md)：四个 C++ 包、主要 API、Port 契约、示例、构建与测试。
++- [Phase 2A C++ ROS Action 指南](src/mtc_ros2_action_cpp/README.md)：三个 Mock Action Server、子 Goal 关联、取消与故障锁定，以及运行/测试方法。
++- [Phase 2A 验收报告](docs/migration/PHASE2A_ROS2_ACTION_REPORT.md)：13包构建、358项C++及UBSan验证、取消/故障边界与未完成项。
+ - [ROS 2 驱动与 MoveIt 2 部署手册](docs/setup/AUBO_ROS2_DRIVER_JAZZY.md)：已验证环境、Mock 启动、控制器/TF 检查和 10 月 12 日团队 SOP。
+ - [第一阶段最终安全验收报告](docs/migration/CPP_FSM_FINAL_SAFETY_GATE.md)：缺陷复现、修复、318/269/15 测试证据及 TSan 限制。
+ - [第二阶段 ROS 2 集成计划](docs/migration/PHASE2_ROS2_INTEGRATION_PLAN.md)：后续 Action / Planner / Mock 集成工作。
++- [Python ROS 接线修复与复验](docs/migration/ROS_WIRING_FIX_20261011.md)：B01/B02/B04 最小补丁、真实 ROS 回归，以及仍未通过的实际 Mock 任务链路。
+ - [原版本开发指南](README_FSM_v0.1.md)：保留原入口，当前使用说明以 `README_FSM.md` 为准。
+ 
+ ## 2. 项目目标与已完成范围
+@@ -38,19 +43,26 @@ Fake 测试，实体机构、工具 IO、TCP/负载和工位标定尚未验收
+ | [mtc_manipulation_cpp](src/mtc_manipulation_cpp/README.md) | 单块电池 PickPlace FSM、V1/V2 ToolStrategy、四类 Port | [PickPlaceFsm](src/mtc_manipulation_cpp/include/mtc_manipulation_cpp/pick_place_fsm.hpp) |
+ | [mtc_motion_execution_cpp](src/mtc_motion_execution_cpp/README.md) | 单在途命令、执行校验、关联取消、停稳证据、Mock/Disabled Adapter | [MotionExecutorCore](src/mtc_motion_execution_cpp/include/mtc_motion_execution_cpp/executor_core.hpp) |
+ 
+-```text
+-TaskFsm → ActionRequest → PickPlaceFsm
+-                             ├─ PerceptionPort
+-                             ├─ PlannerPort
+-                             ├─ ToolPort / ToolStrategy
+-                             └─ MotionPort → MotionExecutorCore → MockMotionAdapter
++Phase 2A 的 [mtc_ros2_action_cpp](src/mtc_ros2_action_cpp/README.md) 提供 ROS 2
++外壳，四个核心包继续保持与 ROS 2 隔离：
+ 
+-待完成：ROS 2 Action 外壳 → MoveIt 2 Planner → FollowJointTrajectory → Mock Hardware
++```text
++TaskServer → ROS PickPlace Action Client → PickPlaceServer → PickPlaceFsm
++                                                            ├─ MockPerception
++                                                            ├─ MockPlanner
++                                                            ├─ MockTool
++                                                            └─ 本地 AsyncMockMotion
++                                                                 → MotionExecutorCore
++                                                                 → MockMotionAdapter
++
++独立 MotionServer → 另一套本地 MotionExecutorCore → MockMotionAdapter
++待集成：MoveIt 2 Planner / FollowJointTrajectory / ros2_control Mock Hardware
+ ```
+ 
+-Task FSM 返回动作意图，外部事件循环负责执行和反馈。PickPlace FSM 通过注入的 Port
+-获取感知、规划、运动和工具证据。两类 FSM 采用单一事件线程所有权；运动执行器
+-单独处理执行/取消竞争。旧 Python FSM、接口定义和迁移记录均保留。
++**Task → PickPlace Action 通信已有 Mock 测试；C++ PickPlace 与独立 Motion Action
++尚未连接，完整 Task → PickPlace → Motion Action → Mock Hardware 执行链路未打通。**
++两类 FSM 继续采用单一事件线程所有权，运动执行/取消由外壳的 worker 处理；旧
++Python FSM、接口定义和迁移记录均保留。
+ 
+ ## 3. 编译与全量离线测试
+ 
+@@ -63,15 +75,15 @@ cd /home/aaet/meituan_challenge_ws
+ colcon list
+ 
+ # 使用独立目录，保留历史 build/install/log
+-colcon --log-base log/final_gate build \
+-  --build-base build/final_gate --install-base install/final_gate
+-source install/final_gate/setup.bash
+-colcon --log-base log/final_gate test \
+-  --build-base build/final_gate --install-base install/final_gate
+-colcon test-result --test-result-base build/final_gate --all
+-
+-# 核验原290项及当前全部C++测试身份，并显式运行未注册的离线E2E
+-python3 tests/verify_cpp_audit_results.py --build-base build/final_gate
++colcon --log-base log/phase2a_mock build \
++  --build-base build/phase2a_mock --install-base install/phase2a_mock
++source install/phase2a_mock/setup.bash
++colcon --log-base log/phase2a_mock test \
++  --build-base build/phase2a_mock --install-base install/phase2a_mock
++colcon test-result --test-result-base build/phase2a_mock --all
++
++# 核验原318项及新增40项C++测试身份，并显式运行未注册的离线E2E
++python3 src/mtc_ros2_action_cpp/test/verify_results.py --build-base build/phase2a_mock
+ python3 tests/test_mock_end_to_end.py
+ ```
+ 
+@@ -80,23 +92,27 @@ python3 tests/test_mock_end_to_end.py
+ 
+ ## 4. 最终验收记录
+ 
+-以下为 [2026-10-11 Final Gate 报告](docs/migration/CPP_FSM_FINAL_SAFETY_GATE.md)
+-记录的实际执行结果；本次 README 更新没有重新运行全量回归。
++以下为 [2026-10-11 Phase 2A 报告](docs/migration/PHASE2A_ROS2_ACTION_REPORT.md)
++记录的实际执行结果；本次文档交接更新没有重新运行构建与全量回归。
+ 
+ | 验证项 | 结果 |
+ |---|---|
+-| Jazzy 工作空间构建 | 12/12 包 PASS |
+-| C++ GTest | 318 PASS；16个可执行文件，原290项全部保留，新增28项 |
++| Jazzy 工作空间构建 | 13/13 包 PASS |
++| C++ GTest | 358 PASS；20个可执行文件，原318项全部保留，Action新增40项 |
+ | Python pytest | 269 PASS |
+-| 显式离线 E2E | 15 PASS / FAIL 0 / SKIP 0；纯 Python Mock |
+-| XML manifest、UBSan、git diff --check | PASS |
+-| TSan 动态竞态回归 | 未完成，NOT RUN；运行时启动报 `unexpected memory mapping` |
+-| 第二阶段 C++ ROS Action / MoveIt Planner / Mock Hardware 闭环 | 尚未完成、未验收 |
++| 显式 Python 离线 E2E | 15 PASS / FAIL 0 / SKIP 0 |
++| C++ UBSan | 358 PASS；四个核心包及Action包 |
++| XML manifest、git diff --check | PASS |
++| TSan 动态竞态回归 | 本轮 NOT RUN；历史运行时错误记录保留，不代表已排除所有数据竞争 |
++| Phase 2A C++ ROS 2 Action | Mock 验证 PASS；Task → PickPlace，独立 Motion Action |
++| 完整 FSM + MoveIt Planner / FollowJointTrajectory / Mock Hardware 闭环 | 尚未完成、未验收 |
+ | AUBO S3 实机抓放与实体 IO | NOT RUN，未授权 |
+ 
+-318 + 269 + 15 为602个测试场景。报告中的 colcon `608 tests` 包含 CTest 包装和
+-lint 条目，不能当作608个独立业务用例。离线 E2E 使用脚本自带 MockPlanner，
+-不代表真正 MoveIt Planner 或 C++ ROS Action 已接入。
++358 + 269 + 15 为642个独立测试场景。colcon汇总包含CTest包装和lint条目，不能
++重复计数。15项离线E2E使用Python脚本自带MockPlanner，不代表MoveIt集成通过。
++报告中的全目录 `colcon test-result --all --verbose` 因保留的历史TSan失败返回
++FAIL；当前13包的结果分别检查通过。上面的独立构建目录用于隔离历史结果；若
++复用目录，必须确认测试结果属于本次构建，不能将旧XML当作新验收证据。
+ 
+ ## 5. 安全契约
+ 
+@@ -119,13 +135,47 @@ Xacro 修复，纯上游 clone 不能直接当作同一已验证环境。
+ MoveIt 退出异常。手册明确区分独立 Mock、待完成的 FSM 集成、需要现场单独授权的
+ 真实硬件操作；不提供实机运动命令。新机器修复快照和完整部署仍需独立复验。
+ 
+-## 7. 仓库目录与参考资料
++## 7. 系统集成交接（张叔阳）
++
++交接基线为 `main@c0f7017`。先阅读 [C++ Action 包指南](src/mtc_ros2_action_cpp/README.md)、
++[Phase 2A 验收报告](docs/migration/PHASE2A_ROS2_ACTION_REPORT.md) 和
++[驱动与 MoveIt 2 Mock 手册](docs/setup/AUBO_ROS2_DRIVER_JAZZY.md)。
++
++| C++ Action | 类型 | 当前关系 |
++|---|---|---|
++| `/mtc/task/execute` | `mtc_interfaces/action/ExecuteTask` | TaskServer通过ROS Client调用PickPlace |
++| `/mtc/manipulation/pick_place` | `mtc_interfaces/action/PickPlace` | 使用现有FSM及本地Mock Ports/执行器 |
++| `/mtc/motion/execute_joint_move` | `mtc_interfaces/action/ExecuteJointMove` | 独立Mock Server，仅六关节单点目标；未接入PickPlace |
++
++现有 [mock_bringup.launch.py](src/mtc_bringup/launch/mock_bringup.launch.py) 仍启动
++旧Python `mtc_task/task_executor`、`mtc_manipulation/pick_place_server`、
++`mtc_motion_execution/motion_executor`，以及Python Tool/Safety节点，**不是C++
++Bringup**。旧包继续保留；不要在同一ROS domain同时启动提供同名Action的Python
++和C++ Server。新包目前以三个 `ros2 run` 入口独立启动，环境隔离及Mock操作示例
++见包指南；主工作空间尚无独立的C++ Mock Bringup Launch。若按本文独立目录构建，
++需将包指南中的overlay source改为 `install/phase2a_mock/setup.bash`，其余终端
++统一使用同一构建环境，避免加载旧二进制。
++
++张叔阳接下来的交付：
++
++1. 在独立开发分支建立C++ Mock Bringup，明确启动节点及依赖顺序；保持后端为Mock，避免同名Server共存。
++2. 在隔离的本机ROS domain复验Task → PickPlace Action通信，包括Goal、Feedback、Result、关联Cancel、子失败及超时；不能将Cancel ACK视为停稳。
++3. 核查Node、Topic、Action类型和唯一Server、QoS、命名空间及日志，记录正常结果和异常定位方法。
++4. 提供可独立复现的Mock启动SOP，列明每个终端的source、启动顺序、预期输出、检查命令、保持运行的进程和正常结束方法。
++5. 为后续MoveIt 2集成准备Launch及测试环境，明确Planner/整条轨迹/停稳证据的适配边界；独立驱动Mock成功不能代替完整FSM闭环验收。
++
++交接详细检查命令见 [FSM指南的交接章节](README_FSM.md#系统集成交接张叔阳)。
++本阶段不连接真实机器人、不启用实体工具IO；FAULT、未知运动和负载锁定继续保留，
++不得通过重启节点或自动复位宣称恢复安全状态。
++
++## 8. 仓库目录与参考资料
+ 
+ ```text
+ meituan_challenge_ws/
+ ├── README.md / README_FSM.md     # 项目入口与开发者指南
+ ├── src/
+-│   ├── mtc_*_cpp/               # 四个已完成的C++核心包
++│   ├── mtc_{core,task,manipulation,motion_execution}_cpp/ # 四个核心包
++│   ├── mtc_ros2_action_cpp/     # Phase 2A C++ Mock Action 外壳
+ │   ├── mtc_interfaces/          # 既有Action/Message/Service契约
+ │   ├── mtc_task/、mtc_manipulation/、mtc_motion_execution/
+ │   ├── mtc_tool/、mtc_safety/、mtc_aubo_bridge/、mtc_bringup/
+@@ -135,8 +185,8 @@ meituan_challenge_ws/
+ └── build/、install/、log/        # 本地生成产物，不提交Git
+ ```
+ 
+-当前 `colcon list` 注册12个包；description/planning/simulation目录为保留入口，
+-不计入该12包构建结果。官方驱动参考工作空间 `/home/aaet/aubo_driver_validation_ws`
++当前 `colcon list` 注册13个包；description/planning/simulation目录为保留入口，
++不计入该13包构建结果。官方驱动参考工作空间 `/home/aaet/aubo_driver_validation_ws`
+ 已有独立的 Jazzy Mock Hardware / FollowJointTrajectory / MoveIt 验证记录，
+ 只读参考；这不等于本仓库的新 C++ FSM 已完成同一集成。
+ 
+diff --git a/README_FSM.md b/README_FSM.md
+index 856449c..2aeb084 100644
+--- a/README_FSM.md
++++ b/README_FSM.md
+@@ -1,8 +1,8 @@
+ # FSM Core 开发者使用指南（美团无人机挑战赛）
+ 
+-> **当前状态：FSM Core v0.1 已完成第一阶段离线安全验收并合入 `main`。** 合并提交为 `c2be85724111f6fb4dfcc62a2c974f7be1233cba`；已存在的本地 Git tag `fsm-core-v0.1.0` 指向该提交。本指南依据合入的 C++ API 与 Final Gate 报告编写。第二阶段 ROS 2 Action、MoveIt 2 Planner 与 Mock Hardware 集成尚未完成。
++> **当前状态：Phase 1 FSM Core v0.1 已完成；Phase 2A C++ ROS 2 Action 已完成离线 Mock 验证，两者均已合入 `main`。** 交接基线为 `main@c0f7017`；Core历史合并提交为 `c2be85724111f6fb4dfcc62a2c974f7be1233cba`，本地 tag `fsm-core-v0.1.0` 仍指向该Core版本，不包含后续Action包。
+ >
+-> **适用范围：C++17 FSM Core / 离线 Mock 开发，不是已完成的 ROS 2 / MoveIt 2 / AUBO S3 实机控制系统。** 严禁将本文中的示例改为直接驱动真实机械臂。
++> **适用范围：C++17 FSM Core / ROS 2 Action 离线 Mock 开发。** 完整FSM + MoveIt 2 / FollowJointTrajectory / ros2_control Mock Hardware闭环尚未完成，未进行AUBO S3实机验收。严禁将本文示例改为直接驱动真实机械臂。
+ 
+ ## 1. 团队交接：现在完成了什么？
+ 
+@@ -25,7 +25,7 @@ C++ PickPlace FSM (mtc_manipulation_cpp)
+      Motion Executor / Mock Adapter (mtc_motion_execution_cpp)
+            │
+            ▼
+-     [第二阶段：ROS 2 Action / MoveIt 2 / FollowJointTrajectory / S3 Fake Hardware]
++     [待集成：MoveIt 2 / FollowJointTrajectory / S3 Fake Hardware]
+ ```
+ 
+ ### 四个 C++ 包
+@@ -39,13 +39,20 @@ C++ PickPlace FSM (mtc_manipulation_cpp)
+ 
+ **已实现：** 核心状态机和共享 C++ API；V1/V2 工具策略；纯逻辑 Fake 与 Mock 单元测试；单命令/整条轨迹的数据表达与保守执行校验。
+ 
+-**未实现/未验收：** 新 C++ FSM 的 ROS 2 Action Server、MoveIt 2 C++ Planner、`FollowJointTrajectory` 端到端适配、完整 S3 Fake Hardware 抓放闭环和真实硬件控制。仓库保留部分历史 Python ROS 节点，但不等于新 C++ FSM 已经接入了这些节点。
++**Phase 2A已实现并通过Mock验证：** 独立包 `mtc_ros2_action_cpp` 提供三个C++
++Action Server，复用核心FSM；Task → PickPlace使用真正的ROS Action Client/Server。
++PickPlace使用本地Mock运动端口，独立Motion Action尚未连接到PickPlace。
++
++**未实现/未验收：** MoveIt 2 C++ Planner、`FollowJointTrajectory`端到端适配、完整
++S3 Fake Hardware抓放闭环和真实硬件控制。独立驱动工作空间的MoveIt 2 Mock验证
++已经完成，证据与SOP见 [驱动手册](docs/setup/AUBO_ROS2_DRIVER_JAZZY.md)，不能等同
++于本仓库完整FSM执行链路已打通。
+ 
+ ## 2. 开发基线与团队使用方式
+ 
+-`main` 已合并 Final Gate 修复，`fsm-core-v0.1.0` 为当前已存在的本地版本标签，
++`main@c0f7017` 已包含 Final Gate 与 Phase 2A；`fsm-core-v0.1.0` 为Core历史本地标签，
+ 目标提交为 `c2be857`。过期 Goal 误停、Mock 时基、零放置时长及零静止跨度等
+-安全问题已有修复和负面测试；这份基线用于离线开发及下一阶段 Mock 集成。
++安全问题已有修复和负面测试；当前main用于离线Action系统集成及后续Mock开发。
+ 完整 TSan 尚未完成，不能称为已完成动态竞态验收或实机验收。
+ 
+ 首次克隆仅在目标目录不存在时执行；已有工作区先检查状态，不覆盖或重新初始化：
+@@ -68,7 +75,8 @@ git switch -c feature/my-module-name main
+ 
+ 基线：Ubuntu 24.04、ROS 2 Jazzy、C++17、`colcon`、`ament_cmake`、
+ `ament_cmake_gtest`，以及已注册Python包的pytest依赖。
+-实际依赖见各包 `package.xml` / `CMakeLists.txt`；核心库不依赖ROS运行时。
++实际依赖见各包 `package.xml` / `CMakeLists.txt`；核心库不依赖ROS运行时，
++Action包依赖`rclcpp`、`rclcpp_action`和`mtc_interfaces`。
+ 下面各组命令在仓库根目录执行，不清空已有build/install/log。
+ 
+ ### 完整工作空间
+@@ -77,18 +85,20 @@ git switch -c feature/my-module-name main
+ source /opt/ros/jazzy/setup.bash
+ cd /home/aaet/meituan_challenge_ws
+ colcon list
+-colcon --log-base log/final_gate build \
+-  --build-base build/final_gate --install-base install/final_gate
+-source install/final_gate/setup.bash
+-colcon --log-base log/final_gate test \
+-  --build-base build/final_gate --install-base install/final_gate
+-colcon test-result --test-result-base build/final_gate --all
+-python3 tests/verify_cpp_audit_results.py --build-base build/final_gate
++colcon --log-base log/phase2a_mock build \
++  --build-base build/phase2a_mock --install-base install/phase2a_mock
++source install/phase2a_mock/setup.bash
++colcon --log-base log/phase2a_mock test \
++  --build-base build/phase2a_mock --install-base install/phase2a_mock
++colcon test-result --test-result-base build/phase2a_mock --all
++python3 src/mtc_ros2_action_cpp/test/verify_results.py --build-base build/phase2a_mock
+ python3 tests/test_mock_end_to_end.py
+ ```
+ 
+-身份核验脚本检查原290项及当前全部318项是否真的执行，拒绝缺失、重复、失败、
+-跳过或未完成项。E2E脚本未被colcon注册，必须单独执行；它是纯Python Mock，
++新身份核验脚本比较原318项、Action新增40项与实际XML，覆盖358项及20个
++可执行文件，拒绝缺失、重复、失败、跳过或未完成项。历史脚本
++`tests/verify_cpp_audit_results.py` 固定16个可执行文件，不适用于当前完整集合。
++E2E脚本未被colcon注册，必须单独执行；它是纯Python Mock，
+ 不是C++ ROS 2 E2E，也未接入真正的MoveIt Planner。
+ 
+ ### 仅四个 C++ 核心包
+@@ -106,21 +116,22 @@ colcon --log-base log/fsm_core test \
+   --build-base build/fsm_core --install-base install/fsm_core \
+   --packages-select mtc_core_cpp mtc_task_cpp mtc_motion_execution_cpp mtc_manipulation_cpp
+ colcon test-result --test-result-base build/fsm_core --all
+-python3 tests/verify_cpp_audit_results.py --build-base build/fsm_core
+ ```
+ 
+-此入口不执行Python包、XML或E2E，不能据此宣称全工作空间回归通过。
++此入口仅运行四个核心包的318项GTest，不执行Action包、Python包、接口XML或
++E2E，不能据此宣称全工作空间回归通过。完整身份核验需先执行五个C++包的全部
++测试并使用上一节的新脚本，不能对仅四包的结果调用它。
+ 
+ ### 定向 GTest
+ 
+-先完成相应目录的构建。在加载 `install/final_gate/setup.bash` 的终端可执行：
++先完成相应目录的构建。在加载 `install/phase2a_mock/setup.bash` 的终端可执行：
+ 
+ ```bash
+-build/final_gate/mtc_motion_execution_cpp/test_executor_concurrency \
++build/phase2a_mock/mtc_motion_execution_cpp/test_executor_concurrency \
+   --gtest_filter='GoalCancelGate.*'
+-build/final_gate/mtc_motion_execution_cpp/test_mock_adapter \
++build/phase2a_mock/mtc_motion_execution_cpp/test_mock_adapter \
+   --gtest_filter='MockClockGate.*'
+-build/final_gate/mtc_manipulation_cpp/test_pick_place_audit \
++build/phase2a_mock/mtc_manipulation_cpp/test_pick_place_audit \
+   --gtest_filter='PlacementAudit.*:PlacementGate.*:WatchdogAudit.*'
+ ```
+ 
+@@ -128,25 +139,31 @@ build/final_gate/mtc_manipulation_cpp/test_pick_place_audit \
+ 
+ ### 已记录的验收结果与 sanitizer
+ 
+-以下结果来自 [2026-10-11最终安全验收报告](docs/migration/CPP_FSM_FINAL_SAFETY_GATE.md)，
+-本次README更新没有重新执行全量回归：
++以下结果来自 [2026-10-11 Phase 2A报告](docs/migration/PHASE2A_ROS2_ACTION_REPORT.md)，
++本次README交接更新没有重新执行构建或全量回归：
+ 
+ | 验证 | 记录结果 |
+ |---|---|
+-| Jazzy全工作空间编译 | 12/12包 PASS |
+-| C++ GTest | 318 PASS，原290项全部保留，新增28项，16个可执行文件 |
++| Jazzy全工作空间编译 | 13/13包 PASS |
++| C++ GTest | 358 PASS；原318项全部保留，Action新增40项，20个可执行文件 |
+ | Python pytest | 269 PASS |
+-| 显式离线E2E | 15 PASS / FAIL 0 / SKIP 0 |
+-| XML、UBSan、git diff --check | PASS |
+-| TSan | 未完成，NOT RUN；运行时启动报 `unexpected memory mapping` |
+-| C++ ROS Action / MoveIt Planner / Mock Hardware集成 | 尚未完成，NOT RUN |
++| 显式Python离线E2E | 15 PASS / FAIL 0 / SKIP 0 |
++| C++ UBSan | 358 PASS，四个核心包及Action包 |
++| XML、git diff --check | PASS |
++| TSan | 本轮 NOT RUN；历史运行时`unexpected memory mapping`记录仍保留 |
++| Phase 2A C++ ROS 2 Action | Mock验证PASS，Task → PickPlace及独立Motion Action |
++| 完整FSM + MoveIt Planner / FollowJointTrajectory / Mock Hardware闭环 | 尚未完成，未验收 |
+ | 实机与实体IO | NOT RUN，未授权 |
+ 
+-C++包分布：core23、task87、manipulation120、motion88。
+-318+269+15为602个测试场景；colcon汇总608项包含包装/lint条目，不能重复计数。
+-E2E使用脚本MockPlanner，可选规划模块缺失不代表真正Planner集成通过。
+-UBSan/TSan独立构建目录及实际错误记录见上述报告第7节。复跑sanitizer时沿用
+-独立目录，不修改系统ASLR或安全设置；TSan启动失败不能标为PASS。
++C++包分布：core23、task87、manipulation120、motion88、action40。
++358+269+15为642个独立测试场景；CTest包装/lint条目不能重复计数。Python E2E使用
++脚本MockPlanner，不代表MoveIt成功；C++ Action通信证据来自Action包注册测试。
++
++报告记录全目录 `colcon test-result --all --verbose` 因历史TSan失败返回FAIL，
++当前13包结果分别检查通过。上面的独立目录可隔离历史结果；复用目录时仍需核对
++当前构建、执行和XML身份。UBSan命令与历史结果说明见Phase 2A报告第4、5节。
++TSan本轮没有运行，普通并发测试或UBSan不能替代动态竞态检测；不修改系统ASLR
++或安全设置，也不将未执行项写成PASS。
+ 
+ ### 共享类型 API
+ 
+@@ -371,46 +388,119 @@ FSM事件线程用它等待长轨迹。它未覆盖整条轨迹执行，因此
+ 
+ **并发：** Task FSM 和 PickPlace FSM 对象本身遵循**单一事件线程所有权**。ROS 2 多线程回调应把事件送入串行队列；不能从多个 ROS 回调线程同时调用 `step()/start()/request_cancel()`。`MotionExecutorCore` 独立处理执行/停止竞争，但不能代替 FSM 的事件串行化。
+ 
+-## 6. 与 ROS 2 的关系：接口存在 ≠ C++ Action 已集成
++## 6. Phase 2A ROS 2 Action 与后续集成边界
++
++核心库继续与ROS 2隔离，已实现的外壳位于
++[src/mtc_ros2_action_cpp](src/mtc_ros2_action_cpp/README.md)。三个Action使用原有
++`mtc_interfaces`契约，没有修改FSM状态转换或ROSIDL字段：
++
++| Action | 类型 | 当前可执行入口 |
++|---|---|---|
++| `/mtc/task/execute` | `mtc_interfaces/action/ExecuteTask` | `ros2 run mtc_ros2_action_cpp mock_task_server` |
++| `/mtc/manipulation/pick_place` | `mtc_interfaces/action/PickPlace` | `ros2 run mtc_ros2_action_cpp mock_pick_place_server` |
++| `/mtc/motion/execute_joint_move` | `mtc_interfaces/action/ExecuteJointMove` | `ros2 run mtc_ros2_action_cpp mock_motion_server` |
++
++```text
++TaskServer → ROS PickPlace Action Client → PickPlaceServer → PickPlaceFsm
++                                              ↓ MockPerception / MockPlanner / MockTool
++                                              ↓ 本地 AsyncMockMotion
++                                      MotionExecutorCore → MockMotionAdapter
++
++MotionServer（独立） → 另一套 MotionExecutorCore → MockMotionAdapter
++```
++
++ExecuteTask Goal转为 `TaskRequest` 后交给TaskFsm；`CALL_PICK_PLACE`产生真正的ROS
++子Goal，`CANCEL_CHILD`关联保存的子Goal handle/UUID。PickPlace Feedback/Result来自
++原FSM。ROS回调只登记Goal/Cancel和子事件；同一MutuallyExclusive CallbackGroup
++中的Timer推进FSM，执行和停止放到owned worker，以非阻塞方式轮询结果。
+ 
+-仓库有 `mtc_interfaces` 中的 `ExecuteTask.action`、`PickPlace.action`、`ExecuteJointMove.action` 等契约，旧 Python 包也有 ROS 2 适配代码；但**当前新 C++ FSM 核心库没有实现对应的 C++ `rclcpp_action` Server，也没有自动接入 MoveIt 2**。这是下一阶段的交付范围。
++**C++ PickPlace与独立Motion Action尚未连接。** Motion Server仅支持六关节单点目标，
++没有整条轨迹入口，不能拆分多点轨迹来宣称轨迹执行。PickPlace现在使用本地Mock
++执行器；三种Action存在不等于完整Task → PickPlace → Motion Action → Mock Hardware
++链路已打通。完整行为、测试及限制见 [Phase 2A报告](docs/migration/PHASE2A_ROS2_ACTION_REPORT.md)。
+ 
+-未来集成时：
++取消受理与停稳确认继续分离；本包PickPlace只有核心 `CANCELLED && stop_confirmed`
++才返回ROS CANCELED。既有PickPlace Result没有独立的停稳证据字段，Task仅信任本包
++加强契约的Mock Server最终 `CANCELED/OK`，不能将第三方Server或Cancel ACK视为
++停止证明。FAULT、未知运动及挂载/未知负载保持锁定，没有自动人工复位。
+ 
+-- `ExecuteTask` Goal → `TaskRequest` → `TaskFsm`，`StepResult.actions` → ROS 2 子操作。
+-- `PickPlace` Goal → `PickPlaceFsm::start()`；把 `feedback()` 转成 Action Feedback，把 `result()` 转成 Result。
+-- Perception 的 `geometry_msgs/PoseStamped` → 完整 `Pose6D`，必须核对 TF、坐标系和时间戳。
+-- MoveIt 2 完整时间参数化轨迹 → 一次 `control_msgs/action/FollowJointTrajectory` Goal；禁止多次 `ExecuteJointMove` 伪造轨迹。
+-- `Goal accepted` ≠ `motion complete`；`cancel accepted` ≠ `stop confirmed`；`placement_verified` 只有真正连续新观测通过才可置真。
++后续接入需要核对完整 `Pose6D`、TF、时戳/时基、规划结果和独立停稳证据；MoveIt 2
++完整时间参数化轨迹应由未来适配器作为一次FollowJointTrajectory Goal提交。目前未
++实现该适配，不得称为已完成机器人控制闭环。
+ 
+-在完成正式 ROS 2 Mock 闭环前，不得宣称新的 C++ FSM 已有“开箱即用的机器人控制节点”。
++### 系统集成交接（张叔阳）
++
++交接以 `main@c0f7017` 为基线。现有
++[mock_bringup.launch.py](src/mtc_bringup/launch/mock_bringup.launch.py) 仍启动旧Python
++`mtc_task/task_executor`、`mtc_manipulation/pick_place_server`、
++`mtc_motion_execution/motion_executor`，以及Tool/Safety节点；它不是C++ Bringup。
++旧Python包暂不删除；同一domain内不得同时启动提供同名Action的Python/C++ Server。
++
++下一步在独立分支交付：
++
++1. 建立独立C++ Mock Bringup，明确节点、依赖顺序、命名空间与Mock环境隔离，避免同名Server共存。
++2. 复验Task → PickPlace ROS通信；覆盖Goal/Feedback/Result、关联Cancel、子失败、超时及FAULT锁定。独立Motion Action另行验证，不虚构PickPlace → Motion连接。
++3. 检查Node、Topic、Action类型、唯一Server、QoS和日志，将观察结果保存为可追溯证据。
++4. 提供团队可独立复现的Mock启动SOP，包括每个终端的source、运行顺序、预期结果、出错定位和正常退出；目前可参考 [Action包的逐终端方法](src/mtc_ros2_action_cpp/README.md)。
++5. 为MoveIt 2后续集成准备Launch和测试环境，参考 [驱动Mock部署手册](docs/setup/AUBO_ROS2_DRIVER_JAZZY.md)，区分独立驱动验证与完整FSM闭环。
++
++完成包指南中的source和本机domain隔离后，可在观察终端检查。若按本文独立目录
++构建，将包指南中的overlay source改为 `install/phase2a_mock/setup.bash`，所有
++终端加载同一构建环境：
++
++```bash
++ros2 node list --no-daemon --spin-time 2
++ros2 node info /mtc_mock_task
++ros2 node info /mtc_mock_pick_place
++ros2 action list -t
++ros2 action info /mtc/task/execute -t
++ros2 action info /mtc/manipulation/pick_place -t
++ros2 topic list -t --include-hidden-topics
++ros2 topic info /mtc/task/execute/_action/feedback --verbose
++ros2 topic info /mtc/manipulation/pick_place/_action/feedback --verbose
++```
++
++Task/PickPlace同域时每个Action应只有一个对应C++ Server，节点名分别为
++`/mtc_mock_task`、`/mtc_mock_pick_place`。独立启动Motion后检查
++`ros2 node info /mtc_mock_joint_move` 和
++`ros2 action info /mtc/motion/execute_joint_move -t`。
++Topic检查用于核对发布/订阅端、QoS及匹配情况；不能仅看Action名称存在就判定通信
++成功。SOP应记录 `ROS_LOG_DIR` 与实际日志位置，并展示Feedback及最终Result证据。
++
++本交接仅授权软件Mock；不连接真实机器人、不调用实体工具IO。不得更改既有停止、
++FAULT、未知状态或负载安全语义，也不得以自动重启清除锁定来宣称完成安全恢复。
+ 
+ ## 7. 队友开发分工及 PR 验收
+ 
+-推荐以已合入的 `main`/`fsm-core-v0.1.0` 作为共同基线，在独立分支实现：
++推荐以当前 `main`（已包含Phase 2A）作为共同基线，在独立分支实现；
++`fsm-core-v0.1.0` 仅用于追溯Core历史版本：
+ 
+ | 方向 | 建议分支 | 首先交付 |
+ |---|---|---|
+ | 感知 | `feature/perception-adapter` | `PerceptionPort` Mock/转换测试、6D Pose、TF/时间戳拒绝场景 |
+ | 规划 | `feature/moveit-planner` | `PlannerPort` Mock/规划输出测试，`PlanResult.commands` 完整性 |
+ | 运动执行 | `feature/motion-controller` | Mock `FollowJointTrajectory` 单 Goal + 取消/停稳证据测试 |
+-| ROS 2 | `feature/ros2-action` | `ExecuteTask`/`PickPlace` C++ Action 外壳，串行 FSM 事件队列 |
++| 系统集成（张叔阳） | `feature/cpp-mock-bringup` | 独立C++ Mock Launch、Task → PickPlace通信检查及可复现SOP |
+ | 工具 | `feature/tool-adapter` | V1/V2 `ToolPort` Fake/Mock 与解锁联锁测试 |
+ 
+ **提交 PR 前：** 必须附上相应 `colcon build`、`colcon test` 的实际结果，说明是否触及 IDL、TF、并发/停稳契约；包含负面测试；所有实机能力继续默认禁用。接口变更先讨论，不要各自修改同一 `.action/.msg/.srv` 使契约漂移。
+ 
+ ## 8. 常见错误与注意事项
+ 
+-- **找不到包或头文件：** 确认已经 `source /opt/ros/jazzy/setup.bash`，构建后在当前终端 `source install/final_gate/setup.bash`（仅核心目录则加载 `install/fsm_core/setup.bash`），消费者在 `package.xml`/CMake 中声明所依赖的 C++ 包。
++- **找不到包或头文件：** 确认已经 `source /opt/ros/jazzy/setup.bash`，构建后在当前终端 `source install/phase2a_mock/setup.bash`（仅核心目录则加载 `install/fsm_core/setup.bash`），消费者在 `package.xml`/CMake 中声明所依赖的 C++ 包。
+ - **`test/fakes.hpp` 找不到：** 测试 Fake 不属于安装的公共 include 目录；不要把它当作正式后端。
+ - **FSM 一直等待：** 检查 Port 是否返回 `std::nullopt`、是否由外部事件循环继续 tick、是否向 FSM 投递了对应完成事件；不要绕过看门狗。
+ - **规划器报告 `ok=true` 但不执行：** `PlanResult.commands` 必须与请求原语一一对应，并满足完整轨迹/关节目标校验；不能只返回 `ok`。
+ - **取消已请求但结果是 FAULT：** 停止请求被受理不等于后端已确认停稳，检查 StopEvidence 与关联 command_id；不要改写结果掩盖故障。
+ - **Mock 运行时钟：** Final Gate 后 `MockMotionAdapter` 默认创建 `ManualClock`，`MotionExecutorCore` 若未显式传入时钟，会沿用适配器的同一实例；如显式注入时钟，**必须是同一 `ClockPtr` 实例**。不同 `ManualClock` 即使起点相同也会被拒绝；Mock 不支持 `SteadyClock`。
+-- **想直接控制 S3：** 此 README 未授权任何实体控制；当前仅完成纯逻辑Mock。使用 `mock_components/GenericSystem` 的C++ FSM集成属于尚未完成的第二阶段。
++- **想直接控制 S3：** 此 README 未授权任何实体控制；当前C++仅完成Core及Action软件Mock。使用 `mock_components/GenericSystem` 的C++ FSM集成属于尚未完成的第二阶段。
+ 
+ ## 9. 源码和进一步阅读
+ 
++- [C++ Action包指南](src/mtc_ros2_action_cpp/README.md)：当前三个Server的启动、线程所有权及安全契约。
++- [Phase 2A交付报告](docs/migration/PHASE2A_ROS2_ACTION_REPORT.md)：13包/358项C++/269项Python/15项E2E/358项UBSan实际证据；TSan本轮NOT RUN。
++- [AUBO S3 Jazzy驱动Mock手册](docs/setup/AUBO_ROS2_DRIVER_JAZZY.md)：独立驱动环境与后续集成参考。
++
+ - [src/mtc_task_cpp/test/test_task_fsm_core.cpp](src/mtc_task_cpp/test/test_task_fsm_core.cpp)：Task FSM 从 INIT 到 CALL_PICK_PLACE 的真实测试使用方式。
+ - [src/mtc_manipulation_cpp/test/test_pick_place_fsm_v1.cpp](src/mtc_manipulation_cpp/test/test_pick_place_fsm_v1.cpp)：V1 PickPlace 完整 Fake 测试流程。
+ - [src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp](src/mtc_manipulation_cpp/test/test_pick_place_fsm_v2.cpp)：V2 工具策略流程。
+diff --git a/docs/migration/PHASE2A_ROS2_ACTION_REPORT.md b/docs/migration/PHASE2A_ROS2_ACTION_REPORT.md
+new file mode 100644
+index 0000000..48bf334
+--- /dev/null
++++ b/docs/migration/PHASE2A_ROS2_ACTION_REPORT.md
+@@ -0,0 +1,258 @@
++# Phase 2A：C++ ROS 2 Action 离线 Mock 交付报告
++
++日期：2026-10-11（Asia/Hong_Kong）。开发基线为 `main@1d940f7`，工作分支为
++`feature/phase2a-cpp-actions`。实现提交：
++`e1b269062a35062043dc5d9bb80d19678e8dc0d5`。
++测试DDS隔离提交：`412270c860f2228000a105fb617f37bae938ff0c`，显式使用
++Fast DDS / LOCALHOST并清除继承的Profile与静态peer设置；普通与UBSan测试再次通过。
++
++新增 [mtc_ros2_action_cpp](../../src/mtc_ros2_action_cpp/README.md)，交付 PickPlace、
++ExecuteTask 和 ExecuteJointMove 三个 C++ Action Server。结果只适用于离线
++Mock 软件；没有启动真实驱动、连接控制柜、调用 RPC/RTDE 或实体工具 IO。
++没有合并 main、推送远端或修改官方驱动工作空间。
++
++## 1. 先行审计和接口决定
++
++审阅四包的 FSM/API、Port、Clock、证据类型、执行器取消实现，以及
++`mtc_interfaces/action/{PickPlace,ExecuteTask,ExecuteJointMove}.action`。
++同时复核第一阶段最终安全验收与第二阶段计划；旧计划的257项基线已经被
++最终报告的318项替代，本轮不按旧计划改写或重复实现 FSM。
++
++| 对象 | 核对结论与实现方式 |
++|---|---|
++| TaskFsm | `submit_goal` / `advance_validation` / `report_target` / `report_item_result` / deadline API可复用；动作意图由外壳分发，FAULT不RESET |
++| PickPlaceFsm | `start` / `step` / `request_cancel` / `feedback` / `result`复用；新鲜稳定帧和工具联锁继续由原核心验证 |
++| MotionExecutorCore | 同步单点执行放到worker；只按原command_id调用`cancel_goal`，错ID拒绝与generation pin保持原实现 |
++| PlannerPort | 返回完整commands；本轮显式Mock关节计划带非零目标和`simulation_only=true`，不是MoveIt逆运动学或碰撞规划 |
++| MotionPort | `nullopt`表示未完成，可非阻塞轮询；Stop没有pending类型，因此外壳先异步取得Stop结果，再交给原FSM处理 |
++| TaskRequest | 是`mtc_task_cpp`的C++结构体，**不是ROS msg**；从ExecuteTask Goal逐字段转换，不新增消息 |
++| PickPlace Result | 无`stop_confirmed`字段。只对本包加强契约的Server信任`CANCELED/OK`；第三方证据独立核验仍存在接口缺口 |
++| ExecuteJointMove | 六个名称/目标按索引保留；仅单点。不承载轨迹，不拆分多点轨迹 |
++
++`git diff 1d940f7 --` 四个核心包、`mtc_interfaces`及旧Python逻辑包为空。
++FSM状态转移、原有测试和`.action/.msg/.srv`字段均未修改。
++
++## 2. 实现、线程与生命周期
++
++新包使用ament_cmake、C++17、rclcpp、rclcpp_action、action_msgs和现有接口/核心库；
++导出`mtc_ros2_action_cpp::mtc_ros2_action_cpp`及公共头文件。ROS依赖未进入核心包。
++
++* `action_slot.hpp`：一个MutuallyExclusive CallbackGroup管理Goal/Cancel/Timer；
++  返回ACCEPT之前预留UUID owner，拒绝非法参数、并发Goal、重复业务ID和锁定请求。
++  ROS回调不调用FSM，仅记录pending和cancel；只有Timer推进、查询FSM。
++* `pick_place_server.cpp`：注入显式Mock感知/规划/工具/异步运动Port；周期发布全部
++  Feedback字段，Result取自FSM。仅`CANCELLED && stop_confirmed`返回ROS CANCELED。
++  FAULT、挂载或未知负载保留admission lock，Tool实例跨Goal保留；不自动构造
++  空载新FSM来清除负载。原命令的清理Stop在Action结束后继续异步收尾。
++* `task_server.cpp`：通过真正的ROS PickPlace Client提交`CALL_PICK_PLACE`；按
++  原request_id加唯一attempt编号关联子Goal，并保存其实际UUID/handle。子回调只
++  写原inbox，迟到回调不能推进新任务。`CANCEL_CHILD`核对原ID后取消该handle。
++  Cancel ACK没有停止确认副作用；完成计数/工位由原FSM在验证子Result后记录。
++* `motion_server.cpp`：复用MotionExecutorCore。保留Goal六关节数据，发布后端
++  Feedback，返回执行器Result；Cancel/ROS交付期限都提交关联Stop。超时或未知
++  且未停稳继续锁定，原始220/230/520错误语义保留。
++* `mock_ports.cpp`：execute与stop各最多一个owned worker，future只做零等待
++  轮询，`get()`只用于ready结果；没有detached thread或trajectory sleep。
++  Adapter/Executor共享ManualClock，Backend始终MockMotionAdapter。默认100ms
++  只延迟结果交付，虚拟运动本身瞬时推进；Task/ROS期限另用SteadyClock。
++* 每个新感知样本随虚拟tick更新时间戳；几何挂载、落座、卸载和释放为显式
++  模拟证据。MockTool维护holding/unknown，释放后状态为DETACHED；新包Result
++  没有硬编码成功来跳过FSM，反例测试使用故意错误的子Result验证防护。
++* timed trajectory / Cartesian capability无法由MockOptions开启；构造时拒绝。
++  整条trajectory调用明确拒绝，实际后端单点调用数为0。
++
++Timer/ROS回调不等完整运动；worker持有执行器/Adapter的shared ownership，不
++持有FSM或Node裸指针。Task子回调捕获inbox而不是Node裸指针。正常销毁先退出
++Executor并移除Node，再销毁实例、回收future。停止软件不等于安全急停。
++
++## 3. 调试中发现的缺陷及修复
++
++| 实际失败/风险 | 原因与处理 |
++|---|---|
++| 首次CMake configure FAIL | ament plain链接签名与PUBLIC签名冲突；统一PUBLIC，不修改核心导出 |
++| 首轮PickPlace正常取消用例FAIL | Feedback显示MOVE_PRE_ALIGN时，首条命令可能尚未派发；没有证据返回520正确。测试等待实际派发，不降低停止条件 |
++| 首轮旧Goal测试抛异常 | Client已忘记完成的Goal，未真正发送旧取消。改用Action CancelGoal服务发送原UUID，断言实际backend stop_calls=0 |
++| 首轮Motion合法Goal被拒绝 | ROS float32的0.2转double略大于核心0.2上限。只规范化上限的精确float表示，nextafter更大值仍拒绝；不放宽核心阈值 |
++| ACK-only测试替身提前结束 | 丢弃ServerGoalHandle会自动abort；保留handle，仅ACK、不提供结果，再验证Task CANCEL_PENDING超时520 |
++| 测试替身编译FAIL | Jazzy ServerGoalHandle没有ClientGoalHandle的SharedPtr别名；改用显式std::shared_ptr |
++| FAULT后Stop worker可能只poll一次 | 改为Action结束后继续非阻塞poll原命令清理，始终保留锁定 |
++| Mock负载可被新FSM清掉 | Tool实例跨Goal保留；holding/unknown阻止新Goal。新增搬运中取消及挂载未验证的回归 |
++
++失败日志保留在本次`log/build_2026-10-11_*`与`log/test_2026-10-11_*`，没有删除
++旧构建或测试结果。编译失败后执行的旧二进制结果未用于最终PASS判定；最终
++流程使用`set -e`先确认构建成功，再跑最新测试和身份核验。
++
++## 4. 实际执行结果
++
++| 检查 | 结果 | 证据范围 |
++|---|---|---|
++| 完整工作空间build | PASS：13/13包 | `colcon build --parallel-workers 2`实际完成；之后最终新包和依赖增量6/6成功 |
++| 新Action包 | PASS：40项，FAIL 0 / SKIP 0 | PickPlace 12、Task 12、Motion 8、契约单元测试8；4个注册GTest可执行文件 |
++| 原有C++ FSM | PASS：318项，身份全部保留 | 基线`1d940f7`与实际XML比较；不是仅统计文件存在 |
++| C++合计 | PASS：358项，20个可执行文件 | core23 / task87 / manipulation120 / motion88 / action40 |
++| Python注册测试 | PASS：269项，FAIL 0 / SKIP 0 | bridge25 / manipulation52 / motion20 / safety70 / task63 / tool39；bringup报告0项 |
++| 显式离线E2E | PASS：15，FAIL 0 / SKIP 0 | 实际运行`python3 tests/test_mock_end_to_end.py`；纯Python Mock |
++| UBSan | PASS：358项C++，FAIL 0 / SKIP 0 | 四个核心与新包全部instrumented；新包最终代码再次回归，身份核验通过 |
++| XML / diff | PASS | 既有接口xmllint实际PASS；新manifest`ament_xmllint`通过；`git diff --check`通过 |
++| CMake消费者 | PASS | `/tmp/mtc_phase2a_consumer`仅find_package新包、链接导出目标，成功编译运行 |
++| TSan | NOT RUN（本轮未运行） | 历史运行时`unexpected memory mapping`记录仍保留；本轮并发测试PASS不等于动态竞态检测完成 |
++| MoveIt / FollowJointTrajectory / ros2_control接入 | NOT RUN / 未实现 | 本轮不增加轨迹控制通路 |
++| 实机 / 工具IO | NOT RUN | 禁止、未授权 |
++
++E2E的可选`mtc_motion_planning`模块未就绪，脚本使用自身MockPlanner；依赖栏的
++SKIPPED不是业务场景SKIP。本轮15个场景确实执行，不能把它解释为MoveIt成功。
++测试进程只运行软件Mock，以本机隔离domain启动Client/Server；无驱动Launch。
++
++关键输出：
++
++```text
++Summary: 13 packages finished
++PASS: 原有318项身份全部保留并执行；本轮新增40项
++PASS: 358项独立GTest / 20个可执行文件，FAIL 0 / SKIP 0
++E2E RESULT: PASS 15 / FAIL 0 / SKIP 0
++
++# UBSan的CTest包装条目与GTest合计，不是378个独立场景：
++Summary: 378 tests, 0 errors, 0 failures, 0 skipped
++```
++
++### 全目录test-result的历史失败
++
++按要求真实执行`colcon test-result --all --verbose`，**返回1 / FAIL**。最后总览
++包含历史build子目录和本轮两套构建，输出`3412 tests, 14 errors, 14 failures,
++0 skipped`；失败来自保留的`audit_tsan*`结果（`FATAL: ThreadSanitizer:
++unexpected memory mapping`），不是本轮Action用例。没有删除目录来制造总览PASS。
++
++逐个`build/mtc_*/`调用`test-result --test-result-base ... --all`，当前13包均无
++failure/error/skip；本轮独立GTest身份核验另外覆盖358项。当前普通构建汇总包含
++358 GTest + 269 pytest + CTest/lint包装，不能用全目录3412作为业务用例数量。
++本轮独立业务场景为358 + 269 + 15 = 642。
++
++## 5. 可复现命令和日志
++
++普通构建/测试按用户要求执行，详细运行方法见包README：
++
++```bash
++source /opt/ros/jazzy/setup.bash
++cd /home/aaet/meituan_challenge_ws
++colcon build --packages-up-to mtc_ros2_action_cpp
++source install/setup.bash
++colcon test --packages-select mtc_ros2_action_cpp
++colcon test-result --all --verbose
++colcon test-result --test-result-base build/mtc_ros2_action_cpp --all --verbose
++python3 src/mtc_ros2_action_cpp/test/verify_results.py --build-base build
++```
++
++身份核验需先执行五个C++包的测试。它固定保留原318项，并从当前测试源码与XML
++核对新增身份、完成状态、重复、SKIP和20个可执行文件。历史核验脚本固定16个
++可执行文件，未篡改，使用本包新脚本覆盖扩展后的集合。
++
++UBSan实际命令使用独立目录，不清空历史：
++
++```bash
++source /opt/ros/jazzy/setup.bash
++cd /home/aaet/meituan_challenge_ws
++export CMAKE_BUILD_PARALLEL_LEVEL=2
++colcon --log-base log/phase2a_ubsan build \
++  --build-base build/phase2a_ubsan --install-base install/phase2a_ubsan \
++  --packages-up-to mtc_ros2_action_cpp --parallel-workers 2 --cmake-args \
++  '-DCMAKE_CXX_FLAGS=-fsanitize=undefined -fno-sanitize-recover=all -fno-omit-frame-pointer' \
++  '-DCMAKE_SHARED_LINKER_FLAGS=-fsanitize=undefined' \
++  '-DCMAKE_EXE_LINKER_FLAGS=-fsanitize=undefined'
++source install/phase2a_ubsan/setup.bash
++export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1
++colcon --log-base log/phase2a_ubsan test \
++  --build-base build/phase2a_ubsan --install-base install/phase2a_ubsan \
++  --packages-select mtc_core_cpp mtc_task_cpp mtc_manipulation_cpp \
++  mtc_motion_execution_cpp mtc_ros2_action_cpp
++colcon test-result --test-result-base build/phase2a_ubsan --all
++python3 src/mtc_ros2_action_cpp/test/verify_results.py --build-base build/phase2a_ubsan
++```
++
++最终普通构建日志：`log/build_2026-10-11_22-59-11/`；Action测试日志：
++`log/test_2026-10-11_22-59-17/`。全工作空间测试及之前修复过程的日志也保留。
++包实际GTest输出在`build/mtc_ros2_action_cpp/ament_cmake_gtest/`，XML在各包
++`test_results`；Python为`build/mtc_*/pytest.xml`。UBSan日志在
++`log/phase2a_ubsan/`。ROS测试进程日志写`/tmp/mtc_phase2a_test_logs`，不写驱动目录。
++
++## 6. 已覆盖的安全场景与后续边界
++
++合法基础/序列任务来自显式Mock端口证据；非法颜色/工位/数值、并发和重复请求
++拒绝；完整Feedback、Result映射、子失败原码传播、缺少子Server、Goal/状态期限、
++FAULT保留、真实多线程Goal争夺、旧UUID零Stop、ACK-only不得安全取消、缺放置
++证据不得计数、搬运中取消后仍保持负载锁定均有实际测试。
++
++进入Phase 2B的建议：**Phase 2A可信离线Mock Action链路可作为集成基线**。
++接入MoveIt规划和整条轨迹前仍须制定异步运动/停稳证据、时基转换、唯一执行权、
++负载恢复与接口方案；本轮不预先扩展ROSIDL。
++
++* PickPlace Result不能独立携带停稳证据；CANCELED/OK契约只对本包可信Server
++  有效，第三方/真实后端接入是阻断边界。不能收到任意Server的CANCELED就宣称
++  机器人停稳，也不能因子SUCCEEDED而确认取消。
++* PickPlace使用本地Mock执行器；独立Motion Action是另一套Mock状态，不是
++  PickPlace已接入Motion ROS Client，更不是两个执行器可同时控制同一硬件。
++* FAULT或挂载/未知负载没有人工复位接口，保持锁定。流程没有自动人工确认、
++  自动clear_unknown或自动释放；重启Mock进程不能当作真实机器人恢复证明。
++* 感知、几何工具证据及非零关节计划均为模拟。无真实相机、工具IO、TCP/负载
++  标定、规划/碰撞检查、Gazebo或实体机构验收。
++* 4线程Executor和竞争测试通过；TSan本轮NOT RUN，不能宣称已排除所有数据竞争。
++  ROS/DDS系统库未在本轮重新instrument，UBSan结论限定于本轮构建的代码。
++
++10月12日实机联调与10月15日视频安排不扩大本次授权；本次停止在软件Mock交付。
++该分支不自动合并或push，交付时工作树通过最终Git状态检查。报告作为独立文档
++提交，代码提交ID如开头所列；最后文档提交可由`git log -1 --oneline`核对。
++
++## 7. 新增测试身份
++
++以下列表由本次已编译的测试源码提取；真实执行与状态由上述XML核验确认。
++
++### test_action_contracts.cpp（8项）
++
++- `ActionContracts.TaskConversionPreservesColorOrderIdentityAndDeadline`
++- `ActionContracts.RosFloatBoundaryDoesNotRelaxCoreUpperLimit`
++- `ActionContracts.MockPlannerPreservesSixDPoseFrameStampAndContactConstraints`
++- `ActionContracts.MockLoadEvidenceRemainsHoldingUntilVerifiedRelease`
++- `ActionContracts.MockFailedReleaseNeverReportsNoLoad`
++- `ActionContracts.TestLiftRequiresPriorSimulatedAttachmentEvidence`
++- `ActionContracts.TrajectoryBridgeRefusesAndNeverSplitsIntoJointMoves`
++- `ActionContracts.UnsupportedTrajectoryAndCartesianCapabilitiesCannotBeEnabled`
++
++### test_motion_action.cpp（8项）
++
++- `MotionAction.LegalNonzeroGoalAndFeedbackUseExecutorResult`
++- `MotionAction.IllegalGoalRejectedWithoutBackendCall`
++- `MotionAction.ConcurrentGoalIsRejectedAndFirstCompletes`
++- `MotionAction.MatchingCancelStopsExactlyOnce`
++- `MotionAction.UnconfirmedCancelAborts520AndLocks`
++- `MotionAction.StaleCancelCannotReachBackendOrInterruptNewOwner`
++- `MotionAction.ExecutorTimeoutKeepsOriginal220AndRejectsNewMotion`
++- `MotionAction.RosDeadlineIndependentlyRequestsAssociatedStop`
++
++### test_pick_place_action.cpp（12项）
++
++- `PickAction.LegalGoalSucceedsOnlyAfterPlacementFeedback`
++- `PickAction.InvalidParametersRejectedBeforeExecution`
++- `PickAction.ConcurrentSecondGoalRejected`
++- `PickAction.MatchingCancelRequiresIndependentStationaryEvidence`
++- `PickAction.CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked`
++- `PickAction.StaleGoalCancelCannotInterruptNewGoal`
++- `PickAction.MotionStatusUnknownNeverResendsOrAutoClearsFault`
++- `PickAction.MissingPlanNeverSucceeds`
++- `PickAction.ConcurrentRosRequestsHaveExactlyOneOwner`
++- `PickAction.InFlightWatchdogFaultStillDrainsAssociatedStopWorker`
++- `PickAction.CancelWhileCarryingStopsButKeepsLoadAdmissionLocked`
++- `PickAction.UnverifiedAttachmentLoadCannotBeClearedByNewGoal`
++
++### test_task_action.cpp（12项）
++
++- `TaskAction.BasicTaskUsesRealChildActionAndRecordsT0`
++- `TaskAction.SequenceTaskRecordsAllSlotsInOrder`
++- `TaskAction.InvalidColorsAndConcurrentTaskRejected`
++- `TaskAction.CancelAckWaitsForChildFinalStopResult`
++- `TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent`
++- `TaskAction.ChildStatusUnknownPropagatesOriginalError`
++- `TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess`
++- `TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild`
++- `TaskAction.MissingChildNeverFabricatesTaskSuccess`
++- `TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent`
++- `TaskAction.StaleParentCancelCannotReachNewChild`
++- `TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded`
+diff --git a/docs/migration/ROS_WIRING_FIX_20261011.md b/docs/migration/ROS_WIRING_FIX_20261011.md
+new file mode 100644
+index 0000000..da865ae
+--- /dev/null
++++ b/docs/migration/ROS_WIRING_FIX_20261011.md
+@@ -0,0 +1,72 @@
++# Python ROS 接线修复与复验（2026-10-11）
++
++实际 Jazzy 启动发现，离线 Mock 通过并不能证明 Python ROS 外壳可启动。本补丁基于
++`1d940f7c5f12561fed6641457c0b4b630a282b05`，只修复三个接线问题：
++
++| 问题 | 修复与兼容范围 |
++| --- | --- |
++| B01 Task 覆盖 `rclpy.Node._clock`，启动报错 | 把 FSM 可调用时钟单独存为 `_fsm_clock`；保留真实 ROS Clock 及原 `clock=` 注入接口 |
++| B02 `PickPlaceConfig` 不接受 `perception_max_age_sec` | 映射到实际字段 `perception_max_age_s`；外部 ROS 参数名仍为 `perception_max_age_sec` |
++| B04 解锁客户端与工具服务名称不一致 | 默认客户端改为 `/mtc/tool/trigger_unlock`；显式 `unlock_service=` 覆盖接口保留 |
++
++FSM 状态转换、Cancel 内核、Action IDL、四个 C++ 核心包与驱动未修改。集成侧提交补丁，
++FSM/Action 负责人复核；B03 及后续生命周期问题继续由模块负责人处理。
++
++## 验证
++
++在独立 Ubuntu 24.04.5 / ROS 2 Jazzy / Python 3.12.3 容器中，以已构建的 12 包工作空间
++作为 underlay，另建 `mtc_task`、`mtc_manipulation` 两包 overlay，构建成功。
++容器无设备挂载、无端口映射且已断开外部网络，ROS domain 95，发现范围 LOCALHOST。
++
++| 检查 | 结果 |
++| --- | --- |
++| 同一版新增 ROS 回归在未修复基线上运行 | 6 FAIL，分别复现时钟冲突、配置 TypeError、解锁服务不可达 |
++| 新增 ROS 回归在补丁 overlay 上运行 | 6 PASS / 0 FAIL / 0 SKIP |
++| 既有 Python 包测试，逐包运行 | 269 PASS / 0 FAIL / 0 SKIP |
++| 显式纯 Python Mock E2E | 15 PASS / 0 FAIL / 0 SKIP；使用自带 MockPlanner |
++| 实际完整 Python Mock 启动及延迟基础 Goal，两次 | 仍为 FAIL，详见下面的剩余问题 |
++
++新增测试覆盖默认／注入时钟、默认／覆盖的 ROS 感知时效参数，以及真实 DDS 下的工具服务
++联锁拒绝与 Mock IO 受理。工具生命周期使用明确标注的合成测试证据；脉冲受理后依然断言
++`verified=False`、没有释放确认。配置测试在真实参数和配置对象构造后主动停止，
++不绕过剩余 Action 缺陷来宣称 PickPlace 已启动。
++
++已有 C++ 与独立 Fake 驱动代码未变，本轮未重复运行其验收。
++
++构建并 source 工作空间后，从仓库根运行（仅隔离 Mock 环境）：
++
++```bash
++export ROS_DOMAIN_ID=95 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
++export PYTHONNOUSERSITE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
++python3 -m pytest -q tests/test_ros_wiring.py
++
++# 各包存在同名 test 模块，分进程运行以避免 pytest 收集命名冲突。
++for package in mtc_aubo_bridge mtc_manipulation mtc_motion_execution mtc_safety mtc_task mtc_tool; do
++    python3 -m pytest -q "src/$package/test" || exit 1
++done
++python3 tests/test_mock_end_to_end.py
++```
++
++## 剩余问题与复核条件
++
++- **B03：PickPlace ActionServer 绑定。** `PickPlaceServer` 仍使用 `action_type.Server(...)`
++  和 `action_type.CancelResponse()`；生成 Action 类型没有这些绑定接口。此路径被 B05 遮挡，
++  本轮未修改，也未声称已运行到该行；需负责人接入真实 ActionServer 并验 Goal/Cancel/Result。
++- **B05：运动 ActionClient 绑定。** B02 修复后，真实启动进一步到
++  `RosMotionPort.__init__`，在 `action_type.create_client(...)` 报
++  `AttributeError: type object 'ExecuteJointMove' has no attribute 'create_client'`。
++  两次启动复现，PickPlace 进程退出 1；需负责人接入真实 ActionClient 并核对结果与取消行为。
++- **B06：等待首个任务时的 INIT 生命周期。** 两次均在启动约 5 秒后、发送 Goal 前出现
++  `state INIT timed out ... -> HARDWARE_FAULT`。随后基础 Goal 被受理，收到 FAULT 反馈，
++  最终 `ABORTED`（6）、`success=False`、`error_code=510`、完成数量 0。
++  这只证明延迟发送的测试路径失败；需负责人决定初始化／待命与看门狗契约并覆盖延迟首次 Goal。
++- **退出观测：** SIGINT 停止时 `safety_supervisor` 出现 `rcl_shutdown already called`，
++  其进程退出 1；保留为退出清理问题。launch 及日志采集退出 0 不代表任务成功。
++
++第二次检查通过逐节点 Action server 列表及 `wait_for_server` 确认：Task 和 Motion
++服务器可用，PickPlace 服务器不可用。通用 Action 列表会包含 Task 的 PickPlace **客户端**，
++不能据此认定 PickPlace 服务启动成功。两次 Task Goal 使用黄色作为验收示例，保持默认
++`dry_run=True`；不代表真实抓放、MoveIt 或新 C++ FSM 闭环通过。
++
++生成式 AI 披露：使用 OpenAI Codex 编写三项接线补丁、ROS 回归及验收编排并整理复验结果。
++生产变更仅涉及上述两个 Python 外壳文件，原有许可证与第三方来源约定保持适用。
+diff --git a/src/mtc_manipulation/mtc_manipulation/pick_place_server.py b/src/mtc_manipulation/mtc_manipulation/pick_place_server.py
+index 949caaf..6f11e4e 100644
+--- a/src/mtc_manipulation/mtc_manipulation/pick_place_server.py
++++ b/src/mtc_manipulation/mtc_manipulation/pick_place_server.py
+@@ -48,7 +48,7 @@ LOGGER = logging.getLogger("mtc_manipulation.pick_place_server")
+ ACTION_NAME = "/mtc/manipulation/pick_place"
+ TOOL_STATE_TOPIC = "/mtc/tool/state"
+ PERCEPTION_TOPIC = "/mtc/perception/batteries"
+-UNLOCK_SERVICE = "/mtc/tool/unlock"
++UNLOCK_SERVICE = "/mtc/tool/trigger_unlock"
+ 
+ 
+ # ---------------------------------------------------------------------------
+@@ -651,7 +651,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
+     config = PickPlaceConfig(
+         tool_type=tool_type,
+         placement_stability_sec=float(node.get_parameter("placement_stability_sec").value),
+-        perception_max_age_sec=float(node.get_parameter("perception_max_age_sec").value),
++        perception_max_age_s=float(node.get_parameter("perception_max_age_sec").value),
+         recovery_max_attempts=int(node.get_parameter("recovery_max_attempts").value),
+         verify_test_lift=bool(node.get_parameter("verify_test_lift").value),
+         verify_placement=bool(node.get_parameter("verify_placement").value),
+diff --git a/src/mtc_ros2_action_cpp/CMakeLists.txt b/src/mtc_ros2_action_cpp/CMakeLists.txt
+new file mode 100644
+index 0000000..1e04447
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/CMakeLists.txt
+@@ -0,0 +1,51 @@
++cmake_minimum_required(VERSION 3.8)
++project(mtc_ros2_action_cpp)
++set(CMAKE_CXX_STANDARD 17)
++set(CMAKE_CXX_STANDARD_REQUIRED ON)
++set(CMAKE_CXX_EXTENSIONS OFF)
++add_compile_options(-Wall -Wextra -Wpedantic)
++find_package(ament_cmake REQUIRED)
++find_package(rclcpp REQUIRED)
++find_package(rclcpp_action REQUIRED)
++find_package(action_msgs REQUIRED)
++find_package(mtc_interfaces REQUIRED)
++find_package(mtc_core_cpp REQUIRED)
++find_package(mtc_task_cpp REQUIRED)
++find_package(mtc_manipulation_cpp REQUIRED)
++find_package(mtc_motion_execution_cpp REQUIRED)
++find_package(Threads REQUIRED)
++add_library(${PROJECT_NAME} SHARED src/mock_ports.cpp src/pick_place_server.cpp
++  src/task_server.cpp src/motion_server.cpp)
++target_include_directories(${PROJECT_NAME} PUBLIC
++  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
++  $<INSTALL_INTERFACE:include>)
++target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
++ament_target_dependencies(${PROJECT_NAME} PUBLIC rclcpp rclcpp_action action_msgs mtc_interfaces)
++target_link_libraries(${PROJECT_NAME} PUBLIC
++  mtc_task_cpp::mtc_task_cpp mtc_manipulation_cpp::mtc_manipulation_cpp
++  mtc_motion_execution_cpp::mtc_motion_execution_cpp Threads::Threads)
++add_executable(mock_pick_place_server src/pick_place_main.cpp)
++target_link_libraries(mock_pick_place_server ${PROJECT_NAME})
++add_executable(mock_task_server src/task_main.cpp)
++target_link_libraries(mock_task_server ${PROJECT_NAME})
++add_executable(mock_motion_server src/motion_main.cpp)
++target_link_libraries(mock_motion_server ${PROJECT_NAME})
++install(TARGETS ${PROJECT_NAME} mock_pick_place_server mock_task_server mock_motion_server
++  EXPORT export_${PROJECT_NAME}
++  ARCHIVE DESTINATION lib LIBRARY DESTINATION lib RUNTIME DESTINATION lib/${PROJECT_NAME})
++install(DIRECTORY include/ DESTINATION include)
++if(BUILD_TESTING)
++  find_package(ament_cmake_gtest REQUIRED)
++  ament_add_gtest(test_pick_place_action test/test_pick_place_action.cpp TIMEOUT 90)
++  target_link_libraries(test_pick_place_action ${PROJECT_NAME})
++  ament_add_gtest(test_task_action test/test_task_action.cpp TIMEOUT 90)
++  target_link_libraries(test_task_action ${PROJECT_NAME})
++  ament_add_gtest(test_motion_action test/test_motion_action.cpp TIMEOUT 90)
++  target_link_libraries(test_motion_action ${PROJECT_NAME})
++  ament_add_gtest(test_action_contracts test/test_action_contracts.cpp)
++  target_link_libraries(test_action_contracts ${PROJECT_NAME})
++endif()
++ament_export_targets(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
++ament_export_dependencies(Threads rclcpp rclcpp_action action_msgs mtc_interfaces mtc_task_cpp
++  mtc_manipulation_cpp mtc_motion_execution_cpp)
++ament_package()
+diff --git a/src/mtc_ros2_action_cpp/README.md b/src/mtc_ros2_action_cpp/README.md
+new file mode 100644
+index 0000000..7206fb7
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/README.md
+@@ -0,0 +1,177 @@
++# Phase 2A：C++ ROS 2 Action 离线 Mock 外壳
++
++本包复用 `TaskFsm`、`PickPlaceFsm` 和 `MotionExecutorCore`，没有复制 FSM 或修改其
++状态转换。ROS 依赖只出现在本包，四个核心包保持零 ROS 依赖。所有端口均为
++显式离线模拟；无控制柜地址、驱动加载、RPC/RTDE、MoveIt 或实体工具 IO 通路。
++
++| Action | 类型 | 可执行程序 |
++|---|---|---|
++| `/mtc/manipulation/pick_place` | `mtc_interfaces/action/PickPlace` | `mock_pick_place_server` |
++| `/mtc/task/execute` | `mtc_interfaces/action/ExecuteTask` | `mock_task_server` |
++| `/mtc/motion/execute_joint_move` | `mtc_interfaces/action/ExecuteJointMove` | `mock_motion_server` |
++
++独立驱动的 GenericSystem / MoveIt Mock 验证与本包是两个环境。本包**没有接入
++MoveIt Planner、FollowJointTrajectory 或 ros2_control Mock Hardware**，不能用
++Action 成功宣称完整第二阶段或实机验收完成。三个 ROSIDL 定义保持不变。
++
++## 编译与测试
++
++在 `/home/aaet/meituan_challenge_ws` 执行，保留已有 build/install/log：
++
++```bash
++source /opt/ros/jazzy/setup.bash
++cd /home/aaet/meituan_challenge_ws
++colcon build --packages-up-to mtc_ros2_action_cpp
++source install/setup.bash
++colcon test --packages-select mtc_ros2_action_cpp
++colcon test-result --all --verbose
++
++# 仓库build下保留历史sanitizer目录时，上述总览会包含旧失败；本包单独验收：
++colcon test-result --test-result-base build/mtc_ros2_action_cpp --all --verbose
++
++# 核心回归；身份核验要求这五包的最新XML均存在
++colcon test --packages-select mtc_core_cpp mtc_task_cpp \
++  mtc_manipulation_cpp mtc_motion_execution_cpp mtc_ros2_action_cpp
++python3 src/mtc_ros2_action_cpp/test/verify_results.py --build-base build
++```
++
++历史 `tests/verify_cpp_audit_results.py` 固定16个可执行文件；本包使用新的核验脚本，
++比较 Phase 2A 前的318个完整测试身份、本分支新增用例和实际 XML，检查遗漏、
++重复、失败、SKIP 及未注册用例。没有改写历史测试脚本或删减旧测试。
++
++## 仅运行离线 Mock
++
++使用三个新终端，每个终端先执行同样的环境隔离。91是示例 domain，必须确认
++没有其他应用占用；不得在已有 Python Server 或真实驱动所在 ROS 图中启动。
++以下变量只影响当前终端，不改系统配置：
++
++```bash
++source /opt/ros/jazzy/setup.bash
++source /home/aaet/meituan_challenge_ws/install/setup.bash
++export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
++export ROS_DOMAIN_ID=91
++export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
++unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY
++unset FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI
++export ROS_LOG_DIR=/tmp/mtc_phase2a_logs
++ros2 node list --no-daemon --spin-time 2
++```
++
++启动前图应为空。终端1启动 PickPlace，保持运行：
++
++```bash
++ros2 run mtc_ros2_action_cpp mock_pick_place_server
++```
++
++终端2启动 Task，保持运行：
++
++```bash
++ros2 run mtc_ros2_action_cpp mock_task_server
++```
++
++终端3先核对节点、类型及唯一 Server，再提交基础任务：
++
++```bash
++ros2 node list --no-daemon --spin-time 2
++ros2 action list -t
++ros2 action info /mtc/manipulation/pick_place -t
++ros2 action info /mtc/task/execute -t
++ros2 action send_goal /mtc/task/execute mtc_interfaces/action/ExecuteTask \
++  '{task_id: "mock_basic_001", mode: 1, ordered_colors: [1], timeout_ms: 20000, placement_stability_sec: 3.0}' \
++  --feedback
++```
++
++预期只有本包的 `/mtc_mock_pick_place` 和 `/mtc_mock_task`，每个 Action 一个
++Server；Feedback 包含 Task 状态和 PickPlace 子状态，最终 `success=true`、
++`completed_count=1`、`completed_slots=[T0]`。颜色1为 red，合法颜色为1–4；
++MODE_SEQUENCE 必须恰好三个不同颜色，按原顺序映射 P1/P2/P3。稳定时长必须
++有限且大于0，示例3.0秒为工程默认值，不是比赛官方最低时间。
++
++Motion Action 可以在**另一套空 domain** 中独立运行：
++
++```bash
++ros2 run mtc_ros2_action_cpp mock_motion_server
++```
++
++它只支持一个六关节目标，默认缩放上限0.2，使用核心校验和独立停稳证据。
++`float32(0.2)` 在转换层规范化到核心 `double(0.2)`；紧邻上限的更大浮点值仍拒绝。
++本包没有轨迹入口；`execute_trajectory` 明确拒绝，绝不拆成多个单点调用。
++配置若试图启用 timed trajectory 或 Cartesian capability，构造阶段直接拒绝。
++
++结束前等待当前 Mock Goal 终结；分别对 Task 和 PickPlace 程序 Ctrl+C，Motion
++独立程序同样 Ctrl+C，再检查本次节点已退出。程序拥有并回收 worker，无 detached
++thread；正常退出不是安全急停。不要自动重启 FAULT 节点来宣称完成人工恢复。
++
++## API 与线程所有权
++
++公共头文件位于 [include/mtc_ros2_action_cpp](include/mtc_ros2_action_cpp/)。
++三个 Node 构造函数可接收 `rclcpp::NodeOptions`；PickPlace/Motion 还可注入
++`MockOptions`，Task 可注入 `FsmsConfig`。这些是 C++ 离线测试配置，不提供后端
++选择参数，不能通过 ROS 参数开启真实模式。
++
++```text
++TaskServer ── ROS PickPlace Action Client ──→ PickPlaceServer
++                                              ↓ PickPlaceFsm
++                                MockPerception / MockPlanner / MockTool
++                                              ↓ AsyncMockMotion
++                                   MotionExecutorCore → MockMotionAdapter
++
++MotionServer（独立验证） → AsyncMockMotion → MotionExecutorCore → MockMotionAdapter
++```
++
++* 每个 Node 的 Server、Timer、Task 子 Client 属于同一个 MutuallyExclusive
++  CallbackGroup。Goal/Cancel 回调只操作 admission slot；只有 Timer 调用 FSM。
++  在4线程 Executor 下仍保持事件串行，不在 ROS 回调中 wait/get 未完成 future。
++* 在返回 ACCEPT 前按 UUID 预留唯一 owner；非法参数、并发 Goal、已用业务 ID、
++  FAULT/未知状态锁定后的请求均 REJECT，不排队。UUID与业务ID用途不同。
++* `AsyncMockMotion` 每条命令最多启动一个 execute worker，轮询返回 `nullopt`
++  表示在途；关联 Stop 用独立 worker。派发、结果和取消交错时不覆盖执行所有权。
++  Stop 结束之前冻结取消路径的 FSM 派发，不把 pending 当作停稳证据。
++* Mock 执行器/Adapter 共享同一 ManualClock。Mock 运动瞬时推进虚拟时间；默认
++  100ms仅延迟结果交付，方便观察/取消，并不是物理运动耗时。每个正常 FSM tick
++  推进0.02虚拟秒；新感知样本必须有更新的时间戳，稳定窗口仍由原 FSM 核验。
++  Task 截止时间和 ROS 结果交付期限使用 SteadyClock，不随 `/clock` 跳变。
++* 规划显式生成非零模拟关节输出，保留 intent 的完整6D Pose、frame、stamp、
++  接触约束；`simulation_only=true`。没有真实逆运动学/碰撞规划能力。
++* MockTool 返回几何挂载、落座、卸载和释放证据，跟踪 holding 状态；只有成功
++  release 后才宣称无载荷。工具方法不会访问任何实体 IO。
++  Tool 实例跨 Goal 保留；Action 结束后仍 holding/unknown 时继续拒绝新 Goal，
++  运动取消确认不等于负载已释放，不能通过新建 FSM 清除负载上下文。
++* PickPlace 在本地复用执行器，没有调用 Motion ROS Action；独立 Motion Server
++  是另一套 Mock 状态。后续硬件集成必须确立唯一执行权，不能把两套实例连接到
++  同一机器人。关闭 Executor 并移除 Node 后才能销毁实例。
++
++## 取消、超时与接口边界
++
++取消只关联当前 ROS UUID；Motion worker 进一步使用原 `command_id` 调用
++`cancel_goal`，不调用 `supervisory_stop`。旧 UUID、错 ID 不升级为全局停止。
++原始 `CALL_PICK_PLACE.request_id` 保存在子 inbox，每次 ROS 子 Goal 追加唯一
++attempt编号；`CANCEL_CHILD` 核对原 ID，再取消保存的那个子 Goal handle。
++迟到回调只写入它原来的 inbox，不能推进新任务。
++
++`PickPlace.action` 没有 `stop_confirmed` 字段，所以本包定义加强契约：只有
++FSM=`CANCELLED` 且 `stop_confirmed=true` 才返回 ROS `CANCELED/OK`。
++Task 只从关联子 Goal 的这个最终结果调用 `confirm_child_stopped()`；ACK、
++子 SUCCEEDED、缺少子句柄、缺少结果均不能代替停止确认。首次运动尚未产生
++证据或历史证据已过期时，取消可能得到 `ABORTED/520`，这是保守行为。
++
++**这个契约只适用于可信的本包 Mock Server。公共 Result 没有足够字段独立核验
++第三方的停稳证据。连接未知第三方/实机 Server 的通路未实现、不得验收；未来
++接口/证据方案须单独审议，本轮不改 ROSIDL。**
++
++超时和状态未知保留核心错误码（例如220、230、520），FAULT 返回 ABORTED 并
++永久保留 admission lock，后台仍完成原命令的 Stop 清理。没有自动重发、自动
++clear_unknown、人工复位 Service 或重新构造 FAULT FSM。Task 仅按核心契约
++复位正常 FINISHED/TASK_FAILED/CANCELLED，FAULT 不执行 RESET。
++
++## 测试场景与证据
++
++[契约单元测试](test/test_action_contracts.cpp) 和三个 Action 测试使用真实 ROS
++Client/Server 与4线程 Executor；测试进程选择本机隔离 domain，日志写 `/tmp`。
++包含正向端口证据、非法参数、两线程同时发送 Goal、Feedback、关联取消、无
++停稳证据、旧 UUID 零后端 Stop、子失败/伪造成功防护、ACK-only、Task deadline、
++FSM watchdog、基础/序列任务及轨迹拒绝。Stop 与 execute 调用数来自实际
++MockMotionAdapter override，不能只凭 `stop_confirmed=false` 判定取消隔离。
++
++实际构建/测试结果和未运行边界见
++[Phase 2A 交付报告](../../docs/migration/PHASE2A_ROS2_ACTION_REPORT.md)。
+diff --git a/src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/action_slot.hpp b/src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/action_slot.hpp
+new file mode 100644
+index 0000000..7b5ce38
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/action_slot.hpp
+@@ -0,0 +1,62 @@
++// Copyright 2026 MTC contributors
++#pragma once
++#include <memory>
++#include <optional>
++#include <set>
++#include <string>
++#include <rclcpp/rclcpp.hpp>
++#include <rclcpp_action/rclcpp_action.hpp>
++
++namespace mtc::ros2_action
++{
++// All access belongs to one mutually-exclusive ROS callback group. Worker threads
++// never touch this admission slot or any FSM. Reservation precedes ACCEPT.
++template<class Action>
++struct ActionSlot
++{
++  using Handle = rclcpp_action::ServerGoalHandle<Action>;
++  std::optional<rclcpp_action::GoalUUID> owner;
++  std::shared_ptr<Handle> pending;
++  std::shared_ptr<Handle> active;
++  std::set<std::string> used_ids;
++  bool cancel = false;
++  bool locked = false;
++
++  void release()
++  {
++    pending.reset();
++    active.reset();
++    owner.reset();
++    cancel = false;  // locked deliberately survives action completion.
++  }
++};
++
++template<class Action, class Validator, class Id>
++typename rclcpp_action::Server<Action>::SharedPtr make_server(
++  rclcpp::Node * node, const std::string & name,
++  const std::shared_ptr<ActionSlot<Action>> & slot,
++  rclcpp::CallbackGroup::SharedPtr group, Validator validate, Id id)
++{
++  return rclcpp_action::create_server<Action>(node, name,
++    [slot, validate, id](const rclcpp_action::GoalUUID & uuid,
++      std::shared_ptr<const typename Action::Goal> goal) {
++      const auto key = id(*goal);
++      if (slot->locked || slot->owner || slot->used_ids.count(key) || !validate(*goal)) {
++        return rclcpp_action::GoalResponse::REJECT;
++      }
++      slot->owner = uuid;
++      slot->used_ids.insert(key);
++      return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
++    },
++    [slot](std::shared_ptr<typename ActionSlot<Action>::Handle> handle) {
++      if (!slot->owner || *slot->owner != handle->get_goal_id() || slot->locked) {
++        return rclcpp_action::CancelResponse::REJECT;
++      }
++      slot->cancel = true;  // ACK is not a stationary result.
++      return rclcpp_action::CancelResponse::ACCEPT;
++    },
++    [slot](std::shared_ptr<typename ActionSlot<Action>::Handle> handle) {
++      slot->pending = handle;
++    }, rcl_action_server_get_default_options(), group);
++}
++}  // namespace mtc::ros2_action
+diff --git a/src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/mock_ports.hpp b/src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/mock_ports.hpp
+new file mode 100644
+index 0000000..4dbe378
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/mock_ports.hpp
+@@ -0,0 +1,128 @@
++// Copyright 2026 MTC contributors
++#pragma once
++#include <chrono>
++#include <atomic>
++#include <future>
++#include <memory>
++#include <optional>
++#include <mtc_manipulation_cpp/pick_place_types.hpp>
++#include <mtc_motion_execution_cpp/executor_core.hpp>
++#include <mtc_motion_execution_cpp/mock_motion_adapter.hpp>
++
++namespace mtc::ros2_action
++{
++// Explicit offline scenario. No device address, plugin loader, RPC, tool IO, or
++// executable trajectory backend exists in this package.
++struct MockOptions
++{
++  bool target_found = true;
++  bool plan_available = true;
++  bool attached = true;
++  bool seated = true;
++  bool released = true;
++  bool placement_stable = true;
++  bool stop_evidence_available = true;
++  double tick_seconds = 0.02;
++  int result_delay_ms = 100;  // Delay delivery, not physical/virtual movement.
++  mtc::motion::MockMotionAdapterConfig motion;
++  mtc::manipulation::PickPlaceConfig pick;
++  void validate() const;
++};
++
++struct MockCallCounts
++{
++  std::atomic<size_t> executions{0};
++  std::atomic<size_t> stops{0};
++};
++class CountingMockAdapter : public mtc::motion::MockMotionAdapter
++{
++public:
++  CountingMockAdapter(mtc::motion::MockMotionAdapterConfig options,
++    mtc::core::ClockPtr clock, std::shared_ptr<MockCallCounts> counts)
++  : MockMotionAdapter(std::move(options), std::move(clock)), counts_(std::move(counts)) {}
++  mtc::core::MotionResult execute_joint_move(const mtc::core::MotionCommand & c) override
++  {
++    ++counts_->executions;
++    return MockMotionAdapter::execute_joint_move(c);
++  }
++  mtc::core::StopResult request_stop_for_command(const std::string & reason,
++    const std::optional<std::string> & id) override
++  {
++    ++counts_->stops;
++    return MockMotionAdapter::request_stop_for_command(reason, id);
++  }
++private:
++  std::shared_ptr<MockCallCounts> counts_;
++};
++
++class MockPerception : public mtc::manipulation::PerceptionPort
++{
++public:
++  MockPerception(MockOptions options, mtc::core::ClockPtr clock, int color);
++  std::optional<mtc::core::DetectionResult> get_detection(
++    const std::string &, std::optional<int>, double) override;
++private:
++  MockOptions options_;
++  mtc::core::ClockPtr clock_;
++  int color_;
++};
++class MockPlanner : public mtc::manipulation::PlannerPort
++{
++public:
++  explicit MockPlanner(MockOptions options) : options_(std::move(options)) {}
++  std::optional<mtc::core::PlanResult> plan(
++    const mtc::manipulation::PlanTarget &) override;
++private:
++  MockOptions options_;
++};
++class MockTool : public mtc::manipulation::ToolPort
++{
++public:
++  explicit MockTool(MockOptions options) : options_(std::move(options)) {}
++  std::optional<mtc::core::ToolEvidence> engage(const std::string &,
++    const mtc::core::MotionPrimitiveList &) override;
++  std::optional<mtc::core::ToolEvidence> test_lift(
++    const mtc::core::MotionPrimitiveList &) override;
++  mtc::core::ToolEvidence seat_verify() override;
++  std::optional<mtc::core::ToolEvidence> unload(
++    const mtc::core::MotionPrimitiveList &) override;
++  std::optional<mtc::core::ToolEvidence> unlock(uint32_t) override;
++  std::optional<mtc::core::ToolEvidence> disengage(
++    const mtc::core::MotionPrimitiveList &) override;
++  std::string holding_state() override
++  {return unknown_load_ ? "unknown" : (holding_ ? "holding" : "none");}
++private:
++  mtc::core::ToolEvidence attachment() const;
++  MockOptions options_;
++  bool holding_ = false;
++  bool unknown_load_ = false;
++};
++
++// Timer-owned polling bridge. At most one execute and one associated stop worker.
++// Cached complete results are drained before a new command; no detached threads.
++class AsyncMockMotion : public mtc::manipulation::MotionPort
++{
++public:
++  AsyncMockMotion(MockOptions options, std::shared_ptr<mtc::core::ManualClock> clock,
++    std::shared_ptr<MockCallCounts> counts = std::make_shared<MockCallCounts>());
++  std::optional<mtc::core::MotionResult> execute_joint_move(
++    const mtc::core::MotionCommand &) override;
++  mtc::core::StopResult request_stop(const std::string &) override;
++  bool poll_stop(const std::string & reason);
++  bool execution_ready() const;
++  const std::string & last_command_id() const {return last_id_;}
++  mtc::motion::ExecutorSnapshot snapshot() const {return executor_->snapshot();}
++  mtc::core::JointFeedback feedback() const {return adapter_->joint_feedback();}
++  std::shared_ptr<mtc::motion::MockMotionAdapter> adapter() const {return adapter_;}
++private:
++  MockOptions options_;
++  std::shared_ptr<mtc::motion::MockMotionAdapter> adapter_;
++  std::shared_ptr<mtc::motion::MotionExecutorCore> executor_;
++  std::string last_id_;
++  std::future<mtc::core::MotionResult> execution_;
++  std::optional<mtc::core::MotionResult> result_;
++  std::future<mtc::core::StopResult> stopping_;
++  std::optional<mtc::core::StopResult> stop_;
++  std::chrono::steady_clock::time_point deliver_at_;
++};
++}  // namespace mtc::ros2_action
+diff --git a/src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/motion_server.hpp b/src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/motion_server.hpp
+new file mode 100644
+index 0000000..88851cc
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/motion_server.hpp
+@@ -0,0 +1,33 @@
++// Copyright 2026 MTC contributors
++#pragma once
++#include <mtc_interfaces/action/execute_joint_move.hpp>
++#include "mtc_ros2_action_cpp/action_slot.hpp"
++#include "mtc_ros2_action_cpp/mock_ports.hpp"
++
++namespace mtc::ros2_action
++{
++class MotionServer : public rclcpp::Node
++{
++public:
++  explicit MotionServer(MockOptions options = {},
++    const rclcpp::NodeOptions & node = rclcpp::NodeOptions());
++  ~MotionServer() override;
++  std::shared_ptr<const MockCallCounts> mock_call_counts() const {return counts_;}
++private:
++  using Action = mtc_interfaces::action::ExecuteJointMove;
++  void tick();
++  void finish(const mtc::core::MotionResult & result, bool canceled);
++  MockOptions options_;
++  std::shared_ptr<MockCallCounts> counts_ = std::make_shared<MockCallCounts>();
++  rclcpp::CallbackGroup::SharedPtr group_;
++  std::shared_ptr<ActionSlot<Action>> slot_;
++  rclcpp_action::Server<Action>::SharedPtr server_;
++  rclcpp::TimerBase::SharedPtr timer_;
++  std::shared_ptr<mtc::core::ManualClock> clock_;
++  std::shared_ptr<AsyncMockMotion> motion_;
++  mtc::core::MotionCommand command_;
++  std::chrono::steady_clock::time_point deadline_;
++  bool cleanup_stop_ = false;
++};
++mtc::core::MotionCommand joint_command(const mtc_interfaces::action::ExecuteJointMove::Goal &);
++}  // namespace mtc::ros2_action
+diff --git a/src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/pick_place_server.hpp b/src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/pick_place_server.hpp
+new file mode 100644
+index 0000000..5c1486c
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/pick_place_server.hpp
+@@ -0,0 +1,33 @@
++// Copyright 2026 MTC contributors
++#pragma once
++#include <mtc_interfaces/action/pick_place.hpp>
++#include <mtc_manipulation_cpp/pick_place_fsm.hpp>
++#include "mtc_ros2_action_cpp/action_slot.hpp"
++#include "mtc_ros2_action_cpp/mock_ports.hpp"
++
++namespace mtc::ros2_action
++{
++class PickPlaceServer : public rclcpp::Node
++{
++public:
++  explicit PickPlaceServer(MockOptions options = {},
++    const rclcpp::NodeOptions & node = rclcpp::NodeOptions());
++  ~PickPlaceServer() override;
++  std::shared_ptr<const MockCallCounts> mock_call_counts() const {return counts_;}
++private:
++  using Action = mtc_interfaces::action::PickPlace;
++  void tick();
++  MockOptions options_;
++  std::shared_ptr<MockCallCounts> counts_ = std::make_shared<MockCallCounts>();
++  rclcpp::CallbackGroup::SharedPtr group_;
++  std::shared_ptr<ActionSlot<Action>> slot_;
++  rclcpp_action::Server<Action>::SharedPtr server_;
++  rclcpp::TimerBase::SharedPtr timer_;
++  std::shared_ptr<mtc::core::ManualClock> clock_;
++  std::shared_ptr<AsyncMockMotion> motion_;
++  std::shared_ptr<MockTool> tool_;
++  std::unique_ptr<mtc::manipulation::PickPlaceFsm> fsm_;
++  bool cleanup_stop_ = false;
++};
++bool valid_pick_goal(const mtc_interfaces::action::PickPlace::Goal & goal);
++}  // namespace mtc::ros2_action
+diff --git a/src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/task_server.hpp b/src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/task_server.hpp
+new file mode 100644
+index 0000000..43f46e5
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/task_server.hpp
+@@ -0,0 +1,51 @@
++// Copyright 2026 MTC contributors
++#pragma once
++#include <mtc_interfaces/action/execute_task.hpp>
++#include <mtc_interfaces/action/pick_place.hpp>
++#include <mtc_task_cpp/task_fsm.hpp>
++#include "mtc_ros2_action_cpp/action_slot.hpp"
++#include "mtc_ros2_action_cpp/mock_ports.hpp"
++
++namespace mtc::ros2_action
++{
++class TaskServer : public rclcpp::Node
++{
++public:
++  explicit TaskServer(mtc::task::FsmsConfig config = mtc::task::FsmsConfig::defaults(),
++    const rclcpp::NodeOptions & node = rclcpp::NodeOptions());
++  ~TaskServer() override;
++private:
++  using Action = mtc_interfaces::action::ExecuteTask;
++  using Child = mtc_interfaces::action::PickPlace;
++  using ChildHandle = rclcpp_action::ClientGoalHandle<Child>;
++  // Captured by value in client callbacks. Old callbacks can only change their
++  // old inbox; they never reach the FSM or this Node after destruction.
++  struct ChildInbox
++  {
++    std::string request_base;
++    ChildHandle::SharedPtr handle;
++    bool answered = false;
++    bool cancel_wanted = false;
++    bool cancel_sent = false;
++    std::optional<ChildHandle::WrappedResult> result;
++    Child::Feedback::ConstSharedPtr feedback;
++  };
++  void tick();
++  void apply(const mtc::task::StepResult & step);
++  void send_child(const mtc::task::PickPlaceGoal & goal);
++  void poll_child();
++  void finish();
++  rclcpp::CallbackGroup::SharedPtr group_;
++  std::shared_ptr<ActionSlot<Action>> slot_;
++  rclcpp_action::Server<Action>::SharedPtr server_;
++  rclcpp_action::Client<Child>::SharedPtr client_;
++  rclcpp::TimerBase::SharedPtr timer_;
++  std::shared_ptr<mtc::core::SteadyClock> clock_;
++  mtc::task::TaskFsm fsm_;
++  bool initialized_ = false;
++  size_t attempt_ = 0;
++  std::optional<mtc::task::PickPlaceGoal> unsent_;
++  std::shared_ptr<ChildInbox> child_;
++};
++mtc::task::TaskRequest task_request(const mtc_interfaces::action::ExecuteTask::Goal & goal);
++}  // namespace mtc::ros2_action
+diff --git a/src/mtc_ros2_action_cpp/package.xml b/src/mtc_ros2_action_cpp/package.xml
+new file mode 100644
+index 0000000..e4edcc3
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/package.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0"?>
++<package format="3">
++  <name>mtc_ros2_action_cpp</name>
++  <version>0.1.0</version>
++  <description>离线 Mock ROS 2 Action 外壳；复用现有 C++ FSM。</description>
++  <maintainer email="maintainers@example.com">MTC contributors</maintainer>
++  <license>Apache-2.0</license>
++  <buildtool_depend>ament_cmake</buildtool_depend>
++  <depend>rclcpp</depend>
++  <depend>rclcpp_action</depend>
++  <depend>action_msgs</depend>
++  <depend>mtc_interfaces</depend>
++  <depend>mtc_core_cpp</depend>
++  <depend>mtc_task_cpp</depend>
++  <depend>mtc_manipulation_cpp</depend>
++  <depend>mtc_motion_execution_cpp</depend>
++  <test_depend>ament_cmake_gtest</test_depend>
++  <export><build_type>ament_cmake</build_type></export>
++</package>
+diff --git a/src/mtc_ros2_action_cpp/src/mock_ports.cpp b/src/mtc_ros2_action_cpp/src/mock_ports.cpp
+new file mode 100644
+index 0000000..58698d1
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/src/mock_ports.cpp
+@@ -0,0 +1,208 @@
++// Copyright 2026 MTC contributors
++#include "mtc_ros2_action_cpp/mock_ports.hpp"
++#include <cmath>
++#include <stdexcept>
++#include <mtc_manipulation_cpp/tool_strategy.hpp>
++
++namespace mtc::ros2_action
++{
++using mtc::core::ErrorCodes;
++void MockOptions::validate() const
++{
++  if (!std::isfinite(tick_seconds) || tick_seconds <= 0 || tick_seconds > 0.1 ||
++    result_delay_ms < 0 || result_delay_ms > 10000) {
++    throw std::invalid_argument("invalid offline clock/delivery configuration");
++  }
++  mtc::manipulation::make_strategy(pick.tool_type);
++  if (motion.timed_trajectory_supported || motion.cartesian_motion_supported) {
++    throw std::invalid_argument("Phase 2A cannot advertise trajectory/Cartesian execution");
++  }
++}
++MockPerception::MockPerception(MockOptions o, mtc::core::ClockPtr c, int color)
++: options_(std::move(o)), clock_(std::move(c)), color_(color) {}
++std::optional<mtc::core::DetectionResult> MockPerception::get_detection(
++  const std::string & id, std::optional<int> expected, double)
++{
++  mtc::core::DetectionResult r;
++  r.found = options_.target_found;
++  r.unique = true;
++  mtc::core::PoseEstimate p;
++  p.object_id = id;
++  p.color = color_;
++  p.stamp_s = clock_->now();
++  p.ring_pose.position = {0.4, -0.1, 0.25};
++  p.ring_pose.orientation = {0, 0, 0, 1};
++  p.ring_pose.frame_id = "base_link";
++  p.ring_pose.stamp_s = p.stamp_s;
++  p.ring_pose.valid = true;
++  p.body_pose = p.ring_pose;
++  p.has_ring_pose_value = p.has_body_pose_value = true;
++  p.confidence = 0.9f;
++  p.followed = options_.attached;
++  p.at_target = !expected.has_value();
++  p.settled = options_.placement_stable;
++  r.pose = p;  // Each poll is a new, timestamped simulated observation.
++  return r;
++}
++std::optional<mtc::core::PlanResult> MockPlanner::plan(
++  const mtc::manipulation::PlanTarget & target)
++{
++  mtc::core::PlanResult r;
++  r.ok = options_.plan_available;
++  r.error_code = r.ok ? ErrorCodes::OK : ErrorCodes::PLANNING_FAILED;
++  r.message = r.ok ? "explicit offline joint plan" : "Mock planning failure";
++  if (r.ok) {
++    for (const auto & intent : target.primitives) {
++      mtc::core::MotionCommand c;
++      c.primitive_name = intent.name;
++      c.intent = intent;
++      c.requires_contact = intent.requires_contact;
++      c.joint_names = options_.pick.joint_names;
++      c.target_rad = {0.05, -0.02, 0.01, 0.03, -0.04, 0.02};
++      c.simulation_only = true;  // Never admissible on an executable backend.
++      c.velocity_scaling = options_.pick.default_velocity_scaling;
++      c.acceleration_scaling = options_.pick.default_acceleration_scaling;
++      c.timeout_ms = options_.pick.default_timeout_ms;
++      r.commands.push_back(c);
++    }
++  }
++  return r;
++}
++mtc::core::ToolEvidence MockTool::attachment() const
++{
++  mtc::core::ToolEvidence e;
++  e.ok = options_.attached;
++  e.verified = options_.attached;
++  e.state = options_.attached ? mtc::core::ToolStateCode::STATE_ATTACHED :
++    mtc::core::ToolStateCode::STATE_UNKNOWN;
++  e.evidence_level = options_.attached ? mtc::core::EvidenceLevel::GEOMETRY :
++    mtc::core::EvidenceLevel::NONE;
++  e.error_code = e.ok ? ErrorCodes::OK : ErrorCodes::ATTACH_NOT_VERIFIED;
++  e.message = "simulated geometric attachment evidence; no IO";
++  return e;
++}
++std::optional<mtc::core::ToolEvidence> MockTool::engage(
++  const std::string &, const mtc::core::MotionPrimitiveList &)
++{
++  const auto e = attachment();
++  holding_ = e.ok;
++  unknown_load_ = !e.ok;
++  return e;
++}
++std::optional<mtc::core::ToolEvidence> MockTool::test_lift(
++  const mtc::core::MotionPrimitiveList &)
++{
++  auto e = attachment();
++  if (!holding_ || unknown_load_) {
++    e.ok = e.verified = false;
++    e.state = mtc::core::ToolStateCode::STATE_UNKNOWN;
++    e.evidence_level = mtc::core::EvidenceLevel::NONE;
++    e.error_code = ErrorCodes::ATTACH_NOT_VERIFIED;
++  }
++  return e;
++}
++mtc::core::ToolEvidence MockTool::seat_verify()
++{
++  auto e = attachment();
++  e.ok = e.seated = options_.seated;
++  e.error_code = e.ok ? ErrorCodes::OK : ErrorCodes::SEAT_NOT_VERIFIED;
++  return e;
++}
++std::optional<mtc::core::ToolEvidence> MockTool::unload(
++  const mtc::core::MotionPrimitiveList &)
++{
++  auto e = seat_verify();
++  e.unloaded = e.seated;
++  return e;
++}
++std::optional<mtc::core::ToolEvidence> MockTool::unlock(uint32_t)
++{
++  auto e = seat_verify();
++  e.ok = e.ok && options_.released;
++  e.released = e.ok;
++  e.error_code = e.ok ? ErrorCodes::OK : ErrorCodes::UNLOCK_FAILED;
++  if (e.ok) {
++    holding_ = unknown_load_ = false;
++    e.state = mtc::core::ToolStateCode::STATE_DETACHED;
++  }
++  return e;
++}
++std::optional<mtc::core::ToolEvidence> MockTool::disengage(
++  const mtc::core::MotionPrimitiveList &)
++{
++  auto e = seat_verify();
++  e.ok = e.ok && options_.released;
++  e.released = e.ok;
++  e.error_code = e.ok ? ErrorCodes::OK : ErrorCodes::RELEASE_NOT_VERIFIED;
++  if (e.ok) {
++    holding_ = unknown_load_ = false;
++    e.state = mtc::core::ToolStateCode::STATE_DETACHED;
++  }
++  return e;
++}
++AsyncMockMotion::AsyncMockMotion(MockOptions o, std::shared_ptr<mtc::core::ManualClock> c,
++  std::shared_ptr<MockCallCounts> counts)
++: options_(std::move(o)), adapter_(std::make_shared<CountingMockAdapter>(
++    options_.motion, c, std::move(counts))),
++  executor_(std::make_shared<mtc::motion::MotionExecutorCore>(adapter_,
++    mtc::motion::ValidationConfig(), c)) {}
++bool AsyncMockMotion::execution_ready() const
++{
++  return !execution_.valid() || execution_.wait_for(std::chrono::seconds(0)) ==
++    std::future_status::ready;
++}
++std::optional<mtc::core::MotionResult> AsyncMockMotion::execute_joint_move(
++  const mtc::core::MotionCommand & c)
++{
++  if (last_id_ != c.command_id) {
++    if (!execution_ready() || stopping_.valid()) {
++      throw std::logic_error("new motion before previous worker drained");
++    }
++    if (execution_.valid()) {execution_.get();}
++    last_id_ = c.command_id;
++    result_.reset();
++    stop_.reset();
++    deliver_at_ = std::chrono::steady_clock::now() +
++      std::chrono::milliseconds(options_.result_delay_ms);
++    execution_ = std::async(std::launch::async,
++      [executor = executor_, c]() {return executor->execute_joint_move(c);});
++    return std::nullopt;
++  }
++  if (!execution_ready() || std::chrono::steady_clock::now() < deliver_at_) {
++    return std::nullopt;
++  }
++  if (!result_ && execution_.valid()) {result_ = execution_.get();}
++  return result_;
++}
++bool AsyncMockMotion::poll_stop(const std::string & reason)
++{
++  if (stop_) {return true;}
++  // Freeze FSM dispatch while cancelling; wait asynchronously for the constant-time
++  // Mock execute to register its identity. Never call global stop on an absent ID.
++  if (!execution_ready()) {return false;}
++  if (!stopping_.valid()) {
++    stopping_ = std::async(std::launch::async,
++      [executor = executor_, id = last_id_, reason, available = options_.stop_evidence_available]() {
++        auto r = executor->cancel_goal(id, reason);
++        if (!available) {
++          r.stop_confirmed = false;
++          r.error_code = ErrorCodes::CANCEL_NOT_CONFIRMED;
++          r.message = "Mock scenario withholds independent stop evidence";
++        }
++        return r;
++      });
++    return false;
++  }
++  if (stopping_.wait_for(std::chrono::seconds(0)) != std::future_status::ready) {return false;}
++  stop_ = stopping_.get();
++  return true;
++}
++mtc::core::StopResult AsyncMockMotion::request_stop(const std::string &)
++{
++  if (stop_) {return *stop_;}
++  mtc::core::StopResult r;
++  r.error_code = ErrorCodes::CANCEL_NOT_CONFIRMED;
++  r.message = "no completed associated stop evidence";
++  return r;
++}
++}  // namespace mtc::ros2_action
+diff --git a/src/mtc_ros2_action_cpp/src/motion_main.cpp b/src/mtc_ros2_action_cpp/src/motion_main.cpp
+new file mode 100644
+index 0000000..854d9df
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/src/motion_main.cpp
+@@ -0,0 +1,11 @@
++// Copyright 2026 MTC contributors
++#include "mtc_ros2_action_cpp/motion_server.hpp"
++int main(int argc, char ** argv)
++{
++  rclcpp::init(argc, argv);
++  auto node = std::make_shared<mtc::ros2_action::MotionServer>();
++  rclcpp::spin(node);
++  node.reset();
++  rclcpp::shutdown();
++  return 0;
++}
+diff --git a/src/mtc_ros2_action_cpp/src/motion_server.cpp b/src/mtc_ros2_action_cpp/src/motion_server.cpp
+new file mode 100644
+index 0000000..7792c70
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/src/motion_server.cpp
+@@ -0,0 +1,104 @@
++// Copyright 2026 MTC contributors
++#include "mtc_ros2_action_cpp/motion_server.hpp"
++#include <algorithm>
++
++namespace mtc::ros2_action
++{
++using mtc::core::ErrorCodes;
++mtc::core::MotionCommand joint_command(const mtc_interfaces::action::ExecuteJointMove::Goal & g)
++{
++  mtc::core::MotionCommand c;
++  c.command_id = g.command_id;
++  c.joint_names.assign(g.joint_names.begin(), g.joint_names.end());
++  c.target_rad.assign(g.target_rad.begin(), g.target_rad.end());
++  const mtc::motion::ValidationConfig config;
++  // ROS float32 encodes 0.2 as 0.20000000298... . Canonicalize only the
++  // exact representable boundary; every other value is checked unchanged.
++  c.velocity_scaling = g.velocity_scaling == static_cast<float>(config.max_velocity_scaling) ?
++    config.max_velocity_scaling : static_cast<double>(g.velocity_scaling);
++  c.acceleration_scaling = g.acceleration_scaling == static_cast<float>(config.max_acceleration_scaling) ?
++    config.max_acceleration_scaling : static_cast<double>(g.acceleration_scaling);
++  c.timeout_ms = g.timeout_ms;
++  c.simulation_only = true;
++  return c;
++}
++MotionServer::MotionServer(MockOptions options, const rclcpp::NodeOptions & node)
++: Node("mtc_mock_joint_move", node), options_(std::move(options)),
++  group_(create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive)),
++  slot_(std::make_shared<ActionSlot<Action>>()),
++  clock_(std::make_shared<mtc::core::ManualClock>(1.0)),
++  motion_(std::make_shared<AsyncMockMotion>(options_, clock_, counts_))
++{
++  options_.validate();
++  server_ = make_server<Action>(this, "/mtc/motion/execute_joint_move", slot_, group_,
++    [capabilities = motion_->adapter()->capabilities()](const Action::Goal & g) {
++      return g.command_id.find_first_not_of(" \t\r\n") != std::string::npos &&
++        mtc::motion::validate_joint_move(joint_command(g),
++        mtc::motion::ValidationConfig(), capabilities).ok;
++    }, [](const Action::Goal & g) {return g.command_id;});
++  timer_ = create_wall_timer(std::chrono::milliseconds(10), [this]() {tick();}, group_);
++}
++MotionServer::~MotionServer() {timer_->cancel(); motion_.reset();}
++void MotionServer::tick()
++{
++  if (slot_->pending) {
++    slot_->active = std::move(slot_->pending);
++    command_ = joint_command(*slot_->active->get_goal());
++    deadline_ = std::chrono::steady_clock::now() + std::chrono::milliseconds(command_.timeout_ms);
++    motion_->execute_joint_move(command_);
++  }
++  if (!slot_->active) {
++    if (cleanup_stop_ && motion_->poll_stop("fault cleanup of original motion command")) {
++      cleanup_stop_ = false;
++    }
++    return;
++  }
++  const auto sample = motion_->feedback();
++  auto feedback = std::make_shared<Action::Feedback>();
++  if (sample.position_rad.size() == 6) {
++    std::copy(sample.position_rad.begin(), sample.position_rad.end(), feedback->actual_position_rad.begin());
++  }
++  if (sample.velocity_rad_s.size() == 6) {
++    std::copy(sample.velocity_rad_s.begin(), sample.velocity_rad_s.end(), feedback->actual_velocity_rad_s.begin());
++  }
++  const auto snapshot = motion_->snapshot();
++  feedback->execution_state = mtc::core::to_string(snapshot.exec_state);
++  feedback->progress = snapshot.stop_confirmed ? 1.0f : 0.0f;
++  slot_->active->publish_feedback(feedback);
++  const bool timeout = std::chrono::steady_clock::now() >= deadline_;
++  if (slot_->cancel || timeout) {
++    if (slot_->cancel && !slot_->active->is_canceling()) {return;}
++    if (!motion_->poll_stop(slot_->cancel ? "associated ROS motion cancel" : "motion deadline")) {return;}
++    const auto stop = motion_->request_stop("");
++    mtc::core::MotionResult result;
++    result.stop_confirmed = stop.stop_confirmed;
++    result.status_unknown = !stop.stop_confirmed;
++    result.final_position_rad = motion_->feedback().position_rad;
++    result.timed_out = timeout && !slot_->cancel;
++    result.error_code = slot_->cancel ? (stop.stop_confirmed ? ErrorCodes::OK :
++      ErrorCodes::CANCEL_NOT_CONFIRMED) : ErrorCodes::MOTION_TIMEOUT;
++    result.message = slot_->cancel ? stop.message : "ROS motion deadline exceeded: " + stop.message;
++    finish(result, slot_->cancel && stop.stop_confirmed);
++    return;
++  }
++  if (auto result = motion_->execute_joint_move(command_)) {finish(*result, false);}
++}
++void MotionServer::finish(const mtc::core::MotionResult & r, bool canceled)
++{
++  auto result = std::make_shared<Action::Result>();
++  result->success = r.success;
++  result->stop_confirmed = r.stop_confirmed;
++  if (r.final_position_rad.size() == 6) {
++    std::copy(r.final_position_rad.begin(), r.final_position_rad.end(), result->final_position_rad.begin());
++  }
++  result->error_code = r.error_code;
++  result->message = r.message;
++  slot_->locked = r.status_unknown || motion_->snapshot().motion_state_unknown ||
++    ((r.timed_out || slot_->cancel) && !r.stop_confirmed);
++  cleanup_stop_ = slot_->locked;
++  if (canceled && slot_->active->is_canceling()) {slot_->active->canceled(result);}
++  else if (r.success && r.stop_confirmed && !slot_->cancel) {slot_->active->succeed(result);}
++  else {slot_->active->abort(result);}
++  slot_->release();
++}
++}  // namespace mtc::ros2_action
+diff --git a/src/mtc_ros2_action_cpp/src/pick_place_main.cpp b/src/mtc_ros2_action_cpp/src/pick_place_main.cpp
+new file mode 100644
+index 0000000..2e5e008
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/src/pick_place_main.cpp
+@@ -0,0 +1,11 @@
++// Copyright 2026 MTC contributors
++#include "mtc_ros2_action_cpp/pick_place_server.hpp"
++int main(int argc, char ** argv)
++{
++  rclcpp::init(argc, argv);
++  auto node = std::make_shared<mtc::ros2_action::PickPlaceServer>();
++  rclcpp::spin(node);
++  node.reset();
++  rclcpp::shutdown();
++  return 0;
++}
+diff --git a/src/mtc_ros2_action_cpp/src/pick_place_server.cpp b/src/mtc_ros2_action_cpp/src/pick_place_server.cpp
+new file mode 100644
+index 0000000..b896976
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/src/pick_place_server.cpp
+@@ -0,0 +1,99 @@
++// Copyright 2026 MTC contributors
++#include "mtc_ros2_action_cpp/pick_place_server.hpp"
++#include <algorithm>
++#include <cmath>
++
++namespace mtc::ros2_action
++{
++bool valid_pick_goal(const mtc_interfaces::action::PickPlace::Goal & g)
++{
++  const auto & slots = mtc::manipulation::allowed_target_slots();
++  return g.request_id.find_first_not_of(" \t\r\n") != std::string::npos &&
++    g.object_id.find_first_not_of(" \t\r\n") != std::string::npos &&
++    g.expected_color >= 1 && g.expected_color <= 4 &&
++    std::find(slots.begin(), slots.end(), g.target_slot) != slots.end() &&
++    std::isfinite(g.placement_stability_sec) && g.placement_stability_sec > 0;
++}
++PickPlaceServer::PickPlaceServer(MockOptions options, const rclcpp::NodeOptions & node)
++: Node("mtc_mock_pick_place", node), options_(std::move(options)),
++  group_(create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive)),
++  slot_(std::make_shared<ActionSlot<Action>>())
++{
++  options_.validate();
++  tool_ = std::make_shared<MockTool>(options_);
++  server_ = make_server<Action>(this, "/mtc/manipulation/pick_place", slot_, group_,
++    valid_pick_goal, [](const Action::Goal & g) {return g.request_id;});
++  timer_ = create_wall_timer(std::chrono::milliseconds(10), [this]() {tick();}, group_);
++}
++PickPlaceServer::~PickPlaceServer()
++{
++  timer_->cancel();
++  fsm_.reset();
++  motion_.reset();  // std::future joins owned constant-time Mock workers.
++}
++void PickPlaceServer::tick()
++{
++  using mtc::manipulation::PickPlaceState;
++  if (slot_->pending) {
++    slot_->active = std::move(slot_->pending);
++    const auto g = slot_->active->get_goal();
++    clock_ = std::make_shared<mtc::core::ManualClock>(1.0);
++    motion_ = std::make_shared<AsyncMockMotion>(options_, clock_, counts_);
++    fsm_ = std::make_unique<mtc::manipulation::PickPlaceFsm>(
++      std::make_shared<MockPerception>(options_, clock_, g->expected_color),
++      std::make_shared<MockPlanner>(options_), motion_, tool_,
++      clock_, mtc::manipulation::make_strategy(options_.pick.tool_type), options_.pick);
++    fsm_->start(g->object_id, g->expected_color, g->target_slot, g->request_id,
++      g->placement_stability_sec);
++  }
++  if (!slot_->active) {
++    if (cleanup_stop_ && motion_->poll_stop("fault cleanup of original command")) {
++      cleanup_stop_ = false;
++    }
++    return;
++  }
++  try {
++    if (slot_->cancel) {
++      // ACK may arrive before ROS has installed CANCELING. Do not emit a result yet.
++      if (!slot_->active->is_canceling()) {return;}
++      if (!motion_->poll_stop("associated PickPlace cancel")) {return;}
++      fsm_->request_cancel("ROS Goal cancel");
++    } else {
++      clock_->advance(options_.tick_seconds);
++    }
++    fsm_->step();
++  } catch (const std::exception & e) {
++    fsm_->force_fault(mtc::core::ErrorCodes::MOTION_STATUS_UNKNOWN, e.what());
++  }
++  const auto f = fsm_->feedback();
++  auto feedback = std::make_shared<Action::Feedback>();
++  feedback->substate = f.substate;
++  feedback->progress = f.progress;
++  feedback->object_attached_estimated = f.object_attached_estimated;
++  feedback->detail = f.detail;
++  if (!motion_->last_command_id().empty()) {
++    feedback->detail += " | Mock command=" + motion_->last_command_id();
++  }
++  slot_->active->publish_feedback(feedback);
++  if (!mtc::manipulation::terminal_states().count(fsm_->state())) {return;}
++  const auto r = fsm_->result();
++  auto result = std::make_shared<Action::Result>();
++  result->success = r.success;
++  result->placement_verified = r.placement_verified;
++  result->error_code = r.error_code;
++  result->message = r.message;
++  // Ending the Action does not clear an attached/unknown load. Keep the Tool
++  // simulation and admission lock until an explicit future recovery contract.
++  slot_->locked = fsm_->state() == PickPlaceState::FAULT || tool_->holding_state() != "none";
++  if (r.success && r.placement_verified && !slot_->cancel) {
++    slot_->active->succeed(result);
++  } else if (fsm_->state() == PickPlaceState::CANCELLED && fsm_->stop_confirmed() &&
++    slot_->active->is_canceling()) {
++    slot_->active->canceled(result);
++  } else {
++    slot_->active->abort(result);
++  }
++  cleanup_stop_ = slot_->locked;
++  slot_->release();
++}
++}  // namespace mtc::ros2_action
+diff --git a/src/mtc_ros2_action_cpp/src/task_main.cpp b/src/mtc_ros2_action_cpp/src/task_main.cpp
+new file mode 100644
+index 0000000..7d91131
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/src/task_main.cpp
+@@ -0,0 +1,11 @@
++// Copyright 2026 MTC contributors
++#include "mtc_ros2_action_cpp/task_server.hpp"
++int main(int argc, char ** argv)
++{
++  rclcpp::init(argc, argv);
++  auto node = std::make_shared<mtc::ros2_action::TaskServer>();
++  rclcpp::spin(node);
++  node.reset();
++  rclcpp::shutdown();
++  return 0;
++}
+diff --git a/src/mtc_ros2_action_cpp/src/task_server.cpp b/src/mtc_ros2_action_cpp/src/task_server.cpp
+new file mode 100644
+index 0000000..9202321
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/src/task_server.cpp
+@@ -0,0 +1,212 @@
++// Copyright 2026 MTC contributors
++#include "mtc_ros2_action_cpp/task_server.hpp"
++#include <algorithm>
++
++namespace mtc::ros2_action
++{
++using mtc::core::ErrorCodes;
++using mtc::task::TaskStateName;
++mtc::task::TaskRequest task_request(const mtc_interfaces::action::ExecuteTask::Goal & g)
++{
++  mtc::task::TaskRequest r;
++  r.task_id = g.task_id;
++  r.mode = g.mode;
++  r.ordered_colors.assign(g.ordered_colors.begin(), g.ordered_colors.end());
++  r.timeout_ms = g.timeout_ms;
++  r.placement_stability_sec = g.placement_stability_sec;
++  return r;
++}
++TaskServer::TaskServer(mtc::task::FsmsConfig config, const rclcpp::NodeOptions & node)
++: Node("mtc_mock_task", node),
++  group_(create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive)),
++  slot_(std::make_shared<ActionSlot<Action>>()),
++  clock_(std::make_shared<mtc::core::SteadyClock>()), fsm_(clock_, config)
++{
++  client_ = rclcpp_action::create_client<Child>(this, "/mtc/manipulation/pick_place", group_);
++  server_ = make_server<Action>(this, "/mtc/task/execute", slot_, group_,
++    [](const Action::Goal & g) {
++      return g.task_id.find_first_not_of(" \t\r\n") != std::string::npos &&
++        mtc::task::validate_task_request(task_request(g)).ok;
++    }, [](const Action::Goal & g) {return g.task_id;});
++  timer_ = create_wall_timer(std::chrono::milliseconds(10), [this]() {tick();}, group_);
++}
++TaskServer::~TaskServer() {timer_->cancel();}
++void TaskServer::apply(const mtc::task::StepResult & step)
++{
++  for (const auto & action : step.actions) {
++    switch (action.kind) {
++      case mtc::task::ActionKind::CALL_PICK_PLACE:
++        unsent_ = action.pick_place;
++        break;
++      case mtc::task::ActionKind::CANCEL_CHILD:
++        if (child_ && child_->request_base == action.request_id) {
++          child_->cancel_wanted = true;
++        }
++        unsent_.reset();  // A cancelled intent must never be dispatched later.
++        break;
++      case mtc::task::ActionKind::REQUEST_STOP:
++        if (child_) {child_->cancel_wanted = true;}
++        unsent_.reset();  // Scoped cancellation; no global motion service call.
++        break;
++      case mtc::task::ActionKind::LOCK_ACTIONS:
++        slot_->locked = true;
++        break;
++      case mtc::task::ActionKind::PUBLISH_STATE:
++        break;  // Complete feedback snapshot is published on each timer tick.
++    }
++  }
++}
++void TaskServer::send_child(const mtc::task::PickPlaceGoal & request)
++{
++  auto inbox = std::make_shared<ChildInbox>();
++  inbox->request_base = request.request_id;
++  child_ = inbox;
++  Child::Goal goal;
++  goal.request_id = request.request_id + "/attempt-" + std::to_string(++attempt_);
++  goal.object_id = request.object_id;
++  goal.expected_color = static_cast<uint8_t>(request.expected_color);
++  goal.target_slot = request.target_slot;
++  goal.placement_stability_sec = request.placement_stability_sec;
++  auto options = rclcpp_action::Client<Child>::SendGoalOptions();
++  options.goal_response_callback = [inbox](ChildHandle::SharedPtr handle) {
++      inbox->handle = handle;
++      inbox->answered = true;
++    };
++  options.feedback_callback = [inbox](ChildHandle::SharedPtr handle,
++      const Child::Feedback::ConstSharedPtr feedback) {
++      if (inbox->handle && inbox->handle->get_goal_id() == handle->get_goal_id()) {
++        inbox->feedback = feedback;
++      }
++    };
++  options.result_callback = [inbox](const ChildHandle::WrappedResult & result) {
++      if (inbox->handle && inbox->handle->get_goal_id() == result.goal_id) {
++        inbox->result = result;
++      }
++    };
++  client_->async_send_goal(goal, options);
++}
++void TaskServer::poll_child()
++{
++  if (!child_) {return;}
++  if (child_->cancel_wanted && child_->handle && !child_->cancel_sent && !child_->result) {
++    child_->cancel_sent = true;
++    // No ACK callback invokes confirm_child_stopped. Only a terminal result can.
++    client_->async_cancel_goal(child_->handle);
++  }
++  if (!slot_->active) {
++    if (child_->result || (child_->answered && !child_->handle)) {child_.reset();}
++    return;
++  }
++  if (child_->feedback) {fsm_.substate = child_->feedback->substate;}
++  if (child_->answered && !child_->handle) {
++    const auto code = fsm_.state() == TaskStateName::CANCEL_PENDING ?
++      ErrorCodes::CANCEL_NOT_CONFIRMED : ErrorCodes::EXECUTION_REJECTED;
++    apply(fsm_.report_item_unsafe(code, "PickPlace Goal rejected; no stop evidence"));
++    child_.reset();
++    return;
++  }
++  if (!child_->result) {return;}
++  const auto r = *child_->result;
++  child_.reset();
++  if (fsm_.state() == TaskStateName::CANCEL_PENDING) {
++    if (r.code == rclcpp_action::ResultCode::CANCELED && r.result &&
++      !r.result->success && !r.result->placement_verified && r.result->error_code == ErrorCodes::OK) {
++      // Contract with this package's PickPlace server: CANCELED iff FSM confirmed
++      // its associated stop. SUCCEEDED and Cancel ACK cannot stand in for it.
++      apply(fsm_.confirm_child_stopped());
++    } else {
++      apply(fsm_.report_item_unsafe(r.result && r.result->error_code != ErrorCodes::OK ?
++        r.result->error_code : ErrorCodes::CANCEL_NOT_CONFIRMED,
++        r.result ? r.result->message : "child returned no cancellation result"));
++    }
++    return;
++  }
++  if (fsm_.state() != TaskStateName::EXECUTE_ITEM) {return;}
++  if (!r.result || r.code == rclcpp_action::ResultCode::UNKNOWN ||
++    r.code == rclcpp_action::ResultCode::CANCELED) {
++    apply(fsm_.report_item_unsafe(ErrorCodes::MOTION_STATUS_UNKNOWN,
++      "unexpected/missing child result; no automatic resend"));
++  } else {
++    const bool success = r.code == rclcpp_action::ResultCode::SUCCEEDED &&
++      r.result->success && r.result->error_code == ErrorCodes::OK;
++    apply(fsm_.report_item_result(success, r.result->placement_verified,
++      r.result->error_code, r.result->message));
++  }
++}
++void TaskServer::tick()
++{
++  if (!initialized_) {
++    fsm_.start();
++    // Software-only self check; no robot/controller or IO check is claimed.
++    fsm_.report_self_check(mtc::task::TaskFsm::verify_tables().empty());
++    initialized_ = true;
++    slot_->locked = fsm_.fault_locked();
++  }
++  if (slot_->pending) {
++    slot_->active = std::move(slot_->pending);
++    if (fsm_.action_finished() && !fsm_.fault_locked()) {fsm_.reset();}
++    apply(fsm_.submit_goal(task_request(*slot_->active->get_goal())));
++  }
++  if (!slot_->active) {poll_child(); return;}
++  if (fsm_.state() == TaskStateName::VALIDATE_TASK) {apply(fsm_.advance_validation());}
++  if (slot_->cancel && slot_->active->is_canceling() &&
++    fsm_.state() != TaskStateName::CANCEL_PENDING && !fsm_.action_finished()) {
++    apply(fsm_.request_cancel());
++    if (!child_) {
++      apply(fsm_.report_item_unsafe(ErrorCodes::CANCEL_NOT_CONFIRMED,
++        "no associated child stop evidence; cancellation is not safe-confirmed"));
++    }
++  }
++  poll_child();
++  if (auto s = fsm_.check_task_deadline()) {apply(*s);}
++  if (auto s = fsm_.check_timeouts()) {apply(*s);}
++  if (!slot_->cancel) {
++    switch (fsm_.state()) {
++      case TaskStateName::SCAN_SCENE: {
++        // Explicit synthetic scene observation; no detector or tool is connected.
++        const auto color = fsm_.current_task->ordered_colors.at(fsm_.current_index);
++        MockPerception scene(MockOptions(), clock_, color);
++        const auto id = "mock_battery_color_" + std::to_string(color);
++        const auto detection = scene.get_detection(id, color, 0.3);
++        if (detection && detection->ok() && detection->pose->color == color) {
++          apply(fsm_.report_target(detection->pose->object_id, color));
++        } else {apply(fsm_.report_target_missing("Mock scene observation unavailable"));}
++        break;
++      }
++      case TaskStateName::RECORD_RESULT: apply(fsm_.record_completed_item()); break;
++      case TaskStateName::RECOVERY: apply(fsm_.request_retry()); break;
++      default: break;
++    }
++  }
++  if (unsent_ && !slot_->cancel && client_->action_server_is_ready()) {
++    const auto goal = *unsent_;
++    unsent_.reset();
++    send_child(goal);
++  }
++  auto f = std::make_shared<Action::Feedback>();
++  f->current_index = static_cast<uint8_t>(fsm_.current_index);
++  f->total_count = static_cast<uint8_t>(fsm_.total_count());
++  f->state = fsm_.state_name();
++  f->current_slot = fsm_.current_slot;
++  f->current_object_id = fsm_.current_object_id;
++  f->substate = fsm_.substate;
++  slot_->active->publish_feedback(f);
++  if (fsm_.action_finished()) {finish();}
++}
++void TaskServer::finish()
++{
++  const auto outcome = fsm_.build_outcome();
++  auto result = std::make_shared<Action::Result>();
++  result->success = outcome.success;
++  result->completed_count = outcome.completed_count;
++  result->completed_slots = outcome.completed_slots;
++  result->error_code = outcome.error_code;
++  result->message = outcome.message;
++  slot_->locked = slot_->locked || fsm_.fault_locked();
++  if (outcome.success && !slot_->cancel) {slot_->active->succeed(result);}
++  else if (fsm_.state() == TaskStateName::CANCELLED && slot_->active->is_canceling()) {
++    slot_->active->canceled(result);
++  } else {slot_->active->abort(result);}
++  slot_->release();
++}
++}  // namespace mtc::ros2_action
+diff --git a/src/mtc_ros2_action_cpp/test/ros_fixture.hpp b/src/mtc_ros2_action_cpp/test/ros_fixture.hpp
+new file mode 100644
+index 0000000..0ba75ea
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/test/ros_fixture.hpp
+@@ -0,0 +1,70 @@
++// Copyright 2026 MTC contributors
++#pragma once
++#include <gtest/gtest.h>
++#include <atomic>
++#include <chrono>
++#include <cstdlib>
++#include <functional>
++#include <mutex>
++#include <thread>
++#include <unistd.h>
++#include <rclcpp/rclcpp.hpp>
++#include <rclcpp_action/rclcpp_action.hpp>
++
++using namespace std::chrono_literals;
++class RosFixture : public ::testing::Test
++{
++protected:
++  static void SetUpTestSuite()
++  {
++    setenv("RMW_IMPLEMENTATION", "rmw_fastrtps_cpp", 1);
++    setenv("ROS_DOMAIN_ID", std::to_string(30 + getpid() % 170).c_str(), 1);
++    setenv("ROS_AUTOMATIC_DISCOVERY_RANGE", "LOCALHOST", 1);
++    unsetenv("ROS_STATIC_PEERS");
++    unsetenv("ROS_LOCALHOST_ONLY");
++    unsetenv("FASTRTPS_DEFAULT_PROFILES_FILE");
++    unsetenv("FASTDDS_DEFAULT_PROFILES_FILE");
++    unsetenv("CYCLONEDDS_URI");
++    setenv("ROS_LOG_DIR", "/tmp/mtc_phase2a_test_logs", 1);
++    rclcpp::init(0, nullptr);
++  }
++  static void TearDownTestSuite() {rclcpp::shutdown();}
++  void SetUp() override
++  {
++    client_node = std::make_shared<rclcpp::Node>("phase2a_test_client");
++    executor = std::make_unique<rclcpp::executors::MultiThreadedExecutor>(
++      rclcpp::ExecutorOptions(), 4);
++    executor->add_node(client_node);
++  }
++  void start(std::vector<std::shared_ptr<rclcpp::Node>> nodes)
++  {
++    servers = std::move(nodes);
++    for (auto & n : servers) {executor->add_node(n);}
++    spin = std::thread([this]() {executor->spin();});
++  }
++  void TearDown() override
++  {
++    executor->cancel();
++    if (spin.joinable()) {spin.join();}
++    for (auto & n : servers) {executor->remove_node(n);}
++    executor->remove_node(client_node);
++    servers.clear();
++    executor.reset();
++    client_node.reset();
++  }
++  static bool eventually(const std::function<bool()> & f, std::chrono::milliseconds limit = 5s)
++  {
++    const auto end = std::chrono::steady_clock::now() + limit;
++    while (std::chrono::steady_clock::now() < end) {
++      if (f()) {return true;}
++      std::this_thread::sleep_for(5ms);  // Test thread only; bounded wait.
++    }
++    return f();
++  }
++  template<class T> static bool ready(T & f, std::chrono::milliseconds timeout = 10s)
++  {return f.wait_for(timeout) == std::future_status::ready;}
++  std::shared_ptr<rclcpp::Node> client_node;
++  std::vector<std::shared_ptr<rclcpp::Node>> servers;
++  std::unique_ptr<rclcpp::executors::MultiThreadedExecutor> executor;
++  std::thread spin;
++};
+diff --git a/src/mtc_ros2_action_cpp/test/test_action_contracts.cpp b/src/mtc_ros2_action_cpp/test/test_action_contracts.cpp
+new file mode 100644
+index 0000000..687b98a
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/test/test_action_contracts.cpp
+@@ -0,0 +1,98 @@
++// Copyright 2026 MTC contributors
++#include <gtest/gtest.h>
++#include "mtc_ros2_action_cpp/task_server.hpp"
++#include "mtc_ros2_action_cpp/motion_server.hpp"
++#include <cmath>
++#include <limits>
++TEST(ActionContracts, TaskConversionPreservesColorOrderIdentityAndDeadline)
++{
++  mtc_interfaces::action::ExecuteTask::Goal g;
++  g.task_id = std::string(200, 'x'); g.mode = 2; g.ordered_colors = {3, 1, 4};
++  g.timeout_ms = 12345; g.placement_stability_sec = 3.0f;
++  auto r = mtc::ros2_action::task_request(g);
++  EXPECT_EQ(r.task_id, g.task_id);
++  EXPECT_EQ(r.ordered_colors, (std::vector<int>{3, 1, 4}));
++  EXPECT_EQ(r.slots(), (std::vector<std::string>{"P1", "P2", "P3"}));
++  EXPECT_EQ(r.timeout_ms, 12345u); EXPECT_EQ(r.placement_stability_sec, 3);
++}
++TEST(ActionContracts, RosFloatBoundaryDoesNotRelaxCoreUpperLimit)
++{
++  mtc_interfaces::action::ExecuteJointMove::Goal g;
++  g.command_id = "mapped";
++  auto config = mtc::motion::ValidationConfig();
++  std::copy(config.expected_joint_names.begin(), config.expected_joint_names.end(), g.joint_names.begin());
++  g.target_rad = {0.03, 0.01, 0.06, 0.01, 0.04, 0.02};
++  g.velocity_scaling = g.acceleration_scaling = 0.2f; g.timeout_ms = 1000;
++  mtc::motion::MockMotionAdapter adapter;
++  auto c = mtc::ros2_action::joint_command(g);
++  EXPECT_TRUE(mtc::motion::validate_joint_move(c, config, adapter.capabilities()).ok);
++  EXPECT_EQ(c.target_rad, (std::vector<double>{0.03, 0.01, 0.06, 0.01, 0.04, 0.02}));
++  EXPECT_FALSE(c.trajectory); EXPECT_TRUE(c.simulation_only);
++  g.velocity_scaling = std::nextafter(0.2f, std::numeric_limits<float>::infinity());
++  EXPECT_FALSE(mtc::motion::validate_joint_move(mtc::ros2_action::joint_command(g),
++    config, adapter.capabilities()).ok);
++}
++TEST(ActionContracts, MockPlannerPreservesSixDPoseFrameStampAndContactConstraints)
++{
++  mtc::ros2_action::MockPlanner planner({});
++  mtc::manipulation::PlanTarget request;
++  mtc::core::MotionPrimitive p;
++  p.name = "contact"; p.requires_contact = true; p.max_linear_speed = 0.01;
++  mtc::core::Pose6D pose;
++  pose.position = {0.1, -0.2, 0.3}; pose.orientation = {0, 0, 1, 0};
++  pose.frame_id = "test_frame"; pose.stamp_s = 12.3; pose.valid = true;
++  p.target_pose = pose; request.primitives = {p};
++  auto r = planner.plan(request); ASSERT_TRUE(r); ASSERT_EQ(r->commands.size(), 1u);
++  const auto & c = r->commands.front();
++  ASSERT_TRUE(c.intent); ASSERT_TRUE(c.intent->target_pose);
++  EXPECT_EQ(*c.intent->target_pose, pose);
++  EXPECT_TRUE(c.requires_contact); EXPECT_EQ(c.intent->max_linear_speed, 0.01);
++  EXPECT_TRUE(c.simulation_only); EXPECT_FALSE(c.trajectory);
++}
++TEST(ActionContracts, MockLoadEvidenceRemainsHoldingUntilVerifiedRelease)
++{
++  mtc::ros2_action::MockTool tool({});
++  EXPECT_EQ(tool.holding_state(), "none");
++  ASSERT_TRUE(tool.engage("ENGAGE", {})->ok);
++  EXPECT_EQ(tool.holding_state(), "holding");
++  ASSERT_TRUE(tool.unload({})->unloaded);
++  EXPECT_EQ(tool.holding_state(), "holding");
++  const auto released = tool.disengage({});
++  ASSERT_TRUE(released->released.value_or(false));
++  EXPECT_EQ(released->state, mtc::core::ToolStateCode::STATE_DETACHED);
++  EXPECT_EQ(tool.holding_state(), "none");
++}
++TEST(ActionContracts, MockFailedReleaseNeverReportsNoLoad)
++{
++  mtc::ros2_action::MockOptions o; o.released = false;
++  mtc::ros2_action::MockTool tool(o);
++  ASSERT_TRUE(tool.engage("ENGAGE", {})->ok);
++  EXPECT_FALSE(tool.disengage({})->ok);
++  EXPECT_EQ(tool.holding_state(), "holding");
++}
++TEST(ActionContracts, TestLiftRequiresPriorSimulatedAttachmentEvidence)
++{
++  mtc::ros2_action::MockTool tool({});
++  EXPECT_FALSE(tool.test_lift({})->has_geometry_evidence());
++  ASSERT_TRUE(tool.engage("ENGAGE", {})->ok);
++  EXPECT_TRUE(tool.test_lift({})->has_geometry_evidence());
++}
++TEST(ActionContracts, TrajectoryBridgeRefusesAndNeverSplitsIntoJointMoves)
++{
++  auto counts = std::make_shared<mtc::ros2_action::MockCallCounts>();
++  auto clock = std::make_shared<mtc::core::ManualClock>(1.0);
++  mtc::ros2_action::AsyncMockMotion bridge({}, clock, counts);
++  mtc::core::MotionCommand c;
++  c.trajectory = mtc::core::TimedTrajectory();
++  auto r = bridge.execute_trajectory(c); ASSERT_TRUE(r);
++  EXPECT_EQ(r->error_code, mtc::core::ErrorCodes::EXECUTION_REJECTED);
++  EXPECT_EQ(counts->executions.load(), 0u);
++  EXPECT_FALSE(bridge.adapter()->capabilities().timed_trajectory_supported);
++}
++TEST(ActionContracts, UnsupportedTrajectoryAndCartesianCapabilitiesCannotBeEnabled)
++{
++  mtc::ros2_action::MockOptions o; o.motion.timed_trajectory_supported = true;
++  EXPECT_THROW(o.validate(), std::invalid_argument);
++  o.motion.timed_trajectory_supported = false; o.motion.cartesian_motion_supported = true;
++  EXPECT_THROW(o.validate(), std::invalid_argument);
++}
+diff --git a/src/mtc_ros2_action_cpp/test/test_motion_action.cpp b/src/mtc_ros2_action_cpp/test/test_motion_action.cpp
+new file mode 100644
+index 0000000..75c2776
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/test/test_motion_action.cpp
+@@ -0,0 +1,132 @@
++// Copyright 2026 MTC contributors
++#include "ros_fixture.hpp"
++#include "mtc_ros2_action_cpp/motion_server.hpp"
++#include <action_msgs/srv/cancel_goal.hpp>
++#include <limits>
++using Move = mtc_interfaces::action::ExecuteJointMove;
++using MoveHandle = rclcpp_action::ClientGoalHandle<Move>;
++using mtc::core::ErrorCodes;
++class MotionAction : public RosFixture
++{
++protected:
++  void setup(mtc::ros2_action::MockOptions options = {})
++  {
++    server = std::make_shared<mtc::ros2_action::MotionServer>(options);
++    client = rclcpp_action::create_client<Move>(client_node, "/mtc/motion/execute_joint_move");
++    start({server}); ASSERT_TRUE(client->wait_for_action_server(3s));
++  }
++  Move::Goal goal(std::string id = "move_1")
++  {
++    Move::Goal g; g.command_id = id;
++    const auto names = mtc::motion::ValidationConfig().expected_joint_names;
++    std::copy(names.begin(), names.end(), g.joint_names.begin());
++    g.target_rad = {0.05, -0.02, 0.01, 0.03, -0.04, 0.02};
++    g.velocity_scaling = 0.2f; g.acceleration_scaling = 0.2f; g.timeout_ms = 2000;
++    return g;
++  }
++  MoveHandle::SharedPtr send(const Move::Goal & g)
++  {
++    auto options = rclcpp_action::Client<Move>::SendGoalOptions();
++    options.feedback_callback = [this](MoveHandle::SharedPtr, Move::Feedback::ConstSharedPtr f) {
++        ++feedback_count;
++        EXPECT_FALSE(f->execution_state.empty());
++        for (double p : f->actual_position_rad) {EXPECT_TRUE(std::isfinite(p));}
++      };
++    auto f = client->async_send_goal(g, options); EXPECT_TRUE(ready(f));
++    return ready(f, 0ms) ? f.get() : nullptr;
++  }
++  std::shared_ptr<mtc::ros2_action::MotionServer> server;
++  rclcpp_action::Client<Move>::SharedPtr client;
++  std::atomic<size_t> feedback_count{0};
++};
++TEST_F(MotionAction, LegalNonzeroGoalAndFeedbackUseExecutorResult)
++{
++  setup(); auto g = goal(); auto h = send(g); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::SUCCEEDED);
++  EXPECT_TRUE(r.result->success); EXPECT_TRUE(r.result->stop_confirmed);
++  EXPECT_EQ(r.result->final_position_rad, g.target_rad);
++  EXPECT_GT(feedback_count.load(), 0u);
++  EXPECT_EQ(server->mock_call_counts()->executions.load(), 1u);
++}
++TEST_F(MotionAction, IllegalGoalRejectedWithoutBackendCall)
++{
++  setup(); auto g = goal(); g.target_rad[0] = std::numeric_limits<double>::quiet_NaN();
++  EXPECT_EQ(send(g), nullptr);
++  g = goal(); g.joint_names[0] = "bad"; EXPECT_EQ(send(g), nullptr);
++  g = goal(); g.timeout_ms = 0; EXPECT_EQ(send(g), nullptr);
++  g = goal(); g.acceleration_scaling = 1; EXPECT_EQ(send(g), nullptr);
++  EXPECT_EQ(server->mock_call_counts()->executions.load(), 0u);
++}
++TEST_F(MotionAction, ConcurrentGoalIsRejectedAndFirstCompletes)
++{
++  setup(); auto h = send(goal()); ASSERT_NE(h, nullptr);
++  EXPECT_EQ(send(goal("second")), nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  EXPECT_TRUE(f.get().result->success);
++}
++TEST_F(MotionAction, MatchingCancelStopsExactlyOnce)
++{
++  setup(); auto h = send(goal()); ASSERT_NE(h, nullptr);
++  ASSERT_TRUE(eventually([this]() {return server->mock_call_counts()->executions > 0;}));
++  auto c = client->async_cancel_goal(h); ASSERT_TRUE(ready(c));
++  EXPECT_FALSE(c.get()->goals_canceling.empty());
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::CANCELED);
++  EXPECT_TRUE(r.result->stop_confirmed); EXPECT_FALSE(r.result->success);
++  EXPECT_EQ(server->mock_call_counts()->stops.load(), 1u);
++}
++TEST_F(MotionAction, UnconfirmedCancelAborts520AndLocks)
++{
++  mtc::ros2_action::MockOptions o; o.stop_evidence_available = false;
++  setup(o); auto h = send(goal()); ASSERT_NE(h, nullptr);
++  ASSERT_TRUE(eventually([this]() {return server->mock_call_counts()->executions > 0;}));
++  auto c = client->async_cancel_goal(h); ASSERT_TRUE(ready(c));
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::ABORTED);
++  EXPECT_FALSE(r.result->stop_confirmed);
++  EXPECT_EQ(r.result->error_code, ErrorCodes::CANCEL_NOT_CONFIRMED);
++  EXPECT_EQ(send(goal("after_fault")), nullptr);
++}
++TEST_F(MotionAction, StaleCancelCannotReachBackendOrInterruptNewOwner)
++{
++  setup(); auto a = send(goal()); ASSERT_NE(a, nullptr);
++  auto af = client->async_get_result(a); ASSERT_TRUE(ready(af)); EXPECT_TRUE(af.get().result->success);
++  auto b = send(goal("new_owner")); ASSERT_NE(b, nullptr);
++  auto service = client_node->create_client<action_msgs::srv::CancelGoal>(
++    "/mtc/motion/execute_joint_move/_action/cancel_goal");
++  ASSERT_TRUE(service->wait_for_service(3s));
++  auto request = std::make_shared<action_msgs::srv::CancelGoal::Request>();
++  request->goal_info.goal_id.uuid = a->get_goal_id();
++  auto cancel = service->async_send_request(request); ASSERT_TRUE(ready(cancel));
++  EXPECT_TRUE(cancel.get()->goals_canceling.empty());
++  auto bf = client->async_get_result(b); ASSERT_TRUE(ready(bf)); EXPECT_TRUE(bf.get().result->success);
++  EXPECT_EQ(server->mock_call_counts()->stops.load(), 0u);
++  EXPECT_EQ(server->mock_call_counts()->executions.load(), 2u);
++}
++TEST_F(MotionAction, ExecutorTimeoutKeepsOriginal220AndRejectsNewMotion)
++{
++  mtc::ros2_action::MockOptions o; o.motion.timeout = true;
++  setup(o); auto h = send(goal()); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_EQ(r.result->error_code, ErrorCodes::MOTION_TIMEOUT);
++  EXPECT_FALSE(r.result->stop_confirmed);
++  EXPECT_EQ(send(goal("after_timeout")), nullptr);
++  EXPECT_EQ(server->mock_call_counts()->executions.load(), 1u);
++}
++TEST_F(MotionAction, RosDeadlineIndependentlyRequestsAssociatedStop)
++{
++  mtc::ros2_action::MockOptions o; o.result_delay_ms = 2000;
++  setup(o); auto g = goal(); g.timeout_ms = 800;
++  auto h = send(g); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::ABORTED);
++  EXPECT_EQ(r.result->error_code, ErrorCodes::MOTION_TIMEOUT);
++  EXPECT_FALSE(r.result->success); EXPECT_TRUE(r.result->stop_confirmed);
++  EXPECT_EQ(server->mock_call_counts()->stops.load(), 1u);
++}
+diff --git a/src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp b/src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp
+new file mode 100644
+index 0000000..1e39181
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp
+@@ -0,0 +1,218 @@
++// Copyright 2026 MTC contributors
++#include "ros_fixture.hpp"
++#include "mtc_ros2_action_cpp/pick_place_server.hpp"
++#include <limits>
++#include <action_msgs/srv/cancel_goal.hpp>
++using Pick = mtc_interfaces::action::PickPlace;
++using Handle = rclcpp_action::ClientGoalHandle<Pick>;
++using mtc::core::ErrorCodes;
++class PickAction : public RosFixture
++{
++protected:
++  void setup(mtc::ros2_action::MockOptions options = {})
++  {
++    server = std::make_shared<mtc::ros2_action::PickPlaceServer>(options);
++    client = rclcpp_action::create_client<Pick>(client_node, "/mtc/manipulation/pick_place");
++    start({server});
++    ASSERT_TRUE(client->wait_for_action_server(3s));
++  }
++  Pick::Goal goal(std::string id = "pick_1")
++  {
++    Pick::Goal g;
++    g.request_id = id;
++    g.object_id = "mock_battery_1";
++    g.expected_color = 1;
++    g.target_slot = "T0";
++    g.placement_stability_sec = 0.2f;
++    return g;
++  }
++  Handle::SharedPtr send(const Pick::Goal & g)
++  {
++    auto options = rclcpp_action::Client<Pick>::SendGoalOptions();
++    options.feedback_callback = [this](Handle::SharedPtr, const Pick::Feedback::ConstSharedPtr f) {
++        std::lock_guard<std::mutex> lock(mutex);
++        states.push_back(f->substate);
++        if (f->detail.find("Mock command=") != std::string::npos) {dispatched = true;}
++        EXPECT_GE(f->progress, 0);
++        EXPECT_LE(f->progress, 1);
++      };
++    auto f = client->async_send_goal(g, options);
++    EXPECT_TRUE(ready(f));
++    return ready(f, 0ms) ? f.get() : nullptr;
++  }
++  bool seen(const std::string & name)
++  {
++    std::lock_guard<std::mutex> lock(mutex);
++    return std::find(states.begin(), states.end(), name) != states.end();
++  }
++  std::shared_ptr<mtc::ros2_action::PickPlaceServer> server;
++  rclcpp_action::Client<Pick>::SharedPtr client;
++  std::mutex mutex;
++  std::vector<std::string> states;
++  std::atomic<bool> dispatched{false};
++};
++TEST_F(PickAction, LegalGoalSucceedsOnlyAfterPlacementFeedback)
++{
++  setup();
++  auto h = send(goal()); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  const auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::SUCCEEDED);
++  EXPECT_TRUE(r.result->success);
++  EXPECT_TRUE(r.result->placement_verified);
++  EXPECT_EQ(r.result->error_code, ErrorCodes::OK);
++  EXPECT_TRUE(seen("VERIFY_PLACED"));
++  EXPECT_TRUE(seen("VERIFY_ATTACHED"));
++}
++TEST_F(PickAction, InvalidParametersRejectedBeforeExecution)
++{
++  setup();
++  auto g = goal(); g.expected_color = 0; EXPECT_EQ(send(g), nullptr);
++  g = goal(); g.target_slot = "P4"; EXPECT_EQ(send(g), nullptr);
++  g = goal(); g.object_id = ""; EXPECT_EQ(send(g), nullptr);
++  for (float n : {0.0f, -1.0f, std::numeric_limits<float>::quiet_NaN(),
++      std::numeric_limits<float>::infinity()}) {
++    g = goal(); g.placement_stability_sec = n; EXPECT_EQ(send(g), nullptr);
++  }
++  auto h = send(goal()); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  EXPECT_TRUE(f.get().result->success);
++}
++TEST_F(PickAction, ConcurrentSecondGoalRejected)
++{
++  setup();
++  auto h = send(goal()); ASSERT_NE(h, nullptr);
++  EXPECT_EQ(send(goal("second")), nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  EXPECT_TRUE(f.get().result->success);
++}
++TEST_F(PickAction, MatchingCancelRequiresIndependentStationaryEvidence)
++{
++  setup();
++  auto h = send(goal()); ASSERT_NE(h, nullptr);
++  ASSERT_TRUE(eventually([this]() {return dispatched.load();}));
++  auto c = client->async_cancel_goal(h); ASSERT_TRUE(ready(c));
++  EXPECT_FALSE(c.get()->goals_canceling.empty());
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  const auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::CANCELED);
++  EXPECT_FALSE(r.result->success);
++  EXPECT_FALSE(r.result->placement_verified);
++  EXPECT_EQ(r.result->error_code, ErrorCodes::OK);
++}
++TEST_F(PickAction, CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked)
++{
++  mtc::ros2_action::MockOptions o; o.stop_evidence_available = false;
++  setup(o);
++  auto h = send(goal()); ASSERT_NE(h, nullptr);
++  ASSERT_TRUE(eventually([this]() {return dispatched.load();}));
++  auto c = client->async_cancel_goal(h); ASSERT_TRUE(ready(c));
++  EXPECT_FALSE(c.get()->goals_canceling.empty());
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  const auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::ABORTED);
++  EXPECT_EQ(r.result->error_code, ErrorCodes::CANCEL_NOT_CONFIRMED);
++  EXPECT_FALSE(r.result->placement_verified);
++  EXPECT_EQ(send(goal("after_fault")), nullptr);
++}
++TEST_F(PickAction, StaleGoalCancelCannotInterruptNewGoal)
++{
++  setup();
++  auto a = send(goal()); ASSERT_NE(a, nullptr);
++  auto af = client->async_get_result(a); ASSERT_TRUE(ready(af));
++  ASSERT_TRUE(af.get().result->success);
++  auto b = send(goal("new_goal")); ASSERT_NE(b, nullptr);
++  auto cancel = client_node->create_client<action_msgs::srv::CancelGoal>(
++    "/mtc/manipulation/pick_place/_action/cancel_goal");
++  ASSERT_TRUE(cancel->wait_for_service(3s));
++  auto request = std::make_shared<action_msgs::srv::CancelGoal::Request>();
++  request->goal_info.goal_id.uuid = a->get_goal_id();
++  auto c = cancel->async_send_request(request); ASSERT_TRUE(ready(c));
++  EXPECT_TRUE(c.get()->goals_canceling.empty());
++  auto bf = client->async_get_result(b); ASSERT_TRUE(ready(bf));
++  EXPECT_EQ(bf.get().code, rclcpp_action::ResultCode::SUCCEEDED);
++  EXPECT_EQ(server->mock_call_counts()->stops.load(), 0u);
++  EXPECT_EQ(send(goal()), nullptr);  // Business request ID cannot be replayed.
++}
++TEST_F(PickAction, MotionStatusUnknownNeverResendsOrAutoClearsFault)
++{
++  mtc::ros2_action::MockOptions o; o.motion.status_unknown = true;
++  setup(o);
++  auto h = send(goal()); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  const auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::ABORTED);
++  EXPECT_EQ(r.result->error_code, ErrorCodes::MOTION_STATUS_UNKNOWN);
++  EXPECT_EQ(send(goal("after_unknown")), nullptr);
++  EXPECT_EQ(server->mock_call_counts()->executions.load(), 1u);
++}
++TEST_F(PickAction, MissingPlanNeverSucceeds)
++{
++  mtc::ros2_action::MockOptions o; o.plan_available = false;
++  setup(o);
++  auto h = send(goal()); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  const auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::ABORTED);
++  EXPECT_EQ(r.result->error_code, ErrorCodes::PLANNING_FAILED);
++  EXPECT_FALSE(r.result->placement_verified);
++}
++TEST_F(PickAction, ConcurrentRosRequestsHaveExactlyOneOwner)
++{
++  setup();
++  std::shared_future<Handle::SharedPtr> a, b;
++  std::atomic<int> barrier{0};
++  std::thread first([&]() {
++    ++barrier;
++    while (barrier < 2) {std::this_thread::yield();}
++    a = client->async_send_goal(goal("race_a"));
++  });
++  std::thread second([&]() {
++    ++barrier;
++    while (barrier < 2) {std::this_thread::yield();}
++    b = client->async_send_goal(goal("race_b"));
++  });
++  first.join(); second.join();
++  ASSERT_TRUE(ready(a)); ASSERT_TRUE(ready(b));
++  const auto ah = a.get(), bh = b.get();
++  EXPECT_EQ(static_cast<int>(!!ah) + static_cast<int>(!!bh), 1);
++  auto winner = ah ? ah : bh; ASSERT_NE(winner, nullptr);
++  auto result = client->async_get_result(winner); ASSERT_TRUE(ready(result));
++  EXPECT_TRUE(result.get().result->success);
++}
++TEST_F(PickAction, InFlightWatchdogFaultStillDrainsAssociatedStopWorker)
++{
++  mtc::ros2_action::MockOptions o;
++  o.pick.state_timeouts[mtc::manipulation::PickPlaceState::MOVE_PRE_ALIGN] = 0.01;
++  setup(o); auto h = send(goal()); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::ABORTED);
++  EXPECT_EQ(r.result->error_code, ErrorCodes::MOTION_STATUS_UNKNOWN);
++  EXPECT_EQ(send(goal("after_watchdog")), nullptr);
++  EXPECT_TRUE(eventually([this]() {return server->mock_call_counts()->stops.load() == 1;}));
++  EXPECT_EQ(server->mock_call_counts()->executions.load(), 1u);
++}
++TEST_F(PickAction, CancelWhileCarryingStopsButKeepsLoadAdmissionLocked)
++{
++  setup(); auto h = send(goal()); ASSERT_NE(h, nullptr);
++  ASSERT_TRUE(eventually([this]() {return seen("TRANSPORT");}));
++  auto c = client->async_cancel_goal(h); ASSERT_TRUE(ready(c));
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::CANCELED);
++  EXPECT_EQ(r.result->error_code, ErrorCodes::OK);
++  EXPECT_EQ(send(goal("carrying_must_not_restart")), nullptr);
++}
++TEST_F(PickAction, UnverifiedAttachmentLoadCannotBeClearedByNewGoal)
++{
++  mtc::ros2_action::MockOptions o; o.attached = false;
++  setup(o); auto h = send(goal()); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::ABORTED);
++  EXPECT_FALSE(r.result->success);
++  const auto count = server->mock_call_counts()->executions.load();
++  EXPECT_EQ(send(goal("unknown_load_must_not_restart")), nullptr);
++  EXPECT_EQ(server->mock_call_counts()->executions.load(), count);
++}
+diff --git a/src/mtc_ros2_action_cpp/test/test_task_action.cpp b/src/mtc_ros2_action_cpp/test/test_task_action.cpp
+new file mode 100644
+index 0000000..d091869
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/test/test_task_action.cpp
+@@ -0,0 +1,250 @@
++// Copyright 2026 MTC contributors
++#include "ros_fixture.hpp"
++#include "mtc_ros2_action_cpp/task_server.hpp"
++#include "mtc_ros2_action_cpp/pick_place_server.hpp"
++#include <action_msgs/srv/cancel_goal.hpp>
++using Task = mtc_interfaces::action::ExecuteTask;
++using TaskHandle = rclcpp_action::ClientGoalHandle<Task>;
++using mtc::core::ErrorCodes;
++class TaskAction : public RosFixture
++{
++protected:
++  void setup(mtc::ros2_action::MockOptions options = {},
++    mtc::task::FsmsConfig config = mtc::task::FsmsConfig::defaults(), bool with_child = true)
++  {
++    parent = std::make_shared<mtc::ros2_action::TaskServer>(config);
++    client = rclcpp_action::create_client<Task>(client_node, "/mtc/task/execute");
++    std::vector<std::shared_ptr<rclcpp::Node>> nodes{parent};
++    if (with_child) {
++      child = std::make_shared<mtc::ros2_action::PickPlaceServer>(options);
++      nodes.push_back(child);
++    }
++    start(nodes);
++    ASSERT_TRUE(client->wait_for_action_server(3s));
++  }
++  Task::Goal goal(std::string id = "task_1")
++  {
++    Task::Goal g;
++    g.task_id = id; g.mode = Task::Goal::MODE_BASIC;
++    g.ordered_colors = {1}; g.timeout_ms = 10000; g.placement_stability_sec = 0.2f;
++    return g;
++  }
++  TaskHandle::SharedPtr send(const Task::Goal & g)
++  {
++    auto options = rclcpp_action::Client<Task>::SendGoalOptions();
++    options.feedback_callback = [this](TaskHandle::SharedPtr,
++      const Task::Feedback::ConstSharedPtr f) {
++        std::lock_guard<std::mutex> lock(mutex);
++        feedback.push_back(*f);
++      };
++    auto f = client->async_send_goal(g, options);
++    EXPECT_TRUE(ready(f));
++    return ready(f, 0ms) ? f.get() : nullptr;
++  }
++  bool child_moving()
++  {
++    std::lock_guard<std::mutex> lock(mutex);
++    return std::any_of(feedback.begin(), feedback.end(), [](auto & f) {
++      return f.substate == "MOVE_PRE_ALIGN";
++    });
++  }
++  void cancel_after_dispatch(const TaskHandle::SharedPtr & h)
++  {
++    ASSERT_TRUE(eventually([this]() {return child && child->mock_call_counts()->executions > 0;}));
++    auto c = client->async_cancel_goal(h); ASSERT_TRUE(ready(c));
++    EXPECT_FALSE(c.get()->goals_canceling.empty());
++  }
++  std::shared_ptr<mtc::ros2_action::TaskServer> parent;
++  std::shared_ptr<mtc::ros2_action::PickPlaceServer> child;
++  rclcpp_action::Client<Task>::SharedPtr client;
++  std::mutex mutex;
++  std::vector<Task::Feedback> feedback;
++};
++TEST_F(TaskAction, BasicTaskUsesRealChildActionAndRecordsT0)
++{
++  setup();
++  auto h = send(goal()); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::SUCCEEDED);
++  EXPECT_TRUE(r.result->success);
++  EXPECT_EQ(r.result->completed_count, 1);
++  EXPECT_EQ(r.result->completed_slots, std::vector<std::string>{"T0"});
++  EXPECT_GT(child->mock_call_counts()->executions.load(), 0u);
++  EXPECT_TRUE(child_moving());
++  std::lock_guard<std::mutex> lock(mutex);
++  EXPECT_TRUE(std::any_of(feedback.begin(), feedback.end(), [](auto & f) {
++    return f.total_count == 1 && f.current_slot == "T0" &&
++      f.current_object_id == "mock_battery_color_1";
++  }));
++}
++TEST_F(TaskAction, SequenceTaskRecordsAllSlotsInOrder)
++{
++  setup();
++  auto g = goal(); g.mode = Task::Goal::MODE_SEQUENCE; g.ordered_colors = {3, 1, 2};
++  auto h = send(g); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_TRUE(r.result->success);
++  EXPECT_EQ(r.result->completed_count, 3);
++  EXPECT_EQ(r.result->completed_slots, (std::vector<std::string>{"P1", "P2", "P3"}));
++}
++TEST_F(TaskAction, InvalidColorsAndConcurrentTaskRejected)
++{
++  setup();
++  auto g = goal(); g.ordered_colors = {0}; EXPECT_EQ(send(g), nullptr);
++  g = goal(); g.mode = Task::Goal::MODE_SEQUENCE; g.ordered_colors = {1, 1, 3};
++  EXPECT_EQ(send(g), nullptr);
++  g = goal(); g.placement_stability_sec = 0; EXPECT_EQ(send(g), nullptr);
++  auto h = send(goal()); ASSERT_NE(h, nullptr);
++  EXPECT_EQ(send(goal("second")), nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  EXPECT_TRUE(f.get().result->success);
++}
++TEST_F(TaskAction, CancelAckWaitsForChildFinalStopResult)
++{
++  setup();
++  auto h = send(goal()); ASSERT_NE(h, nullptr);
++  cancel_after_dispatch(h);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::CANCELED);
++  EXPECT_EQ(r.result->completed_count, 0);
++  EXPECT_EQ(r.result->error_code, ErrorCodes::OK);
++  EXPECT_EQ(child->mock_call_counts()->stops.load(), 1u);
++}
++TEST_F(TaskAction, UnconfirmedChildCancelPreserves520AndLocksParent)
++{
++  mtc::ros2_action::MockOptions o; o.stop_evidence_available = false;
++  setup(o);
++  auto h = send(goal()); ASSERT_NE(h, nullptr);
++  cancel_after_dispatch(h);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::ABORTED);
++  EXPECT_EQ(r.result->error_code, ErrorCodes::CANCEL_NOT_CONFIRMED);
++  EXPECT_EQ(r.result->completed_count, 0);
++  EXPECT_EQ(send(goal("after_fault")), nullptr);
++}
++TEST_F(TaskAction, ChildStatusUnknownPropagatesOriginalError)
++{
++  mtc::ros2_action::MockOptions o; o.motion.status_unknown = true;
++  setup(o);
++  auto h = send(goal()); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_EQ(r.result->error_code, ErrorCodes::MOTION_STATUS_UNKNOWN);
++  EXPECT_EQ(r.result->completed_count, 0);
++  EXPECT_EQ(child->mock_call_counts()->executions.load(), 1u);
++  EXPECT_EQ(send(goal("after_fault")), nullptr);
++}
++TEST_F(TaskAction, ChildPlanningFailurePreservesErrorWithoutFakeSuccess)
++{
++  mtc::ros2_action::MockOptions o; o.plan_available = false;
++  setup(o);
++  auto h = send(goal()); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_FALSE(r.result->success);
++  EXPECT_EQ(r.result->error_code, ErrorCodes::PLANNING_FAILED);
++  EXPECT_EQ(r.result->completed_count, 0);
++  EXPECT_TRUE(r.result->completed_slots.empty());
++  EXPECT_EQ(child->mock_call_counts()->executions.load(), 0u);
++}
++TEST_F(TaskAction, TaskDeadlineAbortsAndCancelsOriginalChild)
++{
++  setup();
++  auto g = goal(); g.timeout_ms = 150;
++  auto h = send(g); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::ABORTED);
++  EXPECT_EQ(r.result->error_code, ErrorCodes::MOTION_TIMEOUT);
++  EXPECT_EQ(send(goal("after_deadline")), nullptr);
++  EXPECT_TRUE(eventually([this]() {return child->mock_call_counts()->stops.load() == 1;}));
++}
++TEST_F(TaskAction, MissingChildNeverFabricatesTaskSuccess)
++{
++  setup({}, mtc::task::FsmsConfig::defaults(), false);
++  auto g = goal(); g.timeout_ms = 100;
++  auto h = send(g); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  const auto r = f.get();
++  EXPECT_EQ(r.result->error_code, ErrorCodes::MOTION_TIMEOUT);
++  EXPECT_FALSE(r.result->success);
++  EXPECT_EQ(r.result->completed_count, 0);
++}
++TEST_F(TaskAction, ChildCancelAckWithoutTerminalEvidenceCannotCancelParent)
++{
++  using Pick = mtc_interfaces::action::PickPlace;
++  auto adversary = std::make_shared<rclcpp::Node>("mock_child_ack_only");
++  std::atomic<bool> cancel_ack{false};
++  std::atomic<bool> accepted{false};
++  auto retained = std::make_shared<std::shared_ptr<rclcpp_action::ServerGoalHandle<Pick>>>();
++  auto fake = rclcpp_action::create_server<Pick>(adversary, "/mtc/manipulation/pick_place",
++    [](const auto &, auto) {return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;},
++    [&cancel_ack](auto) {cancel_ack = true; return rclcpp_action::CancelResponse::ACCEPT;},
++    [retained, &accepted](auto h) {*retained = h; accepted = true;});
++  // Retain the accepted Goal: discarding its handle would abort it automatically.
++  // This scenario deliberately sends only a Cancel ACK, never stop evidence.
++  auto config = mtc::task::FsmsConfig::defaults();
++  config.state_timeouts[mtc::task::TaskStateName::CANCEL_PENDING] = 0.05;
++  parent = std::make_shared<mtc::ros2_action::TaskServer>(config);
++  client = rclcpp_action::create_client<Task>(client_node, "/mtc/task/execute");
++  start({parent, adversary}); ASSERT_TRUE(client->wait_for_action_server(3s));
++  auto h = send(goal()); ASSERT_NE(h, nullptr);
++  ASSERT_TRUE(eventually([this]() {
++    std::lock_guard<std::mutex> lock(mutex);
++    return std::any_of(feedback.begin(), feedback.end(), [](auto & f) {return f.state == "EXECUTE_ITEM";});
++  }));
++  ASSERT_TRUE(eventually([&accepted]() {return accepted.load();}));
++  auto cancel = client->async_cancel_goal(h); ASSERT_TRUE(ready(cancel));
++  EXPECT_FALSE(cancel.get()->goals_canceling.empty());
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_TRUE(cancel_ack.load());
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::ABORTED);
++  EXPECT_EQ(r.result->error_code, ErrorCodes::CANCEL_NOT_CONFIRMED);
++  EXPECT_EQ(r.result->completed_count, 0);
++  auto cleanup = std::make_shared<Pick::Result>();
++  cleanup->error_code = ErrorCodes::CANCEL_NOT_CONFIRMED;
++  (*retained)->abort(cleanup);  // Test teardown does not manufacture CANCELED.
++}
++TEST_F(TaskAction, StaleParentCancelCannotReachNewChild)
++{
++  setup();
++  auto a = send(goal()); ASSERT_NE(a, nullptr);
++  auto af = client->async_get_result(a); ASSERT_TRUE(ready(af)); ASSERT_TRUE(af.get().result->success);
++  auto b = send(goal("new_parent")); ASSERT_NE(b, nullptr);
++  auto service = client_node->create_client<action_msgs::srv::CancelGoal>(
++    "/mtc/task/execute/_action/cancel_goal");
++  ASSERT_TRUE(service->wait_for_service(3s));
++  auto request = std::make_shared<action_msgs::srv::CancelGoal::Request>();
++  request->goal_info.goal_id.uuid = a->get_goal_id();
++  auto cancel = service->async_send_request(request); ASSERT_TRUE(ready(cancel));
++  EXPECT_TRUE(cancel.get()->goals_canceling.empty());
++  auto bf = client->async_get_result(b); ASSERT_TRUE(ready(bf)); EXPECT_TRUE(bf.get().result->success);
++  EXPECT_EQ(child->mock_call_counts()->stops.load(), 0u);
++}
++TEST_F(TaskAction, ChildSuccessWithoutPlacementEvidenceIsNotRecorded)
++{
++  using Pick = mtc_interfaces::action::PickPlace;
++  auto adversary = std::make_shared<rclcpp::Node>("mock_child_invalid_evidence");
++  auto fake = rclcpp_action::create_server<Pick>(adversary, "/mtc/manipulation/pick_place",
++    [](const auto &, auto) {return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;},
++    [](auto) {return rclcpp_action::CancelResponse::REJECT;},
++    [](auto handle) {
++      auto r = std::make_shared<Pick::Result>();
++      r->success = true; r->placement_verified = false;
++      handle->succeed(r);  // Deliberately invalid upstream evidence, never a positive Mock.
++    });
++  parent = std::make_shared<mtc::ros2_action::TaskServer>();
++  client = rclcpp_action::create_client<Task>(client_node, "/mtc/task/execute");
++  start({parent, adversary}); ASSERT_TRUE(client->wait_for_action_server(3s));
++  auto h = send(goal()); ASSERT_NE(h, nullptr);
++  auto f = client->async_get_result(h); ASSERT_TRUE(ready(f));
++  auto r = f.get();
++  EXPECT_EQ(r.code, rclcpp_action::ResultCode::ABORTED);
++  EXPECT_EQ(r.result->error_code, ErrorCodes::PLACEMENT_FAILED);
++  EXPECT_EQ(r.result->completed_count, 0);
++}
+diff --git a/src/mtc_ros2_action_cpp/test/verify_results.py b/src/mtc_ros2_action_cpp/test/verify_results.py
+new file mode 100644
+index 0000000..5f808e4
+--- /dev/null
++++ b/src/mtc_ros2_action_cpp/test/verify_results.py
+@@ -0,0 +1,50 @@
++#!/usr/bin/env python3
++"""检查原有 318 项与本包所有 GTest 的真实执行身份；不修改历史核验脚本。"""
++import argparse
++from collections import Counter
++from pathlib import Path
++import re
++import subprocess
++import xml.etree.ElementTree as ET
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--build-base", type=Path, default=Path("build"))
++    args = parser.parse_args()
++    root = Path(__file__).resolve().parents[3]
++    pattern = re.compile(r"\bTEST(?:_F)?\s*\(\s*(\w+)\s*,\s*(\w+)\s*\)")
++    base = "1d940f7c5f12561fed6641457c0b4b630a282b05"
++    git = lambda *a: subprocess.check_output(["git", *a], cwd=root, text=True)
++    baseline = set()
++    for f in git("ls-tree", "-r", "--name-only", base, "src").splitlines():
++        if re.fullmatch(r"src/mtc_\w+_cpp/test/test_\w+\.cpp", f):
++            baseline.update(f"{s}.{c}" for s, c in pattern.findall(git("show", f"{base}:{f}")))
++    assert len(baseline) == 318, len(baseline)
++    current = set()
++    for f in (root / "src").glob("mtc_*_cpp/test/test_*.cpp"):
++        current.update(f"{s}.{c}" for s, c in pattern.findall(f.read_text()))
++    build = args.build_base if args.build_base.is_absolute() else root / args.build_base
++    actual = Counter()
++    packages = Counter()
++    xmls = list(build.glob("mtc_*_cpp/test_results/**/*.gtest.xml"))
++    for f in xmls:
++        for case in ET.parse(f).getroot().iter("testcase"):
++            key = f"{case.attrib['classname'].split('.')[-1]}.{case.attrib['name']}"
++            assert case.find("failure") is None and case.find("error") is None, key
++            assert case.find("skipped") is None and case.get("status") == "run", key
++            assert case.get("result") == "completed", key
++            actual[key] += 1
++            packages[f.relative_to(build).parts[0]] += 1
++    assert baseline <= actual.keys(), sorted(baseline - actual.keys())
++    assert current == actual.keys(), (sorted(current - actual.keys()), sorted(actual.keys() - current))
++    assert all(v == 1 for v in actual.values()), actual
++    assert len(xmls) == 20, len(xmls)  # 原16个 + 本包4个注册可执行文件。
++    print(f"PASS: 原有318项身份全部保留并执行；本轮新增{len(current-baseline)}项")
++    print(f"PASS: {len(actual)}项独立GTest / {len(xmls)}个可执行文件，FAIL 0 / SKIP 0")
++    for pkg, count in sorted(packages.items()):
++        print(f"  {pkg}: {count} PASS")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/src/mtc_task/mtc_task/task_executor.py b/src/mtc_task/mtc_task/task_executor.py
+index 50bc255..b42e586 100644
+--- a/src/mtc_task/mtc_task/task_executor.py
++++ b/src/mtc_task/mtc_task/task_executor.py
+@@ -175,12 +175,13 @@ class TaskExecutorNode(Node):
+         self.declare_parameter("pickplace_action_name", PICKPLACE_ACTION_NAME)
+ 
+         # --- 依赖注入 -----------------------------------------------------
+-        self._clock: Callable[[], float] = clock or self._ros_clock
++        # Node._clock belongs to rclpy; keep the FSM's callable separate.
++        self._fsm_clock: Callable[[], float] = clock or self._ros_clock
+         self._perception_provider = perception_provider
+         self._external_state_publisher = state_publisher
+ 
+         config = fsm_config or self._config_from_parameters()
+-        self.fsm = TaskFsm(clock=self._clock, config=config)
++        self.fsm = TaskFsm(clock=self._fsm_clock, config=config)
+ 
+         if pickplace_client is not None:
+             self._pickplace = pickplace_client
+diff --git a/tests/test_ros_wiring.py b/tests/test_ros_wiring.py
+new file mode 100644
+index 0000000..a3016af
+--- /dev/null
++++ b/tests/test_ros_wiring.py
+@@ -0,0 +1,138 @@
++"""ROS wiring regressions; run explicitly after sourcing a built workspace.
++
++Uses real rclpy nodes, generated interfaces and DDS, with only Mock tool IO.
++The config test stops after real parameter/config construction. The remaining
++ActionServer/ActionClient bindings are separate issues, not a passing E2E claim.
++OpenAI Codex assisted implementation, 2026-10-11.
++"""
++
++import threading
++
++import pytest
++
++rclpy = pytest.importorskip("rclpy")
++pytest.importorskip("mtc_interfaces.action")
++
++from rclpy.clock import Clock
++from rclpy.executors import SingleThreadedExecutor
++
++from mtc_interfaces.srv import TriggerUnlock
++from mtc_manipulation import pick_place_server
++from mtc_task.task_executor import TaskExecutorNode
++from mtc_tool import codes
++from mtc_tool.io_port import MockUnlockIo
++from mtc_tool.strategy import PoseTarget
++from mtc_tool.tool_manager_node import ToolManagerNode
++
++
++@pytest.mark.parametrize("injected", [False, True], ids=["ros-clock", "injected-clock"])
++def test_task_node_keeps_ros_clock_and_fsm_clock_independent(injected):
++    rclpy.init(args=[])
++    node = None
++    fake_time = [123.0]
++    try:
++        node = TaskExecutorNode(clock=(lambda: fake_time[0]) if injected else None)
++        assert isinstance(node.get_clock(), Clock)
++        assert node.get_clock().now().nanoseconds > 0
++        if injected:
++            fake_time[0] += 2.0
++            assert node.fsm.elapsed_in_state() == pytest.approx(2.0)
++        # Exercise a real timer as well as the initial stamped state publish.
++        rclpy.spin_once(node, timeout_sec=0.2)
++    finally:
++        if node is not None:
++            node.destroy_node()
++        rclpy.try_shutdown()
++
++
++@pytest.mark.parametrize("max_age", [None, 0.75], ids=["default", "ros-override"])
++def test_pickplace_entrypoint_maps_existing_ros_parameter(monkeypatch, max_age):
++    nodes = []
++    captured = {}
++    create_node = rclpy.create_node
++    config_type = pick_place_server.PickPlaceConfig
++
++    def track_node(*args, **kwargs):
++        node = create_node(*args, **kwargs)
++        nodes.append(node)
++        return node
++
++    class ConfigCaptured(Exception):
++        pass
++
++    def capture_config(**kwargs):
++        captured["config"] = config_type(**kwargs)
++        # Stop before the separate, unresolved ROS Action adapter bindings.
++        raise ConfigCaptured
++
++    monkeypatch.setattr(rclpy, "create_node", track_node)
++    monkeypatch.setattr(pick_place_server, "PickPlaceConfig", capture_config)
++    args = [] if max_age is None else [
++        "--ros-args", "-p", "perception_max_age_sec:=" + str(max_age)
++    ]
++    try:
++        with pytest.raises(ConfigCaptured):
++            pick_place_server.main(args)
++        assert captured["config"].perception_max_age_s == pytest.approx(
++            0.3 if max_age is None else max_age
++        )
++    finally:
++        # The original B02 exits before main's cleanup block.
++        if rclpy.ok():
++            for node in nodes:
++                node.destroy_node()
++            rclpy.try_shutdown()
++
++
++@pytest.mark.parametrize("gates_open", [False, True], ids=["interlock", "mock-accepted"])
++def test_default_unlock_client_reaches_tool_manager_without_release_claim(gates_open):
++    rclpy.init(args=[
++        "--ros-args",
++        "-p", "tool_type:=magnetic_latch_v2",
++        "-p", "simulation_mode:=true",
++        "-p", "unlock_io_backend:=mock",
++        "-p", "seated_verified:=" + str(gates_open).lower(),
++        "-p", "unloaded:=" + str(gates_open).lower(),
++    ])
++    manager = client_node = executor = thread = None
++    try:
++        manager = ToolManagerNode()
++        assert isinstance(manager._io, MockUnlockIo)
++        # Synthetic test evidence only; prepare the public tool lifecycle so
++        # the service response tests the seat/unload gates, not DETACHED.
++        pose = PoseTarget("base_link", (0.3, 0.0, 0.1))
++        assert manager._manager.begin_acquire("wiring-test-battery", pose).ok
++        manager._manager.notify_engage_complete()
++        assert manager._manager.verify_attach(
++            codes.EVIDENCE_GEOMETRY, "synthetic wiring test"
++        ).verified
++        assert manager._manager.begin_release(pose).ok
++        executor = SingleThreadedExecutor()
++        executor.add_node(manager)
++        thread = threading.Thread(target=executor.spin, daemon=True)
++        thread.start()
++        client_node = rclpy.create_node("unlock_wiring_probe")
++        port = pick_place_server.RosToolPort(
++            client_node, tool_type="magnetic_latch_v2", unlock_srv_type=TriggerUnlock
++        )
++        evidence = port.unlock(pulse_ms=175)
++        assert "服务不可用" not in evidence.message
++        assert "调用超时" not in evidence.message
++        assert not evidence.ok
++        assert not evidence.verified
++        if gates_open:
++            assert manager._io.history == (175,)
++            assert evidence.released is None
++        else:
++            assert manager._io.history == ()
++            assert "SAFETY_INTERLOCK" in evidence.message
++            assert evidence.released is False
++    finally:
++        if executor is not None:
++            executor.shutdown(timeout_sec=2.0)
++        if thread is not None:
++            thread.join(timeout=3.0)
++        for node in (client_node, manager):
++            if node is not None:
++                node.destroy_node()
++        rclpy.try_shutdown()

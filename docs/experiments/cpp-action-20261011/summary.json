@@ -1,0 +1,239 @@
+{
+  "observation": "ENV-CPP-ACTION-20261011",
+  "recorded_at": "2026-10-11T15:34:50.565952+00:00",
+  "verdict": "PASS_PHASE2A_MOCK_WITH_OPEN_INTEGRATION_FAILURES",
+  "commit": "c0f70172e4b0271046d5f52813e0730d40ae772a",
+  "formal_baseline_unchanged": true,
+  "automatic_summary_complete": true,
+  "automatic_original_status": "COMPLETED_WITH_FAILURES",
+  "normal": {
+    "packages_built": 13,
+    "cpp_gtest_cases": 358,
+    "cpp_executables": 20,
+    "retained_cpp_cases": 318,
+    "new_cpp_cases": 40,
+    "cpp_failed": 0,
+    "cpp_skipped": 0,
+    "python_cases": 269,
+    "explicit_pure_python_mock_e2e": 15,
+    "optional_ros_wiring_regressions": "NOT_RUN_FILE_ABSENT",
+    "old_cpp_audit": "FAIL_FIXED_16_EXECUTABLE_EXPECTATION",
+    "delivered_identity_verifier": "PASS"
+  },
+  "supplement": {
+    "new_package_dependencies": "PASS",
+    "new_package_xml_schema": "PASS",
+    "ubsan_cases": 358,
+    "ubsan_scope": "five project C++ packages instrumented; ROS/DDS system libraries not instrumented",
+    "exported_cmake_consumer": "PASS",
+    "standalone_scenarios": [
+      {
+        "name": "task-basic-sequence-after-idle",
+        "status": "PASS",
+        "checks": 15,
+        "goals": 7,
+        "servers": {
+          "/mtc/task/execute": [
+            {
+              "node": "mtc_mock_task",
+              "namespace": "/",
+              "types": [
+                "mtc_interfaces/action/ExecuteTask"
+              ]
+            }
+          ],
+          "/mtc/manipulation/pick_place": [
+            {
+              "node": "mtc_mock_pick_place",
+              "namespace": "/",
+              "types": [
+                "mtc_interfaces/action/PickPlace"
+              ]
+            }
+          ]
+        },
+        "shutdown": [
+          {
+            "executable": "mock_task_server",
+            "exit_code": 0,
+            "escalated": false
+          },
+          {
+            "executable": "mock_pick_place_server",
+            "exit_code": 0,
+            "escalated": false
+          }
+        ],
+        "nodes_after_shutdown": [
+          [
+            "cpp_action_acceptance",
+            "/"
+          ]
+        ]
+      },
+      {
+        "name": "task-associated-cancel",
+        "status": "PASS",
+        "checks": 8,
+        "goals": 1,
+        "servers": {
+          "/mtc/task/execute": [
+            {
+              "node": "mtc_mock_task",
+              "namespace": "/",
+              "types": [
+                "mtc_interfaces/action/ExecuteTask"
+              ]
+            }
+          ],
+          "/mtc/manipulation/pick_place": [
+            {
+              "node": "mtc_mock_pick_place",
+              "namespace": "/",
+              "types": [
+                "mtc_interfaces/action/PickPlace"
+              ]
+            }
+          ]
+        },
+        "shutdown": [
+          {
+            "executable": "mock_task_server",
+            "exit_code": 0,
+            "escalated": false
+          },
+          {
+            "executable": "mock_pick_place_server",
+            "exit_code": 0,
+            "escalated": false
+          }
+        ],
+        "nodes_after_shutdown": [
+          [
+            "cpp_action_acceptance",
+            "/"
+          ]
+        ]
+      },
+      {
+        "name": "task-missing-child-fault",
+        "status": "PASS",
+        "checks": 5,
+        "goals": 2,
+        "servers": {
+          "/mtc/task/execute": [
+            {
+              "node": "mtc_mock_task",
+              "namespace": "/",
+              "types": [
+                "mtc_interfaces/action/ExecuteTask"
+              ]
+            }
+          ]
+        },
+        "shutdown": [
+          {
+            "executable": "mock_task_server",
+            "exit_code": 0,
+            "escalated": false
+          }
+        ],
+        "nodes_after_shutdown": [
+          [
+            "cpp_action_acceptance",
+            "/"
+          ]
+        ]
+      },
+      {
+        "name": "motion-single-point-cancel",
+        "status": "PASS",
+        "checks": 12,
+        "goals": 5,
+        "servers": {
+          "/mtc/motion/execute_joint_move": [
+            {
+              "node": "mtc_mock_joint_move",
+              "namespace": "/",
+              "types": [
+                "mtc_interfaces/action/ExecuteJointMove"
+              ]
+            }
+          ]
+        },
+        "shutdown": [
+          {
+            "executable": "mock_motion_server",
+            "exit_code": 0,
+            "escalated": false
+          }
+        ],
+        "nodes_after_shutdown": [
+          [
+            "cpp_action_acceptance",
+            "/"
+          ]
+        ]
+      }
+    ],
+    "standalone_checks": 40,
+    "development_failures_preserved": [
+      "standalone-v1 NumPy UUID serialization TypeError; no complete verdict",
+      "preparation runtime.json not yet ready; no test started"
+    ]
+  },
+  "existing_paths": {
+    "legacy_python_mock": "FAIL_B01_B02_STARTUP_NO_GOALS",
+    "whole_workspace_rosdep": "FAIL_ament_python_key",
+    "driver_rosdep": "FAIL_missing_ros-jazzy-ros2-controllers-test-nodes_and_docker.io",
+    "driver_test_aggregate": {
+      "tests": 1104,
+      "failures": 279,
+      "skipped": 259,
+      "scope": "includes wrappers and lint, not independent functionality count"
+    },
+    "independent_moveit": {
+      "planning_execution": "PASS",
+      "action_status": 4,
+      "moveit_code": 1,
+      "joint_target_increment_rad": 0.05,
+      "maximum_target_error_rad": 9.746883334591985e-05,
+      "distinct_joint_timestamps": 212,
+      "clean_shutdown": "FAIL_move_group_-11",
+      "integration_with_new_cpp_actions": false
+    }
+  },
+  "cleanup": {
+    "at": "2026-10-11T15:30:31.889130+00:00",
+    "original_running": false,
+    "supplement_running": false,
+    "supplement_keeper_exit": 137,
+    "supplement_OOMKilled": false,
+    "scope": "All six Mock server invocations exited 0 with no escalations; keeper container stopped after all checks and collected. Original stopped container was never restarted."
+  },
+  "monitor_receipt": {
+    "event": "sha-c0f70172e4b0271046d5f52813e0730d40ae772a",
+    "thread": "01a12a25-b5c5-7b23-98b7-1cf673d68838",
+    "ack_at": "2026-10-11T15:19:06.263010+00:00",
+    "ack_marker": "MOVEIT_WAKE_ACK_6e9ffb20dc67525623909a2d70b0e9a5",
+    "attempts": 1,
+    "queued_at": "2026-10-11T15:18:54.989575+00:00",
+    "queued_to_ack_seconds": 11.273435,
+    "state_at_snapshot": "WAITING_MAIN_REVIEW",
+    "gate_at_snapshot": "ACKNOWLEDGED; complete deliberately deferred until cleanup and provenance registration",
+    "monitor_pid": 76874,
+    "last_successful_poll": "2026-10-11T15:33:59.191108+00:00"
+  },
+  "not_verified": [
+    "Phase 2B MoveIt Planner and complete trajectory execution",
+    "Single shared physical motion authority",
+    "Public independent PickPlace stop evidence",
+    "Task/Robot/Tool state publishers and real Web UI integration",
+    "TSan",
+    "NUC and physical robot/camera/tool",
+    "SDK license/vendor checksum and controller compatibility",
+    "Physical perception, placement, tool and collision evidence",
+    "Jazzy Gazebo migration"
+  ],
+  "handoff": "FSM/Action/Cancel/Motion Execution issues and Phase 2B delivery remain Sun Jiaming responsibility; local report only, no external messages or kernel fixes."
+}

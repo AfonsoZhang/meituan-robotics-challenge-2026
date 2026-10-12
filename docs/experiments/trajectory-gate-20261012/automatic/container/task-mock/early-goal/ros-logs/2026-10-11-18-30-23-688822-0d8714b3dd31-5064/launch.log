@@ -1,0 +1,25 @@
+1791743423.6906378 [INFO] [launch]: All log files can be found below /candidate-evidence/task-mock/early-goal/ros-logs/2026-10-11-18-30-23-688822-0d8714b3dd31-5064
+1791743423.6907778 [INFO] [launch]: Default logging verbosity is set to INFO
+1791743423.7497516 [INFO] [launch.user]: ==============================================================================
+!! 警告：Mock 模式，未连接真实 AUBO S3。
+!! 本次启动不会建立任何真实控制通路：不连接控制柜、不发送真实运动指令、
+!! 不触发电磁铁、不启动 Gazebo；软件停止请求也不等价于实体急停。
+!! Mock 通过 != 实机抓放成功。
+==============================================================================
+1791743423.7499914 [INFO] [launch.user]: 组合参数：backend=mock tool_type=passive_hook_v1 placement_stability_sec=3.0 config_dir=(包内 share)
+1791743423.7549498 [INFO] [launch.user]: Mock 组合启动完成。再次提醒：未连接真实 AUBO S3；任何实机操作都必须获得单独的现场授权。
+1791743423.7592680 [INFO] [motion_executor-1]: process started with pid [5078]
+1791743423.7594852 [INFO] [task_executor-2]: process started with pid [5079]
+1791743423.7595856 [INFO] [pick_place_server-3]: process started with pid [5080]
+1791743423.7596638 [INFO] [tool_manager-4]: process started with pid [5081]
+1791743423.7597342 [INFO] [safety_supervisor-5]: process started with pid [5082]
+1791743424.8318822 [ERROR] [pick_place_server-3]: process has died [pid 5080, exit code 1, cmd '/candidate-install/mtc_manipulation/lib/mtc_manipulation/pick_place_server --ros-args -r __node:=pick_place_server --params-file /tmp/launch_params_73p5vjz7'].
+1791743433.3319571 [WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+1791743433.3334169 [INFO] [safety_supervisor-5]: sending signal 'SIGINT' to process[safety_supervisor-5]
+1791743433.3337636 [INFO] [tool_manager-4]: sending signal 'SIGINT' to process[tool_manager-4]
+1791743433.3340552 [INFO] [task_executor-2]: sending signal 'SIGINT' to process[task_executor-2]
+1791743433.3345046 [INFO] [motion_executor-1]: sending signal 'SIGINT' to process[motion_executor-1]
+1791743433.5068495 [INFO] [tool_manager-4]: process has finished cleanly [pid 5081]
+1791743433.5133476 [INFO] [task_executor-2]: process has finished cleanly [pid 5079]
+1791743433.5147457 [ERROR] [safety_supervisor-5]: process has died [pid 5082, exit code 1, cmd '/candidate-install/mtc_safety/lib/mtc_safety/safety_supervisor --ros-args -r __node:=safety_supervisor'].
+1791743433.5164890 [INFO] [motion_executor-1]: process has finished cleanly [pid 5078]

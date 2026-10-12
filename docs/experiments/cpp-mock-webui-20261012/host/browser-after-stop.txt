@@ -1,0 +1,15 @@
+### Result
+{"case":"after_stop","connection":"服务未连接","submitDisabled":true,"cancelDisabled":true,"hardware":"未知 · 离线"}
+### Ran Playwright code
+```js
+await (async (page) => { await page.waitForFunction(()=>document.querySelector('#connection').textContent.includes('服务未连接')); return {case:'after_stop',connection:await page.locator('#connection').textContent(),submitDisabled:await page.locator('#submit').isDisabled(),cancelDisabled:await page.locator('#cancel').isDisabled(),hardware:await page.locator('#robot-ready').textContent()}; })(page);
+```
+### Open tabs
+- 0: [Welcome](chrome-extension://mmlmfjhmonkocbjadbfplnigmagldckm/connect.html?mcpRelayUrl=ws%3A%2F%2F%5B%3A%3A1%5D%3A59237%2Fextension%2F0dfd654b-1792-4090-8eff-7fdea6d8d834&client=%7B%22name%22%3A%22codex-mcp-client%22%7D&protocolVersion=2&token=REDACTED)
+- 1: (current) [机器人任务操作台 · 美团挑战赛](http://127.0.0.1:8769/)
+### Page
+- Page URL: http://127.0.0.1:8769/
+- Page Title: 机器人任务操作台 · 美团挑战赛
+- Console: 43 errors, 0 warnings
+### Events
+- New console entries: .local\share\playwright-mcp\output\console-2026-10-12T00-15-55-053Z.log#L33-L43

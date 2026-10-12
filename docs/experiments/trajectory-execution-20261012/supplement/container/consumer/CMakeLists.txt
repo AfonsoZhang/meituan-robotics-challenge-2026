@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.16)
+project(mtc_phase2b_acceptance_consumer LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
+find_package(mtc_trajectory_execution_cpp REQUIRED)
+add_executable(consumer main.cpp)
+target_link_libraries(consumer PRIVATE mtc_trajectory_execution_cpp::mtc_trajectory_execution_cpp)

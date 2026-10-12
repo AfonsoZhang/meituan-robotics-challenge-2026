@@ -1,0 +1,1183 @@
+{
+  "recorded_at": "2026-10-11T18:43:05.420994+00:00",
+  "verdict": "PASS_COMMAND_IDENTITY_463_UBSAN_AND_FOUR_GENERIC_CASES; DEFAULT_MOVEIT_FJT_TOPOLOGY_BLOCKED; FULL_FSM_NOT_ACCEPTED; SHUTDOWN_FAILURES_RETAINED",
+  "source": {
+    "at": "2026-10-11T18:34:13.817560+00:00",
+    "commit": "45f497ce3444e255463faf41f7b736aa9ad07d7b",
+    "previous": "688d80d63ba2196e3c1753b69d18c1bfa30919b3",
+    "review_base": "688d80d63ba2196e3c1753b69d18c1bfa30919b3",
+    "parents": [
+      "2e00a36bd60da518cac465b2edc5d71699ce9234"
+    ],
+    "commit_metadata": "commit 45f497ce3444e255463faf41f7b736aa9ad07d7b\nAuthor:     meituan_challenge team <team@example.invalid>\nAuthorDate: Mon Oct 12 01:46:01 2026 +0800\nCommit:     meituan_challenge team <team@example.invalid>\nCommitDate: Mon Oct 12 01:46:01 2026 +0800\n\n    docs(motion): record final FJT audit and blocked MoveIt integration gate",
+    "incremental_commits": [
+      "45f497ce3444e255463faf41f7b736aa9ad07d7b 2e00a36bd60da518cac465b2edc5d71699ce9234 docs(motion): record final FJT audit and blocked MoveIt integration gate",
+      "2e00a36bd60da518cac465b2edc5d71699ce9234 3750d9959fb32c8073754cd675478bbcd897cf8f test(motion): verify completed command identity and MoveIt execution gate",
+      "3750d9959fb32c8073754cd675478bbcd897cf8f d491a96f48a3ca3c806ad97e49e6629512a54243 f7eaa2c0d2887aeada4fd635112c63c237962ff7 Merge remote-tracking branch 'origin/main' into feature/phase2b-trajectory-execution",
+      "d491a96f48a3ca3c806ad97e49e6629512a54243 688d80d63ba2196e3c1753b69d18c1bfa30919b3 fix(motion): bind cached FJT results to immutable complete command identity",
+      "f7eaa2c0d2887aeada4fd635112c63c237962ff7 a04ac6831dd3963e6b1ec4b9e27214eb564f9f24 4a1a81652fca39efe2916a19ad49187d29789697 Merge pull request #3 from F1u0rite/feature/moveit-planner",
+      "4a1a81652fca39efe2916a19ad49187d29789697 fcdd8eae897cbc37c539d4bad57b712f08124938 a04ac6831dd3963e6b1ec4b9e27214eb564f9f24 merge: sync main (Phase 2A Mock Action servers) into feature/moveit-planner",
+      "fcdd8eae897cbc37c539d4bad57b712f08124938 6c0a3c8e3cdcf762b2df28eabafdb735112f33c6 docs(planning): 常建烁规划模块工作说明 README",
+      "6c0a3c8e3cdcf762b2df28eabafdb735112f33c6 1d940f7c5f12561fed6641457c0b4b630a282b05 feat(planning): MoveIt 2 PlannerPort adapter for AUBO S3 (Mock/Fake only)"
+    ],
+    "incremental_changed_files": [
+      "docs/migration/PHASE2B_FINAL_INTEGRATION_GATE.md",
+      "docs/planning/PLANNING_HANDOFF.md",
+      "docs/planning/README.md",
+      "docs/planning/evidence/20261011_075828/SUMMARY.txt",
+      "docs/planning/evidence/20261011_075828/aubo_S3_fake_expanded.urdf",
+      "docs/planning/evidence/20261011_075828/aubo_robot.srdf",
+      "docs/planning/evidence/20261011_075828/battery_sequence_magnetic_latch_v2_T0_20261011_075908.yaml",
+      "docs/planning/evidence/20261011_075828/battery_sequence_passive_hook_v1_T0_20261011_075907.yaml",
+      "docs/planning/evidence/20261011_075828/control_launch.log",
+      "docs/planning/evidence/20261011_075828/fixed_pose_plan_20261011_075906.yaml",
+      "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.gv",
+      "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.pdf",
+      "docs/planning/evidence/20261011_075828/move_group_launch.log",
+      "docs/planning/evidence/20261011_075828/plan_battery_sequence_v1.log",
+      "docs/planning/evidence/20261011_075828/plan_battery_sequence_v2.log",
+      "docs/planning/evidence/20261011_075828/plan_fixed_pose.log",
+      "docs/planning/evidence/20261011_075828/ros_graph.txt",
+      "docs/planning/evidence/20261011_075828/tf2_echo_base_link_to_ee_link.txt",
+      "docs/planning/evidence/20261011_075828/tf2_echo_world_to_base_link.txt",
+      "docs/planning/evidence/20261011_075828/tf2_echo_world_to_ee_link.txt",
+      "docs/planning/evidence/20261011_075828/view_frames.log",
+      "src/mtc_moveit_planner/CMakeLists.txt",
+      "src/mtc_moveit_planner/README.md",
+      "src/mtc_moveit_planner/config/planner.yaml",
+      "src/mtc_moveit_planner/config/sequence_v2_override.yaml",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/move_group_backend.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/moveit_planner_port.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/plan_report_io.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/planner_config.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/planning_backend.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/pose_math.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/ros_params.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/trajectory_conversion.hpp",
+      "src/mtc_moveit_planner/launch/plan_tool.launch.py",
+      "src/mtc_moveit_planner/package.xml",
+      "src/mtc_moveit_planner/scripts/build_driver_ws.sh",
+      "src/mtc_moveit_planner/scripts/build_planner.sh",
+      "src/mtc_moveit_planner/scripts/env.sh",
+      "src/mtc_moveit_planner/scripts/ros_graph_snapshot.py",
+      "src/mtc_moveit_planner/scripts/run_planning_evidence.sh",
+      "src/mtc_moveit_planner/scripts/setup_ros_jazzy.sh",
+      "src/mtc_moveit_planner/src/move_group_backend.cpp",
+      "src/mtc_moveit_planner/src/moveit_planner_port.cpp",
+      "src/mtc_moveit_planner/src/plan_battery_sequence_main.cpp",
+      "src/mtc_moveit_planner/src/plan_fixed_pose_main.cpp",
+      "src/mtc_moveit_planner/src/plan_report_io.cpp",
+      "src/mtc_moveit_planner/src/planner_config.cpp",
+      "src/mtc_moveit_planner/src/ros_params.cpp",
+      "src/mtc_moveit_planner/src/trajectory_conversion.cpp",
+      "src/mtc_moveit_planner/test/fake_backend.hpp",
+      "src/mtc_moveit_planner/test/test_fsm_accepts_planner_output.cpp",
+      "src/mtc_moveit_planner/test/test_moveit_planner_port.cpp",
+      "src/mtc_moveit_planner/test/test_pose_math.cpp",
+      "src/mtc_moveit_planner/test/test_trajectory_conversion.cpp",
+      "src/mtc_trajectory_execution_cpp/README.md",
+      "src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp",
+      "src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp",
+      "src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp",
+      "src/mtc_trajectory_execution_cpp/test/verify_results.py"
+    ],
+    "cumulative_changed_files": [
+      "docs/migration/PHASE2B_FINAL_INTEGRATION_GATE.md",
+      "docs/planning/PLANNING_HANDOFF.md",
+      "docs/planning/README.md",
+      "docs/planning/evidence/20261011_075828/SUMMARY.txt",
+      "docs/planning/evidence/20261011_075828/aubo_S3_fake_expanded.urdf",
+      "docs/planning/evidence/20261011_075828/aubo_robot.srdf",
+      "docs/planning/evidence/20261011_075828/battery_sequence_magnetic_latch_v2_T0_20261011_075908.yaml",
+      "docs/planning/evidence/20261011_075828/battery_sequence_passive_hook_v1_T0_20261011_075907.yaml",
+      "docs/planning/evidence/20261011_075828/control_launch.log",
+      "docs/planning/evidence/20261011_075828/fixed_pose_plan_20261011_075906.yaml",
+      "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.gv",
+      "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.pdf",
+      "docs/planning/evidence/20261011_075828/move_group_launch.log",
+      "docs/planning/evidence/20261011_075828/plan_battery_sequence_v1.log",
+      "docs/planning/evidence/20261011_075828/plan_battery_sequence_v2.log",
+      "docs/planning/evidence/20261011_075828/plan_fixed_pose.log",
+      "docs/planning/evidence/20261011_075828/ros_graph.txt",
+      "docs/planning/evidence/20261011_075828/tf2_echo_base_link_to_ee_link.txt",
+      "docs/planning/evidence/20261011_075828/tf2_echo_world_to_base_link.txt",
+      "docs/planning/evidence/20261011_075828/tf2_echo_world_to_ee_link.txt",
+      "docs/planning/evidence/20261011_075828/view_frames.log",
+      "src/mtc_moveit_planner/CMakeLists.txt",
+      "src/mtc_moveit_planner/README.md",
+      "src/mtc_moveit_planner/config/planner.yaml",
+      "src/mtc_moveit_planner/config/sequence_v2_override.yaml",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/move_group_backend.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/moveit_planner_port.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/plan_report_io.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/planner_config.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/planning_backend.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/pose_math.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/ros_params.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/trajectory_conversion.hpp",
+      "src/mtc_moveit_planner/launch/plan_tool.launch.py",
+      "src/mtc_moveit_planner/package.xml",
+      "src/mtc_moveit_planner/scripts/build_driver_ws.sh",
+      "src/mtc_moveit_planner/scripts/build_planner.sh",
+      "src/mtc_moveit_planner/scripts/env.sh",
+      "src/mtc_moveit_planner/scripts/ros_graph_snapshot.py",
+      "src/mtc_moveit_planner/scripts/run_planning_evidence.sh",
+      "src/mtc_moveit_planner/scripts/setup_ros_jazzy.sh",
+      "src/mtc_moveit_planner/src/move_group_backend.cpp",
+      "src/mtc_moveit_planner/src/moveit_planner_port.cpp",
+      "src/mtc_moveit_planner/src/plan_battery_sequence_main.cpp",
+      "src/mtc_moveit_planner/src/plan_fixed_pose_main.cpp",
+      "src/mtc_moveit_planner/src/plan_report_io.cpp",
+      "src/mtc_moveit_planner/src/planner_config.cpp",
+      "src/mtc_moveit_planner/src/ros_params.cpp",
+      "src/mtc_moveit_planner/src/trajectory_conversion.cpp",
+      "src/mtc_moveit_planner/test/fake_backend.hpp",
+      "src/mtc_moveit_planner/test/test_fsm_accepts_planner_output.cpp",
+      "src/mtc_moveit_planner/test/test_moveit_planner_port.cpp",
+      "src/mtc_moveit_planner/test/test_pose_math.cpp",
+      "src/mtc_moveit_planner/test/test_trajectory_conversion.cpp",
+      "src/mtc_trajectory_execution_cpp/README.md",
+      "src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp",
+      "src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp",
+      "src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp",
+      "src/mtc_trajectory_execution_cpp/test/verify_results.py"
+    ],
+    "changed_file_inventory": [
+      {
+        "path": "docs/migration/PHASE2B_FINAL_INTEGRATION_GATE.md",
+        "size_bytes": 20211,
+        "sha256": "0245204449c4f41c7a512ab3b3a67d4f1d8d2f6780c53278dc037f8d52cd8df9"
+      },
+      {
+        "path": "docs/planning/PLANNING_HANDOFF.md",
+        "size_bytes": 19392,
+        "sha256": "3094d43810cfe76176a669f7c769ac29f32387b373925fa101c960d5971a75b7"
+      },
+      {
+        "path": "docs/planning/README.md",
+        "size_bytes": 5721,
+        "sha256": "bb950f9f8d3732a6b3bd3a24e29afd7762c2a9d5199211ea24e84656018cc117"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/SUMMARY.txt",
+        "size_bytes": 2076,
+        "sha256": "196bb549f388e537f08ef3fdd52fac4f129ac4cba7c08e4ce91acc6ad1dc961b"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/aubo_S3_fake_expanded.urdf",
+        "size_bytes": 13960,
+        "sha256": "6be44f5bd3ededc1ab46c76f4b713d4a19f1b164caf82565d2ccec50bda7f160"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/aubo_robot.srdf",
+        "size_bytes": 3849,
+        "sha256": "926b1306a6817aa4f13aff016ebb1a4247fe689e2f68794bde0a6b69fd8b9471"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/battery_sequence_magnetic_latch_v2_T0_20261011_075908.yaml",
+        "size_bytes": 69082,
+        "sha256": "69dbeeaaef8f2056a8c4a1cb1a93946f254a575e4e558e48b3ddf40af9afb0be"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/battery_sequence_passive_hook_v1_T0_20261011_075907.yaml",
+        "size_bytes": 1844,
+        "sha256": "470a8cdac11909f84d75a967647766f61d05f816f5fa3dc643919cbc9c016369"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/control_launch.log",
+        "size_bytes": 10546,
+        "sha256": "70a1dff72cad032e022af3e72b86f5a98b226ceab4e19e6b3d3d685bd6bdccc5"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/fixed_pose_plan_20261011_075906.yaml",
+        "size_bytes": 64177,
+        "sha256": "ae822c3a9a10ffbb33556203a1413d15c0a1a31be5721c37a891cc268fe7793f"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.gv",
+        "size_bytes": 1702,
+        "sha256": "8a935db711cd1dc21b263fba8be441ba008e4a9710e7e0844e2ead77e61c13e2"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.pdf",
+        "size_bytes": 16031,
+        "sha256": "da6a1c749e4c17b34471aed25aa1dadf4625f57c09867397cfdef1b12bf52ab1"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/move_group_launch.log",
+        "size_bytes": 21853,
+        "sha256": "dbcb17a602f4675b78841792eb73821cf96153b99bd4df2c5cf427e59ea44c67"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/plan_battery_sequence_v1.log",
+        "size_bytes": 2835,
+        "sha256": "61841b0ad86e2a09c4acc4be3e8782a15e7032cbbb923ce622c11907a04f3a24"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/plan_battery_sequence_v2.log",
+        "size_bytes": 3439,
+        "sha256": "f1e1df64c498bd303467d272e83050bead3e85d0d651e17b4caff819c87d4739"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/plan_fixed_pose.log",
+        "size_bytes": 2087,
+        "sha256": "9b9736be3097daaa8a68c60bb9702359996fc158621c8e26b89adf0e029b2721"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/ros_graph.txt",
+        "size_bytes": 3200,
+        "sha256": "a817c112aa4ab27400ee213c931409f621ef887d9f644ab2e29b2c7fe204a648"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/tf2_echo_base_link_to_ee_link.txt",
+        "size_bytes": 2055,
+        "sha256": "493613cb2273ef5332ee9247f290cc3c8f9693905193bdb16bb1c046d985b4ea"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/tf2_echo_world_to_base_link.txt",
+        "size_bytes": 1944,
+        "sha256": "2b671387667911fd1b68f4521dd91ebbe02505e764c858ca6392197c035ada92"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/tf2_echo_world_to_ee_link.txt",
+        "size_bytes": 2765,
+        "sha256": "12be8d25a48889efe07b6b3e45b3b6c1f7f9f5fc21856d42c0fb7bed3aedd38c"
+      },
+      {
+        "path": "docs/planning/evidence/20261011_075828/view_frames.log",
+        "size_bytes": 1911,
+        "sha256": "2d882cef9704c265844622af09c049d1e02876cd8ec062d153018472e1a6e1b2"
+      },
+      {
+        "path": "src/mtc_moveit_planner/CMakeLists.txt",
+        "size_bytes": 4769,
+        "sha256": "f762fcb7d8baa3bf02abd972568fba2120f5d843a91a06c13344c065a01f4abe"
+      },
+      {
+        "path": "src/mtc_moveit_planner/README.md",
+        "size_bytes": 4459,
+        "sha256": "c373b2af576a3b4466c05f88a4a2ad269d01ca1a34d53c41c763810f6fafbd42"
+      },
+      {
+        "path": "src/mtc_moveit_planner/config/planner.yaml",
+        "size_bytes": 2877,
+        "sha256": "2c7f73054560177c512a83771285c80dc85ada2d0ff3d5b65dc85eda67ef19c8"
+      },
+      {
+        "path": "src/mtc_moveit_planner/config/sequence_v2_override.yaml",
+        "size_bytes": 296,
+        "sha256": "4e8fe7c910779add4cf62455890393aacce1f7e8f6a83ae7ed151fe4748607ad"
+      },
+      {
+        "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/move_group_backend.hpp",
+        "size_bytes": 2258,
+        "sha256": "cd063a9a345fac576ca0ebde14d7414e4bdedf8063d46cf9f4f141d1f1967879"
+      },
+      {
+        "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/moveit_planner_port.hpp",
+        "size_bytes": 4448,
+        "sha256": "e79743f903eb8b45d2d733daa1bae16dab9ffc7cf0a992e67afa085d30942acb"
+      },
+      {
+        "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/plan_report_io.hpp",
+        "size_bytes": 1292,
+        "sha256": "3da29fe7eb6a5f67d6135bfe6aa9521f0f732c9201dff93ebef153eaeed68084"
+      },
+      {
+        "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/planner_config.hpp",
+        "size_bytes": 5037,
+        "sha256": "60dfa654cf3d33b73f8ba28ce4aeb9154cc6628b9df045ba9c2a011e763cdf42"
+      },
+      {
+        "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/planning_backend.hpp",
+        "size_bytes": 3978,
+        "sha256": "1a4a11e51c5ee9c8b04337c0a531eb88ef3ecc59ec92c3241dcf88ce68f680ab"
+      },
+      {
+        "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/pose_math.hpp",
+        "size_bytes": 4471,
+        "sha256": "600ff681d600f7f102657e67f8d4af00e216d8697231130fe790322f4030970b"
+      },
+      {
+        "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/ros_params.hpp",
+        "size_bytes": 804,
+        "sha256": "7b0cdb98d7bcafc6a65cd9ff8b1e95859c74a6cb1587728851b03badfab76c6e"
+      },
+      {
+        "path": "src/mtc_moveit_planner/include/mtc_moveit_planner/trajectory_conversion.hpp",
+        "size_bytes": 2203,
+        "sha256": "b525e3f3b576eed6993f0a4bf6f84cd638927aaf4f1406aafd5bf2d5238b654d"
+      },
+      {
+        "path": "src/mtc_moveit_planner/launch/plan_tool.launch.py",
+        "size_bytes": 3749,
+        "sha256": "65d5a1b9aa972135eb50a360382c3c391a861e3275f36e585a0fb46d0b8a0e66"
+      },
+      {
+        "path": "src/mtc_moveit_planner/package.xml",
+        "size_bytes": 1760,
+        "sha256": "38521ee52a07cebd056c735e6dcfb6a1e54aac2fdd1d4ee132bcb165fa1acf54"
+      },
+      {
+        "path": "src/mtc_moveit_planner/scripts/build_driver_ws.sh",
+        "size_bytes": 1626,
+        "sha256": "e6122b47595bf9c4cd81ff5a132617949c8ae56c6f2cc7135ab6c521e99e1b18"
+      },
+      {
+        "path": "src/mtc_moveit_planner/scripts/build_planner.sh",
+        "size_bytes": 897,
+        "sha256": "c55943dc6e3040f93f37cbafd2ebfd65ced59c8bc633b915f88b595df288ecf8"
+      },
+      {
+        "path": "src/mtc_moveit_planner/scripts/env.sh",
+        "size_bytes": 1036,
+        "sha256": "d61a5ede7ac9e39833204e8828f0febcadd551c06eeab05e96986d4dde741f69"
+      },
+      {
+        "path": "src/mtc_moveit_planner/scripts/ros_graph_snapshot.py",
+        "size_bytes": 3041,
+        "sha256": "baf68560a220d6b3d7eefc5310c9cab6e79e808a100f6cbdb134ae62f4bd2e80"
+      },
+      {
+        "path": "src/mtc_moveit_planner/scripts/run_planning_evidence.sh",
+        "size_bytes": 7395,
+        "sha256": "a1ca1902589cdb12e713c7decea59641bcaeb09128c16c37c246d06cd53c3a81"
+      },
+      {
+        "path": "src/mtc_moveit_planner/scripts/setup_ros_jazzy.sh",
+        "size_bytes": 2380,
+        "sha256": "1f6acefb45739892cc93f4c9cd8d1a7dc4a36b4cc95b349efe7641f7de9acdf5"
+      },
+      {
+        "path": "src/mtc_moveit_planner/src/move_group_backend.cpp",
+        "size_bytes": 15607,
+        "sha256": "2b9833954fb3e579342e7b41344b61d1b5021e4dc192b2fc916aae96182f4b60"
+      },
+      {
+        "path": "src/mtc_moveit_planner/src/moveit_planner_port.cpp",
+        "size_bytes": 17905,
+        "sha256": "c8017df3fcde1039c88b375db9d14de2a419953a32d681661c007106c314a693"
+      },
+      {
+        "path": "src/mtc_moveit_planner/src/plan_battery_sequence_main.cpp",
+        "size_bytes": 8908,
+        "sha256": "0946c963fb1ac1b0c24df4108843f060aa75d54c9fa34f8124fbc3e97168b269"
+      },
+      {
+        "path": "src/mtc_moveit_planner/src/plan_fixed_pose_main.cpp",
+        "size_bytes": 8708,
+        "sha256": "bae4f78b978b13b66e01f53291a2abd5fee52a4113aed9a33e4bb005c99c9878"
+      },
+      {
+        "path": "src/mtc_moveit_planner/src/plan_report_io.cpp",
+        "size_bytes": 7103,
+        "sha256": "20cd4e754ed237a766172a462743e2c8a8b93f937feb4a2be1173b992e810d61"
+      },
+      {
+        "path": "src/mtc_moveit_planner/src/planner_config.cpp",
+        "size_bytes": 5380,
+        "sha256": "6019304ece9d7bbc92cd80672aeca8a96a9423ce237cd9779a76b89f3fbce90a"
+      },
+      {
+        "path": "src/mtc_moveit_planner/src/ros_params.cpp",
+        "size_bytes": 4215,
+        "sha256": "0f1082d742c615ef9a26357c391357c3dd60a20c9680e24e990456666255e823"
+      },
+      {
+        "path": "src/mtc_moveit_planner/src/trajectory_conversion.cpp",
+        "size_bytes": 3738,
+        "sha256": "1258fa4c8bad8574a2790d83cbaf3d7b3edfc31e0fb1960bc4fea7389bbc73eb"
+      },
+      {
+        "path": "src/mtc_moveit_planner/test/fake_backend.hpp",
+        "size_bytes": 5477,
+        "sha256": "f731fdefc2bc2b4bc1af03975f6004fac41bfb15c1a7cef98c5f9eb5d54bac4f"
+      },
+      {
+        "path": "src/mtc_moveit_planner/test/test_fsm_accepts_planner_output.cpp",
+        "size_bytes": 6388,
+        "sha256": "b05db3ef2c6b14b673335d312bb20f35a5fb1551431990b2cf7ba4f530367b36"
+      },
+      {
+        "path": "src/mtc_moveit_planner/test/test_moveit_planner_port.cpp",
+        "size_bytes": 14520,
+        "sha256": "d57c2cbfb4d4edaf0e0c6d0f6d79be8da96dbe0e182c9719d33276c2bba61812"
+      },
+      {
+        "path": "src/mtc_moveit_planner/test/test_pose_math.cpp",
+        "size_bytes": 3154,
+        "sha256": "200146d83c6848cddb10747cf7e8e4ac6817f8e49bb2ba24f83d64b43143102d"
+      },
+      {
+        "path": "src/mtc_moveit_planner/test/test_trajectory_conversion.cpp",
+        "size_bytes": 3877,
+        "sha256": "404a1ff8fb06b29912d821db4d4f8cd84eab95c43a6f216d46df6bf590258832"
+      },
+      {
+        "path": "src/mtc_trajectory_execution_cpp/README.md",
+        "size_bytes": 15132,
+        "sha256": "8990e57b179dc4f8b4d404f426f48bc2e6cd1cc3e5f498bf92b5bc003cc57497"
+      },
+      {
+        "path": "src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp",
+        "size_bytes": 6269,
+        "sha256": "a2f01e9b9e2461390818253436b76be1a53e20397bd70d7ddf02a33782a03a6b"
+      },
+      {
+        "path": "src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp",
+        "size_bytes": 26826,
+        "sha256": "4c5b5c11b0586a25dbbf42b29e94bba13c83cfba97f039c426c8d6b1674b2044"
+      },
+      {
+        "path": "src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp",
+        "size_bytes": 29613,
+        "sha256": "a39a99cdde110b41d815f8eec4b94bb588aa2d93083b7c010a38648b33d57379"
+      },
+      {
+        "path": "src/mtc_trajectory_execution_cpp/test/verify_results.py",
+        "size_bytes": 3905,
+        "sha256": "8b6f7ed08bc19584ac7300a59c3fae635c2f11f99b6cd91dc21b9056e2134b10"
+      }
+    ],
+    "planner_and_planning_docs_identical_to_f7eaa2c": true,
+    "merged_planning_paths": [
+      "docs/planning/PLANNING_HANDOFF.md",
+      "docs/planning/README.md",
+      "docs/planning/evidence/20261011_075828/SUMMARY.txt",
+      "docs/planning/evidence/20261011_075828/aubo_S3_fake_expanded.urdf",
+      "docs/planning/evidence/20261011_075828/aubo_robot.srdf",
+      "docs/planning/evidence/20261011_075828/battery_sequence_magnetic_latch_v2_T0_20261011_075908.yaml",
+      "docs/planning/evidence/20261011_075828/battery_sequence_passive_hook_v1_T0_20261011_075907.yaml",
+      "docs/planning/evidence/20261011_075828/control_launch.log",
+      "docs/planning/evidence/20261011_075828/fixed_pose_plan_20261011_075906.yaml",
+      "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.gv",
+      "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.pdf",
+      "docs/planning/evidence/20261011_075828/move_group_launch.log",
+      "docs/planning/evidence/20261011_075828/plan_battery_sequence_v1.log",
+      "docs/planning/evidence/20261011_075828/plan_battery_sequence_v2.log",
+      "docs/planning/evidence/20261011_075828/plan_fixed_pose.log",
+      "docs/planning/evidence/20261011_075828/ros_graph.txt",
+      "docs/planning/evidence/20261011_075828/tf2_echo_base_link_to_ee_link.txt",
+      "docs/planning/evidence/20261011_075828/tf2_echo_world_to_base_link.txt",
+      "docs/planning/evidence/20261011_075828/tf2_echo_world_to_ee_link.txt",
+      "docs/planning/evidence/20261011_075828/view_frames.log",
+      "src/mtc_moveit_planner/CMakeLists.txt",
+      "src/mtc_moveit_planner/README.md",
+      "src/mtc_moveit_planner/config/planner.yaml",
+      "src/mtc_moveit_planner/config/sequence_v2_override.yaml",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/move_group_backend.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/moveit_planner_port.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/plan_report_io.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/planner_config.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/planning_backend.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/pose_math.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/ros_params.hpp",
+      "src/mtc_moveit_planner/include/mtc_moveit_planner/trajectory_conversion.hpp",
+      "src/mtc_moveit_planner/launch/plan_tool.launch.py",
+      "src/mtc_moveit_planner/package.xml",
+      "src/mtc_moveit_planner/scripts/build_driver_ws.sh",
+      "src/mtc_moveit_planner/scripts/build_planner.sh",
+      "src/mtc_moveit_planner/scripts/env.sh",
+      "src/mtc_moveit_planner/scripts/ros_graph_snapshot.py",
+      "src/mtc_moveit_planner/scripts/run_planning_evidence.sh",
+      "src/mtc_moveit_planner/scripts/setup_ros_jazzy.sh",
+      "src/mtc_moveit_planner/src/move_group_backend.cpp",
+      "src/mtc_moveit_planner/src/moveit_planner_port.cpp",
+      "src/mtc_moveit_planner/src/plan_battery_sequence_main.cpp",
+      "src/mtc_moveit_planner/src/plan_fixed_pose_main.cpp",
+      "src/mtc_moveit_planner/src/plan_report_io.cpp",
+      "src/mtc_moveit_planner/src/planner_config.cpp",
+      "src/mtc_moveit_planner/src/ros_params.cpp",
+      "src/mtc_moveit_planner/src/trajectory_conversion.cpp",
+      "src/mtc_moveit_planner/test/fake_backend.hpp",
+      "src/mtc_moveit_planner/test/test_fsm_accepts_planner_output.cpp",
+      "src/mtc_moveit_planner/test/test_moveit_planner_port.cpp",
+      "src/mtc_moveit_planner/test/test_pose_math.cpp",
+      "src/mtc_moveit_planner/test/test_trajectory_conversion.cpp"
+    ],
+    "modified_nonplanning_paths": [
+      "docs/migration/PHASE2B_FINAL_INTEGRATION_GATE.md",
+      "src/mtc_trajectory_execution_cpp/README.md",
+      "src/mtc_trajectory_execution_cpp/src/fake_trajectory_probe.cpp",
+      "src/mtc_trajectory_execution_cpp/src/fjt_motion_port.cpp",
+      "src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp",
+      "src/mtc_trajectory_execution_cpp/test/verify_results.py"
+    ],
+    "planner_present": true,
+    "vision_and_calibration_present": false,
+    "binding": {
+      "planner": "MockPlanner",
+      "motion": "AsyncMockMotion",
+      "new_fjt_port_in_default_servers": false
+    },
+    "changes": "Immutable full command identity in active/completed results, 10 new Action tests (including two clock rejection cases), identity/topology GenericSystem probe modes and 424-baseline verifier expanded to Planner; planner 53 paths merged unchanged.",
+    "integration_limit": "Port health/proof predicates unchanged from688d80d. Default MoveIt/FJT two-client topology, generation vs scheduled stamp and missing async cancel host remain blocked. Default Action still Mock, no actual Planner/FJT/full task wiring, no contact execution.",
+    "source_modified": false,
+    "formal_baseline_advanced": false,
+    "local_merge_performed": false,
+    "observed_refs": [
+      "refs/heads/feature/phase2b-trajectory-execution"
+    ],
+    "command_identity_review": {
+      "immutable": true,
+      "comparison": "Exact field comparisons on MotionCommand, MotionPrimitive plus full Pose6D, complete TimedTrajectory before normalization",
+      "same_id_cache_read": "Historical result only, not fresh stop evidence",
+      "completed_ledger_limit": 10000,
+      "cost": "Full trajectory copies plus O(points) repeated comparison; no automatic eviction",
+      "health_proof_change": false
+    },
+    "reviewed_api_files": [
+      {
+        "path": "src/mtc_core_cpp/include/mtc_core_cpp/pose.hpp",
+        "sha256": "26ce2e291eb90cc00e56cb8b8e3b684c8eb4a4107986319d85ade08f74e574ee"
+      },
+      {
+        "path": "src/mtc_core_cpp/include/mtc_core_cpp/motion_primitive.hpp",
+        "sha256": "dfa2f92a382085be691ef884a91c0b17e55bd3ae850c98073603d52873d8fc2a"
+      }
+    ]
+  },
+  "automatic": {
+    "status": "COMPLETED_WITH_FAILURES",
+    "summary_steps": 25,
+    "original_files_verified": 317,
+    "build_packages": 15,
+    "cpp_cases": 463,
+    "cpp_executables": 26,
+    "python_cases": 269,
+    "e2e": 15,
+    "ros_wiring": 6,
+    "cpp_audit_failure": "FAIL: expects16 versus22 *_cpp executables, excluding4 Planner; parses macro placeholder TrajectoryValidator.Name and misses 22 actual INVALID_TEST expansions. No duplicate or failed cases.",
+    "colcon_aggregate": 763,
+    "colcon_aggregate_note": "Includes wrappers/lint, not independent cases",
+    "legacy_task": [
+      {
+        "case": "early-goal",
+        "accepted": true,
+        "result": {
+          "status": 6,
+          "result": {
+            "success": false,
+            "completed_count": 0,
+            "completed_slots": [],
+            "error_code": 220,
+            "message": "task acceptance-early-goal exceeded timeout_ms=5000 (elapsed 5.036s)"
+          }
+        },
+        "child_failure": true,
+        "shutdown_escalated": false
+      },
+      {
+        "case": "delayed-goal",
+        "accepted": true,
+        "result": {
+          "status": 6,
+          "result": {
+            "success": false,
+            "completed_count": 0,
+            "completed_slots": [],
+            "error_code": 510,
+            "message": "state INIT timed out after 5.025s -> HARDWARE_FAULT"
+          }
+        },
+        "child_failure": true,
+        "shutdown_escalated": false
+      },
+      {
+        "case": "cancel-goal",
+        "accepted": true,
+        "result": {
+          "status": 6,
+          "result": {
+            "success": false,
+            "completed_count": 0,
+            "completed_slots": [],
+            "error_code": 520,
+            "message": "cancel not confirmed before timeout (child never reported stopped)"
+          }
+        },
+        "child_failure": true,
+        "shutdown_escalated": false
+      }
+    ],
+    "moveit": {
+      "scope": "Independent S3 MoveIt / GenericSystem; no FSM or physical robot",
+      "planning_execution": "PASS",
+      "clean_shutdown": "FAIL",
+      "plugins": [
+        "mock_components/GenericSystem"
+      ],
+      "controller_action_servers": [
+        {
+          "node": "joint_trajectory_controller",
+          "namespace": "/",
+          "types": [
+            "control_msgs/action/FollowJointTrajectory"
+          ]
+        }
+      ],
+      "initial_rad": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "target_rad": [
+        0.05,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "joint_names": [
+        "shoulder_joint",
+        "upperArm_joint",
+        "foreArm_joint",
+        "wrist1_joint",
+        "wrist2_joint",
+        "wrist3_joint"
+      ],
+      "accepted": true,
+      "execute": {
+        "status": 4,
+        "result": {
+          "error_code": {
+            "val": 1,
+            "message": "",
+            "source": ""
+          }
+        }
+      },
+      "actual_rad": [
+        0.04998979817498476,
+        6.626238981261849e-05,
+        5.384402824565769e-05,
+        -9.30385054089129e-05,
+        8.839312596246601e-05,
+        8.565292935818433e-05
+      ],
+      "max_error_rad": 9.30385054089129e-05,
+      "distinct_joint_stamps": 208,
+      "shutdown": [
+        {
+          "launch": "move-group",
+          "escalated": false,
+          "already_exited": false,
+          "exit_code": 0,
+          "child_failures": [
+            "process has died [pid 5774, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_o0_cjv40 --params-file /tmp/launch_params_f9auok4d']."
+          ]
+        },
+        {
+          "launch": "control",
+          "escalated": false,
+          "already_exited": false,
+          "exit_code": 0,
+          "child_failures": []
+        }
+      ],
+      "json_note": "Any non-finite optional ROS fields are null; original representation retained in result.raw.txt"
+    },
+    "dependency_gaps": [
+      "ament_python rosdep key",
+      "driver docker.io",
+      "driver ros-jazzy-ros2-controllers-test-nodes"
+    ],
+    "driver_test_aggregate": {
+      "total": 1104,
+      "failures": 279,
+      "skipped": 259,
+      "scope": "lint/wrappers, not physical-function tests"
+    }
+  },
+  "supplement": {
+    "installed_identity_files": 4,
+    "new_package_rosdep": "PASS",
+    "compiled_registration_verifier": "463/26 PASS; original424 retained plus10 new and29 merged",
+    "invalid_probe_arguments": "No argument and invalid mode each return2 before ROS init",
+    "ubsan": {
+      "cases": 463,
+      "executables": 26,
+      "compile_commands_instrumented": {
+        "mtc_core_cpp": 5,
+        "mtc_manipulation_cpp": 12,
+        "mtc_motion_execution_cpp": 12,
+        "mtc_moveit_planner": 14,
+        "mtc_ros2_action_cpp": 13,
+        "mtc_task_cpp": 8,
+        "mtc_trajectory_execution_cpp": 7
+      },
+      "all_case_identities_match_automatic": true,
+      "scope": "Seven C++ packages including Planner rebuilt; ROS/DDS/MoveIt system libraries not instrumented; TSan NOT RUN"
+    },
+    "generic_cases": [
+      {
+        "mode": "success",
+        "exit_code": 0,
+        "verdict": "PASS_DELIVERED_SINGLE_CASE",
+        "probe": {
+          "goals_sent": 1,
+          "cancels_sent": 0,
+          "feedback_samples": 40,
+          "success": 1,
+          "arrived": 1,
+          "stop_confirmed": 1,
+          "timed_out": 0,
+          "status_unknown": 0,
+          "fault_locked": 0,
+          "error": 0
+        },
+        "uuid": "a929cbe1f9c45743cd30c01a56754383",
+        "observed_statuses": [
+          2,
+          4
+        ],
+        "new_goal_uuids": [
+          "a929cbe1f9c45743cd30c01a56754383"
+        ],
+        "observer_has_action_client": false,
+        "distinct_case_stamps": 902,
+        "total_run_samples": 1148,
+        "final_named_delta_rad": {
+          "foreArm_joint": 0.02,
+          "shoulder_joint": 0.02,
+          "upperArm_joint": 0.02,
+          "wrist1_joint": 0.02,
+          "wrist2_joint": 0.02,
+          "wrist3_joint": 0.02
+        },
+        "observed_final_velocities": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_stamp_gap_sec": 0.005673218,
+        "max_receive_gap_sec": 0.0072811710415408015,
+        "shutdown": {
+          "already_exited": false,
+          "escalated": false,
+          "exit_code": 0,
+          "child_failures": [],
+          "pal_statistics_context_errors": [
+            "[ros2_control_node-1] [ERROR] [1791743992.834384926] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+            "[ros2_control_node-1] [ERROR] [1791743992.834384956] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+          ]
+        },
+        "empty_after": true,
+        "max_observed_target_error_rad": 0.0,
+        "post_terminal_samples_before_exit": 76,
+        "post_terminal_span_sec": 0.3755258530145511,
+        "post_terminal_max_velocity": 0.0,
+        "external_observer_scope": "Subscription evidence only; does not establish port-internal health predicates."
+      },
+      {
+        "mode": "mismatch",
+        "exit_code": 0,
+        "verdict": "PASS_DELIVERED_SINGLE_CASE",
+        "probe": {
+          "goals_sent": 0,
+          "cancels_sent": 0,
+          "feedback_samples": 0,
+          "success": 0,
+          "arrived": 0,
+          "stop_confirmed": 0,
+          "timed_out": 0,
+          "status_unknown": 0,
+          "fault_locked": 0,
+          "error": 210
+        },
+        "uuid": null,
+        "observed_statuses": [],
+        "new_goal_uuids": [],
+        "observer_has_action_client": false,
+        "distinct_case_stamps": 474,
+        "total_run_samples": 791,
+        "final_named_delta_rad": {
+          "foreArm_joint": 0.0,
+          "shoulder_joint": 0.0,
+          "upperArm_joint": 0.0,
+          "wrist1_joint": 0.0,
+          "wrist2_joint": 0.0,
+          "wrist3_joint": 0.0
+        },
+        "observed_final_velocities": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_stamp_gap_sec": 0.005136791,
+        "max_receive_gap_sec": 0.0075662629678845406,
+        "shutdown": {
+          "already_exited": false,
+          "escalated": false,
+          "exit_code": 0,
+          "child_failures": [],
+          "pal_statistics_context_errors": []
+        },
+        "empty_after": true
+      },
+      {
+        "mode": "cancel",
+        "exit_code": 0,
+        "verdict": "PASS_DELIVERED_SINGLE_CASE",
+        "probe": {
+          "stop_confirmed": 1,
+          "goals_sent": 1,
+          "cancels_sent": 1,
+          "feedback_samples": 10,
+          "success": 0,
+          "arrived": 0,
+          "timed_out": 0,
+          "status_unknown": 0,
+          "fault_locked": 0,
+          "error": 0
+        },
+        "uuid": "65e88d62fa50dcb085829ddc1d9b7c10",
+        "observed_statuses": [
+          2,
+          3,
+          5
+        ],
+        "new_goal_uuids": [
+          "65e88d62fa50dcb085829ddc1d9b7c10"
+        ],
+        "observer_has_action_client": false,
+        "distinct_case_stamps": 608,
+        "total_run_samples": 854,
+        "final_named_delta_rad": {
+          "foreArm_joint": 0.004999912850000007,
+          "shoulder_joint": 0.004999912850000007,
+          "upperArm_joint": 0.004999912850000007,
+          "wrist1_joint": 0.004999912850000007,
+          "wrist2_joint": 0.004999912850000007,
+          "wrist3_joint": 0.004999912850000007
+        },
+        "observed_final_velocities": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_stamp_gap_sec": 0.011311426,
+        "max_receive_gap_sec": 0.0067128080409020185,
+        "shutdown": {
+          "already_exited": false,
+          "escalated": false,
+          "exit_code": 0,
+          "child_failures": [],
+          "pal_statistics_context_errors": [
+            "[ros2_control_node-1] [ERROR] [1791744040.098627667] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+            "[ros2_control_node-1] [ERROR] [1791744040.098627997] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+          ]
+        },
+        "empty_after": true,
+        "post_terminal_samples_before_exit": 77,
+        "post_terminal_span_sec": 0.37988149793818593,
+        "post_terminal_max_velocity": 0.0,
+        "external_observer_scope": "Subscription evidence only; does not establish port-internal health predicates."
+      },
+      {
+        "mode": "identity",
+        "exit_code": 0,
+        "verdict": "PASS_DELIVERED_SINGLE_CASE",
+        "probe": {
+          "goals_sent": 1,
+          "cancels_sent": 0,
+          "feedback_samples": 39,
+          "success": 1,
+          "arrived": 1,
+          "stop_confirmed": 1,
+          "timed_out": 0,
+          "status_unknown": 0,
+          "fault_locked": 0,
+          "error": 0
+        },
+        "uuid": "5df82763793ef337f936bab91df2f9c1",
+        "observed_statuses": [
+          2,
+          4
+        ],
+        "new_goal_uuids": [
+          "5df82763793ef337f936bab91df2f9c1"
+        ],
+        "observer_has_action_client": false,
+        "distinct_case_stamps": 908,
+        "total_run_samples": 1154,
+        "final_named_delta_rad": {
+          "foreArm_joint": 0.02,
+          "shoulder_joint": 0.02,
+          "upperArm_joint": 0.02,
+          "wrist1_joint": 0.02,
+          "wrist2_joint": 0.02,
+          "wrist3_joint": 0.02
+        },
+        "observed_final_velocities": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_stamp_gap_sec": 0.005818201,
+        "max_receive_gap_sec": 0.008062067092396319,
+        "shutdown": {
+          "already_exited": false,
+          "escalated": false,
+          "exit_code": 0,
+          "child_failures": [],
+          "pal_statistics_context_errors": [
+            "[ros2_control_node-1] [ERROR] [1791744067.089298386] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+            "[ros2_control_node-1] [ERROR] [1791744067.089298516] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+          ]
+        },
+        "empty_after": true,
+        "max_observed_target_error_rad": 0.0,
+        "cached_read_and_three_changed_content_refusals": true,
+        "post_terminal_samples_before_exit": 78,
+        "post_terminal_span_sec": 0.38482599100098014,
+        "post_terminal_max_velocity": 0.0,
+        "external_observer_scope": "Subscription evidence only; does not establish port-internal health predicates."
+      }
+    ],
+    "generic_runs": 4,
+    "retries": 0,
+    "execution_sequence": "Each delivered mode run once in its own fresh driver/domain, serial and unchanged. Independent read-only witness; no source/config/limits/timers adjustments.",
+    "topology_and_plan": {
+      "started_at": "2026-10-11T18:41:14.551452+00:00",
+      "scope": "Default GenericSystem+MoveIt+FjtMotionPort ownership gate and original fixed-pose planning; no FJT Goal, no complete FSM/physical robot",
+      "observer_action_clients": 0,
+      "status": "PASS_BLOCKED_TOPOLOGY_AND_PLAN_ONLY",
+      "plugins": [
+        "mock_components/GenericSystem"
+      ],
+      "controller_only_graph": {
+        "clients": [],
+        "servers": [
+          {
+            "node": "joint_trajectory_controller",
+            "namespace": "/",
+            "types": [
+              "control_msgs/action/FollowJointTrajectory"
+            ]
+          }
+        ],
+        "direct_publishers": 0
+      },
+      "moveit_graph": {
+        "clients": [
+          {
+            "node": "moveit_simple_controller_manager",
+            "namespace": "/",
+            "types": [
+              "control_msgs/action/FollowJointTrajectory"
+            ]
+          }
+        ],
+        "servers": [
+          {
+            "node": "joint_trajectory_controller",
+            "namespace": "/",
+            "types": [
+              "control_msgs/action/FollowJointTrajectory"
+            ]
+          }
+        ],
+        "direct_publishers": 0
+      },
+      "allow_execution_parameter": "Parameter not set.\n",
+      "topology": {
+        "argv": [
+          "ros2",
+          "run",
+          "mtc_trajectory_execution_cpp",
+          "fake_trajectory_probe",
+          "--verify-generic-system",
+          "topology"
+        ],
+        "exit_code": 2,
+        "elapsed_seconds": 10.362573886988685,
+        "coexistence_graph": [
+          {
+            "clients": [
+              {
+                "node": "mtc_fake_trajectory_probe",
+                "namespace": "/",
+                "types": [
+                  "control_msgs/action/FollowJointTrajectory"
+                ]
+              },
+              {
+                "node": "moveit_simple_controller_manager",
+                "namespace": "/",
+                "types": [
+                  "control_msgs/action/FollowJointTrajectory"
+                ]
+              }
+            ],
+            "servers": [
+              {
+                "node": "joint_trajectory_controller",
+                "namespace": "/",
+                "types": [
+                  "control_msgs/action/FollowJointTrajectory"
+                ]
+              }
+            ],
+            "direct_publishers": 0
+          }
+        ]
+      },
+      "after_port_graph": {
+        "clients": [
+          {
+            "node": "moveit_simple_controller_manager",
+            "namespace": "/",
+            "types": [
+              "control_msgs/action/FollowJointTrajectory"
+            ]
+          }
+        ],
+        "servers": [
+          {
+            "node": "joint_trajectory_controller",
+            "namespace": "/",
+            "types": [
+              "control_msgs/action/FollowJointTrajectory"
+            ]
+          }
+        ],
+        "direct_publishers": 0
+      },
+      "fixed_pose": {
+        "argv": [
+          "ros2",
+          "launch",
+          "mtc_moveit_planner",
+          "plan_tool.launch.py",
+          "program:=plan_fixed_pose",
+          "aubo_type:=aubo_S3",
+          "output_dir:=/review-evidence/topology-plan/planning"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 3.973395716981031,
+        "coexistence_graph": [],
+        "yaml": "/review-evidence/topology-plan/planning/fixed_pose_plan_20261011_184148.yaml",
+        "result": {
+          "ok": true,
+          "reason": "",
+          "message": "ok",
+          "planning_time_s": 0.056141219,
+          "time_scale_applied": 1,
+          "max_ee_linear_speed_m_s": 0.1102786069,
+          "max_ee_angular_speed_rad_s": 0.4060149648,
+          "final_position_error_m": 9.025142103e-05,
+          "final_orientation_error_rad": 0.0007898203108,
+          "end_state": {
+            "joint_names": [
+              "shoulder_joint",
+              "upperArm_joint",
+              "foreArm_joint",
+              "wrist1_joint",
+              "wrist2_joint",
+              "wrist3_joint"
+            ],
+            "positions_rad": [
+              6.283046528,
+              -0.0332587428,
+              1.236164408,
+              -0.366972583,
+              -4.713242681,
+              -0.0007285003457
+            ]
+          }
+        },
+        "trajectory_present": true
+      },
+      "fjt_goal_uuids": [],
+      "distinct_joint_stamps": 3915,
+      "all_joints_zero": true,
+      "shutdown": [
+        {
+          "launch": "move-group",
+          "already_exited": false,
+          "escalated": false,
+          "exit_code": 0,
+          "child_failures": [
+            "process has died [pid 5798, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_163mockp --params-file /tmp/launch_params_vg_sbvto']."
+          ],
+          "statistics_context_errors": []
+        },
+        {
+          "launch": "control",
+          "already_exited": false,
+          "escalated": false,
+          "exit_code": 0,
+          "child_failures": [],
+          "statistics_context_errors": [
+            "[ros2_control_node-1] [ERROR] [1791744111.139708579] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+            "[ros2_control_node-1] [ERROR] [1791744111.139708680] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+          ]
+        }
+      ],
+      "empty_after": true,
+      "clean_shutdown": "FAIL",
+      "ended_at": "2026-10-11T18:41:54.175272+00:00"
+    },
+    "plan_consumer": {
+      "source": "/review-evidence/topology-plan/planning/fixed_pose_plan_20261011_184148.yaml",
+      "source_sha256": "a6c86249832c866044e75f28c1030c8d27952d3bc6c7432841c373225f97b066",
+      "points": 211,
+      "first_t": 0,
+      "duration_s": 20.94617995,
+      "stamp_s": 1791744108,
+      "trajectory_id": "",
+      "names": [
+        "shoulder_joint",
+        "upperArm_joint",
+        "foreArm_joint",
+        "wrist1_joint",
+        "wrist2_joint",
+        "wrist3_joint"
+      ],
+      "frame": "world",
+      "max_abs_position": 6.283046528,
+      "max_abs_velocity": 0.315,
+      "max_abs_acceleration": 0.3150000003,
+      "scope": "Actual serialized plan; no trajectory modification, retiming, stamp substitution or movement. Diagnostic IDs and timeout are set only in the pure conversion consumer.",
+      "before_id_rejected": true,
+      "after_id_accepted": false,
+      "after_id_error": "velocity limit exceeded"
+    },
+    "previous_230": "688d80d original success failure preserved. Current source changes command identity only, not health predicates; a new passing sample cannot establish a fix or reliability.",
+    "scope_note": "Equal joint increments do not independently validate asymmetric name reordering. Command cache is historical; no current stop proof or complete FSM."
+  },
+  "not_completed": [
+    "Default MoveIt/FJT one-owner execution: default move_group adds an executable FJT client; no planning-only launch delivered",
+    "Planner generation/observation stamp vs ROS scheduled-start contract; cannot silently set stamp0",
+    "FSM asynchronous cancel/stop host and default real planner/motion bindings; direct FSM cancellation retains FAULT520",
+    "Attribution and reliable exclusion of previous688d80d runtime proof loss230",
+    "Full PickPlace/Task, tool/contact/Cartesian execution, placement evidence and real perception",
+    "MoveIt shutdown -11, Generic statistics context errors, driver dependencies/lint and symbolic/unforced limits",
+    "Planning-scene branch, calibration and perception integration; SDK licence/vendor checksums, TSan, NUC/physical robot"
+  ],
+  "handoff": {
+    "Sun_Jiaming": "Command-identity kernel acceptance results; preserve previous230, current oldPython220/510/520 and default runtime/async cancel host gaps. Local handoff only, no kernel repair or messages.",
+    "Chang_Jianshuo": "Planning-only ownership configuration proposal, generated-vs-scheduled timestamps, reviewed trajectory limits/spline/start contracts and physical TF/tool semantics. No bypass or limits widening.",
+    "integration": "Retain source/branch/test identity, UUID/feedback, blocked graph and clean shutdown evidence; no merge/baseline advance."
+  },
+  "source_modified": false,
+  "formal_baseline_advanced": false,
+  "local_merge_performed": false
+}

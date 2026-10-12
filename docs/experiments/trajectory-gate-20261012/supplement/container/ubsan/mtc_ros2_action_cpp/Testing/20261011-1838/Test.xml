@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20261011-1838-Experimental"
+	Name="854be078dfe9"
+	Generator="ctest-3.28.3"
+	CompilerName="/usr/bin/c++"
+	CompilerVersion="13.3.0"
+	OSName="Linux"
+	Hostname="854be078dfe9"
+	OSRelease="6.6.87.2-microsoft-standard-WSL2"
+	OSVersion="#1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="25"
+	ModelID="117"
+	ProcessorCacheSize="1024"
+	NumberOfLogicalCPU="16"
+	NumberOfPhysicalCPU="8"
+	TotalVirtualMemory="4096"
+	TotalPhysicalMemory="7940"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="3792.93"
+	>
+	<Testing>
+		<StartDateTime>Oct 11 18:38 UTC</StartDateTime>
+		<StartTestTime>1791743932</StartTestTime>
+		<TestList>
+			<Test>./test_pick_place_action</Test>
+			<Test>./test_task_action</Test>
+			<Test>./test_motion_action</Test>
+			<Test>./test_action_contracts</Test>
+		</TestList>
+		<Test Status="passed">
+			<Name>test_pick_place_action</Name>
+			<Path>.</Path>
+			<FullName>./test_pick_place_action</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/review-ubsan-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_pick_place_action.txt" "--command" "/review-ubsan-build/mtc_ros2_action_cpp/test_pick_place_action" "--gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>7.74898</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/review-ubsan-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_pick_place_action.txt" "--command" "/review-ubsan-build/mtc_ros2_action_cpp/test_pick_place_action" "--gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/review-ubsan-build/mtc_ros2_action_cpp':
+ - /review-ubsan-build/mtc_ros2_action_cpp/test_pick_place_action --gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 12 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 12 tests from PickAction
+[ RUN      ] PickAction.LegalGoalSucceedsOnlyAfterPlacementFeedback
+[       OK ] PickAction.LegalGoalSucceedsOnlyAfterPlacementFeedback (1079 ms)
+[ RUN      ] PickAction.InvalidParametersRejectedBeforeExecution
+[       OK ] PickAction.InvalidParametersRejectedBeforeExecution (1058 ms)
+[ RUN      ] PickAction.ConcurrentSecondGoalRejected
+[       OK ] PickAction.ConcurrentSecondGoalRejected (1061 ms)
+[ RUN      ] PickAction.MatchingCancelRequiresIndependentStationaryEvidence
+[       OK ] PickAction.MatchingCancelRequiresIndependentStationaryEvidence (70 ms)
+[ RUN      ] PickAction.CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked
+[       OK ] PickAction.CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked (73 ms)
+[ RUN      ] PickAction.StaleGoalCancelCannotInterruptNewGoal
+[       OK ] PickAction.StaleGoalCancelCannotInterruptNewGoal (2081 ms)
+[ RUN      ] PickAction.MotionStatusUnknownNeverResendsOrAutoClearsFault
+[       OK ] PickAction.MotionStatusUnknownNeverResendsOrAutoClearsFault (159 ms)
+[ RUN      ] PickAction.MissingPlanNeverSucceeds
+[       OK ] PickAction.MissingPlanNeverSucceeds (75 ms)
+[ RUN      ] PickAction.ConcurrentRosRequestsHaveExactlyOneOwner
+[       OK ] PickAction.ConcurrentRosRequestsHaveExactlyOneOwner (1039 ms)
+[ RUN      ] PickAction.InFlightWatchdogFaultStillDrainsAssociatedStopWorker
+[       OK ] PickAction.InFlightWatchdogFaultStillDrainsAssociatedStopWorker (64 ms)
+[ RUN      ] PickAction.CancelWhileCarryingStopsButKeepsLoadAdmissionLocked
+[       OK ] PickAction.CancelWhileCarryingStopsButKeepsLoadAdmissionLocked (448 ms)
+[ RUN      ] PickAction.UnverifiedAttachmentLoadCannotBeClearedByNewGoal
+[       OK ] PickAction.UnverifiedAttachmentLoadCannotBeClearedByNewGoal (172 ms)
+[----------] 12 tests from PickAction (7387 ms total)
+
+[----------] Global test environment tear-down
+[==========] 12 tests from 1 test suite ran. (7392 ms total)
+[  PASSED  ] 12 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml'
+-- run_test.py: verify result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_task_action</Name>
+			<Path>.</Path>
+			<FullName>./test_task_action</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/review-ubsan-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_task_action.txt" "--command" "/review-ubsan-build/mtc_ros2_action_cpp/test_task_action" "--gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>8.72329</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/review-ubsan-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_task_action.txt" "--command" "/review-ubsan-build/mtc_ros2_action_cpp/test_task_action" "--gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/review-ubsan-build/mtc_ros2_action_cpp':
+ - /review-ubsan-build/mtc_ros2_action_cpp/test_task_action --gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 12 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 12 tests from TaskAction
+[ RUN      ] TaskAction.BasicTaskUsesRealChildActionAndRecordsT0
+[       OK ] TaskAction.BasicTaskUsesRealChildActionAndRecordsT0 (1097 ms)
+[ RUN      ] TaskAction.SequenceTaskRecordsAllSlotsInOrder
+[       OK ] TaskAction.SequenceTaskRecordsAllSlotsInOrder (3124 ms)
+[ RUN      ] TaskAction.InvalidColorsAndConcurrentTaskRejected
+[       OK ] TaskAction.InvalidColorsAndConcurrentTaskRejected (1078 ms)
+[ RUN      ] TaskAction.CancelAckWaitsForChildFinalStopResult
+[       OK ] TaskAction.CancelAckWaitsForChildFinalStopResult (98 ms)
+[ RUN      ] TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent
+[       OK ] TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent (86 ms)
+[ RUN      ] TaskAction.ChildStatusUnknownPropagatesOriginalError
+[       OK ] TaskAction.ChildStatusUnknownPropagatesOriginalError (177 ms)
+[ RUN      ] TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess
+[       OK ] TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess (165 ms)
+[ RUN      ] TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild
+[       OK ] TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild (210 ms)
+[ RUN      ] TaskAction.MissingChildNeverFabricatesTaskSuccess
+[       OK ] TaskAction.MissingChildNeverFabricatesTaskSuccess (140 ms)
+[ RUN      ] TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent
+[       OK ] TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent (110 ms)
+[ RUN      ] TaskAction.StaleParentCancelCannotReachNewChild
+[       OK ] TaskAction.StaleParentCancelCannotReachNewChild (2105 ms)
+[ RUN      ] TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded
+[       OK ] TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded (65 ms)
+[----------] 12 tests from TaskAction (8462 ms total)
+
+[----------] Global test environment tear-down
+[==========] 12 tests from 1 test suite ran. (8463 ms total)
+[  PASSED  ] 12 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml'
+-- run_test.py: verify result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_motion_action</Name>
+			<Path>.</Path>
+			<FullName>./test_motion_action</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/review-ubsan-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_motion_action.txt" "--command" "/review-ubsan-build/mtc_ros2_action_cpp/test_motion_action" "--gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>1.90153</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/review-ubsan-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_motion_action.txt" "--command" "/review-ubsan-build/mtc_ros2_action_cpp/test_motion_action" "--gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/review-ubsan-build/mtc_ros2_action_cpp':
+ - /review-ubsan-build/mtc_ros2_action_cpp/test_motion_action --gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 8 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 8 tests from MotionAction
+[ RUN      ] MotionAction.LegalNonzeroGoalAndFeedbackUseExecutorResult
+[       OK ] MotionAction.LegalNonzeroGoalAndFeedbackUseExecutorResult (158 ms)
+[ RUN      ] MotionAction.IllegalGoalRejectedWithoutBackendCall
+[       OK ] MotionAction.IllegalGoalRejectedWithoutBackendCall (24 ms)
+[ RUN      ] MotionAction.ConcurrentGoalIsRejectedAndFirstCompletes
+[       OK ] MotionAction.ConcurrentGoalIsRejectedAndFirstCompletes (130 ms)
+[ RUN      ] MotionAction.MatchingCancelStopsExactlyOnce
+[       OK ] MotionAction.MatchingCancelStopsExactlyOnce (51 ms)
+[ RUN      ] MotionAction.UnconfirmedCancelAborts520AndLocks
+[       OK ] MotionAction.UnconfirmedCancelAborts520AndLocks (52 ms)
+[ RUN      ] MotionAction.StaleCancelCannotReachBackendOrInterruptNewOwner
+[       OK ] MotionAction.StaleCancelCannotReachBackendOrInterruptNewOwner (237 ms)
+[ RUN      ] MotionAction.ExecutorTimeoutKeepsOriginal220AndRejectsNewMotion
+[       OK ] MotionAction.ExecutorTimeoutKeepsOriginal220AndRejectsNewMotion (130 ms)
+[ RUN      ] MotionAction.RosDeadlineIndependentlyRequestsAssociatedStop
+[       OK ] MotionAction.RosDeadlineIndependentlyRequestsAssociatedStop (841 ms)
+[----------] 8 tests from MotionAction (1626 ms total)
+
+[----------] Global test environment tear-down
+[==========] 8 tests from 1 test suite ran. (1628 ms total)
+[  PASSED  ] 8 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml'
+-- run_test.py: verify result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_action_contracts</Name>
+			<Path>.</Path>
+			<FullName>./test_action_contracts</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/review-ubsan-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_action_contracts.txt" "--command" "/review-ubsan-build/mtc_ros2_action_cpp/test_action_contracts" "--gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.170409</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/review-ubsan-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_action_contracts.txt" "--command" "/review-ubsan-build/mtc_ros2_action_cpp/test_action_contracts" "--gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/review-ubsan-build/mtc_ros2_action_cpp':
+ - /review-ubsan-build/mtc_ros2_action_cpp/test_action_contracts --gtest_output=xml:/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 8 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 8 tests from ActionContracts
+[ RUN      ] ActionContracts.TaskConversionPreservesColorOrderIdentityAndDeadline
+[       OK ] ActionContracts.TaskConversionPreservesColorOrderIdentityAndDeadline (0 ms)
+[ RUN      ] ActionContracts.RosFloatBoundaryDoesNotRelaxCoreUpperLimit
+[       OK ] ActionContracts.RosFloatBoundaryDoesNotRelaxCoreUpperLimit (0 ms)
+[ RUN      ] ActionContracts.MockPlannerPreservesSixDPoseFrameStampAndContactConstraints
+[       OK ] ActionContracts.MockPlannerPreservesSixDPoseFrameStampAndContactConstraints (0 ms)
+[ RUN      ] ActionContracts.MockLoadEvidenceRemainsHoldingUntilVerifiedRelease
+[       OK ] ActionContracts.MockLoadEvidenceRemainsHoldingUntilVerifiedRelease (0 ms)
+[ RUN      ] ActionContracts.MockFailedReleaseNeverReportsNoLoad
+[       OK ] ActionContracts.MockFailedReleaseNeverReportsNoLoad (0 ms)
+[ RUN      ] ActionContracts.TestLiftRequiresPriorSimulatedAttachmentEvidence
+[       OK ] ActionContracts.TestLiftRequiresPriorSimulatedAttachmentEvidence (0 ms)
+[ RUN      ] ActionContracts.TrajectoryBridgeRefusesAndNeverSplitsIntoJointMoves
+[       OK ] ActionContracts.TrajectoryBridgeRefusesAndNeverSplitsIntoJointMoves (0 ms)
+[ RUN      ] ActionContracts.UnsupportedTrajectoryAndCartesianCapabilitiesCannotBeEnabled
+[       OK ] ActionContracts.UnsupportedTrajectoryAndCartesianCapabilitiesCannotBeEnabled (0 ms)
+[----------] 8 tests from ActionContracts (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 8 tests from 1 test suite ran. (2 ms total)
+[  PASSED  ] 8 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml'
+-- run_test.py: verify result file '/review-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<EndDateTime>Oct 11 18:39 UTC</EndDateTime>
+		<EndTestTime>1791743950</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

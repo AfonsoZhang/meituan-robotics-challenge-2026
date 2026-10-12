@@ -1,0 +1,262 @@
+{
+  "commit": "4a1a81652fca39efe2916a19ad49187d29789697",
+  "previous": "fcdd8eae897cbc37c539d4bad57b712f08124938",
+  "parents": [
+    "fcdd8eae897cbc37c539d4bad57b712f08124938",
+    "a04ac6831dd3963e6b1ec4b9e27214eb564f9f24"
+  ],
+  "commit_metadata": "commit 4a1a81652fca39efe2916a19ad49187d29789697\nMerge: fcdd8ea a04ac68\nAuthor:     changjianshuo <changjianshuo00@gmail.com>\nAuthorDate: Sun Oct 11 11:22:48 2026 -0500\nCommit:     changjianshuo <changjianshuo00@gmail.com>\nCommitDate: Sun Oct 11 11:22:48 2026 -0500\n\n    merge: sync main (Phase 2A Mock Action servers) into feature/moveit-planner\n    \n    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>",
+  "changed_files_from_planner": [
+    "README.md",
+    "README_FSM.md",
+    "docs/migration/PHASE2A_ROS2_ACTION_REPORT.md",
+    "docs/migration/ROS_WIRING_FIX_20261011.md",
+    "src/mtc_manipulation/mtc_manipulation/pick_place_server.py",
+    "src/mtc_ros2_action_cpp/CMakeLists.txt",
+    "src/mtc_ros2_action_cpp/README.md",
+    "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/action_slot.hpp",
+    "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/mock_ports.hpp",
+    "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/motion_server.hpp",
+    "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/pick_place_server.hpp",
+    "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/task_server.hpp",
+    "src/mtc_ros2_action_cpp/package.xml",
+    "src/mtc_ros2_action_cpp/src/mock_ports.cpp",
+    "src/mtc_ros2_action_cpp/src/motion_main.cpp",
+    "src/mtc_ros2_action_cpp/src/motion_server.cpp",
+    "src/mtc_ros2_action_cpp/src/pick_place_main.cpp",
+    "src/mtc_ros2_action_cpp/src/pick_place_server.cpp",
+    "src/mtc_ros2_action_cpp/src/task_main.cpp",
+    "src/mtc_ros2_action_cpp/src/task_server.cpp",
+    "src/mtc_ros2_action_cpp/test/ros_fixture.hpp",
+    "src/mtc_ros2_action_cpp/test/test_action_contracts.cpp",
+    "src/mtc_ros2_action_cpp/test/test_motion_action.cpp",
+    "src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp",
+    "src/mtc_ros2_action_cpp/test/test_task_action.cpp",
+    "src/mtc_ros2_action_cpp/test/verify_results.py",
+    "src/mtc_task/mtc_task/task_executor.py",
+    "tests/test_ros_wiring.py"
+  ],
+  "added_paths_from_main": [
+    "docs/planning/PLANNING_HANDOFF.md",
+    "docs/planning/README.md",
+    "docs/planning/evidence/20261011_075828/SUMMARY.txt",
+    "docs/planning/evidence/20261011_075828/aubo_S3_fake_expanded.urdf",
+    "docs/planning/evidence/20261011_075828/aubo_robot.srdf",
+    "docs/planning/evidence/20261011_075828/battery_sequence_magnetic_latch_v2_T0_20261011_075908.yaml",
+    "docs/planning/evidence/20261011_075828/battery_sequence_passive_hook_v1_T0_20261011_075907.yaml",
+    "docs/planning/evidence/20261011_075828/control_launch.log",
+    "docs/planning/evidence/20261011_075828/fixed_pose_plan_20261011_075906.yaml",
+    "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.gv",
+    "docs/planning/evidence/20261011_075828/frames_2026-10-11_07.59.05.pdf",
+    "docs/planning/evidence/20261011_075828/move_group_launch.log",
+    "docs/planning/evidence/20261011_075828/plan_battery_sequence_v1.log",
+    "docs/planning/evidence/20261011_075828/plan_battery_sequence_v2.log",
+    "docs/planning/evidence/20261011_075828/plan_fixed_pose.log",
+    "docs/planning/evidence/20261011_075828/ros_graph.txt",
+    "docs/planning/evidence/20261011_075828/tf2_echo_base_link_to_ee_link.txt",
+    "docs/planning/evidence/20261011_075828/tf2_echo_world_to_base_link.txt",
+    "docs/planning/evidence/20261011_075828/tf2_echo_world_to_ee_link.txt",
+    "docs/planning/evidence/20261011_075828/view_frames.log",
+    "src/mtc_moveit_planner/CMakeLists.txt",
+    "src/mtc_moveit_planner/README.md",
+    "src/mtc_moveit_planner/config/planner.yaml",
+    "src/mtc_moveit_planner/config/sequence_v2_override.yaml",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/move_group_backend.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/moveit_planner_port.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/plan_report_io.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/planner_config.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/planning_backend.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/pose_math.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/ros_params.hpp",
+    "src/mtc_moveit_planner/include/mtc_moveit_planner/trajectory_conversion.hpp",
+    "src/mtc_moveit_planner/launch/plan_tool.launch.py",
+    "src/mtc_moveit_planner/package.xml",
+    "src/mtc_moveit_planner/scripts/build_driver_ws.sh",
+    "src/mtc_moveit_planner/scripts/build_planner.sh",
+    "src/mtc_moveit_planner/scripts/env.sh",
+    "src/mtc_moveit_planner/scripts/ros_graph_snapshot.py",
+    "src/mtc_moveit_planner/scripts/run_planning_evidence.sh",
+    "src/mtc_moveit_planner/scripts/setup_ros_jazzy.sh",
+    "src/mtc_moveit_planner/src/move_group_backend.cpp",
+    "src/mtc_moveit_planner/src/moveit_planner_port.cpp",
+    "src/mtc_moveit_planner/src/plan_battery_sequence_main.cpp",
+    "src/mtc_moveit_planner/src/plan_fixed_pose_main.cpp",
+    "src/mtc_moveit_planner/src/plan_report_io.cpp",
+    "src/mtc_moveit_planner/src/planner_config.cpp",
+    "src/mtc_moveit_planner/src/ros_params.cpp",
+    "src/mtc_moveit_planner/src/trajectory_conversion.cpp",
+    "src/mtc_moveit_planner/test/fake_backend.hpp",
+    "src/mtc_moveit_planner/test/test_fsm_accepts_planner_output.cpp",
+    "src/mtc_moveit_planner/test/test_moveit_planner_port.cpp",
+    "src/mtc_moveit_planner/test/test_pose_math.cpp",
+    "src/mtc_moveit_planner/test/test_trajectory_conversion.cpp"
+  ],
+  "changed_file_inventory": [
+    {
+      "path": "README.md",
+      "sha256": "23b0b79559c4970b005016c77a4964201aca436ebde90667f32c78f010887b7c",
+      "size_bytes": 14120
+    },
+    {
+      "path": "README_FSM.md",
+      "sha256": "03222763062d49a8721f544d05b291a55471432e1bd1c7ceb9a0139a5301027c",
+      "size_bytes": 33605
+    },
+    {
+      "path": "docs/migration/PHASE2A_ROS2_ACTION_REPORT.md",
+      "sha256": "a9a6f99fbfe81cfa2a87045d248aa17a5b4abd7a9ca6985b14571ea887b02820",
+      "size_bytes": 16717
+    },
+    {
+      "path": "docs/migration/ROS_WIRING_FIX_20261011.md",
+      "sha256": "278e7ddec8cda1e6c3703e4deb6ebb098df25fb3fd649a9c47882aab4b7f9a06",
+      "size_bytes": 4848
+    },
+    {
+      "path": "src/mtc_manipulation/mtc_manipulation/pick_place_server.py",
+      "sha256": "9c8ae5c71407674a6245fddf0a373373a926af18c8e3fa8d1001bcaf6b5d503b",
+      "size_bytes": 30104
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/CMakeLists.txt",
+      "sha256": "d98e6b505ecbd9fd36e6ee5c9c8a3a5521c0dc0d5e5ab19f5945780e6ffd99fb",
+      "size_bytes": 2635
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/README.md",
+      "sha256": "5f2b5d42435149026a09ca36a87b8e6f57841ac83b17b05514322a1f3f39a34e",
+      "size_bytes": 9795
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/action_slot.hpp",
+      "sha256": "426b0e382d185b025d3a2cb5fbd68756d81c1d2c3760c48fac1349a112b4c6d6",
+      "size_bytes": 2154
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/mock_ports.hpp",
+      "sha256": "e5129d5c6c08f0d7495acb127f5eef639929c2a1da5943ceef35399d4cbcfc17",
+      "size_bytes": 4796
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/motion_server.hpp",
+      "sha256": "d793be5317b635880799b20f7bed21f7bc47eeb92acb9b85d2a29553409519ed",
+      "size_bytes": 1282
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/pick_place_server.hpp",
+      "sha256": "6fa3ae1a029fe8f1148eb146352475a2caef8a2fe7f3de8ae7a630daf1fa7684",
+      "size_bytes": 1241
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/include/mtc_ros2_action_cpp/task_server.hpp",
+      "sha256": "2e7a0f21b833004a63ff0ab52ab5c32a7574d531a92db6883f3b72e45b2cdcf1",
+      "size_bytes": 1882
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/package.xml",
+      "sha256": "5eeb3414e43dce8ef7475c561bcb5acf6b4232332c68aeb240878288e68d48a2",
+      "size_bytes": 737
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/src/mock_ports.cpp",
+      "sha256": "7392a79436aa48b6b9c232f509a859108ee7fb35226bf6fc557ed5df8225f17d",
+      "size_bytes": 7467
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/src/motion_main.cpp",
+      "sha256": "3951921915d8ff7d3eb4f92403f4ceb148d66f20f95a45ba04a6e7c3b85ea4d0",
+      "size_bytes": 287
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/src/motion_server.cpp",
+      "sha256": "dab67d44142fcbf36b7a6a55c755d8370114dad074534c8a946219ac936a0e7a",
+      "size_bytes": 5074
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/src/pick_place_main.cpp",
+      "sha256": "5d6c3679201157be5cb88dd0f6f0e1647afe6120a0f31b691eee13e1c8d403cd",
+      "size_bytes": 294
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/src/pick_place_server.cpp",
+      "sha256": "f5628dc80efb26e6214a67a6894f7f2bb9c6fa273daa0a02b8216c82b9068c5f",
+      "size_bytes": 4181
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/src/task_main.cpp",
+      "sha256": "d8743b0a78f5e94d46fdb37744b822f3aa381017caefa2f05aeb3e6d61cff643",
+      "size_bytes": 283
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/src/task_server.cpp",
+      "sha256": "6e0903157d324b0c64d086ac82495c45f98447b3c59a0b1f8e34fdc13b348e7a",
+      "size_bytes": 9021
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/test/ros_fixture.hpp",
+      "sha256": "e24076d2006c1796175c01bb7846569747ea7dd3c9e49af08002f894944eeaec",
+      "size_bytes": 2364
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/test/test_action_contracts.cpp",
+      "sha256": "acdb545bbe5d2f06980ac77000dbd95e64236a362e02e78414a2d4539739bc8b",
+      "size_bytes": 4665
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/test/test_motion_action.cpp",
+      "sha256": "aff8a1925b475b9085a79418346f0cbf402bd3fc2cb373a003864508a7cd1b7c",
+      "size_bytes": 6217
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp",
+      "sha256": "2b3f05076486005486c36feb67bd093f84dbd317396b0adc438f744fa3a48ff2",
+      "size_bytes": 9035
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/test/test_task_action.cpp",
+      "sha256": "30880ede17cd88e7da2bc601b90849d7408eaea48a57722cd683a9130561080c",
+      "size_bytes": 11233
+    },
+    {
+      "path": "src/mtc_ros2_action_cpp/test/verify_results.py",
+      "sha256": "0dd4ded4d4aa224af93a5e2e6a596d3d4476030766c15705d0b188dbc0b2a8cc",
+      "size_bytes": 2488
+    },
+    {
+      "path": "src/mtc_task/mtc_task/task_executor.py",
+      "sha256": "380fa5d138995188d263f7cc39ef6ec4391479bf41fca88557b090a71374f0f1",
+      "size_bytes": 23900
+    },
+    {
+      "path": "tests/test_ros_wiring.py",
+      "sha256": "46ac8dcdccad3d4b996057a15ce80d3afef6148de489dfa37f1383b8386af575",
+      "size_bytes": 5306
+    }
+  ],
+  "planner_source_and_evidence_byte_identical_to_first_parent": true,
+  "all_other_files_byte_identical_to_second_parent": true,
+  "source_trees": {
+    "src/mtc_moveit_planner": "01a4d3e39f0aa7fb4135cd09749004005eb3a549",
+    "src/mtc_ros2_action_cpp": "0b05123d48ffd3a0220eb5edad4547d0ec9dbf33",
+    "src/mtc_task": "e7bb39f689ee9989996fdfbd84925707febd7826",
+    "src/mtc_manipulation": "57f0ee3200b5ba163e492ac66c189e5ad98dac75",
+    "src/mtc_interfaces": "88cc9cc50f7ceb77788703ddac97fd938a88fce9",
+    "tests": "1ccfe1e0fe03d9b7cbeb04d64da561427591d463"
+  },
+  "binding": {
+    "file": "src/mtc_ros2_action_cpp/src/pick_place_server.cpp",
+    "planner": "MockPlanner",
+    "motion": "AsyncMockMotion",
+    "moveit_dependency_in_cpp_action": false
+  },
+  "source_modified": false,
+  "local_merge_performed": false,
+  "formal_baseline_advanced": false,
+  "observed_refs": [
+    "refs/heads/feature/moveit-planner",
+    "refs/pull/3/head"
+  ],
+  "review": "Upstream merged main into planner feature/PR #3; exact union of the two previously reviewed module trees. No new production connection, C++ bringup, full trajectory executor, state publishers, or stop proof. Upstream instructions and archived planning evidence treated as data.",
+  "supplement": "Verify exact installed merged overlay: delivered 358-case audit; independent 29-case planner identity audit; existing standalone C++ Mock executable probe; unmodified default planning SOP. No repeat of unchanged TF-wait diagnostic, graph CLI diagnostic, UBSan or CMake consumer without new evidence.",
+  "at": "2026-10-11T16:35:02.918353+00:00"
+}

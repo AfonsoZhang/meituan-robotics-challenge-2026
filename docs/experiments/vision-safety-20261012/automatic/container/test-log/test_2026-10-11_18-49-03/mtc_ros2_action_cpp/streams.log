@@ -1,0 +1,188 @@
+[0.057s] Invoking command in '/candidate-build/mtc_ros2_action_cpp': CMAKE_PREFIX_PATH=/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor LD_LIBRARY_PATH=/candidate-install/mtc_ros2_action_cpp/lib:/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/candidate-install/mtc_core_cpp/lib:/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib PYTHONPATH=/candidate-install/mtc_interfaces/lib/python3.12/site-packages:/candidate-install/mtc_vision_adapter/lib/python3.12/site-packages:/candidate-install/mtc_bringup/lib/python3.12/site-packages:/candidate-install/mtc_tool/lib/python3.12/site-packages:/candidate-install/mtc_task/lib/python3.12/site-packages:/candidate-install/mtc_safety/lib/python3.12/site-packages:/candidate-install/mtc_motion_execution/lib/python3.12/site-packages:/candidate-install/mtc_manipulation/lib/python3.12/site-packages:/candidate-install/mtc_aubo_bridge/lib/python3.12/site-packages:/driver_work/install/aubo_ros2_driver/lib/python3.12/site-packages:/driver_work/install/aubo_msgs/lib/python3.12/site-packages:/driver_work/install/aubo_dashboard_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process
+[0.069s] UpdateCTestConfiguration  from :/candidate-build/mtc_ros2_action_cpp/CTestConfiguration.ini
+[0.069s] Parse Config file:/candidate-build/mtc_ros2_action_cpp/CTestConfiguration.ini
+[0.069s]    Site: 46d00a29d537
+[0.069s]    Build name: (empty)
+[0.069s]  Add coverage exclude regular expressions.
+[0.069s] Create new tag: 20261011-1849 - Experimental
+[0.069s] UpdateCTestConfiguration  from :/candidate-build/mtc_ros2_action_cpp/CTestConfiguration.ini
+[0.069s] Parse Config file:/candidate-build/mtc_ros2_action_cpp/CTestConfiguration.ini
+[0.069s] Test project /candidate-build/mtc_ros2_action_cpp
+[0.069s] Constructing a list of tests
+[0.069s] Done constructing a list of tests
+[0.069s] Updating test list for fixtures
+[0.069s] Added 0 tests to meet fixture requirements
+[0.070s] Checking test dependency graph...
+[0.070s] Checking test dependency graph end
+[0.070s] test 1
+[0.070s]     Start 1: test_pick_place_action
+[0.070s] 
+[0.070s] 1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/candidate-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_pick_place_action.txt" "--command" "/candidate-build/mtc_ros2_action_cpp/test_pick_place_action" "--gtest_output=xml:/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml"
+[0.070s] 1: Working Directory: /candidate-build/mtc_ros2_action_cpp
+[0.070s] 1: Test timeout computed to be: 90
+[0.126s] 1: -- run_test.py: invoking following command in '/candidate-build/mtc_ros2_action_cpp':
+[0.126s] 1:  - /candidate-build/mtc_ros2_action_cpp/test_pick_place_action --gtest_output=xml:/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml
+[0.168s] 1: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[0.168s] 1: [==========] Running 12 tests from 1 test suite.
+[0.168s] 1: [----------] Global test environment set-up.
+[0.168s] 1: [----------] 12 tests from PickAction
+[0.169s] 1: [ RUN      ] PickAction.LegalGoalSucceedsOnlyAfterPlacementFeedback
+[1.240s] 1: [       OK ] PickAction.LegalGoalSucceedsOnlyAfterPlacementFeedback (1070 ms)
+[1.240s] 1: [ RUN      ] PickAction.InvalidParametersRejectedBeforeExecution
+[2.262s] 1: [       OK ] PickAction.InvalidParametersRejectedBeforeExecution (1021 ms)
+[2.262s] 1: [ RUN      ] PickAction.ConcurrentSecondGoalRejected
+[3.282s] 1: [       OK ] PickAction.ConcurrentSecondGoalRejected (1020 ms)
+[3.282s] 1: [ RUN      ] PickAction.MatchingCancelRequiresIndependentStationaryEvidence
+[3.358s] 1: [       OK ] PickAction.MatchingCancelRequiresIndependentStationaryEvidence (75 ms)
+[3.358s] 1: [ RUN      ] PickAction.CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked
+[3.451s] 1: [       OK ] PickAction.CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked (92 ms)
+[3.451s] 1: [ RUN      ] PickAction.StaleGoalCancelCannotInterruptNewGoal
+[5.540s] 1: [       OK ] PickAction.StaleGoalCancelCannotInterruptNewGoal (2088 ms)
+[5.540s] 1: [ RUN      ] PickAction.MotionStatusUnknownNeverResendsOrAutoClearsFault
+[5.700s] 1: [       OK ] PickAction.MotionStatusUnknownNeverResendsOrAutoClearsFault (160 ms)
+[5.700s] 1: [ RUN      ] PickAction.MissingPlanNeverSucceeds
+[5.776s] 1: [       OK ] PickAction.MissingPlanNeverSucceeds (76 ms)
+[5.776s] 1: [ RUN      ] PickAction.ConcurrentRosRequestsHaveExactlyOneOwner
+[6.827s] 1: [       OK ] PickAction.ConcurrentRosRequestsHaveExactlyOneOwner (1050 ms)
+[6.827s] 1: [ RUN      ] PickAction.InFlightWatchdogFaultStillDrainsAssociatedStopWorker
+[6.887s] 1: [       OK ] PickAction.InFlightWatchdogFaultStillDrainsAssociatedStopWorker (60 ms)
+[6.887s] 1: [ RUN      ] PickAction.CancelWhileCarryingStopsButKeepsLoadAdmissionLocked
+[7.327s] 1: [       OK ] PickAction.CancelWhileCarryingStopsButKeepsLoadAdmissionLocked (439 ms)
+[7.327s] 1: [ RUN      ] PickAction.UnverifiedAttachmentLoadCannotBeClearedByNewGoal
+[7.504s] 1: [       OK ] PickAction.UnverifiedAttachmentLoadCannotBeClearedByNewGoal (177 ms)
+[7.504s] 1: [----------] 12 tests from PickAction (7334 ms total)
+[7.504s] 1: 
+[7.504s] 1: [----------] Global test environment tear-down
+[7.504s] 1: [==========] 12 tests from 1 test suite ran. (7336 ms total)
+[7.505s] 1: [  PASSED  ] 12 tests.
+[7.612s] 1: -- run_test.py: return code 0
+[7.613s] 1: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml'
+[7.613s] 1: -- run_test.py: verify result file '/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml'
+[7.625s] 1/4 Test #1: test_pick_place_action ...........   Passed    7.56 sec
+[7.625s] test 2
+[7.625s]     Start 2: test_task_action
+[7.625s] 
+[7.626s] 2: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/candidate-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_task_action.txt" "--command" "/candidate-build/mtc_ros2_action_cpp/test_task_action" "--gtest_output=xml:/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml"
+[7.626s] 2: Working Directory: /candidate-build/mtc_ros2_action_cpp
+[7.626s] 2: Test timeout computed to be: 90
+[7.676s] 2: -- run_test.py: invoking following command in '/candidate-build/mtc_ros2_action_cpp':
+[7.676s] 2:  - /candidate-build/mtc_ros2_action_cpp/test_task_action --gtest_output=xml:/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml
+[7.707s] 2: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[7.707s] 2: [==========] Running 12 tests from 1 test suite.
+[7.707s] 2: [----------] Global test environment set-up.
+[7.707s] 2: [----------] 12 tests from TaskAction
+[7.707s] 2: [ RUN      ] TaskAction.BasicTaskUsesRealChildActionAndRecordsT0
+[8.774s] 2: [       OK ] TaskAction.BasicTaskUsesRealChildActionAndRecordsT0 (1066 ms)
+[8.774s] 2: [ RUN      ] TaskAction.SequenceTaskRecordsAllSlotsInOrder
+[11.893s] 2: [       OK ] TaskAction.SequenceTaskRecordsAllSlotsInOrder (3119 ms)
+[11.893s] 2: [ RUN      ] TaskAction.InvalidColorsAndConcurrentTaskRejected
+[12.941s] 2: [       OK ] TaskAction.InvalidColorsAndConcurrentTaskRejected (1047 ms)
+[12.941s] 2: [ RUN      ] TaskAction.CancelAckWaitsForChildFinalStopResult
+[13.024s] 2: [       OK ] TaskAction.CancelAckWaitsForChildFinalStopResult (82 ms)
+[13.024s] 2: [ RUN      ] TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent
+[13.113s] 2: [       OK ] TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent (88 ms)
+[13.113s] 2: [ RUN      ] TaskAction.ChildStatusUnknownPropagatesOriginalError
+[13.286s] 2: [       OK ] TaskAction.ChildStatusUnknownPropagatesOriginalError (173 ms)
+[13.286s] 2: [ RUN      ] TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess
+[13.448s] 2: [       OK ] TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess (161 ms)
+[13.448s] 2: [ RUN      ] TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild
+[13.656s] 2: [       OK ] TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild (208 ms)
+[13.656s] 2: [ RUN      ] TaskAction.MissingChildNeverFabricatesTaskSuccess
+[13.795s] 2: [       OK ] TaskAction.MissingChildNeverFabricatesTaskSuccess (138 ms)
+[13.795s] 2: [ RUN      ] TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent
+[13.893s] 2: [       OK ] TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent (97 ms)
+[13.893s] 2: [ RUN      ] TaskAction.StaleParentCancelCannotReachNewChild
+[15.956s] 2: [       OK ] TaskAction.StaleParentCancelCannotReachNewChild (2063 ms)
+[15.956s] 2: [ RUN      ] TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded
+[16.019s] 2: [       OK ] TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded (63 ms)
+[16.020s] 2: [----------] 12 tests from TaskAction (8311 ms total)
+[16.020s] 2: 
+[16.020s] 2: [----------] Global test environment tear-down
+[16.020s] 2: [==========] 12 tests from 1 test suite ran. (8313 ms total)
+[16.020s] 2: [  PASSED  ] 12 tests.
+[16.127s] 2: -- run_test.py: return code 0
+[16.127s] 2: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml'
+[16.128s] 2: -- run_test.py: verify result file '/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml'
+[16.136s] 2/4 Test #2: test_task_action .................   Passed    8.51 sec
+[16.137s] test 3
+[16.137s]     Start 3: test_motion_action
+[16.137s] 
+[16.137s] 3: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/candidate-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_motion_action.txt" "--command" "/candidate-build/mtc_ros2_action_cpp/test_motion_action" "--gtest_output=xml:/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml"
+[16.137s] 3: Working Directory: /candidate-build/mtc_ros2_action_cpp
+[16.137s] 3: Test timeout computed to be: 90
+[16.196s] 3: -- run_test.py: invoking following command in '/candidate-build/mtc_ros2_action_cpp':
+[16.196s] 3:  - /candidate-build/mtc_ros2_action_cpp/test_motion_action --gtest_output=xml:/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml
+[16.226s] 3: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[16.226s] 3: [==========] Running 8 tests from 1 test suite.
+[16.227s] 3: [----------] Global test environment set-up.
+[16.227s] 3: [----------] 8 tests from MotionAction
+[16.227s] 3: [ RUN      ] MotionAction.LegalNonzeroGoalAndFeedbackUseExecutorResult
+[16.373s] 3: [       OK ] MotionAction.LegalNonzeroGoalAndFeedbackUseExecutorResult (145 ms)
+[16.373s] 3: [ RUN      ] MotionAction.IllegalGoalRejectedWithoutBackendCall
+[16.392s] 3: [       OK ] MotionAction.IllegalGoalRejectedWithoutBackendCall (19 ms)
+[16.392s] 3: [ RUN      ] MotionAction.ConcurrentGoalIsRejectedAndFirstCompletes
+[16.520s] 3: [       OK ] MotionAction.ConcurrentGoalIsRejectedAndFirstCompletes (126 ms)
+[16.520s] 3: [ RUN      ] MotionAction.MatchingCancelStopsExactlyOnce
+[16.568s] 3: [       OK ] MotionAction.MatchingCancelStopsExactlyOnce (48 ms)
+[16.568s] 3: [ RUN      ] MotionAction.UnconfirmedCancelAborts520AndLocks
+[16.620s] 3: [       OK ] MotionAction.UnconfirmedCancelAborts520AndLocks (51 ms)
+[16.620s] 3: [ RUN      ] MotionAction.StaleCancelCannotReachBackendOrInterruptNewOwner
+[16.866s] 3: [       OK ] MotionAction.StaleCancelCannotReachBackendOrInterruptNewOwner (245 ms)
+[16.866s] 3: [ RUN      ] MotionAction.ExecutorTimeoutKeepsOriginal220AndRejectsNewMotion
+[17.002s] 3: [       OK ] MotionAction.ExecutorTimeoutKeepsOriginal220AndRejectsNewMotion (136 ms)
+[17.002s] 3: [ RUN      ] MotionAction.RosDeadlineIndependentlyRequestsAssociatedStop
+[17.838s] 3: [       OK ] MotionAction.RosDeadlineIndependentlyRequestsAssociatedStop (835 ms)
+[17.839s] 3: [----------] 8 tests from MotionAction (1611 ms total)
+[17.839s] 3: 
+[17.839s] 3: [----------] Global test environment tear-down
+[17.840s] 3: [==========] 8 tests from 1 test suite ran. (1612 ms total)
+[17.840s] 3: [  PASSED  ] 8 tests.
+[17.947s] 3: -- run_test.py: return code 0
+[17.947s] 3: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml'
+[17.947s] 3: -- run_test.py: verify result file '/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml'
+[17.958s] 3/4 Test #3: test_motion_action ...............   Passed    1.82 sec
+[17.958s] test 4
+[17.958s]     Start 4: test_action_contracts
+[17.959s] 
+[17.959s] 4: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/candidate-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_action_contracts.txt" "--command" "/candidate-build/mtc_ros2_action_cpp/test_action_contracts" "--gtest_output=xml:/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml"
+[17.959s] 4: Working Directory: /candidate-build/mtc_ros2_action_cpp
+[17.959s] 4: Test timeout computed to be: 60
+[18.025s] 4: -- run_test.py: invoking following command in '/candidate-build/mtc_ros2_action_cpp':
+[18.025s] 4:  - /candidate-build/mtc_ros2_action_cpp/test_action_contracts --gtest_output=xml:/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml
+[18.058s] 4: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[18.058s] 4: [==========] Running 8 tests from 1 test suite.
+[18.058s] 4: [----------] Global test environment set-up.
+[18.059s] 4: [----------] 8 tests from ActionContracts
+[18.059s] 4: [ RUN      ] ActionContracts.TaskConversionPreservesColorOrderIdentityAndDeadline
+[18.059s] 4: [       OK ] ActionContracts.TaskConversionPreservesColorOrderIdentityAndDeadline (0 ms)
+[18.059s] 4: [ RUN      ] ActionContracts.RosFloatBoundaryDoesNotRelaxCoreUpperLimit
+[18.059s] 4: [       OK ] ActionContracts.RosFloatBoundaryDoesNotRelaxCoreUpperLimit (0 ms)
+[18.059s] 4: [ RUN      ] ActionContracts.MockPlannerPreservesSixDPoseFrameStampAndContactConstraints
+[18.059s] 4: [       OK ] ActionContracts.MockPlannerPreservesSixDPoseFrameStampAndContactConstraints (0 ms)
+[18.059s] 4: [ RUN      ] ActionContracts.MockLoadEvidenceRemainsHoldingUntilVerifiedRelease
+[18.059s] 4: [       OK ] ActionContracts.MockLoadEvidenceRemainsHoldingUntilVerifiedRelease (0 ms)
+[18.059s] 4: [ RUN      ] ActionContracts.MockFailedReleaseNeverReportsNoLoad
+[18.059s] 4: [       OK ] ActionContracts.MockFailedReleaseNeverReportsNoLoad (0 ms)
+[18.059s] 4: [ RUN      ] ActionContracts.TestLiftRequiresPriorSimulatedAttachmentEvidence
+[18.059s] 4: [       OK ] ActionContracts.TestLiftRequiresPriorSimulatedAttachmentEvidence (0 ms)
+[18.059s] 4: [ RUN      ] ActionContracts.TrajectoryBridgeRefusesAndNeverSplitsIntoJointMoves
+[18.060s] 4: [       OK ] ActionContracts.TrajectoryBridgeRefusesAndNeverSplitsIntoJointMoves (0 ms)
+[18.060s] 4: [ RUN      ] ActionContracts.UnsupportedTrajectoryAndCartesianCapabilitiesCannotBeEnabled
+[18.060s] 4: [       OK ] ActionContracts.UnsupportedTrajectoryAndCartesianCapabilitiesCannotBeEnabled (0 ms)
+[18.060s] 4: [----------] 8 tests from ActionContracts (1 ms total)
+[18.060s] 4: 
+[18.060s] 4: [----------] Global test environment tear-down
+[18.060s] 4: [==========] 8 tests from 1 test suite ran. (1 ms total)
+[18.060s] 4: [  PASSED  ] 8 tests.
+[18.062s] 4: -- run_test.py: return code 0
+[18.063s] 4: -- run_test.py: inject classname prefix into gtest result file '/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml'
+[18.063s] 4: -- run_test.py: verify result file '/candidate-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml'
+[18.073s] 4/4 Test #4: test_action_contracts ............   Passed    0.12 sec
+[18.073s] 
+[18.073s] 100% tests passed, 0 tests failed out of 4
+[18.074s] 
+[18.074s] Label Time Summary:
+[18.074s] gtest    =  18.00 sec*proc (4 tests)
+[18.074s] 
+[18.074s] Total Test time (real) =  18.00 sec
+[18.082s] Invoked command in '/candidate-build/mtc_ros2_action_cpp' returned '0': CMAKE_PREFIX_PATH=/candidate-install/mtc_ros2_action_cpp:/candidate-install/mtc_manipulation_cpp:/candidate-install/mtc_task_cpp:/candidate-install/mtc_motion_execution_cpp:/candidate-install/mtc_interfaces:/candidate-install/mtc_core_cpp:/driver_work/install/aubo_ros2_driver:/driver_work/install/aubo_msgs:/driver_work/install/aubo_moveit_config:/driver_work/install/aubo_description:/driver_work/install/aubo_dashboard_msgs:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor LD_LIBRARY_PATH=/candidate-install/mtc_ros2_action_cpp/lib:/candidate-install/mtc_manipulation_cpp/lib:/candidate-install/mtc_task_cpp/lib:/candidate-install/mtc_motion_execution_cpp/lib:/candidate-install/mtc_interfaces/lib:/candidate-install/mtc_core_cpp/lib:/driver_work/install/aubo_ros2_driver/lib:/driver_work/install/aubo_msgs/lib:/driver_work/install/aubo_dashboard_msgs/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib PYTHONPATH=/candidate-install/mtc_interfaces/lib/python3.12/site-packages:/candidate-install/mtc_vision_adapter/lib/python3.12/site-packages:/candidate-install/mtc_bringup/lib/python3.12/site-packages:/candidate-install/mtc_tool/lib/python3.12/site-packages:/candidate-install/mtc_task/lib/python3.12/site-packages:/candidate-install/mtc_safety/lib/python3.12/site-packages:/candidate-install/mtc_motion_execution/lib/python3.12/site-packages:/candidate-install/mtc_manipulation/lib/python3.12/site-packages:/candidate-install/mtc_aubo_bridge/lib/python3.12/site-packages:/driver_work/install/aubo_ros2_driver/lib/python3.12/site-packages:/driver_work/install/aubo_msgs/lib/python3.12/site-packages:/driver_work/install/aubo_dashboard_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process

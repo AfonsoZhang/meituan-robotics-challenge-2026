@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/planner-acceptance-20261011-fcdd8ea/analyze_plans_v1.py", line 9, in <module>
+    limits={j.get('name'):{p.get('name'):float(p.text) for p in j.findall('command_interface[@name="position"]/param')} for j in model.findall('ros2_control/joint')}
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/planner-acceptance-20261011-fcdd8ea/analyze_plans_v1.py", line 9, in <dictcomp>
+    limits={j.get('name'):{p.get('name'):float(p.text) for p in j.findall('command_interface[@name="position"]/param')} for j in model.findall('ros2_control/joint')}
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/planner-acceptance-20261011-fcdd8ea/analyze_plans_v1.py", line 9, in <dictcomp>
+    limits={j.get('name'):{p.get('name'):float(p.text) for p in j.findall('command_interface[@name="position"]/param')} for j in model.findall('ros2_control/joint')}
+ValueError: could not convert string to float: '{-2*pi}'

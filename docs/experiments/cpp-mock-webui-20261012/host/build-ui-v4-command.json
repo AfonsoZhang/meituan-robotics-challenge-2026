@@ -1,0 +1,16 @@
+{
+  "name": "build-ui-v4",
+  "started_at": "2026-10-12T00:11:43.496169+00:00",
+  "kind": "ros",
+  "script": "set -e; cd /candidate; colcon --log-base /integration-evidence/build-ui-v4-log build --build-base /integration-build --install-base /integration-install --packages-select mtc_cpp_mock_bringup",
+  "argv": [
+    "docker",
+    "exec",
+    "mtc-cpp-webui-review",
+    "bash",
+    "-c",
+    "source /opt/ros/jazzy/setup.bash; source /candidate-install/setup.bash; if [ -f /integration-install/setup.bash ]; then source /integration-install/setup.bash; fi; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; export ROS_DOMAIN_ID=161 RMW_IMPLEMENTATION=rmw_fastrtps_cpp ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST PYTHONDONTWRITEBYTECODE=1 ROS_LOG_DIR=/integration-evidence/roslogs; set -e; cd /candidate; colcon --log-base /integration-evidence/build-ui-v4-log build --build-base /integration-build --install-base /integration-install --packages-select mtc_cpp_mock_bringup"
+  ],
+  "exit_code": 0,
+  "ended_at": "2026-10-12T00:11:45.820711+00:00"
+}

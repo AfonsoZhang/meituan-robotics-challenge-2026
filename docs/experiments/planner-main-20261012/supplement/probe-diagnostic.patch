@@ -1,0 +1,28 @@
+--- fixed-probe
++++ one-wait5-diagnostic
+@@ -29,7 +29,7 @@
+ def main():
+     out = Path(sys.argv[1])
+     out.mkdir(parents=True)
+-    os.environ.update(ROS_DOMAIN_ID='99', ROS_AUTOMATIC_DISCOVERY_RANGE='LOCALHOST',
++    os.environ.update(ROS_DOMAIN_ID='131', ROS_AUTOMATIC_DISCOVERY_RANGE='LOCALHOST',
+                       ROS_LOG_DIR=str(out / 'ros-logs'))
+     result = {'scope': 'Independent S3 MoveIt / GenericSystem; no FSM or physical robot',
+               'planning_execution': 'NOT RUN', 'clean_shutdown': 'NOT RUN'}
+@@ -103,6 +103,16 @@
+         assert executor.wait_for_server(timeout_sec=15), 'MoveIt execution Action unavailable'
+         for _ in range(20):
+             rclpy.spin_once(node, timeout_sec=0.1)
++        # Integration-only, one finite diagnostic: leave upstream source and limits intact.
++        # External graph availability is not proof of move_group's internal FJT connection.
++        settle_start = time.monotonic()
++        while time.monotonic() - settle_start < 5.0:
++            rclpy.spin_once(node, timeout_sec=0.1)
++        result['diagnostic_settle'] = {
++            'requested_seconds': 5.0,
++            'elapsed_seconds': time.monotonic() - settle_start,
++            'scope': 'One bounded discovery-settle diagnostic after unchanged 20 spins; not an internal MoveIt readiness proof or production fix',
++        }
+         servers = []
+         for name, namespace in node.get_node_names_and_namespaces():
+             for action, types in get_action_server_names_and_types_by_node(node, name, namespace):

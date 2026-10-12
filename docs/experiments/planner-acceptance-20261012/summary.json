@@ -1,0 +1,1178 @@
+{
+  "observation": "ENV-PLANNER-20261012",
+  "recorded_at": "2026-10-11T16:05:19.703885+00:00",
+  "trigger_local_date": "2026-10-11",
+  "supplement_finished_local_date": "2026-10-12",
+  "commit": "fcdd8eae897cbc37c539d4bad57b712f08124938",
+  "verdict": "PLANNER_PARTIAL_PASS_WITH_DEFAULT_TF_WATCHDOG_AND_SHUTDOWN_FAILURES",
+  "formal_baseline_advanced": false,
+  "merge_performed": false,
+  "automatic_summary_complete": true,
+  "automatic_status": "COMPLETED_WITH_FAILURES",
+  "build_packages": 13,
+  "cpp_cases": 347,
+  "cpp_by_package": {
+    "mtc_core_cpp": 23,
+    "mtc_manipulation_cpp": 120,
+    "mtc_motion_execution_cpp": 88,
+    "mtc_moveit_planner": 29,
+    "mtc_task_cpp": 87
+  },
+  "cpp_executables": 20,
+  "python_cases": 269,
+  "pure_python_mock_e2e": 15,
+  "new_planner_source_test_identity": "PASS 29 cases / 4 executables",
+  "ros_wiring": "NOT RUN: no optional regression on this branch",
+  "cpp_action": "NOT PRESENT on this separate branch; no claim of 358 Action tests",
+  "new_planner_rosdep": "PASS with installed workspace/driver overlays",
+  "installed_package_config_launch_identity": "PASS",
+  "planner_runs": {
+    "planning-sop": {
+      "fixed_pose": {
+        "point_count": 61,
+        "duration_s": 5.909337444,
+        "time_monotonic": true,
+        "finite_positions_velocities_accelerations": true,
+        "planner_declared_position_bounds": "PASS",
+        "joint_order": [
+          "shoulder_joint",
+          "upperArm_joint",
+          "foreArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "extremes_rad": {
+          "shoulder_joint": [
+            -0.0001394754026,
+            0
+          ],
+          "upperArm_joint": [
+            -0.03303023182,
+            0
+          ],
+          "foreArm_joint": [
+            0,
+            1.236729346
+          ],
+          "wrist1_joint": [
+            -0.3663814198,
+            0
+          ],
+          "wrist2_joint": [
+            0,
+            1.570987822
+          ],
+          "wrist3_joint": [
+            0,
+            0.0006366378061
+          ]
+        },
+        "planning_time_s": 0.06246622,
+        "final_position_error_m": 6.192415625e-05,
+        "final_orientation_error_rad": 0.001408115661,
+        "yaml": "fixed_pose_plan_20261011_155956.yaml",
+        "child_exit": 0
+      },
+      "sequences": {
+        "passive_hook_v1": {
+          "yaml": "battery_sequence_passive_hook_v1_T0_20261011_155959.yaml",
+          "ok": false,
+          "phases": [
+            {
+              "phase": "ACQUIRE",
+              "ok": false,
+              "error_code": 200,
+              "message": "[TF_UNAVAILABLE] side_insert: cannot transform ring pose from 'base_link' to 'world'",
+              "simulation_only": true,
+              "uncalibrated_inputs": [],
+              "primitives": [
+                {
+                  "primitive_name": "side_insert",
+                  "ok": false,
+                  "reason": "TF_UNAVAILABLE",
+                  "message": "cannot transform ring pose from 'base_link' to 'world'",
+                  "mode": "FREE_SPACE",
+                  "method": "",
+                  "goal_kind": "RING_STANDOFF",
+                  "start_assumption": "explicit_start_state",
+                  "contact_intent_only": false,
+                  "ee_goal": {
+                    "frame_id": "",
+                    "position_m": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "orientation_xyzw": [
+                      0,
+                      0,
+                      0,
+                      1
+                    ]
+                  },
+                  "planning_time_s": 0,
+                  "cartesian_fraction": 0,
+                  "time_scale_applied": 1,
+                  "max_ee_linear_speed_m_s": 0,
+                  "max_ee_angular_speed_rad_s": 0,
+                  "duration_s": 0,
+                  "point_count": 0,
+                  "timeout_ms": 0,
+                  "state_watchdog_s": 0
+                }
+              ]
+            }
+          ],
+          "command_count": 0,
+          "trajectories": [],
+          "boundaries": [],
+          "child_exit": 1
+        },
+        "magnetic_latch_v2": {
+          "yaml": "battery_sequence_magnetic_latch_v2_T0_20261011_160002.yaml",
+          "ok": false,
+          "phases": [
+            {
+              "phase": "ACQUIRE",
+              "ok": false,
+              "error_code": 200,
+              "message": "[TF_UNAVAILABLE] top_insert: cannot transform ring pose from 'base_link' to 'world'",
+              "simulation_only": true,
+              "uncalibrated_inputs": [],
+              "primitives": [
+                {
+                  "primitive_name": "top_insert",
+                  "ok": false,
+                  "reason": "TF_UNAVAILABLE",
+                  "message": "cannot transform ring pose from 'base_link' to 'world'",
+                  "mode": "FREE_SPACE",
+                  "method": "",
+                  "goal_kind": "RING_STANDOFF",
+                  "start_assumption": "explicit_start_state",
+                  "contact_intent_only": false,
+                  "ee_goal": {
+                    "frame_id": "",
+                    "position_m": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "orientation_xyzw": [
+                      0,
+                      0,
+                      0,
+                      1
+                    ]
+                  },
+                  "planning_time_s": 0,
+                  "cartesian_fraction": 0,
+                  "time_scale_applied": 1,
+                  "max_ee_linear_speed_m_s": 0,
+                  "max_ee_angular_speed_rad_s": 0,
+                  "duration_s": 0,
+                  "point_count": 0,
+                  "timeout_ms": 0,
+                  "state_watchdog_s": 0
+                }
+              ]
+            }
+          ],
+          "command_count": 0,
+          "trajectories": [],
+          "boundaries": [],
+          "child_exit": 1
+        }
+      },
+      "move_group_exit": -11,
+      "control_exit": -2,
+      "script_exit": 0,
+      "summary_reports_no_remaining_nodes": true
+    },
+    "diagnostic-tfwait": {
+      "fixed_pose": {
+        "point_count": 157,
+        "duration_s": 15.58985093,
+        "time_monotonic": true,
+        "finite_positions_velocities_accelerations": true,
+        "planner_declared_position_bounds": "PASS",
+        "joint_order": [
+          "shoulder_joint",
+          "upperArm_joint",
+          "foreArm_joint",
+          "wrist1_joint",
+          "wrist2_joint",
+          "wrist3_joint"
+        ],
+        "extremes_rad": {
+          "shoulder_joint": [
+            0,
+            2.444721371
+          ],
+          "upperArm_joint": [
+            0,
+            0.03098605933
+          ],
+          "foreArm_joint": [
+            -1.247404335,
+            0
+          ],
+          "wrist1_joint": [
+            0,
+            0.3432900775
+          ],
+          "wrist2_joint": [
+            0,
+            4.668752136
+          ],
+          "wrist3_joint": [
+            -0.6950433055,
+            0
+          ]
+        },
+        "planning_time_s": 0.045840176,
+        "final_position_error_m": 9.044997035e-05,
+        "final_orientation_error_rad": 0.001185652259,
+        "yaml": "fixed_pose_plan_20261011_160130.yaml",
+        "child_exit": 0
+      },
+      "sequences": {
+        "passive_hook_v1": {
+          "yaml": "battery_sequence_passive_hook_v1_T0_20261011_160133.yaml",
+          "ok": false,
+          "phases": [
+            {
+              "phase": "ACQUIRE",
+              "ok": false,
+              "error_code": 200,
+              "message": "[EXCEEDS_STATE_WATCHDOG] side_insert: trajectory lasts 136.515 s, more than 80% of the MOVE_PRE_ALIGN watchdog (30 s)",
+              "simulation_only": true,
+              "uncalibrated_inputs": [],
+              "primitives": [
+                {
+                  "primitive_name": "side_insert",
+                  "ok": false,
+                  "reason": "EXCEEDS_STATE_WATCHDOG",
+                  "message": "trajectory lasts 136.515 s, more than 80% of the MOVE_PRE_ALIGN watchdog (30 s)",
+                  "mode": "FREE_SPACE",
+                  "method": "ompl",
+                  "goal_kind": "RING_STANDOFF",
+                  "start_assumption": "explicit_start_state",
+                  "contact_intent_only": false,
+                  "ee_goal": {
+                    "frame_id": "world",
+                    "position_m": [
+                      0.37,
+                      -0.05,
+                      0.2
+                    ],
+                    "orientation_xyzw": [
+                      0,
+                      0.7071067812,
+                      0,
+                      0.7071067812
+                    ]
+                  },
+                  "planning_time_s": 0.075282571,
+                  "cartesian_fraction": 0,
+                  "time_scale_applied": 10.20857903,
+                  "max_ee_linear_speed_m_s": 0.01960784314,
+                  "max_ee_angular_speed_rad_s": 0.05280203629,
+                  "duration_s": 136.5147489,
+                  "point_count": 135,
+                  "timeout_ms": 0,
+                  "state_watchdog_s": 30
+                }
+              ]
+            }
+          ],
+          "command_count": 0,
+          "trajectories": [],
+          "boundaries": [],
+          "child_exit": 1
+        },
+        "magnetic_latch_v2": {
+          "yaml": "battery_sequence_magnetic_latch_v2_T0_20261011_160136.yaml",
+          "ok": true,
+          "phases": [
+            {
+              "phase": "ACQUIRE",
+              "ok": true,
+              "error_code": 0,
+              "message": "planned 2 primitive(s) in frame 'world' for 'ee_link'; simulation_only=true (uncalibrated: TCP=PLACEHOLDER)",
+              "simulation_only": true,
+              "uncalibrated_inputs": [
+                "TCP=PLACEHOLDER"
+              ],
+              "primitives": [
+                {
+                  "primitive_name": "top_insert",
+                  "ok": true,
+                  "message": "ok",
+                  "mode": "FREE_SPACE",
+                  "method": "cartesian_preferred",
+                  "goal_kind": "RING_STANDOFF",
+                  "start_assumption": "explicit_start_state",
+                  "contact_intent_only": false,
+                  "ee_goal": {
+                    "frame_id": "world",
+                    "position_m": [
+                      0.4,
+                      -0.05,
+                      0.23
+                    ],
+                    "orientation_xyzw": [
+                      1,
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  "planning_time_s": 0.007934409,
+                  "cartesian_fraction": 1,
+                  "time_scale_applied": 3.932480795,
+                  "max_ee_linear_speed_m_s": 0.01960784314,
+                  "max_ee_angular_speed_rad_s": 0.007344439396,
+                  "duration_s": 13.17771476,
+                  "point_count": 35,
+                  "timeout_ms": 20767,
+                  "state_watchdog_s": 30
+                },
+                {
+                  "primitive_name": "test_lift",
+                  "ok": true,
+                  "message": "ok",
+                  "mode": "CARTESIAN",
+                  "method": "cartesian",
+                  "goal_kind": "RELATIVE_UP",
+                  "start_assumption": "simulated ENGAGE_INSERT 0.03 m along TCP axis 2 (ToolPort motion, not emitted)",
+                  "contact_intent_only": false,
+                  "ee_goal": {
+                    "frame_id": "world",
+                    "position_m": [
+                      0.3999999991,
+                      -0.05000000091,
+                      0.2099999929
+                    ],
+                    "orientation_xyzw": [
+                      1,
+                      4.62613281e-12,
+                      -7.595402779e-11,
+                      1.206491906e-12
+                    ]
+                  },
+                  "planning_time_s": 0.001001841,
+                  "cartesian_fraction": 1,
+                  "time_scale_applied": 2.520946097,
+                  "max_ee_linear_speed_m_s": 0.009803921569,
+                  "max_ee_angular_speed_rad_s": 0,
+                  "duration_s": 1.877579406,
+                  "point_count": 9,
+                  "timeout_ms": 3817,
+                  "state_watchdog_s": 15
+                }
+              ]
+            },
+            {
+              "phase": "TRANSPORT",
+              "ok": true,
+              "error_code": 0,
+              "message": "planned 5 primitive(s) in frame 'world' for 'ee_link'; simulation_only=true (uncalibrated: slot T0=PLACEHOLDER TCP=PLACEHOLDER)",
+              "simulation_only": true,
+              "uncalibrated_inputs": [
+                "slot T0=PLACEHOLDER",
+                "TCP=PLACEHOLDER"
+              ],
+              "primitives": [
+                {
+                  "primitive_name": "lift",
+                  "ok": true,
+                  "message": "ok",
+                  "mode": "CARTESIAN",
+                  "method": "cartesian",
+                  "goal_kind": "RELATIVE_UP",
+                  "start_assumption": "explicit_start_state",
+                  "contact_intent_only": false,
+                  "ee_goal": {
+                    "frame_id": "world",
+                    "position_m": [
+                      0.3999999989,
+                      -0.05000000095,
+                      0.2599999918
+                    ],
+                    "orientation_xyzw": [
+                      1,
+                      4.626098116e-12,
+                      -7.5953876e-11,
+                      1.206468116e-12
+                    ]
+                  },
+                  "planning_time_s": 0.002752641,
+                  "cartesian_fraction": 1,
+                  "time_scale_applied": 1.991490347,
+                  "max_ee_linear_speed_m_s": 0.02941176471,
+                  "max_ee_angular_speed_rad_s": 0,
+                  "duration_s": 3.283564987,
+                  "point_count": 18,
+                  "timeout_ms": 5926,
+                  "state_watchdog_s": 30
+                },
+                {
+                  "primitive_name": "transport",
+                  "ok": true,
+                  "message": "ok",
+                  "mode": "FREE_SPACE",
+                  "method": "cartesian_preferred",
+                  "goal_kind": "SLOT_OFFSET",
+                  "start_assumption": "previous_primitive_end",
+                  "contact_intent_only": false,
+                  "ee_goal": {
+                    "frame_id": "world",
+                    "position_m": [
+                      0.35,
+                      -0.2,
+                      0.2
+                    ],
+                    "orientation_xyzw": [
+                      1,
+                      4.626125871e-12,
+                      -7.595410776e-11,
+                      1.206528774e-12
+                    ]
+                  },
+                  "planning_time_s": 0.005163806,
+                  "cartesian_fraction": 1,
+                  "time_scale_applied": 1,
+                  "max_ee_linear_speed_m_s": 0.1341483996,
+                  "max_ee_angular_speed_rad_s": 0,
+                  "duration_s": 2.253244502,
+                  "point_count": 24,
+                  "timeout_ms": 4380,
+                  "state_watchdog_s": 60
+                },
+                {
+                  "primitive_name": "pre_seat",
+                  "ok": true,
+                  "message": "ok",
+                  "mode": "CARTESIAN",
+                  "method": "cartesian",
+                  "goal_kind": "SLOT_OFFSET",
+                  "start_assumption": "previous_primitive_end",
+                  "contact_intent_only": false,
+                  "ee_goal": {
+                    "frame_id": "world",
+                    "position_m": [
+                      0.35,
+                      -0.2,
+                      0.12
+                    ],
+                    "orientation_xyzw": [
+                      1,
+                      4.626146688e-12,
+                      -7.612789786e-11,
+                      1.207985239e-12
+                    ]
+                  },
+                  "planning_time_s": 0.003081369,
+                  "cartesian_fraction": 1,
+                  "time_scale_applied": 2.401630663,
+                  "max_ee_linear_speed_m_s": 0.02941176471,
+                  "max_ee_angular_speed_rad_s": 0,
+                  "duration_s": 5.126590242,
+                  "point_count": 23,
+                  "timeout_ms": 8690,
+                  "state_watchdog_s": 30
+                },
+                {
+                  "primitive_name": "seat_contact",
+                  "ok": true,
+                  "message": "ok",
+                  "mode": "CARTESIAN",
+                  "method": "cartesian",
+                  "goal_kind": "SLOT_OFFSET",
+                  "start_assumption": "previous_primitive_end",
+                  "contact_intent_only": true,
+                  "ee_goal": {
+                    "frame_id": "world",
+                    "position_m": [
+                      0.35,
+                      -0.2,
+                      0.1
+                    ],
+                    "orientation_xyzw": [
+                      1,
+                      4.626153627e-12,
+                      -7.612740009e-11,
+                      1.208050612e-12
+                    ]
+                  },
+                  "planning_time_s": 0.001601997,
+                  "cartesian_fraction": 1,
+                  "time_scale_applied": 7.266741559,
+                  "max_ee_linear_speed_m_s": 0.004901960784,
+                  "max_ee_angular_speed_rad_s": 0,
+                  "duration_s": 7.746108436,
+                  "point_count": 12,
+                  "timeout_ms": 12620,
+                  "state_watchdog_s": 20
+                },
+                {
+                  "primitive_name": "retreat",
+                  "ok": true,
+                  "message": "ok",
+                  "mode": "CARTESIAN",
+                  "method": "cartesian",
+                  "goal_kind": "RELATIVE_UP",
+                  "start_assumption": "simulated WITHDRAW 0.03 m along TCP axis 2 (ToolPort motion, not emitted)",
+                  "contact_intent_only": false,
+                  "ee_goal": {
+                    "frame_id": "world",
+                    "position_m": [
+                      0.3499999975,
+                      -0.1999999995,
+                      0.229999994
+                    ],
+                    "orientation_xyzw": [
+                      1,
+                      4.626160566e-12,
+                      -7.612691846e-11,
+                      1.208138161e-12
+                    ]
+                  },
+                  "planning_time_s": 0.003577311,
+                  "cartesian_fraction": 1,
+                  "time_scale_applied": 2.438364336,
+                  "max_ee_linear_speed_m_s": 0.02941176471,
+                  "max_ee_angular_speed_rad_s": 0,
+                  "duration_s": 5.864071971,
+                  "point_count": 26,
+                  "timeout_ms": 9797,
+                  "state_watchdog_s": 30
+                }
+              ]
+            }
+          ],
+          "command_count": 7,
+          "trajectories": [
+            {
+              "point_count": 35,
+              "duration_s": 13.17771476,
+              "time_monotonic": true,
+              "finite_positions_velocities_accelerations": true,
+              "planner_declared_position_bounds": "PASS",
+              "joint_order": [
+                "shoulder_joint",
+                "upperArm_joint",
+                "foreArm_joint",
+                "wrist1_joint",
+                "wrist2_joint",
+                "wrist3_joint"
+              ],
+              "extremes_rad": {
+                "shoulder_joint": [
+                  0,
+                  0.2105633419
+                ],
+                "upperArm_joint": [
+                  -0.1091038586,
+                  -0.008475193053
+                ],
+                "foreArm_joint": [
+                  1.236,
+                  1.833843502
+                ],
+                "wrist1_joint": [
+                  -0.3675,
+                  0.3721510334
+                ],
+                "wrist2_joint": [
+                  1.5701,
+                  1.574053595
+                ],
+                "wrist3_joint": [
+                  0,
+                  0.2105633419
+                ]
+              },
+              "primitive_name": "top_insert",
+              "method": "cartesian_preferred",
+              "start_assumption": "explicit_start_state",
+              "planning_time_s": 0.007934409,
+              "time_scale_applied": 3.932480795,
+              "timeout_ms": 20767,
+              "state_watchdog_s": 30,
+              "max_ee_linear_speed_m_s": 0.01960784314,
+              "max_ee_angular_speed_rad_s": 0.007344439396,
+              "contact_intent_only": false
+            },
+            {
+              "point_count": 9,
+              "duration_s": 1.877579406,
+              "time_monotonic": true,
+              "finite_positions_velocities_accelerations": true,
+              "planner_declared_position_bounds": "PASS",
+              "joint_order": [
+                "shoulder_joint",
+                "upperArm_joint",
+                "foreArm_joint",
+                "wrist1_joint",
+                "wrist2_joint",
+                "wrist3_joint"
+              ],
+              "extremes_rad": {
+                "shoulder_joint": [
+                  0.2105633419,
+                  0.2105633419
+                ],
+                "upperArm_joint": [
+                  -0.1561965514,
+                  -0.1388789342
+                ],
+                "foreArm_joint": [
+                  1.891911072,
+                  1.918971199
+                ],
+                "wrist1_joint": [
+                  0.4599936792,
+                  0.5043714231
+                ],
+                "wrist2_joint": [
+                  1.570796327,
+                  1.570796327
+                ],
+                "wrist3_joint": [
+                  0.2105633419,
+                  0.2105633419
+                ]
+              },
+              "primitive_name": "test_lift",
+              "method": "cartesian",
+              "start_assumption": "simulated ENGAGE_INSERT 0.03 m along TCP axis 2 (ToolPort motion, not emitted)",
+              "planning_time_s": 0.001001841,
+              "time_scale_applied": 2.520946097,
+              "timeout_ms": 3817,
+              "state_watchdog_s": 15,
+              "max_ee_linear_speed_m_s": 0.009803921569,
+              "max_ee_angular_speed_rad_s": 0,
+              "contact_intent_only": false
+            },
+            {
+              "point_count": 18,
+              "duration_s": 3.283564987,
+              "time_monotonic": true,
+              "finite_positions_velocities_accelerations": true,
+              "planner_declared_position_bounds": "PASS",
+              "joint_order": [
+                "shoulder_joint",
+                "upperArm_joint",
+                "foreArm_joint",
+                "wrist1_joint",
+                "wrist2_joint",
+                "wrist3_joint"
+              ],
+              "extremes_rad": {
+                "shoulder_joint": [
+                  0.2105633419,
+                  0.2105633419
+                ],
+                "upperArm_joint": [
+                  -0.1388789342,
+                  -0.07633826038
+                ],
+                "foreArm_joint": [
+                  1.736973906,
+                  1.891911072
+                ],
+                "wrist1_joint": [
+                  0.2425158397,
+                  0.4599936792
+                ],
+                "wrist2_joint": [
+                  1.570796327,
+                  1.570796327
+                ],
+                "wrist3_joint": [
+                  0.2105633419,
+                  0.2105633419
+                ]
+              },
+              "primitive_name": "lift",
+              "method": "cartesian",
+              "start_assumption": "explicit_start_state",
+              "planning_time_s": 0.002752641,
+              "time_scale_applied": 1.991490347,
+              "timeout_ms": 5926,
+              "state_watchdog_s": 30,
+              "max_ee_linear_speed_m_s": 0.02941176471,
+              "max_ee_angular_speed_rad_s": 0,
+              "contact_intent_only": false
+            },
+            {
+              "point_count": 24,
+              "duration_s": 2.253244502,
+              "time_monotonic": true,
+              "finite_positions_velocities_accelerations": true,
+              "planner_declared_position_bounds": "PASS",
+              "joint_order": [
+                "shoulder_joint",
+                "upperArm_joint",
+                "foreArm_joint",
+                "wrist1_joint",
+                "wrist2_joint",
+                "wrist3_joint"
+              ],
+              "extremes_rad": {
+                "shoulder_joint": [
+                  -0.1842277755,
+                  0.2105633419
+                ],
+                "upperArm_joint": [
+                  -0.1561965426,
+                  -0.0695797535
+                ],
+                "foreArm_joint": [
+                  1.736973906,
+                  1.918971182
+                ],
+                "wrist1_joint": [
+                  0.2425158397,
+                  0.5043713979
+                ],
+                "wrist2_joint": [
+                  1.570796327,
+                  1.570796327
+                ],
+                "wrist3_joint": [
+                  -0.1842277755,
+                  0.2105633419
+                ]
+              },
+              "primitive_name": "transport",
+              "method": "cartesian_preferred",
+              "start_assumption": "previous_primitive_end",
+              "planning_time_s": 0.005163806,
+              "time_scale_applied": 1,
+              "timeout_ms": 4380,
+              "state_watchdog_s": 60,
+              "max_ee_linear_speed_m_s": 0.1341483996,
+              "max_ee_angular_speed_rad_s": 0,
+              "contact_intent_only": false
+            },
+            {
+              "point_count": 23,
+              "duration_s": 5.126590242,
+              "time_monotonic": true,
+              "finite_positions_velocities_accelerations": true,
+              "planner_declared_position_bounds": "PASS",
+              "joint_order": [
+                "shoulder_joint",
+                "upperArm_joint",
+                "foreArm_joint",
+                "wrist1_joint",
+                "wrist2_joint",
+                "wrist3_joint"
+              ],
+              "extremes_rad": {
+                "shoulder_joint": [
+                  -0.1842277759,
+                  -0.1842277755
+                ],
+                "upperArm_joint": [
+                  -0.353254936,
+                  -0.1561965426
+                ],
+                "foreArm_joint": [
+                  1.918971182,
+                  2.085000266
+                ],
+                "wrist1_joint": [
+                  0.5043713979,
+                  0.8674588746
+                ],
+                "wrist2_joint": [
+                  1.570796327,
+                  1.570796327
+                ],
+                "wrist3_joint": [
+                  -0.1842277759,
+                  -0.1842277755
+                ]
+              },
+              "primitive_name": "pre_seat",
+              "method": "cartesian",
+              "start_assumption": "previous_primitive_end",
+              "planning_time_s": 0.003081369,
+              "time_scale_applied": 2.401630663,
+              "timeout_ms": 8690,
+              "state_watchdog_s": 30,
+              "max_ee_linear_speed_m_s": 0.02941176471,
+              "max_ee_angular_speed_rad_s": 0,
+              "contact_intent_only": false
+            },
+            {
+              "point_count": 12,
+              "duration_s": 7.746108436,
+              "time_monotonic": true,
+              "finite_positions_velocities_accelerations": true,
+              "planner_declared_position_bounds": "PASS",
+              "joint_order": [
+                "shoulder_joint",
+                "upperArm_joint",
+                "foreArm_joint",
+                "wrist1_joint",
+                "wrist2_joint",
+                "wrist3_joint"
+              ],
+              "extremes_rad": {
+                "shoulder_joint": [
+                  -0.1842277759,
+                  -0.1842277759
+                ],
+                "upperArm_joint": [
+                  -0.4178649431,
+                  -0.353254936
+                ],
+                "foreArm_joint": [
+                  2.085000266,
+                  2.111291129
+                ],
+                "wrist1_joint": [
+                  0.8674588746,
+                  0.9583597456
+                ],
+                "wrist2_joint": [
+                  1.570796327,
+                  1.570796327
+                ],
+                "wrist3_joint": [
+                  -0.1842277759,
+                  -0.1842277759
+                ]
+              },
+              "primitive_name": "seat_contact",
+              "method": "cartesian",
+              "start_assumption": "previous_primitive_end",
+              "planning_time_s": 0.001601997,
+              "time_scale_applied": 7.266741559,
+              "timeout_ms": 12620,
+              "state_watchdog_s": 20,
+              "max_ee_linear_speed_m_s": 0.004901960784,
+              "max_ee_angular_speed_rad_s": 0,
+              "contact_intent_only": true
+            },
+            {
+              "point_count": 26,
+              "duration_s": 5.864071971,
+              "time_monotonic": true,
+              "finite_positions_velocities_accelerations": true,
+              "planner_declared_position_bounds": "PASS",
+              "joint_order": [
+                "shoulder_joint",
+                "upperArm_joint",
+                "foreArm_joint",
+                "wrist1_joint",
+                "wrist2_joint",
+                "wrist3_joint"
+              ],
+              "extremes_rad": {
+                "shoulder_joint": [
+                  -0.1842277759,
+                  -0.1842277759
+                ],
+                "upperArm_joint": [
+                  -0.3230941116,
+                  -0.1091038573
+                ],
+                "foreArm_joint": [
+                  1.833843533,
+                  2.069446731
+                ],
+                "wrist1_joint": [
+                  0.3721510633,
+                  0.8217445161
+                ],
+                "wrist2_joint": [
+                  1.570796327,
+                  1.570796327
+                ],
+                "wrist3_joint": [
+                  -0.1842277759,
+                  -0.1842277759
+                ]
+              },
+              "primitive_name": "retreat",
+              "method": "cartesian",
+              "start_assumption": "simulated WITHDRAW 0.03 m along TCP axis 2 (ToolPort motion, not emitted)",
+              "planning_time_s": 0.003577311,
+              "time_scale_applied": 2.438364336,
+              "timeout_ms": 9797,
+              "state_watchdog_s": 30,
+              "max_ee_linear_speed_m_s": 0.02941176471,
+              "max_ee_angular_speed_rad_s": 0,
+              "contact_intent_only": false
+            }
+          ],
+          "boundaries": [
+            {
+              "from": "top_insert",
+              "to": "test_lift",
+              "max_joint_gap_rad": 0.13222038970000005,
+              "unemitted_tool_motion_assumption": true,
+              "scope": "Gap assumed by upstream ToolPort handoff; not executed or validated physically"
+            },
+            {
+              "from": "test_lift",
+              "to": "lift",
+              "max_joint_gap_rad": 0.0,
+              "unemitted_tool_motion_assumption": false,
+              "scope": "Matching endpoints"
+            },
+            {
+              "from": "lift",
+              "to": "transport",
+              "max_joint_gap_rad": 0.0,
+              "unemitted_tool_motion_assumption": false,
+              "scope": "Matching endpoints"
+            },
+            {
+              "from": "transport",
+              "to": "pre_seat",
+              "max_joint_gap_rad": 0.0,
+              "unemitted_tool_motion_assumption": false,
+              "scope": "Matching endpoints"
+            },
+            {
+              "from": "pre_seat",
+              "to": "seat_contact",
+              "max_joint_gap_rad": 0.0,
+              "unemitted_tool_motion_assumption": false,
+              "scope": "Matching endpoints"
+            },
+            {
+              "from": "seat_contact",
+              "to": "retreat",
+              "max_joint_gap_rad": 0.13661522950000005,
+              "unemitted_tool_motion_assumption": true,
+              "scope": "Gap assumed by upstream ToolPort handoff; not executed or validated physically"
+            }
+          ],
+          "child_exit": 0
+        }
+      },
+      "move_group_exit": -11,
+      "control_exit": 0,
+      "script_exit": 0,
+      "summary_reports_no_remaining_nodes": true
+    }
+  },
+  "only_diagnostic_parameter_difference": {
+    "backend.tf_timeout_s": {
+      "default": 0.5,
+      "diagnostic": 5.0
+    }
+  },
+  "tf_analysis": "Longer TF wait allowed planning in one diagnostic run. Original defaults failed for both tools despite external static TF availability. This supports a startup/discovery readiness issue but does not establish full root cause or general fix. V1 watchdog failure is retained without increasing motion budget. V2 conditional planning success does not validate upstream defaults, tool gaps, actual FSM integration or physical execution.",
+  "raw_urdf_command_interface_limits": {
+    "shoulder_joint": {
+      "min": "{-2*pi}",
+      "max": "{2*pi}"
+    },
+    "upperArm_joint": {
+      "min": "{-2*pi}",
+      "max": "{2*pi}"
+    },
+    "foreArm_joint": {
+      "min": "-2.41",
+      "max": "2.41"
+    },
+    "wrist1_joint": {
+      "min": "-2.66",
+      "max": "2.66"
+    },
+    "wrist2_joint": {
+      "min": "{-2*pi}",
+      "max": "{2*pi}"
+    },
+    "wrist3_joint": {
+      "min": "-2.23",
+      "max": "2.23"
+    }
+  },
+  "runtime_limit_enforcement": "NOT VERIFIED; 3 joints have unexpanded {-2*pi}/{2*pi} literals in expanded model",
+  "legacy_python": [
+    {
+      "case": "early-goal",
+      "delay_before_goal_sec": 0.0,
+      "cancel_requested": false,
+      "feedback": [],
+      "status": "FAIL",
+      "scope": "Delivered Python Mock launch, dry_run default",
+      "task_server_available": false,
+      "exception": "AssertionError('Task server unavailable')",
+      "shutdown_escalated": false,
+      "launch_exit_code": 0,
+      "child_failure": true
+    },
+    {
+      "case": "delayed-goal",
+      "delay_before_goal_sec": 7.0,
+      "cancel_requested": false,
+      "feedback": [],
+      "status": "FAIL",
+      "scope": "Delivered Python Mock launch, dry_run default",
+      "task_server_available": false,
+      "exception": "AssertionError('Task server unavailable')",
+      "shutdown_escalated": false,
+      "launch_exit_code": 0,
+      "child_failure": true
+    },
+    {
+      "case": "cancel-goal",
+      "delay_before_goal_sec": 0.0,
+      "cancel_requested": true,
+      "feedback": [],
+      "status": "FAIL",
+      "scope": "Delivered Python Mock launch, dry_run default",
+      "task_server_available": false,
+      "exception": "AssertionError('Task server unavailable')",
+      "shutdown_escalated": false,
+      "launch_exit_code": 0,
+      "child_failure": true
+    }
+  ],
+  "independent_moveit": {
+    "scope": "Independent S3 MoveIt / GenericSystem; no FSM or physical robot",
+    "planning_execution": "PASS",
+    "clean_shutdown": "FAIL",
+    "max_error_rad": 9.981840057298541e-05,
+    "distinct_joint_stamps": 208,
+    "execute": {
+      "status": 4,
+      "result": {
+        "error_code": {
+          "val": 1,
+          "message": "",
+          "source": ""
+        }
+      }
+    },
+    "shutdown": [
+      {
+        "launch": "move-group",
+        "escalated": false,
+        "already_exited": false,
+        "exit_code": 0,
+        "child_failures": [
+          "process has died [pid 4009, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_rpdvuc4d --params-file /tmp/launch_params_a6nh06g7']."
+        ]
+      },
+      {
+        "launch": "control",
+        "escalated": false,
+        "already_exited": false,
+        "exit_code": 0,
+        "child_failures": []
+      }
+    ]
+  },
+  "dependencies": "Whole workspace unresolved ament_python key; driver test-nodes/docker.io missing. New planner per-package check passes.",
+  "driver_test_aggregate": {
+    "total": 1104,
+    "failures": 279,
+    "skipped": 259,
+    "scope": "includes lint and wrapper records, not independent function count"
+  },
+  "cleanup": {
+    "recorded_at": "2026-10-11T16:02:39.600701+00:00",
+    "original_runner_pid": 94194,
+    "original_runner_absent": true,
+    "supplement_before_stop": "only sleep infinity; no ROS processes or daemons",
+    "stop": {
+      "exit_code": 0,
+      "stdout": "mtc-planner-review-fcdd8ea\n",
+      "stderr": ""
+    },
+    "containers": [
+      {
+        "container": "mtc-repro-5c8f61d8af9f-fcdd8eae897c",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-11T15:50:47.100772504Z",
+          "FinishedAt": "2026-10-11T15:54:58.837241768Z"
+        },
+        "network": "none",
+        "cpus": 2000000000,
+        "memory": 4294967296,
+        "mounts": [],
+        "devices": [],
+        "ports": {}
+      },
+      {
+        "container": "mtc-planner-review-fcdd8ea",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-11T15:57:27.312864251Z",
+          "FinishedAt": "2026-10-11T16:02:39.296954552Z"
+        },
+        "network": "none",
+        "cpus": 2000000000,
+        "memory": 4294967296,
+        "mounts": [],
+        "devices": [],
+        "ports": {}
+      }
+    ],
+    "keeper_exit137_note": "docker stop terminates sleep keeper; not ROS child shutdown verdict."
+  },
+  "main_receipt": {
+    "thread": "01a12a25-b5c5-7b23-98b7-1cf673d68838",
+    "ack_at": "2026-10-11T15:55:05.657909+00:00",
+    "queued_at": "2026-10-11T15:55:00.118715+00:00",
+    "queue_to_ack_seconds": 5.539194,
+    "attempts": 1,
+    "marker": "MOVEIT_WAKE_ACK_a1f1b9b45d0e0d44df7c1a39a1db10b8",
+    "complete_at_freeze": false,
+    "note": "Complete only after frozen evidence, report and fact-chain registration; final raw receipt is not backfilled into frozen files."
+  },
+  "not_completed": [
+    "Default V1/V2 TF startup robustness",
+    "V1 136.515 s trajectory versus 24 s state budget; no timeout relaxation applied",
+    "New planner full trajectories into real C++ Action/FSM/FJT including unique execution ownership/cancel/stop",
+    "Actual 2 s PLAN_ACQUIRE deadline with real async backend",
+    "Tool insertion/withdrawal execution and actual start-state matching",
+    "Calibrated TCP/stations/dynamic TF timing, camera/tool/battery/environment collision scene and attached battery",
+    "MoveIt clean shutdown; driver limits enforcement, dependencies/lint",
+    "TSan, SDK licence/vendor checksum, NUC and physical robot, full Web UI/state topics"
+  ],
+  "handoff": {
+    "Chang_Jianshuo": [
+      "default TF readiness",
+      "planning scene / calibration gates / numeric limit declaration",
+      "V1 planning/profile coordination"
+    ],
+    "Sun_Jiaming": [
+      "FSM state deadlines / Action integration / tool gaps / cancel & stop / unique executor; no kernel fix taken over"
+    ],
+    "integration": [
+      "driver and MoveIt shutdown",
+      "raw model symbolic command limits verification",
+      "dependency and evidence tracking"
+    ]
+  }
+}

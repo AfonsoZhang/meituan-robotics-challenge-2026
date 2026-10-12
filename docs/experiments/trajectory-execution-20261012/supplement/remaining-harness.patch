@@ -1,0 +1,39 @@
+--- probe_generic.py
++++ probe_generic_remaining.py
+@@ -5,8 +5,10 @@
+ from pathlib import Path
+ from datetime import datetime,timezone
+ import json,math,os,re,signal,subprocess,sys,time,xml.etree.ElementTree as ET
++mode_to_run=sys.argv[2];domain=sys.argv[3]
++assert mode_to_run in ['mismatch','cancel'] and domain in ['135','136']
+ out=Path(sys.argv[1]);out.mkdir(parents=True,exist_ok=False)
+-os.environ.update(ROS_DOMAIN_ID='134',ROS_AUTOMATIC_DISCOVERY_RANGE='LOCALHOST',ROS_LOG_DIR=str(out/'ros-logs'))
++os.environ.update(ROS_DOMAIN_ID=domain,ROS_AUTOMATIC_DISCOVERY_RANGE='LOCALHOST',ROS_LOG_DIR=str(out/'ros-logs'))
+ record={'scope':'Delivered standalone FjtMotionPort/GenericSystem only; no MoveIt, complete FSM or physical device',
+  'started_at':datetime.now(timezone.utc).isoformat(),'cases':[],'status':'NOT_RUN'}
+ launch=None;launch_log=None;node=None;initialized=False;live_case=None;live_log=None;samples=[];statuses=[]
+@@ -72,7 +74,7 @@
+  capture('fjt-action',['ros2','action','info','/joint_trajectory_controller/follow_joint_trajectory','-t'])
+  record['observer_has_action_client']=False
+  prefix=Path(get_package_prefix('mtc_trajectory_execution_cpp'));record['probe_binary']=str(prefix/'lib/mtc_trajectory_execution_cpp/fake_trajectory_probe')
+- for mode in ['success','mismatch','cancel']:
++ for mode in [mode_to_run]:
+   spin_for(1);assert launch.poll() is None and samples
+   sample_index=len(samples);status_index=len(statuses);seen={g['uuid'] for r in statuses for g in r['goals']}
+   before=samples[-1];start=time.monotonic()
+@@ -100,7 +102,7 @@
+    assert 'stop_confirmed=1' in text and 'status_unknown=0' in text and 'fault_locked=0' in text
+    if mode=='cancel':assert 'cancel initial stop_confirmed=0' in text and 'goals_sent=1 cancels_sent=1' in text
+   print('CASE_COMPLETED',mode,code,flush=True)
+- record['status']='PASS_DELIVERED_THREE_SCENARIOS'
++ record['status']='PASS_DELIVERED_REQUESTED_SCENARIO'
+ except Exception as e:
+  record['status']='FAIL';record['exception']=repr(e)
+ finally:
+@@ -134,5 +136,5 @@
+  except Exception as e:record['cleanup_exception']=repr(e)
+  record['ended_at']=datetime.now(timezone.utc).isoformat();record['samples']=len(samples);record['status_messages']=len(statuses)
+  write('summary.json',finite(record));print(json.dumps(finite(record),ensure_ascii=False,indent=2),flush=True)
+-clean=record.get('shutdown',{});ok=record['status']=='PASS_DELIVERED_THREE_SCENARIOS' and record.get('empty_after') and clean.get('exit_code')==0 and not clean.get('escalated') and not clean.get('already_exited') and not clean.get('child_failures')
++clean=record.get('shutdown',{});ok=record['status']=='PASS_DELIVERED_REQUESTED_SCENARIO' and record.get('empty_after') and clean.get('exit_code')==0 and not clean.get('escalated') and not clean.get('already_exited') and not clean.get('child_failures')
+ sys.exit(0 if ok else 1)

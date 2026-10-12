@@ -1,0 +1,58 @@
+{
+  "recorded_at": "2026-10-11T16:19:25.840145+00:00",
+  "original_runner_pid": 7075,
+  "original_runner_absent": true,
+  "supplement_before_stop": "only sleep infinity; no ROS processes or daemons",
+  "stop": {
+    "exit_code": 0,
+    "stdout": "mtc-handoff-review-a04ac68\n",
+    "stderr": ""
+  },
+  "containers": [
+    {
+      "container": "mtc-repro-5c8f61d8af9f-a04ac6831dd3",
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-11T16:09:14.724580585Z",
+        "FinishedAt": "2026-10-11T16:13:44.633114487Z"
+      },
+      "network": "none",
+      "cpus": 2000000000,
+      "memory": 4294967296,
+      "mounts": [],
+      "devices": [],
+      "ports": {}
+    },
+    {
+      "container": "mtc-handoff-review-a04ac68",
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-11T16:15:32.578783083Z",
+        "FinishedAt": "2026-10-11T16:19:25.481557888Z"
+      },
+      "network": "none",
+      "cpus": 2000000000,
+      "memory": 4294967296,
+      "mounts": [],
+      "devices": [],
+      "ports": {}
+    }
+  ],
+  "keeper_exit137_note": "docker stop terminates sleep keeper; not ROS child shutdown verdict."
+}
