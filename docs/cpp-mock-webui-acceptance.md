@@ -123,6 +123,8 @@ Feedback 与只读状态发布端观测 Reliable/Volatile，Status 为 Reliable/
 
 ## 双仓库交付回执
 
-队友仓库 `F1u0rite/meituan_challenge_ws` 的独立分支已实际推送 `7da43228d602a6b23571bfc599d69529ef7bea23`；[PR #8](https://github.com/F1u0rite/meituan_challenge_ws/pull/8) 请求 F1u0rite 审阅。未推队友 main、未自动合并、未推进正式 FSM pin。个人仓库 `AfonsoZhang/meituan-robotics-challenge-2026` 的本轮证据提交和推送结果在执行后追加于本节，并以不可变提交链接反向写入 PR。
+队友仓库 `F1u0rite/meituan_challenge_ws` 的独立分支已实际推送 `7da43228d602a6b23571bfc599d69529ef7bea23`；[PR #8](https://github.com/F1u0rite/meituan_challenge_ws/pull/8) 请求 F1u0rite 审阅。未推队友 main、未自动合并、未推进正式 FSM pin。个人仓库 `AfonsoZhang/meituan-robotics-challenge-2026` 的 `origin/main` 已实际推送证据提交 [`23c33af62c8a69409dcfbaef96f4129067d7a678`](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/commit/23c33af62c8a69409dcfbaef96f4129067d7a678)，随后以本报告所在的后续回执提交补记发布结果；PR 反向关联不可变报告与冻结索引版本。
+
+[机器可核验发布回执](cpp-mock-webui-publication.json)保存双仓库版本、23个注册index、14份原签收报告、8份监测/检查脚本的既有冻结来源以及8935个变更文件的暂存字节核验。原始日志/补丁带有原生行尾空白，首次全路径`git diff --check`据此返回非零；保持证据字节，源码/报告/脚本范围的格式检查通过。没有为格式检查重写冻结记录。
 
 使用 OpenAI Codex 协助源码检查、统一启动/只读观测/Web 桥接实现、真实 ROS/浏览器测试、失败分析和事实链归档。导入 UI 的原始版本/哈希、上游根 MIT 与部分 package.xml 许可证差异、原 UI 未单独声明根许可证的边界见候选 provenance；未替第三方重新授权。未开展 FSM/Action/Cancel/Motion 内核修复。
