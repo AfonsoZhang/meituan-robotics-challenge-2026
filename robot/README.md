@@ -1,5 +1,7 @@
 # NUC 实机接入
 
+2026-10-12 当前状态同步：团队main `b418515`已合入标定与Phase 2B；新回归数字及PR #4/#9/#10、Phase 2C结果仅为上游报告，个人尚未复验。PR #8的C++ Mock/UI部分通过、C1未通过，完整FSM/实机未验收。团队手册记录的Fake验证环境为x86_64 / Ubuntu24.04.4 / Jazzy，NUC当前部署仍须现场核对；PR #11的新侧视试装外参仍UNKNOWN。Mac复验准备已终止清理，未执行测试。正式pin不变，详见[当前状态](../docs/current-status.md)（TEAMMATE-STATUS-20261012；ENV-STATUS-SYNC-20261012；USER-HW-20261012-03/04）。
+
 当前开发目标：**Ubuntu 24.04 / ROS 2 Jazzy / C++17，FSM Core v0.1**（USER-HW-20261011）。用户提示 SDK 已补充后（USER-HW-20261011-04），当前源码锁定为 `F1u0rite/meituan_challenge_ws@1d940f7c5f12561fed6641457c0b4b630a282b05`（TEAMMATE-SDK-20261011）。其父提交为初始 TEAMMATE-FSM-20261011 的 `f477f689…`，仅增加部署文档，未改 FSM/接口代码；[接入计划](../docs/hardware-vision-plan.md#5-软件组织与验证顺序)从离线回归推进到 C++ Action / MoveIt / Mock Hardware。本项目尚未完成该链路或 NUC 部署。
 
 个人职责已明确为**系统集成与验收，兼做 Web UI**（USER-HW-20261011-03）。v2 任务书要求复现 Mock 启动、核对实际 ROS graph，并按驱动 SOP 在独立 Fake Hardware 环境留存关节/控制器/Action 证据（SPRINT-PLAN-20261011 §06）。上游已提供该 SOP，本轮已完成独立 Fake 复验并保存实际 ROS Mock 启动失败证据（ENV-FSM-20261011）。`/home/aaet/aubo_driver_validation_ws` 为上游只读参考路径；本项目使用自己的隔离容器，不能直接套用下方历史 Humble 命令。具体交付见 [系统集成与验收计划](../docs/hardware-vision-plan.md#7-系统集成与验收主责)。
@@ -116,4 +118,4 @@ git -C "$MTC_BASELINE_DIR/meituan_challenge_ws" rev-parse HEAD
 
 接线修复轮次：使用 OpenAI Codex 准备 B01/B02/B04 补丁、真实 ROS 回归、两包 overlay 与实际 Mock 复验并提交 PR；证据为 ENV-FSM-FIX-20261011。本目录历史脚本、驱动及实体设备未改动或运行。
 
-回放自然退出增量（ENV-VISION-REPLAY-20261012）：dc76a0b 的57项适配器、80项公开视觉通过（1私有跳过）；安装进程两种合成标签各4/4自然退出和中途SIGINT通过。可选订阅等待已在发布器，但默认仍0，colcon仍零测试；私有V4.1/V4.2入口缺数据，实际FSM消费/实时视觉/实机未完成。见[验收、486文件冻结及清理](../docs/vision-replay-acceptance.md)。未改正式锁定，08:00后C++ Bringup/Web UI另按已授权时序开展。
+回放自然退出增量（ENV-VISION-REPLAY-20261012）：dc76a0b 的57项适配器、80项公开视觉通过（1私有跳过）；安装进程两种合成标签各4/4自然退出和中途SIGINT通过。可选订阅等待已在发布器，但默认仍0，colcon仍零测试；私有V4.1/V4.2入口缺数据，实际FSM消费/实时视觉/实机未完成。见[验收、486文件冻结及清理](../docs/vision-replay-acceptance.md)。未改正式锁定，08:00后C++ Bringup/Web UI已另行部分验收，C1未通过，见当前状态；本机复验已终止。

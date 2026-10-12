@@ -11,6 +11,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 动手前先读 `README.md`、`docs/rules-summary.md`、`docs/open-questions.md`；改代码或跑仿真先读 `demo/README.md`、`demo/SETUP.md`。
 
+## 当前状态入口（2026-10-12）
+
+当前跨仓库状态以`docs/current-status.md`为入口（TEAMMATE-STATUS-20261012；ENV-STATUS-SYNC-20261012）。团队main已合入PR #6/#7；个人PR #8仍未合并，C1未通过。用户已终止本机验收并授权文档同步（USER-HW-20261012-03/04）；本轮没有新测试，正式pin与冻结证据不变。以下旧阶段、PR状态和分工说明按记录日期理解，不据此恢复验收或把候选宣称为已合并。
+
 ## 当前开发基线（2026-10-11）
 
 用户确定后续“按照这个版本”（USER-HW-20261011）：`F1u0rite/meituan_challenge_ws` 的 FSM Core v0.1，初始快照 `f477f689…` 登记于 TEAMMATE-FSM-20261011。用户随后提示 SDK 已补充（USER-HW-20261011-04），当前锁定为 `1d940f7c5f12561fed6641457c0b4b630a282b05`（TEAMMATE-SDK-20261011）；该次更新仅增加 SDK/驱动部署说明和 README，FSM/接口源码未变。新开发目标为 **Ubuntu 24.04 / ROS 2 Jazzy / C++17**，源码锁定在 `robot/fsm-baseline.repos`，接口映射与推进顺序见 `docs/hardware-vision-plan.md` 第 5 节。

@@ -1,5 +1,7 @@
 # 硬件与传统视觉方案
 
+2026-10-12 当前状态同步：团队main `b418515`已合入标定与Phase 2B；新回归数字及PR #4/#9/#10、Phase 2C结果仅为上游报告，个人尚未复验。PR #8的C++ Mock/UI部分通过、C1未通过，完整FSM/实机未验收。团队手册记录的Fake验证环境为x86_64 / Ubuntu24.04.4 / Jazzy，NUC当前部署仍须现场核对；PR #11的新侧视试装外参仍UNKNOWN。Mac复验准备已终止清理，未执行测试。正式pin不变，详见[当前状态](current-status.md)（TEAMMATE-STATUS-20261012；ENV-STATUS-SYNC-20261012；USER-HW-20261012-03/04）。
+
 更新日期：2026-10-11。状态：按用户指定的 FSM Core v0.1 登记后续开发基线；已有仿真证据保留，尚无实机采集、标定、驱动联通或抓放验收结果。
 
 本文区分用户确认、官方资料和工程建议。比赛事实沿用 [资料说明](../materials/README.md) 中的 RULES、FAQ、MAP 标识及 PDF 页码；新增来源同步登记在 [manifest.json](../materials/manifest.json)。
@@ -368,10 +370,10 @@ TEAMMATE-VISIONSAFETY-20261012 / ENV-VISION-SAFETY-20261012：e53c09f相对0e329
 
 TEAMMATE-VISIONREPLAY-20261012 / ENV-VISION-REPLAY-20261012 的 dc76a0b 相对父版本 e09d00e 修改6文件，自前验 e53c09f 累计18文件；中间仅视觉更新曾被监测过滤，本次一起核对。原14包/358 C++/269 Python/15 Mock E2E/6 ROS通过，colcon零测试、旧审计程序数和Python/MoveIt退出失败保留。原生安装程序新增自然退出与可选订阅等待，57项适配器测试通过；两次完整4/4自然退出、两次中途SIGINT收2帧均exit 0。无订阅者默认入口自然结束不表示送达；开启2秒等待的负例在首帧前明确exit 1。
 
-公开视觉80通过/1私有证据跳过，新增合成确认/过期CAD/数值等价不代表实测姿态或性能。V4.1/V4.2私有入口各exit 1、处理帧前缺目录和输入，完整失败保留。首次DDS快照节点名UNKNOWN、history/depth缺失；只证实消息类型/QoS兼容，代码身份和清理由独立记录核验。默认wait仍为0，未修复colcon登记、真实FSM消费者或实机。486文件、隔离清理和交接见[报告](vision-replay-acceptance.md)，没有改内核、合并或推进基线；08:00后授权任务继续待执行。OpenAI Codex协助原入口复现和来源登记。
+公开视觉80通过/1私有证据跳过，新增合成确认/过期CAD/数值等价不代表实测姿态或性能。V4.1/V4.2私有入口各exit 1、处理帧前缺目录和输入，完整失败保留。首次DDS快照节点名UNKNOWN、history/depth缺失；只证实消息类型/QoS兼容，代码身份和清理由独立记录核验。默认wait仍为0，未修复colcon登记、真实FSM消费者或实机。486文件、隔离清理和交接见[报告](vision-replay-acceptance.md)，没有改内核、合并或推进基线；该次视觉验收不覆盖后续任务；08:00后C++ Mock/UI已另行部分验收，C1未通过，见当前状态。OpenAI Codex协助原入口复现和来源登记。
 
 ## 2026-10-12 Goal归属与实时Status补验
 
 TEAMMATE-OWNERSHIP-20261012 / ENV-TRAJECTORY-OWNERSHIP-20261012：681bb64相对45f497c的7文件改变轨迹端口pending UUID归属、Status合法性/接收龄和终态顺序门禁，新增15项受控真实DDS测试；Snapshot布局变化要求消费者重建。原始15包构建、269 Python/15 E2E/6 ROS通过，但FJT第7项DuplicateCancelOnlyOneBackendCall120秒超时，原XML为missing_result。其他417项C++ XML通过；同一未改二进制61项一次补跑及独立478项UBSan通过。原挂起没有现场线程栈，尚不能判定夹具/端口/中间件原因，交孙嘉明保留最小触发和差异分析。
 
-原生GenericSystem预检未收到Status，零Goal拒绝；测试夹具专用心跳不能当原生契约。默认move_group共存形成2个FJT客户端，再次零Goal BLOCKED。没有预热动作/伪造Status/放宽参数，原生其余执行场景NOT RUN，不沿用上轮四项PASS。完整FSM、异步Cancel/停稳宿主、Planner/FJT时间及独占执行契约仍未完成。固定MoveIt退出-11和旧Python220/510/520继续保留。708文件及清理见[验收报告](trajectory-ownership-acceptance.md)。08:00统一C++Mock/UI仍待触发，未修改内核、合并或推进正式基线；OpenAI Codex协助复现和登记。
+原生GenericSystem预检未收到Status，零Goal拒绝；测试夹具专用心跳不能当原生契约。默认move_group共存形成2个FJT客户端，再次零Goal BLOCKED。没有预热动作/伪造Status/放宽参数，原生其余执行场景NOT RUN，不沿用上轮四项PASS。完整FSM、异步Cancel/停稳宿主、Planner/FJT时间及独占执行契约仍未完成。固定MoveIt退出-11和旧Python220/510/520继续保留。708文件及清理见[验收报告](trajectory-ownership-acceptance.md)。此为08:00前的历史记录；统一C++Mock/UI已另行部分验收且C1未通过，未修改内核、合并或推进正式基线；OpenAI Codex协助复现和登记。

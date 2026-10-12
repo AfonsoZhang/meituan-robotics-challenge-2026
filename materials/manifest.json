@@ -2194,6 +2194,44 @@
           "resolution": "指定截止后及监测排空/旧任务清理后执行；统一 C++ Mock 与 Web UI 实际集成部分通过，C1 延迟取消最终520未通过；独立代码 PR #8 与本项目证据同轮交付，不合并或推进正式pin。"
         }
       ]
+    },
+    {
+      "id": "USER-HW-20261012-03",
+      "kind": "user_message",
+      "date": "2026-10-12",
+      "source": "本项目用户会话",
+      "original_text": "终止验收，清理",
+      "confirmed": {
+        "scope": "终止本机验收并清理此次复验新增的运行资源与临时文件"
+      },
+      "scope_note": "不恢复验收、不合并团队PR、不推进正式pin、不改冻结证据。",
+      "derived_files": [
+        "README.md",
+        "CLAUDE.md",
+        "docs/current-status.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md",
+        "robot/README.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20261012-04",
+      "kind": "user_message",
+      "date": "2026-10-12",
+      "source": "本项目用户会话",
+      "original_text": "同步，团队 repo 推送PR，个人 repo 直接推送 main",
+      "confirmed": {
+        "scope": "同步当前进度文档；团队仓库独立分支提交PR，个人仓库直接推送main"
+      },
+      "scope_note": "不恢复验收、不合并团队PR、不推进正式pin、不改冻结证据。",
+      "derived_files": [
+        "README.md",
+        "CLAUDE.md",
+        "docs/current-status.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md",
+        "robot/README.md"
+      ]
     }
   ],
   "external_references": [
@@ -4373,6 +4411,47 @@
         "docs/hardware-vision-plan.md",
         "docs/open-questions.md",
         "docs/upstream-monitor.md",
+        "robot/README.md"
+      ]
+    },
+    {
+      "id": "TEAMMATE-STATUS-20261012",
+      "kind": "github_current_status_read_only_snapshot",
+      "title": "团队主线、候选PR与个人验收范围同步",
+      "url": "https://github.com/F1u0rite/meituan_challenge_ws",
+      "accessed_on": "2026-10-12",
+      "observed_at": "2026-10-12T16:27:00+08:00",
+      "commit": "b4185155383541e1a4161587c4049a162f74b36d",
+      "personal_evidence_commit": "6e040096986cdf0ea409943ae209d42507da7424",
+      "pull_request_heads": {
+        "4": "943bf37bec8fc35b510abe56a6844b3f6280cce4",
+        "5": "dc76a0bf0a43f9110f3d24cfa38a2b3478f48dcd",
+        "8": "7da43228d602a6b23571bfc599d69529ef7bea23",
+        "9": "9f6860d1edbbbd5a161703fbfe88e3d71caa29f8",
+        "10": "748943efde2ada71a71d4ba49fc86fc6fb0155cc",
+        "11": "6c1d966c422ee858c4d23cc809743237c3d20c7f"
+      },
+      "open_pull_requests": [
+        "4",
+        "5",
+        "8",
+        "9",
+        "10",
+        "11"
+      ],
+      "draft_pull_requests": [
+        "5",
+        "10"
+      ],
+      "unmerged_phase2c_commit": "4a67503492e6bf0f678c6bbca04413e6c670ae30",
+      "scope_note": "只读GitHub核对与既有报告阅读；上游候选测试数不登记为个人新复验；PR #6/#7合并状态来自当前GitHub。PR #11用户选择仅记为上游资料，不回流为个人用户确认。",
+      "report": "docs/current-status.md",
+      "derived_files": [
+        "README.md",
+        "CLAUDE.md",
+        "docs/current-status.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md",
         "robot/README.md"
       ]
     }
@@ -8614,6 +8693,31 @@
         "code_commit": "7da43228d602a6b23571bfc599d69529ef7bea23",
         "pr": "https://github.com/F1u0rite/meituan_challenge_ws/pull/8"
       }
+    },
+    {
+      "id": "ENV-STATUS-SYNC-20261012",
+      "kind": "documentation_sync_after_acceptance_cancel",
+      "date": "2026-10-12",
+      "triggered_by": [
+        "USER-HW-20261012-03",
+        "USER-HW-20261012-04"
+      ],
+      "upstream_source": "TEAMMATE-STATUS-20261012",
+      "report": "docs/current-status.md",
+      "method": "核对GitHub主线、PR和报告；整理当前摘要。此前本机ARM64 C1复验在准备阶段终止，未执行测试；新增容器/镜像/源码/临时报告与启动进程已清理。",
+      "verification_status": "DOCUMENTATION_ONLY; REVERIFICATION_NOT_RUN; C1_UNRESOLVED",
+      "scope_note": "不把准备或清理作为验收PASS/FAIL；保留原C1失败、正式pin与全部冻结证据，不恢复已终止工作。",
+      "derived_files": [
+        "README.md",
+        "CLAUDE.md",
+        "docs/current-status.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md",
+        "robot/README.md"
+      ],
+      "team_documentation_pull_request": "https://github.com/F1u0rite/meituan_challenge_ws/pull/12",
+      "team_documentation_commit": "32cb1991591b166e0a12521bfd0844631cd22859",
+      "delivery_note": "团队文档PR已创建；个人文档按授权直接推送main，最终提交由Git历史及本对话发布回执核验。"
     }
   ]
 }
