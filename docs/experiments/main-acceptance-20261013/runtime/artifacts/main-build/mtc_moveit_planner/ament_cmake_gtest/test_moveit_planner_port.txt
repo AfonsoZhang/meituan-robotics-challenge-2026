@@ -1,0 +1,49 @@
+-- run_test.py: invoking following command in '/main-build/mtc_moveit_planner':
+ - /main-build/mtc_moveit_planner/test_moveit_planner_port --gtest_output=xml:/main-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_moveit_planner_port.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 16 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 16 tests from MoveItPlannerPort
+[ RUN      ] MoveItPlannerPort.V1AcquireReturnsOneFullTrajectoryPerPrimitive
+[       OK ] MoveItPlannerPort.V1AcquireReturnsOneFullTrajectoryPerPrimitive (1 ms)
+[ RUN      ] MoveItPlannerPort.AcquireGeometryStandoffEngageGapAndTestLift
+[       OK ] MoveItPlannerPort.AcquireGeometryStandoffEngageGapAndTestLift (0 ms)
+[ RUN      ] MoveItPlannerPort.V2TopInsertIsPlanned
+[       OK ] MoveItPlannerPort.V2TopInsertIsPlanned (0 ms)
+[ RUN      ] MoveItPlannerPort.TransportPhaseUsesSlotAndChainsStates
+[       OK ] MoveItPlannerPort.TransportPhaseUsesSlotAndChainsStates (0 ms)
+[ RUN      ] MoveItPlannerPort.AnyPrimitiveFailureFailsWholePlan
+[       OK ] MoveItPlannerPort.AnyPrimitiveFailureFailsWholePlan (0 ms)
+[ RUN      ] MoveItPlannerPort.ToolOwnedPrimitiveIsRefused
+[       OK ] MoveItPlannerPort.ToolOwnedPrimitiveIsRefused (0 ms)
+[ RUN      ] MoveItPlannerPort.UnknownSlotIsRefused
+[       OK ] MoveItPlannerPort.UnknownSlotIsRefused (0 ms)
+[ RUN      ] MoveItPlannerPort.UntransformableFrameIsRefusedWithoutCopyingXyz
+[       OK ] MoveItPlannerPort.UntransformableFrameIsRefusedWithoutCopyingXyz (0 ms)
+[ RUN      ] MoveItPlannerPort.MissingRingPoseIsRefused
+[       OK ] MoveItPlannerPort.MissingRingPoseIsRefused (0 ms)
+[ RUN      ] MoveItPlannerPort.NoRobotStateIsRefused
+[       OK ] MoveItPlannerPort.NoRobotStateIsRefused (0 ms)
+[ RUN      ] MoveItPlannerPort.TrajectoryLongerThanStateWatchdogIsRefused
+[       OK ] MoveItPlannerPort.TrajectoryLongerThanStateWatchdogIsRefused (0 ms)
+[ RUN      ] MoveItPlannerPort.StartMismatchAndMissingJointAreRefused
+[       OK ] MoveItPlannerPort.StartMismatchAndMissingJointAreRefused (0 ms)
+[ RUN      ] MoveItPlannerPort.TighterControllerJointLimitsAreEnforced
+[       OK ] MoveItPlannerPort.TighterControllerJointLimitsAreEnforced (0 ms)
+[ RUN      ] MoveItPlannerPort.ScalingAboveExecutorCapIsRefused
+[       OK ] MoveItPlannerPort.ScalingAboveExecutorCapIsRefused (0 ms)
+[ RUN      ] MoveItPlannerPort.CalibrationGate
+[       OK ] MoveItPlannerPort.CalibrationGate (0 ms)
+[ RUN      ] MoveItPlannerPort.AsyncReturnsNulloptUntilDoneAndNeverDuplicatesWork
+[       OK ] MoveItPlannerPort.AsyncReturnsNulloptUntilDoneAndNeverDuplicatesWork (67 ms)
+[----------] 16 tests from MoveItPlannerPort (71 ms total)
+
+[----------] Global test environment tear-down
+[==========] 16 tests from 1 test suite ran. (71 ms total)
+[  PASSED  ] 16 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_moveit_planner_port.gtest.xml'
+-- run_test.py: verify result file '/main-build/mtc_moveit_planner/test_results/mtc_moveit_planner/test_moveit_planner_port.gtest.xml'

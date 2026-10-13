@@ -1,0 +1,1 @@
+rosdep check --from-paths /driver_ws/src/aubo_ros2_driver/aubo_description /driver_ws/src/aubo_ros2_driver/aubo_ros2_driver /driver_ws/src/aubo_ros2_driver/aubo_msgs /driver_ws/src/aubo_ros2_driver/aubo_dashboard_msgs /driver_ws/src/aubo_ros2_driver/aubo_moveit_config --ignore-src

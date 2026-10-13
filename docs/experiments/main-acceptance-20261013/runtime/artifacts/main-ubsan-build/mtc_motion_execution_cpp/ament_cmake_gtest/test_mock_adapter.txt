@@ -1,0 +1,86 @@
+-- run_test.py: invoking following command in '/main-ubsan-build/mtc_motion_execution_cpp':
+ - /main-ubsan-build/mtc_motion_execution_cpp/test_mock_adapter --gtest_output=xml:/main-ubsan-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_mock_adapter.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 27 tests from 6 test suites.
+[----------] Global test environment set-up.
+[----------] 8 tests from MockClockGate
+[ RUN      ] MockClockGate.MockDefaultClockExecutionContract
+[       OK ] MockClockGate.MockDefaultClockExecutionContract (1 ms)
+[ RUN      ] MockClockGate.MockSharedManualClockSettlementSucceeds
+[       OK ] MockClockGate.MockSharedManualClockSettlementSucceeds (0 ms)
+[ RUN      ] MockClockGate.MockInsufficientStationaryIntervalRejected
+[       OK ] MockClockGate.MockInsufficientStationaryIntervalRejected (0 ms)
+[ RUN      ] MockClockGate.TinyPositiveSettleDurationCannotConfirmZeroInterval
+[       OK ] MockClockGate.TinyPositiveSettleDurationCannotConfirmZeroInterval (0 ms)
+[ RUN      ] MockClockGate.MockExecutorClockMismatchRejected
+[       OK ] MockClockGate.MockExecutorClockMismatchRejected (0 ms)
+[ RUN      ] MockClockGate.ExplicitRealTimeOrInvalidMockClockIsRejected
+[       OK ] MockClockGate.ExplicitRealTimeOrInvalidMockClockIsRejected (0 ms)
+[ RUN      ] MockClockGate.VirtualClockCannotAuthorizeExecutableBackend
+[       OK ] MockClockGate.VirtualClockCannotAuthorizeExecutableBackend (0 ms)
+[ RUN      ] MockClockGate.StaleFeedbackCannotConfirmStop
+[       OK ] MockClockGate.StaleFeedbackCannotConfirmStop (0 ms)
+[----------] 8 tests from MockClockGate (2 ms total)
+
+[----------] 1 test from GoalCancelGate
+[ RUN      ] GoalCancelGate.AdapterScopedCancelCannotStopDifferentOwner
+[       OK ] GoalCancelGate.AdapterScopedCancelCannotStopDifferentOwner (0 ms)
+[----------] 1 test from GoalCancelGate (0 ms total)
+
+[----------] 1 test from MockAudit
+[ RUN      ] MockAudit.VirtualSettlementStartsAfterArrivalAndRejectsInvalidTravel
+[       OK ] MockAudit.VirtualSettlementStartsAfterArrivalAndRejectsInvalidTravel (0 ms)
+[----------] 1 test from MockAudit (0 ms total)
+
+[----------] 14 tests from MockAdapter
+[ RUN      ] MockAdapter.CapabilitiesAreDeclaredExplicitly
+[       OK ] MockAdapter.CapabilitiesAreDeclaredExplicitly (0 ms)
+[ RUN      ] MockAdapter.SuccessfulMoveSettlesAndConfirmsStop
+[       OK ] MockAdapter.SuccessfulMoveSettlesAndConfirmsStop (0 ms)
+[ RUN      ] MockAdapter.RejectedRequestAllowsImmediateResend
+[       OK ] MockAdapter.RejectedRequestAllowsImmediateResend (0 ms)
+[ RUN      ] MockAdapter.SecondCommandWhileInFlightIsRejected
+[       OK ] MockAdapter.SecondCommandWhileInFlightIsRejected (0 ms)
+[ RUN      ] MockAdapter.TimeoutIsReportedAndBlocksAutoResend
+[       OK ] MockAdapter.TimeoutIsReportedAndBlocksAutoResend (0 ms)
+[ RUN      ] MockAdapter.StatusUnknownLocksAndBlocksAutoResend
+[       OK ] MockAdapter.StatusUnknownLocksAndBlocksAutoResend (0 ms)
+[ RUN      ] MockAdapter.FailAtStatusUnknownIsEquivalent
+[       OK ] MockAdapter.FailAtStatusUnknownIsEquivalent (0 ms)
+[ RUN      ] MockAdapter.StopWithoutInFlightIsConfirmedAndReported
+[       OK ] MockAdapter.StopWithoutInFlightIsConfirmedAndReported (0 ms)
+[ RUN      ] MockAdapter.StopWithInFlightAndConfirmationSucceeds
+[       OK ] MockAdapter.StopWithInFlightAndConfirmationSucceeds (0 ms)
+[ RUN      ] MockAdapter.CancelWithoutConfirmationDoesNotClaimStopped
+[       OK ] MockAdapter.CancelWithoutConfirmationDoesNotClaimStopped (0 ms)
+[ RUN      ] MockAdapter.StopConfirmationFlagIsExposedSeparately
+[       OK ] MockAdapter.StopConfirmationFlagIsExposedSeparately (0 ms)
+[ RUN      ] MockAdapter.TrajectoryIsRejectedAndNotSplitIntoJointMoves
+[       OK ] MockAdapter.TrajectoryIsRejectedAndNotSplitIntoJointMoves (0 ms)
+[ RUN      ] MockAdapter.TrajectoryAcceptedWhenCapabilityDeclared
+[       OK ] MockAdapter.TrajectoryAcceptedWhenCapabilityDeclared (0 ms)
+[ RUN      ] MockAdapter.BaseClassDefaultTrajectoryRejectsWithoutSplitting
+[       OK ] MockAdapter.BaseClassDefaultTrajectoryRejectsWithoutSplitting (0 ms)
+[----------] 14 tests from MockAdapter (1 ms total)
+
+[----------] 1 test from DisabledAdapter
+[ RUN      ] DisabledAdapter.AlwaysRejectsAndNeverClaimsCapability
+[       OK ] DisabledAdapter.AlwaysRejectsAndNeverClaimsCapability (0 ms)
+[----------] 1 test from DisabledAdapter (0 ms total)
+
+[----------] 2 tests from AdapterFactory
+[ RUN      ] AdapterFactory.UnknownBackendFallsBackToDisabled
+[       OK ] AdapterFactory.UnknownBackendFallsBackToDisabled (0 ms)
+[ RUN      ] AdapterFactory.MockBackendIsCaseInsensitive
+[       OK ] AdapterFactory.MockBackendIsCaseInsensitive (0 ms)
+[----------] 2 tests from AdapterFactory (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 27 tests from 6 test suites ran. (4 ms total)
+[  PASSED  ] 27 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-ubsan-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_mock_adapter.gtest.xml'
+-- run_test.py: verify result file '/main-ubsan-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_mock_adapter.gtest.xml'

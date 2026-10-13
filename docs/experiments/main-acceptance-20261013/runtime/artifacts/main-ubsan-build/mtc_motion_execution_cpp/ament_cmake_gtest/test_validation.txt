@@ -1,0 +1,65 @@
+-- run_test.py: invoking following command in '/main-ubsan-build/mtc_motion_execution_cpp':
+ - /main-ubsan-build/mtc_motion_execution_cpp/test_validation --gtest_output=xml:/main-ubsan-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_validation.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 21 tests from 3 test suites.
+[----------] Global test environment set-up.
+[----------] 13 tests from Validation
+[ RUN      ] Validation.ValidCommandPasses
+[       OK ] Validation.ValidCommandPasses (0 ms)
+[ RUN      ] Validation.MissingJointGoalCapabilityRejected
+[       OK ] Validation.MissingJointGoalCapabilityRejected (0 ms)
+[ RUN      ] Validation.DimensionMismatchRejected
+[       OK ] Validation.DimensionMismatchRejected (0 ms)
+[ RUN      ] Validation.EmptyJointNamesRejected
+[       OK ] Validation.EmptyJointNamesRejected (0 ms)
+[ RUN      ] Validation.DuplicateJointNamesRejected
+[       OK ] Validation.DuplicateJointNamesRejected (0 ms)
+[ RUN      ] Validation.JointOrderMustMatchConfiguration
+[       OK ] Validation.JointOrderMustMatchConfiguration (0 ms)
+[ RUN      ] Validation.EmptyExpectedNamesSkipsOrderCheck
+[       OK ] Validation.EmptyExpectedNamesSkipsOrderCheck (0 ms)
+[ RUN      ] Validation.ZeroTimeoutRejected
+[       OK ] Validation.ZeroTimeoutRejected (0 ms)
+[ RUN      ] Validation.VelocityScalingAboveLimitIsSafetyInterlock
+[       OK ] Validation.VelocityScalingAboveLimitIsSafetyInterlock (0 ms)
+[ RUN      ] Validation.ZeroOrNegativeVelocityScalingRejected
+[       OK ] Validation.ZeroOrNegativeVelocityScalingRejected (0 ms)
+[ RUN      ] Validation.AccelerationScalingAboveLimitIsSafetyInterlock
+[       OK ] Validation.AccelerationScalingAboveLimitIsSafetyInterlock (0 ms)
+[ RUN      ] Validation.JointLimitsAreEnforced
+[       OK ] Validation.JointLimitsAreEnforced (0 ms)
+[ RUN      ] Validation.JointLimitDimensionMismatchRejected
+[       OK ] Validation.JointLimitDimensionMismatchRejected (0 ms)
+[----------] 13 tests from Validation (1 ms total)
+
+[----------] 5 tests from ValidationTrajectory
+[ RUN      ] ValidationTrajectory.UnsupportedBackendIsRejectedNotDowngraded
+[       OK ] ValidationTrajectory.UnsupportedBackendIsRejectedNotDowngraded (0 ms)
+[ RUN      ] ValidationTrajectory.SupportedBackendAcceptsValidTrajectory
+[       OK ] ValidationTrajectory.SupportedBackendAcceptsValidTrajectory (0 ms)
+[ RUN      ] ValidationTrajectory.InvalidShapeRejected
+[       OK ] ValidationTrajectory.InvalidShapeRejected (0 ms)
+[ RUN      ] ValidationTrajectory.JointOrderMustMatchConfiguration
+[       OK ] ValidationTrajectory.JointOrderMustMatchConfiguration (0 ms)
+[ RUN      ] ValidationTrajectory.JointLimitsEnforcedOnEveryPoint
+[       OK ] ValidationTrajectory.JointLimitsEnforcedOnEveryPoint (0 ms)
+[----------] 5 tests from ValidationTrajectory (0 ms total)
+
+[----------] 3 tests from ValidationAudit
+[ RUN      ] ValidationAudit.NonFiniteTargetsRejectedWithoutLimits
+[       OK ] ValidationAudit.NonFiniteTargetsRejectedWithoutLimits (0 ms)
+[ RUN      ] ValidationAudit.ExecutableBackendRequiresLimitsAndRejectsFakePlan
+[       OK ] ValidationAudit.ExecutableBackendRequiresLimitsAndRejectsFakePlan (0 ms)
+[ RUN      ] ValidationAudit.TrajectoryRejectsExcessiveDynamicsAndInvalidLimits
+[       OK ] ValidationAudit.TrajectoryRejectsExcessiveDynamicsAndInvalidLimits (0 ms)
+[----------] 3 tests from ValidationAudit (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 21 tests from 3 test suites ran. (2 ms total)
+[  PASSED  ] 21 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-ubsan-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_validation.gtest.xml'
+-- run_test.py: verify result file '/main-ubsan-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_validation.gtest.xml'

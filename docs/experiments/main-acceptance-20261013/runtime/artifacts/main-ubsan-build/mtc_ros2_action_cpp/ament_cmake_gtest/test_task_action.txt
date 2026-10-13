@@ -1,0 +1,41 @@
+-- run_test.py: invoking following command in '/main-ubsan-build/mtc_ros2_action_cpp':
+ - /main-ubsan-build/mtc_ros2_action_cpp/test_task_action --gtest_output=xml:/main-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 12 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 12 tests from TaskAction
+[ RUN      ] TaskAction.BasicTaskUsesRealChildActionAndRecordsT0
+[       OK ] TaskAction.BasicTaskUsesRealChildActionAndRecordsT0 (1084 ms)
+[ RUN      ] TaskAction.SequenceTaskRecordsAllSlotsInOrder
+[       OK ] TaskAction.SequenceTaskRecordsAllSlotsInOrder (3094 ms)
+[ RUN      ] TaskAction.InvalidColorsAndConcurrentTaskRejected
+[       OK ] TaskAction.InvalidColorsAndConcurrentTaskRejected (1067 ms)
+[ RUN      ] TaskAction.CancelAckWaitsForChildFinalStopResult
+[       OK ] TaskAction.CancelAckWaitsForChildFinalStopResult (86 ms)
+[ RUN      ] TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent
+[       OK ] TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent (84 ms)
+[ RUN      ] TaskAction.ChildStatusUnknownPropagatesOriginalError
+[       OK ] TaskAction.ChildStatusUnknownPropagatesOriginalError (172 ms)
+[ RUN      ] TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess
+[       OK ] TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess (167 ms)
+[ RUN      ] TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild
+[       OK ] TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild (215 ms)
+[ RUN      ] TaskAction.MissingChildNeverFabricatesTaskSuccess
+[       OK ] TaskAction.MissingChildNeverFabricatesTaskSuccess (143 ms)
+[ RUN      ] TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent
+[       OK ] TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent (104 ms)
+[ RUN      ] TaskAction.StaleParentCancelCannotReachNewChild
+[       OK ] TaskAction.StaleParentCancelCannotReachNewChild (2088 ms)
+[ RUN      ] TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded
+[       OK ] TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded (74 ms)
+[----------] 12 tests from TaskAction (8384 ms total)
+
+[----------] Global test environment tear-down
+[==========] 12 tests from 1 test suite ran. (8385 ms total)
+[  PASSED  ] 12 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml'
+-- run_test.py: verify result file '/main-ubsan-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml'

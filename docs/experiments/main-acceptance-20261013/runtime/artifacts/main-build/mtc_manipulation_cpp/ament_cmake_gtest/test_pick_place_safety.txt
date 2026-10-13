@@ -1,0 +1,104 @@
+-- run_test.py: invoking following command in '/main-build/mtc_manipulation_cpp':
+ - /main-build/mtc_manipulation_cpp/test_pick_place_safety --gtest_output=xml:/main-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_safety.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 42 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 40 tests from PickPlaceSafety
+[ RUN      ] PickPlaceSafety.PlacementVerifiedCannotBeWrittenOutsideVerifyPlaced
+[       OK ] PickPlaceSafety.PlacementVerifiedCannotBeWrittenOutsideVerifyPlaced (0 ms)
+[ RUN      ] PickPlaceSafety.PlacementVerifiedOnlyTrueAfterSuccessfulVerifyPlaced
+[       OK ] PickPlaceSafety.PlacementVerifiedOnlyTrueAfterSuccessfulVerifyPlaced (0 ms)
+[ RUN      ] PickPlaceSafety.TargetNotFoundIsRecoverableThenFails
+[       OK ] PickPlaceSafety.TargetNotFoundIsRecoverableThenFails (0 ms)
+[ RUN      ] PickPlaceSafety.NonUniqueTargetIsRejected
+[       OK ] PickPlaceSafety.NonUniqueTargetIsRejected (0 ms)
+[ RUN      ] PickPlaceSafety.StalePoseIsRejectedWithPoseStale
+[       OK ] PickPlaceSafety.StalePoseIsRejectedWithPoseStale (0 ms)
+[ RUN      ] PickPlaceSafety.InvalidRingPoseBlocksMotion
+[       OK ] PickPlaceSafety.InvalidRingPoseBlocksMotion (0 ms)
+[ RUN      ] PickPlaceSafety.UnknownColorIsRejectedEvenWhenExpected
+[       OK ] PickPlaceSafety.UnknownColorIsRejectedEvenWhenExpected (0 ms)
+[ RUN      ] PickPlaceSafety.ColorMismatchIsRejectedToPreventWrongPick
+[       OK ] PickPlaceSafety.ColorMismatchIsRejectedToPreventWrongPick (0 ms)
+[ RUN      ] PickPlaceSafety.PlanningFailureIsRecoverable
+[       OK ] PickPlaceSafety.PlanningFailureIsRecoverable (0 ms)
+[ RUN      ] PickPlaceSafety.TransportPlanningFailureGoesToFaultAfterAttachment
+[       OK ] PickPlaceSafety.TransportPlanningFailureGoesToFaultAfterAttachment (0 ms)
+[ RUN      ] PickPlaceSafety.NonMotionStateTimeoutReportsMotionTimeout
+[       OK ] PickPlaceSafety.NonMotionStateTimeoutReportsMotionTimeout (0 ms)
+[ RUN      ] PickPlaceSafety.MotionInFlightTimeoutGoesToFault230AndLocksResend
+[       OK ] PickPlaceSafety.MotionInFlightTimeoutGoesToFault230AndLocksResend (0 ms)
+[ RUN      ] PickPlaceSafety.NoTimeoutBeforeDeadline
+[       OK ] PickPlaceSafety.NoTimeoutBeforeDeadline (0 ms)
+[ RUN      ] PickPlaceSafety.MotionStatusUnknownLocksAndDoesNotResend
+[       OK ] PickPlaceSafety.MotionStatusUnknownLocksAndDoesNotResend (0 ms)
+[ RUN      ] PickPlaceSafety.MotionTimeoutLocksAndDoesNotResend
+[       OK ] PickPlaceSafety.MotionTimeoutLocksAndDoesNotResend (0 ms)
+[ RUN      ] PickPlaceSafety.InFlightCommandIsReusedNeverResent
+[       OK ] PickPlaceSafety.InFlightCommandIsReusedNeverResent (0 ms)
+[ RUN      ] PickPlaceSafety.ProgressIsNotBlockedByInFlightPorts
+[       OK ] PickPlaceSafety.ProgressIsNotBlockedByInFlightPorts (0 ms)
+[ RUN      ] PickPlaceSafety.EngageFailureGoesToEngageFailed300
+[       OK ] PickPlaceSafety.EngageFailureGoesToEngageFailed300 (0 ms)
+[ RUN      ] PickPlaceSafety.InsufficientEngageEvidenceIsRejected
+[       OK ] PickPlaceSafety.InsufficientEngageEvidenceIsRejected (0 ms)
+[ RUN      ] PickPlaceSafety.UnexpectedToolStateAfterEngageIsHardwareFault
+[       OK ] PickPlaceSafety.UnexpectedToolStateAfterEngageIsHardwareFault (0 ms)
+[ RUN      ] PickPlaceSafety.AttachNotVerifiedBlocksLiftAndTransport
+[       OK ] PickPlaceSafety.AttachNotVerifiedBlocksLiftAndTransport (0 ms)
+[ RUN      ] PickPlaceSafety.VisionFollowCanCompensateForWeakEvidence
+[       OK ] PickPlaceSafety.VisionFollowCanCompensateForWeakEvidence (0 ms)
+[ RUN      ] PickPlaceSafety.TestLiftFailureIsReported
+[       OK ] PickPlaceSafety.TestLiftFailureIsReported (0 ms)
+[ RUN      ] PickPlaceSafety.HoldingStateBlocksAutomaticRetry
+[       OK ] PickPlaceSafety.HoldingStateBlocksAutomaticRetry (0 ms)
+[ RUN      ] PickPlaceSafety.UnknownHoldingStateIsConservative
+[       OK ] PickPlaceSafety.UnknownHoldingStateIsConservative (0 ms)
+[ RUN      ] PickPlaceSafety.SeatNotVerifiedBlocksUnload
+[       OK ] PickPlaceSafety.SeatNotVerifiedBlocksUnload (0 ms)
+[ RUN      ] PickPlaceSafety.PlacementNotAtTargetFailsAfterWindow
+[       OK ] PickPlaceSafety.PlacementNotAtTargetFailsAfterWindow (0 ms)
+[ RUN      ] PickPlaceSafety.PlacementStaleSampleResetsStabilityTimer
+[       OK ] PickPlaceSafety.PlacementStaleSampleResetsStabilityTimer (0 ms)
+[ RUN      ] PickPlaceSafety.PlacementNotSettledPreventsSuccess
+[       OK ] PickPlaceSafety.PlacementNotSettledPreventsSuccess (0 ms)
+[ RUN      ] PickPlaceSafety.PlacementFoundFalsePreventsSuccess
+[       OK ] PickPlaceSafety.PlacementFoundFalsePreventsSuccess (0 ms)
+[ RUN      ] PickPlaceSafety.VerifyPlacementDisabledNeverClaimsSuccess
+[       OK ] PickPlaceSafety.VerifyPlacementDisabledNeverClaimsSuccess (0 ms)
+[ RUN      ] PickPlaceSafety.SuccessRequiresFullStabilityWindow
+[       OK ] PickPlaceSafety.SuccessRequiresFullStabilityWindow (0 ms)
+[ RUN      ] PickPlaceSafety.CancelWithConfirmedStopReachesCancelled
+[       OK ] PickPlaceSafety.CancelWithConfirmedStopReachesCancelled (0 ms)
+[ RUN      ] PickPlaceSafety.CancelWithoutStopConfirmationGoesToFault520
+[       OK ] PickPlaceSafety.CancelWithoutStopConfirmationGoesToFault520 (0 ms)
+[ RUN      ] PickPlaceSafety.CancelNeverReachesCancelledWithoutConfirmation
+[       OK ] PickPlaceSafety.CancelNeverReachesCancelledWithoutConfirmation (0 ms)
+[ RUN      ] PickPlaceSafety.RequestStopIsCalledAtMostOnce
+[       OK ] PickPlaceSafety.RequestStopIsCalledAtMostOnce (0 ms)
+[ RUN      ] PickPlaceSafety.CancelInTerminalStateIsIgnored
+[       OK ] PickPlaceSafety.CancelInTerminalStateIsIgnored (0 ms)
+[ RUN      ] PickPlaceSafety.CancelDuringMotionStillRequiresConfirmation
+[       OK ] PickPlaceSafety.CancelDuringMotionStillRequiresConfirmation (0 ms)
+[ RUN      ] PickPlaceSafety.RecoveryRetriesThenFails
+[       OK ] PickPlaceSafety.RecoveryRetriesThenFails (0 ms)
+[ RUN      ] PickPlaceSafety.RecoveryIsRefusedWhenMotionResendDisallowed
+[       OK ] PickPlaceSafety.RecoveryIsRefusedWhenMotionResendDisallowed (0 ms)
+[----------] 40 tests from PickPlaceSafety (6 ms total)
+
+[----------] 2 tests from PickPlaceAudit
+[ RUN      ] PickPlaceAudit.RepeatedFrameForFiveSecondsCannotSucceed
+[       OK ] PickPlaceAudit.RepeatedFrameForFiveSecondsCannotSucceed (0 ms)
+[ RUN      ] PickPlaceAudit.MissingPlanOutputNeverExecutesZeroTarget
+[       OK ] PickPlaceAudit.MissingPlanOutputNeverExecutesZeroTarget (0 ms)
+[----------] 2 tests from PickPlaceAudit (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 42 tests from 2 test suites ran. (7 ms total)
+[  PASSED  ] 42 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_safety.gtest.xml'
+-- run_test.py: verify result file '/main-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_safety.gtest.xml'

@@ -1,0 +1,64 @@
+{
+  "recorded_at": "2026-10-13T05:36:31.501024+00:00",
+  "owned_containers": [
+    {
+      "Name": "/mtc-main-review-b418515",
+      "State": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-13T05:07:30.928421214Z",
+        "FinishedAt": "2026-10-13T05:29:23.480311374Z"
+      },
+      "Image": "sha256:3985c32ff28a0095ccfab22b7addaa0fa4e36d5e5c7628be7b2c0c1cfc3ad77f"
+    },
+    {
+      "Name": "/mtc-pr8-c1-review-20261013",
+      "State": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-13T05:29:24.031034745Z",
+        "FinishedAt": "2026-10-13T05:35:19.170457364Z"
+      },
+      "Image": "sha256:3985c32ff28a0095ccfab22b7addaa0fa4e36d5e5c7628be7b2c0c1cfc3ad77f"
+    }
+  ],
+  "other_work": {
+    "name": "/mtc-webui-p0-20261013",
+    "created_at": "2026-10-13T05:23:10.261427837Z",
+    "state": "running",
+    "network": "none",
+    "note": "Created by another session; observed at final cleanup, preserved, not stopped or included as this acceptance. Created after M1 repeated-test failure.",
+    "working_tree_changes": [
+      " M webui/config.py",
+      " M webui/connection.example.json",
+      " M webui/ros_backend.py",
+      " M webui/ros_transport.py",
+      " M webui/server.py",
+      " M webui/static/app.js",
+      " M webui/static/index.html",
+      " M webui/static/styles.css",
+      "?? webui/cpp_mock.py",
+      "?? webui/p0_integration_check.py",
+      "?? webui/static/p0.js",
+      "?? webui/telemetry.py",
+      "?? webui/test_cpp_mock.py",
+      "?? webui/test_p0.cjs",
+      "?? webui/test_telemetry.py"
+    ]
+  },
+  "verification_note": "Initial broad assertion no mtc-* containers failed due to other-session container; corrected ownership scope, not a leftover of either acceptance container."
+}

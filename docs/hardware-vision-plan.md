@@ -1,6 +1,8 @@
 # 硬件与传统视觉方案
 
-2026-10-12 当前状态同步：团队main `b418515`已合入标定与Phase 2B；新回归数字及PR #4/#9/#10、Phase 2C结果仅为上游报告，个人尚未复验。PR #8的C++ Mock/UI部分通过、C1未通过，完整FSM/实机未验收。团队手册记录的Fake验证环境为x86_64 / Ubuntu24.04.4 / Jazzy，NUC当前部署仍须现场核对；PR #11的新侧视试装外参仍UNKNOWN。Mac复验准备已终止清理，未执行测试。正式pin不变，详见[当前状态](current-status.md)（TEAMMATE-STATUS-20261012；ENV-STATUS-SYNC-20261012；USER-HW-20261012-03/04）。
+**2026-10-13 主线复验：部分通过，整体验收未通过。** 固定main `b418515` 的15包构建、普通/UBSan各486项C++、269项Python及15/6/54项补充检查通过；并发重复第18轮出现M1断言失败（179次执行通过、1次失败，首败即停）。真实C++ Task→PickPlace基础/序列/及时取消通过，独立PR8 `7da4322` 的C1延迟取消再次ACK后6/520；旧Python220/510/520、原生Status/执行权BLOCKED及MoveIt退出-11仍保留。正式pin不变，无实机验收。M1/C1与FSM/Action内核回交孙嘉明，张叔阳负责集成复验；新规划/Phase2C/Gazebo/视觉候选不拼入main。见[本轮验收](main-acceptance-20261013.md)（USER-HW-20261013，用户会话；TEAMMATE-MAIN-20261013；ENV-MAIN-ACCEPTANCE-20261013）。
+
+2026-10-12 历史状态同步：团队main `b418515`已合入标定与Phase 2B；新回归数字及PR #4/#9/#10、Phase 2C结果仅为上游报告，个人尚未复验。PR #8的C++ Mock/UI部分通过、C1未通过，完整FSM/实机未验收。团队手册记录的Fake验证环境为x86_64 / Ubuntu24.04.4 / Jazzy，NUC当前部署仍须现场核对；PR #11的新侧视试装外参仍UNKNOWN。Mac复验准备已终止清理，未执行测试。正式pin不变，详见[当前状态](current-status.md)（TEAMMATE-STATUS-20261012；ENV-STATUS-SYNC-20261012；USER-HW-20261012-03/04）。
 
 更新日期：2026-10-11。状态：按用户指定的 FSM Core v0.1 登记后续开发基线；已有仿真证据保留，尚无实机采集、标定、驱动联通或抓放验收结果。
 

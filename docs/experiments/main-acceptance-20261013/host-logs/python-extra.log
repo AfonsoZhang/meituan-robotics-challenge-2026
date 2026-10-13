@@ -1,0 +1,139 @@
+[RESOLVE_TARGET] 错误 110: 目标颜色不匹配：期望 color=2，感知 color=1（拒绝抓错颜色）；object_id=battery-mismatch
+[RECOVERY] 错误 110: 恢复失败（attempt=1/0, resumable=True）：目标颜色不匹配：期望 color=2，感知 color=1（拒绝抓错颜色）；object_id=battery-mismatch
+[RESOLVE_TARGET] 错误 110: mock：同一 object_id 重复出现 2 次（ID 不唯一）
+[RECOVERY] 错误 110: 恢复失败（attempt=1/0, resumable=True）：mock：同一 object_id 重复出现 2 次（ID 不唯一）
+[RESOLVE_TARGET] 错误 120: mock：提环位姿过期（age=999.000s > max_age=0.300s）
+[RECOVERY] 错误 120: 恢复失败（attempt=1/0, resumable=True）：mock：提环位姿过期（age=999.000s > max_age=0.300s）
+[RESOLVE_TARGET] 错误 110: 提环位姿不可用（ring_pose_valid=False）
+[RECOVERY] 错误 110: 恢复失败（attempt=1/0, resumable=True）：提环位姿不可用（ring_pose_valid=False）
+[RESOLVE_TARGET] 错误 110: 目标颜色不匹配：期望 color=2，感知 color=1（拒绝抓错颜色）；object_id=battery-mismatch
+holding_state=holding，禁止自动重试
+[RECOVERY] 错误 110: 恢复失败（attempt=1/1, resumable=True）：目标颜色不匹配：期望 color=2，感知 color=1（拒绝抓错颜色）；object_id=battery-mismatch
+holding_state=holding，禁止自动重试
+[MOVE_PRE_ALIGN] 错误 510: 测试注入：底层执行失败（规划本身成功）
+[MOVE_PRE_ALIGN] FAULT 220: 运动超时（预算 5000 ms）
+holding_state=holding，禁止自动重试
+[TEST_LIFT] 错误 310: mock：试提时电池未随动，缺少挂载证据
+[VERIFY_SEATED] FAULT 400: 落座确认 seated_verified=False（source=mock:落座判定, evidence=EVIDENCE_NONE）
+[DISENGAGE] FAULT 410: 解锁脉冲请求已受理（io_status=ACCEPTED, pulse_ms=200, request_id=battery-stuck#unlock）：尚未解锁，等待独立证据；受理但未确认锁止解除
+[CANCEL_PENDING] FAULT 520: 取消后未确认停稳（request_delivered=True）：E2E: 停止请求已送达，但未确认停稳
+[PLAN_ACQUIRE] 错误 500: 工具扫掠区域内存在非目标物体 ['battery-other-red']：拒绝规划（§10.1）
+holding_state=holding，禁止自动重试
+[RECOVERY] 错误 500: 恢复失败（attempt=1/1, resumable=True）：工具扫掠区域内存在非目标物体 ['battery-other-red']：拒绝规划（§10.1）
+==============================================================================
+mtc_bringup 离线端到端集成测试（纯 Python 3，不 import rclpy）
+==============================================================================
+工作空间根目录 : /main-source
+依赖模块状态：
+  mtc_task.task_fsm                          OK
+  mtc_task.task_validation                   OK
+  mtc_manipulation.pick_place_fsm            OK
+  mtc_manipulation.tool_strategy             OK
+  mtc_motion_execution.backends              OK
+  mtc_motion_execution.executor_core         OK
+  mtc_tool.manager                           OK
+  mtc_tool.io_port                           OK
+  mtc_tool.strategy                          OK
+  mtc_tool.codes                             OK
+  mtc_safety.interlocks                      OK
+  mtc_aubo_bridge.bridge_core                OK
+  mtc_motion_planning                        SKIPPED(依赖未就绪) — ModuleNotFoundError: No module named 'mtc_motion_planning'
+依赖未就绪（相关用例将输出 SKIPPED，不计入 PASS）：mtc_motion_planning
+------------------------------------------------------------------------------
+[PASS] 01   蓝→红→黄三色序列：P1/P2/P3 映射正确，全流程 Mock PASS
+         Mock PASS，非实机抓放成功；slots=['P1', 'P2', 'P3'] completed=3 后端命令数=21
+[PASS] 02   并发第二个 Task Goal / Motion Goal 被明确拒绝
+         Task Goal 拒绝码=210 reason=task_already_in_progress；Motion Goal 拒绝码=210
+[PASS] 03   目标颜色错误 / 重复 ID / 提环位姿过期 → 不运动
+         颜色错误 -> 110（后端调用 0 次）；重复 ID -> 110（后端调用 0 次）；位姿过期 -> 120（后端调用 0 次）；ring_pose 不可用 -> 110（后端调用 0 次）；重试对照 -> 110（后端调用仍为 0 次）
+[PASS] 04   规划成功但底层执行失败 → 任务不得标记成功
+         规划成功但执行失败 -> PickPlace FAILED(ec=510)，TaskOutcome success=False completed=0
+[PASS] 05   moveJoint 超时但可能仍在动 → 不自动重发
+         超时 -> FAULT(220)，后端调用次数保持 1 次不变（继续推进 40 次 step 后仍不增加）
+[PASS] 06   试提时电池未跟随 → 禁止进入运输
+         试提未随动 -> FAILED(310)，未进入 LIFT/TRANSPORT（历史=ENGAGE->VERIFY_ENGAGEMENT->TEST_LIFT->FAILED）
+[PASS] 07   放置未落座 → V2 电磁解锁不得触发
+         未落座 -> FAULT(400)；解锁 IO 调用 0 次；ToolManager 联锁亦拒绝
+[PASS] 08   V2 解锁已受理但锁止未解除 → 不撤离
+         解锁受理但未确认 -> FAULT(410)；disengage 调用 0 次；未进入 RETREAT；unlock_confirmed=False withdraw_allowed=False
+[PASS] 09   取消正在搬运的 Action → 不确定负载保护 + 保留状态
+         搬运中取消 -> CANCELLED（stop_confirmed=True，保留 carrying 估计）；未确认停稳对照组 -> FAULT(520)，停止请求仅 1 次
+[PASS] 10   模型/TCP/负载/控制器模式变化 → 旧规划作废
+         规划指纹 ('AUBO-S3', 'tool0', 0.0, 'position') -> 控制器模式/TCP/负载变化后旧规划作废(200)；能力查询 joint_goal=True traj=False cartesian=False
+[PASS] 11   非目标电池进入工具扫掠区域 → 规划/执行拒绝
+         扫掠区含非目标 -> FAILED(500)，运动调用 0 次；目标自身不误伤（对照 SUCCESS）
+[PASS] 12   稳定性观察未满 3 秒 → 不得标记成功
+         未满 3s 时停在 VERIFY_PLACED 且 placement_verified=False；观测起点 t=16.00，3.05s 后 SUCCESS
+[PASS] 13   V1 路径不依赖电磁 IO（解锁 IO 调用次数为 0）
+         V1 三色序列完成，全链路解锁 IO 调用 0 次（脉冲历史 []）；误调用亦被 DISABLED 端口拒绝（调用前后均为 0 次）
+[PASS] 14   配置交叉校验（§8：tool_type/稳定性/感知年龄/身份白名单）
+         5 个配置文件通过校验（pyyaml）；tool_type=passive_hook_v1；身份白名单留空 -> 拒绝运动通路
+[PASS] 15   安全联锁守卫（§7.2：运输/解锁/撤离/重发/并发）
+         allow_transport/unlock/withdraw/resend 全部拒绝；在途时拒绝第二个 Goal
+------------------------------------------------------------------------------
+==============================================================================
+全部 PASS 均为 Mock PASS，非实机抓放成功。
+用例总数 15：PASS 15 / FAIL 0 / SKIP 0
+E2E RESULT: PASS 15 / FAIL 0 / SKIP 0
+......                                                                   [100%]
+------------------ generated xml file: /review/ros-wiring.xml ------------------
+6 passed in 0.68s
+test_cli_bad_input_never_prints_success (test_calibration.CliTests.test_cli_bad_input_never_prints_success) ... ok
+test_cli_deeply_nested_json_is_a_parse_rejection (test_calibration.CliTests.test_cli_deeply_nested_json_is_a_parse_rejection) ... ok
+test_cli_output_error_keeps_motion_unauthorized (test_calibration.CliTests.test_cli_output_error_keeps_motion_unauthorized) ... ok
+test_cli_success_and_unknown_extrinsic_exit_codes (test_calibration.CliTests.test_cli_success_and_unknown_extrinsic_exit_codes) ... ok
+test_camera_moves_with_wrist_instead_of_world_static (test_calibration.ContractTests.test_camera_moves_with_wrist_instead_of_world_static) ... ok
+test_duplicates_multiple_parents_and_cycles_rejected (test_calibration.ContractTests.test_duplicates_multiple_parents_and_cycles_rejected) ... ok
+test_dynamic_snapshot_at_wrong_time_rejected (test_calibration.ContractTests.test_dynamic_snapshot_at_wrong_time_rejected) ... ok
+test_equal_max_age_is_allowed (test_calibration.ContractTests.test_equal_max_age_is_allowed) ... ok
+test_false_ring_valid_and_missing_pose_fields_rejected (test_calibration.ContractTests.test_false_ring_valid_and_missing_pose_fields_rejected) ... ok
+test_invalid_frame_names_rejected (test_calibration.ContractTests.test_invalid_frame_names_rejected) ... ok
+test_invalid_now_rejected (test_calibration.ContractTests.test_invalid_now_rejected) ... ok
+test_measured_edge_without_evidence_rejected (test_calibration.ContractTests.test_measured_edge_without_evidence_rejected) ... ok
+test_measured_snapshot_is_diagnostic_only (test_calibration.ContractTests.test_measured_snapshot_is_diagnostic_only) ... ok
+test_missing_dynamic_time_and_zero_dynamic_time_rejected (test_calibration.ContractTests.test_missing_dynamic_time_and_zero_dynamic_time_rejected) ... ok
+test_mm_is_rejected_instead_of_assumed_m (test_calibration.ContractTests.test_mm_is_rejected_instead_of_assumed_m) ... ok
+test_multihop_eye_in_hand_at_observation_time (test_calibration.ContractTests.test_multihop_eye_in_hand_at_observation_time) ... ok
+test_real_document_rejects_estimated_calibration (test_calibration.ContractTests.test_real_document_rejects_estimated_calibration) ... ok
+test_reverse_graph_lookup_recovers_original_pose (test_calibration.ContractTests.test_reverse_graph_lookup_recovers_original_pose) ... ok
+test_schema_version_must_be_integer_one (test_calibration.ContractTests.test_schema_version_must_be_integer_one) ... ok
+test_stale_future_and_zero_time_rejected (test_calibration.ContractTests.test_stale_future_and_zero_time_rejected) ... ok
+test_stamp_beyond_int64_nanoseconds_rejected (test_calibration.ContractTests.test_stamp_beyond_int64_nanoseconds_rejected) ... ok
+test_static_edge_does_not_expire_like_dynamic_snapshot (test_calibration.ContractTests.test_static_edge_does_not_expire_like_dynamic_snapshot) ... ok
+test_unknown_data_kind_and_invalid_flags_rejected (test_calibration.ContractTests.test_unknown_data_kind_and_invalid_flags_rejected) ... ok
+test_unknown_extrinsic_is_rejected_not_identity (test_calibration.ContractTests.test_unknown_extrinsic_is_rejected_not_identity) ... ok
+test_unknown_frame_and_disconnected_path_rejected (test_calibration.ContractTests.test_unknown_frame_and_disconnected_path_rejected) ... ok
+test_unknown_numeric_identity_not_allowed (test_calibration.ContractTests.test_unknown_numeric_identity_not_allowed) ... ok
+test_whitespace_only_evidence_is_missing_evidence (test_calibration.ContractTests.test_whitespace_only_evidence_is_missing_evidence) ... ok
+test_wrong_clock_and_invalid_age_threshold_rejected (test_calibration.ContractTests.test_wrong_clock_and_invalid_age_threshold_rejected) ... ok
+test_calibration_feature_exists (test_calibration.FeatureGate.test_calibration_feature_exists) ... ok
+test_compose_matches_hand_computed_matrix_for_noncoaxial_rotations (test_calibration.GeometryTests.test_compose_matches_hand_computed_matrix_for_noncoaxial_rotations) ... ok
+test_dimensions_and_non_numeric_values_rejected (test_calibration.GeometryTests.test_dimensions_and_non_numeric_values_rejected) ... ok
+test_inverse_recovers_position_for_noncommuting_rotations (test_calibration.GeometryTests.test_inverse_recovers_position_for_noncommuting_rotations) ... ok
+test_nan_and_infinity_rejected (test_calibration.GeometryTests.test_nan_and_infinity_rejected) ... ok
+test_nonunit_quaternion_is_not_silently_normalized (test_calibration.GeometryTests.test_nonunit_quaternion_is_not_silently_normalized) ... ok
+test_rotation_and_translation_transform_position_and_orientation (test_calibration.GeometryTests.test_rotation_and_translation_transform_position_and_orientation) ... ok
+test_tcp_compensation_is_inverse_and_includes_rotation (test_calibration.GeometryTests.test_tcp_compensation_is_inverse_and_includes_rotation) ... ok
+test_zero_quaternion_rejected (test_calibration.GeometryTests.test_zero_quaternion_rejected) ... ok
+test_audit_available (test_fake_model_audit.FakeAuditGate.test_audit_available) ... ok
+test_missing_valid_samples_cannot_pass (test_fake_model_audit.FakeAuditTests.test_missing_valid_samples_cannot_pass) ... ok
+test_omitting_ee_quarter_turn_disagrees_with_saved_orientation (test_fake_model_audit.FakeAuditTests.test_omitting_ee_quarter_turn_disagrees_with_saved_orientation) ... ok
+test_saved_fake_chain_matches_fk_with_rounding_and_no_motion_permission (test_fake_model_audit.FakeAuditTests.test_saved_fake_chain_matches_fk_with_rounding_and_no_motion_permission) ... ok
+test_wrong_log_translation_is_detected (test_fake_model_audit.FakeAuditTests.test_wrong_log_translation_is_detected) ... ok
+test_wrong_moveit_tip_is_detected (test_fake_model_audit.FakeAuditTests.test_wrong_moveit_tip_is_detected) ... ok
+test_camera_link_axes_follow_ros_convention_independently (test_nominal_mount.MountDesignTests.test_camera_link_axes_follow_ros_convention_independently) ... ok
+test_camera_model_selects_datasheet_zero_depth_offset (test_nominal_mount.MountDesignTests.test_camera_model_selects_datasheet_zero_depth_offset) ... ok
+test_cli_rejections_exit_2_and_never_authorize_motion (test_nominal_mount.MountDesignTests.test_cli_rejections_exit_2_and_never_authorize_motion) ... ok
+test_datum_assumptions_are_reported_and_corrections_shift_origin (test_nominal_mount.MountDesignTests.test_datum_assumptions_are_reported_and_corrections_shift_origin) ... ok
+test_implausible_scale_is_rejected (test_nominal_mount.MountDesignTests.test_implausible_scale_is_rejected) ... ok
+test_missing_or_unknown_camera_model_rejected (test_nominal_mount.MountDesignTests.test_missing_or_unknown_camera_model_rejected) ... ok
+test_optical_origin_is_left_imager_behind_front_glass (test_nominal_mount.MountDesignTests.test_optical_origin_is_left_imager_behind_front_glass) ... ok
+test_real_data_and_mm_are_not_accepted_as_mount_design (test_nominal_mount.MountDesignTests.test_real_data_and_mm_are_not_accepted_as_mount_design) ... ok
+test_ros_camera_axes_recover_designed_optical_axes (test_nominal_mount.MountDesignTests.test_ros_camera_axes_recover_designed_optical_axes) ... ok
+test_sensor_offset_rotates_with_camera_housing (test_nominal_mount.MountDesignTests.test_sensor_offset_rotates_with_camera_housing) ... ok
+test_nominal_mount_feature_exists (test_nominal_mount.MountFeatureGate.test_nominal_mount_feature_exists) ... ok
+
+----------------------------------------------------------------------
+Ran 54 tests in 0.532s
+
+OK

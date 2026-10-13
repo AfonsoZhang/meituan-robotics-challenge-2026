@@ -1,0 +1,48 @@
+-- run_test.py: invoking following command in '/main-build/mtc_manipulation_cpp':
+ - /main-build/mtc_manipulation_cpp/test_pick_place_fsm_v2 --gtest_output=xml:/main-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v2.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 14 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 5 tests from PickPlaceV2
+[ RUN      ] PickPlaceV2.HappyPathReachesSuccessAndUnlocksOnce
+[       OK ] PickPlaceV2.HappyPathReachesSuccessAndUnlocksOnce (1 ms)
+[ RUN      ] PickPlaceV2.DifferencesAreConfinedToEngageAndDisengage
+[       OK ] PickPlaceV2.DifferencesAreConfinedToEngageAndDisengage (0 ms)
+[ RUN      ] PickPlaceV2.MotionPrimitivesDifferFromV1OnlyInAcquireAndEngage
+[       OK ] PickPlaceV2.MotionPrimitivesDifferFromV1OnlyInAcquireAndEngage (0 ms)
+[ RUN      ] PickPlaceV2.UnlockPulseUsesStrategyConfiguration
+[       OK ] PickPlaceV2.UnlockPulseUsesStrategyConfiguration (0 ms)
+[ RUN      ] PickPlaceV2.StateSequenceMatchesV1Pipeline
+[       OK ] PickPlaceV2.StateSequenceMatchesV1Pipeline (0 ms)
+[----------] 5 tests from PickPlaceV2 (2 ms total)
+
+[----------] 9 tests from PickPlaceV2Interlock
+[ RUN      ] PickPlaceV2Interlock.NoUnlockWhenSeatNotVerified
+[       OK ] PickPlaceV2Interlock.NoUnlockWhenSeatNotVerified (0 ms)
+[ RUN      ] PickPlaceV2Interlock.NoUnlockWhenUnloadNotVerified
+[       OK ] PickPlaceV2Interlock.NoUnlockWhenUnloadNotVerified (0 ms)
+[ RUN      ] PickPlaceV2Interlock.StrategyRefusalBlocksUnlockIoEntirely
+[       OK ] PickPlaceV2Interlock.StrategyRefusalBlocksUnlockIoEntirely (0 ms)
+[ RUN      ] PickPlaceV2Interlock.RedundantInterlocksAreUnreachableButPresent
+[       OK ] PickPlaceV2Interlock.RedundantInterlocksAreUnreachableButPresent (0 ms)
+[ RUN      ] PickPlaceV2Interlock.UnlockHappensOnlyInsideDisengageAfterUnload
+[       OK ] PickPlaceV2Interlock.UnlockHappensOnlyInsideDisengageAfterUnload (0 ms)
+[ RUN      ] PickPlaceV2Interlock.UnlockFailureGoesToFaultAndDoesNotRetreat
+[       OK ] PickPlaceV2Interlock.UnlockFailureGoesToFaultAndDoesNotRetreat (0 ms)
+[ RUN      ] PickPlaceV2Interlock.AcceptedPulseWithoutReleaseIsStillFailure
+[       OK ] PickPlaceV2Interlock.AcceptedPulseWithoutReleaseIsStillFailure (0 ms)
+[ RUN      ] PickPlaceV2Interlock.DisengageReleaseUnknownGoesToFaultAndDoesNotRetreat
+[       OK ] PickPlaceV2Interlock.DisengageReleaseUnknownGoesToFaultAndDoesNotRetreat (0 ms)
+[ RUN      ] PickPlaceV2Interlock.UnlockNeverHappensBeforeConfirmedPlacement
+[       OK ] PickPlaceV2Interlock.UnlockNeverHappensBeforeConfirmedPlacement (0 ms)
+[----------] 9 tests from PickPlaceV2Interlock (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 14 tests from 2 test suites ran. (4 ms total)
+[  PASSED  ] 14 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v2.gtest.xml'
+-- run_test.py: verify result file '/main-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v2.gtest.xml'

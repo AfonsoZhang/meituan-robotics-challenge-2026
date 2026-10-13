@@ -160,3 +160,15 @@ TEAMMATE-OWNERSHIP-20261012 / ENV-TRAJECTORY-OWNERSHIP-20261012：首次FJT套�
 ENV-CPP-MOCK-WEBUI-20261012 / TEAMMATE-CPPUI-20261012：监测08:00自然结束、14份签收报告哈希不变后，隔离候选 `7da4322…` 统一启动与真实父子Action/Web集成部分通过。40 C++ Action、39 UI回归与六项真实链路正负场景通过，节点/类型/QoS/唯一服务器、重复启动、停止与重启图排空均保存；硬件状态不生成。具体命令、UUID、953文件冻结和[PR #8](https://github.com/F1u0rite/meituan_challenge_ws/pull/8)见[本轮报告](cpp-mock-webui-acceptance.md)。
 
 C1仍未通过：正常Mock700ms结果交付延时，浏览器及独立CLI延迟取消均ACK后父子ABORTED/520、完成数0并锁定下一任务；及时CANCELED/0正例不覆盖此失败。静态停稳证据龄期/时钟分析仅为候选根因，准确判据、Cancel契约及回归由孙嘉明确认；没有接管内核或放宽检查。张叔阳负责复验和集成材料。完整视觉/工具/Motion/FJT/MoveIt链路、故障恢复、NUC/实机与原独立失败未关闭，Q18/Q19仍部分确认。代码独立PR待审，正式pin仍1d940f7，不自动合并。
+
+## 2026-10-13 最新主线复验后的实验缺口
+
+USER-HW-20261013重新授权验收并选定最新主线/既有未通过项；TEAMMATE-MAIN-20261013锁定`b418515`，ENV-MAIN-ACCEPTANCE-20261013记录本轮实际结果。Q18/Q19继续部分确认，正式pin仍`1d940f7`。
+
+- 主线15包、普通/UBSan各486个C++身份、269 Python、15 E2E、6 ROS接线、54标定离线检查通过；真实C++父子Action基础/序列/及时取消及独立负面场景通过。未完成完整FSM、真实标定、NUC和实机。
+- **M1归孙嘉明：** 同一普通FJT二进制重复检查第18轮`LateGoalResponseAfterFaultRetainsOriginalSession`的`timed_out`断言失败；计划40轮首败即停，179次PASS/1FAIL。原120秒挂起本轮未复现；单次完整测试或UBSan通过不关闭稳定性问题。缺首个故障message/snapshot，夹具与端口责任尚待定位，不改内核或放宽门禁。
+- **C1归孙嘉明：** 独立PR8 `7da4322`、正常Mock700ms Future延迟、MOVE_PRE_ALIGN后400ms取消，父子再现ABORTED/520；ACK不等于完成。旧PythonPickPlace绑定错误、INIT/取消失败与Safety退出仍保留。
+- 原生Status和唯一执行权门禁均BLOCKED、零Goal；独立MoveIt执行成功但再次退出-11，不能关闭完整FJT/FSM执行或正常退出。依赖/驱动lint、TSan、SDK厂商校验/许可等旧缺口保留。张叔阳跟进环境、证据及复验，内核与规划/驱动负责人分别处理。
+- 两个本轮容器及ROS进程均停止；外部观察器分类错误和C1包装脚本信号收尾问题原样保留，修正外部检查后只补未运行场景及无Goal重启，不覆盖产品失败。另一会话WebUI P0容器/改动保留且不混入本轮交付。
+
+完整[SOP、UUID、失败交接与冻结证据](main-acceptance-20261013.md)。旧报告/索引/签收字节不变；代码没有合并或正式基线推进，PR8仍待审。

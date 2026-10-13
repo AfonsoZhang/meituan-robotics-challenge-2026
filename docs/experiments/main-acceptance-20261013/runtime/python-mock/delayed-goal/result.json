@@ -1,0 +1,107 @@
+{
+  "case": "delayed-goal",
+  "delay_before_goal_sec": 7.0,
+  "cancel_requested": false,
+  "feedback": [
+    {
+      "current_index": 0,
+      "total_count": 0,
+      "state": "FAULT",
+      "current_slot": "",
+      "current_object_id": "",
+      "substate": "FAULT"
+    }
+  ],
+  "status": "FAIL",
+  "scope": "Delivered Python Mock launch, dry_run default",
+  "task_server_available": true,
+  "goal": {
+    "task_id": "acceptance-delayed-goal",
+    "mode": 1,
+    "ordered_colors": [
+      3
+    ],
+    "timeout_ms": 5000,
+    "placement_stability_sec": 3.0
+  },
+  "accepted": true,
+  "result_received": true,
+  "result": {
+    "status": 6,
+    "result": {
+      "success": false,
+      "completed_count": 0,
+      "completed_slots": [],
+      "error_code": 510,
+      "message": "state INIT timed out after 5.029s -> HARDWARE_FAULT"
+    }
+  },
+  "pickplace_server_available": false,
+  "nodes": [
+    [
+      "task_acceptance_probe",
+      "/"
+    ],
+    [
+      "motion_executor",
+      "/"
+    ],
+    [
+      "task_executor",
+      "/"
+    ],
+    [
+      "tool_manager",
+      "/"
+    ],
+    [
+      "safety_supervisor",
+      "/"
+    ]
+  ],
+  "action_servers": [
+    {
+      "node": "task_acceptance_probe",
+      "namespace": "/",
+      "servers": []
+    },
+    {
+      "node": "motion_executor",
+      "namespace": "/",
+      "servers": [
+        [
+          "/mtc/motion/execute_joint_move",
+          [
+            "mtc_interfaces/action/ExecuteJointMove"
+          ]
+        ]
+      ]
+    },
+    {
+      "node": "task_executor",
+      "namespace": "/",
+      "servers": [
+        [
+          "/mtc/task/execute",
+          [
+            "mtc_interfaces/action/ExecuteTask"
+          ]
+        ]
+      ]
+    },
+    {
+      "node": "tool_manager",
+      "namespace": "/",
+      "servers": []
+    },
+    {
+      "node": "safety_supervisor",
+      "namespace": "/",
+      "servers": []
+    }
+  ],
+  "exception": "AssertionError('PickPlace server unavailable (B03/B05)')",
+  "shutdown_escalated": false,
+  "launch_exit_code": 0,
+  "child_failure": true
+}

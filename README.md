@@ -1,8 +1,10 @@
 # 美团第四届低空经济与具身智能挑战赛 · 2026
 
+**2026-10-13 主线复验：部分通过，整体验收未通过。** 固定main `b418515` 的15包构建、普通/UBSan各486项C++、269项Python及15/6/54项补充检查通过；并发重复第18轮出现M1断言失败（179次执行通过、1次失败，首败即停）。真实C++ Task→PickPlace基础/序列/及时取消通过，独立PR8 `7da4322` 的C1延迟取消再次ACK后6/520；旧Python220/510/520、原生Status/执行权BLOCKED及MoveIt退出-11仍保留。正式pin不变，无实机验收。见[本轮验收与SOP](docs/main-acceptance-20261013.md)及[冻结索引](docs/experiments/main-acceptance-20261013/index.json)（USER-HW-20261013，用户会话；TEAMMATE-MAIN-20261013；ENV-MAIN-ACCEPTANCE-20261013）。
+
 参赛项目工作区，用于管理比赛资料、规则梳理，以及后续的机器人方案、实验记录和交付材料。
 
-**当前进度同步（2026-10-12）：** 团队main已到`b418515`（标定PR #6、Phase 2B PR #7已合并）；其486项回归及后续PR #4/#9/#10、Phase 2C结果属于上游报告，本项目未独立复验这些最新版。个人C++ Mock/Web UI证据已归档，团队PR #8仍待合并，C1延迟取消未通过。Mac上的复验准备已按用户要求终止并清理，未执行测试；完整FSM/NUC/实机仍未验收，正式pin保持`1d940f7`。统一版本、待合并候选与环境边界见[当前状态](docs/current-status.md)（TEAMMATE-STATUS-20261012；ENV-STATUS-SYNC-20261012；USER-HW-20261012-03/04，用户会话）。下文逐次验收段落保留其历史提交范围。
+**进度快照（2026-10-12，历史）：** 团队main已到`b418515`（标定PR #6、Phase 2B PR #7已合并）；其486项回归及后续PR #4/#9/#10、Phase 2C结果属于上游报告，本项目未独立复验这些最新版。个人C++ Mock/Web UI证据已归档，团队PR #8仍待合并，C1延迟取消未通过。Mac上的复验准备已按用户要求终止并清理，未执行测试；完整FSM/NUC/实机仍未验收，正式pin保持`1d940f7`。统一版本、待合并候选与环境边界见[当前状态](docs/current-status.md)（TEAMMATE-STATUS-20261012；ENV-STATUS-SYNC-20261012；USER-HW-20261012-03/04，用户会话）。下文逐次验收段落保留其历史提交范围。
 
 **当前开发基线（2026-10-11）：** 用户确认“按照这个版本”（USER-HW-20261011），后续开发采用 [F1u0rite/meituan_challenge_ws 的 FSM Core v0.1](https://github.com/F1u0rite/meituan_challenge_ws/tree/1d940f7c5f12561fed6641457c0b4b630a282b05)，目标环境为 **Ubuntu 24.04 / ROS 2 Jazzy / C++17**。用户随后提示“repo已经补充SDK”（USER-HW-20261011-04），核对后将当前快照推进到 `1d940f7c5f12561fed6641457c0b4b630a282b05`：较初始 `f477f689…` 仅新增部署手册并更新 README，FSM/接口源码未变。初始核心验收见 TEAMMATE-FSM-20261011，新增 SDK/驱动资料见 TEAMMATE-SDK-20261011（均于 2026-10-11 查阅）；[接入顺序与接口映射](docs/hardware-vision-plan.md#5-软件组织与验证顺序)、[源码版本锁定](robot/fsm-baseline.repos)。
 

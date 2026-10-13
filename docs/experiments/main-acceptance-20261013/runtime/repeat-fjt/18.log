@@ -1,0 +1,39 @@
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+Note: Google Test filter = FjtAction.ConcurrentCompletedIdentityRejection:FjtAction.ConcurrentGoalsSingleOwner:FjtAction.ConcurrentPollingAndCancel:FjtAction.ConcurrentResponseAndCancelPreservesUuid:FjtAction.ConcurrentSnapshotPolling:FjtAction.DestroyDuringPendingAction:FjtAction.DuplicateCancelOnlyOneBackendCall:FjtAction.LateGoalResponseAfterFaultRetainsOriginalSession:FjtAction.RepeatedScopedCancelUnderContention:FjtAction.RepeatedSessionPollingAndScopedCancel
+[==========] Running 10 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 10 tests from FjtAction
+[ RUN      ] FjtAction.ConcurrentGoalsSingleOwner
+[       OK ] FjtAction.ConcurrentGoalsSingleOwner (218 ms)
+[ RUN      ] FjtAction.DuplicateCancelOnlyOneBackendCall
+[       OK ] FjtAction.DuplicateCancelOnlyOneBackendCall (177 ms)
+[ RUN      ] FjtAction.ConcurrentPollingAndCancel
+[       OK ] FjtAction.ConcurrentPollingAndCancel (269 ms)
+[ RUN      ] FjtAction.RepeatedScopedCancelUnderContention
+[       OK ] FjtAction.RepeatedScopedCancelUnderContention (185 ms)
+[ RUN      ] FjtAction.ConcurrentSnapshotPolling
+[       OK ] FjtAction.ConcurrentSnapshotPolling (341 ms)
+[ RUN      ] FjtAction.ConcurrentResponseAndCancelPreservesUuid
+[       OK ] FjtAction.ConcurrentResponseAndCancelPreservesUuid (237 ms)
+[ RUN      ] FjtAction.DestroyDuringPendingAction
+[       OK ] FjtAction.DestroyDuringPendingAction (102 ms)
+[ RUN      ] FjtAction.LateGoalResponseAfterFaultRetainsOriginalSession
+/main-source/src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp:766: Failure
+Value of: before->timed_out
+  Actual: false
+Expected: true
+
+[  FAILED  ] FjtAction.LateGoalResponseAfterFaultRetainsOriginalSession (114 ms)
+[ RUN      ] FjtAction.RepeatedSessionPollingAndScopedCancel
+[       OK ] FjtAction.RepeatedSessionPollingAndScopedCancel (567 ms)
+[ RUN      ] FjtAction.ConcurrentCompletedIdentityRejection
+[       OK ] FjtAction.ConcurrentCompletedIdentityRejection (330 ms)
+[----------] 10 tests from FjtAction (2546 ms total)
+
+[----------] Global test environment tear-down
+[==========] 10 tests from 1 test suite ran. (2547 ms total)
+[  PASSED  ] 9 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] FjtAction.LateGoalResponseAfterFaultRetainsOriginalSession
+
+ 1 FAILED TEST

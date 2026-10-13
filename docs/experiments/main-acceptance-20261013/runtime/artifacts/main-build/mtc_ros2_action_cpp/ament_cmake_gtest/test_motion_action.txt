@@ -1,0 +1,33 @@
+-- run_test.py: invoking following command in '/main-build/mtc_ros2_action_cpp':
+ - /main-build/mtc_ros2_action_cpp/test_motion_action --gtest_output=xml:/main-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 8 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 8 tests from MotionAction
+[ RUN      ] MotionAction.LegalNonzeroGoalAndFeedbackUseExecutorResult
+[       OK ] MotionAction.LegalNonzeroGoalAndFeedbackUseExecutorResult (148 ms)
+[ RUN      ] MotionAction.IllegalGoalRejectedWithoutBackendCall
+[       OK ] MotionAction.IllegalGoalRejectedWithoutBackendCall (19 ms)
+[ RUN      ] MotionAction.ConcurrentGoalIsRejectedAndFirstCompletes
+[       OK ] MotionAction.ConcurrentGoalIsRejectedAndFirstCompletes (129 ms)
+[ RUN      ] MotionAction.MatchingCancelStopsExactlyOnce
+[       OK ] MotionAction.MatchingCancelStopsExactlyOnce (48 ms)
+[ RUN      ] MotionAction.UnconfirmedCancelAborts520AndLocks
+[       OK ] MotionAction.UnconfirmedCancelAborts520AndLocks (48 ms)
+[ RUN      ] MotionAction.StaleCancelCannotReachBackendOrInterruptNewOwner
+[       OK ] MotionAction.StaleCancelCannotReachBackendOrInterruptNewOwner (240 ms)
+[ RUN      ] MotionAction.ExecutorTimeoutKeepsOriginal220AndRejectsNewMotion
+[       OK ] MotionAction.ExecutorTimeoutKeepsOriginal220AndRejectsNewMotion (132 ms)
+[ RUN      ] MotionAction.RosDeadlineIndependentlyRequestsAssociatedStop
+[       OK ] MotionAction.RosDeadlineIndependentlyRequestsAssociatedStop (839 ms)
+[----------] 8 tests from MotionAction (1607 ms total)
+
+[----------] Global test environment tear-down
+[==========] 8 tests from 1 test suite ran. (1608 ms total)
+[  PASSED  ] 8 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml'
+-- run_test.py: verify result file '/main-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml'

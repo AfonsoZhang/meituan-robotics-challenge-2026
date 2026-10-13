@@ -1,0 +1,31 @@
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+Note: Google Test filter = FjtAction.ConcurrentCompletedIdentityRejection:FjtAction.ConcurrentGoalsSingleOwner:FjtAction.ConcurrentPollingAndCancel:FjtAction.ConcurrentResponseAndCancelPreservesUuid:FjtAction.ConcurrentSnapshotPolling:FjtAction.DestroyDuringPendingAction:FjtAction.DuplicateCancelOnlyOneBackendCall:FjtAction.LateGoalResponseAfterFaultRetainsOriginalSession:FjtAction.RepeatedScopedCancelUnderContention:FjtAction.RepeatedSessionPollingAndScopedCancel
+[==========] Running 10 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 10 tests from FjtAction
+[ RUN      ] FjtAction.ConcurrentGoalsSingleOwner
+[       OK ] FjtAction.ConcurrentGoalsSingleOwner (213 ms)
+[ RUN      ] FjtAction.DuplicateCancelOnlyOneBackendCall
+[       OK ] FjtAction.DuplicateCancelOnlyOneBackendCall (169 ms)
+[ RUN      ] FjtAction.ConcurrentPollingAndCancel
+[       OK ] FjtAction.ConcurrentPollingAndCancel (271 ms)
+[ RUN      ] FjtAction.RepeatedScopedCancelUnderContention
+[       OK ] FjtAction.RepeatedScopedCancelUnderContention (178 ms)
+[ RUN      ] FjtAction.ConcurrentSnapshotPolling
+[       OK ] FjtAction.ConcurrentSnapshotPolling (335 ms)
+[ RUN      ] FjtAction.ConcurrentResponseAndCancelPreservesUuid
+[       OK ] FjtAction.ConcurrentResponseAndCancelPreservesUuid (216 ms)
+[ RUN      ] FjtAction.DestroyDuringPendingAction
+[WARN] [1791868582.212070172] [fake_controller.rclcpp_action]: Failed to send cancel response 725ec776-e259-ab9e-3d33-8edbb5e18403 (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400
+[       OK ] FjtAction.DestroyDuringPendingAction (194 ms)
+[ RUN      ] FjtAction.LateGoalResponseAfterFaultRetainsOriginalSession
+[       OK ] FjtAction.LateGoalResponseAfterFaultRetainsOriginalSession (517 ms)
+[ RUN      ] FjtAction.RepeatedSessionPollingAndScopedCancel
+[       OK ] FjtAction.RepeatedSessionPollingAndScopedCancel (551 ms)
+[ RUN      ] FjtAction.ConcurrentCompletedIdentityRejection
+[       OK ] FjtAction.ConcurrentCompletedIdentityRejection (323 ms)
+[----------] 10 tests from FjtAction (2972 ms total)
+
+[----------] Global test environment tear-down
+[==========] 10 tests from 1 test suite ran. (2974 ms total)
+[  PASSED  ] 10 tests.

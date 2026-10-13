@@ -1,0 +1,41 @@
+-- run_test.py: invoking following command in '/main-build/mtc_ros2_action_cpp':
+ - /main-build/mtc_ros2_action_cpp/test_pick_place_action --gtest_output=xml:/main-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 12 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 12 tests from PickAction
+[ RUN      ] PickAction.LegalGoalSucceedsOnlyAfterPlacementFeedback
+[       OK ] PickAction.LegalGoalSucceedsOnlyAfterPlacementFeedback (1158 ms)
+[ RUN      ] PickAction.InvalidParametersRejectedBeforeExecution
+[       OK ] PickAction.InvalidParametersRejectedBeforeExecution (1034 ms)
+[ RUN      ] PickAction.ConcurrentSecondGoalRejected
+[       OK ] PickAction.ConcurrentSecondGoalRejected (1026 ms)
+[ RUN      ] PickAction.MatchingCancelRequiresIndependentStationaryEvidence
+[       OK ] PickAction.MatchingCancelRequiresIndependentStationaryEvidence (72 ms)
+[ RUN      ] PickAction.CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked
+[       OK ] PickAction.CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked (75 ms)
+[ RUN      ] PickAction.StaleGoalCancelCannotInterruptNewGoal
+[       OK ] PickAction.StaleGoalCancelCannotInterruptNewGoal (2072 ms)
+[ RUN      ] PickAction.MotionStatusUnknownNeverResendsOrAutoClearsFault
+[       OK ] PickAction.MotionStatusUnknownNeverResendsOrAutoClearsFault (150 ms)
+[ RUN      ] PickAction.MissingPlanNeverSucceeds
+[       OK ] PickAction.MissingPlanNeverSucceeds (78 ms)
+[ RUN      ] PickAction.ConcurrentRosRequestsHaveExactlyOneOwner
+[       OK ] PickAction.ConcurrentRosRequestsHaveExactlyOneOwner (1037 ms)
+[ RUN      ] PickAction.InFlightWatchdogFaultStillDrainsAssociatedStopWorker
+[       OK ] PickAction.InFlightWatchdogFaultStillDrainsAssociatedStopWorker (60 ms)
+[ RUN      ] PickAction.CancelWhileCarryingStopsButKeepsLoadAdmissionLocked
+[       OK ] PickAction.CancelWhileCarryingStopsButKeepsLoadAdmissionLocked (449 ms)
+[ RUN      ] PickAction.UnverifiedAttachmentLoadCannotBeClearedByNewGoal
+[       OK ] PickAction.UnverifiedAttachmentLoadCannotBeClearedByNewGoal (180 ms)
+[----------] 12 tests from PickAction (7397 ms total)
+
+[----------] Global test environment tear-down
+[==========] 12 tests from 1 test suite ran. (7404 ms total)
+[  PASSED  ] 12 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml'
+-- run_test.py: verify result file '/main-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml'

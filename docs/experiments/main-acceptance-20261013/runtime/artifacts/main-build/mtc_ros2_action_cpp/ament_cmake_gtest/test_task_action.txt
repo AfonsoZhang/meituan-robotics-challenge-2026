@@ -1,0 +1,41 @@
+-- run_test.py: invoking following command in '/main-build/mtc_ros2_action_cpp':
+ - /main-build/mtc_ros2_action_cpp/test_task_action --gtest_output=xml:/main-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 12 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 12 tests from TaskAction
+[ RUN      ] TaskAction.BasicTaskUsesRealChildActionAndRecordsT0
+[       OK ] TaskAction.BasicTaskUsesRealChildActionAndRecordsT0 (1094 ms)
+[ RUN      ] TaskAction.SequenceTaskRecordsAllSlotsInOrder
+[       OK ] TaskAction.SequenceTaskRecordsAllSlotsInOrder (3128 ms)
+[ RUN      ] TaskAction.InvalidColorsAndConcurrentTaskRejected
+[       OK ] TaskAction.InvalidColorsAndConcurrentTaskRejected (1065 ms)
+[ RUN      ] TaskAction.CancelAckWaitsForChildFinalStopResult
+[       OK ] TaskAction.CancelAckWaitsForChildFinalStopResult (83 ms)
+[ RUN      ] TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent
+[       OK ] TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent (86 ms)
+[ RUN      ] TaskAction.ChildStatusUnknownPropagatesOriginalError
+[       OK ] TaskAction.ChildStatusUnknownPropagatesOriginalError (187 ms)
+[ RUN      ] TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess
+[       OK ] TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess (161 ms)
+[ RUN      ] TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild
+[       OK ] TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild (209 ms)
+[ RUN      ] TaskAction.MissingChildNeverFabricatesTaskSuccess
+[       OK ] TaskAction.MissingChildNeverFabricatesTaskSuccess (139 ms)
+[ RUN      ] TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent
+[       OK ] TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent (92 ms)
+[ RUN      ] TaskAction.StaleParentCancelCannotReachNewChild
+[       OK ] TaskAction.StaleParentCancelCannotReachNewChild (2041 ms)
+[ RUN      ] TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded
+[       OK ] TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded (70 ms)
+[----------] 12 tests from TaskAction (8364 ms total)
+
+[----------] Global test environment tear-down
+[==========] 12 tests from 1 test suite ran. (8365 ms total)
+[  PASSED  ] 12 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml'
+-- run_test.py: verify result file '/main-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml'

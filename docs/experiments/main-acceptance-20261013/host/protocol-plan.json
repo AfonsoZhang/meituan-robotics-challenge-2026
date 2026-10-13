@@ -1,0 +1,20 @@
+{
+  "upstream_sha": "b4185155383541e1a4161587c4049a162f74b36d",
+  "ordinary": "clean 15-package build/test plus delivered identity verifier",
+  "repeat": {
+    "processes": 40,
+    "deadline_per_process_seconds": 40,
+    "selection": "original DuplicateCancelOnlyOneBackendCall + original ConcurrentGoalsSingleOwner + 8 new mutex regression tests",
+    "stop_on_first_failure": true
+  },
+  "ubsan": "independent build/install, all seven C++ packages, exact identities",
+  "other": "Python offline E2E/wiring/calibration; actual Python and C++ Mock; independent MoveIt; native FJT Status and ownership refusal",
+  "pr8_c1": "separate fixed 7da4322 source and separate serial container, success Mock result delay 700ms and Cancel 400ms after MOVE_PRE_ALIGN; no browser claim",
+  "excluded": [
+    "new Phase2C/vision/planning/Gazebo candidates",
+    "kernel edits",
+    "formal pin update",
+    "hardware",
+    "monitor restart"
+  ]
+}

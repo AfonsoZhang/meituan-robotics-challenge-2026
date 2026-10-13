@@ -1,0 +1,29 @@
+-- run_test.py: invoking following command in '/main-build/mtc_motion_execution_cpp':
+ - /main-build/mtc_motion_execution_cpp/test_in_flight_guard --gtest_output=xml:/main-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_in_flight_guard.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 6 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 6 tests from InFlightGuard
+[ RUN      ] InFlightGuard.AcquireSucceedsWhenFree
+[       OK ] InFlightGuard.AcquireSucceedsWhenFree (0 ms)
+[ RUN      ] InFlightGuard.SecondAcquireIsRejectedWithInFlightId
+[       OK ] InFlightGuard.SecondAcquireIsRejectedWithInFlightId (0 ms)
+[ RUN      ] InFlightGuard.EmptyCommandIdRejected
+[       OK ] InFlightGuard.EmptyCommandIdRejected (0 ms)
+[ RUN      ] InFlightGuard.ReleaseOnlyByOwner
+[       OK ] InFlightGuard.ReleaseOnlyByOwner (0 ms)
+[ RUN      ] InFlightGuard.ForceReleaseIsAvailableForManualRecovery
+[       OK ] InFlightGuard.ForceReleaseIsAvailableForManualRecovery (0 ms)
+[ RUN      ] InFlightGuard.SequentialCommandsAreAllowed
+[       OK ] InFlightGuard.SequentialCommandsAreAllowed (0 ms)
+[----------] 6 tests from InFlightGuard (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 6 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 6 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_in_flight_guard.gtest.xml'
+-- run_test.py: verify result file '/main-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_in_flight_guard.gtest.xml'

@@ -1,0 +1,1808 @@
+{
+  "status": "PARTIAL_NOT_ACCEPTED_AS_COMPLETE_SYSTEM",
+  "main_sha": "b4185155383541e1a4161587c4049a162f74b36d",
+  "pr8_sha": "7da43228d602a6b23571bfc599d69529ef7bea23",
+  "formal_pin": "1d940f7c5f12561fed6641457c0b4b630a282b05",
+  "ordinary_cpp": {
+    "cases": 486,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "ordinary_python": {
+    "cases": 269,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "ubsan_cpp": {
+    "cases": 486,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "extra_python": {
+    "offline_e2e": 15,
+    "ros_wiring": 6,
+    "calibration": 54,
+    "evidence": "host-logs/python-extra.log"
+  },
+  "repeat": {
+    "planned_processes": 40,
+    "completed_processes": 18,
+    "identities": 10,
+    "cases": 180,
+    "failed": 1,
+    "errors": 0,
+    "skipped": 0,
+    "status": "FAIL",
+    "stop_on_first_failure": true,
+    "failed_case": "FjtAction.LateGoalResponseAfterFaultRetainsOriginalSession"
+  },
+  "cpp_process_cases": [
+    {
+      "case": "task-basic-sequence-after-idle",
+      "status": "PASS",
+      "goals": [
+        {
+          "goal": {
+            "task_id": "bad-color",
+            "mode": 1,
+            "ordered_colors": [
+              0
+            ],
+            "timeout_ms": 20000,
+            "placement_stability_sec": 3.0
+          },
+          "accepted": false,
+          "uuid": "01d41f7376534a6bbb06c51c1cfde0dc",
+          "feedback_count": 0,
+          "terminal": null,
+          "cancel_response": null,
+          "times": {
+            "request_monotonic": 1042492.559607116,
+            "response_monotonic": 1042492.562231035
+          },
+          "children": []
+        },
+        {
+          "goal": {
+            "task_id": "bad-sequence",
+            "mode": 2,
+            "ordered_colors": [
+              1,
+              1,
+              3
+            ],
+            "timeout_ms": 20000,
+            "placement_stability_sec": 3.0
+          },
+          "accepted": false,
+          "uuid": "c42d001b148a45bbb4dfa32daf916c9a",
+          "feedback_count": 0,
+          "terminal": null,
+          "cancel_response": null,
+          "times": {
+            "request_monotonic": 1042492.56224297,
+            "response_monotonic": 1042492.563137204
+          },
+          "children": []
+        },
+        {
+          "goal": {
+            "task_id": "bad-stability",
+            "mode": 1,
+            "ordered_colors": [
+              1
+            ],
+            "timeout_ms": 20000,
+            "placement_stability_sec": 0.0
+          },
+          "accepted": false,
+          "uuid": "e8ba50b4baa24fb697c00cdfc74c77ac",
+          "feedback_count": 0,
+          "terminal": null,
+          "cancel_response": null,
+          "times": {
+            "request_monotonic": 1042492.563142462,
+            "response_monotonic": 1042492.56375373
+          },
+          "children": []
+        },
+        {
+          "goal": {
+            "task_id": "standalone-basic",
+            "mode": 1,
+            "ordered_colors": [
+              1
+            ],
+            "timeout_ms": 20000,
+            "placement_stability_sec": 3.0
+          },
+          "accepted": true,
+          "uuid": "07ed0071f8b64b979c70fd7f59d48271",
+          "feedback_count": 243,
+          "terminal": {
+            "status": 4,
+            "result": {
+              "success": true,
+              "completed_count": 1,
+              "completed_slots": [
+                "T0"
+              ],
+              "error_code": 0,
+              "message": "task finished: T0"
+            }
+          },
+          "cancel_response": null,
+          "times": {
+            "request_monotonic": 1042492.563767932,
+            "response_monotonic": 1042492.564521493,
+            "terminal_received_monotonic": 1042494.989393439
+          },
+          "children": [
+            {
+              "uuid": "802e369420b81e832b58dc0540cc7348",
+              "terminal": {
+                "status": 4,
+                "result": {
+                  "success": true,
+                  "placement_verified": true,
+                  "error_code": 0,
+                  "message": ""
+                }
+              },
+              "received_monotonic": 1042495.093115035
+            }
+          ]
+        },
+        {
+          "goal": {
+            "task_id": "concurrent-task",
+            "mode": 1,
+            "ordered_colors": [
+              1
+            ],
+            "timeout_ms": 20000,
+            "placement_stability_sec": 3.0
+          },
+          "accepted": false,
+          "uuid": "d3c099330abd47c18883faa28ef788a6",
+          "feedback_count": 0,
+          "terminal": null,
+          "cancel_response": null,
+          "times": {
+            "request_monotonic": 1042492.564538,
+            "response_monotonic": 1042492.565484269
+          },
+          "children": []
+        },
+        {
+          "goal": {
+            "task_id": "standalone-basic",
+            "mode": 1,
+            "ordered_colors": [
+              1
+            ],
+            "timeout_ms": 20000,
+            "placement_stability_sec": 3.0
+          },
+          "accepted": false,
+          "uuid": "35029284bfd44996baf11c41aee4f148",
+          "feedback_count": 0,
+          "terminal": null,
+          "cancel_response": null,
+          "times": {
+            "request_monotonic": 1042495.093899789,
+            "response_monotonic": 1042495.094651784
+          },
+          "children": []
+        },
+        {
+          "goal": {
+            "task_id": "standalone-sequence",
+            "mode": 2,
+            "ordered_colors": [
+              3,
+              1,
+              2
+            ],
+            "timeout_ms": 45000,
+            "placement_stability_sec": 3.0
+          },
+          "accepted": true,
+          "uuid": "add697920cd0454795f2fce310b7bed1",
+          "feedback_count": 729,
+          "terminal": {
+            "status": 4,
+            "result": {
+              "success": true,
+              "completed_count": 3,
+              "completed_slots": [
+                "P1",
+                "P2",
+                "P3"
+              ],
+              "error_code": 0,
+              "message": "task finished: P1,P2,P3"
+            }
+          },
+          "cancel_response": null,
+          "times": {
+            "request_monotonic": 1042495.094666454,
+            "response_monotonic": 1042495.095181049,
+            "terminal_received_monotonic": 1042502.379233179
+          },
+          "children": [
+            {
+              "uuid": "805a7ddfb092beb05228edcc589416c5",
+              "terminal": {
+                "status": 4,
+                "result": {
+                  "success": true,
+                  "placement_verified": true,
+                  "error_code": 0,
+                  "message": ""
+                }
+              },
+              "received_monotonic": 1042502.484079465
+            },
+            {
+              "uuid": "0ea27b6ec969b3c328260cebf824c4f5",
+              "terminal": {
+                "status": 4,
+                "result": {
+                  "success": true,
+                  "placement_verified": true,
+                  "error_code": 0,
+                  "message": ""
+                }
+              },
+              "received_monotonic": 1042502.484541319
+            },
+            {
+              "uuid": "c747483f254886f81deebf96c6f29378",
+              "terminal": {
+                "status": 4,
+                "result": {
+                  "success": true,
+                  "placement_verified": true,
+                  "error_code": 0,
+                  "message": ""
+                }
+              },
+              "received_monotonic": 1042502.485046156
+            }
+          ]
+        }
+      ],
+      "shutdown": [
+        {
+          "executable": "mock_task_server",
+          "exit_code": 0,
+          "escalated": false
+        },
+        {
+          "executable": "mock_pick_place_server",
+          "exit_code": 0,
+          "escalated": false
+        }
+      ],
+      "nodes_after_shutdown": [
+        [
+          "cpp_action_acceptance",
+          "/"
+        ]
+      ],
+      "pickplace_send_goal_clients": [
+        "mtc_mock_task"
+      ],
+      "topic_qos": {
+        "/mtc/manipulation/pick_place/_action/status": [
+          {
+            "node": "mtc_mock_pick_place",
+            "namespace": "/",
+            "type": "action_msgs/msg/GoalStatusArray",
+            "reliability": "1",
+            "durability": "1",
+            "history": "3",
+            "depth": 0
+          }
+        ],
+        "/mtc/manipulation/pick_place/_action/feedback": [
+          {
+            "node": "mtc_mock_pick_place",
+            "namespace": "/",
+            "type": "mtc_interfaces/action/PickPlace_FeedbackMessage",
+            "reliability": "1",
+            "durability": "2",
+            "history": "3",
+            "depth": 0
+          }
+        ]
+      },
+      "evidence": "runtime/cpp-mock-v2/task-basic-sequence-after-idle/result.json"
+    },
+    {
+      "case": "task-associated-cancel",
+      "status": "PASS",
+      "goals": [
+        {
+          "goal": {
+            "task_id": "standalone-cancel",
+            "mode": 1,
+            "ordered_colors": [
+              1
+            ],
+            "timeout_ms": 20000,
+            "placement_stability_sec": 3.0
+          },
+          "accepted": true,
+          "uuid": "543b4987df0d478b9461d9a3f7f71bae",
+          "feedback_count": 8,
+          "terminal": {
+            "status": 5,
+            "result": {
+              "success": false,
+              "completed_count": 0,
+              "completed_slots": [],
+              "error_code": 0,
+              "message": "cancelled after stop confirmation (completed 0)"
+            }
+          },
+          "cancel_response": {
+            "return_code": 0,
+            "goals_canceling": [
+              {
+                "goal_id": {
+                  "uuid": [
+                    84,
+                    59,
+                    73,
+                    135,
+                    223,
+                    13,
+                    71,
+                    139,
+                    148,
+                    97,
+                    217,
+                    163,
+                    247,
+                    247,
+                    27,
+                    174
+                  ]
+                },
+                "stamp": {
+                  "sec": 1791869079,
+                  "nanosec": 650658125
+                }
+              }
+            ]
+          },
+          "times": {
+            "request_monotonic": 1042503.409389453,
+            "response_monotonic": 1042503.411860461,
+            "cancel_request_monotonic": 1042503.462962651,
+            "cancel_response_monotonic": 1042503.464455566,
+            "terminal_received_monotonic": 1042503.490170315
+          },
+          "children": [
+            {
+              "uuid": "ba3973aa81a26eab632d648d88a433a2",
+              "terminal": {
+                "status": 5,
+                "result": {
+                  "success": false,
+                  "placement_verified": false,
+                  "error_code": 0,
+                  "message": ""
+                }
+              },
+              "received_monotonic": 1042503.593289385
+            }
+          ]
+        }
+      ],
+      "shutdown": [
+        {
+          "executable": "mock_task_server",
+          "exit_code": 0,
+          "escalated": false
+        },
+        {
+          "executable": "mock_pick_place_server",
+          "exit_code": 0,
+          "escalated": false
+        }
+      ],
+      "nodes_after_shutdown": [
+        [
+          "cpp_action_acceptance",
+          "/"
+        ]
+      ],
+      "pickplace_send_goal_clients": [
+        "mtc_mock_task"
+      ],
+      "topic_qos": {
+        "/mtc/manipulation/pick_place/_action/status": [
+          {
+            "node": "mtc_mock_pick_place",
+            "namespace": "/",
+            "type": "action_msgs/msg/GoalStatusArray",
+            "reliability": "1",
+            "durability": "1",
+            "history": "3",
+            "depth": 0
+          }
+        ],
+        "/mtc/manipulation/pick_place/_action/feedback": [
+          {
+            "node": "mtc_mock_pick_place",
+            "namespace": "/",
+            "type": "mtc_interfaces/action/PickPlace_FeedbackMessage",
+            "reliability": "1",
+            "durability": "2",
+            "history": "3",
+            "depth": 0
+          }
+        ]
+      },
+      "evidence": "runtime/cpp-mock-v2/task-associated-cancel/result.json"
+    },
+    {
+      "case": "task-missing-child-fault",
+      "status": "PASS",
+      "goals": [
+        {
+          "goal": {
+            "task_id": "missing-child",
+            "mode": 1,
+            "ordered_colors": [
+              1
+            ],
+            "timeout_ms": 150,
+            "placement_stability_sec": 3.0
+          },
+          "accepted": true,
+          "uuid": "9d61a7b9f182426da2b9bdba6696ee8c",
+          "feedback_count": 17,
+          "terminal": {
+            "status": 6,
+            "result": {
+              "success": false,
+              "completed_count": 0,
+              "completed_slots": [],
+              "error_code": 220,
+              "message": "task missing-child exceeded timeout_ms=150 (elapsed 0.159811s)"
+            }
+          },
+          "cancel_response": null,
+          "times": {
+            "request_monotonic": 1042448.393604255,
+            "response_monotonic": 1042448.395382507,
+            "terminal_received_monotonic": 1042448.565457636
+          },
+          "children": []
+        },
+        {
+          "goal": {
+            "task_id": "after-fault",
+            "mode": 1,
+            "ordered_colors": [
+              1
+            ],
+            "timeout_ms": 20000,
+            "placement_stability_sec": 3.0
+          },
+          "accepted": false,
+          "uuid": "e632179ae83a43c5bc6fedf29b08fa2b",
+          "feedback_count": 0,
+          "terminal": null,
+          "cancel_response": null,
+          "times": {
+            "request_monotonic": 1042448.665921535,
+            "response_monotonic": 1042448.666926876
+          },
+          "children": []
+        }
+      ],
+      "shutdown": [
+        {
+          "executable": "mock_task_server",
+          "exit_code": 0,
+          "escalated": false
+        }
+      ],
+      "nodes_after_shutdown": [
+        [
+          "cpp_action_acceptance",
+          "/"
+        ]
+      ],
+      "pickplace_send_goal_clients": null,
+      "topic_qos": null,
+      "evidence": "runtime/cpp-mock/task-missing-child-fault/result.json"
+    },
+    {
+      "case": "motion-single-point-cancel",
+      "status": "PASS",
+      "goals": [
+        {
+          "goal": {
+            "command_id": "invalid-motion",
+            "joint_names": [
+              "shoulder_joint",
+              "upperArm_joint",
+              "foreArm_joint",
+              "wrist1_joint",
+              "wrist2_joint",
+              "wrist3_joint"
+            ],
+            "target_rad": [
+              0.05,
+              -0.02,
+              0.01,
+              0.03,
+              -0.04,
+              0.02
+            ],
+            "velocity_scaling": 0.2,
+            "acceleration_scaling": 1.0,
+            "timeout_ms": 2000
+          },
+          "accepted": false,
+          "uuid": "d2064a87f2784c3892cebc56b768cbee",
+          "feedback_count": 0,
+          "terminal": null,
+          "cancel_response": null,
+          "times": {
+            "request_monotonic": 1042449.306149347,
+            "response_monotonic": 1042449.31457618
+          },
+          "children": []
+        },
+        {
+          "goal": {
+            "command_id": "standalone-motion",
+            "joint_names": [
+              "shoulder_joint",
+              "upperArm_joint",
+              "foreArm_joint",
+              "wrist1_joint",
+              "wrist2_joint",
+              "wrist3_joint"
+            ],
+            "target_rad": [
+              0.05,
+              -0.02,
+              0.01,
+              0.03,
+              -0.04,
+              0.02
+            ],
+            "velocity_scaling": 0.2,
+            "acceleration_scaling": 0.2,
+            "timeout_ms": 2000
+          },
+          "accepted": true,
+          "uuid": "b41e7b6e30914630a914f9dd31566ffd",
+          "feedback_count": 11,
+          "terminal": {
+            "status": 4,
+            "result": {
+              "success": true,
+              "stop_confirmed": true,
+              "final_position_rad": [
+                0.05,
+                -0.02,
+                0.01,
+                0.03,
+                -0.04,
+                0.02
+              ],
+              "error_code": 0,
+              "message": "已到位并停稳"
+            }
+          },
+          "cancel_response": null,
+          "times": {
+            "request_monotonic": 1042449.314641601,
+            "response_monotonic": 1042449.31541925,
+            "terminal_received_monotonic": 1042449.417443772
+          },
+          "children": []
+        },
+        {
+          "goal": {
+            "command_id": "concurrent-motion",
+            "joint_names": [
+              "shoulder_joint",
+              "upperArm_joint",
+              "foreArm_joint",
+              "wrist1_joint",
+              "wrist2_joint",
+              "wrist3_joint"
+            ],
+            "target_rad": [
+              0.05,
+              -0.02,
+              0.01,
+              0.03,
+              -0.04,
+              0.02
+            ],
+            "velocity_scaling": 0.2,
+            "acceleration_scaling": 0.2,
+            "timeout_ms": 2000
+          },
+          "accepted": false,
+          "uuid": "5557a112ad224b58a13e6d59939a78f4",
+          "feedback_count": 0,
+          "terminal": null,
+          "cancel_response": null,
+          "times": {
+            "request_monotonic": 1042449.315431743,
+            "response_monotonic": 1042449.316227576
+          },
+          "children": []
+        },
+        {
+          "goal": {
+            "command_id": "standalone-motion",
+            "joint_names": [
+              "shoulder_joint",
+              "upperArm_joint",
+              "foreArm_joint",
+              "wrist1_joint",
+              "wrist2_joint",
+              "wrist3_joint"
+            ],
+            "target_rad": [
+              0.05,
+              -0.02,
+              0.01,
+              0.03,
+              -0.04,
+              0.02
+            ],
+            "velocity_scaling": 0.2,
+            "acceleration_scaling": 0.2,
+            "timeout_ms": 2000
+          },
+          "accepted": false,
+          "uuid": "79b0b712051545c39fd81f9d64dfa2cc",
+          "feedback_count": 0,
+          "terminal": null,
+          "cancel_response": null,
+          "times": {
+            "request_monotonic": 1042449.518184024,
+            "response_monotonic": 1042449.519538578
+          },
+          "children": []
+        },
+        {
+          "goal": {
+            "command_id": "standalone-motion-cancel",
+            "joint_names": [
+              "shoulder_joint",
+              "upperArm_joint",
+              "foreArm_joint",
+              "wrist1_joint",
+              "wrist2_joint",
+              "wrist3_joint"
+            ],
+            "target_rad": [
+              0.05,
+              -0.02,
+              0.01,
+              0.03,
+              -0.04,
+              0.02
+            ],
+            "velocity_scaling": 0.2,
+            "acceleration_scaling": 0.2,
+            "timeout_ms": 2000
+          },
+          "accepted": true,
+          "uuid": "31a0c4b94ef54851ababe4459c8179e0",
+          "feedback_count": 3,
+          "terminal": {
+            "status": 5,
+            "result": {
+              "success": false,
+              "stop_confirmed": true,
+              "final_position_rad": [
+                0.05,
+                -0.02,
+                0.01,
+                0.03,
+                -0.04,
+                0.02
+              ],
+              "error_code": 0,
+              "message": "无在途命令；停稳必须由关联证据确认：associated ROS motion cancel"
+            }
+          },
+          "cancel_response": {
+            "return_code": 0,
+            "goals_canceling": [
+              {
+                "goal_id": {
+                  "uuid": [
+                    49,
+                    160,
+                    196,
+                    185,
+                    78,
+                    245,
+                    72,
+                    81,
+                    171,
+                    171,
+                    228,
+                    69,
+                    156,
+                    129,
+                    121,
+                    224
+                  ]
+                },
+                "stamp": {
+                  "sec": 1791869025,
+                  "nanosec": 697831189
+                }
+              }
+            ]
+          },
+          "times": {
+            "request_monotonic": 1042449.519565077,
+            "response_monotonic": 1042449.520336284,
+            "cancel_request_monotonic": 1042449.530547556,
+            "cancel_response_monotonic": 1042449.531760537,
+            "terminal_received_monotonic": 1042449.547687428
+          },
+          "children": []
+        }
+      ],
+      "shutdown": [
+        {
+          "executable": "mock_motion_server",
+          "exit_code": 0,
+          "escalated": false
+        }
+      ],
+      "nodes_after_shutdown": [
+        [
+          "cpp_action_acceptance",
+          "/"
+        ]
+      ],
+      "pickplace_send_goal_clients": null,
+      "topic_qos": null,
+      "evidence": "runtime/cpp-mock/motion-single-point-cancel/result.json"
+    }
+  ],
+  "harness_failures": {
+    "initial_cpp_observer": [
+      {
+        "case": "task-basic-sequence-after-idle",
+        "exception": "AssertionError('Only C++ Task is downstream ActionClient')",
+        "status": "FAIL",
+        "shutdown": [
+          {
+            "executable": "mock_task_server",
+            "exit_code": 0,
+            "escalated": false
+          },
+          {
+            "executable": "mock_pick_place_server",
+            "exit_code": 0,
+            "escalated": false
+          }
+        ]
+      },
+      {
+        "case": "task-associated-cancel",
+        "exception": "AssertionError('Only C++ Task is downstream ActionClient')",
+        "status": "FAIL",
+        "shutdown": [
+          {
+            "executable": "mock_task_server",
+            "exit_code": 0,
+            "escalated": false
+          },
+          {
+            "executable": "mock_pick_place_server",
+            "exit_code": 0,
+            "escalated": false
+          }
+        ]
+      }
+    ],
+    "explanation": "Before any Task Goal in the two affected cases, Action graph counted feedback/status-only observer as a client. Corrected external observer verifies actual send_goal service endpoints and reruns only those two unexecuted cases; original results retained.",
+    "fresh_source_setup": "Git dubious ownership exit128 before build; per-process safe.directory used only for /main-source, no permission/capability/global-config change."
+  },
+  "python_mock": [
+    {
+      "case": "early-goal",
+      "status": "FAIL",
+      "exception": "AssertionError('PickPlace server unavailable (B03/B05)')",
+      "result": {
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 220,
+          "message": "task acceptance-early-goal exceeded timeout_ms=5000 (elapsed 5.037s)"
+        }
+      },
+      "cancel_response": null,
+      "launch_exit_code": 0,
+      "shutdown_escalated": false,
+      "child_failure": true
+    },
+    {
+      "case": "delayed-goal",
+      "status": "FAIL",
+      "exception": "AssertionError('PickPlace server unavailable (B03/B05)')",
+      "result": {
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 510,
+          "message": "state INIT timed out after 5.029s -> HARDWARE_FAULT"
+        }
+      },
+      "cancel_response": null,
+      "launch_exit_code": 0,
+      "shutdown_escalated": false,
+      "child_failure": true
+    },
+    {
+      "case": "cancel-goal",
+      "status": "FAIL",
+      "exception": "AssertionError('PickPlace server unavailable (B03/B05)')",
+      "result": {
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 520,
+          "message": "cancel not confirmed before timeout (child never reported stopped)"
+        }
+      },
+      "cancel_response": {
+        "return_code": 0,
+        "goals_canceling": [
+          {
+            "goal_id": {
+              "uuid": [
+                46,
+                52,
+                51,
+                125,
+                129,
+                176,
+                66,
+                229,
+                143,
+                253,
+                107,
+                121,
+                222,
+                234,
+                100,
+                181
+              ]
+            },
+            "stamp": {
+              "sec": 1791869119,
+              "nanosec": 660470643
+            }
+          }
+        ]
+      },
+      "launch_exit_code": 0,
+      "shutdown_escalated": false,
+      "child_failure": true
+    }
+  ],
+  "native_gate": {
+    "started_at": "2026-10-13T05:25:37.798111+00:00",
+    "scope": "Default GenericSystem+MoveIt+FjtMotionPort ownership gate with native Status evidence; no FJT Goal, no complete FSM/physical robot",
+    "observer_action_clients": 0,
+    "status": "PASS_NATIVE_AND_COEXISTENCE_BLOCKED",
+    "plugins": [
+      "mock_components/GenericSystem"
+    ],
+    "controller_only_graph": {
+      "clients": [],
+      "servers": [
+        {
+          "node": "joint_trajectory_controller",
+          "namespace": "/",
+          "types": [
+            "control_msgs/action/FollowJointTrajectory"
+          ]
+        }
+      ],
+      "direct_publishers": 0
+    },
+    "native_success": {
+      "argv": [
+        "ros2",
+        "run",
+        "mtc_trajectory_execution_cpp",
+        "fake_trajectory_probe",
+        "--verify-generic-system",
+        "success"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 10.437820155988447,
+      "coexistence_graph": []
+    },
+    "native_execution": "BLOCKED_ZERO_GOAL",
+    "native_other_modes": "NOT_RUN: required live Status evidence absent; no fake heartbeat, prewarming Goal or relaxed gate",
+    "moveit_graph": {
+      "clients": [
+        {
+          "node": "moveit_simple_controller_manager",
+          "namespace": "/",
+          "types": [
+            "control_msgs/action/FollowJointTrajectory"
+          ]
+        }
+      ],
+      "servers": [
+        {
+          "node": "joint_trajectory_controller",
+          "namespace": "/",
+          "types": [
+            "control_msgs/action/FollowJointTrajectory"
+          ]
+        }
+      ],
+      "direct_publishers": 0
+    },
+    "allow_execution_parameter": "Parameter not set.\n",
+    "topology": {
+      "argv": [
+        "ros2",
+        "run",
+        "mtc_trajectory_execution_cpp",
+        "fake_trajectory_probe",
+        "--verify-generic-system",
+        "topology"
+      ],
+      "exit_code": 2,
+      "elapsed_seconds": 10.403402530006133,
+      "coexistence_graph": [
+        {
+          "clients": [
+            {
+              "node": "moveit_simple_controller_manager",
+              "namespace": "/",
+              "types": [
+                "control_msgs/action/FollowJointTrajectory"
+              ]
+            },
+            {
+              "node": "mtc_fake_trajectory_probe",
+              "namespace": "/",
+              "types": [
+                "control_msgs/action/FollowJointTrajectory"
+              ]
+            }
+          ],
+          "servers": [
+            {
+              "node": "joint_trajectory_controller",
+              "namespace": "/",
+              "types": [
+                "control_msgs/action/FollowJointTrajectory"
+              ]
+            }
+          ],
+          "direct_publishers": 0
+        }
+      ]
+    },
+    "after_port_graph": {
+      "clients": [
+        {
+          "node": "moveit_simple_controller_manager",
+          "namespace": "/",
+          "types": [
+            "control_msgs/action/FollowJointTrajectory"
+          ]
+        }
+      ],
+      "servers": [
+        {
+          "node": "joint_trajectory_controller",
+          "namespace": "/",
+          "types": [
+            "control_msgs/action/FollowJointTrajectory"
+          ]
+        }
+      ],
+      "direct_publishers": 0
+    },
+    "fjt_goal_uuids": [],
+    "distinct_joint_stamps": 4929,
+    "all_joints_zero": true,
+    "status_messages": 0,
+    "shutdown": [
+      {
+        "launch": "move-group",
+        "already_exited": false,
+        "escalated": false,
+        "exit_code": 0,
+        "child_failures": [
+          "process has died [pid 13641, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_hpkshgft --params-file /tmp/launch_params__bihdb8s']."
+        ],
+        "statistics_context_errors": []
+      },
+      {
+        "launch": "control",
+        "already_exited": false,
+        "escalated": false,
+        "exit_code": 0,
+        "child_failures": [],
+        "statistics_context_errors": [
+          "[ros2_control_node-1] [ERROR] [1791869193.621228185] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+          "[ros2_control_node-1] [ERROR] [1791869193.621228375] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+        ]
+      }
+    ],
+    "empty_after": true,
+    "clean_shutdown": "FAIL",
+    "driver_files_unchanged": true,
+    "driver_files_count": 5656,
+    "ended_at": "2026-10-13T05:26:37.918314+00:00"
+  },
+  "moveit": {
+    "scope": "Independent S3 MoveIt / GenericSystem; no FSM or physical robot",
+    "planning_execution": "PASS",
+    "clean_shutdown": "FAIL",
+    "plugins": [
+      "mock_components/GenericSystem"
+    ],
+    "controller_action_servers": [
+      {
+        "node": "joint_trajectory_controller",
+        "namespace": "/",
+        "types": [
+          "control_msgs/action/FollowJointTrajectory"
+        ]
+      }
+    ],
+    "initial_rad": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "target_rad": [
+      0.05,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "joint_names": [
+      "shoulder_joint",
+      "upperArm_joint",
+      "foreArm_joint",
+      "wrist1_joint",
+      "wrist2_joint",
+      "wrist3_joint"
+    ],
+    "accepted": true,
+    "execute": {
+      "status": 4,
+      "result": {
+        "error_code": {
+          "val": 1,
+          "message": "",
+          "source": ""
+        }
+      }
+    },
+    "actual_rad": [
+      0.05007658682749607,
+      -1.0871173022314912e-05,
+      4.750937754288317e-05,
+      3.107090489938855e-05,
+      9.828713480383159e-05,
+      3.8823673501610755e-05
+    ],
+    "max_error_rad": 9.828713480383159e-05,
+    "distinct_joint_stamps": 209,
+    "shutdown": [
+      {
+        "launch": "move-group",
+        "escalated": false,
+        "already_exited": false,
+        "exit_code": 0,
+        "child_failures": [
+          "process has died [pid 13918, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_5flm6az1 --params-file /tmp/launch_params_muzynakr']."
+        ]
+      },
+      {
+        "launch": "control",
+        "escalated": false,
+        "already_exited": false,
+        "exit_code": 0,
+        "child_failures": []
+      }
+    ],
+    "json_note": "Any non-finite optional ROS fields are null; original representation retained in result.raw.txt"
+  },
+  "pr8_c1": {
+    "sha": "7da43228d602a6b23571bfc599d69529ef7bea23",
+    "started_at": "2026-10-13T05:32:01.793738+00:00",
+    "stack_argv": [
+      "ros2",
+      "run",
+      "mtc_cpp_mock_bringup",
+      "mock_stack",
+      "--namespace",
+      "/cpp_c1",
+      "--output-dir",
+      "/pr8-review/c1/stack",
+      "--result-delay-ms",
+      "700",
+      "--no-web"
+    ],
+    "status": "FAIL_CANCEL_NOT_COMPLETED",
+    "scope": "Unchanged PR8 CLI C1 reproducer; no new browser acceptance",
+    "client_argv": [
+      "ros2",
+      "run",
+      "mtc_cpp_mock_bringup",
+      "mock_task",
+      "--namespace",
+      "/cpp_c1",
+      "--output-dir",
+      "/pr8-review/c1/client",
+      "--cancel-at",
+      "MOVE_PRE_ALIGN",
+      "--cancel-delay-ms",
+      "400",
+      "--goal",
+      "{\"task_id\": \"c1_retest_20261013\", \"mode\": 1, \"ordered_colors\": [1], \"timeout_ms\": 30000, \"placement_stability_sec\": 3}"
+    ],
+    "client_exit_code": 0,
+    "actual": {
+      "goal_id": "f19af380b54e40f183cf4ba00567e1d3",
+      "status": 6,
+      "result": {
+        "success": false,
+        "completed_count": 0,
+        "completed_slots": [],
+        "error_code": 520,
+        "message": "取消后未确认停稳（request_delivered=true）：无在途命令；停稳必须由关联证据确认：associated PickPlace cancel"
+      }
+    },
+    "cancel_reply": [
+      {
+        "kind": "cancel_reply",
+        "at": "2026-10-13T05:32:08.384791+00:00",
+        "monotonic_ns": 1042948202905341,
+        "goal_id": "f19af380b54e40f183cf4ba00567e1d3",
+        "response": {
+          "return_code": 0,
+          "goals_canceling": [
+            {
+              "goal_id": {
+                "uuid": [
+                  241,
+                  154,
+                  243,
+                  128,
+                  181,
+                  78,
+                  64,
+                  241,
+                  131,
+                  207,
+                  75,
+                  160,
+                  5,
+                  103,
+                  225,
+                  211
+                ]
+              },
+              "stamp": {
+                "sec": 1791869527,
+                "nanosec": 945638529
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "child_statuses": [
+      {
+        "kind": "status",
+        "at": "2026-10-13T05:32:07.950644+00:00",
+        "monotonic_ns": 1042947768750984,
+        "endpoint": "/cpp_c1/manipulation/pick_place",
+        "goal_id": "98a83fb219a120f8e2acde49c01880a1",
+        "status": 2,
+        "goal_stamp": {
+          "sec": 1791869527,
+          "nanosec": 950021020
+        }
+      },
+      {
+        "kind": "status",
+        "at": "2026-10-13T05:32:08.397967+00:00",
+        "monotonic_ns": 1042948216075393,
+        "endpoint": "/cpp_c1/manipulation/pick_place",
+        "goal_id": "98a83fb219a120f8e2acde49c01880a1",
+        "status": 3,
+        "goal_stamp": {
+          "sec": 1791869527,
+          "nanosec": 950021020
+        }
+      },
+      {
+        "kind": "status",
+        "at": "2026-10-13T05:32:08.414205+00:00",
+        "monotonic_ns": 1042948232320598,
+        "endpoint": "/cpp_c1/manipulation/pick_place",
+        "goal_id": "98a83fb219a120f8e2acde49c01880a1",
+        "status": 6,
+        "goal_stamp": {
+          "sec": 1791869527,
+          "nanosec": 950021020
+        }
+      }
+    ],
+    "forced_cleanup": true,
+    "stack_exit_code": -15,
+    "ended_at": "2026-10-13T05:32:31.979171+00:00"
+  },
+  "pr8_postcheck": {
+    "c1": {
+      "supervisor_pid": 2669,
+      "started_at": "2026-10-13T05:32:02.080267+00:00",
+      "namespace": "/cpp_c1",
+      "domain_id": 181,
+      "profile": "success",
+      "result_delay_ms": 700,
+      "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+      "processes": [
+        {
+          "label": "pick_place",
+          "pid": 2684,
+          "argv": [
+            "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+            "--ros-args",
+            "-r",
+            "__ns:=/cpp_c1",
+            "-r",
+            "/mtc/task/execute:=/cpp_c1/task/execute",
+            "-r",
+            "/mtc/manipulation/pick_place:=/cpp_c1/manipulation/pick_place",
+            "-p",
+            "mock.result_delay_ms:=700",
+            "-p",
+            "mock.plan_available:=true",
+            "-p",
+            "mock.stop_evidence_available:=true",
+            "-p",
+            "mock.status_unknown:=false"
+          ],
+          "executable": "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+        },
+        {
+          "label": "task",
+          "pid": 2685,
+          "argv": [
+            "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+            "--ros-args",
+            "-r",
+            "__ns:=/cpp_c1",
+            "-r",
+            "/mtc/task/execute:=/cpp_c1/task/execute",
+            "-r",
+            "/mtc/manipulation/pick_place:=/cpp_c1/manipulation/pick_place"
+          ],
+          "executable": "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+        }
+      ],
+      "returncodes": {
+        "pick_place": 0,
+        "task": 0
+      },
+      "ended_at": "2026-10-13T05:32:34.228428+00:00",
+      "cleanup_ok": true,
+      "exit_code": 0
+    },
+    "cleanup-only": {
+      "supervisor_pid": 2793,
+      "started_at": "2026-10-13T05:33:51.380503+00:00",
+      "namespace": "/cpp_c1",
+      "domain_id": 181,
+      "profile": "success",
+      "result_delay_ms": 700,
+      "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+      "processes": [
+        {
+          "label": "pick_place",
+          "pid": 2808,
+          "argv": [
+            "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+            "--ros-args",
+            "-r",
+            "__ns:=/cpp_c1",
+            "-r",
+            "/mtc/task/execute:=/cpp_c1/task/execute",
+            "-r",
+            "/mtc/manipulation/pick_place:=/cpp_c1/manipulation/pick_place",
+            "-p",
+            "mock.result_delay_ms:=700",
+            "-p",
+            "mock.plan_available:=true",
+            "-p",
+            "mock.stop_evidence_available:=true",
+            "-p",
+            "mock.status_unknown:=false"
+          ],
+          "executable": "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+        },
+        {
+          "label": "task",
+          "pid": 2809,
+          "argv": [
+            "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+            "--ros-args",
+            "-r",
+            "__ns:=/cpp_c1",
+            "-r",
+            "/mtc/task/execute:=/cpp_c1/task/execute",
+            "-r",
+            "/mtc/manipulation/pick_place:=/cpp_c1/manipulation/pick_place"
+          ],
+          "executable": "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+        }
+      ],
+      "returncodes": {
+        "pick_place": 0,
+        "task": 0
+      },
+      "ended_at": "2026-10-13T05:33:58.261905+00:00",
+      "cleanup_ok": true,
+      "exit_code": 0
+    },
+    "restart_no_goal_trace": true
+  },
+  "pr8_direct_cleanup": {
+    "scope": "No-Goal same-namespace restart; direct supervisor SIGINT; not a C1 rerun",
+    "argv": [
+      "/usr/bin/python3",
+      "-m",
+      "mtc_cpp_mock_bringup.bringup",
+      "--namespace",
+      "/cpp_c1",
+      "--output-dir",
+      "/pr8-review/cleanup-only/stack",
+      "--result-delay-ms",
+      "700",
+      "--no-web"
+    ],
+    "status": "PASS",
+    "cleanup": {
+      "supervisor_pid": 2793,
+      "started_at": "2026-10-13T05:33:51.380503+00:00",
+      "namespace": "/cpp_c1",
+      "domain_id": 181,
+      "profile": "success",
+      "result_delay_ms": 700,
+      "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+      "processes": [
+        {
+          "label": "pick_place",
+          "pid": 2808,
+          "argv": [
+            "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+            "--ros-args",
+            "-r",
+            "__ns:=/cpp_c1",
+            "-r",
+            "/mtc/task/execute:=/cpp_c1/task/execute",
+            "-r",
+            "/mtc/manipulation/pick_place:=/cpp_c1/manipulation/pick_place",
+            "-p",
+            "mock.result_delay_ms:=700",
+            "-p",
+            "mock.plan_available:=true",
+            "-p",
+            "mock.stop_evidence_available:=true",
+            "-p",
+            "mock.status_unknown:=false"
+          ],
+          "executable": "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+        },
+        {
+          "label": "task",
+          "pid": 2809,
+          "argv": [
+            "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+            "--ros-args",
+            "-r",
+            "__ns:=/cpp_c1",
+            "-r",
+            "/mtc/task/execute:=/cpp_c1/task/execute",
+            "-r",
+            "/mtc/manipulation/pick_place:=/cpp_c1/manipulation/pick_place"
+          ],
+          "executable": "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+        }
+      ],
+      "returncodes": {
+        "pick_place": 0,
+        "task": 0
+      },
+      "ended_at": "2026-10-13T05:33:58.261905+00:00",
+      "cleanup_ok": true,
+      "exit_code": 0
+    },
+    "exit_code": 0
+  },
+  "steps": [
+    {
+      "name": "build",
+      "started_at": "2026-10-13T05:11:17.607133+00:00",
+      "ended_at": "2026-10-13T05:14:45.186511+00:00",
+      "exit_code": 0,
+      "timeout_seconds": 1500
+    },
+    {
+      "name": "collect",
+      "started_at": "2026-10-13T05:28:41.473168+00:00",
+      "ended_at": "2026-10-13T05:28:49.164163+00:00",
+      "exit_code": 0,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "cpp-mock-v2",
+      "started_at": "2026-10-13T05:24:20.151631+00:00",
+      "ended_at": "2026-10-13T05:24:40.448449+00:00",
+      "exit_code": 0,
+      "timeout_seconds": 150
+    },
+    {
+      "name": "cpp-mock",
+      "started_at": "2026-10-13T05:23:25.384766+00:00",
+      "ended_at": "2026-10-13T05:23:46.173729+00:00",
+      "exit_code": 1,
+      "timeout_seconds": 210
+    },
+    {
+      "name": "create",
+      "started_at": "2026-10-13T05:07:30.559553+00:00",
+      "ended_at": "2026-10-13T05:07:32.280318+00:00",
+      "exit_code": 0,
+      "timeout_seconds": 90
+    },
+    {
+      "name": "dependencies",
+      "started_at": "2026-10-13T05:27:59.802168+00:00",
+      "ended_at": "2026-10-13T05:28:01.174845+00:00",
+      "exit_code": 2,
+      "timeout_seconds": 90
+    },
+    {
+      "name": "driver-dependencies",
+      "started_at": "2026-10-13T05:28:01.209342+00:00",
+      "ended_at": "2026-10-13T05:28:03.387016+00:00",
+      "exit_code": 1,
+      "timeout_seconds": 90
+    },
+    {
+      "name": "environment",
+      "started_at": "2026-10-13T05:08:30.987446+00:00",
+      "ended_at": "2026-10-13T05:08:31.765653+00:00",
+      "exit_code": 0,
+      "timeout_seconds": 90
+    },
+    {
+      "name": "extra-roslogs",
+      "started_at": "2026-10-13T05:29:09.352819+00:00",
+      "ended_at": "2026-10-13T05:29:10.223445+00:00",
+      "exit_code": 0,
+      "timeout_seconds": 60
+    },
+    {
+      "name": "fresh-source",
+      "started_at": "2026-10-13T05:07:58.088291+00:00",
+      "ended_at": "2026-10-13T05:07:58.905835+00:00",
+      "exit_code": 128,
+      "timeout_seconds": 90
+    },
+    {
+      "name": "identity",
+      "started_at": "2026-10-13T05:27:58.448754+00:00",
+      "ended_at": "2026-10-13T05:27:59.768612+00:00",
+      "exit_code": 0,
+      "timeout_seconds": 90
+    },
+    {
+      "name": "moveit",
+      "started_at": "2026-10-13T05:26:55.477924+00:00",
+      "ended_at": "2026-10-13T05:27:13.122988+00:00",
+      "exit_code": 1,
+      "timeout_seconds": 180
+    },
+    {
+      "name": "native-gate",
+      "started_at": "2026-10-13T05:25:37.015994+00:00",
+      "ended_at": "2026-10-13T05:26:38.168811+00:00",
+      "exit_code": 1,
+      "timeout_seconds": 180
+    },
+    {
+      "name": "pr8-build",
+      "started_at": "2026-10-13T05:29:38.232346+00:00",
+      "ended_at": "2026-10-13T05:31:47.171831+00:00",
+      "exit_code": 0,
+      "timeout_seconds": 1200
+    },
+    {
+      "name": "pr8-c1",
+      "started_at": "2026-10-13T05:32:00.863405+00:00",
+      "ended_at": "2026-10-13T05:32:32.044445+00:00",
+      "exit_code": 1,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "pr8-cleanup",
+      "started_at": "2026-10-13T05:33:49.982677+00:00",
+      "ended_at": "2026-10-13T05:33:58.527670+00:00",
+      "exit_code": 0,
+      "timeout_seconds": 90
+    },
+    {
+      "name": "pr8-collect",
+      "started_at": "2026-10-13T05:34:44.164858+00:00",
+      "ended_at": "2026-10-13T05:34:50.035165+00:00",
+      "exit_code": 0,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "pr8-create",
+      "started_at": "2026-10-13T05:29:23.769438+00:00",
+      "ended_at": "2026-10-13T05:29:25.089389+00:00",
+      "exit_code": 0,
+      "timeout_seconds": 90
+    },
+    {
+      "name": "python-extra",
+      "started_at": "2026-10-13T05:23:02.278877+00:00",
+      "ended_at": "2026-10-13T05:23:05.456644+00:00",
+      "exit_code": 0,
+      "timeout_seconds": 180
+    },
+    {
+      "name": "python-mock",
+      "started_at": "2026-10-13T05:24:52.200819+00:00",
+      "ended_at": "2026-10-13T05:25:26.996484+00:00",
+      "exit_code": 1,
+      "timeout_seconds": 210
+    },
+    {
+      "name": "repeat",
+      "started_at": "2026-10-13T05:15:54.822070+00:00",
+      "ended_at": "2026-10-13T05:16:51.208388+00:00",
+      "exit_code": 1,
+      "timeout_seconds": 1680
+    },
+    {
+      "name": "results",
+      "started_at": "2026-10-13T05:15:49.229015+00:00",
+      "ended_at": "2026-10-13T05:15:50.853030+00:00",
+      "exit_code": 0,
+      "timeout_seconds": 90
+    },
+    {
+      "name": "tests",
+      "started_at": "2026-10-13T05:14:53.120156+00:00",
+      "ended_at": "2026-10-13T05:15:44.273955+00:00",
+      "exit_code": 0,
+      "timeout_seconds": 480
+    },
+    {
+      "name": "ubsan",
+      "started_at": "2026-10-13T05:17:19.061318+00:00",
+      "ended_at": "2026-10-13T05:22:24.866660+00:00",
+      "exit_code": 0,
+      "timeout_seconds": 1500
+    }
+  ],
+  "source_comparisons": [
+    {
+      "label": "C++ Task/PickPlace/Mock code versus cutoff",
+      "comparison_sha": "f7eaa2c0d2887aeada4fd635112c63c237962ff7",
+      "paths": [
+        "src/mtc_ros2_action_cpp",
+        "src/mtc_task_cpp",
+        "src/mtc_manipulation_cpp",
+        "src/mtc_motion_execution_cpp",
+        "src/mtc_interfaces"
+      ],
+      "changed_files": [],
+      "unchanged": true
+    },
+    {
+      "label": "Python runtime versus accepted wiring",
+      "comparison_sha": "c10f6ed59966401684851f917f9137b0a6cf12ae",
+      "paths": [
+        "src/mtc_task",
+        "src/mtc_manipulation",
+        "src/mtc_bringup"
+      ],
+      "changed_files": [],
+      "unchanged": true
+    },
+    {
+      "label": "Calibration versus monitored delivery",
+      "comparison_sha": "06ab689f25e87dcebf9fd04fdd581ec4755206f6",
+      "paths": [
+        "scripts/calibration",
+        "tests/calibration",
+        "config/calibration"
+      ],
+      "changed_files": [],
+      "unchanged": true
+    },
+    {
+      "label": "Original 61 FJT tests remain exact byte prefix",
+      "old_file_sha256": "c3e76300c3d08461c7e5eac490fcad3348c57926f5bab570117fdcc7c6749286",
+      "new_file_sha256": "c935379439762d244cf473645ca0c3cd24a32768d54bbd5de69c74ad5be19b21",
+      "unchanged_prefix": true
+    }
+  ],
+  "handoff": {
+    "finding": "M1",
+    "owner": "孙嘉明",
+    "source_sha": "b4185155383541e1a4161587c4049a162f74b36d",
+    "ordinary_full_suite": "486 distinct PASS",
+    "repeat_protocol": "40 planned separate processes x 10 identities; stopped after first failure on process 18; 179 PASS executions and 1 FAIL, no timeout",
+    "failed_case": "FjtAction.LateGoalResponseAfterFaultRetainsOriginalSession",
+    "location": "src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp:766",
+    "actual": "before->timed_out false; expected true",
+    "duration_ms": 114,
+    "command_evidence": "runtime/repeat-fjt/18.json",
+    "raw_log": "runtime/repeat-fjt/18.log",
+    "xml": "runtime/repeat-fjt/18.xml",
+    "analysis": "The test requests a 400ms deadline and waits only for fault_locked. It terminated within 114ms, so the observed fault was not demonstrated to be its requested timeout. The port has other early-fault predicates for state/Status/graph/ownership. The test does not log the first result message/snapshot, so the precise predicate and fixture-vs-port attribution remain unproved. This is not evidence that the original 120s hang recurred.",
+    "next_step": "Owner capture first failing snapshot/detail/JointState/Status and identify whether fixture assumptions or port semantics need repair. Preserve strict evidence gates; do not mark stable until bounded repeat acceptance passes.",
+    "source_note": "The GTest fixture overrides ROS_DOMAIN_ID with 50+getpid()%150 and uses a per-test action name, real DDS, and a test-only live Status relay."
+  },
+  "main_cleanup": {
+    "recorded_at": "2026-10-13T05:29:23.729240+00:00",
+    "name": "mtc-main-review-b418515",
+    "State": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 137,
+      "Error": "",
+      "StartedAt": "2026-10-13T05:07:30.928421214Z",
+      "FinishedAt": "2026-10-13T05:29:23.480311374Z"
+    },
+    "image": "sha256:3985c32ff28a0095ccfab22b7addaa0fa4e36d5e5c7628be7b2c0c1cfc3ad77f",
+    "notes": "All ROS processes and ROS daemons stopped before stopping sleep infinity PID1."
+  },
+  "pr8_cleanup": {
+    "recorded_at": "2026-10-13T05:35:19.383350+00:00",
+    "name": "mtc-pr8-c1-review-20261013",
+    "State": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 137,
+      "Error": "",
+      "StartedAt": "2026-10-13T05:29:24.031034745Z",
+      "FinishedAt": "2026-10-13T05:35:19.170457364Z"
+    },
+    "image": "sha256:3985c32ff28a0095ccfab22b7addaa0fa4e36d5e5c7628be7b2c0c1cfc3ad77f",
+    "notes": "C++ nodes/supervisor and ROS daemons already stopped; Docker terminates only keeper."
+  },
+  "container_ownership": {
+    "recorded_at": "2026-10-13T05:36:31.501024+00:00",
+    "owned_containers": [
+      {
+        "Name": "/mtc-main-review-b418515",
+        "State": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-13T05:07:30.928421214Z",
+          "FinishedAt": "2026-10-13T05:29:23.480311374Z"
+        },
+        "Image": "sha256:3985c32ff28a0095ccfab22b7addaa0fa4e36d5e5c7628be7b2c0c1cfc3ad77f"
+      },
+      {
+        "Name": "/mtc-pr8-c1-review-20261013",
+        "State": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 137,
+          "Error": "",
+          "StartedAt": "2026-10-13T05:29:24.031034745Z",
+          "FinishedAt": "2026-10-13T05:35:19.170457364Z"
+        },
+        "Image": "sha256:3985c32ff28a0095ccfab22b7addaa0fa4e36d5e5c7628be7b2c0c1cfc3ad77f"
+      }
+    ],
+    "other_work": {
+      "name": "/mtc-webui-p0-20261013",
+      "created_at": "2026-10-13T05:23:10.261427837Z",
+      "state": "running",
+      "network": "none",
+      "note": "Created by another session; observed at final cleanup, preserved, not stopped or included as this acceptance. Created after M1 repeated-test failure.",
+      "working_tree_changes": [
+        " M webui/config.py",
+        " M webui/connection.example.json",
+        " M webui/ros_backend.py",
+        " M webui/ros_transport.py",
+        " M webui/server.py",
+        " M webui/static/app.js",
+        " M webui/static/index.html",
+        " M webui/static/styles.css",
+        "?? webui/cpp_mock.py",
+        "?? webui/p0_integration_check.py",
+        "?? webui/static/p0.js",
+        "?? webui/telemetry.py",
+        "?? webui/test_cpp_mock.py",
+        "?? webui/test_p0.cjs",
+        "?? webui/test_telemetry.py"
+      ]
+    },
+    "verification_note": "Initial broad assertion no mtc-* containers failed due to other-session container; corrected ownership scope, not a leftover of either acceptance container."
+  },
+  "not_run": [
+    "new Phase2C/planning/perception/Gazebo candidates",
+    "new browser UI acceptance (PR8 code unchanged)",
+    "new driver lint suite (old failures retained)",
+    "TSan",
+    "complete FSM",
+    "NUC",
+    "physical hardware"
+  ]
+}

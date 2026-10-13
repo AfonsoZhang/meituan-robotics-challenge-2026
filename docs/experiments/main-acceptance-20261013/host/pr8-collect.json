@@ -1,0 +1,16 @@
+{
+  "name": "pr8-collect",
+  "started_at": "2026-10-13T05:34:44.164858+00:00",
+  "argv": [
+    "docker",
+    "exec",
+    "mtc-pr8-c1-review-20261013",
+    "bash",
+    "-c",
+    "set -e; source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; if test -f /pr8-install/setup.bash; then source /pr8-install/setup.bash; fi; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; export ROS_DOMAIN_ID=181 RMW_IMPLEMENTATION=rmw_fastrtps_cpp ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST PYTHONDONTWRITEBYTECODE=1 ROS_LOG_DIR=/pr8-review/roslogs XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=safe.directory GIT_CONFIG_VALUE_0=/pr8-source; cd /pr8-source; git rev-parse HEAD\ngit diff --exit-code HEAD --\npython3 - <<'INNER'\nfrom pathlib import Path\nimport json,hashlib,subprocess,shutil\nout=Path('/pr8-review');root=Path('/pr8-source')\ntracked=subprocess.check_output(['git','ls-files','-z'],cwd=root).decode().split('\\0')\nrows=[{'path':name,'sha256':hashlib.sha256((root/name).read_bytes()).hexdigest()} for name in tracked if name]\n(out/'source-identity.json').write_text(json.dumps({'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'files':rows},indent=2)+'\\n')\nbase=Path('/pr8-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages');pairs=[]\nfor module in ('mtc_cpp_mock_bringup','mtc_webui'):\n for source in (root/'src/mtc_cpp_mock_bringup'/module).rglob('*.py'):\n  installed=base/module/source.relative_to(root/'src/mtc_cpp_mock_bringup'/module)\n  assert installed.read_bytes()==source.read_bytes(),str(installed)\n  pairs.append({'source':str(source),'installed':str(installed),'sha256':hashlib.sha256(source.read_bytes()).hexdigest()})\n(out/'installed-identity.json').write_text(json.dumps(pairs,indent=2)+'\\n')\nfor p in Path('/pr8-build').rglob('*'):\n if p.is_file() and not p.is_symlink() and p.name in ['compile_commands.json','link.txt']:\n  q=out/'build-artifacts'/p.relative_to('/pr8-build');q.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,q)\npost={}\nfor scenario in ['c1','cleanup-only']:\n d=json.loads((out/scenario/'stack/cleanup.json').read_text());post[scenario]=d\n assert d['cleanup_ok'] and d['exit_code']==0 and all(v==0 for v in d['returncodes'].values())\nfor file in ['task.log','pick_place.log']:\n text=(out/'cleanup-only/stack'/file).read_text()\n assert 'MTC_TRACE' not in text, file\npost['restart_no_goal_trace']=True\n(out/'postcheck.json').write_text(json.dumps(post,ensure_ascii=False,indent=2)+'\\n')\nprint('PR8 source/installed identity PASS',len(rows),len(pairs),'direct supervisor restart cleanup PASS, zero Goal traces')\nINNER\nros2 daemon stop\nros2 node list --no-daemon --spin-time 2\n"
+  ],
+  "timeout_seconds": 120,
+  "pid": 42105,
+  "exit_code": 0,
+  "ended_at": "2026-10-13T05:34:50.035165+00:00"
+}

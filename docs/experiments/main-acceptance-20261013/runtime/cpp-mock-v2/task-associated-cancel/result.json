@@ -1,0 +1,1105 @@
+{
+  "case": "task-associated-cancel",
+  "scope": "Standalone C++ Mock processes and ROS Action only",
+  "domain": 111,
+  "checks": [
+    {
+      "name": "/mtc/task/execute server available",
+      "passed": true
+    },
+    {
+      "name": "/mtc/task/execute unique delivered server",
+      "passed": true
+    },
+    {
+      "name": "PickPlace unique C++ server",
+      "passed": true
+    },
+    {
+      "name": "Only C++ Task owns PickPlace send_goal service client",
+      "passed": true
+    },
+    {
+      "name": "cancel scenario accepted",
+      "passed": true
+    },
+    {
+      "name": "child motion state observed repeatedly",
+      "passed": true
+    },
+    {
+      "name": "associated Cancel accepted",
+      "passed": true
+    },
+    {
+      "name": "child terminal result service",
+      "passed": true
+    },
+    {
+      "name": "child UUID count in this parent send window",
+      "passed": true
+    },
+    {
+      "name": "independent child terminal results match parent",
+      "passed": true
+    },
+    {
+      "name": "trusted child final cancel propagated",
+      "passed": true
+    }
+  ],
+  "goals": [
+    {
+      "goal": {
+        "task_id": "standalone-cancel",
+        "mode": 1,
+        "ordered_colors": [
+          1
+        ],
+        "timeout_ms": 20000,
+        "placement_stability_sec": 3.0
+      },
+      "feedback": [
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "EXECUTE_ITEM",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "EXECUTE_ITEM"
+        },
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "EXECUTE_ITEM",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "PLAN_ACQUIRE"
+        },
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "EXECUTE_ITEM",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "MOVE_PRE_ALIGN"
+        },
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "EXECUTE_ITEM",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "MOVE_PRE_ALIGN"
+        },
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "EXECUTE_ITEM",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "MOVE_PRE_ALIGN"
+        },
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "CANCEL_PENDING",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "MOVE_PRE_ALIGN"
+        },
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "CANCEL_PENDING",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "MOVE_PRE_ALIGN"
+        },
+        {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "CANCELLED",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "CANCELLED"
+        }
+      ],
+      "accepted": true,
+      "goal_uuid": [
+        84,
+        59,
+        73,
+        135,
+        223,
+        13,
+        71,
+        139,
+        148,
+        97,
+        217,
+        163,
+        247,
+        247,
+        27,
+        174
+      ],
+      "request_monotonic": 1042503.409389453,
+      "response_monotonic": 1042503.411860461,
+      "cancel_request_monotonic": 1042503.462962651,
+      "cancel_response": {
+        "return_code": 0,
+        "goals_canceling": [
+          {
+            "goal_id": {
+              "uuid": [
+                84,
+                59,
+                73,
+                135,
+                223,
+                13,
+                71,
+                139,
+                148,
+                97,
+                217,
+                163,
+                247,
+                247,
+                27,
+                174
+              ]
+            },
+            "stamp": {
+              "sec": 1791869079,
+              "nanosec": 650658125
+            }
+          }
+        ]
+      },
+      "cancel_response_monotonic": 1042503.464455566,
+      "terminal": {
+        "status": 5,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 0,
+          "message": "cancelled after stop confirmation (completed 0)"
+        }
+      },
+      "terminal_received_monotonic": 1042503.490170315,
+      "child_statuses_in_window": [
+        {
+          "uuid": [
+            186,
+            57,
+            115,
+            170,
+            129,
+            162,
+            110,
+            171,
+            99,
+            45,
+            100,
+            141,
+            136,
+            164,
+            51,
+            162
+          ],
+          "states": [
+            {
+              "status": 2,
+              "received_monotonic": 1042503.421276306
+            },
+            {
+              "status": 3,
+              "received_monotonic": 1042503.469995747
+            },
+            {
+              "status": 5,
+              "received_monotonic": 1042503.486603177
+            }
+          ]
+        }
+      ],
+      "child_terminal_results": [
+        {
+          "uuid": [
+            186,
+            57,
+            115,
+            170,
+            129,
+            162,
+            110,
+            171,
+            99,
+            45,
+            100,
+            141,
+            136,
+            164,
+            51,
+            162
+          ],
+          "response": {
+            "status": 5,
+            "result": {
+              "success": false,
+              "placement_verified": false,
+              "error_code": 0,
+              "message": ""
+            }
+          },
+          "received_monotonic": 1042503.593289385
+        }
+      ]
+    }
+  ],
+  "status": "PASS",
+  "dds_witness": [
+    {
+      "topic": "/mtc/task/execute/_action/status",
+      "received_monotonic": 1042503.412364016,
+      "message": {
+        "status_list": [
+          {
+            "goal_info": {
+              "goal_id": {
+                "uuid": [
+                  84,
+                  59,
+                  73,
+                  135,
+                  223,
+                  13,
+                  71,
+                  139,
+                  148,
+                  97,
+                  217,
+                  163,
+                  247,
+                  247,
+                  27,
+                  174
+                ]
+              },
+              "stamp": {
+                "sec": 1791869079,
+                "nanosec": 650658125
+              }
+            },
+            "status": 2
+          }
+        ]
+      }
+    },
+    {
+      "topic": "/mtc/task/execute/_action/feedback",
+      "received_monotonic": 1042503.42104151,
+      "message": {
+        "goal_id": {
+          "uuid": [
+            84,
+            59,
+            73,
+            135,
+            223,
+            13,
+            71,
+            139,
+            148,
+            97,
+            217,
+            163,
+            247,
+            247,
+            27,
+            174
+          ]
+        },
+        "feedback": {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "EXECUTE_ITEM",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "EXECUTE_ITEM"
+        }
+      }
+    },
+    {
+      "topic": "/mtc/manipulation/pick_place/_action/status",
+      "received_monotonic": 1042503.421276306,
+      "message": {
+        "status_list": [
+          {
+            "goal_info": {
+              "goal_id": {
+                "uuid": [
+                  186,
+                  57,
+                  115,
+                  170,
+                  129,
+                  162,
+                  110,
+                  171,
+                  99,
+                  45,
+                  100,
+                  141,
+                  136,
+                  164,
+                  51,
+                  162
+                ]
+              },
+              "stamp": {
+                "sec": 1791869079,
+                "nanosec": 660329876
+              }
+            },
+            "status": 2
+          }
+        ]
+      }
+    },
+    {
+      "topic": "/mtc/manipulation/pick_place/_action/feedback",
+      "received_monotonic": 1042503.427013704,
+      "message": {
+        "goal_id": {
+          "uuid": [
+            186,
+            57,
+            115,
+            170,
+            129,
+            162,
+            110,
+            171,
+            99,
+            45,
+            100,
+            141,
+            136,
+            164,
+            51,
+            162
+          ]
+        },
+        "feedback": {
+          "substate": "PLAN_ACQUIRE",
+          "progress": 0.0625,
+          "object_attached_estimated": false,
+          "detail": ""
+        }
+      }
+    },
+    {
+      "topic": "/mtc/task/execute/_action/feedback",
+      "received_monotonic": 1042503.429403936,
+      "message": {
+        "goal_id": {
+          "uuid": [
+            84,
+            59,
+            73,
+            135,
+            223,
+            13,
+            71,
+            139,
+            148,
+            97,
+            217,
+            163,
+            247,
+            247,
+            27,
+            174
+          ]
+        },
+        "feedback": {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "EXECUTE_ITEM",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "PLAN_ACQUIRE"
+        }
+      }
+    },
+    {
+      "topic": "/mtc/manipulation/pick_place/_action/feedback",
+      "received_monotonic": 1042503.436988164,
+      "message": {
+        "goal_id": {
+          "uuid": [
+            186,
+            57,
+            115,
+            170,
+            129,
+            162,
+            110,
+            171,
+            99,
+            45,
+            100,
+            141,
+            136,
+            164,
+            51,
+            162
+          ]
+        },
+        "feedback": {
+          "substate": "MOVE_PRE_ALIGN",
+          "progress": 0.125,
+          "object_attached_estimated": false,
+          "detail": ""
+        }
+      }
+    },
+    {
+      "topic": "/mtc/task/execute/_action/feedback",
+      "received_monotonic": 1042503.439512656,
+      "message": {
+        "goal_id": {
+          "uuid": [
+            84,
+            59,
+            73,
+            135,
+            223,
+            13,
+            71,
+            139,
+            148,
+            97,
+            217,
+            163,
+            247,
+            247,
+            27,
+            174
+          ]
+        },
+        "feedback": {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "EXECUTE_ITEM",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "MOVE_PRE_ALIGN"
+        }
+      }
+    },
+    {
+      "topic": "/mtc/manipulation/pick_place/_action/feedback",
+      "received_monotonic": 1042503.447080036,
+      "message": {
+        "goal_id": {
+          "uuid": [
+            186,
+            57,
+            115,
+            170,
+            129,
+            162,
+            110,
+            171,
+            99,
+            45,
+            100,
+            141,
+            136,
+            164,
+            51,
+            162
+          ]
+        },
+        "feedback": {
+          "substate": "MOVE_PRE_ALIGN",
+          "progress": 0.125,
+          "object_attached_estimated": false,
+          "detail": " | Mock command=standalone-cancel#0/attempt-1#1:pre_align-001"
+        }
+      }
+    },
+    {
+      "topic": "/mtc/task/execute/_action/feedback",
+      "received_monotonic": 1042503.449720722,
+      "message": {
+        "goal_id": {
+          "uuid": [
+            84,
+            59,
+            73,
+            135,
+            223,
+            13,
+            71,
+            139,
+            148,
+            97,
+            217,
+            163,
+            247,
+            247,
+            27,
+            174
+          ]
+        },
+        "feedback": {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "EXECUTE_ITEM",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "MOVE_PRE_ALIGN"
+        }
+      }
+    },
+    {
+      "topic": "/mtc/manipulation/pick_place/_action/feedback",
+      "received_monotonic": 1042503.45615817,
+      "message": {
+        "goal_id": {
+          "uuid": [
+            186,
+            57,
+            115,
+            170,
+            129,
+            162,
+            110,
+            171,
+            99,
+            45,
+            100,
+            141,
+            136,
+            164,
+            51,
+            162
+          ]
+        },
+        "feedback": {
+          "substate": "MOVE_PRE_ALIGN",
+          "progress": 0.125,
+          "object_attached_estimated": false,
+          "detail": " | Mock command=standalone-cancel#0/attempt-1#1:pre_align-001"
+        }
+      }
+    },
+    {
+      "topic": "/mtc/task/execute/_action/feedback",
+      "received_monotonic": 1042503.459587489,
+      "message": {
+        "goal_id": {
+          "uuid": [
+            84,
+            59,
+            73,
+            135,
+            223,
+            13,
+            71,
+            139,
+            148,
+            97,
+            217,
+            163,
+            247,
+            247,
+            27,
+            174
+          ]
+        },
+        "feedback": {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "EXECUTE_ITEM",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "MOVE_PRE_ALIGN"
+        }
+      }
+    },
+    {
+      "topic": "/mtc/task/execute/_action/status",
+      "received_monotonic": 1042503.464944226,
+      "message": {
+        "status_list": [
+          {
+            "goal_info": {
+              "goal_id": {
+                "uuid": [
+                  84,
+                  59,
+                  73,
+                  135,
+                  223,
+                  13,
+                  71,
+                  139,
+                  148,
+                  97,
+                  217,
+                  163,
+                  247,
+                  247,
+                  27,
+                  174
+                ]
+              },
+              "stamp": {
+                "sec": 1791869079,
+                "nanosec": 650658125
+              }
+            },
+            "status": 3
+          }
+        ]
+      }
+    },
+    {
+      "topic": "/mtc/manipulation/pick_place/_action/feedback",
+      "received_monotonic": 1042503.466127058,
+      "message": {
+        "goal_id": {
+          "uuid": [
+            186,
+            57,
+            115,
+            170,
+            129,
+            162,
+            110,
+            171,
+            99,
+            45,
+            100,
+            141,
+            136,
+            164,
+            51,
+            162
+          ]
+        },
+        "feedback": {
+          "substate": "MOVE_PRE_ALIGN",
+          "progress": 0.125,
+          "object_attached_estimated": false,
+          "detail": " | Mock command=standalone-cancel#0/attempt-1#1:pre_align-001"
+        }
+      }
+    },
+    {
+      "topic": "/mtc/task/execute/_action/feedback",
+      "received_monotonic": 1042503.469688925,
+      "message": {
+        "goal_id": {
+          "uuid": [
+            84,
+            59,
+            73,
+            135,
+            223,
+            13,
+            71,
+            139,
+            148,
+            97,
+            217,
+            163,
+            247,
+            247,
+            27,
+            174
+          ]
+        },
+        "feedback": {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "CANCEL_PENDING",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "MOVE_PRE_ALIGN"
+        }
+      }
+    },
+    {
+      "topic": "/mtc/manipulation/pick_place/_action/status",
+      "received_monotonic": 1042503.469995747,
+      "message": {
+        "status_list": [
+          {
+            "goal_info": {
+              "goal_id": {
+                "uuid": [
+                  186,
+                  57,
+                  115,
+                  170,
+                  129,
+                  162,
+                  110,
+                  171,
+                  99,
+                  45,
+                  100,
+                  141,
+                  136,
+                  164,
+                  51,
+                  162
+                ]
+              },
+              "stamp": {
+                "sec": 1791869079,
+                "nanosec": 660329876
+              }
+            },
+            "status": 3
+          }
+        ]
+      }
+    },
+    {
+      "topic": "/mtc/task/execute/_action/feedback",
+      "received_monotonic": 1042503.481086701,
+      "message": {
+        "goal_id": {
+          "uuid": [
+            84,
+            59,
+            73,
+            135,
+            223,
+            13,
+            71,
+            139,
+            148,
+            97,
+            217,
+            163,
+            247,
+            247,
+            27,
+            174
+          ]
+        },
+        "feedback": {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "CANCEL_PENDING",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "MOVE_PRE_ALIGN"
+        }
+      }
+    },
+    {
+      "topic": "/mtc/manipulation/pick_place/_action/feedback",
+      "received_monotonic": 1042503.486254356,
+      "message": {
+        "goal_id": {
+          "uuid": [
+            186,
+            57,
+            115,
+            170,
+            129,
+            162,
+            110,
+            171,
+            99,
+            45,
+            100,
+            141,
+            136,
+            164,
+            51,
+            162
+          ]
+        },
+        "feedback": {
+          "substate": "CANCELLED",
+          "progress": 0.0,
+          "object_attached_estimated": false,
+          "detail": " | Mock command=standalone-cancel#0/attempt-1#1:pre_align-001"
+        }
+      }
+    },
+    {
+      "topic": "/mtc/manipulation/pick_place/_action/status",
+      "received_monotonic": 1042503.486603177,
+      "message": {
+        "status_list": [
+          {
+            "goal_info": {
+              "goal_id": {
+                "uuid": [
+                  186,
+                  57,
+                  115,
+                  170,
+                  129,
+                  162,
+                  110,
+                  171,
+                  99,
+                  45,
+                  100,
+                  141,
+                  136,
+                  164,
+                  51,
+                  162
+                ]
+              },
+              "stamp": {
+                "sec": 1791869079,
+                "nanosec": 660329876
+              }
+            },
+            "status": 5
+          }
+        ]
+      }
+    },
+    {
+      "topic": "/mtc/task/execute/_action/feedback",
+      "received_monotonic": 1042503.489749092,
+      "message": {
+        "goal_id": {
+          "uuid": [
+            84,
+            59,
+            73,
+            135,
+            223,
+            13,
+            71,
+            139,
+            148,
+            97,
+            217,
+            163,
+            247,
+            247,
+            27,
+            174
+          ]
+        },
+        "feedback": {
+          "current_index": 0,
+          "total_count": 1,
+          "state": "CANCELLED",
+          "current_slot": "T0",
+          "current_object_id": "mock_battery_color_1",
+          "substate": "CANCELLED"
+        }
+      }
+    },
+    {
+      "topic": "/mtc/task/execute/_action/status",
+      "received_monotonic": 1042503.49032606,
+      "message": {
+        "status_list": [
+          {
+            "goal_info": {
+              "goal_id": {
+                "uuid": [
+                  84,
+                  59,
+                  73,
+                  135,
+                  223,
+                  13,
+                  71,
+                  139,
+                  148,
+                  97,
+                  217,
+                  163,
+                  247,
+                  247,
+                  27,
+                  174
+                ]
+              },
+              "stamp": {
+                "sec": 1791869079,
+                "nanosec": 650658125
+              }
+            },
+            "status": 5
+          }
+        ]
+      }
+    }
+  ],
+  "started_at": "2026-10-13T05:24:39.141909+00:00",
+  "binary_identity": [
+    {
+      "pid": 13089,
+      "executable": "/main-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+      "sha256": "fba8f13f805a121dc6d994d868bf0f6188d805a972367f7350b592dcabbb16e6"
+    },
+    {
+      "pid": 13090,
+      "executable": "/main-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+      "sha256": "acf8ed372c3304f36ee82f4091e0e6ada4a333e915071679b24ee89186cfce71"
+    }
+  ],
+  "servers": {
+    "/mtc/task/execute": [
+      {
+        "node": "mtc_mock_task",
+        "namespace": "/",
+        "types": [
+          "mtc_interfaces/action/ExecuteTask"
+        ]
+      }
+    ],
+    "/mtc/manipulation/pick_place": [
+      {
+        "node": "mtc_mock_pick_place",
+        "namespace": "/",
+        "types": [
+          "mtc_interfaces/action/PickPlace"
+        ]
+      }
+    ]
+  },
+  "clients": {
+    "/mtc/manipulation/pick_place": [
+      {
+        "node": "mtc_mock_task",
+        "namespace": "/",
+        "types": [
+          "mtc_interfaces/action/PickPlace"
+        ]
+      },
+      {
+        "node": "cpp_action_acceptance",
+        "namespace": "/",
+        "types": [
+          "mtc_interfaces/action/PickPlace"
+        ]
+      }
+    ]
+  },
+  "service_client_graph": [
+    {
+      "node": "mtc_mock_pick_place",
+      "namespace": "/",
+      "services": []
+    },
+    {
+      "node": "mtc_mock_task",
+      "namespace": "/",
+      "services": [
+        [
+          "/mtc/manipulation/pick_place/_action/cancel_goal",
+          [
+            "action_msgs/srv/CancelGoal"
+          ]
+        ],
+        [
+          "/mtc/manipulation/pick_place/_action/get_result",
+          [
+            "mtc_interfaces/action/PickPlace_GetResult"
+          ]
+        ],
+        [
+          "/mtc/manipulation/pick_place/_action/send_goal",
+          [
+            "mtc_interfaces/action/PickPlace_SendGoal"
+          ]
+        ]
+      ]
+    },
+    {
+      "node": "cpp_action_acceptance",
+      "namespace": "/",
+      "services": [
+        [
+          "/mtc/task/execute/_action/cancel_goal",
+          [
+            "action_msgs/srv/CancelGoal"
+          ]
+        ],
+        [
+          "/mtc/task/execute/_action/get_result",
+          [
+            "mtc_interfaces/action/ExecuteTask_GetResult"
+          ]
+        ],
+        [
+          "/mtc/task/execute/_action/send_goal",
+          [
+            "mtc_interfaces/action/ExecuteTask_SendGoal"
+          ]
+        ]
+      ]
+    }
+  ],
+  "pickplace_send_goal_clients": [
+    "mtc_mock_task"
+  ],
+  "graph_interpretation": "Action graph also lists our feedback/status-only observer; actual send_goal service client is checked separately.",
+  "topic_qos": {
+    "/mtc/manipulation/pick_place/_action/status": [
+      {
+        "node": "mtc_mock_pick_place",
+        "namespace": "/",
+        "type": "action_msgs/msg/GoalStatusArray",
+        "reliability": "1",
+        "durability": "1",
+        "history": "3",
+        "depth": 0
+      }
+    ],
+    "/mtc/manipulation/pick_place/_action/feedback": [
+      {
+        "node": "mtc_mock_pick_place",
+        "namespace": "/",
+        "type": "mtc_interfaces/action/PickPlace_FeedbackMessage",
+        "reliability": "1",
+        "durability": "2",
+        "history": "3",
+        "depth": 0
+      }
+    ]
+  },
+  "stop_scope": "Only this delivered trusted Mock contract; public PickPlace result has no independent stop_confirmed field.",
+  "shutdown": [
+    {
+      "executable": "mock_task_server",
+      "exit_code": 0,
+      "escalated": false
+    },
+    {
+      "executable": "mock_pick_place_server",
+      "exit_code": 0,
+      "escalated": false
+    }
+  ],
+  "nodes_after_shutdown": [
+    [
+      "cpp_action_acceptance",
+      "/"
+    ]
+  ]
+}
