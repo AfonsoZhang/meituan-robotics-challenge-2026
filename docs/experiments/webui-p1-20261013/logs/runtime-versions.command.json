@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe",
+    "exec",
+    "mtc-webui-p1-20261013",
+    "bash",
+    "-c",
+    "source /opt/ros/jazzy/setup.bash; source /work/install/setup.bash; export PYTHONPATH=/ui-src:$PYTHONPATH ROS_DOMAIN_ID=94 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp ROS_LOG_DIR=/p1-evidence/roslogs; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; cd /ui-src; python3 - <<'RUNTIME'\nimport platform,sys,xml.etree.ElementTree as E,json,cv2,numpy,mtc_interfaces\nprint(json.dumps(dict(python=sys.version,platform=platform.platform(),cv2=cv2.__version__,numpy=numpy.__version__,mtc_interfaces=mtc_interfaces.__file__)))\nfor pkg in ['rclpy','sensor_msgs','control_msgs','action_msgs','std_msgs','geometry_msgs']:\n root=E.parse('/opt/ros/jazzy/share/'+pkg+'/package.xml').getroot();print(pkg,root.findtext('version'),[x.text for x in root.findall('license')])\nRUNTIME\ndpkg-query -W python3-opencv python3-numpy\n"
+  ],
+  "started_at": 1791875440.6683476,
+  "exit_code": 0,
+  "finished_at": 1791875441.893931
+}

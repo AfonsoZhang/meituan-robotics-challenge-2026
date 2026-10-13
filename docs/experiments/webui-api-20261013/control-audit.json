@@ -1,0 +1,45 @@
+{
+  "production_transports": [
+    {
+      "file": "webui/ros_transport.py",
+      "sha256": "3dc008d3b1973a64e3cb2cd220437946b59a29ea90b09555c1e5cbf6e97bde05",
+      "calls": [
+        {
+          "line": 123,
+          "call": "ActionClient(self.node, ExecuteTask, self.config.task_action)"
+        },
+        {
+          "line": 124,
+          "call": "self.node.create_client(RequestStop, self.config.stop_service)"
+        },
+        {
+          "line": 180,
+          "call": "self.node.create_client(self.pick_result_type, name + \"/_action/get_result\")"
+        },
+        {
+          "line": 237,
+          "call": "self.node.create_client(self.fjt_result_type, name + \"/_action/get_result\")"
+        },
+        {
+          "line": 467,
+          "call": "handle.cancel_goal_async()"
+        },
+        {
+          "line": 499,
+          "call": "self.action.send_goal_async(goal, goal_uuid=UUID(uuid=list(uuid.UUID(goal_id).bytes)),\n                                             feedback_callback=lambda m: self.backend.feedback(str(uuid.UUID(bytes=bytes(m.goal_id.uuid))),\n                                                 fields(m.feedback, \"current_index total_count state current_slot current_object_id substate\")))"
+        }
+      ]
+    },
+    {
+      "file": "webui/cpp_mock.py",
+      "sha256": "9a1ac6a55685f4a3571f52a405101617dfc980975c3c5e3d2dc551a43bb8cb46",
+      "calls": [
+        {
+          "line": 106,
+          "call": "ActionClient(self.node, ExecuteTask, self.config.task_action)"
+        }
+      ]
+    }
+  ],
+  "interpretation": "Only ExecuteTask ActionClient; RequestStop retained; PickPlace/FJT only GetResult clients and subscriptions; no production publishers or lower-level Goal/Cancel client."
+}

@@ -1,5 +1,7 @@
 # 硬件与传统视觉方案
 
+**Web UI 已推送独立 PR（2026-10-13）：** 团队代码 [PR #16](https://github.com/F1u0rite/meituan_challenge_ws/pull/16)（`89bb7f7`）提供 P0–P2 观察/追踪与兼容 HTTP API；它基于尚未合并的 PR #8，未混入 PR #15 的 C1 内核修复。个人源码与证据见 [PR #1](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/pull/1)，包内源码固定来自 `95bfa60`。本轮包构建产物 76 项 Python、30 项 Node 通过，33 个文件匹配；此前 ROS 结果按冻结版本单列。当前联合验证仅限 C++ Mock / GenericSystem Fake Hardware，无真实机械臂控制。两个 PR 均未合并（USER-HW-20261013-07；TEAMMATE-WEBUI-PUBLISH-20261013；ENV-WEBUI-PUBLISH-20261013）。
+
 **C1 独立修复（2026-10-13）：** 已单独提交并推送 [PR #15](https://github.com/F1u0rite/meituan_challenge_ws/pull/15)（`8603e18`，基于 main）；独立分支 366 项 C++ 用例通过，700/400 ms 延迟取消后同栈新任务成功。此前 PR #8 组合另有 365 项测试及七个独立进程场景通过。C1 补丁已从 PR #8 撤出，原内容保留。修复限软件 Mock，未合并、未推进正式 pin；旧失败证据保留。见 [修复报告](c1-cancel-fix.md)（ENV-CANCEL-PR-20261013；USER-HW-20261013-03）。
 
 **2026-10-13 主线复验：部分通过，整体验收未通过。** 固定main `b418515` 的15包构建、普通/UBSan各486项C++、269项Python及15/6/54项补充检查通过；并发重复第18轮出现M1断言失败（179次执行通过、1次失败，首败即停）。真实C++ Task→PickPlace基础/序列/及时取消通过，独立PR8 `7da4322` 的C1延迟取消再次ACK后6/520；旧Python220/510/520、原生Status/执行权BLOCKED及MoveIt退出-11仍保留。正式pin不变，无实机验收。M1/C1与FSM/Action内核回交孙嘉明，张叔阳负责集成复验；新规划/Phase2C/Gazebo/视觉候选不拼入main。见[本轮验收](main-acceptance-20261013.md)（USER-HW-20261013，用户会话；TEAMMATE-MAIN-20261013；ENV-MAIN-ACCEPTANCE-20261013）。
@@ -163,11 +165,17 @@ flowchart LR
 
 **已确认分工**：用户先回复“Web UI”（USER-HW-20261011-02），提供 v2 任务书后进一步明确“系统集成与验收，兼做 Web UI”（USER-HW-20261011-03，2026-10-11 用户会话）。当前主责见第 7 节，本节保留兼任的界面工作。以下为基于第 5 节固定版本的工程拆分；用户现已选择开发新版操作台（USER-HW-20261011-06），早期完成本地 Mock 版本（DEMO-WEBUI-MOCK-20261011）。用户随后澄清“我要的是实机操作台”（USER-HW-20261011-07），当前默认实现 rclpy 实机客户端，Mock 改为显式选项；真实设备联调跟踪 Q19。界面实现与交互、接口对接和前端验收由此规划；FSM/Action 内核、视觉识别、轨迹规划分别由任务书中的模块负责人交付。
 
+**2026-10-13 接口与验证边界**（USER-HW-20261013-05，用户会话）：保持现有 HTTP API；网页只提交顶层 ExecuteTask，已有任务取消/软件停止保留。其余模块状态通过 ROS Topic 或统一只读接口提供，缺发布器先保留结构与未知显示，正式接口由各模块负责人交付。联合验证仅限 C++ Mock / GenericSystem Fake Hardware，不控制真实机械臂。当前客户端已遵循此控制边界，导出兼容性补齐并通过 76 项 Python 检查（ENV-WEBUI-API-20261013），见 [接口约定](../webui/README.md#接口边界与当前联调范围)。
+
+**2026-10-13 用户明确的 P0**（USER-HW-20261013-06，用户会话）：任务身份/口令/当前目标/完成数与双层 FSM 图；执行端真实运动、六关节实际/目标/速度、轨迹身份与执行结果；独立通信/在线/Ready/Interlock/FAULT 与停止反馈区域。Cancel ACK ≠ Stop Confirmed，必须保留 PR #8 ABORTED/520。该优先级来自新的用户要求，不回写为原任务书 §06 当晚的硬性 P0。
+
+本轮客户端、PR #8 可应用补丁和隔离接口测试已完成（ENV-WEBUI-P0-20261013）；54 Python / 12 Node / 5 ROS 通过。Task/关节/控制器/FJT 原生反馈已接入，原语、command_id、预计时长与进度需 Motion Execution 负责人提供实际遥测发布器，未知值不推算。字段映射与独立停止判据见 [遥测契约](../webui/telemetry-contract.md)，完整 [UI 报告](web-ui.md)保留新旧验证边界；本轮不修改 FSM/Cancel 内核、不恢复旧 C1 验收或推进正式 pin。
+
 **可复用基础**：本仓库 [浏览器监控台](../demo/README.md#浏览器监控台) 已有 HTML/JavaScript 页面和 Python/aiohttp 后端，可显示 ROS 图与进程、MJPEG 相机流、PTY 终端及 `outputs/` 录像。静态核查见 DEMO-WEBUI-20261011（2026-10-11，本机源码观测）：`/api/status` 尚无业务任务状态，`/api/recordings` 仅列出 MP4 文件，`/ws/term` 是终端通道，尚无 FSM 任务 API。该次静态核查未运行页面、ROS 节点或 NUC；旧代码的存在不代表 Jazzy 联调已通过，原有代码的作者与 AI 披露继续保留。
 
 **当前交付**：[启动与 HTTP 契约](../webui/README.md)、[实现与验证](web-ui.md)。默认 ROS 模式提供真实 Action Goal/Cancel/Result、RequestStop、带来源/时间戳的 Task/Robot/ToolState、关节、RGB-D 和日志。默认核对 `/mtc_aubo_bridge` 且话题必须只有一个发布端，多个来源时禁用数据；设备缺失/过期或 simulation_mode=true 时禁止实机 Goal。33 项离线/HTTP 与 9 项实际 Jazzy ROS fixture 检查通过（ENV-WEBUI-ROS-20261011）；NUC 与完整上游 FSM 联调尚未完成，隔离测试与旧本地 Mock 证据分开。
 
-| Web UI 工作项（工程建议） | 页面内容与交付要求 | 现有基础与缺口 |
+| Web UI 工作项（早期工程拆分，P0 按上述用户要求） | 页面内容与交付要求 | 现有基础与缺口 |
 | --- | --- | --- |
 | 任务总览与口令 | 显示任务 ID、基础/序列模式、输入的颜色顺序、T0 或 P1–P3、当前对象、主/子状态与完成数量；口令可配置，正式值以比赛日通知为准（RULES p3；FAQ p5） | 真实 Action 客户端已实现，进度仅来自反馈/TaskState/Result；上游整体任务与实机待验 |
 | 设备与工具状态 | 分别显示通信、就绪、运动、停稳确认、工具状态、独立验证与证据等级；标明数据来源、更新时间和运行模式 | 真实业务字段与来源/GID、采样龄期已接入；缺失或过期显示未知，实机来源仍须现场核对 |
@@ -381,3 +389,18 @@ TEAMMATE-VISIONREPLAY-20261012 / ENV-VISION-REPLAY-20261012 的 dc76a0b 相对�
 TEAMMATE-OWNERSHIP-20261012 / ENV-TRAJECTORY-OWNERSHIP-20261012：681bb64相对45f497c的7文件改变轨迹端口pending UUID归属、Status合法性/接收龄和终态顺序门禁，新增15项受控真实DDS测试；Snapshot布局变化要求消费者重建。原始15包构建、269 Python/15 E2E/6 ROS通过，但FJT第7项DuplicateCancelOnlyOneBackendCall120秒超时，原XML为missing_result。其他417项C++ XML通过；同一未改二进制61项一次补跑及独立478项UBSan通过。原挂起没有现场线程栈，尚不能判定夹具/端口/中间件原因，交孙嘉明保留最小触发和差异分析。
 
 原生GenericSystem预检未收到Status，零Goal拒绝；测试夹具专用心跳不能当原生契约。默认move_group共存形成2个FJT客户端，再次零Goal BLOCKED。没有预热动作/伪造Status/放宽参数，原生其余执行场景NOT RUN，不沿用上轮四项PASS。完整FSM、异步Cancel/停稳宿主、Planner/FJT时间及独占执行契约仍未完成。固定MoveIt退出-11和旧Python220/510/520继续保留。708文件及清理见[验收报告](trajectory-ownership-acceptance.md)。此为08:00前的历史记录；统一C++Mock/UI已另行部分验收且C1未通过，未修改内核、合并或推进正式基线；OpenAI Codex协助复现和登记。
+
+
+## 2026-10-13 Web UI P1 接入增量
+
+用户会话 USER-HW-20261013-02 明确视觉/Planner/工具观察优先级。客户端现订阅 BatteryDetectionArray，RGB-D 与检测分别标注时间戳和龄期，目标列表高亮仅取任务反馈 ID。二维框缺少像素与图像帧契约，按用户要求留待视觉接入；RViz/3D 不纳入首轮。
+
+当前 TEAMMATE-WEBUI-P1-20261013 核对显示 Planner 有内部报告但无对应实时 ROS 状态发布器，ToolState 无试提/落座字段。新增可选只读消费契约见 [P1 约定](../webui/p1-contract.md)：缺省不订阅，不将规划成功填成三项检查通过，不将 Attached/命令完成填成独立挂载，验证记录须匹配任务/电池/工具。负责人交付实际发布端后仍需模块与实机联调；客户端与隔离测试不推进正式 pin 或代替真实挂载证据。62 Python / 20 Node / 6 P1 ROS 与 5 P0 ROS 检查通过（ENV-WEBUI-P1-20261013）；详细验证见 [Web UI 报告](web-ui.md)。
+
+本轮使用 OpenAI Codex 协助实现观察适配、界面、测试与文档；未改 FSM/Planner/工具控制内核，旧失败证据保持原状。
+
+## 2026-10-13 Web UI P2 调试增量
+
+USER-HW-20261013-04 明确八模块正常/异常/未知和日志追踪。现有客户端增加只读 PickPlace、显式 UUID 关系、按坐标链 TF 查询及标定消费者；持久化记录可按 task_id / Goal / 模块筛选、查看状态转换与最近失败、完整导出已记录事件。未接入模块和缺失 Fault/标定证据保持未知。来源核对 TEAMMATE-WEBUI-P2-20261013；[字段与接入边界](../webui/p2-contract.md)。
+
+73 Python / 30 Node / 6 P2 ROS 与 6 P1、5 P0 ROS 回归通过（ENV-WEBUI-P2-20261013），安装包重复验证另列于 [UI 报告](web-ui.md)。实际标定及跨层 FJT trace 发布器、现场 TF 名称与 NUC/实机仍待联调；集成侧未接管任何控制内核，正式 pin 不变。使用 OpenAI Codex 协助实现和记录。

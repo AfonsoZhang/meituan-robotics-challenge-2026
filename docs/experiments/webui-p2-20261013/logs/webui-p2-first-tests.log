@@ -1,0 +1,77 @@
+...................................................EE...E....E
+======================================================================
+ERROR: test_fjt_cancel_status_and_result_do_not_synthesize_robot_state (test_telemetry.Telemetry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/test_telemetry.py", line 122, in test_fjt_cancel_status_and_result_do_not_synthesize_robot_state
+    self.status([dict(goal_id="a",status=3)])
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/test_telemetry.py", line 94, in status
+    return self.backend.observe_fjt_status(entries,"/controller",round(self.now*1e9),0)
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/ros_backend.py", line 485, in observe_fjt_status
+    self.journal.node(entry["goal_id"], "FollowJointTrajectory")
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/diagnostics.py", line 78, in node
+    goal = goal_key(goal)
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/diagnostics.py", line 21, in goal_key
+    result = uuid.UUID(value).hex
+  File "/usr/lib/python3.10/uuid.py", line 177, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+======================================================================
+ERROR: test_fjt_uuid_switch_rejects_old_feedback_and_late_result (test_telemetry.Telemetry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/test_telemetry.py", line 102, in test_fjt_uuid_switch_rejects_old_feedback_and_late_result
+    self.status([dict(goal_id="a",status=2)])
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/test_telemetry.py", line 94, in status
+    return self.backend.observe_fjt_status(entries,"/controller",round(self.now*1e9),0)
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/ros_backend.py", line 485, in observe_fjt_status
+    self.journal.node(entry["goal_id"], "FollowJointTrajectory")
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/diagnostics.py", line 78, in node
+    goal = goal_key(goal)
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/diagnostics.py", line 21, in goal_key
+    result = uuid.UUID(value).hex
+  File "/usr/lib/python3.10/uuid.py", line 177, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+======================================================================
+ERROR: test_multiple_active_goals_and_source_change_invalidate_attribution (test_telemetry.Telemetry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/test_telemetry.py", line 113, in test_multiple_active_goals_and_source_change_invalidate_attribution
+    self.status([dict(goal_id="a",status=2)])
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/test_telemetry.py", line 94, in status
+    return self.backend.observe_fjt_status(entries,"/controller",round(self.now*1e9),0)
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/ros_backend.py", line 485, in observe_fjt_status
+    self.journal.node(entry["goal_id"], "FollowJointTrajectory")
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/diagnostics.py", line 78, in node
+    goal = goal_key(goal)
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/diagnostics.py", line 21, in goal_key
+    result = uuid.UUID(value).hex
+  File "/usr/lib/python3.10/uuid.py", line 177, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+======================================================================
+ERROR: test_unrelated_historical_terminal_is_not_current_motion (test_telemetry.Telemetry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/test_telemetry.py", line 97, in test_unrelated_historical_terminal_is_not_current_motion
+    self.assertIsNone(self.status([dict(goal_id="old",status=4)]))
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/test_telemetry.py", line 94, in status
+    return self.backend.observe_fjt_status(entries,"/controller",round(self.now*1e9),0)
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/ros_backend.py", line 485, in observe_fjt_status
+    self.journal.node(entry["goal_id"], "FollowJointTrajectory")
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/diagnostics.py", line 78, in node
+    goal = goal_key(goal)
+  File "/home/afonso/meituan-robotics-challenge-2026/webui/diagnostics.py", line 21, in goal_key
+    result = uuid.UUID(value).hex
+  File "/usr/lib/python3.10/uuid.py", line 177, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+----------------------------------------------------------------------
+Ran 62 tests in 3.096s
+
+FAILED (errors=4)

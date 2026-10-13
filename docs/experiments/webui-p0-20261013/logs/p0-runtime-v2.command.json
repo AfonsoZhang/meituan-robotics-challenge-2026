@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe",
+    "exec",
+    "mtc-webui-p0-20261013",
+    "bash",
+    "-c",
+    "source /opt/ros/jazzy/setup.bash; source /candidate-install/setup.bash; source /integration-install/setup.bash; export PYTHONPATH=/ui-src:$PYTHONPATH ROS_DOMAIN_ID=94 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp ROS_LOG_DIR=/p0-evidence/roslogs; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; cd /ui-src; python3 - <<'VER'\nfrom pathlib import Path\nimport xml.etree.ElementTree as ET\nimport sys,platform\nprint(sys.version,platform.platform())\nfor name in ('rclpy', 'control_msgs', 'action_msgs', 'trajectory_msgs', 'sensor_msgs'):\n    r=ET.parse(Path('/opt/ros/jazzy/share')/name/'package.xml').getroot()\n    print(name,r.findtext('version'),[x.text for x in r.findall('license')])\nVER"
+  ],
+  "started_at": 1791869829.503992,
+  "exit_code": 0,
+  "finished_at": 1791869830.6838837
+}

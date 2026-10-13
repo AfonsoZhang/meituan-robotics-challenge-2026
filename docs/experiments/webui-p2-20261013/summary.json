@@ -1,0 +1,72 @@
+{
+  "source_id": "ENV-WEBUI-P2-20261013",
+  "status": "PASS_SCOPED_UI_CONSUMERS",
+  "tests": {
+    "python": 73,
+    "node": 30,
+    "p2_native_ros": 6,
+    "p1_native_ros_regression": 6,
+    "p0_native_ros_regression": 5,
+    "demo": 27,
+    "robot": 30
+  },
+  "installed_repeats": {
+    "python": 73,
+    "p2_native_ros": 6,
+    "do_not_count_as_additional_unique_cases": true,
+    "matching_installed_files": 33
+  },
+  "browser": {
+    "native_task_trace": true,
+    "three_actual_fixture_uuids": true,
+    "goal_module_transition_filter": true,
+    "pause_eight_unknown": true,
+    "offline_no_fake_states_submit_disabled": true,
+    "viewport_widths": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "document_overflow": false,
+    "http_export": {
+      "status": 200,
+      "matching_events": 23,
+      "total": 23,
+      "attachment": true
+    },
+    "chrome_download_save_verified": false,
+    "visibility": "hidden",
+    "interaction": "DOM form/button actions and actual HTTP; no snapshot/application-state injection",
+    "final_css": "query buttons corrected; final 390px offline screenshot verified"
+  },
+  "journal_integrity": [
+    {
+      "session": "browser-session-final",
+      "events": 37,
+      "sqlite_integrity": "ok",
+      "jsonl_exact_match": true
+    },
+    {
+      "session": "browser-session",
+      "events": 37,
+      "sqlite_integrity": "ok",
+      "jsonl_exact_match": true
+    }
+  ],
+  "package_patch": {
+    "base": "8f11750e0bd2e485826acb904fd31382945ba0b9",
+    "changed_files": 32,
+    "applies_to_clean_checkout": true,
+    "tree_match": true,
+    "published": false
+  },
+  "cleanup": "cleanup.json",
+  "scope": "原生 ROS 消息/Action 测试夹具，无实机、实际 FSM/Planner/Phase 2C 内核验收；原始高频传感器并非 ROS bag",
+  "pending": [
+    "真实 Calibration 有效性与跨层 FJT trace 发布器",
+    "现场 TF 坐标链与标定有效性实测",
+    "NUC / 实体设备与整轮 FSM 闭环"
+  ],
+  "ai_assistance": "OpenAI Codex implementation, testing, review and evidence preparation"
+}

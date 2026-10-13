@@ -1,0 +1,175 @@
+{
+  "commands": [
+    {
+      "name": "python_package_build",
+      "argv": [
+        "python3",
+        "setup.py",
+        "build",
+        "--build-base",
+        "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-pr-20261013-175839/package-build"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "packaged_python_tests",
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-pr-20261013-175839/package-build/lib/mtc_webui",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "packaged_entry_help",
+      "argv": [
+        "python3",
+        "-m",
+        "mtc_webui.server",
+        "--help"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "matching_built_files": [
+    {
+      "path": "mtc_webui/README.md",
+      "sha256": "fa71bbe03607736a4171f18e82f4a60807d35312aeb45b006088d51d3332b89b"
+    },
+    {
+      "path": "mtc_webui/__init__.py",
+      "sha256": "3aca5545b424f135fff74819b578943d1b58c0127865259487cf22d3dd0dd095"
+    },
+    {
+      "path": "mtc_webui/config.py",
+      "sha256": "80dddde775666cc4a8163f3fa928aad062f1339f690ad68a200f7db5f95deca1"
+    },
+    {
+      "path": "mtc_webui/connection.example.json",
+      "sha256": "3ffc3fa4f5014f882903bdc1795acbe21ff9bf19e87481b6d7514f37e829926e"
+    },
+    {
+      "path": "mtc_webui/cpp_mock.py",
+      "sha256": "96b4ba88c4ee642cc1f365bdbee426090f9d505065d0099495502dd4a01355bb"
+    },
+    {
+      "path": "mtc_webui/diagnostics.py",
+      "sha256": "cdddc1fc55444353f35b703d25ec703aca5130bd85938ed129afa65c12dd9a68"
+    },
+    {
+      "path": "mtc_webui/mock_backend.py",
+      "sha256": "eb27e99f527d274a6699d8891cb614c9726695dac9dd87616987fcf4a17003b4"
+    },
+    {
+      "path": "mtc_webui/observations.py",
+      "sha256": "dd477a4bc3c37bcf64c5b36dcea9c823a38ada54d6c131c4749b62d245713f1c"
+    },
+    {
+      "path": "mtc_webui/p0_integration_check.py",
+      "sha256": "7eafa319975815f6f86d0737a338ac2fd6ca267e4781be2e3d79c757e7f35ced"
+    },
+    {
+      "path": "mtc_webui/p1-contract.md",
+      "sha256": "d5de8a7492532965f019ac31535596cca67bba4b74522fb140f9c4f87ddc8fa9"
+    },
+    {
+      "path": "mtc_webui/p1_integration_check.py",
+      "sha256": "85c276cf81a14c4afb64ec271caea0692869a748f16b3b32fd271ff60d796e50"
+    },
+    {
+      "path": "mtc_webui/p2-contract.md",
+      "sha256": "a39df2cb781cc49c00c1e5ceff8aa09454f02f69de36abe23f1ac8f42a72639a"
+    },
+    {
+      "path": "mtc_webui/p2_integration_check.py",
+      "sha256": "444432f547510cd7e803385a377c44a9b82b4a32d6f7b38e24b37715ea86afb9"
+    },
+    {
+      "path": "mtc_webui/provenance.json",
+      "sha256": "7683e199045e28a85b8ed32ef650f18d202bd4943c4ff3d024cb2825df216ae4"
+    },
+    {
+      "path": "mtc_webui/ros_backend.py",
+      "sha256": "1a5266d7976a67ff1581367667ba432459294bdf0ed98b0142cc855c0602c713"
+    },
+    {
+      "path": "mtc_webui/ros_integration_check.py",
+      "sha256": "ae1797c314fff3226b73294e8b52b358831a9c148b31a3323c90ab091be9bf4e"
+    },
+    {
+      "path": "mtc_webui/ros_transport.py",
+      "sha256": "692d89a0d98b317f9697065c199c4436e0a8763106afefd0dc75959894e48864"
+    },
+    {
+      "path": "mtc_webui/server.py",
+      "sha256": "3ab18f99add89b979ee9f0e2b139c720af54b790a4f34502e738d660496fadde"
+    },
+    {
+      "path": "mtc_webui/static/app.js",
+      "sha256": "70ef5e81284ad67c20149622933e4affd626bfbda47aa2eae27a63b55e56dae5"
+    },
+    {
+      "path": "mtc_webui/static/favicon.svg",
+      "sha256": "926554080f4b882f38d4f5c0b8ad3592cd47c61b2aa671edbf2979449bf8dccd"
+    },
+    {
+      "path": "mtc_webui/static/index.html",
+      "sha256": "7fa22458ceec29b45b5c808d0464875a5d95b88ebb8a7e9d11e056d5f521dd7d"
+    },
+    {
+      "path": "mtc_webui/static/p0.js",
+      "sha256": "45e0267194a446e972a27ad8c47b17275cb4f6812ff1248e7e45377b8b4970c9"
+    },
+    {
+      "path": "mtc_webui/static/p1.js",
+      "sha256": "85a81eb94c906999bb0c7a243aacaf5b2eb778df442df955484b5d488576f6fa"
+    },
+    {
+      "path": "mtc_webui/static/p2.js",
+      "sha256": "76225c78c070433eecc3c699068dec5ba3019108eec71a03a503a157b81f141a"
+    },
+    {
+      "path": "mtc_webui/static/styles.css",
+      "sha256": "7ae741d3ceb3e213e5c36ebe555183711964cb3eeea4ace3780752d5ee3b10d7"
+    },
+    {
+      "path": "mtc_webui/telemetry-contract.md",
+      "sha256": "60698539592f5a98a0b65af2eda0750d7795910e708036b86afb38384afe2d00"
+    },
+    {
+      "path": "mtc_webui/telemetry.py",
+      "sha256": "076436c620209dea00aab803183f12fa6a8f78374185908f2ab6d1ffaa0decba"
+    },
+    {
+      "path": "mtc_webui/test_cpp_mock.py",
+      "sha256": "393125be949408413d5b40a24b1ad4659e5fea5bb2ddfe9cabb1ac29357b213d"
+    },
+    {
+      "path": "mtc_webui/test_diagnostics.py",
+      "sha256": "8aadd7908c3e732d806717a1a733c68d26499c8cd34cfc5c74da948b39fb0856"
+    },
+    {
+      "path": "mtc_webui/test_mock_backend.py",
+      "sha256": "88ddc162ec04fabd42f1e486705e3c2d45ebe30e85951794d08b5c3865c50b7e"
+    },
+    {
+      "path": "mtc_webui/test_observations.py",
+      "sha256": "e130346ea57b7dcd54aecfb4798b1848faa07b52dacc471fdac1fd4ac62e8864"
+    },
+    {
+      "path": "mtc_webui/test_ros_backend.py",
+      "sha256": "e57d8420bf1219917234ded8a9354a94f737b475b905a76900adb3b01c8d1066"
+    },
+    {
+      "path": "mtc_webui/test_telemetry.py",
+      "sha256": "045e90103bfcbf6ce5423bb321329be040ccc1815c43c5ef7e601ff60f1336a5"
+    }
+  ],
+  "runtime": "host Python build products; not a new colcon/Jazzy acceptance"
+}

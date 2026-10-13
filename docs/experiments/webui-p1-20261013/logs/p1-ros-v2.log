@@ -1,0 +1,21 @@
+test_01_native_detection_and_rgb_depth_frames (__main__.Integration.test_01_native_detection_and_rgb_depth_frames) ... ok
+test_02_nan_pose_old_pose_and_zero_detections (__main__.Integration.test_02_nan_pose_old_pose_and_zero_detections) ... FAIL
+test_03_watchdog_raw_reason_and_new_plan_does_not_inherit_checks (__main__.Integration.test_03_watchdog_raw_reason_and_new_plan_does_not_inherit_checks) ... ok
+test_04_attached_without_independent_mount_and_invalid_evidence_rejected (__main__.Integration.test_04_attached_without_independent_mount_and_invalid_evidence_rejected) ... ok
+test_05_duplicate_publisher_revokes_attribution (__main__.Integration.test_05_duplicate_publisher_revokes_attribution) ... ok
+test_06_stale_data_and_frames_do_not_remain_current (__main__.Integration.test_06_stale_data_and_frames_do_not_remain_current) ... ok
+
+======================================================================
+FAIL: test_02_nan_pose_old_pose_and_zero_detections (__main__.Integration.test_02_nan_pose_old_pose_and_zero_detections)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/ui-src/webui/p1_integration_check.py", line 151, in test_02_nan_pose_old_pose_and_zero_detections
+    wait_for(lambda:self.backend.snapshot()["perception"]["data"]["detections"][0]["ring_pose"]["offset_ms"]>9000)
+  File "/ui-src/webui/ros_integration_check.py", line 28, in wait_for
+    raise AssertionError("Timed out waiting for ROS fixture condition")
+AssertionError: Timed out waiting for ROS fixture condition
+
+----------------------------------------------------------------------
+Ran 6 tests in 15.171s
+
+FAILED (failures=1)

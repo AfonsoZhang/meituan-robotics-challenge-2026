@@ -1949,6 +1949,13 @@
         "robot/README.md",
         "webui/README.md",
         "webui/provenance.json"
+      ],
+      "subsequent_resolutions": [
+        {
+          "original_question": "实机操作台开发的当前联合验证与控制接口范围",
+          "resolved_by": "USER-HW-20261013-05",
+          "resolution": "长期面向实机；当前联合验证仅 C++ Mock / GenericSystem Fake Hardware，无真实机械臂控制。Web 保持现有 HTTP API，只发送顶层 ExecuteTask Goal，其他模块状态只读接入。"
+        }
       ]
     },
     {
@@ -2302,6 +2309,141 @@
           "original_text": "单独推送PR",
           "confirmed": "从 main 建立独立 C1 PR #15；旧 PR #8 通过普通 revert 撤出 C1，保留原内容。"
         }
+      ]
+    },
+    {
+      "id": "USER-HW-20261013-06",
+      "kind": "user_message",
+      "date": "2026-10-13",
+      "source": "本项目用户会话",
+      "original_text": "P0：必须优先实现的功能\n1. 任务状态与执行进度\n\n现有的 ExecuteTask 和 PickPlace 接口基本可以满足要求，但希望页面能完整展示：\n\n当前任务 ID、任务模式（基础/序列）。\n用户输入的颜色口令及对应顺序。\n当前正在处理第几块电池。\n当前目标电池 ID、颜色及目标放置工位。\n当前 Task FSM 状态。\n当前 PickPlace FSM 子状态，例如 MOVE_PRE_ALIGN、ENGAGE、TEST_LIFT、TRANSPORT、SEAT 等。\n当前任务完成进度，例如 1/3。\n任务最终状态：SUCCEEDED / FAILED / CANCELED / FAULT，以及对应的错误码和原因。\n最好有一个直观的 FSM 流程图，能够高亮当前执行阶段，而不是只显示状态字符串。\n\n2. 机械臂运动状态\n\n后续接入 Phase 2C 的 FJT 执行端后，需要显示：\n\n六个关节的实际位置。\n六个关节的实际速度。\n当前机械臂处于空闲、运动中、取消中、停止确认中还是故障状态。\n当前正在执行的 Motion Primitive，例如 side_approach、side_insert、lift、transport 等。\n当前 trajectory_id / command_id。\n轨迹执行进度、实际执行时间与预计时长。\n运动是否成功，以及失败原因。\n如果条件允许，可以加入关节目标值和实际值的对比。\n\n这里需要强调：只能显示执行端真实反馈的数据，不能简单根据 FSM 状态推测机械臂是否运动或已经停稳。\n\n3. 安全状态与停止反馈\n\n这个功能比较重要，希望在页面上有一个独立的安全状态区域。\n\n至少显示：\n\nROS 2 通信是否正常。\n各模块是否在线。\n机械臂是否 Ready。\nSafety Interlock 是否正常。\n是否存在 FAULT 锁定。\nStop Request 是否送达。\nStop Confirmed 是否由独立证据确认。\nCancel ACK 和 Cancel Final Result。\n特别是：\n\nCancel ACK ≠ Stop Confirmed\n\n不能把取消请求成功直接显示成机械臂已经安全停止。\n\n目前 PR #8 中正常 Mock 延迟取消出现的 ABORTED/520，也需要保留并正确显示。",
+      "confirmed": {
+        "priority": "P0：任务状态与执行进度、机械臂运动状态、独立安全状态与停止反馈",
+        "motion": "只能展示执行端真实反馈，不从 FSM 推测运动或停稳",
+        "cancellation": "Cancel ACK ≠ Stop Confirmed；保留 PR #8 正常 Mock 延迟取消 ABORTED/520"
+      },
+      "scope_note": "授权本轮 UI 客户端开发及所需隔离接口验证；未确认 NUC/domain/设备上线，不是修复 C1 或接管 FSM/Action/Motion 内核，不恢复已终止的旧完整验收或自动推进正式 pin。 发布合并时发现另一会话已将旧编号 USER-HW-20261013 用于主线验收；本条 P0 要求迁移至 USER-HW-20261013-06。上述冻结 UI 目录中的旧编号仅按此范围映射，原始字节不改写。",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/experiments/webui-p0-20261013/protocol.md",
+        "docs/experiments/webui-p0-20261013/summary.json",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "webui/README.md",
+        "webui/provenance.json",
+        "webui/telemetry-contract.md",
+        "docs/experiments/webui-pr-20261013/merge-resolution.json",
+        "docs/experiments/webui-pr-20261013/project-validation.json",
+        "docs/experiments/webui-pr-20261013/summary.json",
+        "docs/experiments/webui-pr-20261013/protocol.md"
+      ],
+      "legacy_source_id_in_frozen_evidence": "USER-HW-20261013",
+      "legacy_source_id_scope": [
+        "docs/experiments/webui-p0-20261013/",
+        "docs/experiments/webui-p1-20261013/",
+        "docs/experiments/webui-p2-20261013/",
+        "docs/experiments/webui-api-20261013/"
+      ]
+    },
+    {
+      "id": "USER-HW-20261013-02",
+      "kind": "user_message",
+      "date": "2026-10-13",
+      "source": "本项目用户会话",
+      "original_text": "P1：视觉与规划模块集成\n4. RGB-D 相机画面\n\n浩然的视觉模块接入后，希望 Web UI 可以展示：\n\nD435i RGB 实时画面。\nDepth 深度图或伪彩色深度图。\n检测到的电池及提环位置。\n电池 ID、颜色和检测置信度。\n提环位姿是否有效（ring_pose_valid）。\n图像时间戳及数据是否过期。\n最好能在 RGB 画面上叠加电池检测框、颜色标签和目标电池高亮。\n\n目标是让我们知道系统现在看到了什么、准备抓哪一块电池。\n\n当前已有 /mtc/perception/batteries 的消息契约，但 Web UI 尚未订阅。具体画面叠加方式可以等视觉模块正式接入后再确定。\n\n5. MoveIt 规划状态\n\n建烁的 Planner 接入后，希望显示：\n\n当前正在规划哪个 Motion Primitive。\n规划状态：等待、规划中、成功或失败。\n当前轨迹的点数和预计执行时长。\n是否通过关节限位检查。\n是否通过碰撞检查。\n起点一致性检查是否通过。\n规划失败的具体原因。\n例如 V1 当前遇到的 EXCEEDS_STATE_WATCHDOG，希望能在页面上直接看到原因，而不是只显示“规划失败”。\n\n如果后续开发成本允许，可以考虑增加 RViz 或独立 3D 视图，用于查看机器人、规划路径、障碍物及目标工位。\n\n但这部分优先级低于基础状态显示，不需要第一轮就完成。\n\n6. 工具与电池状态\n\n需要显示：\n\n当前工具类型：V1 Passive Hook / V2 Magnetic Latch。\n工具当前状态：Detached、Engaging、Attached、Releasing、Fault。\n当前工具关联的电池 ID。\n是否已经独立确认挂载。\n当前挂载证据等级。\n是否完成试提和落座验证。\n工具状态和挂载确认必须分开显示，不能因为工具发出了接合指令，就直接认为抓取成功。",
+      "confirmed": {
+        "priority": "P1：RGB-D/电池检测、MoveIt 规划状态、工具与电池状态",
+        "evidence": "工具估计与独立挂载分开；试提与落座验证不得由指令/FSM 推定",
+        "deferred": "RGB 叠图方式待视觉正式接入；RViz/独立 3D 优先级低于基础状态，不要求首轮"
+      },
+      "scope_note": "授权 UI 与必要观察桥接及隔离测试；未授权接管 Planner/FSM/工具内核或真实 IO，不改变末端选型、不确认 NUC/实物相机/机械臂上线，不恢复旧监测或完整 C1 验收。",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "webui/README.md",
+        "webui/p1-contract.md",
+        "webui/provenance.json",
+        "docs/experiments/webui-p1-20261013/protocol.md",
+        "docs/experiments/webui-p1-20261013/summary.json"
+      ]
+    },
+    {
+      "id": "USER-HW-20261013-04",
+      "kind": "user_message",
+      "date": "2026-10-13",
+      "source": "本项目用户会话",
+      "original_text": "P2：系统调试与比赛使用体验\n7. ROS 2 系统状态面板\n\n希望可以显示主要模块的在线状态：\n\n模块 | 需要显示 -- | -- Task Server | 在线状态、当前任务 PickPlace FSM | 在线状态、当前子状态 Vision | 在线状态、检测数据新鲜度 Calibration / TF | TF 是否可用、标定是否有效 MoveIt Planner | 在线状态、规划状态 FJT Execution | 在线状态、Goal 执行状态 Tool Manager | 在线状态、工具状态 Robot / Controller | 通信、Ready、Fault、StopConfirmed\n这部分最好区分三种情况：正常、异常、未知/尚未接入。\n\n未接入的模块不要显示绿色，也不要通过生成虚假的 RobotState 或 ToolState 让页面看起来正常。\n\n8. 日志和错误追踪\n\n现在已经有日志导出能力，希望后续进一步支持：\n\n按任务 ID、Goal UUID 查询日志。\n按模块筛选事件。\n展示状态转换时间线。\n显示最近一次失败原因。\n关联父 ExecuteTask、子 PickPlace 和 FJT Goal。\n导出完整任务执行记录。\n这样我们现场调试时能够快速定位问题发生在视觉、规划、FSM 还是执行端。",
+      "confirmed": {
+        "priority": "P2：八模块系统状态、按任务/Goal/模块查询、转换时间线、最近失败、父子 FJT Goal 关联与完整记录导出",
+        "evidence": "三态显示；未接入不得显示绿色或合成 RobotState/ToolState"
+      },
+      "scope_note": "授权操作台观察/记录实现与隔离测试；不确认 NUC/现场配置或硬件已上线，不接管 FSM/Action/Cancel/Motion 内核，不改变停止证据语义。",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "webui/README.md",
+        "webui/p2-contract.md",
+        "webui/provenance.json",
+        "docs/experiments/webui-p2-20261013/protocol.md",
+        "docs/experiments/webui-p2-20261013/summary.json"
+      ]
+    },
+    {
+      "id": "USER-HW-20261013-05",
+      "kind": "user_message",
+      "date": "2026-10-13",
+      "source": "本项目用户会话",
+      "original_text": "接口方面的约定\n希望尽量保持现有 Web HTTP API 不变。\n\nWeb UI 只负责发送顶层 ExecuteTask，不需要增加直接操作 FJT、工具 IO 或机械臂关节的网页按钮。\n\n其他模块的状态尽量通过 ROS 2 Topic 或统一的只读状态接口提供。\n\n对于目前还没有发布状态 Topic 的模块，可以先把 UI 数据结构和显示位置预留出来，后续由对应模块负责人提供正式接口。\n\n现阶段所有联合验证仍然限定在 C++ Mock / GenericSystem Fake Hardware 环境中，不涉及真实机械臂控制。",
+      "confirmed": {
+        "http_api": "尽量保持现有 Web HTTP API 不变",
+        "control": "Web UI 只负责发送顶层 ExecuteTask；不新增直接 FJT、工具 IO 或机械臂关节控制按钮",
+        "state": "其他模块使用 ROS 2 Topic 或统一只读状态接口；尚无 Topic 时预留数据结构和显示位置，正式接口由模块负责人提供",
+        "joint_validation": "现阶段所有联合验证仅限 C++ Mock / GenericSystem Fake Hardware，不涉及真实机械臂控制"
+      },
+      "scope_note": "本条明确当前阶段验证范围，不取消长期实机操作台目标，不证明正式发布器/完整 Fake 链路或实机已验收。为保持已有 HTTP API，保留现有定向任务取消和软件停止；此为结合既有 P0 停止要求的实现解释，并非新增低层运动控制。未授权部署到真实机械臂或接管 FSM/Action/Cancel/Motion 内核。",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "webui/README.md",
+        "webui/telemetry-contract.md",
+        "webui/p1-contract.md",
+        "webui/p2-contract.md",
+        "webui/provenance.json",
+        "docs/experiments/webui-api-20261013/protocol.md",
+        "docs/experiments/webui-api-20261013/inputs.json",
+        "docs/experiments/webui-api-20261013/summary.json"
+      ]
+    },
+    {
+      "id": "USER-HW-20261013-07",
+      "kind": "user_message",
+      "date": "2026-10-13",
+      "source": "本项目用户会话",
+      "original_text": "推送PR",
+      "confirmed": {
+        "publication": "提交当前 Web UI 改动、推送分支并创建 PR"
+      },
+      "scope_note": "沿用既有双仓职责：团队仓库提交 Web 包代码，个人仓库提交源码/来源与冻结证据。根据本次 PR 要求均走独立分支；代码依赖未合并 PR #8，采用以其分支为 base 的增量 PR。这是交付实施安排，不授权自动合并、改变正式 pin 或控制真实机械臂。",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "docs/experiments/webui-pr-20261013/protocol.md",
+        "docs/experiments/webui-pr-20261013/inputs.json",
+        "docs/experiments/webui-pr-20261013/summary.json"
       ]
     }
   ],
@@ -4649,6 +4791,143 @@
         "docs/experiments/c1-standalone-pr-20261013/protocol.md",
         "docs/experiments/c1-standalone-pr-20261013/inputs.json",
         "docs/experiments/c1-standalone-pr-20261013/summary.json"
+      ]
+    },
+    {
+      "id": "TEAMMATE-WEBUI-P0-20261013",
+      "kind": "teammate_interface_read_only_snapshot",
+      "title": "Web UI P0 接口核对：PR #8 与 Phase 2C PR #13",
+      "url": "https://github.com/F1u0rite/meituan_challenge_ws/pull/13",
+      "accessed_on": "2026-10-13",
+      "commit": "22b0607948c3e58568870da866287d23c135a9fb",
+      "pr8_commit": "7da43228d602a6b23571bfc599d69529ef7bea23",
+      "upstream_main": "b4185155383541e1a4161587c4049a162f74b36d",
+      "pull_requests_status": "PR #8 / #13 OPEN at observation; no merge",
+      "observed": [
+        "mtc_interfaces between PR8 and PR13 unchanged",
+        "No Web primitive/command_id/trajectory_id/expected duration/progress publisher in reviewed sources",
+        "FJT ownership guard counts send_goal service clients; UI passive subscriptions and get_result do not create execution ownership"
+      ],
+      "scope_note": "源码与 GitHub 状态核对，不是新 Phase 2C / C1 验收；上游 MIT 及原许可保留。",
+      "report": "docs/web-ui.md",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/experiments/webui-p0-20261013/protocol.md",
+        "docs/experiments/webui-p0-20261013/summary.json",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "webui/provenance.json",
+        "webui/telemetry-contract.md"
+      ]
+    },
+    {
+      "id": "ROS2-CONTROLMSGS-20261013",
+      "kind": "official_ros_interface_reference",
+      "title": "control_msgs Jazzy controller state and FJT IDL",
+      "url": "https://github.com/ros-controls/control_msgs/tree/jazzy/control_msgs",
+      "accessed_on": "2026-10-13",
+      "urls": [
+        "https://raw.githubusercontent.com/ros-controls/control_msgs/jazzy/control_msgs/msg/JointTrajectoryControllerState.msg",
+        "https://raw.githubusercontent.com/ros-controls/control_msgs/jazzy/control_msgs/action/FollowJointTrajectory.action"
+      ],
+      "version": "Official jazzy branch API; installed control_msgs 5.10.0 verified separately",
+      "license": "BSD-3-Clause",
+      "use": "Jazzy reference/feedback fields, FJT actual.time_from_start and native result; no inferred duration or progress",
+      "derived_files": [
+        "docs/experiments/webui-p0-20261013/protocol.md",
+        "docs/experiments/webui-p0-20261013/summary.json",
+        "docs/web-ui.md",
+        "webui/provenance.json",
+        "webui/telemetry-contract.md"
+      ]
+    },
+    {
+      "id": "TEAMMATE-WEBUI-P1-20261013",
+      "kind": "teammate_interface_read_only_snapshot",
+      "title": "Web UI P1 原生视觉、规划报告与工具证据契约核对",
+      "url": "https://github.com/F1u0rite/meituan_challenge_ws/pull/4",
+      "accessed_on": "2026-10-13",
+      "commit": "943bf37bec8fc35b510abe56a6844b3f6280cce4",
+      "vision_commit": "dc76a0bf0a43f9110f3d24cfa38a2b3478f48dcd",
+      "pr8_commit": "7da43228d602a6b23571bfc599d69529ef7bea23",
+      "upstream_main": "b4185155383541e1a4161587c4049a162f74b36d",
+      "pull_requests_status": "PR #4/#5/#8/#13 OPEN at observation; no merge",
+      "observed": [
+        "BatteryDetectionArray has IDs/colors/confidence/PoseStamped/ring_pose_valid but no pixel boxes or image stamp association",
+        "PR5 adapter forces ring_pose_valid=false; unavailable poses serialized as NaN",
+        "Planner has PlanResult/PlanReport/YAML point count, duration and reason, no live ROS observation publisher in reviewed mtc_moveit_planner",
+        "ToolState verified confirms current state; minimum independent evidence is GEOMETRY(2); no test-lift/seated fields in IDL"
+      ],
+      "scope_note": "只读源码与 PR 核对；新增 Planner / tool-verification String JSON 是 Web 桥接建议，不冒充既有上游 IDL，真实发布端待负责人交付。上游 MIT 及原许可保留。",
+      "report": "docs/web-ui.md",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "webui/README.md",
+        "webui/p1-contract.md",
+        "webui/provenance.json",
+        "docs/experiments/webui-p1-20261013/protocol.md",
+        "docs/experiments/webui-p1-20261013/summary.json"
+      ],
+      "pr8_head_at_completion": "8f11750e0bd2e485826acb904fd31382945ba0b9",
+      "pr8_same_tree_at_completion": true
+    },
+    {
+      "id": "TEAMMATE-WEBUI-P2-20261013",
+      "kind": "teammate_interface_read_only_snapshot",
+      "title": "P2 标定与 Action UUID 关联契约核对",
+      "url": "https://github.com/F1u0rite/meituan_challenge_ws/pull/8",
+      "accessed_on": "2026-10-13",
+      "commit": "8f11750e0bd2e485826acb904fd31382945ba0b9",
+      "upstream_main": "b4185155383541e1a4161587c4049a162f74b36d",
+      "calibration_pr6": "06ab689f25e87dcebf9fd04fdd581ec4755206f6",
+      "phase2c_reference": "22b0607948c3e58568870da866287d23c135a9fb",
+      "observed": [
+        "PR8 Task 的 MTC_TRACE 有明确 ExecuteTask→PickPlace UUID；原生 Action Feedback 无跨层父 UUID",
+        "主线 Calibration 是离线检查/现场 SOP，没有 UI 可订阅的实时有效性报告",
+        "Phase 2C snapshot 有 command_id/goal_uuid，但无完整跨层 ROS trace 发布器"
+      ],
+      "scope_note": "仅只读源码/固定版本契约核对。新增 calibration/trace String JSON 是 Web 消费约定；不当作上游已有发布器或硬件验收。",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "webui/README.md",
+        "webui/p2-contract.md",
+        "webui/provenance.json",
+        "docs/experiments/webui-p2-20261013/protocol.md",
+        "docs/experiments/webui-p2-20261013/summary.json"
+      ]
+    },
+    {
+      "id": "TEAMMATE-WEBUI-PUBLISH-20261013",
+      "type": "github_pull_request",
+      "accessed_on": "2026-10-13",
+      "repository": "https://github.com/F1u0rite/meituan_challenge_ws",
+      "url": "https://github.com/F1u0rite/meituan_challenge_ws/pull/16",
+      "title": "feat(webui): P0–P2 observability and compatible task APIs",
+      "state_at_access": "OPEN",
+      "commit": "89bb7f75994365c1bd3d32ac59f35a81145970c7",
+      "branch": "feat/webui-observability-20261013",
+      "base_branch": "fix/cpp-mock-webui-integration-20261012",
+      "base_commit": "8f11750e0bd2e485826acb904fd31382945ba0b9",
+      "personal_source_commit": "95bfa6002db3dd5330461efcfcd0cc8112323246",
+      "personal_pr": "https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/pull/1",
+      "scope": "已发布 Web UI P0–P2 及 HTTP 兼容增量；36 个 Web/包安装/说明文件，无 FSM/Action/Cancel/Motion 内核变更；依赖 PR #8，C1 修复仍为独立 PR #15",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "docs/experiments/webui-pr-20261013/protocol.md",
+        "docs/experiments/webui-pr-20261013/summary.json"
       ]
     }
   ],
@@ -8898,7 +9177,8 @@
         "docs/open-questions.md",
         "docs/upstream-monitor.md",
         "robot/README.md",
-        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json",
+        "docs/web-ui.md"
       ],
       "publication": {
         "receipt": "docs/cpp-mock-webui-publication.json",
@@ -9135,6 +9415,371 @@
         "docs/experiments/c1-standalone-pr-20261013/protocol.md",
         "docs/experiments/c1-standalone-pr-20261013/inputs.json",
         "docs/experiments/c1-standalone-pr-20261013/summary.json"
+      ]
+    },
+    {
+      "id": "ENV-WEBUI-P0-20261013",
+      "kind": "isolated_webui_p0_interface_validation",
+      "date": "2026-10-13",
+      "observed_at": "2026-10-13T05:47:35.744316+00:00",
+      "triggered_by": [
+        "USER-HW-20261013-06"
+      ],
+      "upstream_source": "TEAMMATE-WEBUI-P0-20261013",
+      "report": "docs/web-ui.md",
+      "index": "docs/experiments/webui-p0-20261013/index.json",
+      "index_sha256": "bfc929c71bb5fcf5b31f4ef86534b34ca3d72992c5fe56455109bad9a3addfbc",
+      "inputs": "docs/experiments/webui-p0-20261013/inputs.json",
+      "summary": "docs/experiments/webui-p0-20261013/summary.json",
+      "raw_output_directories": [
+        "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p0-20261013-130709"
+      ],
+      "verification_status": "UI_CLIENT_AND_ISOLATED_INTERFACES_PASS; C1_AND_HARDWARE_UNRESOLVED",
+      "method": "Offline Python/Node semantics, actual Jazzy DDS fixture, desktop/mobile browser, installed-package build/import/interface checks, byte-matched PR8 patch and independent stop evidence. No upstream kernel or hardware run.",
+      "observed": {
+        "source_id": "ENV-WEBUI-P0-20261013",
+        "status": "UI_CLIENT_AND_ISOLATED_INTERFACES_PASS; EXECUTOR_PUBLISHER_AND_HARDWARE_PENDING",
+        "tests": {
+          "host_python": {
+            "passed": 54,
+            "failed": 0
+          },
+          "node": {
+            "passed": 12,
+            "failed": 0
+          },
+          "isolated_ros": {
+            "passed": 5,
+            "failed": 0
+          },
+          "demo": {
+            "passed": 27,
+            "failed": 0
+          },
+          "robot": {
+            "passed": 30,
+            "failed": 0
+          },
+          "installed_package": {
+            "build_passed": true,
+            "python_passed": 53,
+            "python_skipped": 1,
+            "ros_passed": 5,
+            "note": "Same tests in installed namespace; not five additional distinct cases. Image test skipped: no cv2."
+          }
+        },
+        "browser": {
+          "sequence_success": true,
+          "completed_count_separate_from_index": true,
+          "injected_cancel_status": "ABORTED",
+          "injected_cancel_error_code": 520,
+          "cancel_ack": true,
+          "stop_confirmed_after_ack": false,
+          "stop_reply_does_not_confirm_stop": true,
+          "pause_clears_motion_and_fsm": true,
+          "layout_widths": [
+            320,
+            390,
+            768,
+            1440
+          ],
+          "views": 3,
+          "horizontal_overflow": false,
+          "pageerror_during_success_flow": [],
+          "fixture_switch_http_502": 2
+        },
+        "missing_upstream_publisher_fields": [
+          "primitive",
+          "command_id",
+          "trajectory_id",
+          "expected_duration_sec",
+          "progress"
+        ],
+        "not_verified": [
+          "C1 actual delayed-cancel fix",
+          "complete Task/PickPlace/Phase2C",
+          "NUC or real hardware",
+          "new camera acceptance"
+        ],
+        "cleanup": "cleanup-final.json",
+        "source_patch": "source.patch",
+        "patch_published": false,
+        "source_ids": [
+          "USER-HW-20261013-06",
+          "TEAMMATE-WEBUI-P0-20261013",
+          "ROS2-CONTROLMSGS-20261013"
+        ],
+        "ai_assistance": "OpenAI Codex"
+      },
+      "algorithm_provenance": "webui/provenance.json",
+      "scope_note": "54 host Python / 12 Node / 5 unique ROS cases; installed namespace repeats same cases (53 Python pass, 1 camera skip). Injected ABORTED/520 preserves display, does not revalidate actual C1. Missing executor telemetry publisher remains pending.",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/experiments/webui-p0-20261013/protocol.md",
+        "docs/experiments/webui-p0-20261013/summary.json",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "webui/README.md",
+        "webui/provenance.json",
+        "webui/telemetry-contract.md"
+      ],
+      "legacy_source_id_aliases": {
+        "USER-HW-20261013": {
+          "resolves_to": "USER-HW-20261013-06",
+          "scope": "docs/experiments/webui-p0-20261013",
+          "reason": "parallel-session ID collision; frozen bytes unchanged"
+        }
+      }
+    },
+    {
+      "id": "ENV-WEBUI-P1-20261013",
+      "kind": "isolated_webui_p1_interface_validation",
+      "date": "2026-10-13",
+      "observed_at": "2026-10-13T07:17:37.492915+00:00",
+      "triggered_by": [
+        "USER-HW-20261013-02"
+      ],
+      "upstream_source": "TEAMMATE-WEBUI-P1-20261013",
+      "report": "docs/web-ui.md",
+      "index": "docs/experiments/webui-p1-20261013/index.json",
+      "index_sha256": "66a9589d5587c65eb074f16df08236c1ef03361657d612389cacfe10e81c5b99",
+      "inputs": "docs/experiments/webui-p1-20261013/inputs.json",
+      "summary": "docs/experiments/webui-p1-20261013/summary.json",
+      "raw_output_directories": [
+        "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p1-20261013-143628"
+      ],
+      "verification_status": "UI_CLIENT_AND_ISOLATED_INTERFACES_PASS; REAL_PRODUCERS_AND_HARDWARE_PENDING",
+      "observed": {
+        "source_id": "ENV-WEBUI-P1-20261013",
+        "source_ids": [
+          "USER-HW-20261013-02",
+          "TEAMMATE-WEBUI-P1-20261013"
+        ],
+        "status": "UI_CLIENT_AND_ISOLATED_INTERFACES_PASS; REAL_PRODUCERS_AND_HARDWARE_PENDING",
+        "tests": {
+          "host_python_passed": 62,
+          "jazzy_python_passed": 62,
+          "node_passed": 20,
+          "p1_ros_passed": 6,
+          "p0_ros_regression_passed": 5,
+          "demo_passed": 27,
+          "robot_passed": 30,
+          "installed_package": {
+            "build": true,
+            "python_passed": 62,
+            "python_skipped": 0,
+            "p1_ros_passed": 6,
+            "entry_help": true,
+            "byte_match_files": 28,
+            "note": "Repeats the same tests in installed namespace; not additional unique cases"
+          }
+        },
+        "browser": {
+          "native_detection_rows": 3,
+          "rgb_and_depth": true,
+          "target_id_highlight": "fixture-battery-1 (RGB screenshot)",
+          "attached_with_command_only": "not independently confirmed",
+          "test_lift": "verified",
+          "seated": "not provided",
+          "raw_planner_error": "EXCEEDS_STATE_WATCHDOG",
+          "cancel_ack": "accepted",
+          "cancel_final": "ABORTED/520",
+          "independent_stop": "unconfirmed",
+          "pause_clears_image_target_proof": true,
+          "widths": [
+            320,
+            390,
+            768,
+            1440
+          ],
+          "views": 3,
+          "document_overflow": false,
+          "caveat": "Hidden Chrome: DOM clicks and Pause/Resume used for live refresh; foreground pointer/keyboard not covered. Relay 502 and timeouts retained.",
+          "positive_observations": "qa/p1-browser-observations.json",
+          "screenshots": [
+            "qa/webui-p1-rgb.png",
+            "qa/webui-p1-depth.png",
+            "qa/webui-p1-planner.png",
+            "qa/webui-p1-mobile.png"
+          ]
+        },
+        "missing_upstream": [
+          "Planner live observation publisher",
+          "test-lift/seated independent proof publisher",
+          "2D boxes and image frame association"
+        ],
+        "not_verified": [
+          "physical D435i",
+          "real tool attachment/lift/seating",
+          "Planner/FSM/MoveIt/FJT complete chain",
+          "NUC",
+          "RViz/3D",
+          "C1 actual kernel fix"
+        ],
+        "failures_retained": [
+          "apt build timeout",
+          "wheel download timeout",
+          "fixture shared-Time construction error",
+          "WSL source-copy failure and repeat with old fixture",
+          "browser relay 502 and undefined module until reload",
+          "hidden Chrome action/rAF timeouts",
+          "first mobile camera overflow"
+        ],
+        "patch_scope": "Cumulative P0+P1 on original PR8, tree-identical to completion PR8; Web module and package metadata only",
+        "patch_published": false,
+        "cleanup": "cleanup.json",
+        "ai_assistance": "OpenAI Codex"
+      },
+      "method": "Native Jazzy DDS synthetic fixture, offline/Node semantics, scoped browser DOM verification, installed-package repeat and byte identity; no hardware or kernel acceptance",
+      "algorithm_provenance": "webui/provenance.json",
+      "scope_note": "6 unique P1 ROS cases plus 5 P0 regressions; installed tests repeat the same cases. Real Planner/tool evidence publishers and physical RGB-D pending. Browser hidden/relay failures retained.",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "webui/README.md",
+        "webui/p1-contract.md",
+        "webui/provenance.json",
+        "docs/experiments/webui-p1-20261013/protocol.md",
+        "docs/experiments/webui-p1-20261013/summary.json"
+      ],
+      "legacy_source_id_aliases": {
+        "USER-HW-20261013": {
+          "resolves_to": "USER-HW-20261013-06",
+          "scope": "docs/experiments/webui-p1-20261013",
+          "reason": "parallel-session ID collision; frozen bytes unchanged"
+        }
+      }
+    },
+    {
+      "id": "ENV-WEBUI-P2-20261013",
+      "kind": "local_isolated_ui_interface_validation",
+      "date": "2026-10-13",
+      "scope": "P2 消费与诊断功能；隔离 ROS 夹具，不代表生产发布器/NUC/实机验收",
+      "method": "73 Python / 30 Node / 6 P2 + 6 P1 + 5 P0 native ROS checks; installed 73/6 repeats; browser real HTTP/UUID checks; 33 installed hashes and clean patch application",
+      "report": "docs/web-ui.md",
+      "index": "docs/experiments/webui-p2-20261013/index.json",
+      "index_sha256": "f3d3f6b216e5932b0e432a87a42c826f1fe858173a60b9ef54a788f4a4ac9301",
+      "file_count": 158,
+      "total_bytes": 2512481,
+      "tests": {
+        "python": 73,
+        "node": 30,
+        "p2_native_ros": 6,
+        "p1_native_ros_regression": 6,
+        "p0_native_ros_regression": 5,
+        "demo": 27,
+        "robot": 30
+      },
+      "limitations": [
+        "真实 Calibration 有效性与跨层 FJT trace 发布器",
+        "现场 TF 坐标链与标定有效性实测",
+        "NUC / 实体设备与整轮 FSM 闭环",
+        "Chrome 下载落盘未确认；使用 hidden 页 DOM 动作和实际 HTTP",
+        "完整记录指本会话已接收事件，不是 ROS bag"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "webui/README.md",
+        "webui/provenance.json",
+        "webui/p2-contract.md",
+        "docs/experiments/webui-p2-20261013/protocol.md",
+        "docs/experiments/webui-p2-20261013/summary.json"
+      ],
+      "legacy_source_id_aliases": {
+        "USER-HW-20261013": {
+          "resolves_to": "USER-HW-20261013-06",
+          "scope": "docs/experiments/webui-p2-20261013",
+          "reason": "parallel-session ID collision; frozen bytes unchanged"
+        }
+      }
+    },
+    {
+      "id": "ENV-WEBUI-API-20261013",
+      "kind": "local_http_compatibility_validation",
+      "date": "2026-10-13",
+      "scope": "本地 Python / HTTP 桩验证与生产客户端静态审计；无 ROS 联合验证或实机控制",
+      "method": "76 Python checks including 3 new compatibility tests; native HTTP requests to loopback stub server; AST audit; patch applied to P2 source copy and 37 files byte matched",
+      "report": "docs/web-ui.md",
+      "index": "docs/experiments/webui-api-20261013/index.json",
+      "index_sha256": "6f67e1eee47596e4b4a40a59201b8bb31d148056875adf6c280f385d6f41b7bb",
+      "file_count": 11,
+      "total_bytes": 41104,
+      "tests": {
+        "python": 76,
+        "new_compatibility_included": 3
+      },
+      "limitations": [
+        "No ROS / C++ Mock / GenericSystem runtime tests this increment",
+        "No physical arm control or hardware acceptance",
+        "Optional state producers remain pending module owners; reserved JSON is not an imposed upstream IDL",
+        "Expanded export schema_version=2 remains an additive metadata field; old ROS export had no top-level schema_version",
+        "P0/P1/P2 evidence and concurrent C1 work preserved"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "webui/README.md",
+        "webui/p2-contract.md",
+        "webui/provenance.json",
+        "docs/experiments/webui-api-20261013/protocol.md",
+        "docs/experiments/webui-api-20261013/inputs.json",
+        "docs/experiments/webui-api-20261013/summary.json"
+      ],
+      "legacy_source_id_aliases": {
+        "USER-HW-20261013": {
+          "resolves_to": "USER-HW-20261013-06",
+          "scope": "docs/experiments/webui-api-20261013",
+          "reason": "parallel-session ID collision; frozen bytes unchanged"
+        }
+      }
+    },
+    {
+      "id": "ENV-WEBUI-PUBLISH-20261013",
+      "kind": "local_package_validation_and_dual_pr_publication",
+      "date": "2026-10-13",
+      "scope": "宿主离线 Python 包构建/测试与 GitHub 发布检查；无新 ROS/GenericSystem/C++ 或实机运行",
+      "method": "76 Python on built package; 30 Node + JS syntax; 33 built hashes; 4 prior UI evidence sets; new branches and PR receipts with exact head verification",
+      "report": "docs/web-ui.md",
+      "index": "docs/experiments/webui-pr-20261013/index.json",
+      "index_sha256": "20227cb227f95b9edb80da31dde79c7c43abea545c67605cc4c53f389ab37c47",
+      "file_count": 15,
+      "total_bytes": 49281,
+      "tests": {
+        "python_package_build": "PASS",
+        "python": 76,
+        "node": 30,
+        "javascript_syntax": "PASS",
+        "package_entry_help": "PASS",
+        "matching_built_files": 33
+      },
+      "limitations": [
+        "Code PR is stacked on unmerged PR #8; PR15 C1 kernel fix remains separate",
+        "Current joint validation scope is C++ Mock / GenericSystem Fake Hardware; no real arm control",
+        "Real optional state publishers and complete Task→FJT Fake wiring still pending",
+        "Prior native ROS/browser checks remain scoped to their frozen versions; not rerun for this publication",
+        "PR creation receipt is a point-in-time record; personal documentation commits can advance its head"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "docs/experiments/webui-pr-20261013/protocol.md",
+        "docs/experiments/webui-pr-20261013/inputs.json",
+        "docs/experiments/webui-pr-20261013/summary.json"
       ]
     }
   ]

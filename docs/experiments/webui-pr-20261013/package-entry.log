@@ -1,0 +1,21 @@
+usage: server.py [-h] [--port PORT] [--output-dir OUTPUT_DIR] [--cpp-mock]
+                 [--cpp-namespace CPP_NAMESPACE] [--mock] [--config CONFIG]
+                 [--ros-domain-id ROS_DOMAIN_ID] [--readonly]
+                 [--tunnel-port TUNNEL_PORT]
+
+Loopback-only robot console; ROS by default, optional explicit --mock demo.
+
+options:
+  -h, --help            show this help message and exit
+  --port PORT
+  --output-dir OUTPUT_DIR
+                        新目录；拒绝覆盖已有运行
+  --cpp-mock            连接统一启动的 C++ Mock ROS Action；不接硬件
+  --cpp-namespace CPP_NAMESPACE
+  --mock                显式启动定时演示器；不连接 ROS
+  --config CONFIG       ROS 连接 JSON 配置
+  --ros-domain-id ROS_DOMAIN_ID
+                        实机 domain；也可沿用 ROS_DOMAIN_ID 环境变量
+  --readonly            只观察，禁用全部写操作
+  --tunnel-port TUNNEL_PORT
+                        额外允许的 SSH 本地转发端口

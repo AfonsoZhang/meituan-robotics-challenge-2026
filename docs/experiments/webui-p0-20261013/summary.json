@@ -1,0 +1,75 @@
+{
+  "source_id": "ENV-WEBUI-P0-20261013",
+  "status": "UI_CLIENT_AND_ISOLATED_INTERFACES_PASS; EXECUTOR_PUBLISHER_AND_HARDWARE_PENDING",
+  "tests": {
+    "host_python": {
+      "passed": 54,
+      "failed": 0
+    },
+    "node": {
+      "passed": 12,
+      "failed": 0
+    },
+    "isolated_ros": {
+      "passed": 5,
+      "failed": 0
+    },
+    "demo": {
+      "passed": 27,
+      "failed": 0
+    },
+    "robot": {
+      "passed": 30,
+      "failed": 0
+    },
+    "installed_package": {
+      "build_passed": true,
+      "python_passed": 53,
+      "python_skipped": 1,
+      "ros_passed": 5,
+      "note": "Same tests in installed namespace; not five additional distinct cases. Image test skipped: no cv2."
+    }
+  },
+  "browser": {
+    "sequence_success": true,
+    "completed_count_separate_from_index": true,
+    "injected_cancel_status": "ABORTED",
+    "injected_cancel_error_code": 520,
+    "cancel_ack": true,
+    "stop_confirmed_after_ack": false,
+    "stop_reply_does_not_confirm_stop": true,
+    "pause_clears_motion_and_fsm": true,
+    "layout_widths": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "views": 3,
+    "horizontal_overflow": false,
+    "pageerror_during_success_flow": [],
+    "fixture_switch_http_502": 2
+  },
+  "missing_upstream_publisher_fields": [
+    "primitive",
+    "command_id",
+    "trajectory_id",
+    "expected_duration_sec",
+    "progress"
+  ],
+  "not_verified": [
+    "C1 actual delayed-cancel fix",
+    "complete Task/PickPlace/Phase2C",
+    "NUC or real hardware",
+    "new camera acceptance"
+  ],
+  "cleanup": "cleanup-final.json",
+  "source_patch": "source.patch",
+  "patch_published": false,
+  "source_ids": [
+    "USER-HW-20261013",
+    "TEAMMATE-WEBUI-P0-20261013",
+    "ROS2-CONTROLMSGS-20261013"
+  ],
+  "ai_assistance": "OpenAI Codex"
+}

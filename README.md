@@ -1,10 +1,20 @@
 # 美团第四届低空经济与具身智能挑战赛 · 2026
 
+**Web UI 已推送独立 PR（2026-10-13）：** 团队代码 [PR #16](https://github.com/F1u0rite/meituan_challenge_ws/pull/16)（`89bb7f7`）提供 P0–P2 观察/追踪与兼容 HTTP API；它基于尚未合并的 PR #8，未混入 PR #15 的 C1 内核修复。个人源码与证据见 [PR #1](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/pull/1)，包内源码固定来自 `95bfa60`。本轮包构建产物 76 项 Python、30 项 Node 通过，33 个文件匹配；此前 ROS 结果按冻结版本单列。当前联合验证仅限 C++ Mock / GenericSystem Fake Hardware，无真实机械臂控制。两个 PR 均未合并（USER-HW-20261013-07；TEAMMATE-WEBUI-PUBLISH-20261013；ENV-WEBUI-PUBLISH-20261013）。
+
 **C1 独立修复（2026-10-13）：** 已单独提交并推送 [PR #15](https://github.com/F1u0rite/meituan_challenge_ws/pull/15)（`8603e18`，基于 main）；独立分支 366 项 C++ 用例通过，700/400 ms 延迟取消后同栈新任务成功。此前 PR #8 组合另有 365 项测试及七个独立进程场景通过。C1 补丁已从 PR #8 撤出，原内容保留。修复限软件 Mock，未合并、未推进正式 pin；旧失败证据保留。见 [修复报告](docs/c1-cancel-fix.md)（ENV-CANCEL-PR-20261013；USER-HW-20261013-03）。
 
 **2026-10-13 主线复验：部分通过，整体验收未通过。** 固定main `b418515` 的15包构建、普通/UBSan各486项C++、269项Python及15/6/54项补充检查通过；并发重复第18轮出现M1断言失败（179次执行通过、1次失败，首败即停）。真实C++ Task→PickPlace基础/序列/及时取消通过，独立PR8 `7da4322` 的C1延迟取消再次ACK后6/520；旧Python220/510/520、原生Status/执行权BLOCKED及MoveIt退出-11仍保留。正式pin不变，无实机验收。见[本轮验收与SOP](docs/main-acceptance-20261013.md)及[冻结索引](docs/experiments/main-acceptance-20261013/index.json)（USER-HW-20261013，用户会话；TEAMMATE-MAIN-20261013；ENV-MAIN-ACCEPTANCE-20261013）。
 
 参赛项目工作区，用于管理比赛资料、规则梳理，以及后续的机器人方案、实验记录和交付材料。
+
+**Web UI 接口边界（2026-10-13）：** 保留现有 HTTP API，网页只发送顶层 ExecuteTask Goal，已有任务取消/软件停止保留；其他模块走 ROS Topic 或只读状态，缺接口先显示未知、待负责人提供正式契约。当前联合验证仅限 C++ Mock / GenericSystem Fake Hardware，不涉及真实机械臂控制。导出兼容字段已补回，76 项 Python 检查通过。[接口约定](webui/README.md#接口边界与当前联调范围)、[兼容性记录](docs/web-ui.md)（USER-HW-20261013-05；ENV-WEBUI-API-20261013）。
+
+**Web UI P2（2026-10-13）：** 已实现八模块正常/异常/未知状态、TF/标定分开显示、Task/PickPlace/FJT 显式 UUID 追踪，以及按任务/Goal/模块查询、转换时间线、最近失败与完整已记录事件导出。未接入不显示绿色。73 Python / 30 Node / 6 P2 ROS、6 P1 ROS 与 5 P0 ROS 回归通过；真实标定及跨层 FJT 关联发布器仍待接入，不代表实机验收。[实现与证据](docs/web-ui.md)、[接入契约](webui/p2-contract.md)（USER-HW-20261013-04；TEAMMATE-WEBUI-P2-20261013；ENV-WEBUI-P2-20261013）。
+
+**Web UI P1（2026-10-13）：** 按 USER-HW-20261013-02 接入原生电池检测、带同帧时间戳的 RGB/深度预览、Planner 检查/失败原因与独立工具挂载区。试提与落座采用独立验证记录，不从 FSM 阶段推定。二维叠框和 3D 留待后续；Planner/工具验证发布器仍需负责人接入，客户端缺失时明确显示未提供。[P1 接入约定](webui/p1-contract.md)、[实现与验证](docs/web-ui.md)（TEAMMATE-WEBUI-P1-20261013）。62 Python / 20 Node / 6 项 P1 隔离 ROS 与 5 项 P0 ROS 回归通过（ENV-WEBUI-P1-20261013），不代表实机或上游完整模块验收。
+
+**Web UI P0（2026-10-13）：** 已实现任务口令/当前电池/完成数、Task/PickPlace 流程高亮、独立安全与停止反馈、六关节实际/目标对比及只读 FJT 观察。Cancel ACK、最终结果和独立 Stop Confirmed 分开展示，PR #8 的 ABORTED/520 保留。54 项 Python、12 项前端语义及5项隔离 Jazzy 接口检查通过；原语/command_id/预计时长等已留好执行端遥测接收，实际发布器与实机联调待完成。[实现与证据](docs/web-ui.md)、[接入约定](webui/telemetry-contract.md)（USER-HW-20261013-06；ENV-WEBUI-P0-20261013；TEAMMATE-WEBUI-P0-20261013）。本轮未恢复旧监测或C1完整验收，正式pin不变。
 
 **进度快照（2026-10-12，历史）：** 团队main已到`b418515`（标定PR #6、Phase 2B PR #7已合并）；其486项回归及后续PR #4/#9/#10、Phase 2C结果属于上游报告，本项目未独立复验这些最新版。个人C++ Mock/Web UI证据已归档，团队PR #8仍待合并，C1延迟取消未通过。Mac上的复验准备已按用户要求终止并清理，未执行测试；完整FSM/NUC/实机仍未验收，正式pin保持`1d940f7`。统一版本、待合并候选与环境边界见[当前状态](docs/current-status.md)（TEAMMATE-STATUS-20261012；ENV-STATUS-SYNC-20261012；USER-HW-20261012-03/04，用户会话）。下文逐次验收段落保留其历史提交范围。
 
