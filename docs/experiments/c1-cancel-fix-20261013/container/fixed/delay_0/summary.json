@@ -1,0 +1,151 @@
+{
+  "started_at": "2026-10-13T06:48:20.202711+00:00",
+  "argv": [
+    "/c1-install/mtc_cpp_mock_bringup/lib/mtc_cpp_mock_bringup/mock_stack",
+    "--namespace",
+    "/c1_delay_0",
+    "--output-dir",
+    "/c1-evidence/fixed/delay_0/stack",
+    "--result-delay-ms",
+    "700",
+    "--profile",
+    "success",
+    "--no-web"
+  ],
+  "profile": "success",
+  "delay_ms": 0,
+  "result_delay_ms": 700,
+  "status": "PASS",
+  "task": {
+    "argv": [
+      "ros2",
+      "run",
+      "mtc_cpp_mock_bringup",
+      "mock_task",
+      "--namespace",
+      "/c1_delay_0",
+      "--output-dir",
+      "/c1-evidence/fixed/delay_0/client",
+      "--goal",
+      "{\"task_id\": \"delay_0\", \"mode\": 1, \"ordered_colors\": [1], \"timeout_ms\": 30000, \"placement_stability_sec\": 3.0}",
+      "--cancel-at",
+      "MOVE_PRE_ALIGN",
+      "--cancel-delay-ms",
+      "0"
+    ],
+    "exit_code": 0,
+    "final": {
+      "goal_id": "40501dfb7eb746508d030f793fb7bd3f",
+      "status": 5,
+      "result": {
+        "success": false,
+        "completed_count": 0,
+        "completed_slots": [],
+        "error_code": 0,
+        "message": "cancelled after stop confirmation (completed 0)"
+      }
+    },
+    "cancel_replies": [
+      {
+        "kind": "cancel_reply",
+        "at": "2026-10-13T06:48:26.251233+00:00",
+        "monotonic_ns": 1047460370987541,
+        "goal_id": "40501dfb7eb746508d030f793fb7bd3f",
+        "response": {
+          "return_code": 0,
+          "goals_canceling": [
+            {
+              "goal_id": {
+                "uuid": [
+                  64,
+                  80,
+                  29,
+                  251,
+                  126,
+                  183,
+                  70,
+                  80,
+                  141,
+                  3,
+                  15,
+                  121,
+                  63,
+                  183,
+                  189,
+                  63
+                ]
+              },
+              "stamp": {
+                "sec": 1791874106,
+                "nanosec": 220011597
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "child": {
+    "goal_id": "88385db69141d89fe38d04718dbfc148",
+    "status": 5,
+    "error_code": 0
+  },
+  "stack_exit_code": 0,
+  "cleanup": {
+    "supervisor_pid": 4436,
+    "started_at": "2026-10-13T06:48:20.325200+00:00",
+    "namespace": "/c1_delay_0",
+    "domain_id": 182,
+    "profile": "success",
+    "result_delay_ms": 700,
+    "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+    "processes": [
+      {
+        "label": "pick_place",
+        "pid": 4451,
+        "argv": [
+          "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+          "--ros-args",
+          "-r",
+          "__ns:=/c1_delay_0",
+          "-r",
+          "/mtc/task/execute:=/c1_delay_0/task/execute",
+          "-r",
+          "/mtc/manipulation/pick_place:=/c1_delay_0/manipulation/pick_place",
+          "-p",
+          "mock.result_delay_ms:=700",
+          "-p",
+          "mock.plan_available:=true",
+          "-p",
+          "mock.stop_evidence_available:=true",
+          "-p",
+          "mock.status_unknown:=false"
+        ],
+        "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+      },
+      {
+        "label": "task",
+        "pid": 4452,
+        "argv": [
+          "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+          "--ros-args",
+          "-r",
+          "__ns:=/c1_delay_0",
+          "-r",
+          "/mtc/task/execute:=/c1_delay_0/task/execute",
+          "-r",
+          "/mtc/manipulation/pick_place:=/c1_delay_0/manipulation/pick_place"
+        ],
+        "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+      }
+    ],
+    "returncodes": {
+      "pick_place": 0,
+      "task": 0
+    },
+    "ended_at": "2026-10-13T06:48:29.038536+00:00",
+    "cleanup_ok": true,
+    "exit_code": 0
+  },
+  "ended_at": "2026-10-13T06:48:29.233868+00:00"
+}

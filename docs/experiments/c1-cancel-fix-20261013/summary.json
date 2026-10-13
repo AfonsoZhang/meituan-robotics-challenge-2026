@@ -1,0 +1,622 @@
+{
+  "source_id": "ENV-CANCEL-FIX-20261013",
+  "status": "C1_SOFTWARE_MOCK_FIXED_AND_VERIFIED",
+  "base_commit": "7da43228d602a6b23571bfc599d69529ef7bea23",
+  "fix_commit": "062811ed2895eadc8b41efe8a8d7b2acff03fe92",
+  "tests": {
+    "cases": 365,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "colcon_total_including_wrappers": 385,
+  "added_cpp_tests": 7,
+  "baseline": {
+    "regression_positive_failed": 2,
+    "regression_negative_passed": 1,
+    "parent_status": 6,
+    "child_status": 6,
+    "error_code": 520,
+    "next_goal": "REJECTED"
+  },
+  "integration": [
+    {
+      "case": "success_delay_0",
+      "profile": "success",
+      "delay_ms": 0,
+      "result_delay_ms": 700,
+      "status": "PASS",
+      "parent": {
+        "goal_id": "40501dfb7eb746508d030f793fb7bd3f",
+        "status": 5,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 0,
+          "message": "cancelled after stop confirmation (completed 0)"
+        }
+      },
+      "child": {
+        "goal_id": "88385db69141d89fe38d04718dbfc148",
+        "status": 5,
+        "error_code": 0
+      },
+      "followup": null,
+      "cleanup": {
+        "supervisor_pid": 4436,
+        "started_at": "2026-10-13T06:48:20.325200+00:00",
+        "namespace": "/c1_delay_0",
+        "domain_id": 182,
+        "profile": "success",
+        "result_delay_ms": 700,
+        "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+        "processes": [
+          {
+            "label": "pick_place",
+            "pid": 4451,
+            "argv": [
+              "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+              "--ros-args",
+              "-r",
+              "__ns:=/c1_delay_0",
+              "-r",
+              "/mtc/task/execute:=/c1_delay_0/task/execute",
+              "-r",
+              "/mtc/manipulation/pick_place:=/c1_delay_0/manipulation/pick_place",
+              "-p",
+              "mock.result_delay_ms:=700",
+              "-p",
+              "mock.plan_available:=true",
+              "-p",
+              "mock.stop_evidence_available:=true",
+              "-p",
+              "mock.status_unknown:=false"
+            ],
+            "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+          },
+          {
+            "label": "task",
+            "pid": 4452,
+            "argv": [
+              "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+              "--ros-args",
+              "-r",
+              "__ns:=/c1_delay_0",
+              "-r",
+              "/mtc/task/execute:=/c1_delay_0/task/execute",
+              "-r",
+              "/mtc/manipulation/pick_place:=/c1_delay_0/manipulation/pick_place"
+            ],
+            "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+          }
+        ],
+        "returncodes": {
+          "pick_place": 0,
+          "task": 0
+        },
+        "ended_at": "2026-10-13T06:48:29.038536+00:00",
+        "cleanup_ok": true,
+        "exit_code": 0
+      }
+    },
+    {
+      "case": "success_delay_200",
+      "profile": "success",
+      "delay_ms": 200,
+      "result_delay_ms": 700,
+      "status": "PASS",
+      "parent": {
+        "goal_id": "0876c3100b48430b85290a6de62cdc7c",
+        "status": 5,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 0,
+          "message": "cancelled after stop confirmation (completed 0)"
+        }
+      },
+      "child": {
+        "goal_id": "b54552cf8a6abec85458a54cb6730a3c",
+        "status": 5,
+        "error_code": 0
+      },
+      "followup": null,
+      "cleanup": {
+        "supervisor_pid": 4518,
+        "started_at": "2026-10-13T06:48:29.355241+00:00",
+        "namespace": "/c1_delay_200",
+        "domain_id": 182,
+        "profile": "success",
+        "result_delay_ms": 700,
+        "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+        "processes": [
+          {
+            "label": "pick_place",
+            "pid": 4533,
+            "argv": [
+              "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+              "--ros-args",
+              "-r",
+              "__ns:=/c1_delay_200",
+              "-r",
+              "/mtc/task/execute:=/c1_delay_200/task/execute",
+              "-r",
+              "/mtc/manipulation/pick_place:=/c1_delay_200/manipulation/pick_place",
+              "-p",
+              "mock.result_delay_ms:=700",
+              "-p",
+              "mock.plan_available:=true",
+              "-p",
+              "mock.stop_evidence_available:=true",
+              "-p",
+              "mock.status_unknown:=false"
+            ],
+            "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+          },
+          {
+            "label": "task",
+            "pid": 4534,
+            "argv": [
+              "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+              "--ros-args",
+              "-r",
+              "__ns:=/c1_delay_200",
+              "-r",
+              "/mtc/task/execute:=/c1_delay_200/task/execute",
+              "-r",
+              "/mtc/manipulation/pick_place:=/c1_delay_200/manipulation/pick_place"
+            ],
+            "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+          }
+        ],
+        "returncodes": {
+          "pick_place": 0,
+          "task": 0
+        },
+        "ended_at": "2026-10-13T06:48:38.235070+00:00",
+        "cleanup_ok": true,
+        "exit_code": 0
+      }
+    },
+    {
+      "case": "success_delay_400",
+      "profile": "success",
+      "delay_ms": 400,
+      "result_delay_ms": 700,
+      "status": "PASS",
+      "parent": {
+        "goal_id": "4c56c2e355434b12b75147e3751ae784",
+        "status": 5,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 0,
+          "message": "cancelled after stop confirmation (completed 0)"
+        }
+      },
+      "child": {
+        "goal_id": "82159e1cc33f588ddeae3552d5f1e68d",
+        "status": 5,
+        "error_code": 0
+      },
+      "followup": {
+        "goal_id": "c6bc2a85cc15438c8428b3ee4c52b0aa",
+        "status": 4,
+        "result": {
+          "success": true,
+          "completed_count": 1,
+          "completed_slots": [
+            "T0"
+          ],
+          "error_code": 0,
+          "message": "task finished: T0"
+        }
+      },
+      "cleanup": {
+        "supervisor_pid": 4600,
+        "started_at": "2026-10-13T06:48:38.544865+00:00",
+        "namespace": "/c1_delay_400",
+        "domain_id": 182,
+        "profile": "success",
+        "result_delay_ms": 700,
+        "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+        "processes": [
+          {
+            "label": "pick_place",
+            "pid": 4615,
+            "argv": [
+              "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+              "--ros-args",
+              "-r",
+              "__ns:=/c1_delay_400",
+              "-r",
+              "/mtc/task/execute:=/c1_delay_400/task/execute",
+              "-r",
+              "/mtc/manipulation/pick_place:=/c1_delay_400/manipulation/pick_place",
+              "-p",
+              "mock.result_delay_ms:=700",
+              "-p",
+              "mock.plan_available:=true",
+              "-p",
+              "mock.stop_evidence_available:=true",
+              "-p",
+              "mock.status_unknown:=false"
+            ],
+            "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+          },
+          {
+            "label": "task",
+            "pid": 4616,
+            "argv": [
+              "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+              "--ros-args",
+              "-r",
+              "__ns:=/c1_delay_400",
+              "-r",
+              "/mtc/task/execute:=/c1_delay_400/task/execute",
+              "-r",
+              "/mtc/manipulation/pick_place:=/c1_delay_400/manipulation/pick_place"
+            ],
+            "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+          }
+        ],
+        "returncodes": {
+          "pick_place": 0,
+          "task": 0
+        },
+        "ended_at": "2026-10-13T06:48:56.821164+00:00",
+        "cleanup_ok": true,
+        "exit_code": 0
+      }
+    },
+    {
+      "case": "success_delay_600",
+      "profile": "success",
+      "delay_ms": 600,
+      "result_delay_ms": 700,
+      "status": "PASS",
+      "parent": {
+        "goal_id": "a729262cbf0344c985e626b8fff2c4a1",
+        "status": 5,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 0,
+          "message": "cancelled after stop confirmation (completed 0)"
+        }
+      },
+      "child": {
+        "goal_id": "bb987983715c32ddc1676074b49fab44",
+        "status": 5,
+        "error_code": 0
+      },
+      "followup": null,
+      "cleanup": {
+        "supervisor_pid": 4712,
+        "started_at": "2026-10-13T06:48:57.134675+00:00",
+        "namespace": "/c1_delay_600",
+        "domain_id": 182,
+        "profile": "success",
+        "result_delay_ms": 700,
+        "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+        "processes": [
+          {
+            "label": "pick_place",
+            "pid": 4727,
+            "argv": [
+              "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+              "--ros-args",
+              "-r",
+              "__ns:=/c1_delay_600",
+              "-r",
+              "/mtc/task/execute:=/c1_delay_600/task/execute",
+              "-r",
+              "/mtc/manipulation/pick_place:=/c1_delay_600/manipulation/pick_place",
+              "-p",
+              "mock.result_delay_ms:=700",
+              "-p",
+              "mock.plan_available:=true",
+              "-p",
+              "mock.stop_evidence_available:=true",
+              "-p",
+              "mock.status_unknown:=false"
+            ],
+            "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+          },
+          {
+            "label": "task",
+            "pid": 4728,
+            "argv": [
+              "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+              "--ros-args",
+              "-r",
+              "__ns:=/c1_delay_600",
+              "-r",
+              "/mtc/task/execute:=/c1_delay_600/task/execute",
+              "-r",
+              "/mtc/manipulation/pick_place:=/c1_delay_600/manipulation/pick_place"
+            ],
+            "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+          }
+        ],
+        "returncodes": {
+          "pick_place": 0,
+          "task": 0
+        },
+        "ended_at": "2026-10-13T06:49:07.178046+00:00",
+        "cleanup_ok": true,
+        "exit_code": 0
+      }
+    },
+    {
+      "case": "success_delay_1000",
+      "profile": "success",
+      "delay_ms": 1000,
+      "result_delay_ms": 1500,
+      "status": "PASS",
+      "parent": {
+        "goal_id": "f68b9c82f7b648f1a31e582030df5e3d",
+        "status": 5,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 0,
+          "message": "cancelled after stop confirmation (completed 0)"
+        }
+      },
+      "child": {
+        "goal_id": "1984aadcc61359795765934d3b0b3239",
+        "status": 5,
+        "error_code": 0
+      },
+      "followup": null,
+      "cleanup": {
+        "supervisor_pid": 4794,
+        "started_at": "2026-10-13T06:49:07.444448+00:00",
+        "namespace": "/c1_delay_1000",
+        "domain_id": 182,
+        "profile": "success",
+        "result_delay_ms": 1500,
+        "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+        "processes": [
+          {
+            "label": "pick_place",
+            "pid": 4809,
+            "argv": [
+              "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+              "--ros-args",
+              "-r",
+              "__ns:=/c1_delay_1000",
+              "-r",
+              "/mtc/task/execute:=/c1_delay_1000/task/execute",
+              "-r",
+              "/mtc/manipulation/pick_place:=/c1_delay_1000/manipulation/pick_place",
+              "-p",
+              "mock.result_delay_ms:=1500",
+              "-p",
+              "mock.plan_available:=true",
+              "-p",
+              "mock.stop_evidence_available:=true",
+              "-p",
+              "mock.status_unknown:=false"
+            ],
+            "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+          },
+          {
+            "label": "task",
+            "pid": 4810,
+            "argv": [
+              "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+              "--ros-args",
+              "-r",
+              "__ns:=/c1_delay_1000",
+              "-r",
+              "/mtc/task/execute:=/c1_delay_1000/task/execute",
+              "-r",
+              "/mtc/manipulation/pick_place:=/c1_delay_1000/manipulation/pick_place"
+            ],
+            "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+          }
+        ],
+        "returncodes": {
+          "pick_place": 0,
+          "task": 0
+        },
+        "ended_at": "2026-10-13T06:49:16.986736+00:00",
+        "cleanup_ok": true,
+        "exit_code": 0
+      }
+    },
+    {
+      "case": "cancel_unconfirmed_delay_400",
+      "profile": "cancel_unconfirmed",
+      "delay_ms": 400,
+      "result_delay_ms": 700,
+      "status": "PASS",
+      "parent": {
+        "goal_id": "219e27e368e1448abb33d58e13440e82",
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 520,
+          "message": "取消后未确认停稳（request_delivered=true）：Mock scenario withholds independent stop evidence"
+        }
+      },
+      "child": {
+        "goal_id": "7cbeaf6fcc59cf25d3f519141e632119",
+        "status": 6,
+        "error_code": 520
+      },
+      "followup": {
+        "status": "REJECTED",
+        "goal_id": "c3b09ccc25024e458f706f04a715d3f0"
+      },
+      "cleanup": {
+        "supervisor_pid": 4876,
+        "started_at": "2026-10-13T06:49:17.271966+00:00",
+        "namespace": "/c1_missing_evidence",
+        "domain_id": 182,
+        "profile": "cancel_unconfirmed",
+        "result_delay_ms": 700,
+        "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+        "processes": [
+          {
+            "label": "pick_place",
+            "pid": 4891,
+            "argv": [
+              "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+              "--ros-args",
+              "-r",
+              "__ns:=/c1_missing_evidence",
+              "-r",
+              "/mtc/task/execute:=/c1_missing_evidence/task/execute",
+              "-r",
+              "/mtc/manipulation/pick_place:=/c1_missing_evidence/manipulation/pick_place",
+              "-p",
+              "mock.result_delay_ms:=700",
+              "-p",
+              "mock.plan_available:=true",
+              "-p",
+              "mock.stop_evidence_available:=false",
+              "-p",
+              "mock.status_unknown:=false"
+            ],
+            "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+          },
+          {
+            "label": "task",
+            "pid": 4892,
+            "argv": [
+              "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+              "--ros-args",
+              "-r",
+              "__ns:=/c1_missing_evidence",
+              "-r",
+              "/mtc/task/execute:=/c1_missing_evidence/task/execute",
+              "-r",
+              "/mtc/manipulation/pick_place:=/c1_missing_evidence/manipulation/pick_place"
+            ],
+            "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+          }
+        ],
+        "returncodes": {
+          "pick_place": 0,
+          "task": 0
+        },
+        "ended_at": "2026-10-13T06:49:28.522982+00:00",
+        "cleanup_ok": true,
+        "exit_code": 0
+      }
+    },
+    {
+      "case": "status_unknown_delay_None",
+      "profile": "status_unknown",
+      "delay_ms": null,
+      "result_delay_ms": 700,
+      "status": "PASS",
+      "parent": {
+        "goal_id": "f5488e1557204287b8a16946b21679aa",
+        "status": 6,
+        "result": {
+          "success": false,
+          "completed_count": 0,
+          "completed_slots": [],
+          "error_code": 230,
+          "message": "反馈断流，运动状态不确定；已锁定新的运动请求，禁止自动重发"
+        }
+      },
+      "child": {
+        "goal_id": "c6fe935dbb64edb83b4a9e21293346c6",
+        "status": 6,
+        "error_code": 230
+      },
+      "followup": {
+        "status": "REJECTED",
+        "goal_id": "7d4bb14ec5754cf793f8aebfaf67d500"
+      },
+      "cleanup": {
+        "supervisor_pid": 4975,
+        "started_at": "2026-10-13T06:49:28.783222+00:00",
+        "namespace": "/c1_unknown_state",
+        "domain_id": 182,
+        "profile": "status_unknown",
+        "result_delay_ms": 700,
+        "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+        "processes": [
+          {
+            "label": "pick_place",
+            "pid": 4990,
+            "argv": [
+              "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+              "--ros-args",
+              "-r",
+              "__ns:=/c1_unknown_state",
+              "-r",
+              "/mtc/task/execute:=/c1_unknown_state/task/execute",
+              "-r",
+              "/mtc/manipulation/pick_place:=/c1_unknown_state/manipulation/pick_place",
+              "-p",
+              "mock.result_delay_ms:=700",
+              "-p",
+              "mock.plan_available:=true",
+              "-p",
+              "mock.stop_evidence_available:=true",
+              "-p",
+              "mock.status_unknown:=true"
+            ],
+            "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+          },
+          {
+            "label": "task",
+            "pid": 4991,
+            "argv": [
+              "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+              "--ros-args",
+              "-r",
+              "__ns:=/c1_unknown_state",
+              "-r",
+              "/mtc/task/execute:=/c1_unknown_state/task/execute",
+              "-r",
+              "/mtc/manipulation/pick_place:=/c1_unknown_state/manipulation/pick_place"
+            ],
+            "executable": "/c1-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+          }
+        ],
+        "returncodes": {
+          "pick_place": 0,
+          "task": 0
+        },
+        "ended_at": "2026-10-13T06:49:39.924986+00:00",
+        "cleanup_ok": true,
+        "exit_code": 0
+      }
+    }
+  ],
+  "preserved_gates": [
+    "stale unsampled evidence",
+    "identity mismatch",
+    "unknown/timeout lock",
+    "unsupported cancellation",
+    "missing stop evidence",
+    "carrying/unknown-load admission"
+  ],
+  "not_verified": [
+    "real robot/NUC",
+    "complete FSM/MoveIt/FJT",
+    "browser end-to-end in this run",
+    "M1 FJT concurrency",
+    "old Python failures"
+  ],
+  "development_issues": [
+    "First ROS CLI wrapper did not forward SIGINT; cleanup recorded separately, bounded harness corrected to launch the installed supervisor directly. C++ nodes later exited zero and the original wrapper failure is retained.",
+    "Initial incremental build skipped older-mtime replacement source; clean-first rebuild and symbol/binary/source verification performed before any fixed test."
+  ],
+  "ai_assistance": "OpenAI Codex"
+}

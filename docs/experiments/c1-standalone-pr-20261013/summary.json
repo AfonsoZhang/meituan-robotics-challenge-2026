@@ -1,0 +1,42 @@
+{
+  "source_id": "ENV-CANCEL-PR-20261013",
+  "status": "STANDALONE_C1_MAIN_BASED_REGRESSION_PASSED",
+  "base_commit": "b4185155383541e1a4161587c4049a162f74b36d",
+  "fix_commit": "8603e18e06ad3e8f7f2c0e4cad7e8ae716a3abbe",
+  "pull_request": "https://github.com/F1u0rite/meituan_challenge_ws/pull/15",
+  "tests": {
+    "cases": 366,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "colcon_total_including_wrappers": 386,
+  "added_cpp_tests": 8,
+  "built_packages": 6,
+  "tested_packages": 5,
+  "added_parent_regression": "700 ms result delivery / 400 ms delayed cancel: CANCELED/0, completed=0; same stack next task SUCCEEDED/0, completed=1",
+  "original_combination_evidence": {
+    "source_id": "ENV-CANCEL-FIX-20261013",
+    "commit": "062811ed2895eadc8b41efe8a8d7b2acff03fe92",
+    "cpp_cases": 365,
+    "independent_process_cases": 7,
+    "relation": "same three runtime files and original three regression files, plus PR #8 integration; not represented as runs of the standalone commit"
+  },
+  "pr8_withdrawal": {
+    "commit": "8f11750e0bd2e485826acb904fd31382945ba0b9",
+    "tree_identical_to": "7da43228d602a6b23571bfc599d69529ef7bea23"
+  },
+  "preserved": [
+    "Core validators and freshness threshold",
+    "FSM/ActionSlot/IDL",
+    "missing/unknown/timeout and stale snapshot rejection",
+    "carrying admission lock"
+  ],
+  "not_verified": [
+    "real FJT/MoveIt/NUC/hardware",
+    "browser or complete FSM integration"
+  ],
+  "formal_pin_unchanged": true,
+  "container_stopped": true,
+  "ai_assistance": "OpenAI Codex"
+}

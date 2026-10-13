@@ -1,0 +1,120 @@
+{
+  "started_at": "2026-10-13T06:42:24.210305+00:00",
+  "argv": [
+    "ros2",
+    "run",
+    "mtc_cpp_mock_bringup",
+    "mock_stack",
+    "--namespace",
+    "/c1_baseline_delayed",
+    "--output-dir",
+    "/c1-evidence/baseline/baseline_delayed/stack",
+    "--result-delay-ms",
+    "700",
+    "--profile",
+    "success",
+    "--no-web"
+  ],
+  "profile": "success",
+  "delay_ms": 400,
+  "result_delay_ms": 700,
+  "status": "CLEANUP_FAIL",
+  "task": {
+    "argv": [
+      "ros2",
+      "run",
+      "mtc_cpp_mock_bringup",
+      "mock_task",
+      "--namespace",
+      "/c1_baseline_delayed",
+      "--output-dir",
+      "/c1-evidence/baseline/baseline_delayed/client",
+      "--goal",
+      "{\"task_id\": \"baseline_delayed\", \"mode\": 1, \"ordered_colors\": [1], \"timeout_ms\": 30000, \"placement_stability_sec\": 3.0}",
+      "--cancel-at",
+      "MOVE_PRE_ALIGN",
+      "--cancel-delay-ms",
+      "400"
+    ],
+    "exit_code": 0,
+    "final": {
+      "goal_id": "c611f9e3dec249c0b7cc4bc685770434",
+      "status": 6,
+      "result": {
+        "success": false,
+        "completed_count": 0,
+        "completed_slots": [],
+        "error_code": 520,
+        "message": "取消后未确认停稳（request_delivered=true）：无在途命令；停稳必须由关联证据确认：associated PickPlace cancel"
+      }
+    },
+    "cancel_replies": [
+      {
+        "kind": "cancel_reply",
+        "at": "2026-10-13T06:42:31.122220+00:00",
+        "monotonic_ns": 1047114298428431,
+        "goal_id": "c611f9e3dec249c0b7cc4bc685770434",
+        "response": {
+          "return_code": 0,
+          "goals_canceling": [
+            {
+              "goal_id": {
+                "uuid": [
+                  198,
+                  17,
+                  249,
+                  227,
+                  222,
+                  194,
+                  73,
+                  192,
+                  183,
+                  204,
+                  75,
+                  198,
+                  133,
+                  119,
+                  4,
+                  52
+                ]
+              },
+              "stamp": {
+                "sec": 1791873750,
+                "nanosec": 700391369
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "child": {
+    "goal_id": "486ec0c91f9f68be048b07a3990fc541",
+    "status": 6,
+    "error_code": 520
+  },
+  "followup": {
+    "argv": [
+      "ros2",
+      "run",
+      "mtc_cpp_mock_bringup",
+      "mock_task",
+      "--namespace",
+      "/c1_baseline_delayed",
+      "--output-dir",
+      "/c1-evidence/baseline/baseline_delayed/followup",
+      "--goal",
+      "{\"task_id\": \"baseline_delayed_next\", \"mode\": 1, \"ordered_colors\": [1], \"timeout_ms\": 30000, \"placement_stability_sec\": 3.0}"
+    ],
+    "exit_code": 0,
+    "final": {
+      "status": "REJECTED",
+      "goal_id": "29d142e4fe164417a4e93368756248eb"
+    },
+    "cancel_replies": []
+  },
+  "forced_cleanup": true,
+  "stack_exit_code": -15,
+  "cleanup": null,
+  "ended_at": "2026-10-13T06:42:57.726291+00:00"
+}

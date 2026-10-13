@@ -2264,6 +2264,45 @@
         "docs/experiments/main-acceptance-20261013/protocol.md",
         "docs/experiments/main-acceptance-20261013/inputs.json"
       ]
+    },
+    {
+      "id": "USER-HW-20261013-03",
+      "kind": "user_message",
+      "date": "2026-10-13",
+      "source": "本项目用户会话",
+      "original_text": "解决：PR #8 的 C1 延迟取消再次受理后返回 ABORTED/520",
+      "confirmed": {
+        "scope": "授权解决 PR #8 C1：必要的定向代码修复、回归验证和事实链更新"
+      },
+      "scope_note": "仅限 C1 软件 Mock 问题，不授权自动合并/推进正式 pin/实机运动，也不变更既有其他内核问题的负责人。新授权区别于先前 UI 显示 520 的范围。",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md",
+        "docs/cpp-mock-webui-acceptance.md",
+        "docs/c1-cancel-fix.md",
+        "docs/experiments/c1-cancel-fix-20261013/protocol.md",
+        "docs/experiments/c1-cancel-fix-20261013/inputs.json",
+        "docs/experiments/c1-cancel-fix-20261013/summary.json",
+        "docs/experiments/c1-standalone-pr-20261013/protocol.md",
+        "docs/experiments/c1-standalone-pr-20261013/inputs.json",
+        "docs/experiments/c1-standalone-pr-20261013/summary.json"
+      ],
+      "subsequent_resolutions": [
+        {
+          "date": "2026-10-13",
+          "source": "本项目用户会话",
+          "original_text": "单独提交",
+          "confirmed": "C1 使用单独代码提交，不混入 Web UI P0/P1 工作。"
+        },
+        {
+          "date": "2026-10-13",
+          "source": "本项目用户会话",
+          "original_text": "单独推送PR",
+          "confirmed": "从 main 建立独立 C1 PR #15；旧 PR #8 通过普通 revert 撤出 C1，保留原内容。"
+        }
+      ]
     }
   ],
   "external_references": [
@@ -4554,6 +4593,62 @@
         "robot/README.md",
         "docs/experiments/main-acceptance-20261013/protocol.md",
         "docs/experiments/main-acceptance-20261013/inputs.json"
+      ]
+    },
+    {
+      "id": "TEAMMATE-CANCELFIX-20261013",
+      "kind": "github_pr8_c1_fix_candidate",
+      "title": "PR #8 软件 Mock C1 定向修复",
+      "url": "https://github.com/F1u0rite/meituan_challenge_ws/pull/8",
+      "accessed_on": "2026-10-13",
+      "commit": "062811ed2895eadc8b41efe8a8d7b2acff03fe92",
+      "base_commit": "7da43228d602a6b23571bfc599d69529ef7bea23",
+      "branch": "fix/cpp-mock-webui-integration-20261012",
+      "state": "OPEN",
+      "scope_note": "062811e 是先前 C1 + PR #8 组合验证提交，已由 8f11750 从 PR #8 撤出；运行证据不变。当前独立候选见 TEAMMATE-CANCELPR-20261013。未合并，不是实体停稳证明。",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md",
+        "docs/cpp-mock-webui-acceptance.md",
+        "docs/c1-cancel-fix.md",
+        "docs/experiments/c1-cancel-fix-20261013/protocol.md",
+        "docs/experiments/c1-cancel-fix-20261013/inputs.json",
+        "docs/experiments/c1-cancel-fix-20261013/summary.json",
+        "docs/experiments/c1-standalone-pr-20261013/protocol.md",
+        "docs/experiments/c1-standalone-pr-20261013/inputs.json",
+        "docs/experiments/c1-standalone-pr-20261013/summary.json"
+      ],
+      "subsequent_resolutions": [
+        {
+          "date": "2026-10-13",
+          "withdrawal_commit": "8f11750e0bd2e485826acb904fd31382945ba0b9",
+          "standalone_source": "TEAMMATE-CANCELPR-20261013"
+        }
+      ]
+    },
+    {
+      "id": "TEAMMATE-CANCELPR-20261013",
+      "kind": "github_standalone_c1_fix_candidate",
+      "title": "C1 延迟取消独立修复 PR",
+      "url": "https://github.com/F1u0rite/meituan_challenge_ws/pull/15",
+      "accessed_on": "2026-10-13",
+      "commit": "8603e18e06ad3e8f7f2c0e4cad7e8ae716a3abbe",
+      "base_commit": "b4185155383541e1a4161587c4049a162f74b36d",
+      "branch": "fix/c1-stationary-mock-20261013",
+      "state": "OPEN",
+      "scope_note": "独立 main 基线的单提交 C1 候选；PR #8 已用 revert 撤出旧组合补丁。未合并，非实机停稳证明。",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md",
+        "docs/cpp-mock-webui-acceptance.md",
+        "docs/c1-cancel-fix.md",
+        "docs/experiments/c1-standalone-pr-20261013/protocol.md",
+        "docs/experiments/c1-standalone-pr-20261013/inputs.json",
+        "docs/experiments/c1-standalone-pr-20261013/summary.json"
       ]
     }
   ],
@@ -8936,6 +9031,110 @@
         "docs/experiments/main-acceptance-20261013/protocol.md",
         "docs/experiments/main-acceptance-20261013/inputs.json",
         "docs/experiments/main-acceptance-20261013/harness/freeze.py"
+      ]
+    },
+    {
+      "id": "ENV-CANCEL-FIX-20261013",
+      "kind": "isolated_mock_c1_fix_regression",
+      "date": "2026-10-13",
+      "triggered_by": [
+        "USER-HW-20261013-03"
+      ],
+      "upstream_source": "TEAMMATE-CANCELFIX-20261013",
+      "commit": "062811ed2895eadc8b41efe8a8d7b2acff03fe92",
+      "report": "docs/c1-cancel-fix.md",
+      "index": "docs/experiments/c1-cancel-fix-20261013/index.json",
+      "index_sha256": "4ac6577e8dcb81d2e1194ac7d4590eac3e71ed60b046a3d99f019a9e439b816b",
+      "inputs": "docs/experiments/c1-cancel-fix-20261013/inputs.json",
+      "summary": "docs/experiments/c1-cancel-fix-20261013/summary.json",
+      "verification_status": "C1_SOFTWARE_MOCK_FIXED_AND_VERIFIED",
+      "observed": {
+        "cpp_cases": 365,
+        "added_cases": 7,
+        "failures": 0,
+        "positive_delays_ms": [
+          0,
+          200,
+          400,
+          600,
+          1000
+        ],
+        "positive_parent_child": "CANCELED/0/completed=0",
+        "same_stack_followup": "SUCCEEDED/0/completed=1",
+        "negative_cases": [
+          "ABORTED/520 + next rejected",
+          "ABORTED/230 + next rejected"
+        ],
+        "container_stopped": true,
+        "formal_pin_unchanged": true
+      },
+      "method": "Baseline failing regression and real 700/400ms parent-child counterexample; clean two-package rebuild, 225 source file hash matches, all five related C++ packages, seven independent-process actual Action scenarios and owned cleanup.",
+      "scope_note": "Software Mock only. No new browser, actual FJT, hardware, M1 or old Python verification. Original failures unchanged, no PR merge or formal pin advance.",
+      "algorithm_provenance": {
+        "upstream": "TEAMMATE-CANCELFIX-20261013",
+        "license": "Upstream MIT root; existing package/SDK license differences retained",
+        "ai_assistance": "OpenAI Codex; explicit Mock sampler, asynchronous bridge call, seven tests, bounded external regression and traceable documentation"
+      },
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md",
+        "docs/cpp-mock-webui-acceptance.md",
+        "docs/c1-cancel-fix.md",
+        "docs/experiments/c1-cancel-fix-20261013/protocol.md",
+        "docs/experiments/c1-cancel-fix-20261013/inputs.json",
+        "docs/experiments/c1-cancel-fix-20261013/summary.json",
+        "docs/experiments/c1-standalone-pr-20261013/protocol.md",
+        "docs/experiments/c1-standalone-pr-20261013/inputs.json",
+        "docs/experiments/c1-standalone-pr-20261013/summary.json"
+      ]
+    },
+    {
+      "id": "ENV-CANCEL-PR-20261013",
+      "kind": "isolated_standalone_c1_regression",
+      "date": "2026-10-13",
+      "triggered_by": [
+        "USER-HW-20261013-03"
+      ],
+      "upstream_source": "TEAMMATE-CANCELPR-20261013",
+      "commit": "8603e18e06ad3e8f7f2c0e4cad7e8ae716a3abbe",
+      "report": "docs/c1-cancel-fix.md",
+      "index": "docs/experiments/c1-standalone-pr-20261013/index.json",
+      "index_sha256": "4c5057842ea67460698ea01bdae27f150a141154ce9fa49add6c9b163b991f2a",
+      "inputs": "docs/experiments/c1-standalone-pr-20261013/inputs.json",
+      "summary": "docs/experiments/c1-standalone-pr-20261013/summary.json",
+      "verification_status": "STANDALONE_C1_MAIN_BASED_REGRESSION_PASSED",
+      "observed": {
+        "cpp_cases": 366,
+        "added_cases": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "built_packages": 6,
+        "tested_packages": 5,
+        "delayed_parent_cancel": "700/400 ms: CANCELED/0/completed=0",
+        "same_stack_followup": "SUCCEEDED/0/completed=1",
+        "container_stopped": true,
+        "formal_pin_unchanged": true
+      },
+      "method": "Fresh main-based six-package build; five-package gtest XML identities; additional actual parent/child delayed cancel and next-task regression; byte-verified source and isolated cleanup.",
+      "scope_note": "Software Mock only. The original 365-test/seven-process PR8-combination run stays under ENV-CANCEL-FIX-20261013; it is not relabeled as a run of this commit. No hardware/full FSM/FJT validation.",
+      "algorithm_provenance": {
+        "upstream": "TEAMMATE-CANCELPR-20261013",
+        "license": "Upstream MIT root; existing package/SDK license differences retained",
+        "ai_assistance": "OpenAI Codex; explicit Mock sampler, bridge call, eight regressions and traceable documentation"
+      },
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md",
+        "docs/cpp-mock-webui-acceptance.md",
+        "docs/c1-cancel-fix.md",
+        "docs/experiments/c1-standalone-pr-20261013/protocol.md",
+        "docs/experiments/c1-standalone-pr-20261013/inputs.json",
+        "docs/experiments/c1-standalone-pr-20261013/summary.json"
       ]
     }
   ]

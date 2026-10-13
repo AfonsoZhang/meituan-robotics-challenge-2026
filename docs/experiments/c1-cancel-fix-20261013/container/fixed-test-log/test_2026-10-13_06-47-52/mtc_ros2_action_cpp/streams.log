@@ -1,0 +1,327 @@
+[0.055s] Invoking command in '/c1-build/mtc_ros2_action_cpp': CMAKE_PREFIX_PATH=/c1-install/mtc_ros2_action_cpp:/c1-install/mtc_manipulation_cpp:/c1-install/mtc_task_cpp:/c1-install/mtc_motion_execution_cpp:/c1-install/mtc_interfaces:/c1-install/mtc_core_cpp:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor LD_LIBRARY_PATH=/c1-install/mtc_ros2_action_cpp/lib:/c1-install/mtc_manipulation_cpp/lib:/c1-install/mtc_task_cpp/lib:/c1-install/mtc_motion_execution_cpp/lib:/c1-install/mtc_interfaces/lib:/c1-install/mtc_core_cpp/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib PYTHONPATH=/c1-install/mtc_interfaces/lib/python3.12/site-packages:/c1-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages:/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/ctest -C RelWithDebInfo -D ExperimentalTest --no-compress-output -V --force-new-ctest-process -j1
+[0.067s] UpdateCTestConfiguration  from :/c1-build/mtc_ros2_action_cpp/CTestConfiguration.ini
+[0.067s] Parse Config file:/c1-build/mtc_ros2_action_cpp/CTestConfiguration.ini
+[0.068s]    Site: 7d40510e01a1
+[0.068s]    Build name: (empty)
+[0.069s]  Add coverage exclude regular expressions.
+[0.069s] Create new tag: 20261013-0647 - Experimental
+[0.069s] UpdateCTestConfiguration  from :/c1-build/mtc_ros2_action_cpp/CTestConfiguration.ini
+[0.069s] Parse Config file:/c1-build/mtc_ros2_action_cpp/CTestConfiguration.ini
+[0.069s] Test project /c1-build/mtc_ros2_action_cpp
+[0.069s] Constructing a list of tests
+[0.070s] Done constructing a list of tests
+[0.070s] Updating test list for fixtures
+[0.070s] Added 0 tests to meet fixture requirements
+[0.070s] Checking test dependency graph...
+[0.070s] Checking test dependency graph end
+[0.070s] test 1
+[0.070s]     Start 1: test_pick_place_action
+[0.071s] 
+[0.071s] 1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/c1-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_pick_place_action.txt" "--command" "/c1-build/mtc_ros2_action_cpp/test_pick_place_action" "--gtest_output=xml:/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml"
+[0.071s] 1: Working Directory: /c1-build/mtc_ros2_action_cpp
+[0.071s] 1: Test timeout computed to be: 90
+[0.137s] 1: -- run_test.py: invoking following command in '/c1-build/mtc_ros2_action_cpp':
+[0.138s] 1:  - /c1-build/mtc_ros2_action_cpp/test_pick_place_action --gtest_output=xml:/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml
+[0.218s] 1: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[0.219s] 1: [==========] Running 14 tests from 1 test suite.
+[0.219s] 1: [----------] Global test environment set-up.
+[0.219s] 1: [----------] 14 tests from PickAction
+[0.224s] 1: [ RUN      ] PickAction.LegalGoalSucceedsOnlyAfterPlacementFeedback
+[0.296s] 1: [INFO] [1791874074.801473938] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=c51dbc4471326bdeb4f85b592193a26e request="pick_1"
+[1.306s] 1: [INFO] [1791874075.811746047] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=c51dbc4471326bdeb4f85b592193a26e state=SUCCESS error=0 executions=7 stops=0
+[1.315s] 1: [       OK ] PickAction.LegalGoalSucceedsOnlyAfterPlacementFeedback (1090 ms)
+[1.315s] 1: [ RUN      ] PickAction.InvalidParametersRejectedBeforeExecution
+[1.337s] 1: [INFO] [1791874075.841800388] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=ed140884dac00aaafee6f8c441163a5b request="pick_1"
+[2.357s] 1: [INFO] [1791874076.862025784] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=ed140884dac00aaafee6f8c441163a5b state=SUCCESS error=0 executions=7 stops=0
+[2.364s] 1: [       OK ] PickAction.InvalidParametersRejectedBeforeExecution (1048 ms)
+[2.364s] 1: [ RUN      ] PickAction.ConcurrentSecondGoalRejected
+[2.385s] 1: [INFO] [1791874076.890296236] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=f745c6cf03172ee48de88ba34f7c3072 request="pick_1"
+[3.385s] 1: [INFO] [1791874077.890481527] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=f745c6cf03172ee48de88ba34f7c3072 state=SUCCESS error=0 executions=7 stops=0
+[3.392s] 1: [       OK ] PickAction.ConcurrentSecondGoalRejected (1028 ms)
+[3.392s] 1: [ RUN      ] PickAction.MatchingCancelRequiresIndependentStationaryEvidence
+[3.412s] 1: [INFO] [1791874077.917790434] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=4ab22a7dcf568148215396ec9c52a49f request="pick_1"
+[3.453s] 1: [INFO] [1791874077.957960221] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=4ab22a7dcf568148215396ec9c52a49f state=CANCELLED error=0 executions=1 stops=1
+[3.460s] 1: [       OK ] PickAction.MatchingCancelRequiresIndependentStationaryEvidence (67 ms)
+[3.460s] 1: [ RUN      ] PickAction.CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked
+[3.481s] 1: [INFO] [1791874077.985801897] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=80d07249c27e2551b7b4a0fcfbb36162 request="pick_1"
+[3.521s] 1: [INFO] [1791874078.026106775] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=80d07249c27e2551b7b4a0fcfbb36162 state=FAULT error=520 executions=1 stops=1
+[3.530s] 1: [       OK ] PickAction.CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked (70 ms)
+[3.531s] 1: [ RUN      ] PickAction.DelayedCancelConfirmsStopAndAllowsNextUnloadedGoal
+[3.553s] 1: [INFO] [1791874078.057837295] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=306b9eb27370c06ef1c5842af319645c request="pick_1"
+[3.993s] 1: [INFO] [1791874078.498097308] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=306b9eb27370c06ef1c5842af319645c state=CANCELLED error=0 executions=1 stops=1
+[4.003s] 1: [INFO] [1791874078.508034272] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=69ddcd4b13a7f7b544d268ca0003f911 request="after_confirmed_stop"
+[9.203s] 1: [INFO] [1791874083.256386232] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=69ddcd4b13a7f7b544d268ca0003f911 state=SUCCESS error=0 executions=8 stops=1
+[9.211s] 1: [       OK ] PickAction.DelayedCancelConfirmsStopAndAllowsNextUnloadedGoal (5680 ms)
+[9.211s] 1: [ RUN      ] PickAction.DelayedCancelWithoutEvidenceStillAbortsAndLocksAdmission
+[9.232s] 1: [INFO] [1791874083.285795079] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=3bf21664ac6c67c135f3e0c0a6c668b2 request="pick_1"
+[9.672s] 1: [INFO] [1791874083.725977983] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=3bf21664ac6c67c135f3e0c0a6c668b2 state=FAULT error=520 executions=1 stops=1
+[9.680s] 1: [       OK ] PickAction.DelayedCancelWithoutEvidenceStillAbortsAndLocksAdmission (468 ms)
+[9.680s] 1: [ RUN      ] PickAction.StaleGoalCancelCannotInterruptNewGoal
+[9.702s] 1: [INFO] [1791874083.755176106] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=6dd85a936e6f1a263608dc6a83906c55 request="pick_1"
+[10.702s] 1: [INFO] [1791874085.297443169] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=6dd85a936e6f1a263608dc6a83906c55 state=SUCCESS error=0 executions=7 stops=0
+[10.712s] 1: [INFO] [1791874085.307220370] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=360980d05c1d7dec5f37fbd139835580 request="new_goal"
+[11.712s] 1: [INFO] [1791874086.307373033] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=360980d05c1d7dec5f37fbd139835580 state=SUCCESS error=0 executions=14 stops=0
+[11.720s] 1: [       OK ] PickAction.StaleGoalCancelCannotInterruptNewGoal (2040 ms)
+[11.720s] 1: [ RUN      ] PickAction.MotionStatusUnknownNeverResendsOrAutoClearsFault
+[11.741s] 1: [INFO] [1791874086.336291769] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=d5b489ea006faf582ef74020e8ee93e8 request="pick_1"
+[11.871s] 1: [INFO] [1791874086.466465056] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=d5b489ea006faf582ef74020e8ee93e8 state=FAULT error=230 executions=1 stops=0
+[11.878s] 1: [       OK ] PickAction.MotionStatusUnknownNeverResendsOrAutoClearsFault (157 ms)
+[11.878s] 1: [ RUN      ] PickAction.MissingPlanNeverSucceeds
+[11.898s] 1: [INFO] [1791874086.493903290] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=77e2914359a8300cba2f2d250e6bdd1f request="pick_1"
+[11.949s] 1: [INFO] [1791874086.544090607] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=77e2914359a8300cba2f2d250e6bdd1f state=FAILED error=200 executions=0 stops=0
+[11.957s] 1: [       OK ] PickAction.MissingPlanNeverSucceeds (79 ms)
+[11.957s] 1: [ RUN      ] PickAction.ConcurrentRosRequestsHaveExactlyOneOwner
+[11.979s] 1: [INFO] [1791874086.574978544] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=7f034ae6ec7fdd4ccc95ff424e710876 request="race_a"
+[12.980s] 1: [INFO] [1791874087.575245556] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=7f034ae6ec7fdd4ccc95ff424e710876 state=SUCCESS error=0 executions=7 stops=0
+[12.988s] 1: [       OK ] PickAction.ConcurrentRosRequestsHaveExactlyOneOwner (1030 ms)
+[12.988s] 1: [ RUN      ] PickAction.InFlightWatchdogFaultStillDrainsAssociatedStopWorker
+[13.009s] 1: [INFO] [1791874087.604309696] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=df8cf931f8c634728fff921877d1febf request="pick_1"
+[13.029s] 1: [INFO] [1791874087.624644331] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=df8cf931f8c634728fff921877d1febf state=FAULT error=230 executions=1 stops=0
+[13.048s] 1: [       OK ] PickAction.InFlightWatchdogFaultStillDrainsAssociatedStopWorker (59 ms)
+[13.048s] 1: [ RUN      ] PickAction.CancelWhileCarryingStopsButKeepsLoadAdmissionLocked
+[13.068s] 1: [INFO] [1791874087.663613992] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=330b43ba173c9a0a0ee0aad65d2f1853 request="pick_1"
+[13.478s] 1: [INFO] [1791874088.073784703] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=330b43ba173c9a0a0ee0aad65d2f1853 state=CANCELLED error=0 executions=3 stops=1
+[13.486s] 1: [       OK ] PickAction.CancelWhileCarryingStopsButKeepsLoadAdmissionLocked (438 ms)
+[13.486s] 1: [ RUN      ] PickAction.UnverifiedAttachmentLoadCannotBeClearedByNewGoal
+[13.507s] 1: [INFO] [1791874088.102770570] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=122e12ad37f92852967bdc2de5b87c37 request="pick_1"
+[13.647s] 1: [INFO] [1791874088.242955218] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=122e12ad37f92852967bdc2de5b87c37 state=FAILED error=310 executions=1 stops=0
+[13.655s] 1: [       OK ] PickAction.UnverifiedAttachmentLoadCannotBeClearedByNewGoal (168 ms)
+[13.655s] 1: [----------] 14 tests from PickAction (13430 ms total)
+[13.655s] 1: 
+[13.655s] 1: [----------] Global test environment tear-down
+[13.655s] 1: [==========] 14 tests from 1 test suite ran. (13436 ms total)
+[13.655s] 1: [  PASSED  ] 14 tests.
+[13.763s] 1: -- run_test.py: return code 0
+[13.764s] 1: -- run_test.py: inject classname prefix into gtest result file '/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml'
+[13.764s] 1: -- run_test.py: verify result file '/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_pick_place_action.gtest.xml'
+[13.773s] 1/4 Test #1: test_pick_place_action ...........   Passed   13.70 sec
+[13.774s] test 2
+[13.774s]     Start 2: test_task_action
+[13.774s] 
+[13.774s] 2: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/c1-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_task_action.txt" "--command" "/c1-build/mtc_ros2_action_cpp/test_task_action" "--gtest_output=xml:/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml"
+[13.774s] 2: Working Directory: /c1-build/mtc_ros2_action_cpp
+[13.774s] 2: Test timeout computed to be: 90
+[13.837s] 2: -- run_test.py: invoking following command in '/c1-build/mtc_ros2_action_cpp':
+[13.837s] 2:  - /c1-build/mtc_ros2_action_cpp/test_task_action --gtest_output=xml:/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml
+[13.870s] 2: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[13.870s] 2: [==========] Running 12 tests from 1 test suite.
+[13.870s] 2: [----------] Global test environment set-up.
+[13.870s] 2: [----------] 12 tests from TaskAction
+[13.870s] 2: [ RUN      ] TaskAction.BasicTaskUsesRealChildActionAndRecordsT0
+[13.927s] 2: [INFO] [1791874088.522306700] [mtc_mock_task]: MTC_TRACE event=task_start parent=12bcbd065b54f14ddde8dd12da440d3a task="task_1"
+[13.927s] 2: [INFO] [1791874088.522603035] [mtc_mock_task]: MTC_TRACE event=child_send parent=12bcbd065b54f14ddde8dd12da440d3a request="task_1#0/attempt-1"
+[13.928s] 2: [INFO] [1791874088.523187662] [mtc_mock_task]: MTC_TRACE event=child_response parent=12bcbd065b54f14ddde8dd12da440d3a child=f66c9f47f613af40975c01883b3e8a30 accepted=1 request="task_1#0/attempt-1"
+[13.928s] 2: [INFO] [1791874088.524174566] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=f66c9f47f613af40975c01883b3e8a30 request="task_1#0/attempt-1"
+[14.939s] 2: [INFO] [1791874089.534439218] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=f66c9f47f613af40975c01883b3e8a30 state=SUCCESS error=0 executions=7 stops=0
+[14.939s] 2: [INFO] [1791874089.534611470] [mtc_mock_task]: MTC_TRACE event=child_result parent=12bcbd065b54f14ddde8dd12da440d3a child=f66c9f47f613af40975c01883b3e8a30 status=4 error=0
+[14.947s] 2: [INFO] [1791874089.542369121] [mtc_mock_task]: MTC_TRACE event=task_result parent=12bcbd065b54f14ddde8dd12da440d3a state=FINISHED error=0 completed=1
+[14.958s] 2: [       OK ] TaskAction.BasicTaskUsesRealChildActionAndRecordsT0 (1087 ms)
+[14.958s] 2: [ RUN      ] TaskAction.SequenceTaskRecordsAllSlotsInOrder
+[14.982s] 2: [INFO] [1791874089.576959260] [mtc_mock_task]: MTC_TRACE event=task_start parent=a18e734a876649d5c65a585c1af8c440 task="task_1"
+[14.982s] 2: [INFO] [1791874089.577079597] [mtc_mock_task]: MTC_TRACE event=child_send parent=a18e734a876649d5c65a585c1af8c440 request="task_1#0/attempt-1"
+[14.982s] 2: [INFO] [1791874089.577293103] [mtc_mock_task]: MTC_TRACE event=child_response parent=a18e734a876649d5c65a585c1af8c440 child=bd3bfbed615c5434755a61c4c28c1cbe accepted=1 request="task_1#0/attempt-1"
+[14.990s] 2: [INFO] [1791874089.585421407] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=bd3bfbed615c5434755a61c4c28c1cbe request="task_1#0/attempt-1"
+[16.000s] 2: [INFO] [1791874090.595578283] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=bd3bfbed615c5434755a61c4c28c1cbe state=SUCCESS error=0 executions=7 stops=0
+[16.000s] 2: [INFO] [1791874090.595822649] [mtc_mock_task]: MTC_TRACE event=child_result parent=a18e734a876649d5c65a585c1af8c440 child=bd3bfbed615c5434755a61c4c28c1cbe status=4 error=0
+[16.012s] 2: [INFO] [1791874090.607119130] [mtc_mock_task]: MTC_TRACE event=child_send parent=a18e734a876649d5c65a585c1af8c440 request="task_1#1/attempt-2"
+[16.012s] 2: [INFO] [1791874090.607582318] [mtc_mock_task]: MTC_TRACE event=child_response parent=a18e734a876649d5c65a585c1af8c440 child=2231d9de6871019fa38322d50ab75015 accepted=1 request="task_1#1/attempt-2"
+[16.020s] 2: [INFO] [1791874090.615323250] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=2231d9de6871019fa38322d50ab75015 request="task_1#1/attempt-2"
+[17.020s] 2: [INFO] [1791874091.615514126] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=2231d9de6871019fa38322d50ab75015 state=SUCCESS error=0 executions=14 stops=0
+[17.020s] 2: [INFO] [1791874091.615771656] [mtc_mock_task]: MTC_TRACE event=child_result parent=a18e734a876649d5c65a585c1af8c440 child=2231d9de6871019fa38322d50ab75015 status=4 error=0
+[17.032s] 2: [INFO] [1791874091.627116080] [mtc_mock_task]: MTC_TRACE event=child_send parent=a18e734a876649d5c65a585c1af8c440 request="task_1#2/attempt-3"
+[17.032s] 2: [INFO] [1791874091.627572159] [mtc_mock_task]: MTC_TRACE event=child_response parent=a18e734a876649d5c65a585c1af8c440 child=6a2abc3f7cbb9864986652dfe7d8b6f2 accepted=1 request="task_1#2/attempt-3"
+[17.040s] 2: [INFO] [1791874091.635371206] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=6a2abc3f7cbb9864986652dfe7d8b6f2 request="task_1#2/attempt-3"
+[18.030s] 2: [INFO] [1791874092.625860664] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=6a2abc3f7cbb9864986652dfe7d8b6f2 state=SUCCESS error=0 executions=21 stops=0
+[18.031s] 2: [INFO] [1791874092.626101719] [mtc_mock_task]: MTC_TRACE event=child_result parent=a18e734a876649d5c65a585c1af8c440 child=6a2abc3f7cbb9864986652dfe7d8b6f2 status=4 error=0
+[18.031s] 2: [INFO] [1791874092.627184146] [mtc_mock_task]: MTC_TRACE event=task_result parent=a18e734a876649d5c65a585c1af8c440 state=FINISHED error=0 completed=3
+[18.047s] 2: [       OK ] TaskAction.SequenceTaskRecordsAllSlotsInOrder (3088 ms)
+[18.047s] 2: [ RUN      ] TaskAction.InvalidColorsAndConcurrentTaskRejected
+[18.081s] 2: [INFO] [1791874092.676400758] [mtc_mock_task]: MTC_TRACE event=task_start parent=400ff4dc4b9328e0e645b9ce1c1bbd82 task="task_1"
+[18.081s] 2: [INFO] [1791874092.676633205] [mtc_mock_task]: MTC_TRACE event=child_send parent=400ff4dc4b9328e0e645b9ce1c1bbd82 request="task_1#0/attempt-1"
+[18.082s] 2: [INFO] [1791874092.677336914] [mtc_mock_task]: MTC_TRACE event=child_response parent=400ff4dc4b9328e0e645b9ce1c1bbd82 child=ce5cf2b63d5c38c09be6187e304542b8 accepted=1 request="task_1#0/attempt-1"
+[18.089s] 2: [INFO] [1791874092.684755439] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=ce5cf2b63d5c38c09be6187e304542b8 request="task_1#0/attempt-1"
+[19.109s] 2: [INFO] [1791874093.704856404] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=ce5cf2b63d5c38c09be6187e304542b8 state=SUCCESS error=0 executions=7 stops=0
+[19.110s] 2: [INFO] [1791874093.705170648] [mtc_mock_task]: MTC_TRACE event=child_result parent=400ff4dc4b9328e0e645b9ce1c1bbd82 child=ce5cf2b63d5c38c09be6187e304542b8 status=4 error=0
+[19.111s] 2: [INFO] [1791874093.706444210] [mtc_mock_task]: MTC_TRACE event=task_result parent=400ff4dc4b9328e0e645b9ce1c1bbd82 state=FINISHED error=0 completed=1
+[19.123s] 2: [       OK ] TaskAction.InvalidColorsAndConcurrentTaskRejected (1076 ms)
+[19.123s] 2: [ RUN      ] TaskAction.CancelAckWaitsForChildFinalStopResult
+[19.147s] 2: [INFO] [1791874093.742412542] [mtc_mock_task]: MTC_TRACE event=task_start parent=b1bbcc34804120653a73a5f59ea4f8a0 task="task_1"
+[19.147s] 2: [INFO] [1791874093.742560391] [mtc_mock_task]: MTC_TRACE event=child_send parent=b1bbcc34804120653a73a5f59ea4f8a0 request="task_1#0/attempt-1"
+[19.147s] 2: [INFO] [1791874093.742993782] [mtc_mock_task]: MTC_TRACE event=child_response parent=b1bbcc34804120653a73a5f59ea4f8a0 child=315107a532bb14dd42bc61cc60566c1d accepted=1 request="task_1#0/attempt-1"
+[19.154s] 2: [INFO] [1791874093.749611330] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=315107a532bb14dd42bc61cc60566c1d request="task_1#0/attempt-1"
+[19.177s] 2: [INFO] [1791874093.772386986] [mtc_mock_task]: MTC_TRACE event=child_cancel child=315107a532bb14dd42bc61cc60566c1d
+[19.194s] 2: [INFO] [1791874093.789849771] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=315107a532bb14dd42bc61cc60566c1d state=CANCELLED error=0 executions=1 stops=1
+[19.194s] 2: [INFO] [1791874093.790067861] [mtc_mock_task]: MTC_TRACE event=child_result parent=b1bbcc34804120653a73a5f59ea4f8a0 child=315107a532bb14dd42bc61cc60566c1d status=5 error=0
+[19.197s] 2: [INFO] [1791874093.792482437] [mtc_mock_task]: MTC_TRACE event=task_result parent=b1bbcc34804120653a73a5f59ea4f8a0 state=CANCELLED error=0 completed=0
+[19.210s] 2: [       OK ] TaskAction.CancelAckWaitsForChildFinalStopResult (86 ms)
+[19.210s] 2: [ RUN      ] TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent
+[19.232s] 2: [INFO] [1791874093.827308873] [mtc_mock_task]: MTC_TRACE event=task_start parent=ed214857aaa1b1a07297df4c5cf46efa task="task_1"
+[19.232s] 2: [INFO] [1791874093.827446112] [mtc_mock_task]: MTC_TRACE event=child_send parent=ed214857aaa1b1a07297df4c5cf46efa request="task_1#0/attempt-1"
+[19.232s] 2: [INFO] [1791874093.827803164] [mtc_mock_task]: MTC_TRACE event=child_response parent=ed214857aaa1b1a07297df4c5cf46efa child=86cef3325bac311877dc1e31e39c17f3 accepted=1 request="task_1#0/attempt-1"
+[19.238s] 2: [INFO] [1791874093.833675049] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=86cef3325bac311877dc1e31e39c17f3 request="task_1#0/attempt-1"
+[19.262s] 2: [INFO] [1791874093.857260426] [mtc_mock_task]: MTC_TRACE event=child_cancel child=86cef3325bac311877dc1e31e39c17f3
+[19.278s] 2: [INFO] [1791874093.873916851] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=86cef3325bac311877dc1e31e39c17f3 state=FAULT error=520 executions=1 stops=1
+[19.279s] 2: [INFO] [1791874093.874120418] [mtc_mock_task]: MTC_TRACE event=child_result parent=ed214857aaa1b1a07297df4c5cf46efa child=86cef3325bac311877dc1e31e39c17f3 status=6 error=520
+[19.282s] 2: [INFO] [1791874093.877339610] [mtc_mock_task]: MTC_TRACE event=task_result parent=ed214857aaa1b1a07297df4c5cf46efa state=FAULT error=520 completed=0
+[19.295s] 2: [       OK ] TaskAction.UnconfirmedChildCancelPreserves520AndLocksParent (85 ms)
+[19.295s] 2: [ RUN      ] TaskAction.ChildStatusUnknownPropagatesOriginalError
+[19.318s] 2: [INFO] [1791874093.913344578] [mtc_mock_task]: MTC_TRACE event=task_start parent=8fb029433129ae5e9117ae721a71a3df task="task_1"
+[19.318s] 2: [INFO] [1791874093.913512561] [mtc_mock_task]: MTC_TRACE event=child_send parent=8fb029433129ae5e9117ae721a71a3df request="task_1#0/attempt-1"
+[19.318s] 2: [INFO] [1791874093.913994694] [mtc_mock_task]: MTC_TRACE event=child_response parent=8fb029433129ae5e9117ae721a71a3df child=11ac3776f99b4231b62009567e91cb5b accepted=1 request="task_1#0/attempt-1"
+[19.324s] 2: [INFO] [1791874093.919954998] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=11ac3776f99b4231b62009567e91cb5b request="task_1#0/attempt-1"
+[19.445s] 2: [INFO] [1791874094.040383598] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=11ac3776f99b4231b62009567e91cb5b state=FAULT error=230 executions=1 stops=0
+[19.445s] 2: [INFO] [1791874094.040639532] [mtc_mock_task]: MTC_TRACE event=child_result parent=8fb029433129ae5e9117ae721a71a3df child=11ac3776f99b4231b62009567e91cb5b status=6 error=230
+[19.448s] 2: [INFO] [1791874094.043483851] [mtc_mock_task]: MTC_TRACE event=task_result parent=8fb029433129ae5e9117ae721a71a3df state=FAULT error=230 completed=0
+[19.463s] 2: [       OK ] TaskAction.ChildStatusUnknownPropagatesOriginalError (167 ms)
+[19.463s] 2: [ RUN      ] TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess
+[19.499s] 2: [INFO] [1791874094.094712243] [mtc_mock_task]: MTC_TRACE event=task_start parent=9e56a031d9dc74e0d3cfe8dc88539407 task="task_1"
+[19.500s] 2: [INFO] [1791874094.094997855] [mtc_mock_task]: MTC_TRACE event=child_send parent=9e56a031d9dc74e0d3cfe8dc88539407 request="task_1#0/attempt-1"
+[19.500s] 2: [INFO] [1791874094.095461328] [mtc_mock_task]: MTC_TRACE event=child_response parent=9e56a031d9dc74e0d3cfe8dc88539407 child=650bc0db67c9de6e448a539c2a1e1f28 accepted=1 request="task_1#0/attempt-1"
+[19.501s] 2: [INFO] [1791874094.096539398] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=650bc0db67c9de6e448a539c2a1e1f28 request="task_1#0/attempt-1"
+[19.551s] 2: [INFO] [1791874094.146686525] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=650bc0db67c9de6e448a539c2a1e1f28 state=FAILED error=200 executions=0 stops=0
+[19.551s] 2: [INFO] [1791874094.146911123] [mtc_mock_task]: MTC_TRACE event=child_result parent=9e56a031d9dc74e0d3cfe8dc88539407 child=650bc0db67c9de6e448a539c2a1e1f28 status=6 error=200
+[19.569s] 2: [INFO] [1791874094.164788546] [mtc_mock_task]: MTC_TRACE event=child_send parent=9e56a031d9dc74e0d3cfe8dc88539407 request="task_1#0/attempt-2"
+[19.570s] 2: [INFO] [1791874094.165296330] [mtc_mock_task]: MTC_TRACE event=child_response parent=9e56a031d9dc74e0d3cfe8dc88539407 child=f8b3b12db5e958cc3945776246638a54 accepted=1 request="task_1#0/attempt-2"
+[19.571s] 2: [INFO] [1791874094.166476440] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=f8b3b12db5e958cc3945776246638a54 request="task_1#0/attempt-2"
+[19.621s] 2: [INFO] [1791874094.216691167] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=f8b3b12db5e958cc3945776246638a54 state=FAILED error=200 executions=0 stops=0
+[19.621s] 2: [INFO] [1791874094.216921021] [mtc_mock_task]: MTC_TRACE event=child_result parent=9e56a031d9dc74e0d3cfe8dc88539407 child=f8b3b12db5e958cc3945776246638a54 status=6 error=200
+[19.629s] 2: [INFO] [1791874094.224775450] [mtc_mock_task]: MTC_TRACE event=task_result parent=9e56a031d9dc74e0d3cfe8dc88539407 state=TASK_FAILED error=200 completed=0
+[19.641s] 2: [       OK ] TaskAction.ChildPlanningFailurePreservesErrorWithoutFakeSuccess (178 ms)
+[19.642s] 2: [ RUN      ] TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild
+[19.663s] 2: [INFO] [1791874094.258654248] [mtc_mock_task]: MTC_TRACE event=task_start parent=fa1d793c63373d15282d6c526e209899 task="task_1"
+[19.663s] 2: [INFO] [1791874094.258794791] [mtc_mock_task]: MTC_TRACE event=child_send parent=fa1d793c63373d15282d6c526e209899 request="task_1#0/attempt-1"
+[19.664s] 2: [INFO] [1791874094.259155100] [mtc_mock_task]: MTC_TRACE event=child_response parent=fa1d793c63373d15282d6c526e209899 child=75882801636afd3adfbded83950bcbc2 accepted=1 request="task_1#0/attempt-1"
+[19.669s] 2: [INFO] [1791874094.264925557] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=75882801636afd3adfbded83950bcbc2 request="task_1#0/attempt-1"
+[19.823s] 2: [INFO] [1791874094.418819899] [mtc_mock_task]: MTC_TRACE event=task_result parent=fa1d793c63373d15282d6c526e209899 state=FAULT error=220 completed=0
+[19.833s] 2: [INFO] [1791874094.428692731] [mtc_mock_task]: MTC_TRACE event=child_cancel child=75882801636afd3adfbded83950bcbc2
+[19.858s] 2: [       OK ] TaskAction.TaskDeadlineAbortsAndCancelsOriginalChild (216 ms)
+[19.858s] 2: [ RUN      ] TaskAction.MissingChildNeverFabricatesTaskSuccess
+[19.882s] 2: [INFO] [1791874094.477941866] [mtc_mock_task]: MTC_TRACE event=task_start parent=0449d5f4e07c77d80412eeca4f297fc6 task="task_1"
+[19.993s] 2: [INFO] [1791874094.588074547] [mtc_mock_task]: MTC_TRACE event=task_result parent=0449d5f4e07c77d80412eeca4f297fc6 state=FAULT error=220 completed=0
+[20.002s] 2: [       OK ] TaskAction.MissingChildNeverFabricatesTaskSuccess (143 ms)
+[20.002s] 2: [ RUN      ] TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent
+[20.028s] 2: [INFO] [1791874094.623074639] [mtc_mock_task]: MTC_TRACE event=task_start parent=5b505ccf71c69c9dab7b0409f27f6d21 task="task_1"
+[20.028s] 2: [INFO] [1791874094.623305449] [mtc_mock_task]: MTC_TRACE event=child_send parent=5b505ccf71c69c9dab7b0409f27f6d21 request="task_1#0/attempt-1"
+[20.028s] 2: [INFO] [1791874094.623744460] [mtc_mock_task]: MTC_TRACE event=child_response parent=5b505ccf71c69c9dab7b0409f27f6d21 child=c109a31d48c3bc61fb14510977976ec1 accepted=1 request="task_1#0/attempt-1"
+[20.037s] 2: [INFO] [1791874094.632962464] [mtc_mock_task]: MTC_TRACE event=child_cancel child=c109a31d48c3bc61fb14510977976ec1
+[20.088s] 2: [INFO] [1791874094.683109473] [mtc_mock_task]: MTC_TRACE event=task_result parent=5b505ccf71c69c9dab7b0409f27f6d21 state=FAULT error=520 completed=0
+[20.100s] 2: [       OK ] TaskAction.ChildCancelAckWithoutTerminalEvidenceCannotCancelParent (98 ms)
+[20.100s] 2: [ RUN      ] TaskAction.StaleParentCancelCannotReachNewChild
+[20.122s] 2: [INFO] [1791874094.717489447] [mtc_mock_task]: MTC_TRACE event=task_start parent=1f949847333383fc13d95e70837870cd task="task_1"
+[20.122s] 2: [INFO] [1791874094.717618119] [mtc_mock_task]: MTC_TRACE event=child_send parent=1f949847333383fc13d95e70837870cd request="task_1#0/attempt-1"
+[20.123s] 2: [INFO] [1791874094.717970137] [mtc_mock_task]: MTC_TRACE event=child_response parent=1f949847333383fc13d95e70837870cd child=7814280da76b5aea24ba97d9c1e350bd accepted=1 request="task_1#0/attempt-1"
+[20.128s] 2: [INFO] [1791874094.723676277] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=7814280da76b5aea24ba97d9c1e350bd request="task_1#0/attempt-1"
+[21.138s] 2: [INFO] [1791874095.733791650] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=7814280da76b5aea24ba97d9c1e350bd state=SUCCESS error=0 executions=7 stops=0
+[21.139s] 2: [INFO] [1791874095.734008469] [mtc_mock_task]: MTC_TRACE event=child_result parent=1f949847333383fc13d95e70837870cd child=7814280da76b5aea24ba97d9c1e350bd status=4 error=0
+[21.142s] 2: [INFO] [1791874095.737559643] [mtc_mock_task]: MTC_TRACE event=task_result parent=1f949847333383fc13d95e70837870cd state=FINISHED error=0 completed=1
+[21.152s] 2: [INFO] [1791874095.747477589] [mtc_mock_task]: MTC_TRACE event=task_start parent=14f5f2f7fb5b16f5b61d3b2ba9f0fded task="new_parent"
+[21.152s] 2: [INFO] [1791874095.747662639] [mtc_mock_task]: MTC_TRACE event=child_send parent=14f5f2f7fb5b16f5b61d3b2ba9f0fded request="new_parent#0/attempt-2"
+[21.153s] 2: [INFO] [1791874095.748129080] [mtc_mock_task]: MTC_TRACE event=child_response parent=14f5f2f7fb5b16f5b61d3b2ba9f0fded child=e29896a51f4eabe6634a67e29e2adf23 accepted=1 request="new_parent#0/attempt-2"
+[21.158s] 2: [INFO] [1791874095.753698563] [mtc_mock_pick_place]: MTC_TRACE event=pick_start child=e29896a51f4eabe6634a67e29e2adf23 request="new_parent#0/attempt-2"
+[22.148s] 2: [INFO] [1791874096.743916911] [mtc_mock_pick_place]: MTC_TRACE event=pick_result child=e29896a51f4eabe6634a67e29e2adf23 state=SUCCESS error=0 executions=14 stops=0
+[22.149s] 2: [INFO] [1791874096.744235454] [mtc_mock_task]: MTC_TRACE event=child_result parent=14f5f2f7fb5b16f5b61d3b2ba9f0fded child=e29896a51f4eabe6634a67e29e2adf23 status=4 error=0
+[22.152s] 2: [INFO] [1791874096.747619982] [mtc_mock_task]: MTC_TRACE event=task_result parent=14f5f2f7fb5b16f5b61d3b2ba9f0fded state=FINISHED error=0 completed=1
+[22.164s] 2: [       OK ] TaskAction.StaleParentCancelCannotReachNewChild (2064 ms)
+[22.164s] 2: [ RUN      ] TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded
+[22.190s] 2: [INFO] [1791874096.785595645] [mtc_mock_task]: MTC_TRACE event=task_start parent=f41fe680f892f6a996fd6b0d30c56488 task="task_1"
+[22.190s] 2: [INFO] [1791874096.785755760] [mtc_mock_task]: MTC_TRACE event=child_send parent=f41fe680f892f6a996fd6b0d30c56488 request="task_1#0/attempt-1"
+[22.191s] 2: [INFO] [1791874096.786176126] [mtc_mock_task]: MTC_TRACE event=child_response parent=f41fe680f892f6a996fd6b0d30c56488 child=94ffcfeaf42973cb9517e9ad3a91d3c2 accepted=1 request="task_1#0/attempt-1"
+[22.191s] 2: [INFO] [1791874096.786470324] [mtc_mock_task]: MTC_TRACE event=child_result parent=f41fe680f892f6a996fd6b0d30c56488 child=94ffcfeaf42973cb9517e9ad3a91d3c2 status=4 error=0
+[22.210s] 2: [INFO] [1791874096.805647605] [mtc_mock_task]: MTC_TRACE event=child_send parent=f41fe680f892f6a996fd6b0d30c56488 request="task_1#0/attempt-2"
+[22.211s] 2: [INFO] [1791874096.806188892] [mtc_mock_task]: MTC_TRACE event=child_response parent=f41fe680f892f6a996fd6b0d30c56488 child=9d9f475a086453833babf87127ac37ab accepted=1 request="task_1#0/attempt-2"
+[22.211s] 2: [INFO] [1791874096.806419465] [mtc_mock_task]: MTC_TRACE event=child_result parent=f41fe680f892f6a996fd6b0d30c56488 child=9d9f475a086453833babf87127ac37ab status=4 error=0
+[22.220s] 2: [INFO] [1791874096.815615088] [mtc_mock_task]: MTC_TRACE event=task_result parent=f41fe680f892f6a996fd6b0d30c56488 state=TASK_FAILED error=430 completed=0
+[22.232s] 2: [       OK ] TaskAction.ChildSuccessWithoutPlacementEvidenceIsNotRecorded (67 ms)
+[22.232s] 2: [----------] 12 tests from TaskAction (8361 ms total)
+[22.232s] 2: 
+[22.232s] 2: [----------] Global test environment tear-down
+[22.233s] 2: [==========] 12 tests from 1 test suite ran. (8362 ms total)
+[22.233s] 2: [  PASSED  ] 12 tests.
+[22.340s] 2: -- run_test.py: return code 0
+[22.340s] 2: -- run_test.py: inject classname prefix into gtest result file '/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml'
+[22.340s] 2: -- run_test.py: verify result file '/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_task_action.gtest.xml'
+[22.350s] 2/4 Test #2: test_task_action .................   Passed    8.58 sec
+[22.350s] test 3
+[22.350s]     Start 3: test_motion_action
+[22.350s] 
+[22.351s] 3: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/c1-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_motion_action.txt" "--command" "/c1-build/mtc_ros2_action_cpp/test_motion_action" "--gtest_output=xml:/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml"
+[22.351s] 3: Working Directory: /c1-build/mtc_ros2_action_cpp
+[22.351s] 3: Test timeout computed to be: 90
+[22.414s] 3: -- run_test.py: invoking following command in '/c1-build/mtc_ros2_action_cpp':
+[22.415s] 3:  - /c1-build/mtc_ros2_action_cpp/test_motion_action --gtest_output=xml:/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml
+[22.444s] 3: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[22.445s] 3: [==========] Running 8 tests from 1 test suite.
+[22.445s] 3: [----------] Global test environment set-up.
+[22.445s] 3: [----------] 8 tests from MotionAction
+[22.445s] 3: [ RUN      ] MotionAction.LegalNonzeroGoalAndFeedbackUseExecutorResult
+[22.592s] 3: [       OK ] MotionAction.LegalNonzeroGoalAndFeedbackUseExecutorResult (146 ms)
+[22.592s] 3: [ RUN      ] MotionAction.IllegalGoalRejectedWithoutBackendCall
+[22.614s] 3: [       OK ] MotionAction.IllegalGoalRejectedWithoutBackendCall (22 ms)
+[22.615s] 3: [ RUN      ] MotionAction.ConcurrentGoalIsRejectedAndFirstCompletes
+[22.755s] 3: [       OK ] MotionAction.ConcurrentGoalIsRejectedAndFirstCompletes (140 ms)
+[22.755s] 3: [ RUN      ] MotionAction.MatchingCancelStopsExactlyOnce
+[22.803s] 3: [       OK ] MotionAction.MatchingCancelStopsExactlyOnce (48 ms)
+[22.803s] 3: [ RUN      ] MotionAction.UnconfirmedCancelAborts520AndLocks
+[22.852s] 3: [       OK ] MotionAction.UnconfirmedCancelAborts520AndLocks (48 ms)
+[22.852s] 3: [ RUN      ] MotionAction.StaleCancelCannotReachBackendOrInterruptNewOwner
+[23.094s] 3: [       OK ] MotionAction.StaleCancelCannotReachBackendOrInterruptNewOwner (241 ms)
+[23.094s] 3: [ RUN      ] MotionAction.ExecutorTimeoutKeepsOriginal220AndRejectsNewMotion
+[23.226s] 3: [       OK ] MotionAction.ExecutorTimeoutKeepsOriginal220AndRejectsNewMotion (132 ms)
+[23.227s] 3: [ RUN      ] MotionAction.RosDeadlineIndependentlyRequestsAssociatedStop
+[24.068s] 3: [       OK ] MotionAction.RosDeadlineIndependentlyRequestsAssociatedStop (841 ms)
+[24.069s] 3: [----------] 8 tests from MotionAction (1622 ms total)
+[24.069s] 3: 
+[24.070s] 3: [----------] Global test environment tear-down
+[24.070s] 3: [==========] 8 tests from 1 test suite ran. (1624 ms total)
+[24.070s] 3: [  PASSED  ] 8 tests.
+[24.180s] 3: -- run_test.py: return code 0
+[24.181s] 3: -- run_test.py: inject classname prefix into gtest result file '/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml'
+[24.181s] 3: -- run_test.py: verify result file '/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_motion_action.gtest.xml'
+[24.199s] 3/4 Test #3: test_motion_action ...............   Passed    1.85 sec
+[24.199s] test 4
+[24.199s]     Start 4: test_action_contracts
+[24.199s] 
+[24.200s] 4: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml" "--package-name" "mtc_ros2_action_cpp" "--output-file" "/c1-build/mtc_ros2_action_cpp/ament_cmake_gtest/test_action_contracts.txt" "--command" "/c1-build/mtc_ros2_action_cpp/test_action_contracts" "--gtest_output=xml:/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml"
+[24.200s] 4: Working Directory: /c1-build/mtc_ros2_action_cpp
+[24.200s] 4: Test timeout computed to be: 60
+[24.294s] 4: -- run_test.py: invoking following command in '/c1-build/mtc_ros2_action_cpp':
+[24.294s] 4:  - /c1-build/mtc_ros2_action_cpp/test_action_contracts --gtest_output=xml:/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml
+[24.329s] 4: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[24.329s] 4: [==========] Running 9 tests from 1 test suite.
+[24.329s] 4: [----------] Global test environment set-up.
+[24.330s] 4: [----------] 9 tests from ActionContracts
+[24.330s] 4: [ RUN      ] ActionContracts.TaskConversionPreservesColorOrderIdentityAndDeadline
+[24.330s] 4: [       OK ] ActionContracts.TaskConversionPreservesColorOrderIdentityAndDeadline (0 ms)
+[24.330s] 4: [ RUN      ] ActionContracts.RosFloatBoundaryDoesNotRelaxCoreUpperLimit
+[24.331s] 4: [       OK ] ActionContracts.RosFloatBoundaryDoesNotRelaxCoreUpperLimit (0 ms)
+[24.331s] 4: [ RUN      ] ActionContracts.MockPlannerPreservesSixDPoseFrameStampAndContactConstraints
+[24.331s] 4: [       OK ] ActionContracts.MockPlannerPreservesSixDPoseFrameStampAndContactConstraints (0 ms)
+[24.331s] 4: [ RUN      ] ActionContracts.MockLoadEvidenceRemainsHoldingUntilVerifiedRelease
+[24.331s] 4: [       OK ] ActionContracts.MockLoadEvidenceRemainsHoldingUntilVerifiedRelease (0 ms)
+[24.331s] 4: [ RUN      ] ActionContracts.MockFailedReleaseNeverReportsNoLoad
+[24.331s] 4: [       OK ] ActionContracts.MockFailedReleaseNeverReportsNoLoad (0 ms)
+[24.332s] 4: [ RUN      ] ActionContracts.TestLiftRequiresPriorSimulatedAttachmentEvidence
+[24.332s] 4: [       OK ] ActionContracts.TestLiftRequiresPriorSimulatedAttachmentEvidence (0 ms)
+[24.332s] 4: [ RUN      ] ActionContracts.TrajectoryBridgeRefusesAndNeverSplitsIntoJointMoves
+[24.332s] 4: [       OK ] ActionContracts.TrajectoryBridgeRefusesAndNeverSplitsIntoJointMoves (0 ms)
+[24.332s] 4: [ RUN      ] ActionContracts.UnsupportedTrajectoryAndCartesianCapabilitiesCannotBeEnabled
+[24.333s] 4: [       OK ] ActionContracts.UnsupportedTrajectoryAndCartesianCapabilitiesCannotBeEnabled (0 ms)
+[24.333s] 4: [ RUN      ] ActionContracts.DelayedCancelSamplesKnownStationaryMockBeforeValidatingStop
+[24.333s] 4: [       OK ] ActionContracts.DelayedCancelSamplesKnownStationaryMockBeforeValidatingStop (0 ms)
+[24.333s] 4: [----------] 9 tests from ActionContracts (0 ms total)
+[24.333s] 4: 
+[24.333s] 4: [----------] Global test environment tear-down
+[24.334s] 4: [==========] 9 tests from 1 test suite ran. (0 ms total)
+[24.334s] 4: [  PASSED  ] 9 tests.
+[24.335s] 4: -- run_test.py: return code 0
+[24.335s] 4: -- run_test.py: inject classname prefix into gtest result file '/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml'
+[24.336s] 4: -- run_test.py: verify result file '/c1-build/mtc_ros2_action_cpp/test_results/mtc_ros2_action_cpp/test_action_contracts.gtest.xml'
+[24.349s] 4/4 Test #4: test_action_contracts ............   Passed    0.15 sec
+[24.350s] 
+[24.350s] 100% tests passed, 0 tests failed out of 4
+[24.350s] 
+[24.350s] Label Time Summary:
+[24.350s] gtest    =  24.28 sec*proc (4 tests)
+[24.350s] 
+[24.350s] Total Test time (real) =  24.28 sec
+[24.360s] Invoked command in '/c1-build/mtc_ros2_action_cpp' returned '0': CMAKE_PREFIX_PATH=/c1-install/mtc_ros2_action_cpp:/c1-install/mtc_manipulation_cpp:/c1-install/mtc_task_cpp:/c1-install/mtc_motion_execution_cpp:/c1-install/mtc_interfaces:/c1-install/mtc_core_cpp:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor LD_LIBRARY_PATH=/c1-install/mtc_ros2_action_cpp/lib:/c1-install/mtc_manipulation_cpp/lib:/c1-install/mtc_task_cpp/lib:/c1-install/mtc_motion_execution_cpp/lib:/c1-install/mtc_interfaces/lib:/c1-install/mtc_core_cpp/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib PYTHONPATH=/c1-install/mtc_interfaces/lib/python3.12/site-packages:/c1-install/mtc_cpp_mock_bringup/lib/python3.12/site-packages:/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/ctest -C RelWithDebInfo -D ExperimentalTest --no-compress-output -V --force-new-ctest-process -j1

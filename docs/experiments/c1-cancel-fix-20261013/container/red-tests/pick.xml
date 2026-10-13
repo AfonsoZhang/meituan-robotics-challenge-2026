@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="2" failures="1" disabled="0" errors="0" time="0.982" timestamp="2026-10-13T06:42:22.554" name="AllTests">
+  <testsuite name="PickAction" tests="2" failures="1" disabled="0" skipped="0" errors="0" time="0.976" timestamp="2026-10-13T06:42:22.561">
+    <testcase name="DelayedCancelConfirmsStopAndAllowsNextUnloadedGoal" file="/c1-source/src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp" line="119" status="run" result="completed" time="0.509" timestamp="2026-10-13T06:42:22.561" classname="PickAction">
+      <failure message="/c1-source/src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp:131&#x0A;Expected equality of these values:&#x0A;  terminal.code&#x0A;    Which is: 1-byte object &lt;06&gt;&#x0A;  rclcpp_action::ResultCode::CANCELED&#x0A;    Which is: 1-byte object &lt;05&gt;&#x0A;" type=""><![CDATA[/c1-source/src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp:131
+Expected equality of these values:
+  terminal.code
+    Which is: 1-byte object <06>
+  rclcpp_action::ResultCode::CANCELED
+    Which is: 1-byte object <05>
+]]></failure>
+      <failure message="/c1-source/src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp:132&#x0A;Expected equality of these values:&#x0A;  terminal.result-&gt;error_code&#x0A;    Which is: 520&#x0A;  ErrorCodes::OK&#x0A;    Which is: 0&#x0A;" type=""><![CDATA[/c1-source/src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp:132
+Expected equality of these values:
+  terminal.result->error_code
+    Which is: 520
+  ErrorCodes::OK
+    Which is: 0
+]]></failure>
+      <failure message="/c1-source/src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp:137&#x0A;Expected: (next) != (nullptr), actual: (nullptr) vs (nullptr)&#x0A;" type=""><![CDATA[/c1-source/src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp:137
+Expected: (next) != (nullptr), actual: (nullptr) vs (nullptr)
+]]></failure>
+    </testcase>
+    <testcase name="DelayedCancelWithoutEvidenceStillAbortsAndLocksAdmission" file="/c1-source/src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp" line="142" status="run" result="completed" time="0.467" timestamp="2026-10-13T06:42:23.070" classname="PickAction" />
+  </testsuite>
+</testsuites>

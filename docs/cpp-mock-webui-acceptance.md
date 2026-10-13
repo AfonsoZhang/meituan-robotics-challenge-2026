@@ -1,5 +1,7 @@
 # C++ Mock Bringup、真实 Action 链路与 Web UI 同轮验收
 
+后续更新：软件 Mock C1 已单独修复并推送 [PR #15](https://github.com/F1u0rite/meituan_challenge_ws/pull/15)，见 [新报告](c1-cancel-fix.md)（ENV-CANCEL-PR-20261013；ENV-CANCEL-FIX-20261013）。PR #8 源码树已恢复原内容；下文保留 2026-10-12 的原始失败和交付记录。
+
 2026-10-12 本机观测：**集成部分通过，取消完成边界 C1 未通过。** 统一启动和 Web UI 已实际连通 C++ Task → C++ PickPlace；基础/序列成功、非法/并发拒绝、反馈、失败传播、及时取消、冲突门禁及清理有真实 ROS 证据。正常 Mock 配置下较晚取消虽收到 ACK，父子最终均为 ABORTED/520，不能认定取消完成。源码已交独立 [PR #8](https://github.com/F1u0rite/meituan_challenge_ws/pull/8)，请求 F1u0rite 审阅；C1 内核契约交孙嘉明。来源：TEAMMATE-CPPUI-20261012、ENV-CPP-MOCK-WEBUI-20261012；授权：USER-HW-20261012、USER-HW-20261012-02（用户会话）。
 
 ## 版本、时序与修改边界
