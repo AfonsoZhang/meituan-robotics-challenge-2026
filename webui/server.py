@@ -2,19 +2,24 @@
 """Loopback-only robot console; ROS by default, optional explicit --mock demo."""
 
 import argparse
+import base64
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
 import re
-from urllib.parse import urlsplit
+import signal
+from urllib.parse import urlsplit, parse_qs
 import uuid
 
 from webui.mock_backend import ApiError, MockBackend
 
 STATIC = Path(__file__).resolve().parent / "static"
-REPO = STATIC.parent.parent
-ASSETS = {"/": ("index.html", "text/html; charset=utf-8"),
+REPO = Path.cwd()  # Installed packages must not write into site-packages.
+ASSETS = {
+    "/p2.js": ("p2.js", "text/javascript; charset=utf-8"),"/": ("index.html", "text/html; charset=utf-8"),
+          "/p0.js": ("p0.js", "text/javascript; charset=utf-8"),
+          "/p1.js": ("p1.js", "text/javascript; charset=utf-8"),
           "/app.js": ("app.js", "text/javascript; charset=utf-8"),
           "/styles.css": ("styles.css", "text/css; charset=utf-8"),
           "/favicon.svg": ("favicon.svg", "image/svg+xml")}
@@ -34,7 +39,7 @@ class Handler(BaseHTTPRequestHandler):
         # State and task logs are structured and persisted by the backend.
         pass
 
-    def _reply(self, status, value, content_type="application/json; charset=utf-8", download=None):
+    def _reply(self, status, value, content_type="application/json; charset=utf-8", download=None, headers=None):
         data = value if isinstance(value, bytes) else json.dumps(value, ensure_ascii=False, allow_nan=False).encode()
         self.send_response(status)
         self.send_header("Content-Type", content_type)
@@ -44,6 +49,8 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'")
         if download:
             self.send_header("Content-Disposition", f'attachment; filename="{download}"')
+        for key, value in (headers or {}).items():
+            self.send_header(key, value)
         self.end_headers()
         try:
             self.wfile.write(data)
@@ -74,7 +81,8 @@ class Handler(BaseHTTPRequestHandler):
     def _route(self, write=False):
         try:
             self._check_origin()
-            path = urlsplit(self.path).path
+            parsed = urlsplit(self.path)
+            path = parsed.path
             backend = self.server.backend
             if not write:
                 if path in ASSETS:
@@ -82,10 +90,30 @@ class Handler(BaseHTTPRequestHandler):
                     return self._reply(200, (STATIC / filename).read_bytes(), content_type)
                 if path == "/api/snapshot":
                     return self._reply(200, backend.snapshot())
+                if path in ("/api/events", "/api/export") and hasattr(backend, "query_events"):
+                    try:
+                        params = parse_qs(parsed.query, keep_blank_values=False, max_num_fields=12)
+                        if set(params) - {"task_id", "goal_id", "module", "before", "limit", "transitions", "errors"} or any(len(v) != 1 for v in params.values()):
+                            raise ValueError()
+                        filters = {k: v[0] for k, v in params.items()}
+                        for key in ("before", "limit"):
+                            if key in filters: filters[key] = int(filters[key])
+                        for key in ("transitions", "errors"):
+                            if key in filters:
+                                if filters[key] not in ("0", "1"): raise ValueError()
+                                filters[key] = filters[key] == "1"
+                    except ValueError:
+                        raise ApiError(400, "INVALID_QUERY", "日志查询参数无效") from None
+                    if path == "/api/export":
+                        filters.pop("before", None)
+                        return self._reply(200, backend.export_session(**filters), download="webui-session.json")
+                    return self._reply(200, backend.query_events(**filters))
                 if path == "/api/export":
                     return self._reply(200, backend.export_session(), download="webui-session.json")
                 if path in ("/api/camera/color", "/api/camera/depth") and hasattr(backend, "camera_frame"):
-                    return self._reply(200, backend.camera_frame(path.rsplit("/", 1)[1]), "image/jpeg")
+                    jpeg, metadata = backend.camera_packet(path.rsplit("/", 1)[1])
+                    encoded = base64.b64encode(json.dumps(metadata, ensure_ascii=True, allow_nan=False).encode()).decode()
+                    return self._reply(200, jpeg, "image/jpeg", headers={"X-MTC-Frame": encoded})
                 match = re.fullmatch(r"/api/tasks/([a-zA-Z0-9_-]{1,80})", path)
                 if match:
                     return self._reply(200, backend.task_record(match[1]), download=f"{match[1]}.json")
@@ -121,6 +149,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8767)
     parser.add_argument("--output-dir", type=Path, help="新目录；拒绝覆盖已有运行")
+    parser.add_argument("--cpp-mock", action="store_true", help="连接统一启动的 C++ Mock ROS Action；不接硬件")
+    parser.add_argument("--cpp-namespace", default="/mtc_cpp_mock")
     parser.add_argument("--mock", action="store_true", help="显式启动定时演示器；不连接 ROS")
     parser.add_argument("--config", type=Path, help="ROS 连接 JSON 配置")
     parser.add_argument("--ros-domain-id", type=int, help="实机 domain；也可沿用 ROS_DOMAIN_ID 环境变量")
@@ -129,11 +159,16 @@ def main():
     args = parser.parse_args()
     if not 1 <= args.port <= 65535 or any(not 1 <= p <= 65535 for p in args.tunnel_port):
         parser.error("端口必须为 1–65535")
-    if args.mock and (args.config or args.ros_domain_id is not None or args.readonly):
+    if args.mock and (args.cpp_mock or args.config or args.ros_domain_id is not None or args.readonly):
         parser.error("--mock 不能与 ROS 连接/只读参数混用")
+    if args.cpp_mock and args.config:
+        parser.error("--cpp-mock 使用 --cpp-namespace；不接受实机连接配置")
     output_dir = args.output_dir or REPO / "outputs" / f"webui-{datetime.now():%Y%m%d-%H%M%S}-{uuid.uuid4().hex[:6]}"
     if args.mock:
         backend = MockBackend(output_dir)
+    elif args.cpp_mock:
+        from webui.cpp_mock import CppMockBackend, CppMockTransport, cpp_config
+        backend = CppMockBackend(cpp_config(args.cpp_namespace, args.ros_domain_id, args.readonly), output_dir)
     else:
         from webui.config import RosConfig
         from webui.ros_backend import RosBackend
@@ -143,10 +178,11 @@ def main():
         except (ValueError, TypeError, OSError) as error:
             parser.error(str(error))
         backend = RosBackend(config, output_dir)
+    signal.signal(signal.SIGTERM, lambda *_: (_ for _ in ()).throw(KeyboardInterrupt()))
     with Server(("127.0.0.1", args.port), backend, args.tunnel_port) as server:
         if not args.mock:
-            RosTransport(backend).start()
-        print(f"{'Mock 演练' if args.mock else '实机操作台'}：http://127.0.0.1:{server.server_port}/", flush=True)
+            (CppMockTransport(backend) if args.cpp_mock else RosTransport(backend)).start()
+        print(f"{'C++ Mock ROS 操作台' if args.cpp_mock else 'Mock 演练' if args.mock else '实机操作台'}：http://127.0.0.1:{server.server_port}/", flush=True)
         print(f"会话日志：{output_dir}", flush=True)
         try:
             server.serve_forever()

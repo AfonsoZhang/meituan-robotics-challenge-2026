@@ -1,0 +1,132 @@
+{
+  "task_id": "ui-076259f9-4b2b-4df0-9203-e27056c3d633",
+  "goal_id": "f5223853-cbb9-42b7-925a-2522fc93a63a",
+  "mode": "ros",
+  "owned": true,
+  "goal": {
+    "mode": 1,
+    "ordered_colors": [
+      2
+    ],
+    "task_id": "ui-076259f9-4b2b-4df0-9203-e27056c3d633",
+    "timeout_ms": 120000,
+    "placement_stability_sec": 3
+  },
+  "status": "ABORTED",
+  "state": "EXECUTE_ITEM",
+  "substate": "TEST_LIFT",
+  "detail": "Injected ABORTED/520; no stop evidence",
+  "completed_count": 0,
+  "total_count": 1,
+  "completed_slots": [],
+  "current_index": 0,
+  "current_slot": "T0",
+  "current_object_id": "fixture-battery-1",
+  "last_error_code": 520,
+  "created_at": "2026-10-13T07:05:20.376+00:00",
+  "finished_at": "2026-10-13T07:05:27.255+00:00",
+  "elapsed_ms": 6052,
+  "result": {
+    "success": false,
+    "completed_count": 0,
+    "completed_slots": [],
+    "error_code": 520,
+    "message": "Injected ABORTED/520; no stop evidence"
+  },
+  "cancel_ack": {
+    "request_delivered": true,
+    "message": "ROS 已确认接受取消",
+    "at": "2026-10-13T07:05:27.246+00:00"
+  },
+  "events": [
+    {
+      "seq": 6,
+      "at": "2026-10-13T07:05:20.376+00:00",
+      "kind": "GOAL_REQUESTED",
+      "message": "等待 ROS Goal 受理回执",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "ui-076259f9-4b2b-4df0-9203-e27056c3d633",
+      "goal_id": "f5223853-cbb9-42b7-925a-2522fc93a63a"
+    },
+    {
+      "seq": 7,
+      "at": "2026-10-13T07:05:20.397+00:00",
+      "kind": "GOAL_ACCEPTED",
+      "message": "ROS Action 服务端已受理",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "ui-076259f9-4b2b-4df0-9203-e27056c3d633",
+      "goal_id": "f5223853-cbb9-42b7-925a-2522fc93a63a"
+    },
+    {
+      "seq": 8,
+      "at": "2026-10-13T07:05:20.400+00:00",
+      "kind": "FEEDBACK",
+      "message": "EXECUTE_ITEM / TEST_LIFT",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "ui-076259f9-4b2b-4df0-9203-e27056c3d633",
+      "goal_id": "f5223853-cbb9-42b7-925a-2522fc93a63a"
+    },
+    {
+      "seq": 9,
+      "at": "2026-10-13T07:05:20.476+00:00",
+      "kind": "PLANNER",
+      "message": "{\"state\": \"FAILED\", \"plan_id\": \"fixture-plan-1\", \"primitive\": \"side_approach\", \"task_id\": \"ui-076259f9-4b2b-4df0-9203-e27056c3d633\", \"command_id\": null, \"trajectory_id\": null, \"reason\": \"EXCEEDS_STATE_WATCHDOG: trajectory 8.7 s exceeds state watchdog 5.0 s (injected fixture)\", \"point_count\": 42, \"expected_duration_sec\": 8.7, \"error_code\": \"EXCEEDS_STATE_WATCHDOG\", \"joint_limits_ok\": true, \"collision_free\": true, \"start_state_consistent\": false}",
+      "level": "error",
+      "mode": "ros",
+      "task_id": "ui-076259f9-4b2b-4df0-9203-e27056c3d633",
+      "goal_id": "f5223853-cbb9-42b7-925a-2522fc93a63a",
+      "source": "/webui_isolated_fixture · /p1/planner · 010f7f01",
+      "source_stamp": "1791875120466493074"
+    },
+    {
+      "seq": 10,
+      "at": "2026-10-13T07:05:20.477+00:00",
+      "kind": "TOOL_VERIFICATION",
+      "message": "{\"verification_id\": \"fixture-grasp-1\", \"task_id\": \"ui-076259f9-4b2b-4df0-9203-e27056c3d633\", \"object_id\": \"fixture-battery-1\", \"tool_type\": \"passive_hook_v1\", \"test_lift\": {\"verified\": true, \"evidence_level\": 2, \"source\": \"fixture_relative_motion\", \"stamp_ns\": \"1791875094513129162\", \"reason\": null}, \"seated\": null}",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "ui-076259f9-4b2b-4df0-9203-e27056c3d633",
+      "goal_id": "f5223853-cbb9-42b7-925a-2522fc93a63a",
+      "source": "/webui_isolated_fixture · /p1/tool_verification · 010f7f01",
+      "source_stamp": "1791875120466493074"
+    },
+    {
+      "seq": 11,
+      "at": "2026-10-13T07:05:27.223+00:00",
+      "kind": "CANCEL_REQUESTED",
+      "message": "取消已排队，等待 ROS Cancel 回执",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "ui-076259f9-4b2b-4df0-9203-e27056c3d633",
+      "goal_id": "f5223853-cbb9-42b7-925a-2522fc93a63a"
+    },
+    {
+      "seq": 12,
+      "at": "2026-10-13T07:05:27.246+00:00",
+      "kind": "CANCEL_REPLY",
+      "message": "ROS 已确认接受取消；停稳以 RobotState 为准",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "ui-076259f9-4b2b-4df0-9203-e27056c3d633",
+      "goal_id": "f5223853-cbb9-42b7-925a-2522fc93a63a"
+    },
+    {
+      "seq": 13,
+      "at": "2026-10-13T07:05:27.255+00:00",
+      "kind": "RESULT",
+      "message": "Injected ABORTED/520; no stop evidence",
+      "level": "error",
+      "mode": "ros",
+      "task_id": "ui-076259f9-4b2b-4df0-9203-e27056c3d633",
+      "goal_id": "f5223853-cbb9-42b7-925a-2522fc93a63a"
+    }
+  ],
+  "recordings": [],
+  "feedback_received_at": "2026-10-13T07:05:27.252+00:00",
+  "cancel_requested_at": "2026-10-13T07:05:27.223+00:00",
+  "feedback_age_ms": 4,
+  "feedback_fresh": true
+}

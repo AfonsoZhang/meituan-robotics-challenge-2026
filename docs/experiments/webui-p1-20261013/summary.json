@@ -1,0 +1,81 @@
+{
+  "source_id": "ENV-WEBUI-P1-20261013",
+  "source_ids": [
+    "USER-HW-20261013-02",
+    "TEAMMATE-WEBUI-P1-20261013"
+  ],
+  "status": "UI_CLIENT_AND_ISOLATED_INTERFACES_PASS; REAL_PRODUCERS_AND_HARDWARE_PENDING",
+  "tests": {
+    "host_python_passed": 62,
+    "jazzy_python_passed": 62,
+    "node_passed": 20,
+    "p1_ros_passed": 6,
+    "p0_ros_regression_passed": 5,
+    "demo_passed": 27,
+    "robot_passed": 30,
+    "installed_package": {
+      "build": true,
+      "python_passed": 62,
+      "python_skipped": 0,
+      "p1_ros_passed": 6,
+      "entry_help": true,
+      "byte_match_files": 28,
+      "note": "Repeats the same tests in installed namespace; not additional unique cases"
+    }
+  },
+  "browser": {
+    "native_detection_rows": 3,
+    "rgb_and_depth": true,
+    "target_id_highlight": "fixture-battery-1 (RGB screenshot)",
+    "attached_with_command_only": "not independently confirmed",
+    "test_lift": "verified",
+    "seated": "not provided",
+    "raw_planner_error": "EXCEEDS_STATE_WATCHDOG",
+    "cancel_ack": "accepted",
+    "cancel_final": "ABORTED/520",
+    "independent_stop": "unconfirmed",
+    "pause_clears_image_target_proof": true,
+    "widths": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "views": 3,
+    "document_overflow": false,
+    "caveat": "Hidden Chrome: DOM clicks and Pause/Resume used for live refresh; foreground pointer/keyboard not covered. Relay 502 and timeouts retained.",
+    "positive_observations": "qa/p1-browser-observations.json",
+    "screenshots": [
+      "qa/webui-p1-rgb.png",
+      "qa/webui-p1-depth.png",
+      "qa/webui-p1-planner.png",
+      "qa/webui-p1-mobile.png"
+    ]
+  },
+  "missing_upstream": [
+    "Planner live observation publisher",
+    "test-lift/seated independent proof publisher",
+    "2D boxes and image frame association"
+  ],
+  "not_verified": [
+    "physical D435i",
+    "real tool attachment/lift/seating",
+    "Planner/FSM/MoveIt/FJT complete chain",
+    "NUC",
+    "RViz/3D",
+    "C1 actual kernel fix"
+  ],
+  "failures_retained": [
+    "apt build timeout",
+    "wheel download timeout",
+    "fixture shared-Time construction error",
+    "WSL source-copy failure and repeat with old fixture",
+    "browser relay 502 and undefined module until reload",
+    "hidden Chrome action/rAF timeouts",
+    "first mobile camera overflow"
+  ],
+  "patch_scope": "Cumulative P0+P1 on original PR8, tree-identical to completion PR8; Web module and package metadata only",
+  "patch_published": false,
+  "cleanup": "cleanup.json",
+  "ai_assistance": "OpenAI Codex"
+}

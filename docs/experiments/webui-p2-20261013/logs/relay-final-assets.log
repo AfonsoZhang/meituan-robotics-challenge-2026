@@ -1,0 +1,504 @@
+QA relay: http://127.0.0.1:8775 -> docker exec stdio -> container loopback:8769
+TimeoutExpired Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 46674)
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 33, in forward
+    run=subprocess.run(['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe','exec','-i','mtc-webui-p2-20261013','python3','-c',code],input=json.dumps(request),capture_output=True,text=True,timeout=5)
+  File "/usr/lib/python3.10/subprocess.py", line 505, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1154, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 2022, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/usr/lib/python3.10/subprocess.py", line 1198, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.10/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.10/socketserver.py", line 747, in __init__
+    self.handle()
+  File "/usr/lib/python3.10/http/server.py", line 433, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.10/http/server.py", line 421, in handle_one_request
+    method()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 10, in do_GET
+    def do_GET(self):self.forward()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 43, in forward
+    self.send_error(502,'Isolated UI unavailable')
+  File "/usr/lib/python3.10/http/server.py", line 488, in send_error
+    self.wfile.write(body)
+  File "/usr/lib/python3.10/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+TimeoutExpired Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 37254)
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 33, in forward
+    run=subprocess.run(['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe','exec','-i','mtc-webui-p2-20261013','python3','-c',code],input=json.dumps(request),capture_output=True,text=True,timeout=5)
+  File "/usr/lib/python3.10/subprocess.py", line 505, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1154, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 2022, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/usr/lib/python3.10/subprocess.py", line 1198, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.10/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.10/socketserver.py", line 747, in __init__
+    self.handle()
+  File "/usr/lib/python3.10/http/server.py", line 433, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.10/http/server.py", line 421, in handle_one_request
+    method()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 10, in do_GET
+    def do_GET(self):self.forward()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 43, in forward
+    self.send_error(502,'Isolated UI unavailable')
+  File "/usr/lib/python3.10/http/server.py", line 488, in send_error
+    self.wfile.write(body)
+  File "/usr/lib/python3.10/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+TimeoutExpired Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 48748)
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 33, in forward
+    run=subprocess.run(['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe','exec','-i','mtc-webui-p2-20261013','python3','-c',code],input=json.dumps(request),capture_output=True,text=True,timeout=5)
+  File "/usr/lib/python3.10/subprocess.py", line 505, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1154, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 2022, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/usr/lib/python3.10/subprocess.py", line 1198, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.10/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.10/socketserver.py", line 747, in __init__
+    self.handle()
+  File "/usr/lib/python3.10/http/server.py", line 433, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.10/http/server.py", line 421, in handle_one_request
+    method()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 10, in do_GET
+    def do_GET(self):self.forward()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 43, in forward
+    self.send_error(502,'Isolated UI unavailable')
+  File "/usr/lib/python3.10/http/server.py", line 488, in send_error
+    self.wfile.write(body)
+  File "/usr/lib/python3.10/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+TimeoutExpired Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 45348)
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 33, in forward
+    run=subprocess.run(['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe','exec','-i','mtc-webui-p2-20261013','python3','-c',code],input=json.dumps(request),capture_output=True,text=True,timeout=5)
+  File "/usr/lib/python3.10/subprocess.py", line 505, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1154, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 2022, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/usr/lib/python3.10/subprocess.py", line 1198, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.10/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.10/socketserver.py", line 747, in __init__
+    self.handle()
+  File "/usr/lib/python3.10/http/server.py", line 433, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.10/http/server.py", line 421, in handle_one_request
+    method()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 10, in do_GET
+    def do_GET(self):self.forward()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 43, in forward
+    self.send_error(502,'Isolated UI unavailable')
+  File "/usr/lib/python3.10/http/server.py", line 488, in send_error
+    self.wfile.write(body)
+  File "/usr/lib/python3.10/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+BrokenPipeError [Errno 32] Broken pipe
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 45360)
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 40, in forward
+    self.end_headers();self.wfile.write(base64.b64decode(reply['body']))
+  File "/usr/lib/python3.10/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.10/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.10/socketserver.py", line 747, in __init__
+    self.handle()
+  File "/usr/lib/python3.10/http/server.py", line 433, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.10/http/server.py", line 421, in handle_one_request
+    method()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 10, in do_GET
+    def do_GET(self):self.forward()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 43, in forward
+    self.send_error(502,'Isolated UI unavailable')
+  File "/usr/lib/python3.10/http/server.py", line 485, in send_error
+    self.end_headers()
+  File "/usr/lib/python3.10/http/server.py", line 535, in end_headers
+    self.flush_headers()
+  File "/usr/lib/python3.10/http/server.py", line 539, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "/usr/lib/python3.10/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+TimeoutExpired Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 58722)
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 33, in forward
+    run=subprocess.run(['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe','exec','-i','mtc-webui-p2-20261013','python3','-c',code],input=json.dumps(request),capture_output=True,text=True,timeout=5)
+  File "/usr/lib/python3.10/subprocess.py", line 505, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1154, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 2022, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/usr/lib/python3.10/subprocess.py", line 1198, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.10/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.10/socketserver.py", line 747, in __init__
+    self.handle()
+  File "/usr/lib/python3.10/http/server.py", line 433, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.10/http/server.py", line 421, in handle_one_request
+    method()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 10, in do_GET
+    def do_GET(self):self.forward()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 43, in forward
+    self.send_error(502,'Isolated UI unavailable')
+  File "/usr/lib/python3.10/http/server.py", line 488, in send_error
+    self.wfile.write(body)
+  File "/usr/lib/python3.10/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+TimeoutExpired Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 33668)
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 33, in forward
+    run=subprocess.run(['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe','exec','-i','mtc-webui-p2-20261013','python3','-c',code],input=json.dumps(request),capture_output=True,text=True,timeout=5)
+  File "/usr/lib/python3.10/subprocess.py", line 505, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1154, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 2022, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/usr/lib/python3.10/subprocess.py", line 1198, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.10/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.10/socketserver.py", line 747, in __init__
+    self.handle()
+  File "/usr/lib/python3.10/http/server.py", line 433, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.10/http/server.py", line 421, in handle_one_request
+    method()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 10, in do_GET
+    def do_GET(self):self.forward()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 43, in forward
+    self.send_error(502,'Isolated UI unavailable')
+  File "/usr/lib/python3.10/http/server.py", line 488, in send_error
+    self.wfile.write(body)
+  File "/usr/lib/python3.10/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+TimeoutExpired Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 56982)
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 33, in forward
+    run=subprocess.run(['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe','exec','-i','mtc-webui-p2-20261013','python3','-c',code],input=json.dumps(request),capture_output=True,text=True,timeout=5)
+  File "/usr/lib/python3.10/subprocess.py", line 505, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1154, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 2022, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/usr/lib/python3.10/subprocess.py", line 1198, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.10/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.10/socketserver.py", line 747, in __init__
+    self.handle()
+  File "/usr/lib/python3.10/http/server.py", line 433, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.10/http/server.py", line 421, in handle_one_request
+    method()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 10, in do_GET
+    def do_GET(self):self.forward()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 43, in forward
+    self.send_error(502,'Isolated UI unavailable')
+  File "/usr/lib/python3.10/http/server.py", line 488, in send_error
+    self.wfile.write(body)
+  File "/usr/lib/python3.10/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+TimeoutExpired Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 40348)
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 33, in forward
+    run=subprocess.run(['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe','exec','-i','mtc-webui-p2-20261013','python3','-c',code],input=json.dumps(request),capture_output=True,text=True,timeout=5)
+  File "/usr/lib/python3.10/subprocess.py", line 505, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1154, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 2022, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/usr/lib/python3.10/subprocess.py", line 1198, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.10/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.10/socketserver.py", line 747, in __init__
+    self.handle()
+  File "/usr/lib/python3.10/http/server.py", line 433, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.10/http/server.py", line 421, in handle_one_request
+    method()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 10, in do_GET
+    def do_GET(self):self.forward()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 43, in forward
+    self.send_error(502,'Isolated UI unavailable')
+  File "/usr/lib/python3.10/http/server.py", line 488, in send_error
+    self.wfile.write(body)
+  File "/usr/lib/python3.10/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+TimeoutExpired Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 50156)
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 33, in forward
+    run=subprocess.run(['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe','exec','-i','mtc-webui-p2-20261013','python3','-c',code],input=json.dumps(request),capture_output=True,text=True,timeout=5)
+  File "/usr/lib/python3.10/subprocess.py", line 505, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1154, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 2022, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/usr/lib/python3.10/subprocess.py", line 1198, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.10/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.10/socketserver.py", line 747, in __init__
+    self.handle()
+  File "/usr/lib/python3.10/http/server.py", line 433, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.10/http/server.py", line 421, in handle_one_request
+    method()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 10, in do_GET
+    def do_GET(self):self.forward()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 43, in forward
+    self.send_error(502,'Isolated UI unavailable')
+  File "/usr/lib/python3.10/http/server.py", line 488, in send_error
+    self.wfile.write(body)
+  File "/usr/lib/python3.10/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+TimeoutExpired Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 39144)
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 33, in forward
+    run=subprocess.run(['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe','exec','-i','mtc-webui-p2-20261013','python3','-c',code],input=json.dumps(request),capture_output=True,text=True,timeout=5)
+  File "/usr/lib/python3.10/subprocess.py", line 505, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1154, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 2022, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/usr/lib/python3.10/subprocess.py", line 1198, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.10/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.10/socketserver.py", line 747, in __init__
+    self.handle()
+  File "/usr/lib/python3.10/http/server.py", line 433, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.10/http/server.py", line 421, in handle_one_request
+    method()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 10, in do_GET
+    def do_GET(self):self.forward()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 43, in forward
+    self.send_error(502,'Isolated UI unavailable')
+  File "/usr/lib/python3.10/http/server.py", line 488, in send_error
+    self.wfile.write(body)
+  File "/usr/lib/python3.10/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+TimeoutExpired Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 39150)
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 33, in forward
+    run=subprocess.run(['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe','exec','-i','mtc-webui-p2-20261013','python3','-c',code],input=json.dumps(request),capture_output=True,text=True,timeout=5)
+  File "/usr/lib/python3.10/subprocess.py", line 505, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1154, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 2022, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/usr/lib/python3.10/subprocess.py", line 1198, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe', 'exec', '-i', 'mtc-webui-p2-20261013', 'python3', '-c', 'import base64,http.client,json,sys\nr=json.load(sys.stdin); c=http.client.HTTPConnection("127.0.0.1",8769,timeout=3)\nh={"Content-Type":r["content_type"]} if r["content_type"] else {}\nc.request(r["method"],r["path"],body=base64.b64decode(r["body"]),headers=h)\nx=c.getresponse();print(json.dumps({"status":x.status,"headers":x.getheaders(),"body":base64.b64encode(x.read()).decode()}));c.close()\n']' timed out after 5 seconds
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.10/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.10/socketserver.py", line 747, in __init__
+    self.handle()
+  File "/usr/lib/python3.10/http/server.py", line 433, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.10/http/server.py", line 421, in handle_one_request
+    method()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 10, in do_GET
+    def do_GET(self):self.forward()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 43, in forward
+    self.send_error(502,'Isolated UI unavailable')
+  File "/usr/lib/python3.10/http/server.py", line 488, in send_error
+    self.wfile.write(body)
+  File "/usr/lib/python3.10/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+BrokenPipeError [Errno 32] Broken pipe
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 39156)
+Traceback (most recent call last):
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 40, in forward
+    self.end_headers();self.wfile.write(base64.b64decode(reply['body']))
+  File "/usr/lib/python3.10/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.10/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.10/socketserver.py", line 747, in __init__
+    self.handle()
+  File "/usr/lib/python3.10/http/server.py", line 433, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.10/http/server.py", line 421, in handle_one_request
+    method()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 10, in do_GET
+    def do_GET(self):self.forward()
+  File "/home/afonso/meituan-robotics-challenge-2026/outputs/webui-p2-20261013-170040/qa_relay.py", line 43, in forward
+    self.send_error(502,'Isolated UI unavailable')
+  File "/usr/lib/python3.10/http/server.py", line 485, in send_error
+    self.end_headers()
+  File "/usr/lib/python3.10/http/server.py", line 535, in end_headers
+    self.flush_headers()
+  File "/usr/lib/python3.10/http/server.py", line 539, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "/usr/lib/python3.10/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------

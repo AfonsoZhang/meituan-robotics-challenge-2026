@@ -1,0 +1,35 @@
+{
+  "source_id": "ENV-WEBUI-API-20261013",
+  "decision_id": "USER-HW-20261013-05",
+  "status": "PASS within offline compatibility scope",
+  "tests": {
+    "python_total": 76,
+    "new_compatibility_cases": 3,
+    "new_cases_included_in_total": true
+  },
+  "preserved_http_contract": [
+    "POST /api/tasks fields and 202 SUBMITTING response",
+    "POST /api/tasks/{task_id}/cancel with owned goal_id",
+    "POST /api/stop {}",
+    "GET /api/snapshot schema_version=1",
+    "GET /api/export snapshot, tasks, events, note, tasks[].events and webui-session.json attachment"
+  ],
+  "fixes": [
+    "restore omitted legacy export fields with complete matching event history",
+    "preserve original default attachment name",
+    "include snapshot-triggered UNKNOWN event in same export"
+  ],
+  "patch": {
+    "baseline": "frozen P2 source-webui",
+    "check_and_apply": true,
+    "source_files_equal": 37
+  },
+  "limitations": [
+    "No ROS / C++ Mock / GenericSystem runtime tests this increment",
+    "No physical arm control or hardware acceptance",
+    "Optional state producers remain pending module owners; reserved JSON is not an imposed upstream IDL",
+    "Expanded export schema_version=2 remains an additive metadata field; old ROS export had no top-level schema_version",
+    "P0/P1/P2 evidence and concurrent C1 work preserved"
+  ],
+  "ai_assistance": "OpenAI Codex"
+}

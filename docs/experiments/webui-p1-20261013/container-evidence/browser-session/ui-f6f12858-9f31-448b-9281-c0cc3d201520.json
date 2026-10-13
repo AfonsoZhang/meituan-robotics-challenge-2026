@@ -1,0 +1,121 @@
+{
+  "task_id": "ui-f6f12858-9f31-448b-9281-c0cc3d201520",
+  "goal_id": "93aa30f1-f6bb-4c6c-96ae-431a3404363f",
+  "mode": "ros",
+  "owned": true,
+  "goal": {
+    "mode": 1,
+    "ordered_colors": [
+      2
+    ],
+    "task_id": "ui-f6f12858-9f31-448b-9281-c0cc3d201520",
+    "timeout_ms": 120000,
+    "placement_stability_sec": 3
+  },
+  "status": "SUCCEEDED",
+  "state": "FINISHED",
+  "substate": "TEST_LIFT",
+  "detail": "isolated fixture only",
+  "completed_count": 1,
+  "total_count": 1,
+  "completed_slots": [
+    "T0"
+  ],
+  "current_index": 0,
+  "current_slot": "T0",
+  "current_object_id": "fixture-battery-1",
+  "last_error_code": 0,
+  "created_at": "2026-10-13T07:03:45.745+00:00",
+  "finished_at": "2026-10-13T07:04:16.716+00:00",
+  "elapsed_ms": 30111,
+  "result": {
+    "success": true,
+    "completed_count": 1,
+    "completed_slots": [
+      "T0"
+    ],
+    "error_code": 0,
+    "message": "isolated fixture only"
+  },
+  "cancel_ack": null,
+  "events": [
+    {
+      "seq": 6,
+      "at": "2026-10-13T07:03:45.745+00:00",
+      "kind": "GOAL_REQUESTED",
+      "message": "等待 ROS Goal 受理回执",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "ui-f6f12858-9f31-448b-9281-c0cc3d201520",
+      "goal_id": "93aa30f1-f6bb-4c6c-96ae-431a3404363f"
+    },
+    {
+      "seq": 7,
+      "at": "2026-10-13T07:03:45.800+00:00",
+      "kind": "GOAL_ACCEPTED",
+      "message": "ROS Action 服务端已受理",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "ui-f6f12858-9f31-448b-9281-c0cc3d201520",
+      "goal_id": "93aa30f1-f6bb-4c6c-96ae-431a3404363f"
+    },
+    {
+      "seq": 8,
+      "at": "2026-10-13T07:03:45.803+00:00",
+      "kind": "FEEDBACK",
+      "message": "EXECUTE_ITEM / TEST_LIFT",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "ui-f6f12858-9f31-448b-9281-c0cc3d201520",
+      "goal_id": "93aa30f1-f6bb-4c6c-96ae-431a3404363f"
+    },
+    {
+      "seq": 9,
+      "at": "2026-10-13T07:03:45.815+00:00",
+      "kind": "PLANNER",
+      "message": "{\"state\": \"FAILED\", \"plan_id\": \"fixture-plan-1\", \"primitive\": \"side_approach\", \"task_id\": \"ui-f6f12858-9f31-448b-9281-c0cc3d201520\", \"command_id\": null, \"trajectory_id\": null, \"reason\": \"EXCEEDS_STATE_WATCHDOG: trajectory 8.7 s exceeds state watchdog 5.0 s (injected fixture)\", \"point_count\": 42, \"expected_duration_sec\": 8.7, \"error_code\": \"EXCEEDS_STATE_WATCHDOG\", \"joint_limits_ok\": true, \"collision_free\": true, \"start_state_consistent\": false}",
+      "level": "error",
+      "mode": "ros",
+      "task_id": "ui-f6f12858-9f31-448b-9281-c0cc3d201520",
+      "goal_id": "93aa30f1-f6bb-4c6c-96ae-431a3404363f",
+      "source": "/webui_isolated_fixture · /p1/planner · 010f7f01",
+      "source_stamp": "1791875025804470961"
+    },
+    {
+      "seq": 10,
+      "at": "2026-10-13T07:03:45.816+00:00",
+      "kind": "TOOL_VERIFICATION",
+      "message": "{\"verification_id\": \"fixture-grasp-1\", \"task_id\": \"ui-f6f12858-9f31-448b-9281-c0cc3d201520\", \"object_id\": \"fixture-battery-1\", \"tool_type\": \"passive_hook_v1\", \"test_lift\": {\"verified\": true, \"evidence_level\": 2, \"source\": \"fixture_relative_motion\", \"stamp_ns\": \"1791874517819320626\", \"reason\": null}, \"seated\": null}",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "ui-f6f12858-9f31-448b-9281-c0cc3d201520",
+      "goal_id": "93aa30f1-f6bb-4c6c-96ae-431a3404363f",
+      "source": "/webui_isolated_fixture · /p1/tool_verification · 010f7f01",
+      "source_stamp": "1791875025804470961"
+    },
+    {
+      "seq": 11,
+      "at": "2026-10-13T07:04:16.707+00:00",
+      "kind": "TASK_STATE",
+      "message": "ISOLATED P1 FIXTURE",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "ui-f6f12858-9f31-448b-9281-c0cc3d201520",
+      "goal_id": "93aa30f1-f6bb-4c6c-96ae-431a3404363f"
+    },
+    {
+      "seq": 12,
+      "at": "2026-10-13T07:04:16.716+00:00",
+      "kind": "RESULT",
+      "message": "isolated fixture only",
+      "level": "info",
+      "mode": "ros",
+      "task_id": "ui-f6f12858-9f31-448b-9281-c0cc3d201520",
+      "goal_id": "93aa30f1-f6bb-4c6c-96ae-431a3404363f"
+    }
+  ],
+  "recordings": [],
+  "feedback_received_at": "2026-10-13T07:04:16.601+00:00",
+  "feedback_age_ms": 116,
+  "feedback_fresh": true
+}
