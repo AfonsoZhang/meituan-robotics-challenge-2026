@@ -1,5 +1,7 @@
 # 双仓库当前进度与验收边界
 
+**Web UI 已推送独立 PR（2026-10-13）：** 团队代码 [PR #16](https://github.com/F1u0rite/meituan_challenge_ws/pull/16)（`89bb7f7`）提供 P0–P2 观察/追踪与兼容 HTTP API；它基于尚未合并的 PR #8，未混入 PR #15 的 C1 内核修复。个人源码与证据见 [PR #1](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/pull/1)，包内源码固定来自 `95bfa60`。本轮包构建产物 76 项 Python、30 项 Node 通过，33 个文件匹配；此前 ROS 结果按冻结版本单列。当前联合验证仅限 C++ Mock / GenericSystem Fake Hardware，无真实机械臂控制。两个 PR 均未合并（USER-HW-20261013-07；TEAMMATE-WEBUI-PUBLISH-20261013；ENV-WEBUI-PUBLISH-20261013）。
+
 **C1 独立修复（2026-10-13）：** 已单独提交并推送 [PR #15](https://github.com/F1u0rite/meituan_challenge_ws/pull/15)（`8603e18`，基于 main）；独立分支 366 项 C++ 用例通过，700/400 ms 延迟取消后同栈新任务成功。此前 PR #8 组合另有 365 项测试及七个独立进程场景通过。C1 补丁已从 PR #8 撤出，原内容保留。修复限软件 Mock，未合并、未推进正式 pin；旧失败证据保留。见 [修复报告](c1-cancel-fix.md)（ENV-CANCEL-PR-20261013；USER-HW-20261013-03）。
 
 **当前 Web UI 边界（2026-10-13）：** USER-HW-20261013-05 明确保留 HTTP API、只发送顶层 ExecuteTask Goal，其他模块只读接入，缺发布器预留未知值并等待负责人正式接口。联合验证只在 C++ Mock / GenericSystem Fake Hardware 中进行，不涉及真实机械臂控制。已有任务取消/软件停止保留，导出兼容字段补回；76 项本地 Python 检查通过（ENV-WEBUI-API-20261013）。见 [集中约定](../webui/README.md#接口边界与当前联调范围)及 [记录](web-ui.md)。

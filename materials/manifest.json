@@ -2333,7 +2333,11 @@
         "docs/web-ui.md",
         "webui/README.md",
         "webui/provenance.json",
-        "webui/telemetry-contract.md"
+        "webui/telemetry-contract.md",
+        "docs/experiments/webui-pr-20261013/merge-resolution.json",
+        "docs/experiments/webui-pr-20261013/project-validation.json",
+        "docs/experiments/webui-pr-20261013/summary.json",
+        "docs/experiments/webui-pr-20261013/protocol.md"
       ],
       "legacy_source_id_in_frozen_evidence": "USER-HW-20261013",
       "legacy_source_id_scope": [
@@ -2419,6 +2423,27 @@
         "docs/experiments/webui-api-20261013/protocol.md",
         "docs/experiments/webui-api-20261013/inputs.json",
         "docs/experiments/webui-api-20261013/summary.json"
+      ]
+    },
+    {
+      "id": "USER-HW-20261013-07",
+      "kind": "user_message",
+      "date": "2026-10-13",
+      "source": "本项目用户会话",
+      "original_text": "推送PR",
+      "confirmed": {
+        "publication": "提交当前 Web UI 改动、推送分支并创建 PR"
+      },
+      "scope_note": "沿用既有双仓职责：团队仓库提交 Web 包代码，个人仓库提交源码/来源与冻结证据。根据本次 PR 要求均走独立分支；代码依赖未合并 PR #8，采用以其分支为 base 的增量 PR。这是交付实施安排，不授权自动合并、改变正式 pin 或控制真实机械臂。",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "docs/experiments/webui-pr-20261013/protocol.md",
+        "docs/experiments/webui-pr-20261013/inputs.json",
+        "docs/experiments/webui-pr-20261013/summary.json"
       ]
     }
   ],
@@ -4878,6 +4903,31 @@
         "webui/provenance.json",
         "docs/experiments/webui-p2-20261013/protocol.md",
         "docs/experiments/webui-p2-20261013/summary.json"
+      ]
+    },
+    {
+      "id": "TEAMMATE-WEBUI-PUBLISH-20261013",
+      "type": "github_pull_request",
+      "accessed_on": "2026-10-13",
+      "repository": "https://github.com/F1u0rite/meituan_challenge_ws",
+      "url": "https://github.com/F1u0rite/meituan_challenge_ws/pull/16",
+      "title": "feat(webui): P0–P2 observability and compatible task APIs",
+      "state_at_access": "OPEN",
+      "commit": "89bb7f75994365c1bd3d32ac59f35a81145970c7",
+      "branch": "feat/webui-observability-20261013",
+      "base_branch": "fix/cpp-mock-webui-integration-20261012",
+      "base_commit": "8f11750e0bd2e485826acb904fd31382945ba0b9",
+      "personal_source_commit": "95bfa6002db3dd5330461efcfcd0cc8112323246",
+      "personal_pr": "https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/pull/1",
+      "scope": "已发布 Web UI P0–P2 及 HTTP 兼容增量；36 个 Web/包安装/说明文件，无 FSM/Action/Cancel/Motion 内核变更；依赖 PR #8，C1 修复仍为独立 PR #15",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "docs/experiments/webui-pr-20261013/protocol.md",
+        "docs/experiments/webui-pr-20261013/summary.json"
       ]
     }
   ],
@@ -9694,6 +9744,43 @@
           "reason": "parallel-session ID collision; frozen bytes unchanged"
         }
       }
+    },
+    {
+      "id": "ENV-WEBUI-PUBLISH-20261013",
+      "kind": "local_package_validation_and_dual_pr_publication",
+      "date": "2026-10-13",
+      "scope": "宿主离线 Python 包构建/测试与 GitHub 发布检查；无新 ROS/GenericSystem/C++ 或实机运行",
+      "method": "76 Python on built package; 30 Node + JS syntax; 33 built hashes; 4 prior UI evidence sets; new branches and PR receipts with exact head verification",
+      "report": "docs/web-ui.md",
+      "index": "docs/experiments/webui-pr-20261013/index.json",
+      "index_sha256": "20227cb227f95b9edb80da31dde79c7c43abea545c67605cc4c53f389ab37c47",
+      "file_count": 15,
+      "total_bytes": 49281,
+      "tests": {
+        "python_package_build": "PASS",
+        "python": 76,
+        "node": 30,
+        "javascript_syntax": "PASS",
+        "package_entry_help": "PASS",
+        "matching_built_files": 33
+      },
+      "limitations": [
+        "Code PR is stacked on unmerged PR #8; PR15 C1 kernel fix remains separate",
+        "Current joint validation scope is C++ Mock / GenericSystem Fake Hardware; no real arm control",
+        "Real optional state publishers and complete Task→FJT Fake wiring still pending",
+        "Prior native ROS/browser checks remain scoped to their frozen versions; not rerun for this publication",
+        "PR creation receipt is a point-in-time record; personal documentation commits can advance its head"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/web-ui.md",
+        "docs/experiments/webui-pr-20261013/protocol.md",
+        "docs/experiments/webui-pr-20261013/inputs.json",
+        "docs/experiments/webui-pr-20261013/summary.json"
+      ]
     }
   ]
 }

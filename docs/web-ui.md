@@ -1,8 +1,20 @@
 # 实机 Web 操作台：实现与验证
 
+**Web UI 已推送独立 PR（2026-10-13）：** 团队代码 [PR #16](https://github.com/F1u0rite/meituan_challenge_ws/pull/16)（`89bb7f7`）提供 P0–P2 观察/追踪与兼容 HTTP API；它基于尚未合并的 PR #8，未混入 PR #15 的 C1 内核修复。个人源码与证据见 [PR #1](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/pull/1)，包内源码固定来自 `95bfa60`。本轮包构建产物 76 项 Python、30 项 Node 通过，33 个文件匹配；此前 ROS 结果按冻结版本单列。当前联合验证仅限 C++ Mock / GenericSystem Fake Hardware，无真实机械臂控制。两个 PR 均未合并（USER-HW-20261013-07；TEAMMATE-WEBUI-PUBLISH-20261013；ENV-WEBUI-PUBLISH-20261013）。
+
 用户澄清“我要的是实机操作台”（USER-HW-20261011-07，2026-10-11 用户会话）。新版 `webui/` 默认连接真实 **ROS 2 Jazzy** 客户端，提供任务提交/取消、软件停止、FSM/设备/工具状态、RGB-D、关节及日志。没有配置或设备消息时显示离线、禁止提交，不生成演示状态。个人主责仍为系统集成与验收，兼做 Web UI（USER-HW-20261011-03）。
 
 发布整理说明：P0 用户要求统一登记为 USER-HW-20261013-06。四组已冻结 UI 证据中原编号 `USER-HW-20261013` 保留原字节，仅在各自目录内映射到本条 P0 要求；该旧编号在最新主线已登记另一会话的“验收”要求。映射范围见 manifest，不合并两条不同原话。
+
+## 2026-10-13：PR 交付与发布检查
+
+用户要求“推送PR”（USER-HW-20261013-07，用户会话）。已创建团队 [PR #16](https://github.com/F1u0rite/meituan_challenge_ws/pull/16)，提交 `89bb7f75994365c1bd3d32ac59f35a81145970c7`；评审 base 为 `fix/cpp-mock-webui-integration-20261012@8f11750…`（PR #8）。它只变更 Web 模块、安装依赖/资源和来源说明，待 PR #8 合入后可将 base 调整为 main，未自动合并。C1 内核修复保持在独立 PR #15。
+
+包内源码来自本仓库 `95bfa6002db3dd5330461efcfcd0cc8112323246`；适配仅包括 `webui` → `mtc_webui` Python 命名空间、包内入口/路径和指向该固定 SHA 的证据链接。个人 [PR #1](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/pull/1) 保留最新主线验收/C1 内容并加入 UI 源码、原冻结证据和本次发布记录。来源编号冲突按上文限定目录映射解决，四组 UI 证据未改写。
+
+ENV-WEBUI-PUBLISH-20261013：候选 Python 包构建及入口检查通过，构建产物 **76 项 Python**（包括此前新增的 3 项兼容性用例）、**30 项 Node** 与全部 JS 语法检查通过，33 个构建文件与源码一致。构建检查使用宿主 Python 3.10，不冒充新一轮 colcon/Jazzy、C++ Mock / GenericSystem 或实机运行。阶段限制仍按 USER-HW-20261013-05；未接通的真实发布器/完整 Fake 链路不因此关闭。
+
+发布检查的[协议](experiments/webui-pr-20261013/protocol.md)、[摘要](experiments/webui-pr-20261013/summary.json)、[远端 PR 回执](experiments/webui-pr-20261013/upstream-pr-created.json)与[索引](experiments/webui-pr-20261013/index.json)保存精确版本与范围。回执记录创建时个人源码提交；本报告和回执索引属于随后资料提交，不能把创建时 SHA 当作资料 PR 永久不变的 head。
 
 ## 2026-10-13：接口边界与兼容性
 

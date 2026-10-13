@@ -1,5 +1,7 @@
 # 美团第四届低空经济与具身智能挑战赛 · 2026
 
+**Web UI 已推送独立 PR（2026-10-13）：** 团队代码 [PR #16](https://github.com/F1u0rite/meituan_challenge_ws/pull/16)（`89bb7f7`）提供 P0–P2 观察/追踪与兼容 HTTP API；它基于尚未合并的 PR #8，未混入 PR #15 的 C1 内核修复。个人源码与证据见 [PR #1](https://github.com/AfonsoZhang/meituan-robotics-challenge-2026/pull/1)，包内源码固定来自 `95bfa60`。本轮包构建产物 76 项 Python、30 项 Node 通过，33 个文件匹配；此前 ROS 结果按冻结版本单列。当前联合验证仅限 C++ Mock / GenericSystem Fake Hardware，无真实机械臂控制。两个 PR 均未合并（USER-HW-20261013-07；TEAMMATE-WEBUI-PUBLISH-20261013；ENV-WEBUI-PUBLISH-20261013）。
+
 **C1 独立修复（2026-10-13）：** 已单独提交并推送 [PR #15](https://github.com/F1u0rite/meituan_challenge_ws/pull/15)（`8603e18`，基于 main）；独立分支 366 项 C++ 用例通过，700/400 ms 延迟取消后同栈新任务成功。此前 PR #8 组合另有 365 项测试及七个独立进程场景通过。C1 补丁已从 PR #8 撤出，原内容保留。修复限软件 Mock，未合并、未推进正式 pin；旧失败证据保留。见 [修复报告](docs/c1-cancel-fix.md)（ENV-CANCEL-PR-20261013；USER-HW-20261013-03）。
 
 **2026-10-13 主线复验：部分通过，整体验收未通过。** 固定main `b418515` 的15包构建、普通/UBSan各486项C++、269项Python及15/6/54项补充检查通过；并发重复第18轮出现M1断言失败（179次执行通过、1次失败，首败即停）。真实C++ Task→PickPlace基础/序列/及时取消通过，独立PR8 `7da4322` 的C1延迟取消再次ACK后6/520；旧Python220/510/520、原生Status/执行权BLOCKED及MoveIt退出-11仍保留。正式pin不变，无实机验收。见[本轮验收与SOP](docs/main-acceptance-20261013.md)及[冻结索引](docs/experiments/main-acceptance-20261013/index.json)（USER-HW-20261013，用户会话；TEAMMATE-MAIN-20261013；ENV-MAIN-ACCEPTANCE-20261013）。

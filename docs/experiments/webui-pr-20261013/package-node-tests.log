@@ -1,0 +1,190 @@
+TAP version 13
+# Subtest: input order, battery index and target come from separate observed fields
+ok 1 - input order, battery index and target come from separate observed fields
+  ---
+  duration_ms: 3.814922
+  type: 'test'
+  ...
+# Subtest: expired feedback and paused browser clear current targets and graph highlight
+ok 2 - expired feedback and paused browser clear current targets and graph highlight
+  ---
+  duration_ms: 0.800105
+  type: 'test'
+  ...
+# Subtest: external task never borrows this session's command or target
+ok 3 - external task never borrows this session's command or target
+  ---
+  duration_ms: 0.410148
+  type: 'test'
+  ...
+# Subtest: ABORTED 520 remains a failed final result even after Cancel ACK
+ok 4 - ABORTED 520 remains a failed final result even after Cancel ACK
+  ---
+  duration_ms: 2.48699
+  type: 'test'
+  ...
+# Subtest: FSM TRANSPORT and successful task do not manufacture motion or progress
+ok 5 - FSM TRANSPORT and successful task do not manufacture motion or progress
+  ---
+  duration_ms: 0.344695
+  type: 'test'
+  ...
+# Subtest: FJT feedback time is displayed without guessing expected duration
+ok 6 - FJT feedback time is displayed without guessing expected duration
+  ---
+  duration_ms: 0.454888
+  type: 'test'
+  ...
+# Subtest: joint values follow names and missing velocities are not zero
+ok 7 - joint values follow names and missing velocities are not zero
+  ---
+  duration_ms: 0.531328
+  type: 'test'
+  ...
+# Subtest: target comparison uses one frame and does not combine unrelated joint samples
+ok 8 - target comparison uses one frame and does not combine unrelated joint samples
+  ---
+  duration_ms: 0.244041
+  type: 'test'
+  ...
+# Subtest: mismatched executor UUID cannot label another controller's motion
+ok 9 - mismatched executor UUID cannot label another controller's motion
+  ---
+  duration_ms: 0.7526
+  type: 'test'
+  ...
+# Subtest: new FJT status quarantines old telemetry before the first feedback arrives
+ok 10 - new FJT status quarantines old telemetry before the first feedback arrives
+  ---
+  duration_ms: 0.716919
+  type: 'test'
+  ...
+# Subtest: Stop Request reply, task CANCELED and old true flag are not independent confirmation
+ok 11 - Stop Request reply, task CANCELED and old true flag are not independent confirmation
+  ---
+  duration_ms: 0.35629
+  type: 'test'
+  ...
+# Subtest: C++ Mock cannot claim hardware stop; a busy slot is not a fault lock
+ok 12 - C++ Mock cannot claim hardware stop; a busy slot is not a fault lock
+  ---
+  duration_ms: 0.252047
+  type: 'test'
+  ...
+# Subtest: target requires current feedback ID, never matching color or duplicate ID
+ok 13 - target requires current feedback ID, never matching color or duplicate ID
+  ---
+  duration_ms: 3.149825
+  type: 'test'
+  ...
+# Subtest: stale detections, completed/foreign tasks and paused transport clear highlights
+ok 14 - stale detections, completed/foreign tasks and paused transport clear highlights
+  ---
+  duration_ms: 1.433158
+  type: 'test'
+  ...
+# Subtest: fresh array cannot refresh an old/invalid pose or invent validity
+ok 15 - fresh array cannot refresh an old/invalid pose or invent validity
+  ---
+  duration_ms: 1.964693
+  type: 'test'
+  ...
+# Subtest: zero detections and unavailable perception differ
+ok 16 - zero detections and unavailable perception differ
+  ---
+  duration_ms: 0.406322
+  type: 'test'
+  ...
+# Subtest: planner preserves watchdog reason and marks foreign task reports
+ok 17 - planner preserves watchdog reason and marks foreign task reports
+  ---
+  duration_ms: 0.30315
+  type: 'test'
+  ...
+# Subtest: command-only Attached and verified Detached are not independent mounting
+ok 18 - command-only Attached and verified Detached are not independent mounting
+  ---
+  duration_ms: 0.537141
+  type: 'test'
+  ...
+# Subtest: trial lift does not imply seated; proof identity and freshness are mandatory
+ok 19 - trial lift does not imply seated; proof identity and freshness are mandatory
+  ---
+  duration_ms: 0.605712
+  type: 'test'
+  ...
+# Subtest: nanoseconds preserve exact precision
+ok 20 - nanoseconds preserve exact precision
+  ---
+  duration_ms: 0.296797
+  type: 'test'
+  ...
+# Subtest: eight missing modules remain unknown even when graph sees servers
+ok 21 - eight missing modules remain unknown even when graph sees servers
+  ---
+  duration_ms: 2.437393
+  type: 'test'
+  ...
+# Subtest: fresh failure is abnormal, not green for message arrival
+ok 22 - fresh failure is abnormal, not green for message arrival
+  ---
+  duration_ms: 0.952894
+  type: 'test'
+  ...
+# Subtest: TF availability does not imply valid calibration
+ok 23 - TF availability does not imply valid calibration
+  ---
+  duration_ms: 0.433979
+  type: 'test'
+  ...
+# Subtest: TF lookup failure is abnormal; stale failure is unknown
+ok 24 - TF lookup failure is abnormal; stale failure is unknown
+  ---
+  duration_ms: 0.522083
+  type: 'test'
+  ...
+# Subtest: robot with unknown fault or stop is not green
+ok 25 - robot with unknown fault or stop is not green
+  ---
+  duration_ms: 2.276586
+  type: 'test'
+  ...
+# Subtest: cancel status alone cannot color missing robot healthy
+ok 26 - cancel status alone cannot color missing robot healthy
+  ---
+  duration_ms: 0.381784
+  type: 'test'
+  ...
+# Subtest: pick substate requires the same observed Goal
+ok 27 - pick substate requires the same observed Goal
+  ---
+  duration_ms: 0.620573
+  type: 'test'
+  ...
+# Subtest: pause drops all modules to unknown; no stale green
+ok 28 - pause drops all modules to unknown; no stale green
+  ---
+  duration_ms: 0.508127
+  type: 'test'
+  ...
+# Subtest: recovered Task does not retain historic failure as current module fault
+ok 29 - recovered Task does not retain historic failure as current module fault
+  ---
+  duration_ms: 0.871715
+  type: 'test'
+  ...
+# Subtest: FJT feedback online and stale status remain distinct
+ok 30 - FJT feedback online and stale status remain distinct
+  ---
+  duration_ms: 1.200546
+  type: 'test'
+  ...
+1..30
+# tests 30
+# suites 0
+# pass 30
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 139.945253
