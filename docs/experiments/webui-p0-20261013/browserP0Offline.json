@@ -1,0 +1,8 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "### Result\n{\"motion\":\"未知\",\"joints\":\"尚未收到关节反馈；不以 0 填充缺失值\",\"stop\":\"未确认\",\"highlights\":0,\"submitDisabled\":true,\"cancelDisabled\":true,\"stopDisabled\":true,\"primitive\":\"未提供\",\"overflow\":false}\n### Ran Playwright code\n```js\nawait (async(page)=>{ await page.waitForFunction(()=>document.querySelector('#connection').textContent.includes('ROS 离线')); return await page.evaluate(()=>({motion:document.querySelector('#motion-physical').textContent,joints:document.querySelector('#joints').textContent,stop:document.querySelector('#safety-stop-confirmed').textContent,highlights:document.querySelectorAll('.fsm-flow [aria-current=step]').length,submitDisabled:document.querySelector('#submit').disabled,cancelDisabled:document.querySelector('#cancel').disabled,stopDisabled:document.querySelector('#software-stop').disabled,primitive:document.querySelector('#motion-primitive').textContent,overflow:document.documentElement.scrollWidth>innerWidth})); })(page);\n```"
+    }
+  ]
+}

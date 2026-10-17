@@ -1,0 +1,21 @@
+P2：系统调试与比赛使用体验
+7. ROS 2 系统状态面板
+
+希望可以显示主要模块的在线状态：
+
+模块 | 需要显示 -- | -- Task Server | 在线状态、当前任务 PickPlace FSM | 在线状态、当前子状态 Vision | 在线状态、检测数据新鲜度 Calibration / TF | TF 是否可用、标定是否有效 MoveIt Planner | 在线状态、规划状态 FJT Execution | 在线状态、Goal 执行状态 Tool Manager | 在线状态、工具状态 Robot / Controller | 通信、Ready、Fault、StopConfirmed
+这部分最好区分三种情况：正常、异常、未知/尚未接入。
+
+未接入的模块不要显示绿色，也不要通过生成虚假的 RobotState 或 ToolState 让页面看起来正常。
+
+8. 日志和错误追踪
+
+现在已经有日志导出能力，希望后续进一步支持：
+
+按任务 ID、Goal UUID 查询日志。
+按模块筛选事件。
+展示状态转换时间线。
+显示最近一次失败原因。
+关联父 ExecuteTask、子 PickPlace 和 FJT Goal。
+导出完整任务执行记录。
+这样我们现场调试时能够快速定位问题发生在视觉、规划、FSM 还是执行端。

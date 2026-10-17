@@ -1,0 +1,272 @@
+diff --git a/webui/README.md b/webui/README.md
+index 0435473..0a01f67 100644
+--- a/webui/README.md
++++ b/webui/README.md
+@@ -2,6 +2,25 @@
+ 
+ 用户澄清“我要的是实机操作台”（USER-HW-20261011-07，2026-10-11 用户会话）。`webui/` 默认连接 **ROS 2 Jazzy**：真实 ExecuteTask Action、TaskState/RobotState/ToolState、关节、RGB-D 和 ROS 日志。缺少环境、配置或消息时显示离线，不回退到演示数据。早期 Mock 保留为 `--mock`，原始证据不改写（USER-HW-20261011-06、DEMO-WEBUI-MOCK-20261011）。
+ 
++## 接口边界与当前联调范围
++
++USER-HW-20261013-05（2026-10-13 用户会话）明确：面向实机的操作台目标保留，**现阶段联合验证仅限 C++ Mock / GenericSystem Fake Hardware，不涉及真实机械臂控制**。
++
++- 保留现有 HTTP URL、方法、任务请求字段及核心响应字段。状态扩展以 `GET /api/snapshot` 的可选字段和只读查询提供，现有调用者不需改任务提交格式。
++- 网页只发送顶层 `ExecuteTask` Goal。已有的定向任务取消与软件停止请求继续使用原接口；不增加 PickPlace、FJT、工具 IO、关节点动或规划调用按钮。
++- 模块通过 ROS 2 Topic 或统一只读状态接口提供事实；Web 负责订阅、适配和显示。PickPlace/FJT 仅观察 Feedback/Status/GetResult，不创建其 Goal/Cancel 客户端。
++- 尚未发布状态的模块先保留数据结构与显示区域，值为 null/未知/尚未接入。下面的可选 JSON 是已实现消费者的预留格式，**正式接口由对应模块负责人提供并确认**；接入差异在适配层处理，不要求上游为页面生成正常状态。
++
++| 状态区域 | 已有读取能力 | 待交接内容 |
++| --- | --- | --- |
++| 任务与安全 | ExecuteTask、TaskState、独立 RobotState | FSM / 执行端负责人提供真实状态与停止证据；ACK、最终结果、StopConfirmed 分开 |
++| 运动 | JointState、控制器状态、只读 FJT | 执行端负责人提供原语、command_id/trajectory_id、进度及预计时长，见 [P0](telemetry-contract.md) |
++| 视觉 | BatteryDetectionArray、RGB/Depth | 视觉负责人提供正式检测、图像与后续像素框/帧同步约定，见 [P1](p1-contract.md) |
++| 规划与工具 | Planner / 工具验证消费者、原生 ToolState | 各模块负责人提供规划检查/失败和独立试提/落座证据，见 [P1](p1-contract.md) |
++| 标定与追踪 | TF 查询、标定和 Goal 关联消费者 | 标定负责人确认坐标链/有效性；FSM / 执行端提供显式跨层 UUID，见 [P2](p2-contract.md) |
++
++C++ Mock 任务联调使用下文 `--cpp-mock` 入口；GenericSystem Fake Hardware 的状态观察使用隔离 ROS 域及 `--readonly`。完整 Task→FJT Fake 闭环仍待模块接线，不能通过伪造 `RobotState` / `ToolState` 或放宽实机模式门禁补齐。历史 `--mock` 定时演示不能作为 C++ Mock / Fake 联合验证结果。
++
+ ## P2 更新（2026-10-13）
+ 
+ 按 USER-HW-20261013-04 增加八模块系统状态、独立 TF/标定判断与日志追踪。模块分正常/异常/未知；缺失、过期或尚未接入保持未知。原生 PickPlace 与 FJT 只读接收，不下发它们的 Goal/Cancel。任务记录支持 task_id、Goal UUID、模块、状态转换和错误筛选；SQLite 索引与 JSONL 保留完整已记录事件，导出不受页面窗口限制。
+@@ -26,9 +45,9 @@ FJT 通过只读 Feedback/Status/GetResult 接入，不增加执行 Goal 客户
+ 
+ 新增验证 ENV-WEBUI-P0-20261013：54 项 Python、12 项前端语义、5 项隔离 Jazzy 接口检查通过；浏览器检查成功序列、注入 520、暂停与手机布局。测试消息和 execution telemetry 均由隔离夹具生成，**不代表 Phase 2C 或实机闭环**。历史 33/9 项验证保留在原目录，本轮不重新计为新结果。
+ 
+-## 启动
++## ROS 客户端配置参考
+ 
+-在已经安装 Jazzy、构建 `mtc_interfaces` 并启动机器人业务节点的 NUC 上，从本仓库根目录运行：
++以下保留后续 NUC 部署所需的配置说明，尚未进行实机验收。本阶段在隔离 Mock / Fake 工作空间验证，入口与观察限制见上文；不在真实设备上执行以下部署流程。
+ 
+ ```bash
+ # 沿用该实机 ROS 环境已有的 ROS_DOMAIN_ID；未设置时页面显示配置缺失。
+@@ -108,11 +127,14 @@ HTTP 202 只表示命令入队，**不是 ROS 受理**。真实 Action 回调分
+ | `POST /api/stop` | `{}`；202 仅排队，stop_request 单独报告回执 |
+ | `GET /api/camera/color`、`/api/camera/depth` | 新鲜 JPEG；缺失或过期返回 404，不展示旧帧 |
+ | `GET /api/tasks/{task_id}`、`/api/export` | 单任务 / 会话 JSON 下载 |
++| `GET /api/events` | P2 新增的只读日志查询；按任务/Goal/模块/转换/错误筛选，不改变任务写接口 |
+ | `POST /api/demo/*` | 只存在于显式 --mock 模式；实机返回 404 |
+ 
++快照保持 `schema_version=1`。ROS 会话导出保留原有 `snapshot`、`tasks`、`events`、`note` 及每个任务的 `events` 字段，默认附件名仍为 `webui-session.json`；P2 的 `schema_version=2` 是扩展导出载荷标识（旧 ROS 导出无此字段），新增 trace/coverage 等诊断信息，HTTP 路由与请求格式不变。事件由窗口预览扩展为全部已记录事件，按先后顺序排列；可选筛选同时作用于顶层 `events` 和 `tasks[].events`。兼容性回归见 ENV-WEBUI-API-20261013。
++
+ 样本包装字段 source/received_at/source_stamp_ns/age_ms/fresh 属于 Web 桥接层，不是上游 ROS IDL。浏览器另检查自身最后收包龄期；暂停、断线期间禁用任务写操作，恢复只获取快照。相机是观察图，不是机器人位置或碰撞证明。
+ 
+-每次启动新建 `outputs/webui-<时间>-<随机后缀>/`，或指定 `--output-dir <新目录>`；拒绝覆盖。目录含 connection.json、完整 events.jsonl、按 task_id 保存的 Goal/Result/事件，保留失败和取消。页面仅展示本次会话；会话事件内存窗口 500 条，单任务窗口 300 条，全量事件在 JSONL。ROS /rosout 记录 mtc 与已知业务节点；不是任意系统日志抓取器。录像字段仍为空。
++每次启动新建 `outputs/webui-<时间>-<随机后缀>/`，或指定 `--output-dir <新目录>`；拒绝覆盖。目录含 connection.json、完整 events.jsonl / events.sqlite3、按 task_id 保存的 Goal/Result/事件，保留失败和取消。页面仅展示本次会话；会话事件内存窗口 500 条，单任务窗口 300 条；全量事件查询与导出读取持久索引，磁盘任务 JSON 保留有界预览。ROS /rosout 记录 mtc 与已知业务节点；不是任意系统日志抓取器。录像字段仍为空。
+ 
+ ## 验证与边界
+ 
+diff --git a/webui/p1-contract.md b/webui/p1-contract.md
+index e80e35f..c7a0246 100644
+--- a/webui/p1-contract.md
++++ b/webui/p1-contract.md
+@@ -2,6 +2,8 @@
+ 
+ 范围来自 USER-HW-20261013-02（用户会话）。此文给出已实现的 Web 消费接口及尚待负责人提供的发布端，不修改 FSM/Planner/工具内核。正式基线仍为 `1d940f7c5f12561fed6641457c0b4b630a282b05`。
+ 
++按 USER-HW-20261013-05 的[统一接口边界](README.md#接口边界与当前联调范围)，可选 Planner / 工具验证格式属于消费侧预留，正式状态接口由各模块负责人提供并确认。通过 ROS Topic 或统一只读状态适配，保留现有 HTTP API，不增加规划调用或工具 IO 按钮；当前联合验证仅在 C++ Mock / GenericSystem Fake Hardware 中进行。
++
+ ## 原生视觉与图像
+ 
+ 默认订阅 `/mtc/perception/batteries`，类型 `mtc_interfaces/msg/BatteryDetectionArray`。可用 `perception_topic` / `perception_publisher` 指定；每路必须唯一发布者，来源变更、重复发布者、过期或无效源时间撤销当前显示。上游要求 RELIABLE + KEEP_LAST(5)；Web 使用兼容的 sensor-data reader，仅观察、不参与运动放行。
+diff --git a/webui/p2-contract.md b/webui/p2-contract.md
+index 04816cd..6e271c6 100644
+--- a/webui/p2-contract.md
++++ b/webui/p2-contract.md
+@@ -2,6 +2,8 @@
+ 
+ 2026-10-13，USER-HW-20261013-04。实现限 Web UI 观察与记录，不改变 FSM / Action / Cancel / Motion 内核，不发布 RobotState 或 ToolState。正式源码 pin 不变。OpenAI Codex 协助实现与检查。
+ 
++USER-HW-20261013-05 补充[统一接口边界](README.md#接口边界与当前联调范围)：保留现有 HTTP API，未发布状态的模块保留结构和未知值，可选标定/关联格式等待对应模块负责人确认正式接口；当前联合验证仅限 C++ Mock / GenericSystem Fake Hardware，无真实机械臂控制。
++
+ ## 八个模块的三态
+ 
+ 面板分别显示正常、异常、未知/尚未接入，以及在线证据、当前值、来源、数据龄期。服务发现只能证明服务可见。状态消息过期、唯一来源丢失、浏览器暂停或失联后，当前正面结果不保持绿色；历史失败单独保留时间。
+@@ -81,6 +83,8 @@ UUID 必须有效、非零、层级间不同；FJT 可缺省。必须报告实
+ - `GET /api/export`：本会话执行记录；同样支持筛选，导出不受分页或页面内存窗口限制。
+ - `GET /api/tasks/<owned-task-id>`：本会话持有任务的参数、真实回执/结果、各层已关联事件、最近失败和关系图。
+ 
++兼容原会话导出的 `snapshot` / `tasks` / `events` / `note` 和 `tasks[].events`，附件名保留 `webui-session.json`。扩展字段为附加诊断数据，旧任务提交/取消/停止接口不变。筛选同时作用于顶层与任务内的事件数组，两者均按时间先后排列；导出快照检查产生的新 UNKNOWN 事件也包含在同一份记录中（ENV-WEBUI-API-20261013）。
++
+ `module` 为 task / pickplace / vision / calibration / planner / execution / tool / robot / system。筛选条件取交集；最多 200 条/页。历史失败保留原始错误码，例如 ABORTED/520 或 EXCEEDS_STATE_WATCHDOG。状态转换记录前后值、来源和可获得的源时间；换源后的第一次观察不补造跨源转换。
+ 
+ 会话目录中 `events.jsonl` 逐条追加，`events.sqlite3` 为完整查询索引；内存仍有界。服务重启创建新目录，旧文件不覆盖，当前页面不自动导入旧会话。未指定输出目录的直接 Python 单测使用内存索引并明确标识不落盘；正式 server 默认创建会话目录。
+diff --git a/webui/provenance.json b/webui/provenance.json
+index 4be9f79..4c58846 100644
+--- a/webui/provenance.json
++++ b/webui/provenance.json
+@@ -130,7 +130,7 @@
+     "P1 Planner 和试提/落座遥测消费者已实现，发布端须由模块负责人提供",
+     "P1 合成图像/检测/错误/验证事件仅用于 UI 接口检查，独立于上游功能或实机验证"
+   ],
+-  "user_scope_source": "USER-HW-20261013-04",
++  "user_scope_source": "USER-HW-20261013-05",
+   "api_references": [
+     {
+       "url": "https://github.com/ros2/rclpy/blob/jazzy/rclpy/rclpy/action/client.py",
+@@ -195,5 +195,16 @@
+     "missing_producers": "Calibration 有效性 / 跨层 FJT trace 为新增消费契约，真实发布器待交付；TF pairs 须现场配置",
+     "record_scope": "会话开始后的已接收已记录事件；非 ROS bag，无启动前/未接收信息，不按时间猜测 Goal 归属",
+     "validation_scope": "独立 Jazzy ROS 夹具，不代表 NUC、上游完整模块或实物测量"
++  },
++  "interface_boundary_update": {
++    "source_ids": [
++      "USER-HW-20261013-05",
++      "ENV-WEBUI-API-20261013"
++    ],
++    "scope": "保留 HTTP v1 请求及核心响应，恢复导出 note / tasks[].events / 原附件名，补充同一导出快照与事件的一致性；无新增低层控制",
++    "state_contracts": "可选状态 JSON 是已实现消费侧预留，正式接口由模块负责人确认",
++    "joint_validation_scope": "C++ Mock / GenericSystem Fake Hardware only; no real arm control",
++    "validation": "76 offline Python checks, including 3 new compatibility cases; no ROS or hardware run this increment",
++    "ai_assistance": "OpenAI Codex：审计、兼容性修正、测试和文档同步"
+   }
+ }
+diff --git a/webui/ros_backend.py b/webui/ros_backend.py
+index 95ef355..285aaa5 100644
+--- a/webui/ros_backend.py
++++ b/webui/ros_backend.py
+@@ -567,11 +567,24 @@ class RosBackend:
+ 
+     def export_session(self, **filters):
+         with self.lock:
++            # snapshot() may record a newly timed-out Goal; include it in this export.
++            snapshot = self.snapshot()
+             data = self.journal.query(**filters, all_rows=True)
+-            data.update(schema_version=2, session_id=self.session_id, config=asdict(self.config), snapshot=self.snapshot(),
+-                        tasks=[{k: v for k, v in self._public(t).items() if k != "events"} for t in self.tasks.values()
+-                               if any(goal_key(t["goal_id"]) == n["goal_id"] for n in data["trace"]["nodes"])],
+-                        events=list(reversed(data["events"])))
++            events = list(reversed(data["events"]))
++            selected = {node["goal_id"] for node in data["trace"]["nodes"]}
++            tasks = []
++            for task in self.tasks.values():
++                if goal_key(task["goal_id"]) not in selected:
++                    continue
++                record = self._public(task)
++                # Retain the v1 task.events field, including all matching recorded
++                # events rather than its bounded live preview. Filters apply here too.
++                record["events"] = [event for event in events if event.get("task_id") == task["task_id"]
++                                    or task["task_id"] in event.get("related_task_ids", [])]
++                tasks.append(record)
++            data.update(schema_version=2, session_id=self.session_id, config=asdict(self.config), snapshot=snapshot,
++                        tasks=tasks, events=events,
++                        note="本会话已记录事件按时间顺序导出；筛选同时应用于 events 和 tasks[].events，不受内存窗口限制")
+             return data
+ 
+     def close(self):
+diff --git a/webui/server.py b/webui/server.py
+index a41584b..9c39460 100644
+--- a/webui/server.py
++++ b/webui/server.py
+@@ -106,7 +106,7 @@ class Handler(BaseHTTPRequestHandler):
+                         raise ApiError(400, "INVALID_QUERY", "日志查询参数无效") from None
+                     if path == "/api/export":
+                         filters.pop("before", None)
+-                        return self._reply(200, backend.export_session(**filters), download="webui-execution-record.json")
++                        return self._reply(200, backend.export_session(**filters), download="webui-session.json")
+                     return self._reply(200, backend.query_events(**filters))
+                 if path == "/api/export":
+                     return self._reply(200, backend.export_session(), download="webui-session.json")
+diff --git a/webui/telemetry-contract.md b/webui/telemetry-contract.md
+index 20c8608..f1c1162 100644
+--- a/webui/telemetry-contract.md
++++ b/webui/telemetry-contract.md
+@@ -2,6 +2,8 @@
+ 
+ 本约定属于 Web 桥接层 v1，由 USER-HW-20261013 的 P0 要求派生；不是已存在的上游 ROS IDL。2026-10-13 核对 PR #8 `7da4322…` 与 Phase 2C PR #13 `22b0607…`，尚无发布原语名、command_id、trajectory_id、预计总时长和进度的 Web 遥测节点（TEAMMATE-WEBUI-P0-20261013）。客户端已可消费这些字段；发布端需由 Motion Execution 负责人提供，缺失时页面显示“未提供”。
+ 
++USER-HW-20261013-05 明确[统一接口边界](README.md#接口边界与当前联调范围)：以下可选格式是消费侧预留，正式状态接口待执行端负责人确认。现有 HTTP API 保持兼容，网页仅发送顶层 ExecuteTask Goal；当前联合验证仅限 C++ Mock / GenericSystem Fake Hardware，不控制真实机械臂。
++
+ ## 直接使用的原生接口
+ 
+ | 数据源 | 页面字段 | 限制 |
+diff --git a/webui/test_ros_backend.py b/webui/test_ros_backend.py
+index dafb74c..e246640 100644
+--- a/webui/test_ros_backend.py
++++ b/webui/test_ros_backend.py
+@@ -233,6 +233,85 @@ class RealBackendTests(unittest.TestCase):
+             with self.assertRaises(ApiError):
+                 self.backend.camera_frame("color")
+ 
++    def test_export_keeps_legacy_task_events_and_complete_filtered_history(self):
++        self.ready()
++        identity = self.submit()["goal_id"]
++        task = self.backend.tasks["real-1"]
++        for i in range(650):
++            self.backend._event("ROS_LOG", str(i), task)
++        child = "b" * 32
++        self.backend.declare_trace(dict(execute_goal_id=identity, pick_goal_id=child, task_id="real-1"), "/fixture")
++        self.backend._event("PICK_RESULT", "stop unconfirmed", module="pickplace", goal_id=child,
++                            level="error", error_code=520)
++        exported = self.backend.export_session()
++        self.assertTrue({"snapshot", "tasks", "events", "note"} <= exported.keys())
++        record = exported["tasks"][0]
++        self.assertEqual(record["task_id"], "real-1")
++        self.assertEqual(record["goal_id"], identity)
++        self.assertEqual(len([e for e in record["events"] if e["kind"] == "ROS_LOG"]), 650)
++        self.assertEqual(record["events"][0]["kind"], "GOAL_REQUESTED")
++        self.assertEqual(record["events"][-1]["error_code"], 520)
++        self.assertEqual([e["seq"] for e in record["events"]], sorted(e["seq"] for e in record["events"]))
++        self.assertEqual(len(task["events"]), 300)
++        filtered = self.backend.export_session(goal_id=child, module="pickplace", errors=True)
++        self.assertEqual(filtered["total"], 1)
++        self.assertEqual(filtered["tasks"][0]["events"], filtered["events"])
++
++    def test_export_records_timeout_in_same_snapshot_and_event_list(self):
++        self.ready()
++        self.submit()
++        self.clock.now += 11
++        exported = self.backend.export_session()
++        self.assertEqual(exported["snapshot"]["task"]["status"], "UNKNOWN")
++        self.assertEqual(exported["tasks"][0]["status"], "UNKNOWN")
++        self.assertEqual(exported["events"][-1]["kind"], "ACTION_UNKNOWN")
++        self.assertEqual(exported["events"][-1]["seq"], exported["snapshot"]["event_seq"])
++
++    def test_http_v1_task_cancel_stop_and_readonly_additions_remain_compatible(self):
++        self.ready()
++        server = Server(("127.0.0.1", 0), self.backend)
++        thread = threading.Thread(target=server.serve_forever, daemon=True)
++        thread.start()
++        self.addCleanup(server.server_close)
++        self.addCleanup(thread.join)
++        self.addCleanup(server.shutdown)
++        base = f"http://127.0.0.1:{server.server_port}"
++
++        def post(path, payload):
++            return urlopen(Request(base + path, data=json.dumps(payload).encode(),
++                                   headers={"Content-Type": "application/json"}), timeout=5)
++
++        payload = goal("http-compat")
++        del payload["scenario"]
++        with post("/api/tasks", payload) as response:
++            self.assertEqual(response.status, 202)
++            ack = json.load(response)
++        self.assertEqual(set(ack), {"task_id", "goal_id", "status"})
++        self.assertEqual(ack["status"], "SUBMITTING")
++        self.backend.accepted(ack["goal_id"], True)
++        with post("/api/tasks/http-compat/cancel", {"goal_id": ack["goal_id"]}) as response:
++            self.assertEqual(response.status, 202)
++            self.assertIsNone(json.load(response)["request_delivered"])
++        with post("/api/stop", {}) as response:
++            self.assertEqual(response.status, 202)
++        calls = list(self.backend.transport.calls)
++        self.assertEqual([call[0] for call in calls], ["submit", "cancel", "stop"])
++        for path in ("/api/snapshot", "/api/tasks/http-compat", "/api/events", "/api/export"):
++            with urlopen(base + path, timeout=5) as response:
++                data = json.load(response)
++                if path == "/api/snapshot":
++                    self.assertEqual(data["schema_version"], 1)
++                    self.assertFalse(data["stop_evidence"]["confirmed"])
++                if path == "/api/export":
++                    self.assertIn('filename="webui-session.json"', response.headers["Content-Disposition"])
++                    self.assertTrue({"snapshot", "tasks", "events", "note"} <= data.keys())
++                    self.assertIsInstance(data["tasks"][0]["events"], list)
++        for path in ("/api/fjt", "/api/tool/io", "/api/joints", "/api/demo/confirm-stop"):
++            with self.subTest(path=path), self.assertRaises(HTTPError) as caught:
++                post(path, {})
++            self.assertEqual(caught.exception.code, 404)
++        self.assertEqual(self.backend.transport.calls, calls)
++
+ 
+ class ImageTests(unittest.TestCase):
+     def test_rgb_padding_and_big_endian_depth_are_decoded(self):

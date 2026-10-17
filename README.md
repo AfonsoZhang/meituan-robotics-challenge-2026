@@ -2,6 +2,14 @@
 
 参赛项目工作区，用于管理比赛资料、规则梳理，以及后续的机器人方案、实验记录和交付材料。
 
+**Web UI 接口边界（2026-10-13）：** 保留现有 HTTP API，网页只发送顶层 ExecuteTask Goal，已有任务取消/软件停止保留；其他模块走 ROS Topic 或只读状态，缺接口先显示未知、待负责人提供正式契约。当前联合验证仅限 C++ Mock / GenericSystem Fake Hardware，不涉及真实机械臂控制。导出兼容字段已补回，76 项 Python 检查通过。[接口约定](webui/README.md#接口边界与当前联调范围)、[兼容性记录](docs/web-ui.md)（USER-HW-20261013-05；ENV-WEBUI-API-20261013）。
+
+**Web UI P2（2026-10-13）：** 已实现八模块正常/异常/未知状态、TF/标定分开显示、Task/PickPlace/FJT 显式 UUID 追踪，以及按任务/Goal/模块查询、转换时间线、最近失败与完整已记录事件导出。未接入不显示绿色。73 Python / 30 Node / 6 P2 ROS、6 P1 ROS 与 5 P0 ROS 回归通过；真实标定及跨层 FJT 关联发布器仍待接入，不代表实机验收。[实现与证据](docs/web-ui.md)、[接入契约](webui/p2-contract.md)（USER-HW-20261013-04；TEAMMATE-WEBUI-P2-20261013；ENV-WEBUI-P2-20261013）。
+
+**Web UI P1（2026-10-13）：** 按 USER-HW-20261013-02 接入原生电池检测、带同帧时间戳的 RGB/深度预览、Planner 检查/失败原因与独立工具挂载区。试提与落座采用独立验证记录，不从 FSM 阶段推定。二维叠框和 3D 留待后续；Planner/工具验证发布器仍需负责人接入，客户端缺失时明确显示未提供。[P1 接入约定](webui/p1-contract.md)、[实现与验证](docs/web-ui.md)（TEAMMATE-WEBUI-P1-20261013）。62 Python / 20 Node / 6 项 P1 隔离 ROS 与 5 项 P0 ROS 回归通过（ENV-WEBUI-P1-20261013），不代表实机或上游完整模块验收。
+
+**Web UI P0（2026-10-13）：** 已实现任务口令/当前电池/完成数、Task/PickPlace 流程高亮、独立安全与停止反馈、六关节实际/目标对比及只读 FJT 观察。Cancel ACK、最终结果和独立 Stop Confirmed 分开展示，PR #8 的 ABORTED/520 保留。54 项 Python、12 项前端语义及5项隔离 Jazzy 接口检查通过；原语/command_id/预计时长等已留好执行端遥测接收，实际发布器与实机联调待完成。[实现与证据](docs/web-ui.md)、[接入约定](webui/telemetry-contract.md)（USER-HW-20261013；ENV-WEBUI-P0-20261013；TEAMMATE-WEBUI-P0-20261013）。本轮未恢复旧监测或C1完整验收，正式pin不变。
+
 **当前进度同步（2026-10-12）：** 团队main已到`b418515`（标定PR #6、Phase 2B PR #7已合并）；其486项回归及后续PR #4/#9/#10、Phase 2C结果属于上游报告，本项目未独立复验这些最新版。个人C++ Mock/Web UI证据已归档，团队PR #8仍待合并，C1延迟取消未通过。Mac上的复验准备已按用户要求终止并清理，未执行测试；完整FSM/NUC/实机仍未验收，正式pin保持`1d940f7`。统一版本、待合并候选与环境边界见[当前状态](docs/current-status.md)（TEAMMATE-STATUS-20261012；ENV-STATUS-SYNC-20261012；USER-HW-20261012-03/04，用户会话）。下文逐次验收段落保留其历史提交范围。
 
 **当前开发基线（2026-10-11）：** 用户确认“按照这个版本”（USER-HW-20261011），后续开发采用 [F1u0rite/meituan_challenge_ws 的 FSM Core v0.1](https://github.com/F1u0rite/meituan_challenge_ws/tree/1d940f7c5f12561fed6641457c0b4b630a282b05)，目标环境为 **Ubuntu 24.04 / ROS 2 Jazzy / C++17**。用户随后提示“repo已经补充SDK”（USER-HW-20261011-04），核对后将当前快照推进到 `1d940f7c5f12561fed6641457c0b4b630a282b05`：较初始 `f477f689…` 仅新增部署手册并更新 README，FSM/接口源码未变。初始核心验收见 TEAMMATE-FSM-20261011，新增 SDK/驱动资料见 TEAMMATE-SDK-20261011（均于 2026-10-11 查阅）；[接入顺序与接口映射](docs/hardware-vision-plan.md#5-软件组织与验证顺序)、[源码版本锁定](robot/fsm-baseline.repos)。

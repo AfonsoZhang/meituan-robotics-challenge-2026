@@ -20,7 +20,9 @@ let hydratedTask = "";
 let cameraLoading = false;
 let cameraKey = "";
 let cameraUrl = "";
+let displayedFrame = null;
 const isMock = () => snapshot?.mode === "mock";
+const isCppMock = () => snapshot?.mode === "cpp_mock";
 
 function element(tag, text, className) {
   const node = document.createElement(tag);
@@ -40,7 +42,7 @@ function transportFresh() {
 }
 
 function quality(sample) {
-  if (!transportFresh() || (snapshot?.mode === "ros" && !snapshot?.connection?.connected)) return "离线";
+  if (!transportFresh() || (["ros", "cpp_mock"].includes(snapshot?.mode) && !snapshot?.connection?.connected)) return "离线";
   if (!sample?.available || !sample.data || sample.age_ms === null) return "缺失";
   if (sample.age_ms + performance.now() - lastReceived >= snapshot.freshness_limit_ms) return "过期";
   return "正常";
@@ -77,7 +79,7 @@ async function refresh() {
   try {
     const data = await api("/api/snapshot");
     if (generation !== pauseGeneration || paused) return;
-    if (data.schema_version !== 1 || !["mock", "ros"].includes(data.mode) || !data.operations) {
+    if (data.schema_version !== 1 || !["mock", "ros", "cpp_mock"].includes(data.mode) || !data.operations) {
       throw new Error("当前页面需要 v1 ROS / Mock 数据契约");
     }
     if (snapshot && data.session_id === snapshot.session_id && data.snapshot_seq <= snapshot.snapshot_seq) return;
@@ -108,16 +110,17 @@ function renderHealth() {
   $("connection").lastElementChild.textContent = paused ? "接收已暂停" : !fresh ? "服务未连接" : mock ? "Mock 已连接" : connected ? "ROS 已连接" : "ROS 离线";
   const robotQuality = quality(snapshot?.robot);
   const toolQuality = quality(snapshot?.tool);
-  const invalidSample = robotQuality !== "正常" || toolQuality !== "正常";
+  const invalidSample = isCppMock() ? quality(snapshot?.cpp_task) !== "正常" || quality(snapshot?.cpp_pick) !== "正常" : robotQuality !== "正常" || toolQuality !== "正常";
   $("connection-alert").hidden = fresh && !invalidSample && connected;
   $("connection-alert").textContent = !fresh
     ? (paused ? "接收已暂停，显示旧状态；恢复后读取当前任务，不重发指令。" : "无法获取最新快照。当前状态不可确认，操作已禁用。")
     : !connected ? snapshot?.connection?.reason || "等待 ROS 连接"
-      : `设备数据${robotQuality !== "正常" ? robotQuality : toolQuality}。${mock ? "可在接口状态页恢复演练数据。" : "检查发布源与消息时间戳。"}`;
+      : isCppMock() ? "C++ Mock 就绪状态缺失或过期；请检查统一启动日志。" : `设备数据${robotQuality !== "正常" ? robotQuality : toolQuality}。${mock ? "可在接口状态页恢复演练数据。" : "检查发布源与消息时间戳。"}`;
   $("api-status").textContent = fresh ? "已连接 / HTTP 快照" : paused ? "本浏览器暂停接收" : "未连接";
   $("updated").textContent = snapshot ? `快照 ${timeLabel(snapshot.generated_at)}` : "等待快照";
   $("sample-quality").textContent = !fresh ? "离线" : invalidSample ? (robotQuality !== "正常" ? robotQuality : toolQuality) : "状态有效" + suffix;
   $("sample-quality").className = "tag " + (!fresh || invalidSample ? "bad" : "good");
+  if (isCppMock()) { $("sample-quality").textContent = "硬件未接入"; $("sample-quality").className = "tag"; }
   function device(id, sample, value, yes, no, goodValue = true) {
     const q = quality(sample);
     const known = q === "正常" && typeof value === "boolean";
@@ -128,8 +131,6 @@ function renderHealth() {
   const tool = snapshot?.tool?.data;
   device("robot-communication", snapshot?.robot, robot?.communication_ok, "正常", "未连接");
   device("robot-ready", snapshot?.robot, robot?.robot_ready, "就绪", "未就绪");
-  device("robot-motion", snapshot?.robot, robot?.motion_active, "运动中", "未在运动", false);
-  device("robot-stop", snapshot?.robot, robot?.stop_confirmed, "已确认", "等待确认");
   device("robot-safety", snapshot?.robot, robot?.safety_normal, "正常", "联锁异常");
   $("robot-controller").textContent = robotQuality === "正常" ? robot?.controller_mode || "未报告" : "未知";
   device("tool-verified", snapshot?.tool, tool?.verified, "已验证", "未验证");
@@ -141,12 +142,12 @@ function renderHealth() {
   $("submit").disabled = busy || awaitingSnapshot || !fresh || !snapshot?.operations.submit || invalidSample;
   $("cancel").disabled = busy || awaitingSnapshot || !fresh || !snapshot?.operations.cancel;
   $("software-stop").disabled = busy || awaitingSnapshot || !fresh || !snapshot?.operations.stop;
-  $("software-stop").hidden = mock;
+  $("software-stop").hidden = mock || isCppMock();
   $("confirm-stop").disabled = busy || awaitingSnapshot || !fresh || !snapshot?.operations.confirm_mock_stop;
   $("condition").disabled = busy || !fresh;
   const reasons = snapshot?.operations.reasons || [];
   $("operation-hint").textContent = !fresh ? "恢复连接后重新核对当前任务。"
-    : !mock ? reasons.join("；") || "向 ExecuteTask 提交真实任务。请核对颜色口令和现场设备。"
+    : !mock ? reasons.join("；") || (isCppMock() ? "向 C++ 软件 Mock 提交 ROS 任务；未连接硬件。" : "向 ExecuteTask 提交真实任务。请核对颜色口令和现场设备。")
       : active ? "任务正在运行。取消回执与停稳确认分别显示。"
         : invalidSample ? "恢复有效设备数据后才能开始任务。"
           : !snapshot?.operations.submit ? "等待独立停稳反馈。" : "当前为本地 Mock 演练。";
@@ -159,7 +160,11 @@ function renderHealth() {
     $("camera-image").hidden = true;
     $("camera-empty").hidden = false;
   }
-  renderJoints();
+  if (snapshot) {
+    const options={quality, live: transportFresh(), delta: performance.now() - lastReceived};
+    P0.render(snapshot, options); P1.render(snapshot, options); P2.render(snapshot, options.live, quality, options.delta);
+    renderCameraCaption();
+  }
 }
 
 function renderMode() {
@@ -180,6 +185,22 @@ function renderMode() {
   $("domain-id").textContent = snapshot.config?.domain_id ?? "未配置";
   $("control-mode").textContent = mock ? "Mock 演练" : snapshot.config?.read_only ? "只读观察" : "真实任务 / Cancel / 软件停止";
   $("connection-reasons").textContent = snapshot.operations.reasons?.join("；") || "当前满足任务提交条件";
+  if (isCppMock()) {
+    $("environment-tag").textContent = "C++ Mock · ROS 2";
+    $("environment-note").textContent = "真实 C++ Task → PickPlace Action · 软件 Mock，无硬件 / MoveIt";
+    $("station-mode").textContent = "C++ Mock 集成工作站";
+    $("footer-note").textContent = "结果来自 C++ Action；不代表完整机器人 FSM、MoveIt 或实机验收";
+    $("control-mode").textContent = snapshot.config?.read_only ? "只读观察" : "C++ Mock Task / 定向 Cancel";
+    $("data-provider").textContent = "C++ Task / PickPlace → ROS 2 → rclpy";
+    $("connection-mode").textContent = "C++ Mock / Jazzy";
+  }
+  if (snapshot.validation_scope === "isolated_ros_fixture") {
+    $("environment-tag").textContent = "隔离 ROS 接口测试";
+    $("environment-note").textContent = "测试消息经真实 ROS 传输；未连接硬件，不代表 FSM / Phase 2C 验收";
+    $("station-mode").textContent = "隔离 ROS 接口测试";
+    $("control-mode").textContent = "隔离夹具 Task / Cancel / 停止回执";
+    $("footer-note").textContent = "隔离 ROS 消息夹具；不代表 FSM、Phase 2C 或实机验收";
+  }
   $("connection-config").textContent = JSON.stringify(snapshot.config || {}, null, 2);
   $("discovered-cameras").textContent = "发现的图像话题：" + (snapshot.connection?.image_topics?.join("、") || "无");
   const rows = $("ros-interfaces");
@@ -191,29 +212,27 @@ function renderMode() {
   };
   if (mock) { append("webui.mock_backend", "定时演示数据", "未连接 ROS"); return; }
   append(snapshot.config.task_action, "任务 Action", snapshot.connection.action_ready ? "唯一服务端已就绪" : "未就绪或服务端不唯一");
-  append(snapshot.config.stop_service, "软件停止 RequestStop", snapshot.connection.stop_ready ? "服务可用" : "不可用或服务端不唯一");
-  const labels = {task_state:"任务状态", robot:"机器人 / 停稳", tool:"工具证据", joints:"关节反馈", color:"彩色相机", depth:"深度相机"};
+  if (isCppMock()) append(snapshot.cpp_pick_action, "C++ PickPlace 下游 Action", snapshot.connection.child_ready ? "唯一 C++ 服务端已就绪" : "未就绪 / 冲突");
+  if (!isCppMock()) append(snapshot.config.stop_service, "软件停止 RequestStop", snapshot.connection.stop_ready ? "服务可用" : "不可用或服务端不唯一");
+  const labels = {task_state:"任务状态", robot:"机器人 / 停稳", tool:"工具证据", joints:"关节反馈", controller:"控制器目标 / 实际", fjt_status:"轨迹状态（只读）", fjt_feedback:"轨迹反馈（只读）", motion:"执行端遥测", color:"彩色相机", depth:"深度相机", perception:"电池 / 提环检测", planner:"规划反馈", tool_verification:"试提 / 落座验证"};
   for (const [kind, label] of Object.entries(labels)) {
     const info = snapshot.connection.publishers?.[kind];
     const sample = ["color", "depth"].includes(kind) ? snapshot.camera[kind] : kind === "task_state" ? snapshot.task_state : snapshot[kind];
-    append(info?.topic || snapshot.config[kind + "_topic"] || "等待配置 / 发现", label,
+    const key = {task_state: "task", joints: "joint"}[kind] || kind;
+    append(info?.topic || snapshot.config[key + "_topic"] || "等待配置 / 发现", label,
       info?.selected ? `${quality(sample)} · ${info.selected}` : `未选定发布源${info?.candidates.length ? " · " + info.candidates.map(p => p.node).join("、") : ""}`);
   }
 }
 
-function renderJoints() {
-  const sample = snapshot?.joints;
-  const q = quality(sample);
-  $("joints-quality").textContent = q === "正常" ? "实时 / °" : q;
-  $("joints").replaceChildren();
-  if (q !== "正常") { $("joints").append(element("p", "关节位置未知 · " + q, "muted")); return; }
-  const {name, position} = sample.data;
-  name.forEach((n, i) => {
-    const cell = element("div", undefined, "joint-value");
-    cell.append(element("small", n), element("strong", Number.isFinite(position[i]) ? (position[i] * 180 / Math.PI).toFixed(2) + "°" : "未知"));
-    $("joints").append(cell);
-  });
-  $("joints-note").textContent = `来源 ${sample.source} · 龄期 ${sample.age_ms} ms`;
+function renderCameraCaption() {
+  const f=displayedFrame, stream=$("camera-stream").value;
+  const age=f?f.age_ms + performance.now()-f.received:null;
+  const valid=f && age<snapshot.freshness_limit_ms && transportFresh() && quality(snapshot.camera?.[stream])==="正常"
+    && f.stream===stream && f.source===snapshot.camera[stream].source && f.session_id===snapshot.session_id;
+  if(!valid)$("camera-image").hidden=true;
+  $("camera-empty").hidden=valid;
+  $("camera-quality").textContent=valid?"实时":quality(snapshot?.camera?.[stream])==="正常"?"等待图像":"缺失 / 过期";
+  $("camera-note").textContent=f&&f.stream===stream?`${f.data.topic} · ${f.data.width} × ${f.data.height} · frame ${f.data.frame_id||"未提供"} · ${P1.stamp(f.source_stamp)} · 图像龄期 ${Math.round(age)} ms${valid?"":" · 已隐藏"} · ${f.data.preview}`:"相机话题未连接；在接口状态页查看配置与发现结果。";
 }
 
 async function renderCamera() {
@@ -223,7 +242,7 @@ async function renderCamera() {
   const q = quality(sample);
   $("camera-quality").textContent = q === "正常" ? "实时" : q;
   $("camera-message").textContent = sample?.available && (q === "过期" || q === "离线") ? "图像已过期，恢复新帧后继续显示。" : "尚未收到可显示的新鲜图像。";
-  $("camera-note").textContent = sample?.data ? `${sample.data.topic} · ${sample.data.width} × ${sample.data.height} · 龄期 ${sample.age_ms ?? "未知"} ms · ${sample.data.preview}` : "相机话题未连接；在接口状态页查看配置与发现结果。";
+  renderCameraCaption();
   const key = `${snapshot?.session_id}/${stream}/${sample?.source_stamp_ns}/${sample?.source}`;
   if (q !== "正常" || cameraLoading || key === cameraKey) return;
   cameraLoading = true;
@@ -232,17 +251,23 @@ async function renderCamera() {
   const source = sample.source;
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 2000);
+  const requestedAt=performance.now();
   try {
     const response = await fetch(`/api/camera/${stream}`, {cache: "no-store", signal: controller.signal});
     if (!response.ok) throw new Error("图像不可用");
+    const frame=JSON.parse(atob(response.headers.get("X-MTC-Frame")||""));
     const blob = await response.blob();
     if (generation !== pauseGeneration || session !== snapshot.session_id || source !== snapshot.camera?.[stream]?.source || stream !== $("camera-stream").value || quality(snapshot.camera[stream]) !== "正常") return;
+    if(frame.session_id!==session || frame.source!==source || frame.stream!==stream || typeof frame.age_ms!=="number")return;
+    if(frame.age_ms+performance.now()-requestedAt>=snapshot.freshness_limit_ms)return;
     if (cameraUrl) URL.revokeObjectURL(cameraUrl);
     cameraUrl = URL.createObjectURL(blob);
     $("camera-image").src = cameraUrl;
     $("camera-image").hidden = false;
     $("camera-empty").hidden = true;
+    displayedFrame={...frame,received:requestedAt};
     cameraKey = key;
+    renderCameraCaption();
   } catch (error) {
     $("camera-image").hidden = true;
     $("camera-empty").hidden = false;
@@ -340,10 +365,13 @@ function renderHistory() {
     const inspect = element("button", "查看", "button quiet small");
     inspect.type = "button";
     inspect.addEventListener("click", () => openRecord(task.task_id));
+    const trace = element("button", "追踪", "button quiet small");
+    trace.type = "button";
+    trace.addEventListener("click", () => {$("trace-task").value=task.task_id;$("trace-goal").value="";$("trace-module").value="";$("trace-kind").value="";queryTrace();$("trace-form").scrollIntoView({block:"start"});});
     const download = element("a", "下载 JSON", "button quiet small");
     download.href = `/api/tasks/${encodeURIComponent(task.task_id)}`;
     download.download = `${task.task_id}.json`;
-    actions.append(inspect, download);
+    actions.append(trace, inspect, download);
     row.append(identity, status, element("td", `${task.completed_count} / ${task.total_count}`), element("td", String(task.result?.error_code ?? "—")), actions);
     $("history").append(row);
   }
@@ -378,6 +406,9 @@ function render() {
   renderCamera();
   renderEvents();
   renderHistory();
+  P0.render(snapshot, {quality, live: transportFresh(), delta: performance.now() - lastReceived});
+  P1.render(snapshot, {quality, live: transportFresh(), delta: performance.now() - lastReceived});
+  P2.render(snapshot, transportFresh(), quality, performance.now() - lastReceived);
   $("session-id").textContent = snapshot.session_id;
   if (document.activeElement !== $("condition")) $("condition").value = snapshot.condition;
 }
@@ -487,3 +518,51 @@ navigate();
 updateForm();
 refresh();
 setInterval(() => { renderHealth(); refresh(); }, 750);
+
+// Queries are explicit snapshots of persisted history; they never send robot commands.
+let traceQuery = "", traceBefore = null, traceLoaded = 0, traceGeneration = 0;
+function traceParams(){
+  const p=new URLSearchParams();
+  for(const [id,key] of [["trace-task","task_id"],["trace-goal","goal_id"],["trace-module","module"]]){const v=$(id).value.trim();if(v)p.set(key,v);}
+  const kind=$("trace-kind").value;if(kind)p.set(kind,"1");return p;
+}
+async function queryTrace(more=false){
+  const generation=++traceGeneration;
+  const params=more?new URLSearchParams(traceQuery):traceParams();
+  if(more&&traceBefore)params.set("before",traceBefore);
+  $("trace-status").textContent="正在读取执行记录…";
+  try{
+    const data=await api("/api/events?"+params);
+    if(generation!==traceGeneration)return;
+    if(!more){traceQuery=params.toString();traceLoaded=0;$("trace-events").replaceChildren();}
+    traceLoaded+=data.events.length;traceBefore=data.next_before;
+    $("trace-export").href="/api/export?"+traceQuery;
+    $("trace-count").textContent=`已显示 ${traceLoaded} / ${data.total} 条`;
+    $("trace-more").hidden=!traceBefore;
+    $("trace-status").textContent=data.coverage.scope+(data.coverage.persistent?" · 已落盘":" · 当前进程内记录");
+    const fail=data.latest_failure;
+    $("trace-failure").textContent=fail?`最近失败 · ${timeLabel(fail.at,true)} · ${P2.labels[fail.module]||fail.module} · ${fail.error_code??"无错误码"} · ${fail.message}`:"当前筛选范围没有失败记录";
+    $("trace-failure").className="result "+(fail?"bad":"neutral");
+    $("trace-nodes").replaceChildren();$("trace-links").replaceChildren();
+    for(const action of ["ExecuteTask","PickPlace","FollowJointTrajectory"]){
+      const col=element("div",undefined,"trace-column");col.append(element("h4",action));
+      const nodes=data.trace.nodes.filter(n=>n.action.split("/").includes(action));
+      if(!nodes.length)col.append(element("p","未关联 / 未观察到 UUID","muted"));
+      for(const node of nodes){const item=element("div",undefined,"trace-node"+(node.conflict?" conflict":""));item.append(element("code",node.goal_id),element("small",node.conflict?"关联冲突":node.task_ids.join(", ")||"已观察到 Goal"));col.append(item);}
+      $("trace-nodes").append(col);
+    }
+    for(const link of data.trace.edges){const li=element("li",`${link.parent} → ${link.child}`,link.conflict?"bad-text":"");li.append(element("small",(link.conflict?"冲突；不用于任务归属 · ":"")+link.source));$("trace-links").append(li);}
+    $("trace-note").textContent=data.trace.note;
+    if(!data.events.length&&!more)$("trace-events").append(element("li","没有匹配事件","empty-event"));
+    for(const event of data.events){
+      const li=element("li",undefined,event.level),detail=element("div",undefined,"event-message");
+      detail.append(element("span",event.message),element("small",`Task: ${event.task_id||(event.related_task_ids?.length?event.related_task_ids.join(", ")+"（显式关联）":"未关联")} · Goal: ${event.goal_id||"消息未提供"}`));
+      if(event.transition){const t=event.transition;detail.append(element("pre",`${t.previous==null?"首次观察":JSON.stringify(t.previous)} → ${JSON.stringify(t.current)}`,"transition-detail"));}
+      if(event.source)detail.append(element("small",event.source+(event.source_stamp?" · 源时间 ns "+event.source_stamp:"")));
+      li.append(element("time",timeLabel(event.at,true)),element("span",P2.labels[event.module]||event.module,"event-kind"),detail);$("trace-events").append(li);
+    }
+  }catch(error){if(generation===traceGeneration){$("trace-status").textContent="查询失败："+error.message;$("trace-more").hidden=true;}}
+}
+$("trace-form").addEventListener("submit",event=>{event.preventDefault();queryTrace();});
+$("trace-reset").addEventListener("click",()=>{$("trace-form").reset();queryTrace();});
+$("trace-more").addEventListener("click",()=>queryTrace(true));

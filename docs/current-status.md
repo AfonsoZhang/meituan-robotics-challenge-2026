@@ -1,5 +1,15 @@
 # 双仓库当前进度与验收边界
 
+**C1 独立修复（2026-10-13）：** 已单独提交并推送 [PR #15](https://github.com/F1u0rite/meituan_challenge_ws/pull/15)（`8603e18`，基于 main）；独立分支 366 项 C++ 用例通过，700/400 ms 延迟取消后同栈新任务成功。此前 PR #8 组合另有 365 项测试及七个独立进程场景通过。C1 补丁已从 PR #8 撤出，原内容保留。修复限软件 Mock，未合并、未推进正式 pin；旧失败证据保留。见 [修复报告](c1-cancel-fix.md)（ENV-CANCEL-PR-20261013；USER-HW-20261013-03）。
+
+**当前 Web UI 边界（2026-10-13）：** USER-HW-20261013-05 明确保留 HTTP API、只发送顶层 ExecuteTask Goal，其他模块只读接入，缺发布器预留未知值并等待负责人正式接口。联合验证只在 C++ Mock / GenericSystem Fake Hardware 中进行，不涉及真实机械臂控制。已有任务取消/软件停止保留，导出兼容字段补回；76 项本地 Python 检查通过（ENV-WEBUI-API-20261013）。见 [集中约定](../webui/README.md#接口边界与当前联调范围)及 [记录](web-ui.md)。
+
+**Web UI P2（2026-10-13）：** 已实现八模块正常/异常/未知状态、TF/标定分开显示、Task/PickPlace/FJT 显式 UUID 追踪，以及按任务/Goal/模块查询、转换时间线、最近失败与完整已记录事件导出。未接入不显示绿色。73 Python / 30 Node / 6 P2 ROS、6 P1 ROS 与 5 P0 ROS 回归通过；真实标定及跨层 FJT 关联发布器仍待接入，不代表实机验收。[实现与证据](web-ui.md)、[接入契约](../webui/p2-contract.md)（USER-HW-20261013-04；TEAMMATE-WEBUI-P2-20261013；ENV-WEBUI-P2-20261013）。
+
+**2026-10-13 P1 UI 增量：** USER-HW-20261013-02 明确视觉、Planner 与工具证据观察。原生 `/mtc/perception/batteries`、RGB-D 同帧时间与目标 ID 列表高亮已接入；Planner 和试提/落座消费接口已实现，但当前核对的 PR #4 `943bf37…`、PR #5 `dc76a0b…` 没有所需实时规划/工具验证发布器或二维框契约（TEAMMATE-WEBUI-P1-20261013）。实物 D435i、Planner 真发布器、独立工具证据、RViz/3D 仍未验收。完整结果见 [UI 报告](web-ui.md)，正式 pin 与 P0 停止语义不变。62 Python / 20 Node / 6 P1 ROS 与 5 P0 ROS 检查通过（ENV-WEBUI-P1-20261013）；安装命名空间同一 62/6 项重复检查通过。
+
+**2026-10-13 UI 增量：** USER-HW-20261013 明确三项 P0 后，新客户端已实现任务/双 FSM、独立安全停止区、关节对比与只读 FJT；54 Python / 12 Node / 5 隔离 ROS 验证通过（ENV-WEBUI-P0-20261013），见 [UI 报告](web-ui.md)。原语/命令标识/预计总时长的执行端发布器仍待交付。只读核对 PR #8 仍为 `7da4322…` OPEN，Phase 2C PR #13 为 `22b0607…` OPEN（TEAMMATE-WEBUI-P0-20261013）；此次只测 UI 接口，不恢复旧 C1 或完整链路验收，正式 pin 不变。下文保留 10 月 12 日各候选的核对范围。
+
 核对时间：2026-10-12 16:27（UTC+8）。团队 main 为 `b4185155383541e1a4161587c4049a162f74b36d`，个人既有证据归档为 `6e040096986cdf0ea409943ae209d42507da7424`。这是 GitHub 源码、PR 状态与既有报告的文档核对，本轮没有构建或运行 ROS、Fake、仿真、NUC 或实机验收。后续变动须重新核对对应 SHA。
 
 **当前结论：离线模块及部分 Mock 集成通过；完整 Task/PickPlace → MoveIt → FJT → Hardware 抓放闭环和实机仍未验收。** 团队首页此前停留在 Phase 2A；团队后续代码与报告已推进，个人独立复验则固定在不同历史提交，不能按仓库提交时间或测试总数排出统一的验收先后。
