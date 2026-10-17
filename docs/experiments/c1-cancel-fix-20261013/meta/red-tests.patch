@@ -1,0 +1,118 @@
+diff --git a/src/mtc_ros2_action_cpp/test/test_action_contracts.cpp b/src/mtc_ros2_action_cpp/test/test_action_contracts.cpp
+index 687b98a..dec88f6 100644
+--- a/src/mtc_ros2_action_cpp/test/test_action_contracts.cpp
++++ b/src/mtc_ros2_action_cpp/test/test_action_contracts.cpp
+@@ -4,6 +4,7 @@
+ #include "mtc_ros2_action_cpp/motion_server.hpp"
+ #include <cmath>
+ #include <limits>
++#include <thread>
+ TEST(ActionContracts, TaskConversionPreservesColorOrderIdentityAndDeadline)
+ {
+   mtc_interfaces::action::ExecuteTask::Goal g;
+@@ -96,3 +97,51 @@ TEST(ActionContracts, UnsupportedTrajectoryAndCartesianCapabilitiesCannotBeEnabl
+   o.motion.timed_trajectory_supported = false; o.motion.cartesian_motion_supported = true;
+   EXPECT_THROW(o.validate(), std::invalid_argument);
+ }
++
++TEST(ActionContracts, DelayedCancelSamplesKnownStationaryMockBeforeValidatingStop)
++{
++  auto counts = std::make_shared<mtc::ros2_action::MockCallCounts>();
++  auto clock = std::make_shared<mtc::core::ManualClock>(1.0);
++  mtc::ros2_action::MockOptions options;
++  options.result_delay_ms = 700;
++  mtc::ros2_action::AsyncMockMotion bridge(options, clock, counts);
++  mtc::core::MotionCommand command;
++  command.command_id = "late_cancel";
++  command.joint_names = mtc::motion::ValidationConfig().expected_joint_names;
++  command.target_rad = {0.05, -0.02, 0.01, 0.0, 0.0, 0.0};
++  command.velocity_scaling = command.acceleration_scaling = 0.1;
++  command.timeout_ms = 5000;
++  ASSERT_FALSE(bridge.execute_joint_move(command));
++  const auto execute_deadline = std::chrono::steady_clock::now() + std::chrono::seconds(2);
++  while (!bridge.execution_ready() && std::chrono::steady_clock::now() < execute_deadline) {
++    std::this_thread::yield();
++  }
++  ASSERT_TRUE(bridge.execution_ready());
++  ASSERT_TRUE(bridge.snapshot().stop_confirmed);
++  const auto old = bridge.adapter()->stop_evidence();
++  ASSERT_TRUE(old);
++  clock->advance(0.8);  // 400 ms of 10 ms ticks advancing the Mock clock by 20 ms.
++  ASSERT_GT(clock->now() - old->feedback.stamp_s,
++    mtc::motion::ValidationConfig().feedback_max_age_s);
++  const auto stop_deadline = std::chrono::steady_clock::now() + std::chrono::seconds(2);
++  bool stopped = false;
++  while (!(stopped = bridge.poll_stop("delayed cancel")) &&
++    std::chrono::steady_clock::now() < stop_deadline) {std::this_thread::yield();}
++  ASSERT_TRUE(stopped);
++  const auto result = bridge.request_stop("delayed cancel");
++  EXPECT_TRUE(result.request_delivered);
++  EXPECT_TRUE(result.stop_confirmed);
++  EXPECT_EQ(result.error_code, mtc::core::ErrorCodes::OK);
++  EXPECT_FALSE(bridge.snapshot().motion_state_unknown);
++  const auto current = bridge.adapter()->stop_evidence();
++  ASSERT_TRUE(current);
++  EXPECT_EQ(current->command_id, command.command_id);
++  EXPECT_DOUBLE_EQ(current->feedback.stamp_s, clock->now());
++  EXPECT_DOUBLE_EQ(current->stationary_since_s, old->stationary_since_s);
++  EXPECT_EQ(current->feedback.position_rad, old->feedback.position_rad);
++  EXPECT_EQ(current->feedback.velocity_rad_s, old->feedback.velocity_rad_s);
++  EXPECT_EQ(counts->executions.load(), 1u);
++  EXPECT_EQ(counts->stops.load(), 1u);
++  EXPECT_TRUE(bridge.poll_stop("duplicate poll"));
++  EXPECT_EQ(counts->stops.load(), 1u);
++}
+diff --git a/src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp b/src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp
+index 1e39181..02d3f00 100644
+--- a/src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp
++++ b/src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp
+@@ -115,6 +115,49 @@ TEST_F(PickAction, CancelWithoutStopEvidenceAbortsAndKeepsFaultLocked)
+   EXPECT_FALSE(r.result->placement_verified);
+   EXPECT_EQ(send(goal("after_fault")), nullptr);
+ }
++
++TEST_F(PickAction, DelayedCancelConfirmsStopAndAllowsNextUnloadedGoal)
++{
++  mtc::ros2_action::MockOptions options;
++  options.result_delay_ms = 700;
++  setup(options);
++  auto handle = send(goal()); ASSERT_NE(handle, nullptr);
++  ASSERT_TRUE(eventually([this]() {return dispatched.load();}));
++  std::this_thread::sleep_for(400ms);
++  auto cancel = client->async_cancel_goal(handle); ASSERT_TRUE(ready(cancel));
++  EXPECT_FALSE(cancel.get()->goals_canceling.empty());
++  auto result = client->async_get_result(handle); ASSERT_TRUE(ready(result));
++  const auto terminal = result.get();
++  EXPECT_EQ(terminal.code, rclcpp_action::ResultCode::CANCELED);
++  EXPECT_EQ(terminal.result->error_code, ErrorCodes::OK);
++  EXPECT_FALSE(terminal.result->success);
++  EXPECT_FALSE(terminal.result->placement_verified);
++  EXPECT_EQ(server->mock_call_counts()->executions.load(), 1u);
++  EXPECT_EQ(server->mock_call_counts()->stops.load(), 1u);
++  auto next = send(goal("after_confirmed_stop")); ASSERT_NE(next, nullptr);
++  auto next_result = client->async_get_result(next); ASSERT_TRUE(ready(next_result));
++  EXPECT_EQ(next_result.get().code, rclcpp_action::ResultCode::SUCCEEDED);
++}
++
++TEST_F(PickAction, DelayedCancelWithoutEvidenceStillAbortsAndLocksAdmission)
++{
++  mtc::ros2_action::MockOptions options;
++  options.result_delay_ms = 700;
++  options.stop_evidence_available = false;
++  setup(options);
++  auto handle = send(goal()); ASSERT_NE(handle, nullptr);
++  ASSERT_TRUE(eventually([this]() {return dispatched.load();}));
++  std::this_thread::sleep_for(400ms);
++  auto cancel = client->async_cancel_goal(handle); ASSERT_TRUE(ready(cancel));
++  EXPECT_FALSE(cancel.get()->goals_canceling.empty());
++  auto result = client->async_get_result(handle); ASSERT_TRUE(ready(result));
++  const auto terminal = result.get();
++  EXPECT_EQ(terminal.code, rclcpp_action::ResultCode::ABORTED);
++  EXPECT_EQ(terminal.result->error_code, ErrorCodes::CANCEL_NOT_CONFIRMED);
++  EXPECT_FALSE(terminal.result->placement_verified);
++  EXPECT_EQ(send(goal("after_unconfirmed_stop")), nullptr);
++  EXPECT_EQ(server->mock_call_counts()->executions.load(), 1u);
++}
+ TEST_F(PickAction, StaleGoalCancelCannotInterruptNewGoal)
+ {
+   setup();

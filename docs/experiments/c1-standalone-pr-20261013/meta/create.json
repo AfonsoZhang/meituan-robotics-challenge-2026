@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "bash",
+    "-c",
+    "set -e\ndocker run -d --name mtc-c1-standalone-20261013 --network none --cpus 2 --memory 4g --pids-limit 512 --cap-drop ALL --security-opt no-new-privileges --label mtc.purpose=c1-standalone-pr mtc-cpp-webui-base:20261012 sleep infinity\ndocker exec mtc-c1-standalone-20261013 mkdir -p /c1-source /c1-evidence\npython3 - <<'INNER'\nimport io,subprocess,tarfile\nfrom pathlib import Path\np=Path(\"outputs/c1-standalone-pr-20261013/source\"); files=subprocess.check_output([\"git\",\"-C\",str(p),\"ls-files\",\"-z\"]).decode().split(\"\\0\");buf=io.BytesIO()\nwith tarfile.open(fileobj=buf,mode=\"w\") as t:\n for name in filter(None,files):t.add(p/name,arcname=name,recursive=False)\nsubprocess.run([\"docker\",\"exec\",\"-i\",\"mtc-c1-standalone-20261013\",\"tar\",\"--no-same-owner\",\"-xf\",\"-\",\"-C\",\"/c1-source\"],input=buf.getvalue(),check=True)\nINNER\ndocker inspect mtc-c1-standalone-20261013 > outputs/c1-standalone-pr-20261013/meta/isolation-start.json"
+  ],
+  "started_at": "2026-10-13T06:59:04.796021+00:00",
+  "timeout_seconds": 600,
+  "exit_code": 0,
+  "ended_at": "2026-10-13T06:59:05.864500+00:00"
+}

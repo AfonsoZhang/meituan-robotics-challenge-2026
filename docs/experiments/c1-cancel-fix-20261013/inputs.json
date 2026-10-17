@@ -1,0 +1,25 @@
+{
+  "source_ids": [
+    "USER-HW-20261013-03",
+    "TEAMMATE-CANCELFIX-20261013"
+  ],
+  "base_commit": "7da43228d602a6b23571bfc599d69529ef7bea23",
+  "fix_commit": "062811ed2895eadc8b41efe8a8d7b2acff03fe92",
+  "changed_files": [
+    "docs/migration/C1_DELAYED_CANCEL_FIX_20261013.md",
+    "src/mtc_cpp_mock_bringup/README.md",
+    "src/mtc_motion_execution_cpp/include/mtc_motion_execution_cpp/mock_motion_adapter.hpp",
+    "src/mtc_motion_execution_cpp/src/mock_motion_adapter.cpp",
+    "src/mtc_motion_execution_cpp/test/test_mock_adapter.cpp",
+    "src/mtc_ros2_action_cpp/README.md",
+    "src/mtc_ros2_action_cpp/src/mock_ports.cpp",
+    "src/mtc_ros2_action_cpp/test/test_action_contracts.cpp",
+    "src/mtc_ros2_action_cpp/test/test_pick_place_action.cpp"
+  ],
+  "environment": "Ubuntu 24.04.5 x86_64 / ROS 2 Jazzy / C++17; isolated network=none, 2CPU/4GiB, no mounts/ports/devices, cap-drop ALL",
+  "image": "mtc-cpp-webui-base:20261012",
+  "image_inspect": "meta/isolation-start.json",
+  "source_integrity": "meta/source-integrity.json",
+  "scope": "C1 offline Mock observation only; production Core/thresholds, FSM, ActionSlot and IDL unchanged",
+  "formal_pin": "a34a5c149e38b9aa8b1d9d379d4a98d5fab30ae5c0bb211f99d2c9e580a99869"
+}

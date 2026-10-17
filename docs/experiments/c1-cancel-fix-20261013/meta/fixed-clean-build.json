@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "docker",
+    "exec",
+    "mtc-c1-fix-20261013",
+    "bash",
+    "-c",
+    "set -e; source /opt/ros/jazzy/setup.bash; if test -f /c1-install/setup.bash; then source /c1-install/setup.bash; fi; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; export ROS_DOMAIN_ID=182 RMW_IMPLEMENTATION=rmw_fastrtps_cpp ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST PYTHONDONTWRITEBYTECODE=1 ROS_LOG_DIR=/c1-evidence/roslogs; cd /c1-source; export CMAKE_BUILD_PARALLEL_LEVEL=2 MAKEFLAGS=\"-j2 -l2\"; colcon --log-base /c1-evidence/fixed-clean-build-log build --build-base /c1-build --install-base /c1-install --packages-select mtc_motion_execution_cpp mtc_ros2_action_cpp --executor sequential --cmake-clean-first --cmake-args -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=RelWithDebInfo; nm -DC /c1-install/mtc_motion_execution_cpp/lib/libmtc_motion_execution_cpp.so | grep sample_stationary_feedback"
+  ],
+  "started_at": "2026-10-13T06:44:34.204035+00:00",
+  "timeout_seconds": 600,
+  "exit_code": 0,
+  "ended_at": "2026-10-13T06:47:51.317730+00:00"
+}
