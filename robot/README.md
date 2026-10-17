@@ -1,5 +1,7 @@
 # NUC 实机接入
 
+**实机验收全部完成（2026-10-17）：** 用户确认“实机全部完成”（USER-HW-20261017），第 6–8 阶段亦已完成，见[阶段清单](../docs/hardware-vision-plan.md#real-hardware-acceptance-20261014)；现场版本、数值与日志待补充归档。
+
 **实机验收进度（2026-10-14）：** 第 1–5 阶段（版本锁定、设备与安全、只读接入、标定与几何、空载运动）已由用户现场确认完成（USER-HW-20261014）。后续按[第 6–8 阶段清单](../docs/hardware-vision-plan.md#real-hardware-acceptance-20261014)验收停止/异常、单块闭环及三块/重复运行。现场 SHA、参数与原始日志路径待补充归档；该确认不表示下方历史 Humble 脚本已迁移到 Jazzy，也不表示完整 FSM 或带载任务已通过。下文记录保留各自日期与版本范围。
 
 2026-10-12 当前状态同步：团队main `b418515`已合入标定与Phase 2B；新回归数字及PR #4/#9/#10、Phase 2C结果仅为上游报告，个人尚未复验。PR #8的C++ Mock/UI部分通过、C1未通过，完整FSM/实机未验收。团队手册记录的Fake验证环境为x86_64 / Ubuntu24.04.4 / Jazzy，NUC当前部署仍须现场核对；PR #11的新侧视试装外参仍UNKNOWN。Mac复验准备已终止清理，未执行测试。正式pin不变，详见[当前状态](../docs/current-status.md)（TEAMMATE-STATUS-20261012；ENV-STATUS-SYNC-20261012；USER-HW-20261012-03/04）。

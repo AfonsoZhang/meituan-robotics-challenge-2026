@@ -2568,8 +2568,51 @@
             "TCP"
           ],
           "confirmed": "补充明确TCP已做验证；参数和验证记录待归档，原八阶段状态不变。"
+        },
+        {
+          "date": "2026-10-17",
+          "source_id": "USER-HW-20261017",
+          "original_text": "实机全部完成",
+          "confirmed": "第 6–8 阶段亦已完成，remaining_stages 不再待验收。"
         }
       ],
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "robot/README.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20261017",
+      "kind": "user_message",
+      "date": "2026-10-17",
+      "source": "本项目用户会话（简历库更新对话）",
+      "original_text": "实机全部完成",
+      "context": "在更新简历库时，助手说明 P13 当前登记为实机第 1–5 阶段完成、第 6–8 阶段待验收，并询问本人现场分工；用户回复本句。",
+      "confirmed": {
+        "completed_stages": [
+          {
+            "stage": 6,
+            "name": "停止与异常",
+            "status": "已完成（用户确认）"
+          },
+          {
+            "stage": 7,
+            "name": "单块完整任务",
+            "status": "已完成（用户确认）"
+          },
+          {
+            "stage": 8,
+            "name": "三块与重复运行",
+            "status": "已完成（用户确认）"
+          }
+        ],
+        "all_eight_stages_completed": true,
+        "evidence_basis": "用户确认；本会话没有连接设备或独立复跑。"
+      },
+      "scope_note": "未提供各阶段现场源码 SHA、依赖/控制柜版本、配置与标定数值、成功率、误差、覆盖率、耗时、重复次数、验收时间及原始日志/视频；不擅填数值。用户本人在现场各阶段的分工未确认。不推进正式 pin，不改写冻结证据和历史失败，不确定最终末端型号，不单独关闭 Q18/Q19。",
       "derived_files": [
         "README.md",
         "docs/current-status.md",
