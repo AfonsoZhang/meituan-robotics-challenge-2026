@@ -1,0 +1,35 @@
+flowchart TB
+    subgraph NORMAL[正常抓放流程]
+        direction TB
+        A["目标解析、规划、预对齐"] --> B["接合<br/>ENGAGE"]
+        B --> C{"接合证据<br/>VERIFY_ENGAGEMENT"}
+        C -->|通过| D["短距试提<br/>TEST_LIFT"]
+        D --> E{"挂载证据<br/>VERIFY_ATTACHED"}
+        E -->|通过| F["提升、搬运<br/>LIFT 与 TRANSPORT"]
+        F --> G["预放置、落座<br/>MOVE_PRE_SEAT 与 SEAT"]
+        G --> H{"承托证据<br/>VERIFY_SEATED"}
+        H -->|通过| I["卸载<br/>UNLOAD"]
+        I --> J["退钩、撤离<br/>DISENGAGE 与 RETREAT"]
+        J --> K{"放置与稳定性<br/>VERIFY_PLACED"}
+        K -->|通过| S(["成功<br/>SUCCESS"])
+    end
+    subgraph EXCEPTION[异常处理]
+        direction TB
+        R["异常分类"] -->|可恢复类别| RC["恢复<br/>RECOVERY"]
+        RC -->|条件不满足或预算耗尽| FAIL(["失败<br/>FAILED"])
+        R -->|不可恢复的明确失败| FAIL
+        R -->|运动或停止状态未知| FAULT(["故障锁定<br/>FAULT"])
+    end
+    C -->|未通过| R
+    E -->|未通过| R
+    H -->|未通过| R
+    K -->|验证窗口耗尽| R
+    RC -->|无载荷、运动已知且预算允许| A
+    classDef action fill:#FFFFFF,stroke:#444444,color:#161616;
+    classDef check fill:#FFFFFF,stroke:#444444,color:#161616;
+    classDef terminal fill:#F3F3F3,stroke:#444444,color:#161616;
+    class A,B,D,F,G,I,J action;
+    class C,E,H,K check;
+    class R,RC,S,FAIL,FAULT terminal;
+    style NORMAL fill:transparent,stroke:#AAAAAA,color:#161616;
+    style EXCEPTION fill:transparent,stroke:#AAAAAA,color:#161616;

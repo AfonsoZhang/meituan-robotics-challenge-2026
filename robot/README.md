@@ -1,5 +1,7 @@
 # NUC 实机接入
 
+**实机验收进度（2026-10-14）：** 第 1–5 阶段（版本锁定、设备与安全、只读接入、标定与几何、空载运动）已由用户现场确认完成（USER-HW-20261014）。后续按[第 6–8 阶段清单](../docs/hardware-vision-plan.md#real-hardware-acceptance-20261014)验收停止/异常、单块闭环及三块/重复运行。现场 SHA、参数与原始日志路径待补充归档；该确认不表示下方历史 Humble 脚本已迁移到 Jazzy，也不表示完整 FSM 或带载任务已通过。下文记录保留各自日期与版本范围。
+
 2026-10-12 当前状态同步：团队main `b418515`已合入标定与Phase 2B；新回归数字及PR #4/#9/#10、Phase 2C结果仅为上游报告，个人尚未复验。PR #8的C++ Mock/UI部分通过、C1未通过，完整FSM/实机未验收。团队手册记录的Fake验证环境为x86_64 / Ubuntu24.04.4 / Jazzy，NUC当前部署仍须现场核对；PR #11的新侧视试装外参仍UNKNOWN。Mac复验准备已终止清理，未执行测试。正式pin不变，详见[当前状态](../docs/current-status.md)（TEAMMATE-STATUS-20261012；ENV-STATUS-SYNC-20261012；USER-HW-20261012-03/04）。
 
 当前开发目标：**Ubuntu 24.04 / ROS 2 Jazzy / C++17，FSM Core v0.1**（USER-HW-20261011）。用户提示 SDK 已补充后（USER-HW-20261011-04），当前源码锁定为 `F1u0rite/meituan_challenge_ws@1d940f7c5f12561fed6641457c0b4b630a282b05`（TEAMMATE-SDK-20261011）。其父提交为初始 TEAMMATE-FSM-20261011 的 `f477f689…`，仅增加部署文档，未改 FSM/接口代码；[接入计划](../docs/hardware-vision-plan.md#5-软件组织与验证顺序)从离线回归推进到 C++ Action / MoveIt / Mock Hardware。本项目尚未完成该链路或 NUC 部署。

@@ -93,7 +93,11 @@
         "materials/README.md",
         "materials/extracted/faq.txt",
         "simulation/meituan_sim/scripts/gen_scene.py",
-        "webui/README.md"
+        "webui/README.md",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf"
       ]
     },
     {
@@ -201,7 +205,11 @@
         "docs/open-questions.md",
         "docs/rules-summary.md",
         "materials/README.md",
-        "webui/README.md"
+        "webui/README.md",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf"
       ]
     },
     {
@@ -267,7 +275,9 @@
         "docs/rules-summary.md",
         "docs/simulation-plan.md",
         "materials/README.md",
-        "simulation/meituan_sim/scripts/gen_scene.py"
+        "simulation/meituan_sim/scripts/gen_scene.py",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
       ]
     },
     {
@@ -350,7 +360,8 @@
       "derived_files": [
         "docs/open-questions.md",
         "docs/simulation-plan.md",
-        "docs/vision-repeat.md"
+        "docs/vision-repeat.md",
+        "docs/technical-proposal.md"
       ]
     },
     {
@@ -373,7 +384,8 @@
         "docs/experiments/cpp-mock-webui-20261012/host/prior-integrity.json",
         "docs/open-questions.md",
         "docs/simulation-plan.md",
-        "docs/vision-sequence.md"
+        "docs/vision-sequence.md",
+        "docs/technical-proposal.md"
       ]
     },
     {
@@ -509,7 +521,9 @@
         "docs/vision-safety-acceptance.md",
         "docs/wiring-merge-acceptance.md",
         "materials/README.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
       ]
     },
     {
@@ -662,7 +676,8 @@
         "docs/hardware-vision-plan.md",
         "docs/open-questions.md",
         "docs/simulation-plan.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/technical-proposal.md"
       ]
     },
     {
@@ -878,9 +893,66 @@
           "resolution": "23:35 上游 main 合入 PR #2；六项接线回归通过，旧 Python B03/B05/B06 与退出问题未解决。本条 pull_request/results 的 OPEN 状态继续表示原提交时快照，不覆盖原冻结证据。"
         }
       ]
+    },
+    {
+      "id": "TOOL-CAD-V1-VIEWS-20261015",
+      "kind": "user_provided_image",
+      "title": "舌规 V1 削平前原始 CAD 四视图",
+      "filename": "舌规Python.png",
+      "accessed_source_path": "docs/舌规Python.png",
+      "archived_path": "materials/original/舌规Python.png",
+      "received_on": "2026-10-15",
+      "document_date": null,
+      "bytes": 539232,
+      "sha256": "1733263817ae101d4e0b3f14823f2fa332ceace980585d966670cabba8152069",
+      "image_format": "PNG",
+      "image_dimensions_px": {
+        "width": 2560,
+        "height": 1600
+      },
+      "visual_content_type": "dimensioned CAD views before mounting-disc machining",
+      "source_note": "用户在会话中说明已补充图片；从仓库 docs 路径读取并逐字节归档，无裁剪或重绘。",
+      "scope_note": "四视图展示削平前 CAD 名义几何与 CAD TCP 参考点；不能证明成品尺寸、材料、承载或 TCP 实测精度。安装盘去除环形凸台并削平至原槽底由 USER-EE-20261015 单独确认；图片没有 PDF 页码。",
+      "derived_files": [
+        "README.md",
+        "docs/技术报告.md",
+        "docs/open-questions.md",
+        "materials/README.md",
+        "docs/技术报告.pdf",
+        "docs/assets/report-v0.4/v1-cad-views.svg",
+        "docs/assets/report-v0.4/v1-cad-views.pdf",
+        "docs/assets/report-v0.4/v1-cad-views.source.json"
+      ]
+    },
+    {
+      "id": "TOOL-CAD-V1-STEP-20261015",
+      "kind": "teammate_fixed_cad_original",
+      "title": "V1 舌规削平前固定 STEP 模型",
+      "filename": "hook_v1.step",
+      "archived_path": "materials/original/hook_v1_b8867f10.step",
+      "sha256": "b21d2a54ce314b660066eafc1e020ba4dc66f7abb9d5c89973ad70dfe09588e9",
+      "bytes": 126335,
+      "source_reference": "TEAMMATE-FIELD-20261015",
+      "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/src/mtc_simulation/assets/cad/hook_v1.step",
+      "commit": "b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e",
+      "accessed_on": "2026-10-15",
+      "method": "逐字节归档此前已核对哈希的固定版本 STEP，用于 CAD 四视图重绘。",
+      "scope_note": "保持源模型几何；图示为安装盘削平前的名义 CAD，不代表加工后实物测量或新增 TCP 标定。模型资产来源与许可范围沿用原仓库 NOTICE，不重新授权。",
+      "derived_files": [
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "materials/README.md",
+        "tools/report/draw_tool.py",
+        "docs/assets/report-v0.4/v1-cad-views.svg",
+        "docs/assets/report-v0.4/v1-cad-views.pdf",
+        "docs/assets/report-v0.4/v1-cad-views.png",
+        "docs/assets/report-v0.4/v1-cad-views.source.json",
+        "docs/assets/report-v0.4/report-validation.json",
+        "docs/open-questions.md"
+      ]
     }
   ],
-  "updated_on": "2026-10-12",
+  "updated_on": "2026-10-15",
   "project_decisions": [
     {
       "id": "USER-HW-20260906",
@@ -898,7 +970,9 @@
         "README.md",
         "docs/hardware-vision-plan.md",
         "docs/open-questions.md",
-        "materials/README.md"
+        "materials/README.md",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
       ]
     },
     {
@@ -962,6 +1036,14 @@
         "docs/open-questions.md",
         "docs/simulation-plan.md",
         "materials/README.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "date": "2026-10-14",
+          "source_id": "USER-HW-20261014-03",
+          "original_text": "这是眼在手外",
+          "resolution": "当前方案采用眼在手外；本条原安装计划和相关历史仿真保留其当时范围，不再作为当前安装方式。"
+        }
       ]
     },
     {
@@ -1050,7 +1132,11 @@
         "docs/hardware-vision-plan.md",
         "docs/open-questions.md",
         "docs/rules-summary.md",
-        "materials/README.md"
+        "materials/README.md",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf"
       ]
     },
     {
@@ -1353,7 +1439,9 @@
       "derived_files": [
         "README.md",
         "docs/hardware-vision-plan.md",
-        "docs/open-questions.md"
+        "docs/open-questions.md",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
       ],
       "subsequent_resolutions": [
         {
@@ -1380,7 +1468,9 @@
       "derived_files": [
         "README.md",
         "docs/hardware-vision-plan.md",
-        "docs/open-questions.md"
+        "docs/open-questions.md",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
       ],
       "subsequent_resolutions": [
         {
@@ -1507,7 +1597,9 @@
         "README.md",
         "docs/hardware-vision-plan.md",
         "docs/open-questions.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
       ]
     },
     {
@@ -1526,7 +1618,9 @@
         "README.md",
         "docs/hardware-vision-plan.md",
         "docs/open-questions.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
       ]
     },
     {
@@ -1555,7 +1649,9 @@
         "docs/hardware-vision-plan.md",
         "docs/open-questions.md",
         "docs/simulation-plan.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
       ],
       "subsequent_resolutions": [
         {
@@ -1599,7 +1695,9 @@
       "derived_files": [
         "README.md",
         "docs/hardware-vision-plan.md",
-        "docs/open-questions.md"
+        "docs/open-questions.md",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
       ]
     },
     {
@@ -1644,7 +1742,8 @@
       "scope_note": "只确定正式拍摄用组委会寄送底图。底图与电池是否已收到、所在地区未说明；自行打印底图仍可用于调试（FAQ p5）。寄送底图的实际尺寸与打印精度未测量，项目中的底图坐标仍来自 MAP PDF 设计值。",
       "derived_files": [
         "docs/open-questions.md",
-        "docs/rules-summary.md"
+        "docs/rules-summary.md",
+        "docs/technical-proposal.md"
       ]
     },
     {
@@ -1703,6 +1802,13 @@
         "README.md",
         "docs/end-effector-options.md",
         "docs/open-questions.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "date": "2026-10-14",
+          "source_id": "USER-EE-20261014-02",
+          "confirmed": "用户明确本次舌规采用PETG 3D打印。此为舌规选材补充，不证明PolyU打印服务已支持PETG；原PLA支持范围、未明确设备和服务方事实保留。"
+        }
       ]
     },
     {
@@ -1759,7 +1865,9 @@
         "docs/open-questions.md",
         "docs/simulation-plan.md",
         "robot/README.md",
-        "robot/fsm-baseline.repos"
+        "robot/fsm-baseline.repos",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
       ],
       "subsequent_resolutions": [
         {
@@ -1825,7 +1933,9 @@
         "docs/web-ui.md",
         "docs/wiring-merge-acceptance.md",
         "materials/README.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
       ],
       "subsequent_resolutions": [
         {
@@ -2262,7 +2372,9 @@
         "docs/web-ui.md",
         "webui/README.md",
         "webui/provenance.json",
-        "webui/telemetry-contract.md"
+        "webui/telemetry-contract.md",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
       ]
     },
     {
@@ -2287,7 +2399,47 @@
         "webui/p1-contract.md",
         "webui/provenance.json",
         "docs/experiments/webui-p1-20261013/protocol.md",
-        "docs/experiments/webui-p1-20261013/summary.json"
+        "docs/experiments/webui-p1-20261013/summary.json",
+        "docs/technical-proposal.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20261013-03",
+      "kind": "user_message",
+      "date": "2026-10-13",
+      "source": "本项目用户会话",
+      "original_text": "解决：PR #8 的 C1 延迟取消再次受理后返回 ABORTED/520",
+      "confirmed": {
+        "scope": "授权解决 PR #8 C1：必要的定向代码修复、回归验证和事实链更新"
+      },
+      "scope_note": "仅限 C1 软件 Mock 问题，不授权自动合并/推进正式 pin/实机运动，也不变更既有其他内核问题的负责人。新授权区别于先前 UI 显示 520 的范围。",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md",
+        "docs/cpp-mock-webui-acceptance.md",
+        "docs/c1-cancel-fix.md",
+        "docs/experiments/c1-cancel-fix-20261013/protocol.md",
+        "docs/experiments/c1-cancel-fix-20261013/inputs.json",
+        "docs/experiments/c1-cancel-fix-20261013/summary.json",
+        "docs/experiments/c1-standalone-pr-20261013/protocol.md",
+        "docs/experiments/c1-standalone-pr-20261013/inputs.json",
+        "docs/experiments/c1-standalone-pr-20261013/summary.json"
+      ],
+      "subsequent_resolutions": [
+        {
+          "date": "2026-10-13",
+          "source": "本项目用户会话",
+          "original_text": "单独提交",
+          "confirmed": "C1 使用单独代码提交，不混入 Web UI P0/P1 工作。"
+        },
+        {
+          "date": "2026-10-13",
+          "source": "本项目用户会话",
+          "original_text": "单独推送PR",
+          "confirmed": "从 main 建立独立 C1 PR #15；旧 PR #8 通过普通 revert 撤出 C1，保留原内容。"
+        }
       ]
     },
     {
@@ -2311,7 +2463,8 @@
         "webui/p2-contract.md",
         "webui/provenance.json",
         "docs/experiments/webui-p2-20261013/protocol.md",
-        "docs/experiments/webui-p2-20261013/summary.json"
+        "docs/experiments/webui-p2-20261013/summary.json",
+        "docs/technical-proposal.md"
       ]
     },
     {
@@ -2340,7 +2493,1318 @@
         "webui/provenance.json",
         "docs/experiments/webui-api-20261013/protocol.md",
         "docs/experiments/webui-api-20261013/inputs.json",
-        "docs/experiments/webui-api-20261013/summary.json"
+        "docs/experiments/webui-api-20261013/summary.json",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20261014",
+      "kind": "user_message",
+      "date": "2026-10-14",
+      "source": "本项目用户侧对话",
+      "original_text": "5及之前已完成",
+      "context": "回应本轮八阶段实机验收清单：1 版本锁定；2 设备与安全；3 只读接入；4 标定与几何；5 空载运动；6 停止与异常；7 单块完整任务；8 三块与重复运行。",
+      "confirmed": {
+        "completed_stages": [
+          {
+            "stage": 1,
+            "name": "版本锁定",
+            "status": "已完成（用户现场确认）"
+          },
+          {
+            "stage": 2,
+            "name": "设备与安全",
+            "status": "已完成（用户现场确认）"
+          },
+          {
+            "stage": 3,
+            "name": "只读接入",
+            "status": "已完成（用户现场确认）"
+          },
+          {
+            "stage": 4,
+            "name": "标定与几何",
+            "status": "已完成（用户现场确认）"
+          },
+          {
+            "stage": 5,
+            "name": "空载运动",
+            "status": "已完成（用户现场确认）"
+          }
+        ],
+        "remaining_stages": [
+          {
+            "stage": 6,
+            "name": "停止与异常",
+            "status": "待验收；下一阶段"
+          },
+          {
+            "stage": 7,
+            "name": "单块完整任务",
+            "status": "待验收"
+          },
+          {
+            "stage": 8,
+            "name": "三块与重复运行",
+            "status": "待验收"
+          }
+        ],
+        "evidence_basis": "用户现场完成确认；本次没有由 Codex 连接设备或独立复跑。"
+      },
+      "scope_note": "现场源码 SHA、依赖/控制柜版本、设备标识、配置与标定数值、验收时间及原始日志/视频路径尚未在本次会话提供，待补充归档；资料缺口不撤销第 1–5 阶段完成确认。该确认不证明完整 FSM/带载任务通过，不确定最终末端型号，不将历史 Humble 脚本认定为已迁移，不关闭特定旧版本缺陷或改写冻结证据，不推进正式 pin。此次为本地文档同步，不新增实机操作、监测控制或提交推送授权。",
+      "subsequent_resolutions": [
+        {
+          "date": "2026-10-14",
+          "source": "本项目用户侧对话",
+          "original_text": "为什么不修改内容？",
+          "confirmed": "据此将第 1–5 阶段完成确认和第 6–8 阶段后续验收顺序同步到项目文档及来源登记。"
+        },
+        {
+          "date": "2026-10-14",
+          "source_id": "USER-HW-20261014-04",
+          "original_text": [
+            "有做验证",
+            "TCP"
+          ],
+          "confirmed": "补充明确TCP已做验证；参数和验证记录待归档，原八阶段状态不变。"
+        }
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "robot/README.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20261014-02",
+      "kind": "user_document_drafting_instruction",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "方案内容假设全部完成起草",
+      "context": "用户先要求“起草技术方案”，在用途澄清中选择“对外介绍或答辩材料”；随后回复“全部完成”。助手询问是实机第1–8阶段均已完成还是完整起草文档，用户以本条原话明确为方案写作假设。",
+      "confirmed": {
+        "deliverable": "面向对外介绍和答辩的完整技术方案初稿，含答辩讲述稿",
+        "writing_premise": "假设目标系统全部完成，正文采用完成态叙述",
+        "acceptance_status_change": false
+      },
+      "clarification_chain": [
+        {
+          "original_text": "起草技术方案",
+          "meaning": "要求起草项目技术方案"
+        },
+        {
+          "original_text": "对外介绍或答辩材料",
+          "meaning": "明确目标用途"
+        },
+        {
+          "original_text": "全部完成",
+          "meaning": "后经本条澄清为方案内容的完成态假设"
+        },
+        {
+          "original_text": "方案内容假设全部完成起草",
+          "meaning": "不构成实机阶段完成确认"
+        }
+      ],
+      "scope_note": "仅授权以假设完成态起草本地技术文档。USER-HW-20261014 的第1–5阶段用户现场确认与第6–8阶段待验收状态不变；不新建实测PASS、不填写未知实测数值、不关闭旧缺陷、不改冻结证据、不推进正式pin，也不新增实机操作或提交推送授权。",
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/technical-proposal-submission.md"
+      ],
+      "editorial_handling": "未提供的实机数值与证据保留待填，不把仿真数据作为实机结果"
+    },
+    {
+      "id": "USER-EE-20261014",
+      "kind": "user_document_scope_clarification",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "舌规",
+      "context": "在USER-HW-20261014-02要求按系统全部完成起草对外方案，且助手说明末端型号保留填写位置后，用户补充“舌规”。",
+      "confirmed": {
+        "draft_end_effector_focus": "本次技术方案围绕舌规对应的穿孔承托钩具展开",
+        "interpretation": "结合文档起草上下文，以历史舌规功能几何说明进钩、承托、卸载与退钩；完整装机结构按完成态设计叙述"
+      },
+      "scope_note": "本条确定本次稿件的末端叙述方向，不据一词补充推定具体装机图号、打印材料、TCP数值、实物承载或实机验收完成。历史44×5×5舌规的尺寸与手持段沿用DEMO-AUDIT-20260907；舌规STL不包含完整钩柄/法兰连接。不删除原钩取、侧吸、卡环和开放候选记录，不把全部候选写成已经实现。",
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/technical-proposal-submission.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "date": "2026-10-14",
+          "source_id": "USER-EE-20261014-02",
+          "confirmed": "用户随后明确舌规采用PETG材料、3D打印成型，并给出参数化设计、试配迭代、装机结构区分和图位要求；补齐原一词答复未说明的舌规材料与制造方式，实际验收状态不变。"
+        }
+      ]
+    },
+    {
+      "id": "USER-EE-20261014-02",
+      "kind": "user_material_and_document_instruction",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "请在正在起草的对外技术方案和答辩内容中，补充“PETG 3D 打印舌规”的设计与制造部分。\n\n舌规采用 PETG 材料，通过 3D 打印成型。将其放在“末端结构设计与快速迭代”中，重点说明：\n1. 通过参数化建模调整舌宽、舌厚、上翘尺寸，使其与电池提手孔口匹配。\n2. 利用打印样件检查穿入间隙、承托位置和退出空间，根据试配结果迭代结构。\n3. 结合“穿入—承托提升—搬运—落台卸载—退钩”解释几何设计与动作流程的关系。\n\n明确舌规试配件与完整装机钩具的关系，分别说明功能舌、钩柄及法兰连接。材料性能、打印参数、承载能力和防脱效果按已有记录描述，缺失数据保留填写位置。\n\n正文继续按“目标系统全部完成”的假设撰写，并保留草稿的假设说明；该写作前提不用于更新实际验收状态。可预留一张“CAD 模型—PETG 打印件—提手试配”的对照图，突出定制适配和迭代过程。",
+      "context": "补充USER-HW-20261014-02的对外完成态技术方案与USER-EE-20261014的舌规叙述方向。",
+      "confirmed": {
+        "gauge_material": "PETG",
+        "manufacturing_process": "3D 打印成型",
+        "section": "末端结构设计与快速迭代",
+        "design_parameters": [
+          "舌宽",
+          "舌厚",
+          "上翘尺寸"
+        ],
+        "fit_checks": [
+          "穿入间隙",
+          "承托位置",
+          "退出空间"
+        ],
+        "iteration": "根据打印样件与电池提手试配结果迭代参数化模型",
+        "motion_sequence": [
+          "穿入",
+          "承托提升",
+          "搬运",
+          "落台卸载",
+          "退钩"
+        ],
+        "component_distinction": [
+          "舌规试配件",
+          "功能舌",
+          "钩柄",
+          "法兰连接",
+          "完整装机钩具"
+        ],
+        "missing_data": "材料性能、打印参数、承载能力和防脱效果按已有记录描述，缺失数据保留填写位置",
+        "figure": "预留CAD模型—PETG打印件—提手试配对照图",
+        "writing_premise": "继续按目标系统全部完成撰写并保留假设说明，不更新实际验收状态"
+      },
+      "scope_note": "明确舌规的PETG材料与3D打印方式，不指定PETG品牌/牌号、设备、服务方、成型参数、试配次数、实物承载或防脱指标；不推定钩柄、法兰连接或支架也使用PETG。PolyU已确认支持PLA的历史记录保留，本条不确认该服务方支持PETG。完成态用于本次文稿，不将试配、完整装机或实机阶段改记为已验收；历史舌规网格尺寸不转写为本批打印成品实测。",
+      "clarifies": [
+        "USER-EE-20261014"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/end-effector-options.md",
+        "docs/technical-proposal-submission.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "date": "2026-10-14",
+          "source_id": "USER-EE-20261014-03",
+          "note": "提交稿的打印配置项改为工艺描述，不设待填；未新增设备或工艺参数数值，其他缺失数据及原稿仍保留原范围。"
+        },
+        {
+          "date": "2026-10-14",
+          "source_id": "USER-EE-20261014-06",
+          "confirmed": "用户进一步确认该PETG打印舌规直接作为装机功能舌与上翘尖，明确试配件与装机功能段为直接沿用关系；钩柄、法兰材料及性能数据仍未补充。"
+        }
+      ]
+    },
+    {
+      "id": "USER-HW-20261014-03",
+      "kind": "user_camera_mounting_clarification",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "这是眼在手外",
+      "context": "用户提供 F1u0rite/meituan_challenge_ws PR #17 后，纠正正在起草的对外技术方案中沿用的眼在手上安装描述。",
+      "confirmed": {
+        "camera_mounting": "眼在手外（eye-to-hand）",
+        "draft_application": "相机相对工位与机械臂基座固定，当前方案、答辩与标定说明按此修订",
+        "acceptance_status_change": false
+      },
+      "clarifies": "USER-HW-20260906-03 的历史末端安装计划；PR #17 本身未明确相机安装方式，此次布置依据来自用户确认。",
+      "scope_note": "确认当前相机布置方式，不填入未知安装位置、角度、外参、误差或现场配置。保留 USER-HW-20261014 的第1–5阶段完成确认及第6–8阶段待验收；不改写历史眼在手上仿真和冻结证据，不修改上游代码、正式pin或新增实机运行。",
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/battery-geometry.md",
+        "docs/end-effector-options.md",
+        "docs/calibration-acceptance.md",
+        "materials/README.md",
+        "docs/technical-proposal-submission.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20261014-04",
+      "kind": "user_tcp_validation_clarification",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "有做验证",
+      "context": "在对外技术方案修订中，用户纠正验证状态，随后明确所指对象为TCP；与PR #17本身的验证范围分别登记。",
+      "clarification_chain": [
+        {
+          "original_text": "有做验证",
+          "meaning": "用户说明已有验证"
+        },
+        {
+          "question_context": "你说“有做验证”，具体是指哪部分已完成？我会据此修正方案的验证范围；已有第 1–5 阶段完成确认会保留。",
+          "original_text": "TCP",
+          "meaning": "明确已做验证的对象为TCP"
+        }
+      ],
+      "confirmed": {
+        "tcp_validation_performed": true,
+        "evidence_basis": "用户明确确认",
+        "documentation_status": "TCP已做验证；具体参数、验证方法及结果记录待补充",
+        "stage_6_to_8_status_change": false
+      },
+      "scope_note": "确认TCP已做验证，不因PR #17未覆盖或旧版记录缺数据而写成项目没有验证。未提供对应工具/TCP版本、位姿数值、样本数、误差、判据、详细结果或日志；不擅填这些数值，不扩展为所有末端候选均已验证，不新增整机抓放/停止异常/重复运行通过项。USER-HW-20261014的第1–5阶段完成确认保留，第6–8阶段状态不变；本轮只更新文档，没有由Codex操作设备或独立复跑，不改正式pin或冻结证据。",
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "docs/current-status.md",
+        "docs/calibration-acceptance.md",
+        "docs/technical-proposal-submission.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf"
+      ]
+    },
+    {
+      "id": "USER-HW-20261014-05",
+      "kind": "user_submission_document_instruction",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "再写一个提交版本，同样md格式",
+      "context": "在对外技术方案与答辩稿已补充PETG舌规、眼在手外布置及TCP已做验证后，要求另写独立的Markdown提交版。",
+      "confirmed": {
+        "deliverable": "独立的技术方案提交版，Markdown格式",
+        "path": "docs/technical-proposal-submission.md",
+        "original_draft": "保留docs/technical-proposal.md",
+        "writing_premise": "沿用USER-HW-20261014-02的目标系统全部完成假设，保留假设说明和缺失数据填写位置",
+        "acceptance_status_change": false
+      },
+      "scope_note": "起草本地提交版本，不等于实际提交比赛材料、发布或推送。保留PETG试配件与完整装机钩具的区别、眼在手外布置及TCP已做验证的用户确认；不新增实测结果、不改变实际验收状态、候选选型或正式pin。",
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/open-questions.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "date": "2026-10-14",
+          "source_id": "USER-HW-20261014-07",
+          "note": "提交稿移除自我说明和写作前提声明，原稿及内部记录保留既定写作范围；不是实际验收状态更新。"
+        }
+      ]
+    },
+    {
+      "id": "USER-HW-20261014-06",
+      "kind": "user_submission_validation_wording_instruction",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "所有应该验证的全部写已验证",
+      "context": "在独立Markdown提交版起草过程中补充的表述要求；前序明确要求正文按目标系统全部完成假设撰写、保留假设说明且不用于更新实际验收状态，本条延续该文稿范围。",
+      "confirmed": {
+        "document": "docs/technical-proposal-submission.md",
+        "validation_wording": "各项应验证内容统一表述为已验证",
+        "writing_premise": "属于目标系统全部完成的写作假设",
+        "missing_values": "具体制造参数、量化实测值、试验条件及证据附件保留填写位置",
+        "acceptance_status_change": false
+      },
+      "scope_note": "确认的是提交稿写法，不将原话解释为实际全部验收完成。USER-HW-20261014的第1–5阶段确认、第6–8阶段待验收状态，以及USER-HW-20261014-04的TCP已做验证确认均保持原有范围。未提供新的试验结果或数值，不改原始失败记录、冻结证据、正式pin、候选末端选型或验收台账；不把上游PR的局部测试扩写为其已经验证整机。",
+      "continues": [
+        "USER-HW-20261014-02",
+        "USER-HW-20261014-05"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/open-questions.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "date": "2026-10-14",
+          "source_id": "USER-HW-20261014-07",
+          "note": "提交稿移除自我说明和写作前提声明，原稿及内部记录保留既定写作范围；不是实际验收状态更新。"
+        },
+        {
+          "date": "2026-10-14",
+          "source_id": "USER-HW-20261014-08",
+          "note": "提交稿后续删除独立验证模块及重复状态表，TCP已验证说明保留；原写作口径及实际验收范围不因文稿删减而改变。"
+        }
+      ]
+    },
+    {
+      "id": "USER-HW-20261014-07",
+      "kind": "user_submission_editorial_cleanup_instruction",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "既然是提交版本，不要有自我说明，只保留必须的引用",
+      "context": "继续修改独立Markdown提交稿，用户要求删除面向起草过程的自我说明，并精简为对评审必要的引用。",
+      "confirmed": {
+        "document": "docs/technical-proposal-submission.md",
+        "editorial_scope": "移除编写说明、写作前提声明、会话过程、内部验收解释和内部状态链接，精简引用",
+        "retained_content": "技术正文、已验证表述、实测参数和图位、必要来源及FAQ要求的第三方/生成式AI披露",
+        "original_draft_preserved": "docs/technical-proposal.md",
+        "acceptance_status_change": false
+      },
+      "scope_note": "本条更新提交稿的呈现方式，覆盖此前在提交稿中保留假设说明的格式要求；既定目标系统完成态写作前提继续留存于原稿和内部记录，不将删除说明解释为实机全部验收确认。具体实测值不补造，实际验收台账、候选末端选型、正式pin及冻结证据不变；未提交、发布或推送文档。",
+      "continues": [
+        "USER-HW-20261014-02",
+        "USER-HW-20261014-05",
+        "USER-HW-20261014-06"
+      ],
+      "retained_reference_ids": [
+        "FAQ",
+        "RULES",
+        "BATTERY-DRAWING",
+        "USER-RULE-20260906-02",
+        "TEAMMATE-VISIONCOORD-20261014",
+        "CV-SAM2",
+        "DEMO-AUDIT-20260907"
+      ],
+      "background_source_ids": [
+        "SPRINT-PLAN-20261011",
+        "USER-HW-20260906",
+        "USER-HW-20260923-03",
+        "USER-HW-20260923-04",
+        "USER-HW-20260923-08",
+        "USER-HW-20260923-09",
+        "USER-HW-20260923-10",
+        "USER-RULE-20260923",
+        "USER-HW-20261011",
+        "USER-HW-20261011-03",
+        "USER-HW-20261013",
+        "USER-HW-20261013-05",
+        "USER-HW-20261014-02",
+        "USER-EE-20261014",
+        "USER-EE-20261014-02",
+        "USER-HW-20261014-03",
+        "USER-HW-20261014-04",
+        "USER-HW-20261014-05",
+        "USER-HW-20261014-06",
+        "AUBO-DESC",
+        "TEAMMATE-FSM-20261011",
+        "TEAMMATE-SDK-20261011"
+      ],
+      "source_trace_note": "提交稿精简了内联会话和工程过程引用，仍使用相应背景事实；来源链和derived_files保留于本注册表，不回写为新的验证事实。已移除的上游局部测试摘要仍在原稿和对应来源记录中保留。",
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/open-questions.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "date": "2026-10-14",
+          "source_id": "USER-HW-20261014-09",
+          "note": "提交稿参考资料进一步精简为四项官方/公开资料，采用数字编号，不显示内部时间和本地记录；原引用标识映射继续在内部保存。"
+        }
+      ]
+    },
+    {
+      "id": "USER-HW-20261014-08",
+      "kind": "user_submission_section_simplification",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "验证模块是否可以删除？",
+      "context": "在提交版已清除自我说明并精简引用后，用户进一步询问删除验证模块；结合当前文稿编辑任务，按删除独立验证章节处理。",
+      "confirmed": {
+        "document": "docs/technical-proposal-submission.md",
+        "editorial_handling": "删除独立验证体系与结果章节、验证覆盖清单及量化结果表，精简各节重复的验证状态，重新编号后续章节",
+        "retained_content": "PETG材料与打印参数、试配和迭代方法、相机与TCP标定、TCP已验证说明、抓放判据、过程记录及必要引用/技术披露",
+        "acceptance_status_change": false
+      },
+      "scope_note": "属于提交稿结构调整，原话不是撤销或新增实际验证确认。原稿与已归档证据保留，USER-HW-20261014的阶段进度及USER-HW-20261014-04的TCP确认不变；不改变末端候选、正式pin或原始失败记录，不补造数值，不进行代码运行、实机操作或实际提交。",
+      "continues": [
+        "USER-HW-20261014-05",
+        "USER-HW-20261014-07"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/open-questions.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20261014-09",
+      "kind": "user_submission_references_presentation_instruction",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "优化参考资料部分",
+      "clarification_chain": [
+        {
+          "original_text": "优化参考资料部分",
+          "meaning": "整理提交稿参考资料及正文引用"
+        },
+        {
+          "original_text": "不要体现内部时间",
+          "meaning": "提交稿不展示编制/查阅时间或日期型内部来源编号"
+        },
+        {
+          "original_text": "不要体现本地记录",
+          "meaning": "参考资料不列会话记录、本地模型核验记录或本地文件路径"
+        }
+      ],
+      "confirmed": {
+        "document": "docs/technical-proposal-submission.md",
+        "reference_style": "四项编号参考资料，正文同步使用[1]至[4]；仅保留比赛官方资料和公开技术来源",
+        "excluded_presentation": [
+          "内部时间",
+          "内部记录编号",
+          "本地记录条目",
+          "本地文件链接"
+        ],
+        "acceptance_status_change": false
+      },
+      "submission_reference_map": {
+        "1": "RULES",
+        "2": "FAQ",
+        "3": "TEAMMATE-VISIONCOORD-20261014",
+        "4": "CV-SAM2"
+      },
+      "background_sources_not_listed": [
+        "USER-RULE-20260906-02",
+        "BATTERY-DRAWING",
+        "DEMO-AUDIT-20260907"
+      ],
+      "scope_note": "按最新要求在提交稿采用简短数字编号，原来源标识、日期和背景事实保留在注册表及原稿；不删除来源记录或改写来源性质。内框70%继续明确为组委会补充答复的转述口径，不归入RULES原文；图纸未标单位、名义尺寸和STL单位解释仍保留。官方PDF仅列准确名称及页序，不编造公开网址；公开源码链接保留已核对版本，不显示内部查阅时间或提交哈希。未新增研究结果、真实验证、代码运行、实机操作、发布或推送，实际验收台账及正式pin不变。",
+      "continues": [
+        "USER-HW-20261014-05",
+        "USER-HW-20261014-07",
+        "USER-HW-20261014-08"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/open-questions.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "date": "2026-10-14",
+          "source_id": "USER-HW-20261014-10",
+          "note": "团队仓库不列作参考资料；提交稿最终编号为[1]规则、[2]FAQ、[3]SAM 2，原四项映射保留历史范围。"
+        }
+      ]
+    },
+    {
+      "id": "USER-HW-20261014-10",
+      "kind": "user_submission_reference_classification_correction",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "团队repo不应该属于参考资料",
+      "context": "在参考资料整理后，用户指出团队仓库属于项目自身实现，不应作为提交稿参考资料。",
+      "confirmed": {
+        "document": "docs/technical-proposal-submission.md",
+        "classification": "团队仓库作为项目实现，不列入参考资料",
+        "editorial_handling": "删除团队仓库条目及对应正文引用，参考资料保留比赛规则、FAQ和SAM 2并重新编号",
+        "acceptance_status_change": false
+      },
+      "submission_reference_map": {
+        "1": "RULES",
+        "2": "FAQ",
+        "3": "CV-SAM2"
+      },
+      "project_implementation_source_ids": [
+        "TEAMMATE-VISIONCOORD-20261014"
+      ],
+      "scope_note": "调整提交稿参考资料归属，保留技术正文中的团队实现描述及内部溯源；不将SAM预训练模型或其他第三方基础组件列为团队原创。不修改源代码、正式pin、实际验收状态、冻结证据或原稿；不新增运行、发布或推送。",
+      "continues": [
+        "USER-HW-20261014-09"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/open-questions.md"
+      ]
+    },
+    {
+      "id": "USER-EE-20261014-03",
+      "kind": "user_submission_print_configuration_wording_instruction",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "打印机配置不要设为待填",
+      "context": "继续修改Markdown提交版，针对末端设计制造表中的打印配置填空提出调整。",
+      "confirmed": {
+        "document": "docs/technical-proposal-submission.md",
+        "printing_configuration_presentation": "不标为待填",
+        "editorial_handling": "改为PETG切片配置、打印方向与支撑、成型尺寸和表面质量检查的工艺描述",
+        "new_printer_or_process_values_provided": false,
+        "acceptance_status_change": false
+      },
+      "scope_note": "本条只修改提交稿打印配置项的呈现方式，未指定设备品牌/型号、喷嘴、切片软件、温度、层高、壁数、填充或速度数值，不以通用建议冒充实际配置。PETG材料与3D打印方式沿用USER-EE-20261014-02；其他材料性能、承载、图位和装机参数的既有填写位置保留。原稿、实际验收状态、候选选型、正式pin和冻结证据均不变。",
+      "continues": [
+        "USER-EE-20261014-02",
+        "USER-HW-20261014-05"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/open-questions.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "source_id": "USER-EE-20261014-04",
+          "confirmed": "用户随后要求精简材料与制造项目，提交稿表格进一步归纳为材料、成型和适配三项；原稿及实际验收记录不变。"
+        }
+      ]
+    },
+    {
+      "id": "USER-EE-20261014-04",
+      "kind": "user_submission_manufacturing_table_simplification",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "简化材料与制造项目",
+      "context": "继续精简Markdown提交版的PETG舌规设计与制造部分。",
+      "confirmed": {
+        "document": "docs/technical-proposal-submission.md",
+        "editorial_handling": "材料与制造表归纳为材料、成型和适配三项，保留PETG、3D打印和提手试配说明",
+        "acceptance_status_change": false
+      },
+      "scope_note": "仅精简提交稿表格，移除该表的材料及试验记录填空，不新增材料性能、打印参数、承载能力或防脱效果数据。原稿保留相应数据填写位置，实际验收状态、正式pin和冻结证据不变。",
+      "continues": [
+        "USER-EE-20261014-03"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/open-questions.md"
+      ]
+    },
+    {
+      "id": "USER-EE-20261014-05",
+      "kind": "user_submission_parameter_column_removal",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "删除最终模型 / 成品实测",
+      "context": "在材料与制造项目精简期间，进一步要求删除参数表中的最终模型与成品实测列。",
+      "confirmed": {
+        "document": "docs/technical-proposal-submission.md",
+        "editorial_handling": "删除最终模型 / 成品实测整列，保留参数、初版设计参数和对应约束三列",
+        "acceptance_status_change": false
+      },
+      "scope_note": "仅删除提交稿列及其填写位置，初版设计值仍为模型名义尺寸，不改写为最终成品实测值。原稿、原始资料和实际验收记录不变。",
+      "continues": [
+        "USER-EE-20261014-04"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/open-questions.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20261014-11",
+      "kind": "user_submission_file_rename_instruction",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "重新命名",
+      "context": "在提交稿表格精简后，用户要求重新命名；未指定新文件名，按当前提交版用途选用中文文件名。",
+      "confirmed": {
+        "rename_requested": true,
+        "document": "docs/technical-proposal-submission.md",
+        "editorial_handling": "提交版文件重命名为技术方案-提交版.md，同步入口链接和来源索引，正文保持不变",
+        "acceptance_status_change": false
+      },
+      "previous_path": "docs/technical-proposal-submission.md",
+      "scope_note": "文件名由本次编辑选定，不视为用户提供的技术事实。仅重命名提交稿并修复路径引用，原稿、实际验收记录、正式pin和冻结证据不变。",
+      "continues": [
+        "USER-HW-20261014-05"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/open-questions.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "source_id": "USER-HW-20261014-12",
+          "confirmed": "用户澄清更名对象为方案标题；此前文件更名为助手误解，已恢复原文件名并修改提交稿标题。"
+        }
+      ]
+    },
+    {
+      "id": "USER-HW-20261014-12",
+      "kind": "user_submission_title_rename_clarification",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "我是指的方案标题",
+      "context": "澄清上一条重新命名要求的对象，纠正助手将其理解为文件名更改。",
+      "confirmed": {
+        "rename_target": "方案标题",
+        "document": "docs/technical-proposal-submission.md",
+        "editorial_handling": "恢复原文件名与入口链接，修改提交稿一级标题",
+        "acceptance_status_change": false
+      },
+      "editor_selected_title": "基于眼在手外视觉与定制钩具的电池自动抓取与序列摆放技术方案",
+      "previous_title": "基于眼在手外 RGB-D 感知与舌规式钩具的电池抓取及序列摆放系统",
+      "scope_note": "用户确认的是更名对象；具体新标题由本次编辑拟定。除一级标题外提交稿正文不变，原稿、实际验收记录、正式pin和冻结证据不变。",
+      "continues": [
+        "USER-HW-20261014-11"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/open-questions.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20261014-13",
+      "kind": "user_submission_placeholder_simplification_instruction",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "修改",
+      "context": "用户先要求重新审查待填项的必要性，澄清只评估哪些待填不需要；助手列出删减建议后，用户要求执行修改。",
+      "clarification_chain": [
+        {
+          "original_text": "重新审查哪些是不需要的",
+          "meaning": "要求审查待填清单的必要性"
+        },
+        {
+          "original_text": "我是指的哪些待填是不需要的",
+          "meaning": "先判断待填字段是否必要"
+        },
+        {
+          "original_text": "修改",
+          "meaning": "按上一轮待填删减建议修改提交稿"
+        }
+      ],
+      "confirmed": {
+        "document": "docs/technical-proposal-submission.md",
+        "editorial_handling": "删除内部归档字段和重复配置的待填，缩减制造及标定字段，保留必要材料/连接、试配结论、标定方法与误差及图片",
+        "remaining_text_placeholders": 10,
+        "remaining_image_placeholders": 3,
+        "acceptance_status_change": false
+      },
+      "removed_placeholder_fields": [
+        "相机安装位置、角度和覆盖范围",
+        "装机图号、功能段图号、法兰转接件图号",
+        "计算设备具体型号及重复的系统/部署版本",
+        "功能段实测尺寸、钩柄截面与长度、法兰孔位、紧固件及装配记录",
+        "迭代轮数、逐版参数变化和完整试配条件",
+        "图注中的模型版本、样件编号和电池编号",
+        "相机外参数值和采样记录",
+        "TCP对应工具版本、完整位姿、原始结果记录和详细判据"
+      ],
+      "retained_placeholder_fields": [
+        "参赛团队和所属单位",
+        "装机功能段材料、钩柄和法兰的材料及连接方式",
+        "关键结构调整与试配结论",
+        "相机标定方法及独立复核误差摘要",
+        "TCP验证方法及误差摘要",
+        "T0现场方向参考方式",
+        "第三方软件版本、许可证及修改清单",
+        "CAD、PETG打印件与提手试配三张图片"
+      ],
+      "scope_note": "本条为提交稿编辑要求，不新增制造、标定或验证数据。TCP已验证的既有用户确认保留，名义模型尺寸不改写为成品实测。原稿、实际验收台账、候选选型、正式pin和冻结证据均不变。",
+      "continues": [
+        "USER-HW-20261014-05",
+        "USER-EE-20261014-04",
+        "USER-EE-20261014-05",
+        "USER-HW-20261014-12"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/open-questions.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "date": "2026-10-14",
+          "source_id": "USER-EE-20261014-06",
+          "confirmed": "装机功能段材料随后经用户确认为PETG，已删除该处待填；提交稿现有9处文字待填与3处图片占位，其他保留项不变。"
+        },
+        {
+          "date": "2026-10-14",
+          "source_id": "USER-EE-20261014-07",
+          "confirmed": "用户进一步指出材料与实测尺寸字段仍有残留，现从两版方案移除相关制造明细填空；提交稿结构表仅保留部件作用，现有7处文字待填与3处图片占位。"
+        }
+      ]
+    },
+    {
+      "id": "USER-EE-20261014-06",
+      "kind": "user_installed_end_effector_material_confirmation",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "直接用的",
+      "context": "用户询问装机功能段材料的含义；助手说明若装机直接使用该PETG舌规则可填写PETG、3D打印成型，用户随后确认直接使用。",
+      "confirmed": {
+        "installed_functional_segment_material": "PETG",
+        "manufacturing_process": "3D 打印成型",
+        "installed_parts": [
+          "功能舌",
+          "上翘尖"
+        ],
+        "trial_to_installation_relationship": "打印舌规直接用于装机功能段",
+        "submission_material_placeholder_resolved": true,
+        "acceptance_status_change": false
+      },
+      "scope_note": "确认该PETG打印舌规的实际装机用途，不仅是几何试配样件。不据此推定钩柄、法兰连接或相机支架同为PETG，也不补写材料牌号、打印参数、实测尺寸、安装结构、载荷或防脱指标；不改变实机阶段验收状态、正式pin及冻结证据。",
+      "clarifies": [
+        "USER-EE-20261014-02",
+        "USER-HW-20261014-13",
+        "Q03"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/technical-proposal.md",
+        "docs/hardware-vision-plan.md",
+        "docs/end-effector-options.md",
+        "docs/open-questions.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf"
+      ],
+      "subsequent_resolutions": [
+        {
+          "date": "2026-10-15",
+          "source_id": "USER-EE-20261015",
+          "confirmed": "用户要求保留PETG打印功能舌与上翘尖直接装机，并补充安装盘去除背面凹槽周围环形凸台、削平至原凹槽底面的实机结构改动；未扩展其他部件的材料确认。"
+        }
+      ]
+    },
+    {
+      "id": "USER-EE-20261014-07",
+      "kind": "user_proposal_remaining_material_dimension_field_correction",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "为什么还有材料与实测尺寸？",
+      "context": "在确认PETG打印舌规直接装机并清理待填后，用户指出方案仍出现材料与实测尺寸字段；结合既有精简要求清除残留制造明细填空。",
+      "confirmed": {
+        "documents": [
+          "docs/technical-proposal-submission.md",
+          "docs/technical-proposal.md"
+        ],
+        "editorial_handling": "结构表保留部件与作用，移除材料规格、连接明细及成品实测尺寸填空，保留已确认的PETG打印和直接装机说明",
+        "remaining_submission_text_placeholders": 7,
+        "remaining_submission_image_placeholders": 3,
+        "acceptance_status_change": false
+      },
+      "scope_note": "本条是文稿呈现修正，不确认钩柄或法兰材料，也不把名义模型尺寸改为实测数据；原有未知参数和验证缺口仍按内部台账保留。打印参数、承载与防脱记录不新增实测结论，正式pin、实际验收记录及冻结证据不变。",
+      "continues": [
+        "USER-HW-20261014-13",
+        "USER-EE-20261014-06"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/technical-proposal.md",
+        "docs/open-questions.md"
+      ]
+    },
+    {
+      "id": "USER-HW-20261014-14",
+      "kind": "user_submission_only_maintenance_scope",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "非提交版先不管了",
+      "context": "用户先指出USER-EE-20261014-06属于内部记录；定位后确认该编号位于非提交版。用户随后限定当前只维护提交版，停止非提交版清理。",
+      "confirmed": {
+        "active_document": "docs/technical-proposal-submission.md",
+        "deferred_document": "docs/technical-proposal.md",
+        "editorial_scope": "当前只处理提交版；不继续修改非提交版",
+        "submission_reference_policy": "不展示内部来源编号、本地记录链接及内部日期，仅保留必要外部引用",
+        "acceptance_status_change": false
+      },
+      "scope_note": "本轮核对提交版已无所指内部编号和本地记录引用，未因本条另改两份文稿正文；非提交版保持本条指令到达时的内容，不恢复此前已经完成的修改。溯源仍在内部注册表保存，实际验收记录和正式pin不变。",
+      "continues": [
+        "USER-HW-20261014-09",
+        "USER-EE-20261014-07"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/technical-proposal-submission.md"
+      ]
+    },
+    {
+      "id": "USER-EE-20261014-08",
+      "kind": "user_tongue_handle_fit_confirmation",
+      "date": "2026-10-14",
+      "source": "本项目当前用户会话",
+      "original_text": "适配",
+      "context": "用户询问适配结论含义，助手解释为舌规与电池提手的配合结果后，用户回复适配；按该上下文填入简明适配结论。",
+      "confirmed": {
+        "fit_conclusion": "PETG舌规与电池提手孔口适配",
+        "document": "docs/technical-proposal-submission.md",
+        "resolved_placeholder": "关键结构调整与试配结论",
+        "remaining_text_placeholders": 6,
+        "remaining_image_placeholders": 3,
+        "acceptance_status_change": false
+      },
+      "scope_note": "仅记录用户对舌规与提手孔口适配的确认，不补写未提供的结构调整过程、尺寸余量、试配次数或测试方法，也不扩展为承载、防脱和整机任务的量化验证结论。仅修改提交版；非提交版、正式pin和实际验收状态保持不变。",
+      "continues": [
+        "USER-EE-20261014-06",
+        "USER-EE-20261014-07",
+        "USER-HW-20261014-14"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/open-questions.md"
+      ]
+    },
+    {
+      "id": "USER-EE-20261015",
+      "kind": "user_installed_tool_structure_clarification",
+      "date": "2026-10-15",
+      "source": "本项目当前用户会话",
+      "original_text": "- 保留已确认的 PETG 3D 打印功能舌与上翘尖直接装机。\n- 补充：实机安装盘去除了背面凹槽周围的环形凸台，并削平至原凹槽底面，目的是便于螺钉紧固、减少装配误差。",
+      "context": "在技术方案报告v0.4审阅及图片补充后，用户明确本轮应保留的材料/装机事实及新增的安装盘加工事实。",
+      "confirmed": {
+        "installed_functional_parts": [
+          "功能舌",
+          "上翘尖"
+        ],
+        "functional_parts_material": "PETG",
+        "functional_parts_manufacturing": "3D 打印",
+        "functional_parts_direct_installation": true,
+        "mounting_disc_modification": "实机安装盘去除背面凹槽周围的环形凸台，并削平至原凹槽底面",
+        "modification_purpose": [
+          "便于螺钉紧固",
+          "减少装配误差"
+        ],
+        "evidence_basis": "用户会话确认；本轮没有独立实物测量",
+        "report": "docs/技术报告.md"
+      },
+      "scope_note": "本条确认功能舌与上翘尖材料、直接装机用途及安装盘加工事实，不推定安装盘、钩柄或其他部件也为PETG。“减少装配误差”为改动目的，未提供误差改善量、加工后实测尺寸或新的TCP参数。原始CAD尺寸、TCP数值与运行配置未因本次说明而修改；既有TCP验证确认保持原范围，不新增承载、防脱或整机验收结果。",
+      "clarifies": [
+        "USER-EE-20261014-06",
+        "Q03"
+      ],
+      "derived_files": [
+        "README.md",
+        "docs/技术报告.md",
+        "docs/open-questions.md",
+        "materials/README.md",
+        "docs/技术报告.pdf"
+      ]
+    },
+    {
+      "id": "USER-HW-20261015",
+      "kind": "user_report_revision_scope_clarification",
+      "date": "2026-10-15",
+      "source": "本项目当前用户会话",
+      "original_text": "你擅自改了什么,我不是只让你改4?\n1,6不用撤回\n5不撤回",
+      "clarification_chain": [
+        {
+          "original_text": "你擅自改了什么,我不是只让你改4?",
+          "meaning": "指出超出原先第 4 项的修改范围。"
+        },
+        {
+          "original_text": "1,6不用撤回",
+          "meaning": "保留最初审阅意见第 1、6 项。"
+        },
+        {
+          "original_text": "5不撤回",
+          "meaning": "再确认第 5 项保留。"
+        }
+      ],
+      "confirmed": {
+        "report": "docs/技术报告.md",
+        "numbering_basis": "本会话最初列出的六条审阅意见",
+        "retained_review_items": [
+          1,
+          4,
+          5,
+          6
+        ],
+        "reverted_review_items": [
+          2,
+          3
+        ],
+        "retained_scope": [
+          "内框 70% 判据",
+          "PETG 功能舌与上翘尖直接装机、安装盘去除环形凸台并削平",
+          "图片、几何依据与来源登记",
+          "文字整理、具体规则页码与第三方/AI 披露"
+        ],
+        "reverted_scope": [
+          "新增架构图、视觉待接入连线及播放器口令限制的文稿修订",
+          "新增 TCP 已验证表述及结果表、贡献表的对应修订"
+        ]
+      },
+      "scope_note": "仅限定此次 v0.4 文稿修订，不删除或否定此前用户确认，不改尺寸、TCP 数值、实验指标或其他报告；其余未授权审阅建议不自动落实。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md"
+      ],
+      "subsequent_resolutions": [
+        {
+          "decision_id": "USER-HW-20261015-02",
+          "note": "后续授权全文语言、图表和 PDF 优化，原第 2、3 项技术表述仍保持原样。"
+        }
+      ]
+    },
+    {
+      "id": "USER-HW-20261015-02",
+      "kind": "user_report_polish_and_pdf_scope",
+      "date": "2026-10-15",
+      "source": "本项目用户会话",
+      "original_text": "执行\n修改全部\n优化全文文字、图表和 PDF 排版，第 2、3 项技术表述保持原样（推荐）\n舌规图也要改\n不要github link",
+      "confirmed": {
+        "report": "docs/技术报告.md",
+        "deliverable": "docs/技术报告.pdf",
+        "scope": [
+          "全文文字润色",
+          "三张流程图版式优化，保留节点、转移关系及条件",
+          "舌规图按固定 STEP 重绘，保留原始 PNG",
+          "完整技术报告 PDF 排版与导出",
+          "正文及 PDF 去除 GitHub 超链接，保留来源名称与编号"
+        ],
+        "preserved": [
+          "原审阅第 2、3 项技术表述",
+          "尺寸、TCP 数值、公式、验证指标",
+          "原始用户图片与模型几何",
+          "现有实机及仿真验收范围"
+        ]
+      },
+      "scope_note": "本次授权扩展到整份报告的语言和呈现；不恢复先前撤回的第 2、3 项技术修订，不新增实验或修改机器人代码。移除正文超链接不删除来源清单中的原始地址。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "materials/README.md",
+        "tools/report/README.md",
+        "docs/assets/report-v0.4/report-validation.json",
+        "docs/assets/report-v0.4/report-export.json"
+      ],
+      "subsequent_resolutions": [
+        {
+          "decision_id": "USER-HW-20261015-03",
+          "date": "2026-10-15",
+          "resolution": "后续要求删除正文内部来源编号，保留来源名称；对应编号与地址继续留在来源清单。"
+        },
+        {
+          "decision_id": "USER-HW-20261015-04",
+          "date": "2026-10-15",
+          "resolution": "按视觉风格反馈调整报告与流程图配色；舌规颜色按用户后续要求保持。"
+        },
+        {
+          "decision_id": "USER-HW-20261015-05",
+          "date": "2026-10-15",
+          "resolution": "补充团队、单位、ROS、相机及 ARCS/SDK 版本；MoveIt 按最后指令保持。"
+        }
+      ]
+    },
+    {
+      "id": "USER-HW-20261015-03",
+      "kind": "user_report_internal_citation_cleanup",
+      "date": "2026-10-15",
+      "source": "本项目用户会话",
+      "original_text": "删除例如TEAMMATE-FIELD-20261015",
+      "confirmed": {
+        "report": "docs/技术报告.md",
+        "display_change": "删除报告正文、表格及附录中的内部来源编号；保留可读来源说明、规则页码和第三方披露。",
+        "source_retention": "来源注册条目、原始地址、固定版本与派生文件关联仍在 manifest 中保存。"
+      },
+      "scope_note": "仅改变引用的展示方式；原审阅第 2、3 项技术表述、尺寸、TCP、公式、图示关系及验证指标保持，不新增实验。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "materials/README.md",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json"
+      ]
+    },
+    {
+      "id": "USER-HW-20261015-04",
+      "kind": "user_report_visual_style_revision",
+      "date": "2026-10-15",
+      "source": "本项目用户会话",
+      "original_text": "风格太像AI\n我是指的视觉风格,比如颜色\n舌规不改颜色",
+      "confirmed": {
+        "scope": "修改报告的视觉风格、配色与版式；不进行此前误解为需要的文字重写。",
+        "preserve_cad_colors": true
+      },
+      "implemented_style": "黑白灰正文和标题、宋体正文、白底三线表、黑灰流程图；舌规图全套文件保持原样。",
+      "scope_note": "仅调整版式、字体和 Mermaid 样式；报告正文、尺寸、TCP、公式、流程关系与结果数值不变。此前移除的内部来源编号和 GitHub 超链接不恢复。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "materials/README.md",
+        "tools/report/README.md",
+        "tools/report/export_pdf.py",
+        "tools/report/render_diagrams.py",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json",
+        "docs/assets/report-v0.4/system-architecture.svg",
+        "docs/assets/report-v0.4/task-flow.svg",
+        "docs/assets/report-v0.4/pickplace-flow.svg"
+      ]
+    },
+    {
+      "id": "USER-HW-20261015-05",
+      "kind": "user_report_identity_and_environment_details",
+      "date": "2026-10-15",
+      "source": "本项目用户会话",
+      "original_text": "Mayday maybe\n香港理工大学\nROS Jazzy\n没有MoveIt\nRealSense D435i\nARCS 0.25.6-alpha.1+c24e317c\nsdk0.24.1\nMoveIt不动",
+      "confirmed": {
+        "team_name": "Mayday maybe",
+        "institution": "香港理工大学",
+        "ros_distribution": "ROS 2 Jazzy",
+        "camera_model": "RealSense D435i",
+        "arcs_version": "0.25.6-alpha.1+c24e317c",
+        "aubo_sdk_version": "0.24.1",
+        "moveit_report_action": "按最后指令保持 MoveIt 相关正文、分工与披露表原样。"
+      },
+      "clarification_chain": [
+        {
+          "original_text": "没有MoveIt",
+          "context": "用户先随环境信息提供该表述。"
+        },
+        {
+          "original_text": "MoveIt不动",
+          "context": "随后限定本次文稿修改范围，保留已有 MoveIt 内容。"
+        }
+      ],
+      "scope_note": "本条登记用户提供的报告信息与版本字符串，不作为本机检测或兼容性验收。实际驱动和其他软件包版本、许可材料未据此补齐；不更改历史 SDK 0.24.1-rc.3 的证据、正式源码锁定、MoveIt 文稿内容、图示、TCP 或实验结果。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "materials/README.md",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json"
+      ]
+    },
+    {
+      "id": "USER-HW-20261015-06",
+      "kind": "user_report_delivery_cleanup",
+      "date": "2026-10-15",
+      "source": "本项目用户会话",
+      "original_text": "面向交付,删除多余说明\n删除版本号",
+      "confirmed": [
+        "技术报告面向交付，删除多余说明。",
+        "删除报告版本号。"
+      ],
+      "implementation_scope": "删除阅读说明、25 处内部来源提示、重复编写提醒及合稿清单；移除封面与页眉报告版本，交付文件统一命名为技术报告。",
+      "scope_note": "版本号删除限报告版本；保留此前用户提供的 ROS、ARCS、SDK 等技术版本。MoveIt 文字、原审阅第 2/3 项技术表述、公式、技术表格与舌规图保持；不改变验收状态，不运行实机或仿真。源文件与 PDF 改名后同步来源索引，内部资产目录与历史记录保留原编号。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "materials/README.md",
+        "tools/report/README.md",
+        "tools/report/export_pdf.py",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json"
+      ]
+    },
+    {
+      "id": "USER-HW-20261015-07",
+      "kind": "user_report_moveit_version_update",
+      "date": "2026-10-15",
+      "source": "本项目用户会话",
+      "original_text": "MoveIt 2最新版",
+      "confirmed": "报告中 MoveIt 2 版本按最新版补充。",
+      "implementation_note": "结合用户已提供的 ROS 2 Jazzy，按其对应最新发布版填写 MoveIt 2 2.12.4；官方 rosdistro 与包状态登记为 2.12.4-1。",
+      "scope_note": "本次仅解除版本栏保持原样的限制，其他 MoveIt 规划、分工、架构和披露内容不改。具体版本由官方资料核对，不记为本机或现场安装检查；不升级软件、不修改机器人配置、不改变既有验收结果。",
+      "source_reference": "CV-MOVEIT2",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "materials/README.md",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json"
+      ]
+    },
+    {
+      "id": "USER-HW-20261015-08",
+      "kind": "user_report_task2_sequence_correction",
+      "date": "2026-10-15",
+      "source": "本项目用户会话",
+      "original_text": "红→黄→蓝改为黄绿蓝",
+      "confirmed": {
+        "task2_color_order": [
+          "黄",
+          "绿",
+          "蓝"
+        ],
+        "station_order": [
+          "P1",
+          "P2",
+          "P3"
+        ]
+      },
+      "scope_note": "更正技术报告中的任务二顺序，并同步摘要、结果表与原区未搬运电池描述。原现场快照颜色、ABC 标记及运行证据保留，不将改稿记为新增运行；任务一红块→T0、既有指标与正式口令规则保持。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "materials/README.md",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json"
+      ]
+    },
+    {
+      "id": "USER-HW-20261015-09",
+      "kind": "user_report_vision_dependency_versions",
+      "date": "2026-10-15",
+      "source": "本项目用户会话",
+      "original_text": "OpenCV：4.11.0.86\nPyTorch：2.5.1+cpu\ntorchvision：0.20.1+cpu",
+      "confirmed": {
+        "OpenCV": "4.11.0.86",
+        "PyTorch": "2.5.1+cpu",
+        "torchvision": "0.20.1+cpu"
+      },
+      "scope_note": "按用户原值填写报告依赖版本，保留 +cpu 后缀。未自行安装、升级或检测现场软件，不据此补齐 RealSense 软件版本、逐项许可或新增兼容性验收结果；MoveIt 与 ARCS/SDK 版本保持。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "materials/README.md",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json"
+      ]
+    },
+    {
+      "id": "USER-HW-20261015-10",
+      "kind": "user_report_calibration_source_revision",
+      "date": "2026-10-15",
+      "source": "本项目用户会话",
+      "original_text": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics\n根据这个写标定部分",
+      "confirmed": {
+        "requested_source_repository": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics",
+        "rewrite_scope": "技术报告第 6 节标定正文，并同步第 9、10 节的标定汇总及 PDF"
+      },
+      "scope_note": "授权依据指定仓库重写标定部分，覆盖此前该部分文字保留要求；架构与口令限制、MoveIt 内容、用户提供的软件版本、任务二黄→绿→蓝顺序、尺寸表和舌规图保持。新写入的标定矩阵及误差摘自固定源码内执行包结果，不由 Codex 重新求解，不修改设备标定、控制器、规划参数、源码 pin 或历史证据；用户此前 TCP 已验证确认继续保留。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "materials/README.md",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json"
+      ]
+    },
+    {
+      "id": "USER-HW-20261015-11",
+      "kind": "user_report_flow_layout_and_delivery_labels",
+      "date": "2026-10-15",
+      "source": "本项目用户会话",
+      "original_text": "优化第一个流程图左侧；删除 “V1”\n不用填许可证",
+      "confirmed": {
+        "first_flowchart": "优化系统总体架构图左侧输入布局与折线间距",
+        "visible_tool_label": "删除报告正文、标题、图题和图内的 V1 前缀",
+        "license_fields": "报告第三方组件表移除许可内容与许可待补提示，保留组件、版本和使用范围"
+      },
+      "scope_note": "仅报告呈现和披露表精简；保持第一张图节点身份、连线关系与条件，舌规配色、几何、名义尺寸、标定矩阵及指标不变。源文件、历史资料和内部来源登记保留原版本及许可信息，真实软件版本保持原值。未操作设备、重新标定或更改运行代码。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "materials/README.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "tools/report/render_diagrams.py",
+        "tools/report/draw_tool.py",
+        "tools/report/export_pdf.py",
+        "tools/report/README.md",
+        "docs/assets/report-v0.4/system-architecture.mmd",
+        "docs/assets/report-v0.4/system-architecture.svg",
+        "docs/assets/report-v0.4/v1-cad-views.svg",
+        "docs/assets/report-v0.4/v1-cad-views.pdf",
+        "docs/assets/report-v0.4/v1-cad-views.png",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json"
+      ]
+    },
+    {
+      "id": "USER-HW-20261015-12",
+      "kind": "user_report_unified_team_voice",
+      "date": "2026-10-15",
+      "source": "本项目用户会话",
+      "original_text": "本报告的文字整理、代码核对、绘图脚本与 PDF 排版使用 OpenAI Codex 辅助。团队记录另列 Claude\nCode 用于建模与仿真，具体使用范围待对应成员确认（FAQ p6，Q17）\n这样表达显得我们不是一个团队,过于分裂,修改类似表达",
+      "confirmed": {
+        "author_voice": "全文采用团队作为统一作者主体，避免外部审阅者与队员之间的分裂表述",
+        "ai_use_paragraph": "将 Codex 与 Claude Code 放在同一团队的开发和报告编制流程中说明，移除对应成员确认措辞",
+        "related_prose": "同步修改感知、验证汇总、贡献表等同类旁观式或转述式表达"
+      },
+      "scope_note": "仅语言和报告呈现调整；AI 工具名称及已有用途、团队现场使用确认、公开源码验证范围、集成缺口、失败记录、实验和标定数值保持。报告去除本次独立下载核验等编辑过程提示，原始权重核验范围与来源记录保留于 manifest，不据此新增已验证结论。图表几何、流程图连线、颜色、尺寸、软件版本及真实运行状态不变。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "materials/README.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json"
+      ]
+    },
+    {
+      "id": "USER-HW-20261015-13",
+      "kind": "user_report_direct_prose",
+      "date": "2026-10-15",
+      "source": "本项目用户会话",
+      "original_text": "去除过度防御表达",
+      "confirmed": {
+        "report_prose": "精简反复出现的否定式自证、审阅提示和重复限制，直接说明方法、结果及必要条件",
+        "validation_scope": "将重复的集成缺口和量化结果范围集中说明"
+      },
+      "scope_note": "语言编辑；不新增实机、仿真或标定结果。保留规则适用范围、状态机与命令约束、TCP 已验证确认、失败记录和当前集成状态。删除重复或被排除的数值提及（2 秒重复说明、未采用的功能段 50 mm、386 项重复辨析、30/30 分母反例），实际尺寸、阈值、公式、版本与结果数值保持；图形与舌规配色保持。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "materials/README.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json"
+      ]
+    },
+    {
+      "id": "USER-HW-20261015-14",
+      "kind": "user_report_omit_realsense_software_version",
+      "date": "2026-10-15",
+      "source": "本项目用户会话",
+      "original_text": "不用填RealSense软件版本",
+      "confirmed": {
+        "report_component_table": "移除 RealSense 软件版本待补项",
+        "camera_model": "保留 RealSense D435i 型号与相机用途说明"
+      },
+      "scope_note": "交付报告展示要求，不推定 RealSense 软件实际版本；其他已填写软件版本及原始资料保持。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "materials/README.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json"
+      ]
+    },
+    {
+      "id": "USER-HW-20261015-15",
+      "kind": "user_report_fill_registered_driver_version",
+      "date": "2026-10-15",
+      "source": "本项目用户会话",
+      "original_text": "AUBO S3.md里面有驱动版本吗?\n我是指的- AUBO 驱动版本版本\n为什么不补?",
+      "confirmed": {
+        "report_driver_version": "以已登记的 aubo_ros2_driver@53aab837 补齐报告驱动版本待补项，注明 Jazzy 部署基线"
+      },
+      "scope_note": "仅补报告版本栏及同步 PDF。完整提交为 53aab83735236f0c262ecb11e04ef2600241d9d9，来源为既有 TEAMMATE-SDK-20261011 部署记录；不新增现场安装或验收事实，不修改 SDK 0.24.1、控制柜版本、源码 pin 或其他正文。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json"
       ]
     }
   ],
@@ -2421,7 +3885,8 @@
       "derived_files": [
         "demo/detector.py",
         "docs/hardware-vision-plan.md",
-        "docs/simulation-plan.md"
+        "docs/simulation-plan.md",
+        "docs/technical-proposal.md"
       ]
     },
     {
@@ -2434,7 +3899,8 @@
       "archived_path": null,
       "usage": "页面显示最后编辑日期；用于内外参、坐标约定和深度反投影。",
       "derived_files": [
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "docs/technical-proposal.md"
       ]
     },
     {
@@ -2447,7 +3913,8 @@
       "archived_path": null,
       "usage": "查阅文档版本 4.13.0；颜色分割方法参考。",
       "derived_files": [
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "docs/technical-proposal.md"
       ]
     },
     {
@@ -2460,7 +3927,8 @@
       "archived_path": null,
       "usage": "查阅文档版本 4.13.0；轮廓与几何筛选参考。",
       "derived_files": [
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "docs/technical-proposal.md"
       ]
     },
     {
@@ -2473,7 +3941,16 @@
       "archived_path": null,
       "usage": "查阅文档版本 4.13.0；相机标定、坐标几何，以及 calibrateHandEye 的 eye-in-hand 输入输出变换方向和非平行旋转采样条件。",
       "derived_files": [
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "docs/technical-proposal.md"
+      ],
+      "subsequent_reviews": [
+        {
+          "accessed_on": "2026-10-14",
+          "url": "https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html",
+          "version": "OpenCV 4.13.0",
+          "usage": "复查固定相机观测末端标定板的eye-to-hand说明和相机到基座变换约定，用于当前文档修订；原2026-09-06 eye-in-hand查阅保留历史。"
+        }
       ]
     },
     {
@@ -2541,7 +4018,9 @@
       "derived_files": [
         "README.md",
         "docs/open-questions.md",
-        "docs/simulation-plan.md"
+        "docs/simulation-plan.md",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
       ],
       "accessed_commit_full": "47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1",
       "accessed_commit_date": "2026-03-13T10:13:58Z",
@@ -2763,7 +4242,9 @@
         "robot/README.md",
         "robot/fsm-baseline.repos",
         "webui/README.md",
-        "webui/provenance.json"
+        "webui/provenance.json",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
       ],
       "local_source_import_check": {
         "date": "2026-10-11",
@@ -2978,7 +4459,13 @@
         "robot/README.md",
         "robot/fsm-baseline.repos",
         "webui/README.md",
-        "webui/provenance.json"
+        "webui/provenance.json",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json"
       ],
       "subsequent_reviews": [
         {
@@ -4649,6 +6136,62 @@
       "pr8_same_tree_at_completion": true
     },
     {
+      "id": "TEAMMATE-CANCELFIX-20261013",
+      "kind": "github_pr8_c1_fix_candidate",
+      "title": "PR #8 软件 Mock C1 定向修复",
+      "url": "https://github.com/F1u0rite/meituan_challenge_ws/pull/8",
+      "accessed_on": "2026-10-13",
+      "commit": "062811ed2895eadc8b41efe8a8d7b2acff03fe92",
+      "base_commit": "7da43228d602a6b23571bfc599d69529ef7bea23",
+      "branch": "fix/cpp-mock-webui-integration-20261012",
+      "state": "OPEN",
+      "scope_note": "062811e 是先前 C1 + PR #8 组合验证提交，已由 8f11750 从 PR #8 撤出；运行证据不变。当前独立候选见 TEAMMATE-CANCELPR-20261013。未合并，不是实体停稳证明。",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md",
+        "docs/cpp-mock-webui-acceptance.md",
+        "docs/c1-cancel-fix.md",
+        "docs/experiments/c1-cancel-fix-20261013/protocol.md",
+        "docs/experiments/c1-cancel-fix-20261013/inputs.json",
+        "docs/experiments/c1-cancel-fix-20261013/summary.json",
+        "docs/experiments/c1-standalone-pr-20261013/protocol.md",
+        "docs/experiments/c1-standalone-pr-20261013/inputs.json",
+        "docs/experiments/c1-standalone-pr-20261013/summary.json"
+      ],
+      "subsequent_resolutions": [
+        {
+          "date": "2026-10-13",
+          "withdrawal_commit": "8f11750e0bd2e485826acb904fd31382945ba0b9",
+          "standalone_source": "TEAMMATE-CANCELPR-20261013"
+        }
+      ]
+    },
+    {
+      "id": "TEAMMATE-CANCELPR-20261013",
+      "kind": "github_standalone_c1_fix_candidate",
+      "title": "C1 延迟取消独立修复 PR",
+      "url": "https://github.com/F1u0rite/meituan_challenge_ws/pull/15",
+      "accessed_on": "2026-10-13",
+      "commit": "8603e18e06ad3e8f7f2c0e4cad7e8ae716a3abbe",
+      "base_commit": "b4185155383541e1a4161587c4049a162f74b36d",
+      "branch": "fix/c1-stationary-mock-20261013",
+      "state": "OPEN",
+      "scope_note": "独立 main 基线的单提交 C1 候选；PR #8 已用 revert 撤出旧组合补丁。未合并，非实机停稳证明。",
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md",
+        "docs/cpp-mock-webui-acceptance.md",
+        "docs/c1-cancel-fix.md",
+        "docs/experiments/c1-standalone-pr-20261013/protocol.md",
+        "docs/experiments/c1-standalone-pr-20261013/inputs.json",
+        "docs/experiments/c1-standalone-pr-20261013/summary.json"
+      ]
+    },
+    {
       "id": "TEAMMATE-WEBUI-P2-20261013",
       "kind": "teammate_interface_read_only_snapshot",
       "title": "P2 标定与 Action UUID 关联契约核对",
@@ -4675,6 +6218,389 @@
         "webui/provenance.json",
         "docs/experiments/webui-p2-20261013/protocol.md",
         "docs/experiments/webui-p2-20261013/summary.json"
+      ]
+    },
+    {
+      "id": "TEAMMATE-VISIONCOORD-20261014",
+      "kind": "upstream_pull_request_document_review",
+      "title": "feat(vision): coordinates, JPEG streams and camera initialization",
+      "url": "https://github.com/F1u0rite/meituan_challenge_ws/pull/17",
+      "accessed_on": "2026-10-14",
+      "provided_by": "用户当前会话提供 PR URL；用途为补充正在起草的对外技术方案。",
+      "commit": "5efbd2d4f9e7d7d3a47ce91f199cbd1520f95c4c",
+      "head_branch": "codex/yuze-parallel",
+      "base_branch": "feature/perception-adapter",
+      "base_sha": "dc76a0bf0a43f9110f3d24cfa38a2b3478f48dcd",
+      "merge_commit_sha": "4e7ddd4794c28fdd423aaf67477fee5b8f40d2a0",
+      "merged_at": "2026-10-13T19:47:25Z",
+      "observed_status": {
+        "state": "closed",
+        "merged": true,
+        "draft": false,
+        "changed_files": 84
+      },
+      "status_scope": "GitHub元数据显示已合入feature/perception-adapter；PR正文仍含历史draft自述，不据此覆盖元数据。未核对该变更是否已进入main或现场部署版本，不推进本项目正式pin。",
+      "files_reviewed": [
+        {
+          "url": "https://github.com/F1u0rite/meituan_challenge_ws/blob/5efbd2d4f9e7d7d3a47ce91f199cbd1520f95c4c/vision_core/docs/automatic_top_setup.md",
+          "git_blob_sha": "beb85ff968f6ae7217a98fca5ce0f429630eb67e"
+        },
+        {
+          "url": "https://github.com/F1u0rite/meituan_challenge_ws/blob/5efbd2d4f9e7d7d3a47ce91f199cbd1520f95c4c/vision_core/docs/automatic_top_coordinates.md",
+          "git_blob_sha": "9fbbfa037c0d570c516040554215e7fa35a29077"
+        },
+        {
+          "url": "https://github.com/F1u0rite/meituan_challenge_ws/blob/5efbd2d4f9e7d7d3a47ce91f199cbd1520f95c4c/vision_core/docs/camera_scene_initialization.md",
+          "git_blob_sha": "bf765617dbaf0892eb213702f2615b75bc0e8950"
+        },
+        {
+          "url": "https://github.com/F1u0rite/meituan_challenge_ws/blob/5efbd2d4f9e7d7d3a47ce91f199cbd1520f95c4c/vision_core/docs/automatic_top_pipeline.md",
+          "git_blob_sha": "7a56d40aa11943b082f49c782f07393b51f183a1"
+        }
+      ],
+      "implementation": [
+        "当前帧HSV颜色掩膜、支撑平面和深度生成提示，CPU SAM 2.1 tiny分割，顶部中心及CAD偏移孔中心；孔中心不是直接孔口检测或完整抓取位姿。",
+        "上游采用顶部80 mm、孔中心60 mm相对当前支撑面的高度先验，保留原始点、修正点及修正量；属于上游约束，不登记为本项目新增用户尺寸确认或精度测量。",
+        "JSON候选话题保留源帧、SDK采集时刻、ROS发送时刻和缺失状态；BatteryDetectionArray候选ring_pose_valid=false，motion_usable=false，未知方向/主体值为NaN。",
+        "原始JPEG独立于坐标推理继续发送，叠图绑定同一推理源帧；采集到ROS时钟映射未验证。",
+        "可选t0_scene使用当前T0中心、带符号长边及台面法向，需要当前人工方向或固定共面ArUco参考；场景坐标不是机器人基座/TCP标定。"
+      ],
+      "camera_mounting_statement": "PR正文及84文件diff未明确eye-in-hand/eye-to-hand安装方式；算法重新估计当前帧场景不能作为安装方式证据。当前文档的眼在手外依据USER-HW-20261014-03。",
+      "upstream_reported_validation": {
+        "full_core_adapter": {
+          "passed": 425,
+          "skipped": 10,
+          "source": "PR正文；部分配套文档仍记录早先413/10，分开保留"
+        },
+        "recorded_rgbd_frames": 6,
+        "reported_battery_candidates": 24,
+        "bounded_camera_rerun": {
+          "complete_results": "3/3",
+          "rgb_frames": 217,
+          "rgb_fps": 7.5,
+          "max_video_gap_s": 0.166,
+          "coordinate_processing_s_per_result": [
+            8.93,
+            10.02
+          ]
+        },
+        "counterevidence": "较早三结果运行首帧缺红、第二帧缺黄；成功补跑不证明持续100%检出。",
+        "limits": "上游未测绝对坐标误差、未操作机器人；相机到机器人外参、TCP、采集时钟映射、跨机DDS和下游C++FSM消费不在验证范围；固定ArUco现场安装未验。"
+      },
+      "local_review": "ENV-PR17-DOC-20261014",
+      "scope_note": "本轮只读PR元数据、固定版本文档和diff并用于方案起草，未执行或重跑上游测试。完整目标系统能力仍为草稿写作假设；不将该PR候选坐标视为可直接运动，不将合并分支或已有同SHA复验等同整机验收。",
+      "derived_files": [
+        "README.md",
+        "docs/technical-proposal.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "materials/README.md",
+        "docs/technical-proposal-submission.md"
+      ],
+      "subsequent_scope_clarifications": [
+        {
+          "date": "2026-10-14",
+          "source_id": "USER-HW-20261014-04",
+          "note": "用户确认项目TCP已做验证。该确认与PR #17未覆盖TCP的上游测试范围并存，不将范围限制扩大为项目无验证。"
+        }
+      ]
+    },
+    {
+      "id": "CV-SAM2",
+      "kind": "official_model_source_and_license_reference",
+      "title": "Meta SAM 2 / SAM 2.1 固定源码与官方许可说明",
+      "url": "https://github.com/facebookresearch/sam2/tree/2b90b9f5ceec907a1c18123530e92e794ad901a4",
+      "accessed_on": "2026-10-14",
+      "commit": "2b90b9f5ceec907a1c18123530e92e794ad901a4",
+      "files_reviewed": [
+        {
+          "url": "https://github.com/facebookresearch/sam2/blob/2b90b9f5ceec907a1c18123530e92e794ad901a4/README.md",
+          "git_blob_sha": "85a7eb958bced5495ff990c2bcbe7d99662c660f"
+        },
+        {
+          "url": "https://github.com/facebookresearch/sam2/blob/2b90b9f5ceec907a1c18123530e92e794ad901a4/LICENSE",
+          "git_blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64"
+        }
+      ],
+      "license_observation": "固定版本README及LICENSE说明模型检查点、演示/训练代码适用Apache-2.0；该说明不自动覆盖其第三方依赖。",
+      "usage": "PR #17 参考实现使用SAM 2.1 tiny分割，颜色提示、CAD/RGB-D后处理及ROS适配由团队实现；预训练模型按第三方来源披露。",
+      "checkpoint": {
+        "name": "sam2.1_hiera_tiny.pt",
+        "url": "https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_tiny.pt",
+        "reported_sha256": "7402e0d864fa82708a20fbd15bc84245c2f26dff0eb43a4b5b93452deb34be69",
+        "hash_source": "TEAMMATE-VISIONCOORD-20261014 的 automatic_top_setup.md；本轮未下载或独立核验权重。"
+      },
+      "scope_note": "只读来源与许可登记，没有安装、运行或重新训练模型，不新增SAM性能评测，不覆盖私有CAD/数据或团队仓库自身的许可差异。",
+      "derived_files": [
+        "docs/technical-proposal.md",
+        "docs/open-questions.md",
+        "materials/README.md",
+        "docs/technical-proposal-submission.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf"
+      ]
+    },
+    {
+      "id": "TEAMMATE-FIELD-20261015",
+      "kind": "teammate_fixed_source_review",
+      "title": "现场执行与发布记录快照",
+      "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/tree/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e",
+      "accessed_on": "2026-10-15",
+      "commit": "b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e",
+      "files_reviewed": [
+        {
+          "path": "docs/DETAILED_GUIDE.md",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/docs/DETAILED_GUIDE.md",
+          "sha256": "9b8feaecac2d19bfc1f3854f200fda4b47de336b4fa8f8d9c0f86e4ba35edec4"
+        },
+        {
+          "path": "docs/release/task2_latest_run.json",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/docs/release/task2_latest_run.json",
+          "sha256": "975e68f399f2efe4719b37a43418910da19544dc6945b548ea6fd710734985b0"
+        },
+        {
+          "path": "docs/release/task1_success.json",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/docs/release/task1_success.json",
+          "sha256": "727e3e2df1f6ff74097524440dda94da858732fffc1cf08c5bc06ce2ae3ba38b"
+        },
+        {
+          "path": "NOTICE.md",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/NOTICE.md",
+          "sha256": "22181ac20e71701e22128c4fe134f5369c77724fe91f5ccfb4dce3ceb2e032c4"
+        },
+        {
+          "path": "src/mtc_cpp_mock_bringup/mtc_webui/hardware_tasks.py",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/src/mtc_cpp_mock_bringup/mtc_webui/hardware_tasks.py",
+          "sha256": "b9bc0d8ac0f5780292cfca7e6f80db619ede5cb0efae02236d88a88213f5b7b4"
+        },
+        {
+          "path": "src/mtc_cpp_mock_bringup/mtc_webui/hardware_backend.py",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/src/mtc_cpp_mock_bringup/mtc_webui/hardware_backend.py",
+          "sha256": "e270a49b12fd76ec561e981d39198b5c34f64cde2cd9db639b96b39c2d5f1669"
+        },
+        {
+          "path": "src/mtc_task_cpp/include/mtc_task_cpp/task_types.hpp",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/src/mtc_task_cpp/include/mtc_task_cpp/task_types.hpp",
+          "sha256": "7ec845a96e37be000faa7c2b354efa2ab414157bc9b13cb5f671ba9b5fe6c07f"
+        },
+        {
+          "path": "src/mtc_core_cpp/include/mtc_core_cpp/exec_state.hpp",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/src/mtc_core_cpp/include/mtc_core_cpp/exec_state.hpp",
+          "sha256": "87dcfe79c6ecaedee6acda6ce8ce639a023e0b27089390fa8445f6d2f3b08f08"
+        },
+        {
+          "path": "src/mtc_manipulation_cpp/src/pick_place_fsm.cpp",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/src/mtc_manipulation_cpp/src/pick_place_fsm.cpp",
+          "sha256": "4a739144851de0ab40131d7bae9abac7ae747d476a59a0b31c27102d0d6a2532"
+        },
+        {
+          "path": "src/mtc_motion_execution_cpp/src/executor_core.cpp",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/src/mtc_motion_execution_cpp/src/executor_core.cpp",
+          "sha256": "d9ea9258b3a0c1ba870744730702e73192902588d456262d5df223f4272a3ef0"
+        },
+        {
+          "path": "src/mtc_moveit_planner/config/planner.yaml",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/src/mtc_moveit_planner/config/planner.yaml",
+          "sha256": "76dbaf6f4aa5ba2999745a3a5d564dca22916dd3af51049ec23c85e481b3a4c7"
+        },
+        {
+          "path": "src/mtc_moveit_planner/src/tool_model.cpp",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/src/mtc_moveit_planner/src/tool_model.cpp",
+          "sha256": "dce67e7b0038d9124be09c15b098f2c2bb5d63a74099c7162b36c1e3c99f5320"
+        },
+        {
+          "path": "src/mtc_simulation/scripts/prepare_v1.py",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/src/mtc_simulation/scripts/prepare_v1.py",
+          "sha256": "e3ec674c6f0bfd41f38656b0f813208be6b667668f922a954b8f813244e7ba09"
+        },
+        {
+          "path": "src/mtc_simulation/assets/cad/hook_v1.step",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/src/mtc_simulation/assets/cad/hook_v1.step",
+          "sha256": "b21d2a54ce314b660066eafc1e020ba4dc66f7abb9d5c89973ad70dfe09588e9"
+        },
+        {
+          "path": "scripts/task1_real_scene/inspect_mount.py",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/scripts/task1_real_scene/inspect_mount.py",
+          "sha256": "894c0f876bfaec25bb839e7793acf6ea5435329bddce00b3f172df1a71cbfef0"
+        },
+        {
+          "path": "scripts/task1_real_scene/retime_successful_trajectory.py",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/scripts/task1_real_scene/retime_successful_trajectory.py",
+          "sha256": "e045c39a1bdf7620dbd64ac1592a0d07048836d04b1d2f8aa12143c8a8b8e7c4"
+        },
+        {
+          "path": "src/mtc_simulation/src/v1_task.cpp",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/src/mtc_simulation/src/v1_task.cpp",
+          "sha256": "b87505b6cc2246f10ef182ca744ee937b0da3e41de5993e4e30478e70498b201"
+        },
+        {
+          "path": "hardware/players/tracking_monitor/run_hardware.py",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/hardware/players/tracking_monitor/run_hardware.py",
+          "sha256": "1375dbe55668cce57a4ace3a368342aecfa1a662ad64f09e7ef9963f8cd2a531"
+        },
+        {
+          "path": "docs/release/VALIDATION.md",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/docs/release/VALIDATION.md",
+          "sha256": "88cdb42232dbb96fb07b55ed90cda6c054c0b15c06852c880c8b045a61e9b842"
+        },
+        {
+          "path": "TF_AND_CALIBRATION_HANDOFF.md",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/TF_AND_CALIBRATION_HANDOFF.md",
+          "sha256": "688e5c139a92bdcac953f0787b132267c20b962fa8ebd7dac37bcaacf6de036b"
+        },
+        {
+          "path": "archive/field_sources/outputs/task1_real_scene_20261014/hardware_package/metadata/hand_eye_result.yaml",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/archive/field_sources/outputs/task1_real_scene_20261014/hardware_package/metadata/hand_eye_result.yaml",
+          "sha256": "e0186d084205e4831efb5b69857ac5ade6edc8969a29cdf35b6a1be6065aa062"
+        },
+        {
+          "path": "archive/field_sources/outputs/task1_real_scene_20261014/pose_audit_20261014T174240Z/samples_consistent_fk_diagnostic.yaml",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/archive/field_sources/outputs/task1_real_scene_20261014/pose_audit_20261014T174240Z/samples_consistent_fk_diagnostic.yaml",
+          "sha256": "64727e4b54eda16e274d8dbf21bf000bce6e54fe75985c449e2217b3541769f6"
+        },
+        {
+          "path": "archive/field_sources/outputs/task1_real_scene_20261014/pose_audit_20261014T174240Z/calibration_candidate_76p7/samples.yaml",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/archive/field_sources/outputs/task1_real_scene_20261014/pose_audit_20261014T174240Z/calibration_candidate_76p7/samples.yaml",
+          "sha256": "1aa0aa87490d1448fc84389b15a0003db26479b90ee9649df703c6938fa043e0"
+        },
+        {
+          "path": "archive/field_sources/outputs/task1_real_scene_20261014/pose_audit_20261014T174240Z/calibration_candidate_76p7/result.yaml",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/archive/field_sources/outputs/task1_real_scene_20261014/pose_audit_20261014T174240Z/calibration_candidate_76p7/result.yaml",
+          "sha256": "f0834759a457f25fbfb08abeb388ee88780dfa6b98e39c61ddf791dd69d520b0"
+        },
+        {
+          "path": "archive/field_sources/outputs/task1_real_scene_20261014/pose_audit_20261014T174240Z/solve_candidate_76p7.py",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/archive/field_sources/outputs/task1_real_scene_20261014/pose_audit_20261014T174240Z/solve_candidate_76p7.py",
+          "sha256": "d916b484cd075a95a7ef60052f65e1d60c41db1417fea18fd0f31d19a7da601f"
+        },
+        {
+          "path": "archive/field_sources/outputs/task1_real_scene_20261014/pose_audit_20261014T174240Z/recompute_calibration_diagnostic.py",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/archive/field_sources/outputs/task1_real_scene_20261014/pose_audit_20261014T174240Z/recompute_calibration_diagnostic.py",
+          "sha256": "a69ea972427becad09845e9c8107fda04b95ec04aeca64742cdce83c59c9e314"
+        },
+        {
+          "path": "archive/field_sources/outputs/task1_real_scene_20261014/pose_audit_20261014T174240Z/check_marker_depth.py",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/archive/field_sources/outputs/task1_real_scene_20261014/pose_audit_20261014T174240Z/check_marker_depth.py",
+          "sha256": "de88f986d67b8c39fa94aceead0b2bbcd1d07ae2d3ffd9426414692dd9bc8bbd"
+        },
+        {
+          "path": "scripts/task1_real_scene/fit_kinematics.py",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/scripts/task1_real_scene/fit_kinematics.py",
+          "sha256": "7b1fef2fc01d9dfabded2681f8afe01caa07b26892c5bed87db6fe1d7a8ac209"
+        },
+        {
+          "path": "scripts/task1_real_scene/export_package.py",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/scripts/task1_real_scene/export_package.py",
+          "sha256": "d87aa0d80f1760896437c2ded5af4d7cf72009b9b2c695f1a7620b3c6d073529"
+        },
+        {
+          "path": "scripts/task1_real_scene/build_scene.py",
+          "url": "https://github.com/CHANGJianshuo/meituan-aubo-s3-robotics/blob/b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e/scripts/task1_real_scene/build_scene.py",
+          "sha256": "6f9ea7a9ef67069aa9e070a30792a81674c147b11bbc713920010d52ed33f9ae"
+        }
+      ],
+      "findings": [
+        "现场实机路径为 Web/Python 后端通过 SSH 调用 NUC SDK 保存轨迹播放器，未据此证实完整 C++ Task/PickPlace 实机接入。",
+        "hardware_tasks.py 仅接受 ABC 完整三十段序列，颜色为红、黄、蓝；hardware_backend.py 拒绝与配置不一致的模式或顺序。",
+        "发布验证记录报告 386 项 colcon 汇总、159 项现场脚本/Web 测试；实机摘要记录任务二一轮三件与任务一收尾异常后的独立停稳复核。本轮未复跑。",
+        "公开 hook_v1.step 的 SHA-256 为 b21d2a54ce314b660066eafc1e020ba4dc66f7abb9d5c89973ad70dfe09588e9；本次只核对公开文件标识，未重新求解实体几何，未将原稿两文件一致性陈述冒充本轮独立比对。",
+        "安装检查脚本独立 TCP 实测标志为 false，属于该脚本范围，不撤销 USER-HW-20261014-04 的 TCP 已验证确认。",
+        "根据 USER-HW-20261015-10 补充核对标定文件；远端 HEAD 仍为 b8867f10c3c6f64567d6c3cfa3d3863a1aa71a1e。10/12 交接文档的眼在手上提案与后续固定相机现场方案分开记录，报告按后续眼在手外记录撰写。",
+        "执行包 metadata/hand_eye_result.yaml 保存 base_link 到 camera_color_optical_frame 的位姿及法兰到标记变换，状态为 ESTIMATED；初始化 HORAUD，15 个内点、2 个异常样本，重投影 RMS 0.9988469656487828 px，留出重投影 RMS 0.44139901215692273 px，留出中心残差 3.124124330280795 mm。报告按三位小数列示误差，相机矩阵保留六位小数，不将其作为实体 TCP 绝对精度。",
+        "保存样本的后续诊断副本保留原法兰矩阵、关节和观测：DICT_6X6_1000、ID 0、1280×720，共 18 组，每组 8 帧，角色为 17 组 solve 与 1 组 holdout；原配置边长 0.08 m，执行包求解估计边长 0.07669848748833347 m。诊断副本的 T_B_E 已按控制柜匹配模型重算，不能将该改写矩阵称为新的物理采样。",
+        "后续约 76.7 mm 标记边长候选通过离线求解检查，但 physical_validation_passed、accepted_for_robot_motion、published_to_tf、original_calibration_replaced 均为 false；原标定和参考点未替换，不能混用候选的矩阵和误差作为执行包结果。",
+        "fit_kinematics.py 对齐控制柜数学模型；inspect_mount.py 使用同步停稳采集、CAD 轮廓和深度辅助识别离散安装角，并不独立量测 TCP。报告保留 USER-HW-20261014-04 的 TCP 已验证确认，同时不新增未提供的量化误差。"
+      ],
+      "scope_note": "固定公开源码及其发布摘要的只读核对；原始现场录制与私有配置未包含，不属于本项目新增实机验收，不改变正式 pin、原报告或旧冻结证据。根许可证不替代逐组件声明。",
+      "derived_files": [
+        "README.md",
+        "docs/技术报告.md",
+        "docs/open-questions.md",
+        "materials/README.md",
+        "docs/技术报告.pdf",
+        "docs/assets/report-v0.4/v1-cad-views.svg",
+        "docs/assets/report-v0.4/v1-cad-views.pdf",
+        "docs/assets/report-v0.4/v1-cad-views.source.json",
+        "tools/report/README.md",
+        "tools/report/draw_tool.py",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json"
+      ],
+      "calibration_reinspection": {
+        "date": "2026-10-15",
+        "decision_id": "USER-HW-20261015-10",
+        "scope": "只读核对指定固定公开快照中的标定样本、结果、诊断和坐标换算代码；未运行任何外部脚本、未重新求解或连接实体设备。",
+        "key_artifact": "archive/field_sources/outputs/task1_real_scene_20261014/hardware_package/metadata/hand_eye_result.yaml",
+        "historical_failed_session_preserved": true,
+        "candidate_not_adopted": true
+      }
+    },
+    {
+      "id": "TEAMMATE-VISION-20261015",
+      "kind": "teammate_fixed_source_review",
+      "title": "独立 SAM 视觉与坐标约定快照",
+      "url": "https://github.com/F1u0rite/meituan_challenge_ws/tree/4e7ddd4794c28fdd423aaf67477fee5b8f40d2a0",
+      "accessed_on": "2026-10-15",
+      "commit": "4e7ddd4794c28fdd423aaf67477fee5b8f40d2a0",
+      "files_reviewed": [
+        {
+          "path": "vision_core/docs/automatic_top_pipeline.md",
+          "url": "https://github.com/F1u0rite/meituan_challenge_ws/blob/4e7ddd4794c28fdd423aaf67477fee5b8f40d2a0/vision_core/docs/automatic_top_pipeline.md",
+          "sha256": "2400217f339dde460807afc688806d9c653572da3d3f6c9cb37697c85ef892d8"
+        },
+        {
+          "path": "vision_core/docs/automatic_top_setup.md",
+          "url": "https://github.com/F1u0rite/meituan_challenge_ws/blob/4e7ddd4794c28fdd423aaf67477fee5b8f40d2a0/vision_core/docs/automatic_top_setup.md",
+          "sha256": "f73c423b5fbc052a847de7231dfb2c82aa8299f513adbe92654262446126fe9d"
+        },
+        {
+          "path": "vision_core/docs/automatic_top_coordinates.md",
+          "url": "https://github.com/F1u0rite/meituan_challenge_ws/blob/4e7ddd4794c28fdd423aaf67477fee5b8f40d2a0/vision_core/docs/automatic_top_coordinates.md",
+          "sha256": "0620aab816cc4e4cc93b696a96375ce44671550464165aeb0db9b0e91c2cf3e4"
+        }
+      ],
+      "findings": [
+        "颜色和深度生成 SAM 提示并输出顶部/孔中心候选；独立 ROS 发布不等于 C++ FSM 已消费。",
+        "文档记录 ring_pose_valid=false、motion_usable=false；跨时钟域映射和完整可执行位姿仍需验证。",
+        "安装文档的 SAM 来源与检查点参考信息与 CV-SAM2 对应；参考依赖版本不作为现场实际安装清单。"
+      ],
+      "scope_note": "固定视觉快照文档核对，未安装或运行视觉、未连接相机、未新增精度或实机闭环结论；与 TEAMMATE-VISIONCOORD-20261014 的较早快照分别登记。",
+      "derived_files": [
+        "README.md",
+        "docs/技术报告.md",
+        "docs/open-questions.md",
+        "materials/README.md",
+        "docs/技术报告.pdf"
+      ]
+    },
+    {
+      "id": "CV-MOVEIT2",
+      "title": "MoveIt 2 官方发行分支与 ROS 2 Jazzy 发布状态",
+      "accessed_on": "2026-10-15",
+      "url": "https://repo.ros2.org/status_page/ros_jazzy_default.html",
+      "supporting_urls": [
+        "https://moveit.ai/",
+        "https://moveit.ai/install-moveit2/binary/",
+        "https://raw.githubusercontent.com/ros/rosdistro/master/jazzy/distribution.yaml",
+        "https://raw.githubusercontent.com/moveit/moveit2/jazzy/moveit/package.xml",
+        "https://raw.githubusercontent.com/moveit/moveit2/jazzy/moveit/CHANGELOG.rst"
+      ],
+      "identifiable_version": {
+        "ros_distribution": "jazzy",
+        "source_package_version": "2.12.4",
+        "rosdistro_release_version": "2.12.4-1",
+        "changelog_date": "2025-12-05"
+      },
+      "purpose": "将用户“MoveIt 2最新版”的报告补充落实到其已确认 Jazzy 环境对应的发布版。",
+      "scope_note": "官网区分 Jazzy 2.12 LTS 与更新的 Lyrical/Rolling 系列；此条不把跨发行版最新版写入 Jazzy 环境。Jazzy API 文档配置跟踪 main，其展示版本不能代替 Jazzy 二进制发布登记。本次只读网页核对，不代表实际安装或兼容性复验。",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "materials/README.md",
+        "docs/assets/report-v0.4/report-export.json",
+        "docs/assets/report-v0.4/report-validation.json"
       ]
     }
   ],
@@ -4985,7 +6911,9 @@
       "derived_files": [
         "README.md",
         "docs/demo-readiness.md",
-        "docs/simulation-plan.md"
+        "docs/simulation-plan.md",
+        "docs/technical-proposal.md",
+        "docs/technical-proposal-submission.md"
       ]
     },
     {
@@ -5198,7 +7126,8 @@
         "docs/demo-readiness.md",
         "docs/demo-recording.md",
         "docs/open-questions.md",
-        "docs/simulation-plan.md"
+        "docs/simulation-plan.md",
+        "docs/technical-proposal.md"
       ]
     },
     {
@@ -9052,6 +10981,110 @@
       ]
     },
     {
+      "id": "ENV-CANCEL-FIX-20261013",
+      "kind": "isolated_mock_c1_fix_regression",
+      "date": "2026-10-13",
+      "triggered_by": [
+        "USER-HW-20261013-03"
+      ],
+      "upstream_source": "TEAMMATE-CANCELFIX-20261013",
+      "commit": "062811ed2895eadc8b41efe8a8d7b2acff03fe92",
+      "report": "docs/c1-cancel-fix.md",
+      "index": "docs/experiments/c1-cancel-fix-20261013/index.json",
+      "index_sha256": "4ac6577e8dcb81d2e1194ac7d4590eac3e71ed60b046a3d99f019a9e439b816b",
+      "inputs": "docs/experiments/c1-cancel-fix-20261013/inputs.json",
+      "summary": "docs/experiments/c1-cancel-fix-20261013/summary.json",
+      "verification_status": "C1_SOFTWARE_MOCK_FIXED_AND_VERIFIED",
+      "observed": {
+        "cpp_cases": 365,
+        "added_cases": 7,
+        "failures": 0,
+        "positive_delays_ms": [
+          0,
+          200,
+          400,
+          600,
+          1000
+        ],
+        "positive_parent_child": "CANCELED/0/completed=0",
+        "same_stack_followup": "SUCCEEDED/0/completed=1",
+        "negative_cases": [
+          "ABORTED/520 + next rejected",
+          "ABORTED/230 + next rejected"
+        ],
+        "container_stopped": true,
+        "formal_pin_unchanged": true
+      },
+      "method": "Baseline failing regression and real 700/400ms parent-child counterexample; clean two-package rebuild, 225 source file hash matches, all five related C++ packages, seven independent-process actual Action scenarios and owned cleanup.",
+      "scope_note": "Software Mock only. No new browser, actual FJT, hardware, M1 or old Python verification. Original failures unchanged, no PR merge or formal pin advance.",
+      "algorithm_provenance": {
+        "upstream": "TEAMMATE-CANCELFIX-20261013",
+        "license": "Upstream MIT root; existing package/SDK license differences retained",
+        "ai_assistance": "OpenAI Codex; explicit Mock sampler, asynchronous bridge call, seven tests, bounded external regression and traceable documentation"
+      },
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md",
+        "docs/cpp-mock-webui-acceptance.md",
+        "docs/c1-cancel-fix.md",
+        "docs/experiments/c1-cancel-fix-20261013/protocol.md",
+        "docs/experiments/c1-cancel-fix-20261013/inputs.json",
+        "docs/experiments/c1-cancel-fix-20261013/summary.json",
+        "docs/experiments/c1-standalone-pr-20261013/protocol.md",
+        "docs/experiments/c1-standalone-pr-20261013/inputs.json",
+        "docs/experiments/c1-standalone-pr-20261013/summary.json"
+      ]
+    },
+    {
+      "id": "ENV-CANCEL-PR-20261013",
+      "kind": "isolated_standalone_c1_regression",
+      "date": "2026-10-13",
+      "triggered_by": [
+        "USER-HW-20261013-03"
+      ],
+      "upstream_source": "TEAMMATE-CANCELPR-20261013",
+      "commit": "8603e18e06ad3e8f7f2c0e4cad7e8ae716a3abbe",
+      "report": "docs/c1-cancel-fix.md",
+      "index": "docs/experiments/c1-standalone-pr-20261013/index.json",
+      "index_sha256": "4c5057842ea67460698ea01bdae27f150a141154ce9fa49add6c9b163b991f2a",
+      "inputs": "docs/experiments/c1-standalone-pr-20261013/inputs.json",
+      "summary": "docs/experiments/c1-standalone-pr-20261013/summary.json",
+      "verification_status": "STANDALONE_C1_MAIN_BASED_REGRESSION_PASSED",
+      "observed": {
+        "cpp_cases": 366,
+        "added_cases": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "built_packages": 6,
+        "tested_packages": 5,
+        "delayed_parent_cancel": "700/400 ms: CANCELED/0/completed=0",
+        "same_stack_followup": "SUCCEEDED/0/completed=1",
+        "container_stopped": true,
+        "formal_pin_unchanged": true
+      },
+      "method": "Fresh main-based six-package build; five-package gtest XML identities; additional actual parent/child delayed cancel and next-task regression; byte-verified source and isolated cleanup.",
+      "scope_note": "Software Mock only. The original 365-test/seven-process PR8-combination run stays under ENV-CANCEL-FIX-20261013; it is not relabeled as a run of this commit. No hardware/full FSM/FJT validation.",
+      "algorithm_provenance": {
+        "upstream": "TEAMMATE-CANCELPR-20261013",
+        "license": "Upstream MIT root; existing package/SDK license differences retained",
+        "ai_assistance": "OpenAI Codex; explicit Mock sampler, bridge call, eight regressions and traceable documentation"
+      },
+      "derived_files": [
+        "README.md",
+        "docs/current-status.md",
+        "docs/open-questions.md",
+        "docs/hardware-vision-plan.md",
+        "docs/cpp-mock-webui-acceptance.md",
+        "docs/c1-cancel-fix.md",
+        "docs/experiments/c1-standalone-pr-20261013/protocol.md",
+        "docs/experiments/c1-standalone-pr-20261013/inputs.json",
+        "docs/experiments/c1-standalone-pr-20261013/summary.json"
+      ]
+    },
+    {
       "id": "ENV-WEBUI-P1-20261013",
       "kind": "isolated_webui_p1_interface_validation",
       "date": "2026-10-13",
@@ -9203,7 +11236,8 @@
         "webui/provenance.json",
         "webui/p2-contract.md",
         "docs/experiments/webui-p2-20261013/protocol.md",
-        "docs/experiments/webui-p2-20261013/summary.json"
+        "docs/experiments/webui-p2-20261013/summary.json",
+        "docs/technical-proposal.md"
       ]
     },
     {
@@ -9240,6 +11274,186 @@
         "docs/experiments/webui-api-20261013/protocol.md",
         "docs/experiments/webui-api-20261013/inputs.json",
         "docs/experiments/webui-api-20261013/summary.json"
+      ]
+    },
+    {
+      "id": "ENV-PR17-DOC-20261014",
+      "kind": "read_only_existing_evidence_review",
+      "date": "2026-10-14",
+      "source": "本轮PR #17方案资料核对及既有本机监测报告读取",
+      "scope": "只读文档和索引；非本轮运行或新验收。",
+      "reviewed_commit": "5efbd2d4f9e7d7d3a47ce91f199cbd1520f95c4c",
+      "existing_report": "outputs/monitor-resume-20261013/worktree/docs/scene-init-monitor-acceptance-20261014.md",
+      "existing_report_sha256": "28a3a262d159c0c91f2c97d27b2176616586acf0f58d6715a3b47a35b19cfd24",
+      "existing_index": "outputs/monitor-resume-20261013/worktree/docs/experiments/scene-init-monitor-20261014/index.json",
+      "existing_index_sha256": "81a0d89cf68e9ebe1ceaedf3d65d500cafc8732f04fa367b67cf9fbc39f47add",
+      "findings": [
+        "既有同SHA复验报告记录部分通过，公开测试425通过/10跳过；另有坐标标签和人工方向参考两项缺陷。",
+        "原版容许scene参考标签与t0_scene点标签不一致；后续最小补丁为另一版本，不能回写原版结果。",
+        "独立初始化器在T0丢失后可重用人工方向像素；该问题不直接等同只用ArUco的连续发送器缺陷。"
+      ],
+      "scope_note": "报告及冻结索引已存在于独立监测worktree。本轮未重跑、未修改、未复制这些冻结证据到根仓库；引用路径是本机既有资料，不作为公共发布附件。未核对后续修复PR当前状态，不新增通过项，不修改实际验收阶段。",
+      "derived_files": [
+        "docs/technical-proposal.md",
+        "docs/open-questions.md"
+      ]
+    },
+    {
+      "id": "ENV-REPORT-REVIEW-20261015",
+      "kind": "read_only_report_evidence_review",
+      "date": "2026-10-15",
+      "source": "新技术报告、用户补充图片、既有用户确认与固定公开源码资料",
+      "scope": "资料与文档核对；不属于本机复跑或实机验收。",
+      "report": "docs/技术报告.md",
+      "report_before_this_revision_sha256": "6af7ba6d745c452ab3886659c57e4190dc3b5e4a4323027dcd91be09ff91df46",
+      "source_references": [
+        "RULES",
+        "FAQ",
+        "USER-RULE-20260906-02",
+        "USER-HW-20261014-04",
+        "USER-EE-20261015",
+        "TOOL-CAD-V1-VIEWS-20261015",
+        "TEAMMATE-FIELD-20261015",
+        "TEAMMATE-VISION-20261015",
+        "CV-SAM2",
+        "USER-HW-20261015"
+      ],
+      "method": "将扫描版 RULES 第 3、4 页渲染后目视核对；读取 FAQ 第 2、3、6 页文本层；对照已登记用户确认、固定源码与发布摘要；目视用户 PNG 并核对 SHA-256，逐字节归档。",
+      "findings": [
+        "恢复已确认内框 70% 面积比例及其范围，保留与 RULES p4 的历史差异。",
+        "保留 PETG 功能舌与上翘尖直接装机，说明安装盘加工后结构与削平前 CAD 的区别。",
+        "保留用户图片原件、固定源码及来源登记，补充规则页码和第三方披露。",
+        "原尺寸、TCP 数值与验证指标未变；第 2、3 项额外文稿修订已按 USER-HW-20261015 撤回。"
+      ],
+      "scope_note": "未触发设备、仿真或轨迹生成；未改 CAD、运行配置、正式源码锁定或冻结证据，未重新测量尺寸、TCP 或放置精度。",
+      "derived_files": [
+        "README.md",
+        "docs/技术报告.md",
+        "docs/open-questions.md",
+        "materials/README.md",
+        "docs/技术报告.pdf"
+      ],
+      "revision_scope": {
+        "decision_id": "USER-HW-20261015",
+        "retained_review_items": [
+          1,
+          4,
+          5,
+          6
+        ],
+        "reverted_review_items": [
+          2,
+          3
+        ],
+        "note": "原始只读检查事实保留在来源条目，文稿修改仅覆盖用户最终保留的项目。"
+      }
+    },
+    {
+      "id": "ENV-REPORT-PDF-20261015",
+      "kind": "report_polish_figure_and_pdf_export",
+      "date": "2026-10-15",
+      "decision_id": "USER-HW-20261015-02",
+      "report": "docs/技术报告.md",
+      "pdf": "docs/技术报告.pdf",
+      "scope": "文稿、CAD 名义模型可视化与 PDF 导出；无实机、仿真、控制器或轨迹运行。",
+      "source_references": [
+        "TOOL-CAD-V1-VIEWS-20261015",
+        "TOOL-CAD-V1-STEP-20261015",
+        "TEAMMATE-FIELD-20261015",
+        "ENV-REPORT-REVIEW-20261015"
+      ],
+      "method": "对照改前文稿核验受保护章节、尺寸表、公式及指标；从原始 STEP 导入并检查哈希、名义包络和体积；将 Mermaid 节点及连线映射至固定印刷布局；MathJax 公式与 WeasyPrint PDF 排版，导出后核验字体、文本、链接和逐页渲染。",
+      "findings": [
+        "全文仅语言与呈现优化；原第 2、3 项技术表述保留。",
+        "尺寸表、TCP 数值、公式、阶段映射、实验指标及原图字节保持。",
+        "三张流程图保留关系与条件，舌规图重绘为中文矢量图。",
+        "正文及 PDF 不含 GitHub 超链接，原地址保留在来源清单。"
+      ],
+      "scope_note": "名义 CAD 几何计算只用于核验重绘输入，不代表实物测量；未重新求解 TCP、改动原模型或新增性能结论。",
+      "export_record": "docs/assets/report-v0.4/report-export.json",
+      "validation_record": "docs/assets/report-v0.4/report-validation.json",
+      "derived_files": [
+        "README.md",
+        "docs/open-questions.md",
+        "docs/技术报告.md",
+        "docs/技术报告.pdf",
+        "materials/README.md",
+        "tools/report/README.md",
+        "docs/assets/report-v0.4/v1-cad-views.svg",
+        "docs/assets/report-v0.4/v1-cad-views.pdf",
+        "docs/assets/report-v0.4/report-validation.json",
+        "docs/assets/report-v0.4/report-export.json",
+        "tools/report/render_diagrams.py",
+        "tools/report/draw_tool.py",
+        "tools/report/export_pdf.py",
+        "docs/assets/report-v0.4/system-architecture.mmd",
+        "docs/assets/report-v0.4/system-architecture.svg",
+        "docs/assets/report-v0.4/v1-cad-views.png"
+      ],
+      "subsequent_updates": [
+        {
+          "decision_id": "USER-HW-20261015-03",
+          "date": "2026-10-15",
+          "scope": "删除内部来源编号后重新导出 PDF；检查结果更新至同一导出及验证记录。"
+        },
+        {
+          "decision_id": "USER-HW-20261015-04",
+          "date": "2026-10-15",
+          "scope": "视觉样式调整后重导 PDF；舌规图保持原样，检查结果更新至导出及验证记录。"
+        },
+        {
+          "decision_id": "USER-HW-20261015-05",
+          "date": "2026-10-15",
+          "scope": "补入用户提供的信息后重新导出 PDF；核对 MoveIt 文字、图表与技术数值保留，更新验证记录。"
+        },
+        {
+          "decision_id": "USER-HW-20261015-06",
+          "date": "2026-10-15",
+          "scope": "交付清理、报告版本移除及文件改名后重导 PDF；受保护内容、图表与字体分页检查更新至导出记录。"
+        },
+        {
+          "decision_id": "USER-HW-20261015-07",
+          "date": "2026-10-15",
+          "scope": "仅补入 MoveIt 2 对应 Jazzy 的官方发布版本后重新导出；其他正文与图形保持。"
+        },
+        {
+          "decision_ids": [
+            "USER-HW-20261015-08",
+            "USER-HW-20261015-09"
+          ],
+          "date": "2026-10-15",
+          "scope": "用户修正任务二颜色顺序并补充三个视觉依赖版本，更新源稿及 PDF；核对其他数值、MoveIt 和图形保持。"
+        },
+        {
+          "decision_id": "USER-HW-20261015-10",
+          "date": "2026-10-15",
+          "scope": "按用户指定仓库重写第 6 节及两处标定汇总，补入执行包矩阵与重投影误差并保留 TCP 已验证确认；重新导出 PDF，检查矩阵、表格、分页和受保护正文、图形。"
+        },
+        {
+          "decision_id": "USER-HW-20261015-11",
+          "date": "2026-10-15",
+          "scope": "优化第一张图左侧、移除可见 V1 前缀和报告许可内容后重新导出；检查图关系、CAD 几何与配色、受保护数据及 PDF。"
+        },
+        {
+          "decision_id": "USER-HW-20261015-12",
+          "date": "2026-10-15",
+          "scope": "统一 AI 披露及全文同类表述的团队作者口吻后重导 PDF；核对技术数值、公式、标定章节、图形及集成状态保留，检查改动页排版。"
+        },
+        {
+          "decision_id": "USER-HW-20261015-13",
+          "date": "2026-10-15",
+          "scope": "精简全文过度防御表达，保留方法、结果和必要验证条件；核对 15 个公式、3 张流程图与实际技术数值后重导并检查 PDF。"
+        },
+        {
+          "decision_id": "USER-HW-20261015-14",
+          "date": "2026-10-15",
+          "scope": "删除 RealSense 软件版本待补项，保留 D435i 型号；随本次文字调整同步导出 PDF。"
+        },
+        {
+          "decision_id": "USER-HW-20261015-15",
+          "date": "2026-10-15",
+          "scope": "以既有 Jazzy 部署基线填写报告 AUBO ROS 2 驱动版本，重导 PDF 并检查版本表排版；无设备操作。"
+        }
       ]
     }
   ]

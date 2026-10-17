@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="170mm" height="81.077mm" viewBox="0 0 650 310">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#444444"/></marker></defs>
+<rect width="650" height="310" fill="white"/>
+<g data-edge="INIT-SELF_CHECK"><path d="M145 42 H175" fill="none" stroke="#444444" stroke-width="1.2" marker-end="url(#arrow)"/></g>
+<g data-edge="SELF_CHECK-WAIT_TASK"><path d="M305 42 H335" fill="none" stroke="#444444" stroke-width="1.2" marker-end="url(#arrow)"/></g>
+<g data-edge="WAIT_TASK-VALIDATE_TASK"><path d="M465 42 H495" fill="none" stroke="#444444" stroke-width="1.2" marker-end="url(#arrow)"/></g>
+<g data-edge="VALIDATE_TASK-SCAN_SCENE"><path d="M560 63 V118" fill="none" stroke="#444444" stroke-width="1.2" marker-end="url(#arrow)"/></g>
+<g data-edge="SCAN_SCENE-EXECUTE_ITEM"><path d="M495 139 H465" fill="none" stroke="#444444" stroke-width="1.2" marker-end="url(#arrow)"/></g>
+<g data-edge="EXECUTE_ITEM-RECORD_RESULT"><path d="M335 139 H305" fill="none" stroke="#444444" stroke-width="1.2" marker-end="url(#arrow)"/></g>
+<g data-edge="RECORD_RESULT-FINISHED"><path d="M175 139 H145" fill="none" stroke="#444444" stroke-width="1.2" marker-end="url(#arrow)"/></g>
+<text x="160" y="108.00" font-family="Microsoft YaHei, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" fill="#161616">全部完成</text>
+<g data-edge="RECORD_RESULT-SCAN_SCENE"><path d="M240 160 V192 H560 V160" fill="none" stroke="#444444" stroke-width="1.2" marker-end="url(#arrow)"/></g>
+<text x="400" y="184.00" font-family="Microsoft YaHei, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" fill="#161616">下一项扫描</text>
+<g data-node="INIT">
+<rect x="15.0" y="21.0" width="130" height="42" rx="0" fill="#FFFFFF" stroke="#444444"/>
+<text x="80" y="38.00" font-family="Microsoft YaHei, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#161616">初始化</text>
+<text x="80" y="54.00" font-family="Microsoft YaHei, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" fill="#161616">INIT</text>
+</g>
+<g data-node="SELF_CHECK">
+<rect x="175.0" y="21.0" width="130" height="42" rx="0" fill="#FFFFFF" stroke="#444444"/>
+<text x="240" y="38.00" font-family="Microsoft YaHei, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#161616">自检</text>
+<text x="240" y="54.00" font-family="Microsoft YaHei, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" fill="#161616">SELF_CHECK</text>
+</g>
+<g data-node="WAIT_TASK">
+<rect x="335.0" y="21.0" width="130" height="42" rx="0" fill="#FFFFFF" stroke="#444444"/>
+<text x="400" y="38.00" font-family="Microsoft YaHei, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#161616">等待任务</text>
+<text x="400" y="54.00" font-family="Microsoft YaHei, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" fill="#161616">WAIT_TASK</text>
+</g>
+<g data-node="VALIDATE_TASK">
+<rect x="495.0" y="21.0" width="130" height="42" rx="0" fill="#FFFFFF" stroke="#444444"/>
+<text x="560" y="38.00" font-family="Microsoft YaHei, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#161616">校验任务</text>
+<text x="560" y="54.00" font-family="Microsoft YaHei, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" fill="#161616">VALIDATE_TASK</text>
+</g>
+<g data-node="SCAN_SCENE">
+<rect x="495.0" y="118.0" width="130" height="42" rx="0" fill="#FFFFFF" stroke="#444444"/>
+<text x="560" y="135.00" font-family="Microsoft YaHei, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#161616">扫描场景</text>
+<text x="560" y="151.00" font-family="Microsoft YaHei, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" fill="#161616">SCAN_SCENE</text>
+</g>
+<g data-node="EXECUTE_ITEM">
+<rect x="335.0" y="118.0" width="130" height="42" rx="0" fill="#FFFFFF" stroke="#444444"/>
+<text x="400" y="135.00" font-family="Microsoft YaHei, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#161616">执行单件任务</text>
+<text x="400" y="151.00" font-family="Microsoft YaHei, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" fill="#161616">EXECUTE_ITEM</text>
+</g>
+<g data-node="RECORD_RESULT">
+<rect x="175.0" y="118.0" width="130" height="42" rx="0" fill="#FFFFFF" stroke="#444444"/>
+<text x="240" y="135.00" font-family="Microsoft YaHei, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#161616">记录结果</text>
+<text x="240" y="151.00" font-family="Microsoft YaHei, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" fill="#161616">RECORD_RESULT</text>
+</g>
+<g data-node="FINISHED">
+<rect x="15.0" y="118.0" width="130" height="42" rx="21.0" fill="#F3F3F3" stroke="#444444"/>
+<text x="80" y="135.00" font-family="Microsoft YaHei, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#161616">任务完成</text>
+<text x="80" y="151.00" font-family="Microsoft YaHei, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" fill="#161616">FINISHED</text>
+</g>
+<text x="15" y="239.00" font-family="Microsoft YaHei, sans-serif" font-size="13" font-weight="700" text-anchor="start" fill="#161616">异常与控制状态（分支未展开）</text>
+<g data-node="RECOVERY">
+<rect x="18.0" y="262.0" width="116" height="30" rx="0" fill="#F3F3F3" stroke="#444444"/>
+<text x="76" y="281.00" font-family="Microsoft YaHei, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" fill="#161616">RECOVERY</text>
+</g>
+<g data-node="TASK_FAILED">
+<rect x="143.0" y="262.0" width="116" height="30" rx="0" fill="#F3F3F3" stroke="#444444"/>
+<text x="201" y="281.00" font-family="Microsoft YaHei, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" fill="#161616">TASK_FAILED</text>
+</g>
+<g data-node="CANCEL_PENDING">
+<rect x="268.0" y="262.0" width="116" height="30" rx="0" fill="#F3F3F3" stroke="#444444"/>
+<text x="326" y="281.00" font-family="Microsoft YaHei, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" fill="#161616">CANCEL_PENDING</text>
+</g>
+<g data-node="CANCELLED">
+<rect x="393.0" y="262.0" width="116" height="30" rx="0" fill="#F3F3F3" stroke="#444444"/>
+<text x="451" y="281.00" font-family="Microsoft YaHei, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" fill="#161616">CANCELLED</text>
+</g>
+<g data-node="FAULT">
+<rect x="518.0" y="262.0" width="116" height="30" rx="0" fill="#F3F3F3" stroke="#444444"/>
+<text x="576" y="281.00" font-family="Microsoft YaHei, sans-serif" font-size="11.5" font-weight="400" text-anchor="middle" fill="#161616">FAULT</text>
+</g>
+</svg>

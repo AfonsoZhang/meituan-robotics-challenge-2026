@@ -1,0 +1,21 @@
+flowchart TB
+    %% Display styling only; original nodes, edges and edge meanings preserved.
+    UI[Web 任务入口] --> TASK[Task：颜色顺序、工位、完成数量]
+    TASK --> PICK[PickPlace：单件抓放及结果验证]
+    CAM[固定 RGB-D 相机] --> VIS[颜色与 SAM 分割、几何候选]
+    CAL[相机外参、CAD 工具变换] --> VIS
+    VIS --> PICK
+    TOOL[舌规工具策略] --> PICK
+    PICK --> PLAN[场景与约束规划]
+    PLAN --> EXEC[Motion Execution：命令与反馈管理]
+    EXEC -. 实机接入尚未完成 .-> ARM[AUBO S3]
+    EXEC --> PICK
+    PICK --> TASK
+    TASK --> LOG[任务状态、错误与结果记录]
+    VIS --> LOG
+    EXEC --> LOG
+    LOG --> UI
+    classDef action fill:#FFFFFF,stroke:#444444,color:#161616;
+    classDef sensor fill:#FFFFFF,stroke:#444444,color:#161616;
+    class UI,TASK,PICK,PLAN,EXEC,LOG action;
+    class CAM,CAL,VIS,TOOL,ARM sensor;

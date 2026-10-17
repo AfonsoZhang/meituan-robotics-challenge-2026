@@ -1,0 +1,22 @@
+flowchart TB
+    INIT["初始化<br/>INIT"] --> SELF_CHECK["自检<br/>SELF_CHECK"]
+    SELF_CHECK --> WAIT_TASK["等待任务<br/>WAIT_TASK"]
+    WAIT_TASK --> VALIDATE_TASK["校验任务<br/>VALIDATE_TASK"]
+    VALIDATE_TASK --> SCAN_SCENE["扫描场景<br/>SCAN_SCENE"]
+    SCAN_SCENE --> EXECUTE_ITEM["执行单件任务<br/>EXECUTE_ITEM"]
+    EXECUTE_ITEM --> RECORD_RESULT["记录结果<br/>RECORD_RESULT"]
+    RECORD_RESULT -->|下一项扫描| SCAN_SCENE
+    RECORD_RESULT -->|全部完成| FINISHED(["任务完成<br/>FINISHED"])
+    subgraph OTHER[异常与控制状态（分支未展开）]
+        direction LR
+        RECOVERY[RECOVERY]
+        TASK_FAILED[TASK_FAILED]
+        CANCEL_PENDING[CANCEL_PENDING]
+        CANCELLED[CANCELLED]
+        FAULT[FAULT]
+    end
+    classDef action fill:#FFFFFF,stroke:#444444,color:#161616;
+    classDef terminal fill:#F3F3F3,stroke:#444444,color:#161616;
+    class INIT,SELF_CHECK,WAIT_TASK,VALIDATE_TASK,SCAN_SCENE,EXECUTE_ITEM,RECORD_RESULT action;
+    class FINISHED,RECOVERY,TASK_FAILED,CANCEL_PENDING,CANCELLED,FAULT terminal;
+    style OTHER fill:transparent,stroke:#AAAAAA,color:#161616;
