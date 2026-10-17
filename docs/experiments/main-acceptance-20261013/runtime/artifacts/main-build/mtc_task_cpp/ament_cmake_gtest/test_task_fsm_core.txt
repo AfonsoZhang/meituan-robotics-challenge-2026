@@ -1,0 +1,74 @@
+-- run_test.py: invoking following command in '/main-build/mtc_task_cpp':
+ - /main-build/mtc_task_cpp/test_task_fsm_core --gtest_output=xml:/main-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_core.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 21 tests from 6 test suites.
+[----------] Global test environment set-up.
+[----------] 3 tests from TaskFsmTables
+[ RUN      ] TaskFsmTables.VerifyTablesReportsNoProblem
+[       OK ] TaskFsmTables.VerifyTablesReportsNoProblem (0 ms)
+[ RUN      ] TaskFsmTables.AllStatesHaveEntryActionAndTimeout
+[       OK ] TaskFsmTables.AllStatesHaveEntryActionAndTimeout (0 ms)
+[ RUN      ] TaskFsmTables.EveryActiveStateRegistersConcurrentGoalRejection
+[       OK ] TaskFsmTables.EveryActiveStateRegistersConcurrentGoalRejection (0 ms)
+[----------] 3 tests from TaskFsmTables (0 ms total)
+
+[----------] 4 tests from TaskFsmBoot
+[ RUN      ] TaskFsmBoot.InitToSelfCheckToWaitTask
+[       OK ] TaskFsmBoot.InitToSelfCheckToWaitTask (0 ms)
+[ RUN      ] TaskFsmBoot.SelfCheckFailureGoesToFaultWithStopAndLock
+[       OK ] TaskFsmBoot.SelfCheckFailureGoesToFaultWithStopAndLock (0 ms)
+[ RUN      ] TaskFsmBoot.InitTimeoutGoesToFault
+[       OK ] TaskFsmBoot.InitTimeoutGoesToFault (0 ms)
+[ RUN      ] TaskFsmBoot.NoTimeoutBeforeDeadline
+[       OK ] TaskFsmBoot.NoTimeoutBeforeDeadline (0 ms)
+[----------] 4 tests from TaskFsmBoot (0 ms total)
+
+[----------] 5 tests from TaskFsmBasic
+[ RUN      ] TaskFsmBasic.FullHappyPathReachesFinished
+[       OK ] TaskFsmBasic.FullHappyPathReachesFinished (0 ms)
+[ RUN      ] TaskFsmBasic.SuccessRequiresPlacementVerified
+[       OK ] TaskFsmBasic.SuccessRequiresPlacementVerified (0 ms)
+[ RUN      ] TaskFsmBasic.TargetFoundWithoutObjectIdIsRejected
+[       OK ] TaskFsmBasic.TargetFoundWithoutObjectIdIsRejected (0 ms)
+[ RUN      ] TaskFsmBasic.ExpectedColorMismatchIsRejected
+[       OK ] TaskFsmBasic.ExpectedColorMismatchIsRejected (0 ms)
+[ RUN      ] TaskFsmBasic.ItemResultIgnoredOutsideExecuteItem
+[       OK ] TaskFsmBasic.ItemResultIgnoredOutsideExecuteItem (0 ms)
+[----------] 5 tests from TaskFsmBasic (0 ms total)
+
+[----------] 3 tests from TaskFsmSequence
+[ RUN      ] TaskFsmSequence.ThreeItemsCompleteInSlotOrder
+[       OK ] TaskFsmSequence.ThreeItemsCompleteInSlotOrder (0 ms)
+[ RUN      ] TaskFsmSequence.InvalidSequenceFailsWithoutGuessing
+[       OK ] TaskFsmSequence.InvalidSequenceFailsWithoutGuessing (0 ms)
+[ RUN      ] TaskFsmSequence.DuplicateSlotIsNotRecordedTwice
+[       OK ] TaskFsmSequence.DuplicateSlotIsNotRecordedTwice (0 ms)
+[----------] 3 tests from TaskFsmSequence (0 ms total)
+
+[----------] 2 tests from TaskFsmReset
+[ RUN      ] TaskFsmReset.ResetFromFinishedClearsTaskContext
+[       OK ] TaskFsmReset.ResetFromFinishedClearsTaskContext (0 ms)
+[ RUN      ] TaskFsmReset.ResetAllowedFromTaskFailedAndCancelled
+[       OK ] TaskFsmReset.ResetAllowedFromTaskFailedAndCancelled (0 ms)
+[----------] 2 tests from TaskFsmReset (0 ms total)
+
+[----------] 4 tests from TaskFsmSnapshot
+[ RUN      ] TaskFsmSnapshot.SnapshotCarriesTaskAndProgress
+[       OK ] TaskFsmSnapshot.SnapshotCarriesTaskAndProgress (0 ms)
+[ RUN      ] TaskFsmSnapshot.EveryStepPublishesState
+[       OK ] TaskFsmSnapshot.EveryStepPublishesState (0 ms)
+[ RUN      ] TaskFsmSnapshot.TransitionLogRecordsPath
+[       OK ] TaskFsmSnapshot.TransitionLogRecordsPath (0 ms)
+[ RUN      ] TaskFsmSnapshot.UnknownEventIsIgnoredNotFatal
+[       OK ] TaskFsmSnapshot.UnknownEventIsIgnoredNotFatal (0 ms)
+[----------] 4 tests from TaskFsmSnapshot (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 21 tests from 6 test suites ran. (2 ms total)
+[  PASSED  ] 21 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_core.gtest.xml'
+-- run_test.py: verify result file '/main-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_core.gtest.xml'

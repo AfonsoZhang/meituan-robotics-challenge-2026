@@ -1,0 +1,13 @@
+{
+  "name": "create",
+  "started_at": "2026-10-13T05:07:30.559553+00:00",
+  "argv": [
+    "bash",
+    "-c",
+    "set -e\ndocker run -d --name mtc-main-review-b418515 --network none --cpus 2 --memory 4g --pids-limit 512 --cap-drop ALL --security-opt no-new-privileges --label mtc.purpose=main-acceptance --label mtc.commit=b4185155383541e1a4161587c4049a162f74b36d mtc-trajectory-ownership-review:681bb64 sleep infinity\ndocker inspect mtc-main-review-b418515 > outputs/main-acceptance-20261013-b418515/meta/isolation.json\ndocker exec mtc-main-review-b418515 mkdir -p /candidate /review /review-tools\ndocker cp outputs/main-acceptance-20261013-b418515/source/. mtc-main-review-b418515:/candidate/\ndocker cp robot/probe_task_mock.py mtc-main-review-b418515:/review-tools/\ndocker cp robot/probe_moveit.py mtc-main-review-b418515:/review-tools/\ndocker cp robot/probe_cpp_actions.py mtc-main-review-b418515:/review-tools/\n"
+  ],
+  "timeout_seconds": 90,
+  "pid": 37648,
+  "exit_code": 0,
+  "ended_at": "2026-10-13T05:07:32.280318+00:00"
+}

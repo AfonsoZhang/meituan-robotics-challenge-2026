@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20261013-0521-Experimental"
+	Name="f15a4d676dce"
+	Generator="ctest-3.28.3"
+	CompilerName="/usr/bin/c++"
+	CompilerVersion="13.3.0"
+	OSName="Linux"
+	Hostname="f15a4d676dce"
+	OSRelease="6.6.87.2-microsoft-standard-WSL2"
+	OSVersion="#1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="25"
+	ModelID="117"
+	ProcessorCacheSize="1024"
+	NumberOfLogicalCPU="16"
+	NumberOfPhysicalCPU="8"
+	TotalVirtualMemory="4096"
+	TotalPhysicalMemory="7940"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="3792.93"
+	>
+	<Testing>
+		<StartDateTime>Oct 13 05:21 UTC</StartDateTime>
+		<StartTestTime>1791868900</StartTestTime>
+		<TestList>
+			<Test>./test_task_validation</Test>
+			<Test>./test_task_fsm_core</Test>
+			<Test>./test_task_fsm_safety</Test>
+		</TestList>
+		<Test Status="passed">
+			<Name>test_task_validation</Name>
+			<Path>.</Path>
+			<FullName>./test_task_validation</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_validation.gtest.xml" "--package-name" "mtc_task_cpp" "--output-file" "/main-ubsan-build/mtc_task_cpp/ament_cmake_gtest/test_task_validation.txt" "--command" "/main-ubsan-build/mtc_task_cpp/test_task_validation" "--gtest_output=xml:/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_validation.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.109147</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_validation.gtest.xml" "--package-name" "mtc_task_cpp" "--output-file" "/main-ubsan-build/mtc_task_cpp/ament_cmake_gtest/test_task_validation.txt" "--command" "/main-ubsan-build/mtc_task_cpp/test_task_validation" "--gtest_output=xml:/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_validation.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/main-ubsan-build/mtc_task_cpp':
+ - /main-ubsan-build/mtc_task_cpp/test_task_validation --gtest_output=xml:/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_validation.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 26 tests from 3 test suites.
+[----------] Global test environment set-up.
+[----------] 19 tests from TaskValidation
+[ RUN      ] TaskValidation.BasicModeAccepted
+[       OK ] TaskValidation.BasicModeAccepted (0 ms)
+[ RUN      ] TaskValidation.SequenceModeMapsSlotsInOrder
+[       OK ] TaskValidation.SequenceModeMapsSlotsInOrder (0 ms)
+[ RUN      ] TaskValidation.EmptyTaskIdRejected
+[       OK ] TaskValidation.EmptyTaskIdRejected (0 ms)
+[ RUN      ] TaskValidation.UnknownModeRejected
+[       OK ] TaskValidation.UnknownModeRejected (0 ms)
+[ RUN      ] TaskValidation.EmptyColorsRejected
+[       OK ] TaskValidation.EmptyColorsRejected (0 ms)
+[ RUN      ] TaskValidation.BasicModeRequiresExactlyOneColor
+[       OK ] TaskValidation.BasicModeRequiresExactlyOneColor (0 ms)
+[ RUN      ] TaskValidation.SequenceModeRequiresExactlyThreeColors
+[       OK ] TaskValidation.SequenceModeRequiresExactlyThreeColors (0 ms)
+[ RUN      ] TaskValidation.ColorZeroUnknownIsIllegal
+[       OK ] TaskValidation.ColorZeroUnknownIsIllegal (0 ms)
+[ RUN      ] TaskValidation.ColorOutOfRangeIsIllegal
+[       OK ] TaskValidation.ColorOutOfRangeIsIllegal (0 ms)
+[ RUN      ] TaskValidation.DuplicateColorsRejected
+[       OK ] TaskValidation.DuplicateColorsRejected (0 ms)
+[ RUN      ] TaskValidation.ZeroTimeoutRejected
+[       OK ] TaskValidation.ZeroTimeoutRejected (0 ms)
+[ RUN      ] TaskValidation.NegativeStabilityRejected
+[       OK ] TaskValidation.NegativeStabilityRejected (0 ms)
+[ RUN      ] TaskValidation.ExplicitSlotMustMatchDerivedSlot
+[       OK ] TaskValidation.ExplicitSlotMustMatchDerivedSlot (0 ms)
+[ RUN      ] TaskValidation.ExplicitSlotMustBeAllowed
+[       OK ] TaskValidation.ExplicitSlotMustBeAllowed (0 ms)
+[ RUN      ] TaskValidation.ExplicitSlotMatchingDerivedIsAccepted
+[       OK ] TaskValidation.ExplicitSlotMatchingDerivedIsAccepted (0 ms)
+[ RUN      ] TaskValidation.SlotNameValidation
+[       OK ] TaskValidation.SlotNameValidation (0 ms)
+[ RUN      ] TaskValidation.ExpectedSlotForIndex
+[       OK ] TaskValidation.ExpectedSlotForIndex (0 ms)
+[ RUN      ] TaskValidation.TaskRequestHelpers
+[       OK ] TaskValidation.TaskRequestHelpers (0 ms)
+[ RUN      ] TaskValidation.ModeNameOfUnknownMode
+[       OK ] TaskValidation.ModeNameOfUnknownMode (0 ms)
+[----------] 19 tests from TaskValidation (2 ms total)
+
+[----------] 1 test from TaskValidationAudit
+[ RUN      ] TaskValidationAudit.NonFiniteStabilityRejected
+[       OK ] TaskValidationAudit.NonFiniteStabilityRejected (0 ms)
+[----------] 1 test from TaskValidationAudit (0 ms total)
+
+[----------] 6 tests from StabilityGate
+[ RUN      ] StabilityGate.ZeroStabilityRejected
+[       OK ] StabilityGate.ZeroStabilityRejected (0 ms)
+[ RUN      ] StabilityGate.NegativeStabilityRejected
+[       OK ] StabilityGate.NegativeStabilityRejected (0 ms)
+[ RUN      ] StabilityGate.NaNStabilityRejected
+[       OK ] StabilityGate.NaNStabilityRejected (0 ms)
+[ RUN      ] StabilityGate.InfiniteStabilityRejected
+[       OK ] StabilityGate.InfiniteStabilityRejected (0 ms)
+[ RUN      ] StabilityGate.PositiveStabilityAccepted
+[       OK ] StabilityGate.PositiveStabilityAccepted (0 ms)
+[ RUN      ] StabilityGate.DefaultStabilityRemainsThreeSeconds
+[       OK ] StabilityGate.DefaultStabilityRemainsThreeSeconds (0 ms)
+[----------] 6 tests from StabilityGate (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 26 tests from 3 test suites ran. (3 ms total)
+[  PASSED  ] 26 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_validation.gtest.xml'
+-- run_test.py: verify result file '/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_validation.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_task_fsm_core</Name>
+			<Path>.</Path>
+			<FullName>./test_task_fsm_core</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_core.gtest.xml" "--package-name" "mtc_task_cpp" "--output-file" "/main-ubsan-build/mtc_task_cpp/ament_cmake_gtest/test_task_fsm_core.txt" "--command" "/main-ubsan-build/mtc_task_cpp/test_task_fsm_core" "--gtest_output=xml:/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_core.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.0967055</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_core.gtest.xml" "--package-name" "mtc_task_cpp" "--output-file" "/main-ubsan-build/mtc_task_cpp/ament_cmake_gtest/test_task_fsm_core.txt" "--command" "/main-ubsan-build/mtc_task_cpp/test_task_fsm_core" "--gtest_output=xml:/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_core.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/main-ubsan-build/mtc_task_cpp':
+ - /main-ubsan-build/mtc_task_cpp/test_task_fsm_core --gtest_output=xml:/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_core.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 21 tests from 6 test suites.
+[----------] Global test environment set-up.
+[----------] 3 tests from TaskFsmTables
+[ RUN      ] TaskFsmTables.VerifyTablesReportsNoProblem
+[       OK ] TaskFsmTables.VerifyTablesReportsNoProblem (1 ms)
+[ RUN      ] TaskFsmTables.AllStatesHaveEntryActionAndTimeout
+[       OK ] TaskFsmTables.AllStatesHaveEntryActionAndTimeout (0 ms)
+[ RUN      ] TaskFsmTables.EveryActiveStateRegistersConcurrentGoalRejection
+[       OK ] TaskFsmTables.EveryActiveStateRegistersConcurrentGoalRejection (0 ms)
+[----------] 3 tests from TaskFsmTables (1 ms total)
+
+[----------] 4 tests from TaskFsmBoot
+[ RUN      ] TaskFsmBoot.InitToSelfCheckToWaitTask
+[       OK ] TaskFsmBoot.InitToSelfCheckToWaitTask (0 ms)
+[ RUN      ] TaskFsmBoot.SelfCheckFailureGoesToFaultWithStopAndLock
+[       OK ] TaskFsmBoot.SelfCheckFailureGoesToFaultWithStopAndLock (0 ms)
+[ RUN      ] TaskFsmBoot.InitTimeoutGoesToFault
+[       OK ] TaskFsmBoot.InitTimeoutGoesToFault (0 ms)
+[ RUN      ] TaskFsmBoot.NoTimeoutBeforeDeadline
+[       OK ] TaskFsmBoot.NoTimeoutBeforeDeadline (0 ms)
+[----------] 4 tests from TaskFsmBoot (1 ms total)
+
+[----------] 5 tests from TaskFsmBasic
+[ RUN      ] TaskFsmBasic.FullHappyPathReachesFinished
+[       OK ] TaskFsmBasic.FullHappyPathReachesFinished (0 ms)
+[ RUN      ] TaskFsmBasic.SuccessRequiresPlacementVerified
+[       OK ] TaskFsmBasic.SuccessRequiresPlacementVerified (0 ms)
+[ RUN      ] TaskFsmBasic.TargetFoundWithoutObjectIdIsRejected
+[       OK ] TaskFsmBasic.TargetFoundWithoutObjectIdIsRejected (0 ms)
+[ RUN      ] TaskFsmBasic.ExpectedColorMismatchIsRejected
+[       OK ] TaskFsmBasic.ExpectedColorMismatchIsRejected (0 ms)
+[ RUN      ] TaskFsmBasic.ItemResultIgnoredOutsideExecuteItem
+[       OK ] TaskFsmBasic.ItemResultIgnoredOutsideExecuteItem (0 ms)
+[----------] 5 tests from TaskFsmBasic (0 ms total)
+
+[----------] 3 tests from TaskFsmSequence
+[ RUN      ] TaskFsmSequence.ThreeItemsCompleteInSlotOrder
+[       OK ] TaskFsmSequence.ThreeItemsCompleteInSlotOrder (0 ms)
+[ RUN      ] TaskFsmSequence.InvalidSequenceFailsWithoutGuessing
+[       OK ] TaskFsmSequence.InvalidSequenceFailsWithoutGuessing (0 ms)
+[ RUN      ] TaskFsmSequence.DuplicateSlotIsNotRecordedTwice
+[       OK ] TaskFsmSequence.DuplicateSlotIsNotRecordedTwice (0 ms)
+[----------] 3 tests from TaskFsmSequence (0 ms total)
+
+[----------] 2 tests from TaskFsmReset
+[ RUN      ] TaskFsmReset.ResetFromFinishedClearsTaskContext
+[       OK ] TaskFsmReset.ResetFromFinishedClearsTaskContext (0 ms)
+[ RUN      ] TaskFsmReset.ResetAllowedFromTaskFailedAndCancelled
+[       OK ] TaskFsmReset.ResetAllowedFromTaskFailedAndCancelled (0 ms)
+[----------] 2 tests from TaskFsmReset (0 ms total)
+
+[----------] 4 tests from TaskFsmSnapshot
+[ RUN      ] TaskFsmSnapshot.SnapshotCarriesTaskAndProgress
+[       OK ] TaskFsmSnapshot.SnapshotCarriesTaskAndProgress (0 ms)
+[ RUN      ] TaskFsmSnapshot.EveryStepPublishesState
+[       OK ] TaskFsmSnapshot.EveryStepPublishesState (0 ms)
+[ RUN      ] TaskFsmSnapshot.TransitionLogRecordsPath
+[       OK ] TaskFsmSnapshot.TransitionLogRecordsPath (0 ms)
+[ RUN      ] TaskFsmSnapshot.UnknownEventIsIgnoredNotFatal
+[       OK ] TaskFsmSnapshot.UnknownEventIsIgnoredNotFatal (0 ms)
+[----------] 4 tests from TaskFsmSnapshot (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 21 tests from 6 test suites ran. (5 ms total)
+[  PASSED  ] 21 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_core.gtest.xml'
+-- run_test.py: verify result file '/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_core.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_task_fsm_safety</Name>
+			<Path>.</Path>
+			<FullName>./test_task_fsm_safety</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_safety.gtest.xml" "--package-name" "mtc_task_cpp" "--output-file" "/main-ubsan-build/mtc_task_cpp/ament_cmake_gtest/test_task_fsm_safety.txt" "--command" "/main-ubsan-build/mtc_task_cpp/test_task_fsm_safety" "--gtest_output=xml:/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_safety.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.102039</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_safety.gtest.xml" "--package-name" "mtc_task_cpp" "--output-file" "/main-ubsan-build/mtc_task_cpp/ament_cmake_gtest/test_task_fsm_safety.txt" "--command" "/main-ubsan-build/mtc_task_cpp/test_task_fsm_safety" "--gtest_output=xml:/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_safety.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/main-ubsan-build/mtc_task_cpp':
+ - /main-ubsan-build/mtc_task_cpp/test_task_fsm_safety --gtest_output=xml:/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_safety.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 40 tests from 8 test suites.
+[----------] Global test environment set-up.
+[----------] 5 tests from TaskFsmConcurrency
+[ RUN      ] TaskFsmConcurrency.SecondGoalRejectedInEveryActiveState
+[       OK ] TaskFsmConcurrency.SecondGoalRejectedInEveryActiveState (1 ms)
+[ RUN      ] TaskFsmConcurrency.MissingGoalPayloadRejected
+[       OK ] TaskFsmConcurrency.MissingGoalPayloadRejected (0 ms)
+[ RUN      ] TaskFsmConcurrency.UnparsableGoalRejected
+[       OK ] TaskFsmConcurrency.UnparsableGoalRejected (0 ms)
+[ RUN      ] TaskFsmConcurrency.EmptyTaskIdRejected
+[       OK ] TaskFsmConcurrency.EmptyTaskIdRejected (0 ms)
+[ RUN      ] TaskFsmConcurrency.RejectionDoesNotQueueSecondGoal
+[       OK ] TaskFsmConcurrency.RejectionDoesNotQueueSecondGoal (0 ms)
+[----------] 5 tests from TaskFsmConcurrency (3 ms total)
+
+[----------] 8 tests from TaskFsmTimeout
+[ RUN      ] TaskFsmTimeout.WaitTaskAndTerminalStatesHaveNoTimeout
+[       OK ] TaskFsmTimeout.WaitTaskAndTerminalStatesHaveNoTimeout (0 ms)
+[ RUN      ] TaskFsmTimeout.ValidateTaskTimeoutGoesToTaskFailedWithInvalidTask
+[       OK ] TaskFsmTimeout.ValidateTaskTimeoutGoesToTaskFailedWithInvalidTask (0 ms)
+[ RUN      ] TaskFsmTimeout.ScanSceneTimeoutGoesToRecoveryWithTargetNotFound
+[       OK ] TaskFsmTimeout.ScanSceneTimeoutGoesToRecoveryWithTargetNotFound (0 ms)
+[ RUN      ] TaskFsmTimeout.ExecuteItemTimeoutGoesToFaultAndDoesNotAutoResend
+[       OK ] TaskFsmTimeout.ExecuteItemTimeoutGoesToFaultAndDoesNotAutoResend (0 ms)
+[ RUN      ] TaskFsmTimeout.RecordResultTimeoutMapsToPlacementFailed
+[       OK ] TaskFsmTimeout.RecordResultTimeoutMapsToPlacementFailed (0 ms)
+[ RUN      ] TaskFsmTimeout.RecoveryTimeoutGoesToTaskFailed
+[       OK ] TaskFsmTimeout.RecoveryTimeoutGoesToTaskFailed (0 ms)
+[ RUN      ] TaskFsmTimeout.CustomTimeoutsAreInjectible
+[       OK ] TaskFsmTimeout.CustomTimeoutsAreInjectible (0 ms)
+[ RUN      ] TaskFsmTimeout.TimeoutTimerResetsOnEffectiveProgress
+[       OK ] TaskFsmTimeout.TimeoutTimerResetsOnEffectiveProgress (0 ms)
+[----------] 8 tests from TaskFsmTimeout (1 ms total)
+
+[----------] 3 tests from TaskFsmDeadline
+[ RUN      ] TaskFsmDeadline.DeadlineExceededGoesToFaultWithMotionTimeout
+[       OK ] TaskFsmDeadline.DeadlineExceededGoesToFaultWithMotionTimeout (0 ms)
+[ RUN      ] TaskFsmDeadline.NoDeadlineWithoutActiveTask
+[       OK ] TaskFsmDeadline.NoDeadlineWithoutActiveTask (0 ms)
+[ RUN      ] TaskFsmDeadline.ElapsedTaskTimeTracksInProgressTask
+[       OK ] TaskFsmDeadline.ElapsedTaskTimeTracksInProgressTask (0 ms)
+[----------] 3 tests from TaskFsmDeadline (0 ms total)
+
+[----------] 8 tests from TaskFsmCancel
+[ RUN      ] TaskFsmCancel.CancelFromScanSceneEntersCancelPendingWithChildCancel
+[       OK ] TaskFsmCancel.CancelFromScanSceneEntersCancelPendingWithChildCancel (0 ms)
+[ RUN      ] TaskFsmCancel.ConfirmedStopLeadsToCancelled
+[       OK ] TaskFsmCancel.ConfirmedStopLeadsToCancelled (0 ms)
+[ RUN      ] TaskFsmCancel.UnconfirmedStopTimesOutToFault520
+[       OK ] TaskFsmCancel.UnconfirmedStopTimesOutToFault520 (0 ms)
+[ RUN      ] TaskFsmCancel.LateStopConfirmationAfterFaultDoesNotBecomeCancelled
+[       OK ] TaskFsmCancel.LateStopConfirmationAfterFaultDoesNotBecomeCancelled (0 ms)
+[ RUN      ] TaskFsmCancel.CancelFromExecuteItemIsAllowed
+[       OK ] TaskFsmCancel.CancelFromExecuteItemIsAllowed (0 ms)
+[ RUN      ] TaskFsmCancel.CancelFromRecoveryIsAllowed
+[       OK ] TaskFsmCancel.CancelFromRecoveryIsAllowed (0 ms)
+[ RUN      ] TaskFsmCancel.ItemUnsafeInCancelPendingGoesToFault
+[       OK ] TaskFsmCancel.ItemUnsafeInCancelPendingGoesToFault (0 ms)
+[ RUN      ] TaskFsmCancel.CancelInTerminalStateIsIgnored
+[       OK ] TaskFsmCancel.CancelInTerminalStateIsIgnored (0 ms)
+[----------] 8 tests from TaskFsmCancel (1 ms total)
+
+[----------] 7 tests from TaskFsmRecovery
+[ RUN      ] TaskFsmRecovery.TargetNotFoundRetryReturnsToScanScene
+[       OK ] TaskFsmRecovery.TargetNotFoundRetryReturnsToScanScene (0 ms)
+[ RUN      ] TaskFsmRecovery.RetryBudgetExhaustionGoesToTaskFailed
+[       OK ] TaskFsmRecovery.RetryBudgetExhaustionGoesToTaskFailed (0 ms)
+[ RUN      ] TaskFsmRecovery.DenyRetryGoesToTaskFailed
+[       OK ] TaskFsmRecovery.DenyRetryGoesToTaskFailed (0 ms)
+[ RUN      ] TaskFsmRecovery.PlanningFailureIsRecoverable
+[       OK ] TaskFsmRecovery.PlanningFailureIsRecoverable (0 ms)
+[ RUN      ] TaskFsmRecovery.PoseStaleIsRecoverable
+[       OK ] TaskFsmRecovery.PoseStaleIsRecoverable (0 ms)
+[ RUN      ] TaskFsmRecovery.ExecutionRejectedIsRecoverable
+[       OK ] TaskFsmRecovery.ExecutionRejectedIsRecoverable (0 ms)
+[ RUN      ] TaskFsmRecovery.RecoveryAttemptsResetAfterCompletedItem
+[       OK ] TaskFsmRecovery.RecoveryAttemptsResetAfterCompletedItem (0 ms)
+[----------] 7 tests from TaskFsmRecovery (1 ms total)
+
+[----------] 6 tests from TaskFsmUnsafeErrors
+[ RUN      ] TaskFsmUnsafeErrors.MotionStatusUnknownGoesToFaultWithRealCode
+[       OK ] TaskFsmUnsafeErrors.MotionStatusUnknownGoesToFaultWithRealCode (0 ms)
+[ RUN      ] TaskFsmUnsafeErrors.NonRecoverableCodesAllGoToFault
+[       OK ] TaskFsmUnsafeErrors.NonRecoverableCodesAllGoToFault (0 ms)
+[ RUN      ] TaskFsmUnsafeErrors.RecoverableWhitelistIsConservative
+[       OK ] TaskFsmUnsafeErrors.RecoverableWhitelistIsConservative (0 ms)
+[ RUN      ] TaskFsmUnsafeErrors.FaultWithoutSpecificCodeDegradesToHardwareFault
+[       OK ] TaskFsmUnsafeErrors.FaultWithoutSpecificCodeDegradesToHardwareFault (0 ms)
+[ RUN      ] TaskFsmUnsafeErrors.FaultKeepsSpecificCodeWhenPresent
+[       OK ] TaskFsmUnsafeErrors.FaultKeepsSpecificCodeWhenPresent (0 ms)
+[ RUN      ] TaskFsmUnsafeErrors.ItemFailureWithZeroCodeDefaultsToPlacementFailed
+[       OK ] TaskFsmUnsafeErrors.ItemFailureWithZeroCodeDefaultsToPlacementFailed (0 ms)
+[----------] 6 tests from TaskFsmUnsafeErrors (1 ms total)
+
+[----------] 2 tests from TaskFsmSafety
+[ RUN      ] TaskFsmSafety.RepeatedStepsInFaultProduceNoActions
+[       OK ] TaskFsmSafety.RepeatedStepsInFaultProduceNoActions (0 ms)
+[ RUN      ] TaskFsmSafety.GoalAfterTerminalRequiresReset
+[       OK ] TaskFsmSafety.GoalAfterTerminalRequiresReset (0 ms)
+[----------] 2 tests from TaskFsmSafety (0 ms total)
+
+[----------] 1 test from TaskFaultAudit
+[ RUN      ] TaskFaultAudit.ActionFinishesButOrdinaryResetAndNewTasksStayLocked
+[       OK ] TaskFaultAudit.ActionFinishesButOrdinaryResetAndNewTasksStayLocked (0 ms)
+[----------] 1 test from TaskFaultAudit (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 40 tests from 8 test suites ran. (10 ms total)
+[  PASSED  ] 40 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_safety.gtest.xml'
+-- run_test.py: verify result file '/main-ubsan-build/mtc_task_cpp/test_results/mtc_task_cpp/test_task_fsm_safety.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<EndDateTime>Oct 13 05:21 UTC</EndDateTime>
+		<EndTestTime>1791868900</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

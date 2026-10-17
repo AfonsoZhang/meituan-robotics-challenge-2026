@@ -1,0 +1,56 @@
+{
+  "supervisor_pid": 2669,
+  "started_at": "2026-10-13T05:32:02.080267+00:00",
+  "namespace": "/cpp_c1",
+  "domain_id": 181,
+  "profile": "success",
+  "result_delay_ms": 700,
+  "scope": "cpp_mock; real ROS Actions, software-only ports; no hardware/MoveIt",
+  "processes": [
+    {
+      "label": "pick_place",
+      "pid": 2684,
+      "argv": [
+        "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+        "--ros-args",
+        "-r",
+        "__ns:=/cpp_c1",
+        "-r",
+        "/mtc/task/execute:=/cpp_c1/task/execute",
+        "-r",
+        "/mtc/manipulation/pick_place:=/cpp_c1/manipulation/pick_place",
+        "-p",
+        "mock.result_delay_ms:=700",
+        "-p",
+        "mock.plan_available:=true",
+        "-p",
+        "mock.stop_evidence_available:=true",
+        "-p",
+        "mock.status_unknown:=false"
+      ],
+      "executable": "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server"
+    },
+    {
+      "label": "task",
+      "pid": 2685,
+      "argv": [
+        "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+        "--ros-args",
+        "-r",
+        "__ns:=/cpp_c1",
+        "-r",
+        "/mtc/task/execute:=/cpp_c1/task/execute",
+        "-r",
+        "/mtc/manipulation/pick_place:=/cpp_c1/manipulation/pick_place"
+      ],
+      "executable": "/pr8-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server"
+    }
+  ],
+  "returncodes": {
+    "pick_place": 0,
+    "task": 0
+  },
+  "ended_at": "2026-10-13T05:32:34.228428+00:00",
+  "cleanup_ok": true,
+  "exit_code": 0
+}

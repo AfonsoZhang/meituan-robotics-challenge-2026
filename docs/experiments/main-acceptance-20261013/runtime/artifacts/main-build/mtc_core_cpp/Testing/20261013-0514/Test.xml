@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20261013-0514-Experimental"
+	Name="f15a4d676dce"
+	Generator="ctest-3.28.3"
+	CompilerName="/usr/bin/c++"
+	CompilerVersion="13.3.0"
+	OSName="Linux"
+	Hostname="f15a4d676dce"
+	OSRelease="6.6.87.2-microsoft-standard-WSL2"
+	OSVersion="#1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="25"
+	ModelID="117"
+	ProcessorCacheSize="1024"
+	NumberOfLogicalCPU="16"
+	NumberOfPhysicalCPU="8"
+	TotalVirtualMemory="4096"
+	TotalPhysicalMemory="7940"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="3792.93"
+	>
+	<Testing>
+		<StartDateTime>Oct 13 05:14 UTC</StartDateTime>
+		<StartTestTime>1791868494</StartTestTime>
+		<TestList>
+			<Test>./test_core_types</Test>
+			<Test>./test_error_codes_msg_parity</Test>
+		</TestList>
+		<Test Status="passed">
+			<Name>test_core_types</Name>
+			<Path>.</Path>
+			<FullName>./test_core_types</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/main-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml" "--package-name" "mtc_core_cpp" "--output-file" "/main-build/mtc_core_cpp/ament_cmake_gtest/test_core_types.txt" "--command" "/main-build/mtc_core_cpp/test_core_types" "--gtest_output=xml:/main-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.0883501</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/main-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml" "--package-name" "mtc_core_cpp" "--output-file" "/main-build/mtc_core_cpp/ament_cmake_gtest/test_core_types.txt" "--command" "/main-build/mtc_core_cpp/test_core_types" "--gtest_output=xml:/main-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/main-build/mtc_core_cpp':
+ - /main-build/mtc_core_cpp/test_core_types --gtest_output=xml:/main-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 22 tests from 10 test suites.
+[----------] Global test environment set-up.
+[----------] 2 tests from CoreErrorCodes
+[ RUN      ] CoreErrorCodes.ValuesMatchFrozenInterfaceNumbers
+[       OK ] CoreErrorCodes.ValuesMatchFrozenInterfaceNumbers (0 ms)
+[ RUN      ] CoreErrorCodes.NameOfKnownAndUnknown
+[       OK ] CoreErrorCodes.NameOfKnownAndUnknown (0 ms)
+[----------] 2 tests from CoreErrorCodes (0 ms total)
+
+[----------] 2 tests from CoreToolState
+[ RUN      ] CoreToolState.EvidenceLevelIsOrdered
+[       OK ] CoreToolState.EvidenceLevelIsOrdered (0 ms)
+[ RUN      ] CoreToolState.NamesAreStable
+[       OK ] CoreToolState.NamesAreStable (0 ms)
+[----------] 2 tests from CoreToolState (0 ms total)
+
+[----------] 5 tests from CorePose
+[ RUN      ] CorePose.FullSixDofIsPreserved
+[       OK ] CorePose.FullSixDofIsPreserved (0 ms)
+[ RUN      ] CorePose.MissingFrameIdIsNotUsable
+[       OK ] CorePose.MissingFrameIdIsNotUsable (0 ms)
+[ RUN      ] CorePose.UnnormalizedQuaternionIsNotUsable
+[       OK ] CorePose.UnnormalizedQuaternionIsNotUsable (0 ms)
+[ RUN      ] CorePose.InvalidFlagBlocksUsability
+[       OK ] CorePose.InvalidFlagBlocksUsability (0 ms)
+[ RUN      ] CorePose.PoseEstimateRequiresBothFlagAndUsablePose
+[       OK ] CorePose.PoseEstimateRequiresBothFlagAndUsablePose (0 ms)
+[----------] 5 tests from CorePose (0 ms total)
+
+[----------] 3 tests from CoreResults
+[ RUN      ] CoreResults.DetectionOkRequiresAllConditions
+[       OK ] CoreResults.DetectionOkRequiresAllConditions (0 ms)
+[ RUN      ] CoreResults.MotionResultRequiresBothSuccessAndArrived
+[       OK ] CoreResults.MotionResultRequiresBothSuccessAndArrived (0 ms)
+[ RUN      ] CoreResults.StopResultSeparatesDeliveryFromConfirmation
+[       OK ] CoreResults.StopResultSeparatesDeliveryFromConfirmation (0 ms)
+[----------] 3 tests from CoreResults (0 ms total)
+
+[----------] 1 test from CoreMotionCommand
+[ RUN      ] CoreMotionCommand.ShapeValidation
+[       OK ] CoreMotionCommand.ShapeValidation (0 ms)
+[----------] 1 test from CoreMotionCommand (0 ms total)
+
+[----------] 1 test from CoreMotionPrimitive
+[ RUN      ] CoreMotionPrimitive.EqualityIncludesContactFlag
+[       OK ] CoreMotionPrimitive.EqualityIncludesContactFlag (0 ms)
+[----------] 1 test from CoreMotionPrimitive (0 ms total)
+
+[----------] 4 tests from CoreTimedTrajectory
+[ RUN      ] CoreTimedTrajectory.ShapeValidationAndDuration
+[       OK ] CoreTimedTrajectory.ShapeValidationAndDuration (0 ms)
+[ RUN      ] CoreTimedTrajectory.RejectsNonMonotonicTime
+[       OK ] CoreTimedTrajectory.RejectsNonMonotonicTime (0 ms)
+[ RUN      ] CoreTimedTrajectory.RejectsDimensionMismatch
+[       OK ] CoreTimedTrajectory.RejectsDimensionMismatch (0 ms)
+[ RUN      ] CoreTimedTrajectory.RejectsEmptyOrDuplicateJointNames
+[       OK ] CoreTimedTrajectory.RejectsEmptyOrDuplicateJointNames (0 ms)
+[----------] 4 tests from CoreTimedTrajectory (0 ms total)
+
+[----------] 1 test from CoreClock
+[ RUN      ] CoreClock.ManualClockIsDeterministic
+[       OK ] CoreClock.ManualClockIsDeterministic (0 ms)
+[----------] 1 test from CoreClock (0 ms total)
+
+[----------] 1 test from CoreExecState
+[ RUN      ] CoreExecState.StringMappingIsStable
+[       OK ] CoreExecState.StringMappingIsStable (0 ms)
+[----------] 1 test from CoreExecState (0 ms total)
+
+[----------] 2 tests from CoreAudit
+[ RUN      ] CoreAudit.PoseRejectsNonFinitePositionStampAndQuaternion
+[       OK ] CoreAudit.PoseRejectsNonFinitePositionStampAndQuaternion (0 ms)
+[ RUN      ] CoreAudit.TrajectoryRejectsNonFiniteFieldsAndNegativeTimes
+[       OK ] CoreAudit.TrajectoryRejectsNonFiniteFieldsAndNegativeTimes (0 ms)
+[----------] 2 tests from CoreAudit (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 22 tests from 10 test suites ran. (0 ms total)
+[  PASSED  ] 22 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml'
+-- run_test.py: verify result file '/main-build/mtc_core_cpp/test_results/mtc_core_cpp/test_core_types.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_error_codes_msg_parity</Name>
+			<Path>.</Path>
+			<FullName>./test_error_codes_msg_parity</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/main-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml" "--package-name" "mtc_core_cpp" "--output-file" "/main-build/mtc_core_cpp/ament_cmake_gtest/test_error_codes_msg_parity.txt" "--command" "/main-build/mtc_core_cpp/test_error_codes_msg_parity" "--gtest_output=xml:/main-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.0880737</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/main-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml" "--package-name" "mtc_core_cpp" "--output-file" "/main-build/mtc_core_cpp/ament_cmake_gtest/test_error_codes_msg_parity.txt" "--command" "/main-build/mtc_core_cpp/test_error_codes_msg_parity" "--gtest_output=xml:/main-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/main-build/mtc_core_cpp':
+ - /main-build/mtc_core_cpp/test_error_codes_msg_parity --gtest_output=xml:/main-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ErrorCodesMsgParity
+[ RUN      ] ErrorCodesMsgParity.ConstantsMatchInterfacesMsg
+[       OK ] ErrorCodesMsgParity.ConstantsMatchInterfacesMsg (0 ms)
+[----------] 1 test from ErrorCodesMsgParity (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml'
+-- run_test.py: verify result file '/main-build/mtc_core_cpp/test_results/mtc_core_cpp/test_error_codes_msg_parity.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<EndDateTime>Oct 13 05:14 UTC</EndDateTime>
+		<EndTestTime>1791868495</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

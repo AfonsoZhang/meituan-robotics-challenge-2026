@@ -1,0 +1,61 @@
+-- run_test.py: invoking following command in '/main-ubsan-build/mtc_manipulation_cpp':
+ - /main-ubsan-build/mtc_manipulation_cpp/test_pick_place_audit --gtest_output=xml:/main-ubsan-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_audit.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 16 tests from 5 test suites.
+[----------] Global test environment set-up.
+[----------] 6 tests from PlacementAudit
+[ RUN      ] PlacementAudit.NewFramesMustCoverFullThreeSeconds
+[       OK ] PlacementAudit.NewFramesMustCoverFullThreeSeconds (1 ms)
+[ RUN      ] PlacementAudit.FrozenTimestampCannotSucceedForFiveSeconds
+[       OK ] PlacementAudit.FrozenTimestampCannotSucceedForFiveSeconds (0 ms)
+[ RUN      ] PlacementAudit.InvalidOrStaleFrameInterruptsWindow
+[       OK ] PlacementAudit.InvalidOrStaleFrameInterruptsWindow (1 ms)
+[ RUN      ] PlacementAudit.PerceptionStopsUpdatingCannotAccumulateTime
+[       OK ] PlacementAudit.PerceptionStopsUpdatingCannotAccumulateTime (0 ms)
+[ RUN      ] PlacementAudit.FutureBackwardsAndNonFiniteStampsInterrupt
+[       OK ] PlacementAudit.FutureBackwardsAndNonFiniteStampsInterrupt (1 ms)
+[ RUN      ] PlacementAudit.GapBetweenFreshFramesInterruptsContinuity
+[       OK ] PlacementAudit.GapBetweenFreshFramesInterruptsContinuity (0 ms)
+[----------] 6 tests from PlacementAudit (7 ms total)
+
+[----------] 4 tests from PlanningAudit
+[ RUN      ] PlanningAudit.NonZeroPlannerTargetsAndFullPoseReachAdapter
+[       OK ] PlanningAudit.NonZeroPlannerTargetsAndFullPoseReachAdapter (0 ms)
+[ RUN      ] PlanningAudit.MissingOutputDoesNotReachMockAdapter
+[       OK ] PlanningAudit.MissingOutputDoesNotReachMockAdapter (0 ms)
+[ RUN      ] PlanningAudit.WholeTimedTrajectoryIsNeverSplit
+[       OK ] PlanningAudit.WholeTimedTrajectoryIsNeverSplit (0 ms)
+[ RUN      ] PlanningAudit.MalformedPlanCannotExecute
+[       OK ] PlanningAudit.MalformedPlanCannotExecute (0 ms)
+[----------] 4 tests from PlanningAudit (1 ms total)
+
+[----------] 1 test from CommandIdAudit
+[ RUN      ] CommandIdAudit.LongAndRepeatedRequestsRemainUniqueAcrossInstances
+[       OK ] CommandIdAudit.LongAndRepeatedRequestsRemainUniqueAcrossInstances (1 ms)
+[----------] 1 test from CommandIdAudit (1 ms total)
+
+[----------] 2 tests from WatchdogAudit
+[ RUN      ] WatchdogAudit.LoadedContextCannotRecoverAndFaultCannotRestart
+[       OK ] WatchdogAudit.LoadedContextCannotRecoverAndFaultCannotRestart (0 ms)
+[ RUN      ] WatchdogAudit.InvalidStabilityNeverStartsMotion
+[       OK ] WatchdogAudit.InvalidStabilityNeverStartsMotion (0 ms)
+[----------] 2 tests from WatchdogAudit (0 ms total)
+
+[----------] 3 tests from PlacementGate
+[ RUN      ] PlacementGate.ZeroStabilityRejectedBeforeFirstFrame
+[       OK ] PlacementGate.ZeroStabilityRejectedBeforeFirstFrame (0 ms)
+[ RUN      ] PlacementGate.PositiveWindowNeedsTwoDistinctObservations
+[       OK ] PlacementGate.PositiveWindowNeedsTwoDistinctObservations (0 ms)
+[ RUN      ] PlacementGate.InvalidConfiguredStabilityNeverStartsMotion
+[       OK ] PlacementGate.InvalidConfiguredStabilityNeverStartsMotion (0 ms)
+[----------] 3 tests from PlacementGate (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 16 tests from 5 test suites ran. (13 ms total)
+[  PASSED  ] 16 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-ubsan-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_audit.gtest.xml'
+-- run_test.py: verify result file '/main-ubsan-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_audit.gtest.xml'

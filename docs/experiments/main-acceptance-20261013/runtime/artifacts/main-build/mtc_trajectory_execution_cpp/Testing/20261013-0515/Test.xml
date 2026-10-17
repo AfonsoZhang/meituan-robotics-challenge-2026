@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20261013-0515-Experimental"
+	Name="f15a4d676dce"
+	Generator="ctest-3.28.3"
+	CompilerName="/usr/bin/c++"
+	CompilerVersion="13.3.0"
+	OSName="Linux"
+	Hostname="f15a4d676dce"
+	OSRelease="6.6.87.2-microsoft-standard-WSL2"
+	OSVersion="#1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="25"
+	ModelID="117"
+	ProcessorCacheSize="1024"
+	NumberOfLogicalCPU="16"
+	NumberOfPhysicalCPU="8"
+	TotalVirtualMemory="4096"
+	TotalPhysicalMemory="7940"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="3792.93"
+	>
+	<Testing>
+		<StartDateTime>Oct 13 05:15 UTC</StartDateTime>
+		<StartTestTime>1791868522</StartTestTime>
+		<TestList>
+			<Test>./test_trajectory_validator</Test>
+			<Test>./test_fjt_action</Test>
+		</TestList>
+		<Test Status="passed">
+			<Name>test_trajectory_validator</Name>
+			<Path>.</Path>
+			<FullName>./test_trajectory_validator</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/main-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_trajectory_validator.gtest.xml" "--package-name" "mtc_trajectory_execution_cpp" "--output-file" "/main-build/mtc_trajectory_execution_cpp/ament_cmake_gtest/test_trajectory_validator.txt" "--command" "/main-build/mtc_trajectory_execution_cpp/test_trajectory_validator" "--gtest_output=xml:/main-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_trajectory_validator.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.133604</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/main-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_trajectory_validator.gtest.xml" "--package-name" "mtc_trajectory_execution_cpp" "--output-file" "/main-build/mtc_trajectory_execution_cpp/ament_cmake_gtest/test_trajectory_validator.txt" "--command" "/main-build/mtc_trajectory_execution_cpp/test_trajectory_validator" "--gtest_output=xml:/main-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_trajectory_validator.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/main-build/mtc_trajectory_execution_cpp':
+ - /main-build/mtc_trajectory_execution_cpp/test_trajectory_validator --gtest_output=xml:/main-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_trajectory_validator.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 30 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 30 tests from TrajectoryValidator
+[ RUN      ] TrajectoryValidator.CompleteTrajectoryPreserved
+[       OK ] TrajectoryValidator.CompleteTrajectoryPreserved (0 ms)
+[ RUN      ] TrajectoryValidator.JointOrderMapsAllFields
+[       OK ] TrajectoryValidator.JointOrderMapsAllFields (0 ms)
+[ RUN      ] TrajectoryValidator.EmptyTrajectoryRejected
+[       OK ] TrajectoryValidator.EmptyTrajectoryRejected (0 ms)
+[ RUN      ] TrajectoryValidator.SinglePointRejected
+[       OK ] TrajectoryValidator.SinglePointRejected (0 ms)
+[ RUN      ] TrajectoryValidator.DuplicateJointRejected
+[       OK ] TrajectoryValidator.DuplicateJointRejected (0 ms)
+[ RUN      ] TrajectoryValidator.MissingJointRejected
+[       OK ] TrajectoryValidator.MissingJointRejected (0 ms)
+[ RUN      ] TrajectoryValidator.NonIncreasingTimeRejected
+[       OK ] TrajectoryValidator.NonIncreasingTimeRejected (0 ms)
+[ RUN      ] TrajectoryValidator.NanPositionRejected
+[       OK ] TrajectoryValidator.NanPositionRejected (0 ms)
+[ RUN      ] TrajectoryValidator.InfVelocityRejected
+[       OK ] TrajectoryValidator.InfVelocityRejected (0 ms)
+[ RUN      ] TrajectoryValidator.InfAccelerationRejected
+[       OK ] TrajectoryValidator.InfAccelerationRejected (0 ms)
+[ RUN      ] TrajectoryValidator.DimensionMismatchRejected
+[       OK ] TrajectoryValidator.DimensionMismatchRejected (0 ms)
+[ RUN      ] TrajectoryValidator.FirstPointNotZeroRejected
+[       OK ] TrajectoryValidator.FirstPointNotZeroRejected (0 ms)
+[ RUN      ] TrajectoryValidator.PositionLimitRejected
+[       OK ] TrajectoryValidator.PositionLimitRejected (0 ms)
+[ RUN      ] TrajectoryValidator.VelocityLimitRejected
+[       OK ] TrajectoryValidator.VelocityLimitRejected (0 ms)
+[ RUN      ] TrajectoryValidator.AccelerationLimitRejected
+[       OK ] TrajectoryValidator.AccelerationLimitRejected (0 ms)
+[ RUN      ] TrajectoryValidator.TimeoutZeroRejected
+[       OK ] TrajectoryValidator.TimeoutZeroRejected (0 ms)
+[ RUN      ] TrajectoryValidator.InsufficientTimeoutRejected
+[       OK ] TrajectoryValidator.InsufficientTimeoutRejected (0 ms)
+[ RUN      ] TrajectoryValidator.RealCommandRejected
+[       OK ] TrajectoryValidator.RealCommandRejected (0 ms)
+[ RUN      ] TrajectoryValidator.ContactRequestRejected
+[       OK ] TrajectoryValidator.ContactRequestRejected (0 ms)
+[ RUN      ] TrajectoryValidator.NanTimeRejected
+[       OK ] TrajectoryValidator.NanTimeRejected (0 ms)
+[ RUN      ] TrajectoryValidator.NegativeStampRejected
+[       OK ] TrajectoryValidator.NegativeStampRejected (0 ms)
+[ RUN      ] TrajectoryValidator.NanStampRejected
+[       OK ] TrajectoryValidator.NanStampRejected (0 ms)
+[ RUN      ] TrajectoryValidator.NanosecondTimeCollisionRejected
+[       OK ] TrajectoryValidator.NanosecondTimeCollisionRejected (0 ms)
+[ RUN      ] TrajectoryValidator.MixedRepresentationsRejected
+[       OK ] TrajectoryValidator.MixedRepresentationsRejected (0 ms)
+[ RUN      ] TrajectoryValidator.MissingLimitsRejectConfiguration
+[       OK ] TrajectoryValidator.MissingLimitsRejectConfiguration (0 ms)
+[ RUN      ] TrajectoryValidator.ZeroSettleRejected
+[       OK ] TrajectoryValidator.ZeroSettleRejected (0 ms)
+[ RUN      ] TrajectoryValidator.JointSampleRequiresVelocityAndIdentity
+[       OK ] TrajectoryValidator.JointSampleRequiresVelocityAndIdentity (0 ms)
+[ RUN      ] TrajectoryValidator.SplinePositionOvershootRejected
+[       OK ] TrajectoryValidator.SplinePositionOvershootRejected (0 ms)
+[ RUN      ] TrajectoryValidator.SplineVelocityOvershootRejected
+[       OK ] TrajectoryValidator.SplineVelocityOvershootRejected (0 ms)
+[ RUN      ] TrajectoryValidator.SplineAccelerationOvershootRejected
+[       OK ] TrajectoryValidator.SplineAccelerationOvershootRejected (0 ms)
+[----------] 30 tests from TrajectoryValidator (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 30 tests from 1 test suite ran. (1 ms total)
+[  PASSED  ] 30 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_trajectory_validator.gtest.xml'
+-- run_test.py: verify result file '/main-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_trajectory_validator.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<Test Status="passed">
+			<Name>test_fjt_action</Name>
+			<Path>.</Path>
+			<FullName>./test_fjt_action</FullName>
+			<FullCommandLine>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/main-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_fjt_action.gtest.xml" "--package-name" "mtc_trajectory_execution_cpp" "--output-file" "/main-build/mtc_trajectory_execution_cpp/ament_cmake_gtest/test_fjt_action.txt" "--command" "/main-build/mtc_trajectory_execution_cpp/test_fjt_action" "--gtest_output=xml:/main-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_fjt_action.gtest.xml"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>21.382</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/main-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_fjt_action.gtest.xml" "--package-name" "mtc_trajectory_execution_cpp" "--output-file" "/main-build/mtc_trajectory_execution_cpp/ament_cmake_gtest/test_fjt_action.txt" "--command" "/main-build/mtc_trajectory_execution_cpp/test_fjt_action" "--gtest_output=xml:/main-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_fjt_action.gtest.xml"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>-- run_test.py: invoking following command in '/main-build/mtc_trajectory_execution_cpp':
+ - /main-build/mtc_trajectory_execution_cpp/test_fjt_action --gtest_output=xml:/main-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_fjt_action.gtest.xml
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 69 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 69 tests from FjtAction
+[ RUN      ] FjtAction.CompleteTrajectoryOneGoalAndFeedback
+[       OK ] FjtAction.CompleteTrajectoryOneGoalAndFeedback (355 ms)
+[ RUN      ] FjtAction.RepeatedTicksNeverResend
+[       OK ] FjtAction.RepeatedTicksNeverResend (319 ms)
+[ RUN      ] FjtAction.ConcurrentGoalsSingleOwner
+[       OK ] FjtAction.ConcurrentGoalsSingleOwner (202 ms)
+[ RUN      ] FjtAction.StartMismatchDoesNotSend
+[       OK ] FjtAction.StartMismatchDoesNotSend (84 ms)
+[ RUN      ] FjtAction.CorrectCancelUsesExactUuid
+[       OK ] FjtAction.CorrectCancelUsesExactUuid (178 ms)
+[ RUN      ] FjtAction.CancelBeforeGoalResponsePreserved
+[       OK ] FjtAction.CancelBeforeGoalResponsePreserved (179 ms)
+[ RUN      ] FjtAction.DuplicateCancelOnlyOneBackendCall
+[       OK ] FjtAction.DuplicateCancelOnlyOneBackendCall (190 ms)
+[ RUN      ] FjtAction.StaleCancelDoesNotAffectNewOwner
+[       OK ] FjtAction.StaleCancelDoesNotAffectNewOwner (421 ms)
+[ RUN      ] FjtAction.CancelWithoutOwnerNeverGlobalStops
+[       OK ] FjtAction.CancelWithoutOwnerNeverGlobalStops (80 ms)
+[ RUN      ] FjtAction.AckOnlyCannotConfirmStopAndTimeoutLocks
+[       OK ] FjtAction.AckOnlyCannotConfirmStopAndTimeoutLocks (496 ms)
+[ RUN      ] FjtAction.ExecutionTimeoutLocksAndNeverResends
+[       OK ] FjtAction.ExecutionTimeoutLocksAndNeverResends (492 ms)
+[ RUN      ] FjtAction.ControllerAbortedRemainsFaultLocked
+[       OK ] FjtAction.ControllerAbortedRemainsFaultLocked (319 ms)
+[ RUN      ] FjtAction.StaleJointFeedbackLocks
+[       OK ] FjtAction.StaleJointFeedbackLocks (106 ms)
+[ RUN      ] FjtAction.LostJointUpdatesCannotSettle
+[       OK ] FjtAction.LostJointUpdatesCannotSettle (390 ms)
+[ RUN      ] FjtAction.InsufficientStationaryIntervalDoesNotSucceed
+[       OK ] FjtAction.InsufficientStationaryIntervalDoesNotSucceed (1588 ms)
+[ RUN      ] FjtAction.WrongFinalPositionCannotSucceed
+[       OK ] FjtAction.WrongFinalPositionCannotSucceed (597 ms)
+[ RUN      ] FjtAction.NoAssociatedFeedbackCannotSucceed
+[       OK ] FjtAction.NoAssociatedFeedbackCannotSucceed (314 ms)
+[ RUN      ] FjtAction.HardwareProofLostLocksAndCancelsOwnedGoal
+[       OK ] FjtAction.HardwareProofLostLocksAndCancelsOwnedGoal (154 ms)
+[ RUN      ] FjtAction.WrongPluginRejectsBeforeSend
+[       OK ] FjtAction.WrongPluginRejectsBeforeSend (155 ms)
+[ RUN      ] FjtAction.InactiveControllerRejectsBeforeSend
+[       OK ] FjtAction.InactiveControllerRejectsBeforeSend (142 ms)
+[ RUN      ] FjtAction.MissingVelocityEvidenceRejectsBeforeSend
+[       OK ] FjtAction.MissingVelocityEvidenceRejectsBeforeSend (96 ms)
+[ RUN      ] FjtAction.ReplayedJointStampLocks
+[       OK ] FjtAction.ReplayedJointStampLocks (104 ms)
+[ RUN      ] FjtAction.GoalRejectionMeansNeverExecuted
+[       OK ] FjtAction.GoalRejectionMeansNeverExecuted (100 ms)
+[ RUN      ] FjtAction.ChangedCommandIdContentCannotResend
+[       OK ] FjtAction.ChangedCommandIdContentCannotResend (194 ms)
+[ RUN      ] FjtAction.SecondPortCannotOwnEndpoint
+[       OK ] FjtAction.SecondPortCannotOwnEndpoint (81 ms)
+[ RUN      ] FjtAction.DefaultDisabledNeverSends
+[       OK ] FjtAction.DefaultDisabledNeverSends (95 ms)
+[ RUN      ] FjtAction.DestroyDuringExecutionOnlyCancelsOwnedGoal
+[WARN] [1791868530.474768235] [fake_controller.rclcpp_action]: Failed to send cancel response f8d6b3f3-bc9c-f06e-5acb-f50c945f5dc6 (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400
+[       OK ] FjtAction.DestroyDuringExecutionOnlyCancelsOwnedGoal (195 ms)
+[ RUN      ] FjtAction.HistoricalSettlementRequiresFreshCurrentEvidence
+[       OK ] FjtAction.HistoricalSettlementRequiresFreshCurrentEvidence (617 ms)
+[ RUN      ] FjtAction.ConcurrentGoalReplacementAndLateCancel
+[       OK ] FjtAction.ConcurrentGoalReplacementAndLateCancel (423 ms)
+[ RUN      ] FjtAction.OtherTrajectoryPublisherRejectsDispatch
+[       OK ] FjtAction.OtherTrajectoryPublisherRejectsDispatch (97 ms)
+[ RUN      ] FjtAction.ForeignActionClientRejectsDispatch
+[       OK ] FjtAction.ForeignActionClientRejectsDispatch (88 ms)
+[ RUN      ] FjtAction.SingleTargetEntryExplicitlyRejected
+[       OK ] FjtAction.SingleTargetEntryExplicitlyRejected (86 ms)
+[ RUN      ] FjtAction.StationaryWindowCannotGrowWithoutNewSamples
+[       OK ] FjtAction.StationaryWindowCannotGrowWithoutNewSamples (683 ms)
+[ RUN      ] FjtAction.ForeignInFlightGoalCannotBePreemptedAfterClientLeaves
+[       OK ] FjtAction.ForeignInFlightGoalCannotBePreemptedAfterClientLeaves (109 ms)
+[ RUN      ] FjtAction.ExistingPickPlaceFsmDelegatesWholeTrajectoryThroughPort
+[       OK ] FjtAction.ExistingPickPlaceFsmDelegatesWholeTrajectoryThroughPort (338 ms)
+[ RUN      ] FjtAction.DirectFsmCancelKeepsOriginalFaultWhenStopIsStillPending
+[       OK ] FjtAction.DirectFsmCancelKeepsOriginalFaultWhenStopIsStillPending (188 ms)
+[ RUN      ] FjtAction.CompletedGoalSameIdSameContentReturnsCachedResult
+[       OK ] FjtAction.CompletedGoalSameIdSameContentReturnsCachedResult (322 ms)
+[ RUN      ] FjtAction.CompletedGoalSameIdDifferentTrajectoryRejected
+[       OK ] FjtAction.CompletedGoalSameIdDifferentTrajectoryRejected (317 ms)
+[ RUN      ] FjtAction.CompletedGoalSameIdDifferentTimeoutRejected
+[       OK ] FjtAction.CompletedGoalSameIdDifferentTimeoutRejected (323 ms)
+[ RUN      ] FjtAction.CompletedGoalSameIdDifferentSafetySemanticsRejected
+[       OK ] FjtAction.CompletedGoalSameIdDifferentSafetySemanticsRejected (319 ms)
+[ RUN      ] FjtAction.CompletedGoalIdentityMismatchNeverSendsAgain
+[       OK ] FjtAction.CompletedGoalIdentityMismatchNeverSendsAgain (561 ms)
+[ RUN      ] FjtAction.InFlightIdentityIncludesOriginalOrderAndIntentPose
+[       OK ] FjtAction.InFlightIdentityIncludesOriginalOrderAndIntentPose (189 ms)
+[ RUN      ] FjtAction.CompletedIdentityPreservesEveryOriginalTrajectoryField
+[       OK ] FjtAction.CompletedIdentityPreservesEveryOriginalTrajectoryField (319 ms)
+[ RUN      ] FjtAction.FaultedIdentityMismatchPreservesLockAndResult
+[       OK ] FjtAction.FaultedIdentityMismatchPreservesLockAndResult (327 ms)
+[ RUN      ] FjtAction.MonotonicPlannerStampCannotBecomeRosScheduledStart
+[       OK ] FjtAction.MonotonicPlannerStampCannotBecomeRosScheduledStart (93 ms)
+[ RUN      ] FjtAction.PastPlannerGenerationStampDoesNotDispatch
+[       OK ] FjtAction.PastPlannerGenerationStampDoesNotDispatch (89 ms)
+[ RUN      ] FjtAction.NoStatusBeforeDispatchFailsClosed
+[       OK ] FjtAction.NoStatusBeforeDispatchFailsClosed (277 ms)
+[ RUN      ] FjtAction.StatusBeforeGoalResponsePreservesOwnership
+[       OK ] FjtAction.StatusBeforeGoalResponsePreservesOwnership (415 ms)
+[ RUN      ] FjtAction.ForeignGoalBeforeOwnGoalRejected
+[       OK ] FjtAction.ForeignGoalBeforeOwnGoalRejected (107 ms)
+[ RUN      ] FjtAction.GoalResponseBeforeStatusMatchesUuid
+[       OK ] FjtAction.GoalResponseBeforeStatusMatchesUuid (313 ms)
+[ RUN      ] FjtAction.ForeignGoalDuringPendingResponseFailsClosed
+[       OK ] FjtAction.ForeignGoalDuringPendingResponseFailsClosed (146 ms)
+[ RUN      ] FjtAction.CancelBeforeGoalResponseUsesOwnedUuidOnly
+[       OK ] FjtAction.CancelBeforeGoalResponseUsesOwnedUuidOnly (180 ms)
+[ RUN      ] FjtAction.HistoricalTerminalStatusDoesNotBecomeActive
+[       OK ] FjtAction.HistoricalTerminalStatusDoesNotBecomeActive (568 ms)
+[ RUN      ] FjtAction.StatusEvidenceLossDoesNotAuthorizeDispatch
+[       OK ] FjtAction.StatusEvidenceLossDoesNotAuthorizeDispatch (794 ms)
+[ RUN      ] FjtAction.LateResultDoesNotReleaseFaultLock
+[       OK ] FjtAction.LateResultDoesNotReleaseFaultLock (817 ms)
+[ RUN      ] FjtAction.NormalFakeTrajectoryStillExecutesOnce
+[       OK ] FjtAction.NormalFakeTrajectoryStillExecutesOnce (309 ms)
+[ RUN      ] FjtAction.LatchedEmptyStatusCannotAuthorizeDispatch
+[       OK ] FjtAction.LatchedEmptyStatusCannotAuthorizeDispatch (275 ms)
+[ RUN      ] FjtAction.InvalidStatusDoesNotAuthorizeDispatch
+[       OK ] FjtAction.InvalidStatusDoesNotAuthorizeDispatch (107 ms)
+[ RUN      ] FjtAction.PendingResponseTimeoutRetainsSessionAndLateHandle
+[       OK ] FjtAction.PendingResponseTimeoutRetainsSessionAndLateHandle (517 ms)
+[ RUN      ] FjtAction.RejectedResponseAfterUnknownStatusKeepsFaultLock
+[       OK ] FjtAction.RejectedResponseAfterUnknownStatusKeepsFaultLock (119 ms)
+[ RUN      ] FjtAction.TerminalResultBeforeStatusDoesNotAuthorizeSuccessor
+[       OK ] FjtAction.TerminalResultBeforeStatusDoesNotAuthorizeSuccessor (562 ms)
+[ RUN      ] FjtAction.ConcurrentPollingAndCancel
+[       OK ] FjtAction.ConcurrentPollingAndCancel (268 ms)
+[ RUN      ] FjtAction.RepeatedScopedCancelUnderContention
+[       OK ] FjtAction.RepeatedScopedCancelUnderContention (190 ms)
+[ RUN      ] FjtAction.ConcurrentSnapshotPolling
+[       OK ] FjtAction.ConcurrentSnapshotPolling (334 ms)
+[ RUN      ] FjtAction.ConcurrentResponseAndCancelPreservesUuid
+[       OK ] FjtAction.ConcurrentResponseAndCancelPreservesUuid (203 ms)
+[ RUN      ] FjtAction.DestroyDuringPendingAction
+[       OK ] FjtAction.DestroyDuringPendingAction (100 ms)
+[ RUN      ] FjtAction.LateGoalResponseAfterFaultRetainsOriginalSession
+[       OK ] FjtAction.LateGoalResponseAfterFaultRetainsOriginalSession (513 ms)
+[ RUN      ] FjtAction.RepeatedSessionPollingAndScopedCancel
+[       OK ] FjtAction.RepeatedSessionPollingAndScopedCancel (571 ms)
+[ RUN      ] FjtAction.ConcurrentCompletedIdentityRejection
+[       OK ] FjtAction.ConcurrentCompletedIdentityRejection (310 ms)
+[----------] 69 tests from FjtAction (21146 ms total)
+
+[----------] Global test environment tear-down
+[==========] 69 tests from 1 test suite ran. (21149 ms total)
+[  PASSED  ] 69 tests.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_fjt_action.gtest.xml'
+-- run_test.py: verify result file '/main-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_fjt_action.gtest.xml'
+</Value>
+				</Measurement>
+			</Results>
+			<Labels>
+				<Label>gtest</Label>
+			</Labels>
+		</Test>
+		<EndDateTime>Oct 13 05:15 UTC</EndDateTime>
+		<EndTestTime>1791868544</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

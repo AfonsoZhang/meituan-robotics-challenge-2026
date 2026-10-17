@@ -234,6 +234,17 @@ C1仍未通过：正常Mock700ms结果交付延时，浏览器及独立CLI延迟
 用户明确 P0 与 Cancel ACK ≠ Stop Confirmed（USER-HW-20261013）。任务/双层 FSM、安全区、六关节同帧对比与只读 FJT 客户端已完成隔离接口验证（ENV-WEBUI-P0-20261013），见 [Web UI](web-ui.md)；当前 Phase 2C 候选缺少原语、command_id、预计时长和进度的 Web 发布端，需孙嘉明提供执行端真实数据，客户端不推算（TEAMMATE-WEBUI-P0-20261013）。
 
 Q19 仍部分确认：NUC/现场话题、权威 RobotState 独立停稳判据与时钟同步、完整 FSM/FJT、真实设备均未验收。PR #8 C1 ABORTED/520 保留；本轮注入同一终态验证显示，不复验或关闭 C1，不恢复旧监测，不推进正式 pin。可应用 UI 补丁与本次容器清理记录单独冻结。
+## 2026-10-13 最新主线复验后的实验缺口
+
+USER-HW-20261013-06重新授权验收并选定最新主线/既有未通过项；TEAMMATE-MAIN-20261013锁定`b418515`，ENV-MAIN-ACCEPTANCE-20261013记录本轮实际结果。Q18/Q19继续部分确认，正式pin仍`1d940f7`。
+
+- 主线15包、普通/UBSan各486个C++身份、269 Python、15 E2E、6 ROS接线、54标定离线检查通过；真实C++父子Action基础/序列/及时取消及独立负面场景通过。未完成完整FSM、真实标定、NUC和实机。
+- **M1归孙嘉明：** 同一普通FJT二进制重复检查第18轮`LateGoalResponseAfterFaultRetainsOriginalSession`的`timed_out`断言失败；计划40轮首败即停，179次PASS/1FAIL。原120秒挂起本轮未复现；单次完整测试或UBSan通过不关闭稳定性问题。缺首个故障message/snapshot，夹具与端口责任尚待定位，不改内核或放宽门禁。
+- **C1归孙嘉明：** 独立PR8 `7da4322`、正常Mock700ms Future延迟、MOVE_PRE_ALIGN后400ms取消，父子再现ABORTED/520；ACK不等于完成。旧PythonPickPlace绑定错误、INIT/取消失败与Safety退出仍保留。
+- 原生Status和唯一执行权门禁均BLOCKED、零Goal；独立MoveIt执行成功但再次退出-11，不能关闭完整FJT/FSM执行或正常退出。依赖/驱动lint、TSan、SDK厂商校验/许可等旧缺口保留。张叔阳跟进环境、证据及复验，内核与规划/驱动负责人分别处理。
+- 两个本轮容器及ROS进程均停止；外部观察器分类错误和C1包装脚本信号收尾问题原样保留，修正外部检查后只补未运行场景及无Goal重启，不覆盖产品失败。另一会话WebUI P0容器/改动保留且不混入本轮交付。
+
+完整[SOP、UUID、失败交接与冻结证据](main-acceptance-20261013.md)。旧报告/索引/签收字节不变；代码没有合并或正式基线推进，PR8仍待审。
 
 ## 2026-10-13 C1 修复后的实验缺口
 

@@ -1,0 +1,87 @@
+commit b4185155383541e1a4161587c4049a162f74b36d
+Author:     Fluorite <46274026+F1u0rite@users.noreply.github.com>
+AuthorDate: Mon Oct 12 09:46:38 2026 +0800
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Oct 12 09:46:38 2026 +0800
+
+    Feature/phase2b trajectory execution (#7)
+    
+    * feat(motion): add Fake-only asynchronous FollowJointTrajectory MotionPort
+    
+    * docs(motion): record Phase 2B trajectory and GenericSystem acceptance
+    
+    * fix(motion): bind cached FJT results to immutable complete command identity
+    
+    * test(motion): verify completed command identity and MoveIt execution gate
+    
+    * docs(motion): record final FJT audit and blocked MoveIt integration gate
+    
+    * fix(motion): harden FJT pending-goal ownership and status evidence
+    
+    * docs(motion): record ownership audit and blocked native status gate
+    
+    * fix(motion): avoid rclcpp_action lock inversion in FJT dispatch
+    
+    * docs(motion): record Action mutex backport merge gate
+    
+    ---------
+    
+    Co-authored-by: meituan_challenge team <team@example.invalid>
+
+commit 9fea32eee901a3a0e5c3d2ad3a0f3c12aa51093b
+Merge: f7eaa2c 06ab689
+Author:     Fluorite <46274026+F1u0rite@users.noreply.github.com>
+AuthorDate: Mon Oct 12 08:49:00 2026 +0800
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Oct 12 08:49:00 2026 +0800
+
+    Merge pull request #6 from F1u0rite/feat/calibration-tf-v1
+    
+    feat(calibration): V1 TF/TCP 离线交付与 fake 模型核验
+
+commit 06ab689f25e87dcebf9fd04fdd581ec4755206f6
+Author:     yyslyd <104951612+yyslyd@users.noreply.github.com>
+AuthorDate: Mon Oct 12 02:40:47 2026 +0900
+Commit:     yyslyd <104951612+yyslyd@users.noreply.github.com>
+CommitDate: Mon Oct 12 02:40:47 2026 +0900
+
+    docs(calibration): verify shared fake TF evidence and align planner handoff
+
+commit df02b2fac594b6cecfd0a76b70f62f70cf241ff3
+Merge: 3fc3417 f7eaa2c
+Author:     yyslyd <104951612+yyslyd@users.noreply.github.com>
+AuthorDate: Mon Oct 12 02:33:40 2026 +0900
+Commit:     yyslyd <104951612+yyslyd@users.noreply.github.com>
+CommitDate: Mon Oct 12 02:33:40 2026 +0900
+
+    Merge remote-tracking branch 'origin/main' into feat/calibration-tf-v1
+
+commit 3fc3417229304c40aaa139697153d8fafcd7dd7b
+Author:     yyslyd <104951612+yyslyd@users.noreply.github.com>
+AuthorDate: Mon Oct 12 02:33:39 2026 +0900
+Commit:     yyslyd <104951612+yyslyd@users.noreply.github.com>
+CommitDate: Mon Oct 12 02:33:39 2026 +0900
+
+    fix(calibration): clarify mount datums and harden offline input validation
+
+commit f7eaa2c0d2887aeada4fd635112c63c237962ff7
+Merge: a04ac68 4a1a816
+Author:     Fluorite <46274026+F1u0rite@users.noreply.github.com>
+AuthorDate: Mon Oct 12 01:09:48 2026 +0800
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Oct 12 01:09:48 2026 +0800
+
+    Merge pull request #3 from F1u0rite/feature/moveit-planner
+    
+    feat(planning): MoveIt 2 PlannerPort 适配层（Mock/Fake，仅规划）
+
+commit 4a1a81652fca39efe2916a19ad49187d29789697
+Merge: fcdd8ea a04ac68
+Author:     changjianshuo <changjianshuo00@gmail.com>
+AuthorDate: Sun Oct 11 11:22:48 2026 -0500
+Commit:     changjianshuo <changjianshuo00@gmail.com>
+CommitDate: Sun Oct 11 11:22:48 2026 -0500
+
+    merge: sync main (Phase 2A Mock Action servers) into feature/moveit-planner
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>

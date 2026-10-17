@@ -1,0 +1,154 @@
+{
+  "started_at": "2026-10-13T05:25:37.798111+00:00",
+  "scope": "Default GenericSystem+MoveIt+FjtMotionPort ownership gate with native Status evidence; no FJT Goal, no complete FSM/physical robot",
+  "observer_action_clients": 0,
+  "status": "PASS_NATIVE_AND_COEXISTENCE_BLOCKED",
+  "plugins": [
+    "mock_components/GenericSystem"
+  ],
+  "controller_only_graph": {
+    "clients": [],
+    "servers": [
+      {
+        "node": "joint_trajectory_controller",
+        "namespace": "/",
+        "types": [
+          "control_msgs/action/FollowJointTrajectory"
+        ]
+      }
+    ],
+    "direct_publishers": 0
+  },
+  "native_success": {
+    "argv": [
+      "ros2",
+      "run",
+      "mtc_trajectory_execution_cpp",
+      "fake_trajectory_probe",
+      "--verify-generic-system",
+      "success"
+    ],
+    "exit_code": 1,
+    "elapsed_seconds": 10.437820155988447,
+    "coexistence_graph": []
+  },
+  "native_execution": "BLOCKED_ZERO_GOAL",
+  "native_other_modes": "NOT_RUN: required live Status evidence absent; no fake heartbeat, prewarming Goal or relaxed gate",
+  "moveit_graph": {
+    "clients": [
+      {
+        "node": "moveit_simple_controller_manager",
+        "namespace": "/",
+        "types": [
+          "control_msgs/action/FollowJointTrajectory"
+        ]
+      }
+    ],
+    "servers": [
+      {
+        "node": "joint_trajectory_controller",
+        "namespace": "/",
+        "types": [
+          "control_msgs/action/FollowJointTrajectory"
+        ]
+      }
+    ],
+    "direct_publishers": 0
+  },
+  "allow_execution_parameter": "Parameter not set.\n",
+  "topology": {
+    "argv": [
+      "ros2",
+      "run",
+      "mtc_trajectory_execution_cpp",
+      "fake_trajectory_probe",
+      "--verify-generic-system",
+      "topology"
+    ],
+    "exit_code": 2,
+    "elapsed_seconds": 10.403402530006133,
+    "coexistence_graph": [
+      {
+        "clients": [
+          {
+            "node": "moveit_simple_controller_manager",
+            "namespace": "/",
+            "types": [
+              "control_msgs/action/FollowJointTrajectory"
+            ]
+          },
+          {
+            "node": "mtc_fake_trajectory_probe",
+            "namespace": "/",
+            "types": [
+              "control_msgs/action/FollowJointTrajectory"
+            ]
+          }
+        ],
+        "servers": [
+          {
+            "node": "joint_trajectory_controller",
+            "namespace": "/",
+            "types": [
+              "control_msgs/action/FollowJointTrajectory"
+            ]
+          }
+        ],
+        "direct_publishers": 0
+      }
+    ]
+  },
+  "after_port_graph": {
+    "clients": [
+      {
+        "node": "moveit_simple_controller_manager",
+        "namespace": "/",
+        "types": [
+          "control_msgs/action/FollowJointTrajectory"
+        ]
+      }
+    ],
+    "servers": [
+      {
+        "node": "joint_trajectory_controller",
+        "namespace": "/",
+        "types": [
+          "control_msgs/action/FollowJointTrajectory"
+        ]
+      }
+    ],
+    "direct_publishers": 0
+  },
+  "fjt_goal_uuids": [],
+  "distinct_joint_stamps": 4929,
+  "all_joints_zero": true,
+  "status_messages": 0,
+  "shutdown": [
+    {
+      "launch": "move-group",
+      "already_exited": false,
+      "escalated": false,
+      "exit_code": 0,
+      "child_failures": [
+        "process has died [pid 13641, exit code -11, cmd '/opt/ros/jazzy/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_hpkshgft --params-file /tmp/launch_params__bihdb8s']."
+      ],
+      "statistics_context_errors": []
+    },
+    {
+      "launch": "control",
+      "already_exited": false,
+      "escalated": false,
+      "exit_code": 0,
+      "child_failures": [],
+      "statistics_context_errors": [
+        "[ros2_control_node-1] [ERROR] [1791869193.621228185] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!",
+        "[ros2_control_node-1] [ERROR] [1791869193.621228375] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!"
+      ]
+    }
+  ],
+  "empty_after": true,
+  "clean_shutdown": "FAIL",
+  "driver_files_unchanged": true,
+  "driver_files_count": 5656,
+  "ended_at": "2026-10-13T05:26:37.918314+00:00"
+}

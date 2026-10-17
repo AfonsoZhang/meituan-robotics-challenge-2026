@@ -1,0 +1,13 @@
+{
+  "name": "fresh-source",
+  "started_at": "2026-10-13T05:07:58.088291+00:00",
+  "argv": [
+    "bash",
+    "-c",
+    "set -e\ndocker exec mtc-main-review-b418515 test ! -e /main-source\ndocker exec mtc-main-review-b418515 mkdir /main-source\ndocker cp outputs/main-acceptance-20261013-b418515/source/. mtc-main-review-b418515:/main-source/\ndocker exec mtc-main-review-b418515 git -C /main-source status --porcelain\n"
+  ],
+  "timeout_seconds": 90,
+  "pid": 37824,
+  "exit_code": 128,
+  "ended_at": "2026-10-13T05:07:58.905835+00:00"
+}

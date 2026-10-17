@@ -1,0 +1,16 @@
+{
+  "name": "identity",
+  "started_at": "2026-10-13T05:27:58.448754+00:00",
+  "argv": [
+    "docker",
+    "exec",
+    "mtc-main-review-b418515",
+    "bash",
+    "-c",
+    "set -e; source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; if test -f /main-install/setup.bash; then source /main-install/setup.bash; fi; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; export ROS_DOMAIN_ID=171 RMW_IMPLEMENTATION=rmw_fastrtps_cpp ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST PYTHONDONTWRITEBYTECODE=1 ROS_LOG_DIR=/review/roslogs XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=safe.directory GIT_CONFIG_VALUE_0=/main-source; cd /main-source; export ROS_DOMAIN_ID=171\nrosdep check --from-paths src/mtc_trajectory_execution_cpp --ignore-src\npython3 - <<'INNER'\nfrom pathlib import Path\nfrom ament_index_python.packages import get_package_share_directory,get_package_prefix\nimport hashlib,json,subprocess\npkg='mtc_trajectory_execution_cpp';root=Path('/main-source/src')/pkg\nprefix=Path(get_package_prefix(pkg));pairs=[(root/'package.xml',Path(get_package_share_directory(pkg))/'package.xml')]\nfor p in (root/'include').rglob('*.hpp'):pairs.append((p,prefix/'include'/p.relative_to(root/'include')))\nrows=[]\nfor a,b in pairs:\n assert a.read_bytes()==b.read_bytes(),str(b)\n rows.append({'source':str(a),'installed':str(b),'sha256':hashlib.sha256(a.read_bytes()).hexdigest()})\nPath('/review/installed-identity.json').write_text(json.dumps(rows,indent=2)+'\\n')\nprobe=prefix/'lib'/pkg/'fake_trajectory_probe';negative=[]\nfor args in [[],['--verify-generic-system','invalid-mode']]:\n p=subprocess.run([str(probe),*args],capture_output=True,text=True,timeout=10)\n negative.append({'argv':[str(probe),*args],'exit_code':p.returncode,'stdout':p.stdout,'stderr':p.stderr})\n assert p.returncode==2\nPath('/review/argument-negatives.json').write_text(json.dumps(negative,ensure_ascii=False,indent=2)+'\\n')\nprint('INSTALLED_IDENTITY_PASS',len(rows),'ARGUMENT_NEGATIVES_PASS',len(negative))\nINNER\n"
+  ],
+  "timeout_seconds": 90,
+  "pid": 40676,
+  "exit_code": 0,
+  "ended_at": "2026-10-13T05:27:59.768612+00:00"
+}

@@ -1,0 +1,96 @@
+{
+  "case": "task-associated-cancel",
+  "scope": "Standalone C++ Mock processes and ROS Action only",
+  "domain": 111,
+  "checks": [
+    {
+      "name": "/mtc/task/execute server available",
+      "passed": true
+    },
+    {
+      "name": "/mtc/task/execute unique delivered server",
+      "passed": true
+    },
+    {
+      "name": "PickPlace unique C++ server",
+      "passed": true
+    },
+    {
+      "name": "Only C++ Task is downstream ActionClient",
+      "passed": false
+    }
+  ],
+  "goals": [],
+  "status": "FAIL",
+  "dds_witness": [],
+  "started_at": "2026-10-13T05:23:35.319271+00:00",
+  "binary_identity": [
+    {
+      "pid": 12897,
+      "executable": "/main-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_pick_place_server",
+      "sha256": "fba8f13f805a121dc6d994d868bf0f6188d805a972367f7350b592dcabbb16e6"
+    },
+    {
+      "pid": 12898,
+      "executable": "/main-install/mtc_ros2_action_cpp/lib/mtc_ros2_action_cpp/mock_task_server",
+      "sha256": "acf8ed372c3304f36ee82f4091e0e6ada4a333e915071679b24ee89186cfce71"
+    }
+  ],
+  "servers": {
+    "/mtc/task/execute": [
+      {
+        "node": "mtc_mock_task",
+        "namespace": "/",
+        "types": [
+          "mtc_interfaces/action/ExecuteTask"
+        ]
+      }
+    ],
+    "/mtc/manipulation/pick_place": [
+      {
+        "node": "mtc_mock_pick_place",
+        "namespace": "/",
+        "types": [
+          "mtc_interfaces/action/PickPlace"
+        ]
+      }
+    ]
+  },
+  "clients": {
+    "/mtc/manipulation/pick_place": [
+      {
+        "node": "cpp_action_acceptance",
+        "namespace": "/",
+        "types": [
+          "mtc_interfaces/action/PickPlace"
+        ]
+      },
+      {
+        "node": "mtc_mock_task",
+        "namespace": "/",
+        "types": [
+          "mtc_interfaces/action/PickPlace"
+        ]
+      }
+    ]
+  },
+  "exception": "AssertionError('Only C++ Task is downstream ActionClient')",
+  "shutdown": [
+    {
+      "executable": "mock_task_server",
+      "exit_code": 0,
+      "escalated": false
+    },
+    {
+      "executable": "mock_pick_place_server",
+      "exit_code": 0,
+      "escalated": false
+    }
+  ],
+  "nodes_after_shutdown": [
+    [
+      "cpp_action_acceptance",
+      "/"
+    ]
+  ]
+}

@@ -1,0 +1,424 @@
+UpdateCTestConfiguration  from :/c1-build/mtc_manipulation_cpp/CTestConfiguration.ini
+Parse Config file:/c1-build/mtc_manipulation_cpp/CTestConfiguration.ini
+   Site: 59183b64074f
+   Build name: (empty)
+ Add coverage exclude regular expressions.
+Create new tag: 20261013-0705 - Experimental
+UpdateCTestConfiguration  from :/c1-build/mtc_manipulation_cpp/CTestConfiguration.ini
+Parse Config file:/c1-build/mtc_manipulation_cpp/CTestConfiguration.ini
+Test project /c1-build/mtc_manipulation_cpp
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: test_pick_place_tables
+
+1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_tables.gtest.xml" "--package-name" "mtc_manipulation_cpp" "--output-file" "/c1-build/mtc_manipulation_cpp/ament_cmake_gtest/test_pick_place_tables.txt" "--command" "/c1-build/mtc_manipulation_cpp/test_pick_place_tables" "--gtest_output=xml:/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_tables.gtest.xml"
+1: Working Directory: /c1-build/mtc_manipulation_cpp
+1: Test timeout computed to be: 60
+1: -- run_test.py: invoking following command in '/c1-build/mtc_manipulation_cpp':
+1:  - /c1-build/mtc_manipulation_cpp/test_pick_place_tables --gtest_output=xml:/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_tables.gtest.xml
+1: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+1: [==========] Running 20 tests from 4 test suites.
+1: [----------] Global test environment set-up.
+1: [----------] 6 tests from PickPlaceTables
+1: [ RUN      ] PickPlaceTables.VerifyTablesReportsNoProblem
+1: [       OK ] PickPlaceTables.VerifyTablesReportsNoProblem (0 ms)
+1: [ RUN      ] PickPlaceTables.EveryStateHasHandler
+1: [       OK ] PickPlaceTables.EveryStateHasHandler (0 ms)
+1: [ RUN      ] PickPlaceTables.StateNamesMatchPythonValues
+1: [       OK ] PickPlaceTables.StateNamesMatchPythonValues (0 ms)
+1: [ RUN      ] PickPlaceTables.PipelineMatchesDesignOrder
+1: [       OK ] PickPlaceTables.PipelineMatchesDesignOrder (0 ms)
+1: [ RUN      ] PickPlaceTables.TerminalAndMotionInFlightSets
+1: [       OK ] PickPlaceTables.TerminalAndMotionInFlightSets (0 ms)
+1: [ RUN      ] PickPlaceTables.DefaultTimeoutsCoverMotionStates
+1: [       OK ] PickPlaceTables.DefaultTimeoutsCoverMotionStates (0 ms)
+1: [----------] 6 tests from PickPlaceTables (0 ms total)
+1: 
+1: [----------] 7 tests from PickPlaceStart
+1: [ RUN      ] PickPlaceStart.IllegalTargetSlotFailsImmediatelyWithInvalidTask
+1: [       OK ] PickPlaceStart.IllegalTargetSlotFailsImmediatelyWithInvalidTask (0 ms)
+1: [ RUN      ] PickPlaceStart.AllowedSlotsAreAccepted
+1: [       OK ] PickPlaceStart.AllowedSlotsAreAccepted (0 ms)
+1: [ RUN      ] PickPlaceStart.ToolTypeMismatchThrows
+1: [       OK ] PickPlaceStart.ToolTypeMismatchThrows (0 ms)
+1: [ RUN      ] PickPlaceStart.RequiredConfigFieldsAreRecorded
+1: [       OK ] PickPlaceStart.RequiredConfigFieldsAreRecorded (0 ms)
+1: [ RUN      ] PickPlaceStart.ConfigStabilityUsedWhenGoalOmitsIt
+1: [       OK ] PickPlaceStart.ConfigStabilityUsedWhenGoalOmitsIt (0 ms)
+1: [ RUN      ] PickPlaceStart.PlacementVerifiedStartsFalseAndIsReadOnly
+1: [       OK ] PickPlaceStart.PlacementVerifiedStartsFalseAndIsReadOnly (0 ms)
+1: [ RUN      ] PickPlaceStart.MotionResendAllowedStartsTrue
+1: [       OK ] PickPlaceStart.MotionResendAllowedStartsTrue (0 ms)
+1: [----------] 7 tests from PickPlaceStart (0 ms total)
+1: 
+1: [----------] 5 tests from PickPlaceFeedback
+1: [ RUN      ] PickPlaceFeedback.FeedbackCarriesSubstateAndProgress
+1: [       OK ] PickPlaceFeedback.FeedbackCarriesSubstateAndProgress (0 ms)
+1: [ RUN      ] PickPlaceFeedback.ProgressReachesOneOnlyAtSuccess
+1: [       OK ] PickPlaceFeedback.ProgressReachesOneOnlyAtSuccess (0 ms)
+1: [ RUN      ] PickPlaceFeedback.StateHistoryRecordsEnteredStates
+1: [       OK ] PickPlaceFeedback.StateHistoryRecordsEnteredStates (0 ms)
+1: [ RUN      ] PickPlaceFeedback.EventCallbackReceivesStateEntered
+1: [       OK ] PickPlaceFeedback.EventCallbackReceivesStateEntered (0 ms)
+1: [ RUN      ] PickPlaceFeedback.CallbackExceptionDoesNotBreakSequencing
+1: [       OK ] PickPlaceFeedback.CallbackExceptionDoesNotBreakSequencing (0 ms)
+1: [----------] 5 tests from PickPlaceFeedback (0 ms total)
+1: 
+1: [----------] 2 tests from PickPlaceTerminal
+1: [ RUN      ] PickPlaceTerminal.StepAtTerminalIsIdempotent
+1: [       OK ] PickPlaceTerminal.StepAtTerminalIsIdempotent (0 ms)
+1: [ RUN      ] PickPlaceTerminal.ForceFaultOnTerminalKeepsOriginalState
+1: [       OK ] PickPlaceTerminal.ForceFaultOnTerminalKeepsOriginalState (0 ms)
+1: [----------] 2 tests from PickPlaceTerminal (0 ms total)
+1: 
+1: [----------] Global test environment tear-down
+1: [==========] 20 tests from 4 test suites ran. (0 ms total)
+1: [  PASSED  ] 20 tests.
+1: -- run_test.py: return code 0
+1: -- run_test.py: inject classname prefix into gtest result file '/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_tables.gtest.xml'
+1: -- run_test.py: verify result file '/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_tables.gtest.xml'
+1/6 Test #1: test_pick_place_tables ...........   Passed    0.12 sec
+test 2
+    Start 2: test_tool_strategy
+
+2: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_tool_strategy.gtest.xml" "--package-name" "mtc_manipulation_cpp" "--output-file" "/c1-build/mtc_manipulation_cpp/ament_cmake_gtest/test_tool_strategy.txt" "--command" "/c1-build/mtc_manipulation_cpp/test_tool_strategy" "--gtest_output=xml:/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_tool_strategy.gtest.xml"
+2: Working Directory: /c1-build/mtc_manipulation_cpp
+2: Test timeout computed to be: 60
+2: -- run_test.py: invoking following command in '/c1-build/mtc_manipulation_cpp':
+2:  - /c1-build/mtc_manipulation_cpp/test_tool_strategy --gtest_output=xml:/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_tool_strategy.gtest.xml
+2: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+2: [==========] Running 15 tests from 4 test suites.
+2: [----------] Global test environment set-up.
+2: [----------] 5 tests from ToolStrategyV1
+2: [ RUN      ] ToolStrategyV1.TypeAndPrimitives
+2: [       OK ] ToolStrategyV1.TypeAndPrimitives (0 ms)
+2: [ RUN      ] ToolStrategyV1.SharedPrimitives
+2: [       OK ] ToolStrategyV1.SharedPrimitives (0 ms)
+2: [ RUN      ] ToolStrategyV1.ContactPrimitivesAreMarkedAndSlow
+2: [       OK ] ToolStrategyV1.ContactPrimitivesAreMarkedAndSlow (0 ms)
+2: [ RUN      ] ToolStrategyV1.PrimitivePreservesSixDofTargetPose
+2: [       OK ] ToolStrategyV1.PrimitivePreservesSixDofTargetPose (0 ms)
+2: [ RUN      ] ToolStrategyV1.NoUnlockPulseAndNoIoChannels
+2: [       OK ] ToolStrategyV1.NoUnlockPulseAndNoIoChannels (0 ms)
+2: [----------] 5 tests from ToolStrategyV1 (0 ms total)
+2: 
+2: [----------] 6 tests from ToolStrategyV2
+2: [ RUN      ] ToolStrategyV2.TypeAndPrimitives
+2: [       OK ] ToolStrategyV2.TypeAndPrimitives (0 ms)
+2: [ RUN      ] ToolStrategyV2.RequiresUnlockAndDeclaresIoChannel
+2: [       OK ] ToolStrategyV2.RequiresUnlockAndDeclaresIoChannel (0 ms)
+2: [ RUN      ] ToolStrategyV2.UnlockRejectedWhenSeatNotVerified
+2: [       OK ] ToolStrategyV2.UnlockRejectedWhenSeatNotVerified (0 ms)
+2: [ RUN      ] ToolStrategyV2.UnlockRejectedWhenNotUnloaded
+2: [       OK ] ToolStrategyV2.UnlockRejectedWhenNotUnloaded (0 ms)
+2: [ RUN      ] ToolStrategyV2.UnlockAllowedOnlyWhenBothConditionsHold
+2: [       OK ] ToolStrategyV2.UnlockAllowedOnlyWhenBothConditionsHold (0 ms)
+2: [ RUN      ] ToolStrategyV2.SeatedFalseUnloadedFalseStillRejectsSeatedFirst
+2: [       OK ] ToolStrategyV2.SeatedFalseUnloadedFalseStillRejectsSeatedFirst (0 ms)
+2: [----------] 6 tests from ToolStrategyV2 (0 ms total)
+2: 
+2: [----------] 3 tests from ToolStrategyFactory
+2: [ RUN      ] ToolStrategyFactory.CreatesBothGenerations
+2: [       OK ] ToolStrategyFactory.CreatesBothGenerations (0 ms)
+2: [ RUN      ] ToolStrategyFactory.UnknownTypeThrows
+2: [       OK ] ToolStrategyFactory.UnknownTypeThrows (0 ms)
+2: [ RUN      ] ToolStrategyFactory.EmptyStringThrows
+2: [       OK ] ToolStrategyFactory.EmptyStringThrows (0 ms)
+2: [----------] 3 tests from ToolStrategyFactory (0 ms total)
+2: 
+2: [----------] 1 test from ToolStrategy
+2: [ RUN      ] ToolStrategy.PrimitiveWithoutUsableRingPoseHasNoTargetPose
+2: [       OK ] ToolStrategy.PrimitiveWithoutUsableRingPoseHasNoTargetPose (0 ms)
+2: [----------] 1 test from ToolStrategy (0 ms total)
+2: 
+2: [----------] Global test environment tear-down
+2: [==========] 15 tests from 4 test suites ran. (0 ms total)
+2: [  PASSED  ] 15 tests.
+2: -- run_test.py: return code 0
+2: -- run_test.py: inject classname prefix into gtest result file '/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_tool_strategy.gtest.xml'
+2: -- run_test.py: verify result file '/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_tool_strategy.gtest.xml'
+2/6 Test #2: test_tool_strategy ...............   Passed    0.12 sec
+test 3
+    Start 3: test_pick_place_fsm_v1
+
+3: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v1.gtest.xml" "--package-name" "mtc_manipulation_cpp" "--output-file" "/c1-build/mtc_manipulation_cpp/ament_cmake_gtest/test_pick_place_fsm_v1.txt" "--command" "/c1-build/mtc_manipulation_cpp/test_pick_place_fsm_v1" "--gtest_output=xml:/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v1.gtest.xml"
+3: Working Directory: /c1-build/mtc_manipulation_cpp
+3: Test timeout computed to be: 60
+3: -- run_test.py: invoking following command in '/c1-build/mtc_manipulation_cpp':
+3:  - /c1-build/mtc_manipulation_cpp/test_pick_place_fsm_v1 --gtest_output=xml:/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v1.gtest.xml
+3: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+3: [==========] Running 13 tests from 1 test suite.
+3: [----------] Global test environment set-up.
+3: [----------] 13 tests from PickPlaceV1
+3: [ RUN      ] PickPlaceV1.HappyPathReachesSuccess
+3: [       OK ] PickPlaceV1.HappyPathReachesSuccess (0 ms)
+3: [ RUN      ] PickPlaceV1.StateSequenceMatchesDesignOrder
+3: [       OK ] PickPlaceV1.StateSequenceMatchesDesignOrder (0 ms)
+3: [ RUN      ] PickPlaceV1.MotionCommandSequenceUsesOnlyNonToolPrimitives
+3: [       OK ] PickPlaceV1.MotionCommandSequenceUsesOnlyNonToolPrimitives (0 ms)
+3: [ RUN      ] PickPlaceV1.NoElectromagneticActionAtAll
+3: [       OK ] PickPlaceV1.NoElectromagneticActionAtAll (0 ms)
+3: [ RUN      ] PickPlaceV1.ToolPrimitivesAreRecordedInOrder
+3: [       OK ] PickPlaceV1.ToolPrimitivesAreRecordedInOrder (0 ms)
+3: [ RUN      ] PickPlaceV1.CommandIdsAreUnique
+3: [       OK ] PickPlaceV1.CommandIdsAreUnique (0 ms)
+3: [ RUN      ] PickPlaceV1.StabilityWindowIsActuallyElapsed
+3: [       OK ] PickPlaceV1.StabilityWindowIsActuallyElapsed (0 ms)
+3: [ RUN      ] PickPlaceV1.ProgressReachesOneAtSuccess
+3: [       OK ] PickPlaceV1.ProgressReachesOneAtSuccess (0 ms)
+3: [ RUN      ] PickPlaceV1.PlannerReceivesBothPhasesExactlyOnce
+3: [       OK ] PickPlaceV1.PlannerReceivesBothPhasesExactlyOnce (0 ms)
+3: [ RUN      ] PickPlaceV1.PlacementVerificationSkipsColorCheck
+3: [       OK ] PickPlaceV1.PlacementVerificationSkipsColorCheck (0 ms)
+3: [ RUN      ] PickPlaceV1.RunWithZeroTickDoesNotSucceedWithoutTime
+3: [       OK ] PickPlaceV1.RunWithZeroTickDoesNotSucceedWithoutTime (0 ms)
+3: [ RUN      ] PickPlaceV1.StepUntilTerminalReachesFailedOnPerceptionFailure
+3: [       OK ] PickPlaceV1.StepUntilTerminalReachesFailedOnPerceptionFailure (0 ms)
+3: [ RUN      ] PickPlaceV1.ReadyToRunStatesAreReachedWithoutMotionOnPerceptionFailure
+3: [       OK ] PickPlaceV1.ReadyToRunStatesAreReachedWithoutMotionOnPerceptionFailure (0 ms)
+3: [----------] 13 tests from PickPlaceV1 (1 ms total)
+3: 
+3: [----------] Global test environment tear-down
+3: [==========] 13 tests from 1 test suite ran. (1 ms total)
+3: [  PASSED  ] 13 tests.
+3: -- run_test.py: return code 0
+3: -- run_test.py: inject classname prefix into gtest result file '/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v1.gtest.xml'
+3: -- run_test.py: verify result file '/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v1.gtest.xml'
+3/6 Test #3: test_pick_place_fsm_v1 ...........   Passed    0.11 sec
+test 4
+    Start 4: test_pick_place_fsm_v2
+
+4: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v2.gtest.xml" "--package-name" "mtc_manipulation_cpp" "--output-file" "/c1-build/mtc_manipulation_cpp/ament_cmake_gtest/test_pick_place_fsm_v2.txt" "--command" "/c1-build/mtc_manipulation_cpp/test_pick_place_fsm_v2" "--gtest_output=xml:/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v2.gtest.xml"
+4: Working Directory: /c1-build/mtc_manipulation_cpp
+4: Test timeout computed to be: 60
+4: -- run_test.py: invoking following command in '/c1-build/mtc_manipulation_cpp':
+4:  - /c1-build/mtc_manipulation_cpp/test_pick_place_fsm_v2 --gtest_output=xml:/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v2.gtest.xml
+4: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+4: [==========] Running 14 tests from 2 test suites.
+4: [----------] Global test environment set-up.
+4: [----------] 5 tests from PickPlaceV2
+4: [ RUN      ] PickPlaceV2.HappyPathReachesSuccessAndUnlocksOnce
+4: [       OK ] PickPlaceV2.HappyPathReachesSuccessAndUnlocksOnce (0 ms)
+4: [ RUN      ] PickPlaceV2.DifferencesAreConfinedToEngageAndDisengage
+4: [       OK ] PickPlaceV2.DifferencesAreConfinedToEngageAndDisengage (0 ms)
+4: [ RUN      ] PickPlaceV2.MotionPrimitivesDifferFromV1OnlyInAcquireAndEngage
+4: [       OK ] PickPlaceV2.MotionPrimitivesDifferFromV1OnlyInAcquireAndEngage (0 ms)
+4: [ RUN      ] PickPlaceV2.UnlockPulseUsesStrategyConfiguration
+4: [       OK ] PickPlaceV2.UnlockPulseUsesStrategyConfiguration (0 ms)
+4: [ RUN      ] PickPlaceV2.StateSequenceMatchesV1Pipeline
+4: [       OK ] PickPlaceV2.StateSequenceMatchesV1Pipeline (0 ms)
+4: [----------] 5 tests from PickPlaceV2 (0 ms total)
+4: 
+4: [----------] 9 tests from PickPlaceV2Interlock
+4: [ RUN      ] PickPlaceV2Interlock.NoUnlockWhenSeatNotVerified
+4: [       OK ] PickPlaceV2Interlock.NoUnlockWhenSeatNotVerified (0 ms)
+4: [ RUN      ] PickPlaceV2Interlock.NoUnlockWhenUnloadNotVerified
+4: [       OK ] PickPlaceV2Interlock.NoUnlockWhenUnloadNotVerified (0 ms)
+4: [ RUN      ] PickPlaceV2Interlock.StrategyRefusalBlocksUnlockIoEntirely
+4: [       OK ] PickPlaceV2Interlock.StrategyRefusalBlocksUnlockIoEntirely (0 ms)
+4: [ RUN      ] PickPlaceV2Interlock.RedundantInterlocksAreUnreachableButPresent
+4: [       OK ] PickPlaceV2Interlock.RedundantInterlocksAreUnreachableButPresent (0 ms)
+4: [ RUN      ] PickPlaceV2Interlock.UnlockHappensOnlyInsideDisengageAfterUnload
+4: [       OK ] PickPlaceV2Interlock.UnlockHappensOnlyInsideDisengageAfterUnload (0 ms)
+4: [ RUN      ] PickPlaceV2Interlock.UnlockFailureGoesToFaultAndDoesNotRetreat
+4: [       OK ] PickPlaceV2Interlock.UnlockFailureGoesToFaultAndDoesNotRetreat (0 ms)
+4: [ RUN      ] PickPlaceV2Interlock.AcceptedPulseWithoutReleaseIsStillFailure
+4: [       OK ] PickPlaceV2Interlock.AcceptedPulseWithoutReleaseIsStillFailure (0 ms)
+4: [ RUN      ] PickPlaceV2Interlock.DisengageReleaseUnknownGoesToFaultAndDoesNotRetreat
+4: [       OK ] PickPlaceV2Interlock.DisengageReleaseUnknownGoesToFaultAndDoesNotRetreat (0 ms)
+4: [ RUN      ] PickPlaceV2Interlock.UnlockNeverHappensBeforeConfirmedPlacement
+4: [       OK ] PickPlaceV2Interlock.UnlockNeverHappensBeforeConfirmedPlacement (0 ms)
+4: [----------] 9 tests from PickPlaceV2Interlock (0 ms total)
+4: 
+4: [----------] Global test environment tear-down
+4: [==========] 14 tests from 2 test suites ran. (1 ms total)
+4: [  PASSED  ] 14 tests.
+4: -- run_test.py: return code 0
+4: -- run_test.py: inject classname prefix into gtest result file '/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v2.gtest.xml'
+4: -- run_test.py: verify result file '/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_fsm_v2.gtest.xml'
+4/6 Test #4: test_pick_place_fsm_v2 ...........   Passed    0.11 sec
+test 5
+    Start 5: test_pick_place_safety
+
+5: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_safety.gtest.xml" "--package-name" "mtc_manipulation_cpp" "--output-file" "/c1-build/mtc_manipulation_cpp/ament_cmake_gtest/test_pick_place_safety.txt" "--command" "/c1-build/mtc_manipulation_cpp/test_pick_place_safety" "--gtest_output=xml:/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_safety.gtest.xml"
+5: Working Directory: /c1-build/mtc_manipulation_cpp
+5: Test timeout computed to be: 60
+5: -- run_test.py: invoking following command in '/c1-build/mtc_manipulation_cpp':
+5:  - /c1-build/mtc_manipulation_cpp/test_pick_place_safety --gtest_output=xml:/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_safety.gtest.xml
+5: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+5: [==========] Running 42 tests from 2 test suites.
+5: [----------] Global test environment set-up.
+5: [----------] 40 tests from PickPlaceSafety
+5: [ RUN      ] PickPlaceSafety.PlacementVerifiedCannotBeWrittenOutsideVerifyPlaced
+5: [       OK ] PickPlaceSafety.PlacementVerifiedCannotBeWrittenOutsideVerifyPlaced (0 ms)
+5: [ RUN      ] PickPlaceSafety.PlacementVerifiedOnlyTrueAfterSuccessfulVerifyPlaced
+5: [       OK ] PickPlaceSafety.PlacementVerifiedOnlyTrueAfterSuccessfulVerifyPlaced (0 ms)
+5: [ RUN      ] PickPlaceSafety.TargetNotFoundIsRecoverableThenFails
+5: [       OK ] PickPlaceSafety.TargetNotFoundIsRecoverableThenFails (0 ms)
+5: [ RUN      ] PickPlaceSafety.NonUniqueTargetIsRejected
+5: [       OK ] PickPlaceSafety.NonUniqueTargetIsRejected (0 ms)
+5: [ RUN      ] PickPlaceSafety.StalePoseIsRejectedWithPoseStale
+5: [       OK ] PickPlaceSafety.StalePoseIsRejectedWithPoseStale (0 ms)
+5: [ RUN      ] PickPlaceSafety.InvalidRingPoseBlocksMotion
+5: [       OK ] PickPlaceSafety.InvalidRingPoseBlocksMotion (0 ms)
+5: [ RUN      ] PickPlaceSafety.UnknownColorIsRejectedEvenWhenExpected
+5: [       OK ] PickPlaceSafety.UnknownColorIsRejectedEvenWhenExpected (0 ms)
+5: [ RUN      ] PickPlaceSafety.ColorMismatchIsRejectedToPreventWrongPick
+5: [       OK ] PickPlaceSafety.ColorMismatchIsRejectedToPreventWrongPick (0 ms)
+5: [ RUN      ] PickPlaceSafety.PlanningFailureIsRecoverable
+5: [       OK ] PickPlaceSafety.PlanningFailureIsRecoverable (0 ms)
+5: [ RUN      ] PickPlaceSafety.TransportPlanningFailureGoesToFaultAfterAttachment
+5: [       OK ] PickPlaceSafety.TransportPlanningFailureGoesToFaultAfterAttachment (0 ms)
+5: [ RUN      ] PickPlaceSafety.NonMotionStateTimeoutReportsMotionTimeout
+5: [       OK ] PickPlaceSafety.NonMotionStateTimeoutReportsMotionTimeout (0 ms)
+5: [ RUN      ] PickPlaceSafety.MotionInFlightTimeoutGoesToFault230AndLocksResend
+5: [       OK ] PickPlaceSafety.MotionInFlightTimeoutGoesToFault230AndLocksResend (0 ms)
+5: [ RUN      ] PickPlaceSafety.NoTimeoutBeforeDeadline
+5: [       OK ] PickPlaceSafety.NoTimeoutBeforeDeadline (0 ms)
+5: [ RUN      ] PickPlaceSafety.MotionStatusUnknownLocksAndDoesNotResend
+5: [       OK ] PickPlaceSafety.MotionStatusUnknownLocksAndDoesNotResend (0 ms)
+5: [ RUN      ] PickPlaceSafety.MotionTimeoutLocksAndDoesNotResend
+5: [       OK ] PickPlaceSafety.MotionTimeoutLocksAndDoesNotResend (0 ms)
+5: [ RUN      ] PickPlaceSafety.InFlightCommandIsReusedNeverResent
+5: [       OK ] PickPlaceSafety.InFlightCommandIsReusedNeverResent (0 ms)
+5: [ RUN      ] PickPlaceSafety.ProgressIsNotBlockedByInFlightPorts
+5: [       OK ] PickPlaceSafety.ProgressIsNotBlockedByInFlightPorts (0 ms)
+5: [ RUN      ] PickPlaceSafety.EngageFailureGoesToEngageFailed300
+5: [       OK ] PickPlaceSafety.EngageFailureGoesToEngageFailed300 (0 ms)
+5: [ RUN      ] PickPlaceSafety.InsufficientEngageEvidenceIsRejected
+5: [       OK ] PickPlaceSafety.InsufficientEngageEvidenceIsRejected (0 ms)
+5: [ RUN      ] PickPlaceSafety.UnexpectedToolStateAfterEngageIsHardwareFault
+5: [       OK ] PickPlaceSafety.UnexpectedToolStateAfterEngageIsHardwareFault (0 ms)
+5: [ RUN      ] PickPlaceSafety.AttachNotVerifiedBlocksLiftAndTransport
+5: [       OK ] PickPlaceSafety.AttachNotVerifiedBlocksLiftAndTransport (0 ms)
+5: [ RUN      ] PickPlaceSafety.VisionFollowCanCompensateForWeakEvidence
+5: [       OK ] PickPlaceSafety.VisionFollowCanCompensateForWeakEvidence (0 ms)
+5: [ RUN      ] PickPlaceSafety.TestLiftFailureIsReported
+5: [       OK ] PickPlaceSafety.TestLiftFailureIsReported (0 ms)
+5: [ RUN      ] PickPlaceSafety.HoldingStateBlocksAutomaticRetry
+5: [       OK ] PickPlaceSafety.HoldingStateBlocksAutomaticRetry (0 ms)
+5: [ RUN      ] PickPlaceSafety.UnknownHoldingStateIsConservative
+5: [       OK ] PickPlaceSafety.UnknownHoldingStateIsConservative (0 ms)
+5: [ RUN      ] PickPlaceSafety.SeatNotVerifiedBlocksUnload
+5: [       OK ] PickPlaceSafety.SeatNotVerifiedBlocksUnload (0 ms)
+5: [ RUN      ] PickPlaceSafety.PlacementNotAtTargetFailsAfterWindow
+5: [       OK ] PickPlaceSafety.PlacementNotAtTargetFailsAfterWindow (0 ms)
+5: [ RUN      ] PickPlaceSafety.PlacementStaleSampleResetsStabilityTimer
+5: [       OK ] PickPlaceSafety.PlacementStaleSampleResetsStabilityTimer (0 ms)
+5: [ RUN      ] PickPlaceSafety.PlacementNotSettledPreventsSuccess
+5: [       OK ] PickPlaceSafety.PlacementNotSettledPreventsSuccess (0 ms)
+5: [ RUN      ] PickPlaceSafety.PlacementFoundFalsePreventsSuccess
+5: [       OK ] PickPlaceSafety.PlacementFoundFalsePreventsSuccess (0 ms)
+5: [ RUN      ] PickPlaceSafety.VerifyPlacementDisabledNeverClaimsSuccess
+5: [       OK ] PickPlaceSafety.VerifyPlacementDisabledNeverClaimsSuccess (0 ms)
+5: [ RUN      ] PickPlaceSafety.SuccessRequiresFullStabilityWindow
+5: [       OK ] PickPlaceSafety.SuccessRequiresFullStabilityWindow (0 ms)
+5: [ RUN      ] PickPlaceSafety.CancelWithConfirmedStopReachesCancelled
+5: [       OK ] PickPlaceSafety.CancelWithConfirmedStopReachesCancelled (0 ms)
+5: [ RUN      ] PickPlaceSafety.CancelWithoutStopConfirmationGoesToFault520
+5: [       OK ] PickPlaceSafety.CancelWithoutStopConfirmationGoesToFault520 (0 ms)
+5: [ RUN      ] PickPlaceSafety.CancelNeverReachesCancelledWithoutConfirmation
+5: [       OK ] PickPlaceSafety.CancelNeverReachesCancelledWithoutConfirmation (0 ms)
+5: [ RUN      ] PickPlaceSafety.RequestStopIsCalledAtMostOnce
+5: [       OK ] PickPlaceSafety.RequestStopIsCalledAtMostOnce (0 ms)
+5: [ RUN      ] PickPlaceSafety.CancelInTerminalStateIsIgnored
+5: [       OK ] PickPlaceSafety.CancelInTerminalStateIsIgnored (0 ms)
+5: [ RUN      ] PickPlaceSafety.CancelDuringMotionStillRequiresConfirmation
+5: [       OK ] PickPlaceSafety.CancelDuringMotionStillRequiresConfirmation (0 ms)
+5: [ RUN      ] PickPlaceSafety.RecoveryRetriesThenFails
+5: [       OK ] PickPlaceSafety.RecoveryRetriesThenFails (0 ms)
+5: [ RUN      ] PickPlaceSafety.RecoveryIsRefusedWhenMotionResendDisallowed
+5: [       OK ] PickPlaceSafety.RecoveryIsRefusedWhenMotionResendDisallowed (0 ms)
+5: [----------] 40 tests from PickPlaceSafety (2 ms total)
+5: 
+5: [----------] 2 tests from PickPlaceAudit
+5: [ RUN      ] PickPlaceAudit.RepeatedFrameForFiveSecondsCannotSucceed
+5: [       OK ] PickPlaceAudit.RepeatedFrameForFiveSecondsCannotSucceed (0 ms)
+5: [ RUN      ] PickPlaceAudit.MissingPlanOutputNeverExecutesZeroTarget
+5: [       OK ] PickPlaceAudit.MissingPlanOutputNeverExecutesZeroTarget (0 ms)
+5: [----------] 2 tests from PickPlaceAudit (0 ms total)
+5: 
+5: [----------] Global test environment tear-down
+5: [==========] 42 tests from 2 test suites ran. (2 ms total)
+5: [  PASSED  ] 42 tests.
+5: -- run_test.py: return code 0
+5: -- run_test.py: inject classname prefix into gtest result file '/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_safety.gtest.xml'
+5: -- run_test.py: verify result file '/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_safety.gtest.xml'
+5/6 Test #5: test_pick_place_safety ...........   Passed    0.11 sec
+test 6
+    Start 6: test_pick_place_audit
+
+6: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_audit.gtest.xml" "--package-name" "mtc_manipulation_cpp" "--output-file" "/c1-build/mtc_manipulation_cpp/ament_cmake_gtest/test_pick_place_audit.txt" "--command" "/c1-build/mtc_manipulation_cpp/test_pick_place_audit" "--gtest_output=xml:/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_audit.gtest.xml"
+6: Working Directory: /c1-build/mtc_manipulation_cpp
+6: Test timeout computed to be: 60
+6: -- run_test.py: invoking following command in '/c1-build/mtc_manipulation_cpp':
+6:  - /c1-build/mtc_manipulation_cpp/test_pick_place_audit --gtest_output=xml:/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_audit.gtest.xml
+6: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+6: [==========] Running 16 tests from 5 test suites.
+6: [----------] Global test environment set-up.
+6: [----------] 6 tests from PlacementAudit
+6: [ RUN      ] PlacementAudit.NewFramesMustCoverFullThreeSeconds
+6: [       OK ] PlacementAudit.NewFramesMustCoverFullThreeSeconds (0 ms)
+6: [ RUN      ] PlacementAudit.FrozenTimestampCannotSucceedForFiveSeconds
+6: [       OK ] PlacementAudit.FrozenTimestampCannotSucceedForFiveSeconds (0 ms)
+6: [ RUN      ] PlacementAudit.InvalidOrStaleFrameInterruptsWindow
+6: [       OK ] PlacementAudit.InvalidOrStaleFrameInterruptsWindow (0 ms)
+6: [ RUN      ] PlacementAudit.PerceptionStopsUpdatingCannotAccumulateTime
+6: [       OK ] PlacementAudit.PerceptionStopsUpdatingCannotAccumulateTime (0 ms)
+6: [ RUN      ] PlacementAudit.FutureBackwardsAndNonFiniteStampsInterrupt
+6: [       OK ] PlacementAudit.FutureBackwardsAndNonFiniteStampsInterrupt (0 ms)
+6: [ RUN      ] PlacementAudit.GapBetweenFreshFramesInterruptsContinuity
+6: [       OK ] PlacementAudit.GapBetweenFreshFramesInterruptsContinuity (0 ms)
+6: [----------] 6 tests from PlacementAudit (1 ms total)
+6: 
+6: [----------] 4 tests from PlanningAudit
+6: [ RUN      ] PlanningAudit.NonZeroPlannerTargetsAndFullPoseReachAdapter
+6: [       OK ] PlanningAudit.NonZeroPlannerTargetsAndFullPoseReachAdapter (0 ms)
+6: [ RUN      ] PlanningAudit.MissingOutputDoesNotReachMockAdapter
+6: [       OK ] PlanningAudit.MissingOutputDoesNotReachMockAdapter (0 ms)
+6: [ RUN      ] PlanningAudit.WholeTimedTrajectoryIsNeverSplit
+6: [       OK ] PlanningAudit.WholeTimedTrajectoryIsNeverSplit (0 ms)
+6: [ RUN      ] PlanningAudit.MalformedPlanCannotExecute
+6: [       OK ] PlanningAudit.MalformedPlanCannotExecute (0 ms)
+6: [----------] 4 tests from PlanningAudit (0 ms total)
+6: 
+6: [----------] 1 test from CommandIdAudit
+6: [ RUN      ] CommandIdAudit.LongAndRepeatedRequestsRemainUniqueAcrossInstances
+6: [       OK ] CommandIdAudit.LongAndRepeatedRequestsRemainUniqueAcrossInstances (0 ms)
+6: [----------] 1 test from CommandIdAudit (0 ms total)
+6: 
+6: [----------] 2 tests from WatchdogAudit
+6: [ RUN      ] WatchdogAudit.LoadedContextCannotRecoverAndFaultCannotRestart
+6: [       OK ] WatchdogAudit.LoadedContextCannotRecoverAndFaultCannotRestart (0 ms)
+6: [ RUN      ] WatchdogAudit.InvalidStabilityNeverStartsMotion
+6: [       OK ] WatchdogAudit.InvalidStabilityNeverStartsMotion (0 ms)
+6: [----------] 2 tests from WatchdogAudit (0 ms total)
+6: 
+6: [----------] 3 tests from PlacementGate
+6: [ RUN      ] PlacementGate.ZeroStabilityRejectedBeforeFirstFrame
+6: [       OK ] PlacementGate.ZeroStabilityRejectedBeforeFirstFrame (0 ms)
+6: [ RUN      ] PlacementGate.PositiveWindowNeedsTwoDistinctObservations
+6: [       OK ] PlacementGate.PositiveWindowNeedsTwoDistinctObservations (0 ms)
+6: [ RUN      ] PlacementGate.InvalidConfiguredStabilityNeverStartsMotion
+6: [       OK ] PlacementGate.InvalidConfiguredStabilityNeverStartsMotion (0 ms)
+6: [----------] 3 tests from PlacementGate (0 ms total)
+6: 
+6: [----------] Global test environment tear-down
+6: [==========] 16 tests from 5 test suites ran. (2 ms total)
+6: [  PASSED  ] 16 tests.
+6: -- run_test.py: return code 0
+6: -- run_test.py: inject classname prefix into gtest result file '/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_audit.gtest.xml'
+6: -- run_test.py: verify result file '/c1-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_audit.gtest.xml'
+6/6 Test #6: test_pick_place_audit ............   Passed    0.10 sec
+
+100% tests passed, 0 tests failed out of 6
+
+Label Time Summary:
+gtest    =   0.66 sec*proc (6 tests)
+
+Total Test time (real) =   0.67 sec

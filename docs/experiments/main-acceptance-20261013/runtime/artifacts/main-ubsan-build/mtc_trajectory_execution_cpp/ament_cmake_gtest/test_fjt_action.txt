@@ -1,0 +1,156 @@
+-- run_test.py: invoking following command in '/main-ubsan-build/mtc_trajectory_execution_cpp':
+ - /main-ubsan-build/mtc_trajectory_execution_cpp/test_fjt_action --gtest_output=xml:/main-ubsan-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_fjt_action.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 69 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 69 tests from FjtAction
+[ RUN      ] FjtAction.CompleteTrajectoryOneGoalAndFeedback
+[       OK ] FjtAction.CompleteTrajectoryOneGoalAndFeedback (346 ms)
+[ RUN      ] FjtAction.RepeatedTicksNeverResend
+[       OK ] FjtAction.RepeatedTicksNeverResend (319 ms)
+[ RUN      ] FjtAction.ConcurrentGoalsSingleOwner
+[       OK ] FjtAction.ConcurrentGoalsSingleOwner (173 ms)
+[ RUN      ] FjtAction.StartMismatchDoesNotSend
+[       OK ] FjtAction.StartMismatchDoesNotSend (81 ms)
+[ RUN      ] FjtAction.CorrectCancelUsesExactUuid
+[       OK ] FjtAction.CorrectCancelUsesExactUuid (172 ms)
+[ RUN      ] FjtAction.CancelBeforeGoalResponsePreserved
+[       OK ] FjtAction.CancelBeforeGoalResponsePreserved (177 ms)
+[ RUN      ] FjtAction.DuplicateCancelOnlyOneBackendCall
+[       OK ] FjtAction.DuplicateCancelOnlyOneBackendCall (192 ms)
+[ RUN      ] FjtAction.StaleCancelDoesNotAffectNewOwner
+[       OK ] FjtAction.StaleCancelDoesNotAffectNewOwner (423 ms)
+[ RUN      ] FjtAction.CancelWithoutOwnerNeverGlobalStops
+[       OK ] FjtAction.CancelWithoutOwnerNeverGlobalStops (93 ms)
+[ RUN      ] FjtAction.AckOnlyCannotConfirmStopAndTimeoutLocks
+[       OK ] FjtAction.AckOnlyCannotConfirmStopAndTimeoutLocks (496 ms)
+[ RUN      ] FjtAction.ExecutionTimeoutLocksAndNeverResends
+[       OK ] FjtAction.ExecutionTimeoutLocksAndNeverResends (498 ms)
+[ RUN      ] FjtAction.ControllerAbortedRemainsFaultLocked
+[       OK ] FjtAction.ControllerAbortedRemainsFaultLocked (323 ms)
+[ RUN      ] FjtAction.StaleJointFeedbackLocks
+[       OK ] FjtAction.StaleJointFeedbackLocks (105 ms)
+[ RUN      ] FjtAction.LostJointUpdatesCannotSettle
+[       OK ] FjtAction.LostJointUpdatesCannotSettle (391 ms)
+[ RUN      ] FjtAction.InsufficientStationaryIntervalDoesNotSucceed
+[       OK ] FjtAction.InsufficientStationaryIntervalDoesNotSucceed (1601 ms)
+[ RUN      ] FjtAction.WrongFinalPositionCannotSucceed
+[       OK ] FjtAction.WrongFinalPositionCannotSucceed (598 ms)
+[ RUN      ] FjtAction.NoAssociatedFeedbackCannotSucceed
+[       OK ] FjtAction.NoAssociatedFeedbackCannotSucceed (331 ms)
+[ RUN      ] FjtAction.HardwareProofLostLocksAndCancelsOwnedGoal
+[       OK ] FjtAction.HardwareProofLostLocksAndCancelsOwnedGoal (146 ms)
+[ RUN      ] FjtAction.WrongPluginRejectsBeforeSend
+[       OK ] FjtAction.WrongPluginRejectsBeforeSend (146 ms)
+[ RUN      ] FjtAction.InactiveControllerRejectsBeforeSend
+[       OK ] FjtAction.InactiveControllerRejectsBeforeSend (162 ms)
+[ RUN      ] FjtAction.MissingVelocityEvidenceRejectsBeforeSend
+[       OK ] FjtAction.MissingVelocityEvidenceRejectsBeforeSend (94 ms)
+[ RUN      ] FjtAction.ReplayedJointStampLocks
+[       OK ] FjtAction.ReplayedJointStampLocks (94 ms)
+[ RUN      ] FjtAction.GoalRejectionMeansNeverExecuted
+[       OK ] FjtAction.GoalRejectionMeansNeverExecuted (92 ms)
+[ RUN      ] FjtAction.ChangedCommandIdContentCannotResend
+[       OK ] FjtAction.ChangedCommandIdContentCannotResend (191 ms)
+[ RUN      ] FjtAction.SecondPortCannotOwnEndpoint
+[       OK ] FjtAction.SecondPortCannotOwnEndpoint (94 ms)
+[ RUN      ] FjtAction.DefaultDisabledNeverSends
+[       OK ] FjtAction.DefaultDisabledNeverSends (102 ms)
+[ RUN      ] FjtAction.DestroyDuringExecutionOnlyCancelsOwnedGoal
+[WARN] [1791868929.171362072] [fake_controller.rclcpp_action]: Failed to send cancel response 641c75b5-5cd3-49bd-ceaf-cb8fae8d0018 (timeout): client will not receive response, at ./src/rmw_response.cpp:153, at ./src/rcl/service.c:400
+[       OK ] FjtAction.DestroyDuringExecutionOnlyCancelsOwnedGoal (211 ms)
+[ RUN      ] FjtAction.HistoricalSettlementRequiresFreshCurrentEvidence
+[       OK ] FjtAction.HistoricalSettlementRequiresFreshCurrentEvidence (615 ms)
+[ RUN      ] FjtAction.ConcurrentGoalReplacementAndLateCancel
+[       OK ] FjtAction.ConcurrentGoalReplacementAndLateCancel (421 ms)
+[ RUN      ] FjtAction.OtherTrajectoryPublisherRejectsDispatch
+[       OK ] FjtAction.OtherTrajectoryPublisherRejectsDispatch (91 ms)
+[ RUN      ] FjtAction.ForeignActionClientRejectsDispatch
+[       OK ] FjtAction.ForeignActionClientRejectsDispatch (89 ms)
+[ RUN      ] FjtAction.SingleTargetEntryExplicitlyRejected
+[       OK ] FjtAction.SingleTargetEntryExplicitlyRejected (82 ms)
+[ RUN      ] FjtAction.StationaryWindowCannotGrowWithoutNewSamples
+[       OK ] FjtAction.StationaryWindowCannotGrowWithoutNewSamples (679 ms)
+[ RUN      ] FjtAction.ForeignInFlightGoalCannotBePreemptedAfterClientLeaves
+[       OK ] FjtAction.ForeignInFlightGoalCannotBePreemptedAfterClientLeaves (111 ms)
+[ RUN      ] FjtAction.ExistingPickPlaceFsmDelegatesWholeTrajectoryThroughPort
+[       OK ] FjtAction.ExistingPickPlaceFsmDelegatesWholeTrajectoryThroughPort (351 ms)
+[ RUN      ] FjtAction.DirectFsmCancelKeepsOriginalFaultWhenStopIsStillPending
+[       OK ] FjtAction.DirectFsmCancelKeepsOriginalFaultWhenStopIsStillPending (203 ms)
+[ RUN      ] FjtAction.CompletedGoalSameIdSameContentReturnsCachedResult
+[       OK ] FjtAction.CompletedGoalSameIdSameContentReturnsCachedResult (325 ms)
+[ RUN      ] FjtAction.CompletedGoalSameIdDifferentTrajectoryRejected
+[       OK ] FjtAction.CompletedGoalSameIdDifferentTrajectoryRejected (326 ms)
+[ RUN      ] FjtAction.CompletedGoalSameIdDifferentTimeoutRejected
+[       OK ] FjtAction.CompletedGoalSameIdDifferentTimeoutRejected (339 ms)
+[ RUN      ] FjtAction.CompletedGoalSameIdDifferentSafetySemanticsRejected
+[       OK ] FjtAction.CompletedGoalSameIdDifferentSafetySemanticsRejected (336 ms)
+[ RUN      ] FjtAction.CompletedGoalIdentityMismatchNeverSendsAgain
+[       OK ] FjtAction.CompletedGoalIdentityMismatchNeverSendsAgain (561 ms)
+[ RUN      ] FjtAction.InFlightIdentityIncludesOriginalOrderAndIntentPose
+[       OK ] FjtAction.InFlightIdentityIncludesOriginalOrderAndIntentPose (190 ms)
+[ RUN      ] FjtAction.CompletedIdentityPreservesEveryOriginalTrajectoryField
+[       OK ] FjtAction.CompletedIdentityPreservesEveryOriginalTrajectoryField (321 ms)
+[ RUN      ] FjtAction.FaultedIdentityMismatchPreservesLockAndResult
+[       OK ] FjtAction.FaultedIdentityMismatchPreservesLockAndResult (312 ms)
+[ RUN      ] FjtAction.MonotonicPlannerStampCannotBecomeRosScheduledStart
+[       OK ] FjtAction.MonotonicPlannerStampCannotBecomeRosScheduledStart (89 ms)
+[ RUN      ] FjtAction.PastPlannerGenerationStampDoesNotDispatch
+[       OK ] FjtAction.PastPlannerGenerationStampDoesNotDispatch (100 ms)
+[ RUN      ] FjtAction.NoStatusBeforeDispatchFailsClosed
+[       OK ] FjtAction.NoStatusBeforeDispatchFailsClosed (280 ms)
+[ RUN      ] FjtAction.StatusBeforeGoalResponsePreservesOwnership
+[       OK ] FjtAction.StatusBeforeGoalResponsePreservesOwnership (410 ms)
+[ RUN      ] FjtAction.ForeignGoalBeforeOwnGoalRejected
+[       OK ] FjtAction.ForeignGoalBeforeOwnGoalRejected (108 ms)
+[ RUN      ] FjtAction.GoalResponseBeforeStatusMatchesUuid
+[       OK ] FjtAction.GoalResponseBeforeStatusMatchesUuid (310 ms)
+[ RUN      ] FjtAction.ForeignGoalDuringPendingResponseFailsClosed
+[       OK ] FjtAction.ForeignGoalDuringPendingResponseFailsClosed (137 ms)
+[ RUN      ] FjtAction.CancelBeforeGoalResponseUsesOwnedUuidOnly
+[       OK ] FjtAction.CancelBeforeGoalResponseUsesOwnedUuidOnly (180 ms)
+[ RUN      ] FjtAction.HistoricalTerminalStatusDoesNotBecomeActive
+[       OK ] FjtAction.HistoricalTerminalStatusDoesNotBecomeActive (562 ms)
+[ RUN      ] FjtAction.StatusEvidenceLossDoesNotAuthorizeDispatch
+[       OK ] FjtAction.StatusEvidenceLossDoesNotAuthorizeDispatch (801 ms)
+[ RUN      ] FjtAction.LateResultDoesNotReleaseFaultLock
+[       OK ] FjtAction.LateResultDoesNotReleaseFaultLock (810 ms)
+[ RUN      ] FjtAction.NormalFakeTrajectoryStillExecutesOnce
+[       OK ] FjtAction.NormalFakeTrajectoryStillExecutesOnce (323 ms)
+[ RUN      ] FjtAction.LatchedEmptyStatusCannotAuthorizeDispatch
+[       OK ] FjtAction.LatchedEmptyStatusCannotAuthorizeDispatch (279 ms)
+[ RUN      ] FjtAction.InvalidStatusDoesNotAuthorizeDispatch
+[       OK ] FjtAction.InvalidStatusDoesNotAuthorizeDispatch (95 ms)
+[ RUN      ] FjtAction.PendingResponseTimeoutRetainsSessionAndLateHandle
+[       OK ] FjtAction.PendingResponseTimeoutRetainsSessionAndLateHandle (519 ms)
+[ RUN      ] FjtAction.RejectedResponseAfterUnknownStatusKeepsFaultLock
+[       OK ] FjtAction.RejectedResponseAfterUnknownStatusKeepsFaultLock (112 ms)
+[ RUN      ] FjtAction.TerminalResultBeforeStatusDoesNotAuthorizeSuccessor
+[       OK ] FjtAction.TerminalResultBeforeStatusDoesNotAuthorizeSuccessor (566 ms)
+[ RUN      ] FjtAction.ConcurrentPollingAndCancel
+[       OK ] FjtAction.ConcurrentPollingAndCancel (276 ms)
+[ RUN      ] FjtAction.RepeatedScopedCancelUnderContention
+[       OK ] FjtAction.RepeatedScopedCancelUnderContention (179 ms)
+[ RUN      ] FjtAction.ConcurrentSnapshotPolling
+[       OK ] FjtAction.ConcurrentSnapshotPolling (339 ms)
+[ RUN      ] FjtAction.ConcurrentResponseAndCancelPreservesUuid
+[       OK ] FjtAction.ConcurrentResponseAndCancelPreservesUuid (222 ms)
+[ RUN      ] FjtAction.DestroyDuringPendingAction
+[       OK ] FjtAction.DestroyDuringPendingAction (104 ms)
+[ RUN      ] FjtAction.LateGoalResponseAfterFaultRetainsOriginalSession
+[       OK ] FjtAction.LateGoalResponseAfterFaultRetainsOriginalSession (521 ms)
+[ RUN      ] FjtAction.RepeatedSessionPollingAndScopedCancel
+[       OK ] FjtAction.RepeatedSessionPollingAndScopedCancel (588 ms)
+[ RUN      ] FjtAction.ConcurrentCompletedIdentityRejection
+[       OK ] FjtAction.ConcurrentCompletedIdentityRejection (335 ms)
+[----------] 69 tests from FjtAction (21286 ms total)
+
+[----------] Global test environment tear-down
+[==========] 69 tests from 1 test suite ran. (21287 ms total)
+[  PASSED  ] 69 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-ubsan-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_fjt_action.gtest.xml'
+-- run_test.py: verify result file '/main-ubsan-build/mtc_trajectory_execution_cpp/test_results/mtc_trajectory_execution_cpp/test_fjt_action.gtest.xml'

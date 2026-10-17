@@ -301,7 +301,8 @@
         "docs/experiments/cpp-mock-webui-20261012/host/prior-integrity.json",
         "docs/open-questions.md",
         "docs/simulation-plan.md",
-        "docs/vision-correction.md"
+        "docs/vision-correction.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -385,7 +386,8 @@
         "docs/open-questions.md",
         "docs/simulation-plan.md",
         "docs/vision-sequence.md",
-        "docs/technical-proposal.md"
+        "docs/technical-proposal.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -677,7 +679,8 @@
         "docs/open-questions.md",
         "docs/simulation-plan.md",
         "robot/README.md",
-        "docs/technical-proposal.md"
+        "docs/technical-proposal.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -882,7 +885,8 @@
         "docs/hardware-vision-plan.md",
         "docs/open-questions.md",
         "docs/wiring-merge-acceptance.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ],
       "subsequent_reviews": [
         {
@@ -2374,7 +2378,18 @@
         "webui/provenance.json",
         "webui/telemetry-contract.md",
         "docs/technical-proposal.md",
-        "docs/technical-proposal-submission.md"
+        "docs/technical-proposal-submission.md",
+        "docs/main-acceptance-20261013.md",
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/protocol.md",
+        "docs/experiments/main-acceptance-20261013/inputs.json"
+      ],
+      "subsequent_resolutions": [
+        {
+          "original_text": "最新主线及既有未通过项（推荐）",
+          "question": "这次“验收”希望覆盖哪个范围？我会先检查最新主线与既有未通过项。",
+          "scope": "用户明确选定本轮范围"
+        }
       ]
     },
     {
@@ -2497,6 +2512,35 @@
         "docs/technical-proposal.md",
         "docs/technical-proposal-submission.md"
       ]
+    },
+    {
+      "id": "USER-HW-20261013-06",
+      "kind": "user_message",
+      "date": "2026-10-13",
+      "source": "本项目用户会话",
+      "original_text": "验收",
+      "subsequent_resolutions": [
+        {
+          "original_text": "最新主线及既有未通过项（推荐）",
+          "question": "这次“验收”希望覆盖哪个范围？我会先检查最新主线与既有未通过项。",
+          "scope": "用户明确选定本轮范围"
+        }
+      ],
+      "confirmed": {
+        "scope": "最新上游main和既有未通过项，本轮重新授权验收"
+      },
+      "scope_note": "历史Mac终止记录仍保留，不回写原实验；新规划/Phase2C/视觉/Gazebo分支不自动拼接，正式pin不推进，不接管内核或接真实硬件。提交验收材料沿用用户既有个人仓库main交付授权。",
+      "derived_files": [
+        "README.md",
+        "docs/main-acceptance-20261013.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/protocol.md",
+        "docs/experiments/main-acceptance-20261013/inputs.json"
+      ],
+      "id_note": "2026-10-17 合并两地提交时重编号：另一设备的会话把本条登记为 USER-HW-20261013，与本机已登记的 Web UI P0 需求（USER-HW-20261013）冲突。冻结证据 docs/experiments/main-acceptance-20261013/ 内仍按原字节保留旧编号 USER-HW-20261013，指的是本条。"
     },
     {
       "id": "USER-HW-20261014",
@@ -3880,7 +3924,8 @@
         "docs/experiments/vision-replay-20261012/automatic/logs/python-mock-e2e.log",
         "docs/experiments/vision-safety-20261012/automatic/logs/python-mock-e2e.log",
         "docs/experiments/wiring-merge-20261011/automatic/logs/python-mock-e2e.log",
-        "docs/hardware-vision-plan.md"
+        "docs/hardware-vision-plan.md",
+        "docs/experiments/main-acceptance-20261013/host-logs/python-extra.log"
       ],
       "link_recheck": {
         "date": "2026-09-06",
@@ -6645,6 +6690,74 @@
         "docs/assets/report-v0.4/report-export.json",
         "docs/assets/report-v0.4/report-validation.json"
       ]
+    },
+    {
+      "id": "TEAMMATE-MAIN-20261013",
+      "kind": "github_fixed_main_and_pr8_acceptance_sources",
+      "title": "团队main锁修复与独立PR8 C1复验来源",
+      "url": "https://github.com/F1u0rite/meituan_challenge_ws/tree/b4185155383541e1a4161587c4049a162f74b36d",
+      "accessed_on": "2026-10-13",
+      "commit": "b4185155383541e1a4161587c4049a162f74b36d",
+      "pull_request_8": {
+        "url": "https://github.com/F1u0rite/meituan_challenge_ws/pull/8",
+        "head": "7da43228d602a6b23571bfc599d69529ef7bea23",
+        "state": "OPEN",
+        "merged": false
+      },
+      "source_comparisons": [
+        {
+          "label": "C++ Task/PickPlace/Mock code versus cutoff",
+          "comparison_sha": "f7eaa2c0d2887aeada4fd635112c63c237962ff7",
+          "paths": [
+            "src/mtc_ros2_action_cpp",
+            "src/mtc_task_cpp",
+            "src/mtc_manipulation_cpp",
+            "src/mtc_motion_execution_cpp",
+            "src/mtc_interfaces"
+          ],
+          "changed_files": [],
+          "unchanged": true
+        },
+        {
+          "label": "Python runtime versus accepted wiring",
+          "comparison_sha": "c10f6ed59966401684851f917f9137b0a6cf12ae",
+          "paths": [
+            "src/mtc_task",
+            "src/mtc_manipulation",
+            "src/mtc_bringup"
+          ],
+          "changed_files": [],
+          "unchanged": true
+        },
+        {
+          "label": "Calibration versus monitored delivery",
+          "comparison_sha": "06ab689f25e87dcebf9fd04fdd581ec4755206f6",
+          "paths": [
+            "scripts/calibration",
+            "tests/calibration",
+            "config/calibration"
+          ],
+          "changed_files": [],
+          "unchanged": true
+        },
+        {
+          "label": "Original 61 FJT tests remain exact byte prefix",
+          "old_file_sha256": "c3e76300c3d08461c7e5eac490fcad3348c57926f5bab570117fdcc7c6749286",
+          "new_file_sha256": "c935379439762d244cf473645ca0c3cd24a32768d54bbd5de69c74ad5be19b21",
+          "unchanged_prefix": true
+        }
+      ],
+      "scope_note": "开工与收尾查询main/PR8均相同；上游486/40x9报告与本项目本次运行分开，后续状态须重新查询。未合并候选、未推进正式pin。",
+      "derived_files": [
+        "README.md",
+        "docs/main-acceptance-20261013.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/protocol.md",
+        "docs/experiments/main-acceptance-20261013/inputs.json"
+      ]
     }
   ],
   "local_observations": [
@@ -7374,7 +7487,8 @@
         "docs/open-questions.md",
         "docs/web-ui.md",
         "materials/README.md",
-        "webui/README.md"
+        "webui/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -7449,7 +7563,8 @@
         "materials/README.md",
         "robot/README.md",
         "webui/README.md",
-        "webui/provenance.json"
+        "webui/provenance.json",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -7503,7 +7618,8 @@
         "docs/open-questions.md",
         "docs/upstream-monitor.md",
         "docs/upstream-wake.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -7586,7 +7702,8 @@
         "docs/open-questions.md",
         "docs/upstream-monitor.md",
         "docs/upstream-wake.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ],
       "index": "docs/experiments/upstream-wake-20261011/index.json",
       "index_sha256": "954b5ecc32a40b2b05c6be1e3b2112bcca481ee5051b3394658697c74481111e",
@@ -7698,7 +7815,8 @@
         "docs/planner-scene-acceptance.md",
         "docs/upstream-monitor.md",
         "docs/wiring-merge-acceptance.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -7800,7 +7918,8 @@
         "docs/planner-acceptance.md",
         "docs/upstream-monitor.md",
         "docs/wiring-merge-acceptance.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -7915,7 +8034,8 @@
         "docs/planner-acceptance.md",
         "docs/planner-merge-acceptance.md",
         "docs/upstream-monitor.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -8036,7 +8156,8 @@
         "docs/planner-scene-acceptance.md",
         "docs/upstream-monitor.md",
         "docs/vision-adapter-acceptance.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -8196,7 +8317,8 @@
         "docs/planner-merge-acceptance.md",
         "docs/planner-scene-acceptance.md",
         "docs/upstream-monitor.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -8402,7 +8524,8 @@
         "docs/planner-main-acceptance.md",
         "docs/planner-scene-acceptance.md",
         "docs/upstream-monitor.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -8663,7 +8786,8 @@
         "docs/vision-adapter-acceptance.md",
         "docs/vision-replay-acceptance.md",
         "docs/vision-safety-acceptance.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -8817,7 +8941,8 @@
         "docs/open-questions.md",
         "docs/planner-main-acceptance.md",
         "docs/upstream-monitor.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -9153,7 +9278,8 @@
         "docs/trajectory-execution-acceptance.md",
         "docs/trajectory-gate-acceptance.md",
         "docs/upstream-monitor.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -9351,7 +9477,8 @@
         "docs/hardware-vision-plan.md",
         "docs/open-questions.md",
         "docs/upstream-monitor.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -9798,7 +9925,8 @@
         "docs/open-questions.md",
         "docs/trajectory-gate-acceptance.md",
         "docs/upstream-monitor.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -9959,7 +10087,8 @@
         "docs/upstream-monitor.md",
         "docs/vision-replay-acceptance.md",
         "docs/vision-safety-acceptance.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -10180,7 +10309,8 @@
         "docs/open-questions.md",
         "docs/upstream-monitor.md",
         "docs/vision-replay-acceptance.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -10608,7 +10738,8 @@
         "docs/open-questions.md",
         "docs/trajectory-ownership-acceptance.md",
         "docs/upstream-monitor.md",
-        "robot/README.md"
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ]
     },
     {
@@ -10878,7 +11009,8 @@
         "docs/open-questions.md",
         "docs/upstream-monitor.md",
         "robot/README.md",
-        "docs/web-ui.md"
+        "docs/web-ui.md",
+        "docs/experiments/main-acceptance-20261013/host/prior-integrity-before.json"
       ],
       "publication": {
         "receipt": "docs/cpp-mock-webui-publication.json",
@@ -11497,6 +11629,105 @@
           "date": "2026-10-15",
           "scope": "以既有 Jazzy 部署基线填写报告 AUBO ROS 2 驱动版本，重导 PDF 并检查版本表排版；无设备操作。"
         }
+      ]
+    },
+    {
+      "id": "ENV-MAIN-ACCEPTANCE-20261013",
+      "kind": "isolated_fixed_main_and_unresolved_regression_acceptance",
+      "date": "2026-10-13",
+      "triggered_by": [
+        "USER-HW-20261013-06"
+      ],
+      "upstream_source": "TEAMMATE-MAIN-20261013",
+      "commit": "b4185155383541e1a4161587c4049a162f74b36d",
+      "pr8_commit": "7da43228d602a6b23571bfc599d69529ef7bea23",
+      "report": "docs/main-acceptance-20261013.md",
+      "index": "docs/experiments/main-acceptance-20261013/index.json",
+      "index_sha256": "9e36fbd4ff15c9412ccdc95da63022d57eb6b2fb61bef13117cf1a54309ecfa9",
+      "inputs": "docs/experiments/main-acceptance-20261013/inputs.json",
+      "summary": "docs/experiments/main-acceptance-20261013/summary.json",
+      "raw_output_directory": "/home/afonso/meituan-robotics-challenge-2026/outputs/main-acceptance-20261013-b418515",
+      "verification_status": "PARTIAL_M1_CONCURRENCY_AND_C1_CANCEL_UNRESOLVED",
+      "method": "Two sequential network-none 2CPU/4GiB Jazzy x86_64 containers, clean main build/test and exact test identities, 40 planned independent-process repeats stopped on first failure, separate UBSan; actual C++/Python/GenericSystem/MoveIt, separate PR8 C1 and direct no-Goal restart; immutable source and original failures, ownership-scoped cleanup; independent publication worktree preserves other session changes.",
+      "observed": {
+        "main_build_packages": 15,
+        "ordinary_cpp": {
+          "cases": 486,
+          "failed": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "ordinary_python": {
+          "cases": 269,
+          "failed": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "ubsan_cpp": {
+          "cases": 486,
+          "failed": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "extra_python": {
+          "offline_e2e": 15,
+          "ros_wiring": 6,
+          "calibration": 54,
+          "evidence": "host-logs/python-extra.log"
+        },
+        "repeat": {
+          "planned_processes": 40,
+          "completed_processes": 18,
+          "identities": 10,
+          "cases": 180,
+          "failed": 1,
+          "errors": 0,
+          "skipped": 0,
+          "status": "FAIL",
+          "stop_on_first_failure": true,
+          "failed_case": "FjtAction.LateGoalResponseAfterFaultRetainsOriginalSession"
+        },
+        "cpp_process_cases_passed": [
+          "task-basic-sequence-after-idle",
+          "task-associated-cancel",
+          "task-missing-child-fault",
+          "motion-single-point-cancel"
+        ],
+        "C1": {
+          "parent_uuid": "f19af380b54e40f183cf4ba00567e1d3",
+          "child_uuid": "98a83fb219a120f8e2acde49c01880a1",
+          "status": 6,
+          "error_code": 520,
+          "cancel_ack": true,
+          "owner": "孙嘉明"
+        },
+        "native_fjt": "BLOCKED_ZERO_GOAL",
+        "independent_moveit": "EXECUTE_PASS_SHUTDOWN_FAIL_MINUS11",
+        "python_mock": "ABORTED_220_510_520",
+        "cleanup": "OWNED_CONTAINERS_STOPPED_NO_OOM; unrelated session preserved",
+        "frozen_file_count": 1152
+      },
+      "handoff": {
+        "孙嘉明": "M1 first non-timeout fault/fixture attribution, C1 delayed cancellation, old Python FSM/Action/Safety and full execution semantics",
+        "张叔阳": "Integration/source/log evidence, dependency and shutdown environment follow-up, review/retest and documentation"
+      },
+      "scope_note": "No kernel/source modifications, no real hardware/NUC/complete FSM acceptance, no TSan or new driver lint, no new browser acceptance. Original120s hang not reproduced but not proven eliminated; new1/180 assertion remains. Main and PR8 not combined; formalpin1d940f7 unchanged.",
+      "algorithm_provenance": {
+        "source": "TEAMMATE-MAIN-20261013",
+        "ai_assistance": "OpenAI Codex external observation/acceptance scripts, bounded reproduction, analysis and evidence documentation; upstream algorithms/kernels unchanged.",
+        "license_scope": "Upstream root/package license differences and SDK vendor verification retained; no relicensing."
+      },
+      "derived_files": [
+        "README.md",
+        "docs/main-acceptance-20261013.md",
+        "docs/current-status.md",
+        "docs/hardware-vision-plan.md",
+        "docs/open-questions.md",
+        "robot/README.md",
+        "docs/experiments/main-acceptance-20261013/index.json",
+        "docs/experiments/main-acceptance-20261013/protocol.md",
+        "docs/experiments/main-acceptance-20261013/inputs.json",
+        "docs/experiments/main-acceptance-20261013/harness/freeze.py"
       ]
     }
   ]

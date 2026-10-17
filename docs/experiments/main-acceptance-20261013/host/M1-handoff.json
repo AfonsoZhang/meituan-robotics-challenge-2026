@@ -1,0 +1,17 @@
+{
+  "finding": "M1",
+  "owner": "孙嘉明",
+  "source_sha": "b4185155383541e1a4161587c4049a162f74b36d",
+  "ordinary_full_suite": "486 distinct PASS",
+  "repeat_protocol": "40 planned separate processes x 10 identities; stopped after first failure on process 18; 179 PASS executions and 1 FAIL, no timeout",
+  "failed_case": "FjtAction.LateGoalResponseAfterFaultRetainsOriginalSession",
+  "location": "src/mtc_trajectory_execution_cpp/test/test_fjt_action.cpp:766",
+  "actual": "before->timed_out false; expected true",
+  "duration_ms": 114,
+  "command_evidence": "runtime/repeat-fjt/18.json",
+  "raw_log": "runtime/repeat-fjt/18.log",
+  "xml": "runtime/repeat-fjt/18.xml",
+  "analysis": "The test requests a 400ms deadline and waits only for fault_locked. It terminated within 114ms, so the observed fault was not demonstrated to be its requested timeout. The port has other early-fault predicates for state/Status/graph/ownership. The test does not log the first result message/snapshot, so the precise predicate and fixture-vs-port attribution remain unproved. This is not evidence that the original 120s hang recurred.",
+  "next_step": "Owner capture first failing snapshot/detail/JointState/Status and identify whether fixture assumptions or port semantics need repair. Preserve strict evidence gates; do not mark stable until bounded repeat acceptance passes.",
+  "source_note": "The GTest fixture overrides ROS_DOMAIN_ID with 50+getpid()%150 and uses a per-test action name, real DDS, and a test-only live Status relay."
+}

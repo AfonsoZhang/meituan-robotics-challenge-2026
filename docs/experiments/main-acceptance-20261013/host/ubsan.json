@@ -1,0 +1,16 @@
+{
+  "name": "ubsan",
+  "started_at": "2026-10-13T05:17:19.061318+00:00",
+  "argv": [
+    "docker",
+    "exec",
+    "mtc-main-review-b418515",
+    "bash",
+    "-c",
+    "set -e; source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; if test -f /main-install/setup.bash; then source /main-install/setup.bash; fi; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; export ROS_DOMAIN_ID=171 RMW_IMPLEMENTATION=rmw_fastrtps_cpp ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST PYTHONDONTWRITEBYTECODE=1 ROS_LOG_DIR=/review/roslogs XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=safe.directory GIT_CONFIG_VALUE_0=/main-source; cd /main-source; export ROS_DOMAIN_ID=177\nexport CMAKE_BUILD_PARALLEL_LEVEL=2 MAKEFLAGS=-j2\ncolcon --log-base /review/ubsan-build-log build --build-base /main-ubsan-build --install-base /main-ubsan-install --packages-up-to mtc_moveit_planner mtc_ros2_action_cpp mtc_moveit_planner mtc_trajectory_execution_cpp --executor sequential --cmake-args -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON '-DCMAKE_CXX_FLAGS=-fsanitize=undefined -fno-sanitize-recover=all -fno-omit-frame-pointer' '-DCMAKE_SHARED_LINKER_FLAGS=-fsanitize=undefined' '-DCMAKE_EXE_LINKER_FLAGS=-fsanitize=undefined'\nsource /main-ubsan-install/setup.bash\nexport UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1\ncolcon --log-base /review/ubsan-test-log test --build-base /main-ubsan-build --install-base /main-ubsan-install --packages-select mtc_core_cpp mtc_task_cpp mtc_manipulation_cpp mtc_motion_execution_cpp mtc_ros2_action_cpp mtc_moveit_planner mtc_trajectory_execution_cpp --executor sequential --return-code-on-test-failure\ncolcon test-result --test-result-base /main-ubsan-build --all\npython3 src/mtc_trajectory_execution_cpp/test/verify_results.py --build-base /main-ubsan-build\npython3 - <<'PY'\nfrom pathlib import Path\nimport json, shutil\nbase=Path('/main-ubsan-build'); evidence=Path('/review/ubsan')\nfor p in base.rglob('*'):\n if p.is_file() and (p.suffix=='.xml' and ('test_results' in p.parts or 'Testing' in p.parts) or p.name in ('compile_commands.json','CMakeCache.txt','link.txt')):\n  q=evidence/p.relative_to(base); q.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(p,q)\nfor package in ('mtc_core_cpp','mtc_task_cpp','mtc_manipulation_cpp','mtc_motion_execution_cpp','mtc_ros2_action_cpp','mtc_moveit_planner','mtc_trajectory_execution_cpp'):\n commands=json.loads((base/package/'compile_commands.json').read_text())\n assert commands and all('-fsanitize=undefined' in x['command'] and '-fno-sanitize-recover=all' in x['command'] for x in commands), package\nprint('PASS: compile command instrumentation verified for all seven C++ packages')\nPY\n"
+  ],
+  "timeout_seconds": 1500,
+  "pid": 39379,
+  "exit_code": 0,
+  "ended_at": "2026-10-13T05:22:24.866660+00:00"
+}

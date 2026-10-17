@@ -1,0 +1,16 @@
+{
+  "name": "build",
+  "started_at": "2026-10-13T05:11:17.607133+00:00",
+  "argv": [
+    "docker",
+    "exec",
+    "mtc-main-review-b418515",
+    "bash",
+    "-c",
+    "set -e; source /opt/ros/jazzy/setup.bash; source /driver_work/install/setup.bash; if test -f /main-install/setup.bash; then source /main-install/setup.bash; fi; unset ROS_STATIC_PEERS ROS_LOCALHOST_ONLY FASTRTPS_DEFAULT_PROFILES_FILE FASTDDS_DEFAULT_PROFILES_FILE CYCLONEDDS_URI; export ROS_DOMAIN_ID=171 RMW_IMPLEMENTATION=rmw_fastrtps_cpp ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST PYTHONDONTWRITEBYTECODE=1 ROS_LOG_DIR=/review/roslogs XML_CATALOG_FILES=/acceptance-tools/offline-schema/catalog.xml GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=safe.directory GIT_CONFIG_VALUE_0=/main-source; cd /main-source; export CMAKE_BUILD_PARALLEL_LEVEL=2 MAKEFLAGS='-j2 -l2'\ncolcon --log-base /review/build-log build --build-base /main-build --install-base /main-install --executor sequential --cmake-args -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=17 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON\n"
+  ],
+  "timeout_seconds": 1500,
+  "pid": 38472,
+  "exit_code": 0,
+  "ended_at": "2026-10-13T05:14:45.186511+00:00"
+}

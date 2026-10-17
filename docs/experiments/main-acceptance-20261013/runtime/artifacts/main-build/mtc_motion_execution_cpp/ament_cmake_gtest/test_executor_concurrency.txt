@@ -1,0 +1,52 @@
+-- run_test.py: invoking following command in '/main-build/mtc_motion_execution_cpp':
+ - /main-build/mtc_motion_execution_cpp/test_executor_concurrency --gtest_output=xml:/main-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_concurrency.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 16 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 10 tests from GoalCancelGate
+[ RUN      ] GoalCancelGate.StaleGoalCancelDoesNotCallBackend
+[       OK ] GoalCancelGate.StaleGoalCancelDoesNotCallBackend (1 ms)
+[ RUN      ] GoalCancelGate.StaleGoalCancelPreservesCurrentOwner
+[       OK ] GoalCancelGate.StaleGoalCancelPreservesCurrentOwner (0 ms)
+[ RUN      ] GoalCancelGate.StaleGoalCancelDoesNotModifyExecutionState
+[       OK ] GoalCancelGate.StaleGoalCancelDoesNotModifyExecutionState (0 ms)
+[ RUN      ] GoalCancelGate.StaleGoalCancelCannotInterruptNewGoal
+[       OK ] GoalCancelGate.StaleGoalCancelCannotInterruptNewGoal (0 ms)
+[ RUN      ] GoalCancelGate.MatchingGoalCancelStillWorks
+[       OK ] GoalCancelGate.MatchingGoalCancelStillWorks (0 ms)
+[ RUN      ] GoalCancelGate.ConcurrentGoalReplacementAndLateCancel
+[       OK ] GoalCancelGate.ConcurrentGoalReplacementAndLateCancel (4 ms)
+[ RUN      ] GoalCancelGate.SupervisoryStopStillStopsCurrentGoal
+[       OK ] GoalCancelGate.SupervisoryStopStillStopsCurrentGoal (0 ms)
+[ RUN      ] GoalCancelGate.EmptyOrUnknownGoalIdHasNoSideEffect
+[       OK ] GoalCancelGate.EmptyOrUnknownGoalIdHasNoSideEffect (0 ms)
+[ RUN      ] GoalCancelGate.CompletedGoalCancelCannotStopLaterCompletedGoal
+[       OK ] GoalCancelGate.CompletedGoalCancelCannotStopLaterCompletedGoal (0 ms)
+[ RUN      ] GoalCancelGate.CancelRacingBackendDispatchRemainsSticky
+[       OK ] GoalCancelGate.CancelRacingBackendDispatchRemainsSticky (0 ms)
+[----------] 10 tests from GoalCancelGate (8 ms total)
+
+[----------] 6 tests from ExecutorConcurrency
+[ RUN      ] ExecutorConcurrency.SixteenThreadsHaveOneOwner
+[       OK ] ExecutorConcurrency.SixteenThreadsHaveOneOwner (2 ms)
+[ RUN      ] ExecutorConcurrency.GoalsAndStopRespondWhileExecutionWaits
+[       OK ] ExecutorConcurrency.GoalsAndStopRespondWhileExecutionWaits (2 ms)
+[ RUN      ] ExecutorConcurrency.DuplicateStopsAndLateResultCannotUnlock
+[       OK ] ExecutorConcurrency.DuplicateStopsAndLateResultCannotUnlock (1 ms)
+[ RUN      ] ExecutorConcurrency.ConfirmedStopRetainsOwnerUntilResultDrains
+[       OK ] ExecutorConcurrency.ConfirmedStopRetainsOwnerUntilResultDrains (0 ms)
+[ RUN      ] ExecutorConcurrency.InvalidEvidenceCannotConfirmStop
+[       OK ] ExecutorConcurrency.InvalidEvidenceCannotConfirmStop (3 ms)
+[ RUN      ] ExecutorConcurrency.OldGoalCancelCannotReplaceNewOwner
+[       OK ] ExecutorConcurrency.OldGoalCancelCannotReplaceNewOwner (0 ms)
+[----------] 6 tests from ExecutorConcurrency (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 16 tests from 2 test suites ran. (19 ms total)
+[  PASSED  ] 16 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_concurrency.gtest.xml'
+-- run_test.py: verify result file '/main-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_concurrency.gtest.xml'

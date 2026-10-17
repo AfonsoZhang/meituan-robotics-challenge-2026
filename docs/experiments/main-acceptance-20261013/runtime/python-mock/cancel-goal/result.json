@@ -1,0 +1,146 @@
+{
+  "case": "cancel-goal",
+  "delay_before_goal_sec": 0.0,
+  "cancel_requested": true,
+  "feedback": [
+    {
+      "current_index": 0,
+      "total_count": 1,
+      "state": "SCAN_SCENE",
+      "current_slot": "",
+      "current_object_id": "",
+      "substate": "SCAN_SCENE"
+    },
+    {
+      "current_index": 0,
+      "total_count": 1,
+      "state": "CANCEL_PENDING",
+      "current_slot": "",
+      "current_object_id": "",
+      "substate": "CANCEL_PENDING"
+    }
+  ],
+  "status": "FAIL",
+  "scope": "Delivered Python Mock launch, dry_run default",
+  "task_server_available": true,
+  "goal": {
+    "task_id": "acceptance-cancel-goal",
+    "mode": 1,
+    "ordered_colors": [
+      3
+    ],
+    "timeout_ms": 5000,
+    "placement_stability_sec": 3.0
+  },
+  "accepted": true,
+  "cancel_response": {
+    "return_code": 0,
+    "goals_canceling": [
+      {
+        "goal_id": {
+          "uuid": [
+            46,
+            52,
+            51,
+            125,
+            129,
+            176,
+            66,
+            229,
+            143,
+            253,
+            107,
+            121,
+            222,
+            234,
+            100,
+            181
+          ]
+        },
+        "stamp": {
+          "sec": 1791869119,
+          "nanosec": 660470643
+        }
+      }
+    ]
+  },
+  "result_received": true,
+  "result": {
+    "status": 6,
+    "result": {
+      "success": false,
+      "completed_count": 0,
+      "completed_slots": [],
+      "error_code": 520,
+      "message": "cancel not confirmed before timeout (child never reported stopped)"
+    }
+  },
+  "pickplace_server_available": false,
+  "nodes": [
+    [
+      "motion_executor",
+      "/"
+    ],
+    [
+      "task_executor",
+      "/"
+    ],
+    [
+      "tool_manager",
+      "/"
+    ],
+    [
+      "safety_supervisor",
+      "/"
+    ],
+    [
+      "task_acceptance_probe",
+      "/"
+    ]
+  ],
+  "action_servers": [
+    {
+      "node": "motion_executor",
+      "namespace": "/",
+      "servers": [
+        [
+          "/mtc/motion/execute_joint_move",
+          [
+            "mtc_interfaces/action/ExecuteJointMove"
+          ]
+        ]
+      ]
+    },
+    {
+      "node": "task_executor",
+      "namespace": "/",
+      "servers": [
+        [
+          "/mtc/task/execute",
+          [
+            "mtc_interfaces/action/ExecuteTask"
+          ]
+        ]
+      ]
+    },
+    {
+      "node": "tool_manager",
+      "namespace": "/",
+      "servers": []
+    },
+    {
+      "node": "safety_supervisor",
+      "namespace": "/",
+      "servers": []
+    },
+    {
+      "node": "task_acceptance_probe",
+      "namespace": "/",
+      "servers": []
+    }
+  ],
+  "exception": "AssertionError('PickPlace server unavailable (B03/B05)')",
+  "shutdown_escalated": false,
+  "launch_exit_code": 0,
+  "child_failure": true
+}

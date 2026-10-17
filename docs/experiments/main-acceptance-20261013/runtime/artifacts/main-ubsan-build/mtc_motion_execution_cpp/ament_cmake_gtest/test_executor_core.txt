@@ -1,0 +1,56 @@
+-- run_test.py: invoking following command in '/main-ubsan-build/mtc_motion_execution_cpp':
+ - /main-ubsan-build/mtc_motion_execution_cpp/test_executor_core --gtest_output=xml:/main-ubsan-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_core.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 18 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 14 tests from ExecutorCore
+[ RUN      ] ExecutorCore.SuccessfulMoveGoesThroughSevenStepHandshake
+[       OK ] ExecutorCore.SuccessfulMoveGoesThroughSevenStepHandshake (1 ms)
+[ RUN      ] ExecutorCore.CapabilitiesAreForwardedFromAdapter
+[       OK ] ExecutorCore.CapabilitiesAreForwardedFromAdapter (0 ms)
+[ RUN      ] ExecutorCore.ValidationFailureRejectsWithoutStartingMotion
+[       OK ] ExecutorCore.ValidationFailureRejectsWithoutStartingMotion (0 ms)
+[ RUN      ] ExecutorCore.ConcurrentGoalDuringMotionIsRejected
+[       OK ] ExecutorCore.ConcurrentGoalDuringMotionIsRejected (0 ms)
+[ RUN      ] ExecutorCore.StatusUnknownLocksSubsequentRequests
+[       OK ] ExecutorCore.StatusUnknownLocksSubsequentRequests (0 ms)
+[ RUN      ] ExecutorCore.ManualConfirmationClearsUnknownLock
+[       OK ] ExecutorCore.ManualConfirmationClearsUnknownLock (0 ms)
+[ RUN      ] ExecutorCore.BackendExceptionIsTreatedAsUnknownState
+[       OK ] ExecutorCore.BackendExceptionIsTreatedAsUnknownState (0 ms)
+[ RUN      ] ExecutorCore.TimeoutMarksStateUnknown
+[       OK ] ExecutorCore.TimeoutMarksStateUnknown (0 ms)
+[ RUN      ] ExecutorCore.BackendRejectionPropagatesRejectedStateAllowingResend
+[       OK ] ExecutorCore.BackendRejectionPropagatesRejectedStateAllowingResend (0 ms)
+[ RUN      ] ExecutorCore.StopWithoutInFlightIsConfirmed
+[       OK ] ExecutorCore.StopWithoutInFlightIsConfirmed (0 ms)
+[ RUN      ] ExecutorCore.StopDeliveryIsNotConfirmationWhenBackendCannotConfirm
+[       OK ] ExecutorCore.StopDeliveryIsNotConfirmationWhenBackendCannotConfirm (0 ms)
+[ RUN      ] ExecutorCore.UnsupportedCancelNeverFabricatesStopConfirmed
+[       OK ] ExecutorCore.UnsupportedCancelNeverFabricatesStopConfirmed (0 ms)
+[ RUN      ] ExecutorCore.StopAfterUnknownStateIsNeverConfirmed
+[       OK ] ExecutorCore.StopAfterUnknownStateIsNeverConfirmed (0 ms)
+[ RUN      ] ExecutorCore.SnapshotReflectsInternalState
+[       OK ] ExecutorCore.SnapshotReflectsInternalState (0 ms)
+[----------] 14 tests from ExecutorCore (3 ms total)
+
+[----------] 4 tests from ExecutorAudit
+[ RUN      ] ExecutorAudit.DeliveryWithoutEvidenceAndWithoutCommandNeverConfirms
+[       OK ] ExecutorAudit.DeliveryWithoutEvidenceAndWithoutCommandNeverConfirms (0 ms)
+[ RUN      ] ExecutorAudit.TimeoutWithoutUnknownFlagStillLocks
+[       OK ] ExecutorAudit.TimeoutWithoutUnknownFlagStillLocks (0 ms)
+[ RUN      ] ExecutorAudit.CompletedCommandIdCannotExecuteTwice
+[       OK ] ExecutorAudit.CompletedCommandIdCannotExecuteTwice (0 ms)
+[ RUN      ] ExecutorAudit.CancelBeforeBackendDispatchIsSticky
+[       OK ] ExecutorAudit.CancelBeforeBackendDispatchIsSticky (0 ms)
+[----------] 4 tests from ExecutorAudit (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 18 tests from 2 test suites ran. (4 ms total)
+[  PASSED  ] 18 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-ubsan-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_core.gtest.xml'
+-- run_test.py: verify result file '/main-ubsan-build/mtc_motion_execution_cpp/test_results/mtc_motion_execution_cpp/test_executor_core.gtest.xml'

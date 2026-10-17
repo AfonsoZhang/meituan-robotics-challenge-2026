@@ -1,0 +1,13 @@
+{
+  "name": "pr8-create",
+  "started_at": "2026-10-13T05:29:23.769438+00:00",
+  "argv": [
+    "bash",
+    "-c",
+    "set -e\npython3 - <<'INNER'\nimport subprocess,json\nfor row in json.loads(subprocess.check_output(['docker','inspect','mtc-main-review-b418515','mtc-cpp-webui-review'])):\n assert not row['State']['Running'], row['Name']\nINNER\ndocker run -d --name mtc-pr8-c1-review-20261013 --network none --cpus 2 --memory 4g --pids-limit 512 --cap-drop ALL --security-opt no-new-privileges --label mtc.purpose=pr8-c1-acceptance --label mtc.commit=7da43228d602a6b23571bfc599d69529ef7bea23 mtc-trajectory-ownership-review:681bb64 sleep infinity\ndocker exec mtc-pr8-c1-review-20261013 mkdir /pr8-source /pr8-review /pr8-tools\ndocker cp outputs/main-acceptance-20261013-b418515/pr8-source/. mtc-pr8-c1-review-20261013:/pr8-source/\ndocker cp outputs/main-acceptance-20261013-b418515/tools/. mtc-pr8-c1-review-20261013:/pr8-tools/\ndocker inspect mtc-pr8-c1-review-20261013 > outputs/main-acceptance-20261013-b418515/meta/pr8-isolation.json\n"
+  ],
+  "timeout_seconds": 90,
+  "pid": 40888,
+  "exit_code": 0,
+  "ended_at": "2026-10-13T05:29:25.089389+00:00"
+}

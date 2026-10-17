@@ -1,0 +1,56 @@
+-- run_test.py: invoking following command in '/main-build/mtc_manipulation_cpp':
+ - /main-build/mtc_manipulation_cpp/test_tool_strategy --gtest_output=xml:/main-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_tool_strategy.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 15 tests from 4 test suites.
+[----------] Global test environment set-up.
+[----------] 5 tests from ToolStrategyV1
+[ RUN      ] ToolStrategyV1.TypeAndPrimitives
+[       OK ] ToolStrategyV1.TypeAndPrimitives (0 ms)
+[ RUN      ] ToolStrategyV1.SharedPrimitives
+[       OK ] ToolStrategyV1.SharedPrimitives (0 ms)
+[ RUN      ] ToolStrategyV1.ContactPrimitivesAreMarkedAndSlow
+[       OK ] ToolStrategyV1.ContactPrimitivesAreMarkedAndSlow (0 ms)
+[ RUN      ] ToolStrategyV1.PrimitivePreservesSixDofTargetPose
+[       OK ] ToolStrategyV1.PrimitivePreservesSixDofTargetPose (0 ms)
+[ RUN      ] ToolStrategyV1.NoUnlockPulseAndNoIoChannels
+[       OK ] ToolStrategyV1.NoUnlockPulseAndNoIoChannels (0 ms)
+[----------] 5 tests from ToolStrategyV1 (0 ms total)
+
+[----------] 6 tests from ToolStrategyV2
+[ RUN      ] ToolStrategyV2.TypeAndPrimitives
+[       OK ] ToolStrategyV2.TypeAndPrimitives (0 ms)
+[ RUN      ] ToolStrategyV2.RequiresUnlockAndDeclaresIoChannel
+[       OK ] ToolStrategyV2.RequiresUnlockAndDeclaresIoChannel (0 ms)
+[ RUN      ] ToolStrategyV2.UnlockRejectedWhenSeatNotVerified
+[       OK ] ToolStrategyV2.UnlockRejectedWhenSeatNotVerified (0 ms)
+[ RUN      ] ToolStrategyV2.UnlockRejectedWhenNotUnloaded
+[       OK ] ToolStrategyV2.UnlockRejectedWhenNotUnloaded (0 ms)
+[ RUN      ] ToolStrategyV2.UnlockAllowedOnlyWhenBothConditionsHold
+[       OK ] ToolStrategyV2.UnlockAllowedOnlyWhenBothConditionsHold (0 ms)
+[ RUN      ] ToolStrategyV2.SeatedFalseUnloadedFalseStillRejectsSeatedFirst
+[       OK ] ToolStrategyV2.SeatedFalseUnloadedFalseStillRejectsSeatedFirst (0 ms)
+[----------] 6 tests from ToolStrategyV2 (0 ms total)
+
+[----------] 3 tests from ToolStrategyFactory
+[ RUN      ] ToolStrategyFactory.CreatesBothGenerations
+[       OK ] ToolStrategyFactory.CreatesBothGenerations (0 ms)
+[ RUN      ] ToolStrategyFactory.UnknownTypeThrows
+[       OK ] ToolStrategyFactory.UnknownTypeThrows (0 ms)
+[ RUN      ] ToolStrategyFactory.EmptyStringThrows
+[       OK ] ToolStrategyFactory.EmptyStringThrows (0 ms)
+[----------] 3 tests from ToolStrategyFactory (0 ms total)
+
+[----------] 1 test from ToolStrategy
+[ RUN      ] ToolStrategy.PrimitiveWithoutUsableRingPoseHasNoTargetPose
+[       OK ] ToolStrategy.PrimitiveWithoutUsableRingPoseHasNoTargetPose (0 ms)
+[----------] 1 test from ToolStrategy (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 15 tests from 4 test suites ran. (0 ms total)
+[  PASSED  ] 15 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_tool_strategy.gtest.xml'
+-- run_test.py: verify result file '/main-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_tool_strategy.gtest.xml'

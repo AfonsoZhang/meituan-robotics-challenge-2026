@@ -1,0 +1,66 @@
+-- run_test.py: invoking following command in '/main-build/mtc_manipulation_cpp':
+ - /main-build/mtc_manipulation_cpp/test_pick_place_tables --gtest_output=xml:/main-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_tables.gtest.xml
+
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 20 tests from 4 test suites.
+[----------] Global test environment set-up.
+[----------] 6 tests from PickPlaceTables
+[ RUN      ] PickPlaceTables.VerifyTablesReportsNoProblem
+[       OK ] PickPlaceTables.VerifyTablesReportsNoProblem (0 ms)
+[ RUN      ] PickPlaceTables.EveryStateHasHandler
+[       OK ] PickPlaceTables.EveryStateHasHandler (0 ms)
+[ RUN      ] PickPlaceTables.StateNamesMatchPythonValues
+[       OK ] PickPlaceTables.StateNamesMatchPythonValues (0 ms)
+[ RUN      ] PickPlaceTables.PipelineMatchesDesignOrder
+[       OK ] PickPlaceTables.PipelineMatchesDesignOrder (0 ms)
+[ RUN      ] PickPlaceTables.TerminalAndMotionInFlightSets
+[       OK ] PickPlaceTables.TerminalAndMotionInFlightSets (0 ms)
+[ RUN      ] PickPlaceTables.DefaultTimeoutsCoverMotionStates
+[       OK ] PickPlaceTables.DefaultTimeoutsCoverMotionStates (0 ms)
+[----------] 6 tests from PickPlaceTables (0 ms total)
+
+[----------] 7 tests from PickPlaceStart
+[ RUN      ] PickPlaceStart.IllegalTargetSlotFailsImmediatelyWithInvalidTask
+[       OK ] PickPlaceStart.IllegalTargetSlotFailsImmediatelyWithInvalidTask (0 ms)
+[ RUN      ] PickPlaceStart.AllowedSlotsAreAccepted
+[       OK ] PickPlaceStart.AllowedSlotsAreAccepted (0 ms)
+[ RUN      ] PickPlaceStart.ToolTypeMismatchThrows
+[       OK ] PickPlaceStart.ToolTypeMismatchThrows (0 ms)
+[ RUN      ] PickPlaceStart.RequiredConfigFieldsAreRecorded
+[       OK ] PickPlaceStart.RequiredConfigFieldsAreRecorded (0 ms)
+[ RUN      ] PickPlaceStart.ConfigStabilityUsedWhenGoalOmitsIt
+[       OK ] PickPlaceStart.ConfigStabilityUsedWhenGoalOmitsIt (0 ms)
+[ RUN      ] PickPlaceStart.PlacementVerifiedStartsFalseAndIsReadOnly
+[       OK ] PickPlaceStart.PlacementVerifiedStartsFalseAndIsReadOnly (0 ms)
+[ RUN      ] PickPlaceStart.MotionResendAllowedStartsTrue
+[       OK ] PickPlaceStart.MotionResendAllowedStartsTrue (0 ms)
+[----------] 7 tests from PickPlaceStart (0 ms total)
+
+[----------] 5 tests from PickPlaceFeedback
+[ RUN      ] PickPlaceFeedback.FeedbackCarriesSubstateAndProgress
+[       OK ] PickPlaceFeedback.FeedbackCarriesSubstateAndProgress (0 ms)
+[ RUN      ] PickPlaceFeedback.ProgressReachesOneOnlyAtSuccess
+[       OK ] PickPlaceFeedback.ProgressReachesOneOnlyAtSuccess (0 ms)
+[ RUN      ] PickPlaceFeedback.StateHistoryRecordsEnteredStates
+[       OK ] PickPlaceFeedback.StateHistoryRecordsEnteredStates (0 ms)
+[ RUN      ] PickPlaceFeedback.EventCallbackReceivesStateEntered
+[       OK ] PickPlaceFeedback.EventCallbackReceivesStateEntered (0 ms)
+[ RUN      ] PickPlaceFeedback.CallbackExceptionDoesNotBreakSequencing
+[       OK ] PickPlaceFeedback.CallbackExceptionDoesNotBreakSequencing (0 ms)
+[----------] 5 tests from PickPlaceFeedback (0 ms total)
+
+[----------] 2 tests from PickPlaceTerminal
+[ RUN      ] PickPlaceTerminal.StepAtTerminalIsIdempotent
+[       OK ] PickPlaceTerminal.StepAtTerminalIsIdempotent (0 ms)
+[ RUN      ] PickPlaceTerminal.ForceFaultOnTerminalKeepsOriginalState
+[       OK ] PickPlaceTerminal.ForceFaultOnTerminalKeepsOriginalState (0 ms)
+[----------] 2 tests from PickPlaceTerminal (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 20 tests from 4 test suites ran. (2 ms total)
+[  PASSED  ] 20 tests.
+
+
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/main-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_tables.gtest.xml'
+-- run_test.py: verify result file '/main-build/mtc_manipulation_cpp/test_results/mtc_manipulation_cpp/test_pick_place_tables.gtest.xml'
